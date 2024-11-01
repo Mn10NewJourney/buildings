@@ -1,0 +1,117 @@
+#Windows Function
+<Function WindowsX2>
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set TitleX = %param11%
+	Set TitleZ = %param12%
+
+	#Filler Walls
+	if[%Direction% = left | %Direction% = Left] WallOrientation = Left
+	if[%Direction% = right | %Direction% = Right] WallOrientation = Right
+	AddFillerWalls %FillerWallTexture%, 0.5, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset% + %interfloorheight%, false, 0, 0, true
+
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = left | %Direction% = Left] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX% + 0.5, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = right | %Direction% = Right] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - 0.5, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	AddWall %Name%, %MainPositiveTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+<Function WindowsZ2>
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set TitleX = %param11%
+	Set TitleZ = %param12%
+	
+	#Filler Walls
+	if[%Direction% = front | %Direction% = Front] WallOrientation = Left
+	if[%Direction% = back | %Direction% = Back] WallOrientation = Right
+	AddFillerWalls %FillerWallTexture%, 0.5, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset% + %interfloorheight%, true, 0, 0, true
+	
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = front | %Direction% = Front] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ% + 0.5, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = back | %Direction% = Back] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - 0.5, %PositionX% + (%Width% / 2), %PositionZ%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ%, %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+#Exit Sign Function
+<Function ExitSign>
+	Set Name = %param1%
+	Set MainNegativeTexture = %param2%
+	Set MainPositiveTexture = %param3%
+	Set SignBoxTexture = %param4%
+	Set ShowMainNegativeSide = %param5%
+	Set ShowMainPositiveSide = %param6%
+	Set Direction = %param7% #True for front/back facing signs, False for left/right facing signs
+	Set CenterX = %param8%
+	Set CenterZ = %param9%
+	Set Offset = %param10%
+	Set IsExternal = %param11%
+	
+	if[%ShowMainNegativeSide% = true | %ShowMainNegativeSide% = True] Set 123 = %MainNegativeTexture%
+	if[%ShowMainNegativeSide% = false | %ShowMainNegativeSide% = False] Set 123 = %SignBoxTexture%
+	if[%ShowMainPositiveSide% = true | %ShowMainPositiveSide% = True] Set 124 = %MainPositiveTexture%
+	if[%ShowMainPositiveSide% = false | %ShowMainPositiveSide% = False] Set 124 = %SignBoxTexture%
+	
+	WallOrientation = Center
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %123%, %124%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%
+	if[%Direction% = true | %Direction% = True] AddWall %Name%, %SignBoxTexture%, 0.1, %CenterX% - 0.9, %CenterZ%, %CenterX% + 0.9, %CenterZ%, 0.9, 0.9, %Offset%, %Offset%, 0, 0, %IsExternal%
+	TextureOverride %123%, %124%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%
+	if[%Direction% = false | %Direction% = False] AddWall %Name%, %SignBoxTexture%, 0.1, %CenterX%, %CenterZ% - 0.9, %CenterX%, %CenterZ% + 0.9, 0.9, 0.9, %Offset%, %Offset%, 0, 0, %IsExternal%
+<EndFunction>
+
+#Room Sign Function
+<Function RoomSign>
+	Set Name = %param1%
+	Set MainNegativeTexture = %param2%
+	Set MainPositiveTexture = %param3%
+	Set SignBoxTexture = %param4%
+	Set ShowMainNegativeSide = %param5%
+	Set ShowMainPositiveSide = %param6%
+	Set Direction = %param7% #True for front/back facing signs, False for left/right facing signs
+	Set CenterX = %param8%
+	Set CenterZ = %param9%
+	Set SignWidth = %param10%
+	Set SignHeight = %param11%
+	Set Offset = %param12%
+	Set IsExternal = %param13%
+
+	if[%ShowMainNegativeSide% = true | %ShowMainNegativeSide% = True] Set 123 = %MainNegativeTexture%
+	if[%ShowMainNegativeSide% = false | %ShowMainNegativeSide% = False] Set 123 = %SignBoxTexture%
+	if[%ShowMainPositiveSide% = true | %ShowMainPositiveSide% = True] Set 124 = %MainPositiveTexture%
+	if[%ShowMainPositiveSide% = false | %ShowMainPositiveSide% = False] Set 124 = %SignBoxTexture%
+	Set 125 = %SignWidth% / 2
+	
+	WallOrientation = Center
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %123%, %124%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%
+	if[%Direction% = true | %Direction% = True] AddWall %Name%, %SignBoxTexture%, 0.1, %CenterX% - %125%, %CenterZ%, %CenterX% + %125%, %CenterZ%, %SignHeight%, %SignHeight%, %Offset%, %Offset%, 0, 0, %IsExternal%
+	TextureOverride %123%, %124%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%, %SignBoxTexture%
+	if[%Direction% = false | %Direction% = False] AddWall %Name%, %SignBoxTexture%, 0.1, %CenterX%, %CenterZ% - %125%, %CenterX%, %CenterZ% + %125%, %SignHeight%, %SignHeight%, %Offset%, %Offset%, 0, 0, %IsExternal%
+<EndFunction>

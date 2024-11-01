@@ -1,0 +1,109 @@
+#Mn10 Scripts - Windows
+#Copyright (c) 2023-Present Mn10
+
+#SCRIPT INCLUSION CODE (Remove hashtag first):
+#<Include buildings/Mn10_Scripts/Windows.txt>
+
+#COPYRIGHT POLICY:
+#1. You may include this script (as well as my other scripts) with your
+#buildings, if it is used in AT LEAST one or more buildings in your packages.
+
+#2. I would also appreciate it if you can directly or indirectly give a credit to me.
+
+#3. #DO NOT release this script (and any of my scripts) alone without having used in any buildings.
+
+<Textures>
+	Load data/MT/blank.gif, WinBlank, 1, 1, false
+<EndTextures>
+
+##--------------------------------------------------------------------------------##
+
+#1. 3D Windows Function (Windows with filler walls and floor)
+<Function Add3DWindows>
+	#SYNTAX: Add3DWindows(Name, PositionX, PositionZ, Direction, Width, Height, Offset, MainNegTex, MainPosTex, FillerTex, FillerDepth, TX, TZ)
+
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set FillerDepth = %param11%
+
+	#Because in late 2015-early 2016 when I implemented a precursor to this function in Tennerland Complex's Tower 2, I typed in
+	#"Title" instead of the correct word "Tile", so I decided to keep this typo for compatibility reason.
+	Set TitleX = %param12%
+	Set TitleZ = %param13%
+
+	#Internal use only
+	Set FillerDepth2 = %FillerDepth% / 2
+
+	#Determine direction value for windows' placement
+	if[%Direction% = left | %Direction% = Left | %Direction% = right | %Direction% = Right] Set WinPlacement = 1
+	if[%Direction% = front | %Direction% = Front | %Direction% = back | %Direction% = Back] Set WinPlacement = 2
+	if[%Direction% = centerx | %Direction% = CenterX] Set WinPlacement = 1
+	if[%Direction% = centerz | %Direction% = CenterZ] Set WinPlacement = 2
+	if[%WinPlacement% = 1] Set FillerDirection = false
+	if[%WinPlacement% = 2] Set FillerDirection = true
+
+	#Filler Walls
+	if[%Direction% = front | %Direction% = Front] WallOrientation = Left
+	if[%Direction% = left | %Direction% = Left] WallOrientation = Left
+	if[%Direction% = right | %Direction% = Right] WallOrientation = Right
+	if[%Direction% = back | %Direction% = Back] WallOrientation = Right
+	if[%Direction% = centerx | %Direction% = CenterX | %Direction% = centerz | %Direction% = CenterZ] WallOrientation = Center
+
+	AddFillerWalls %FillerWallTexture%, %FillerDepth%, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset% + %interfloorheight%, %FillerDirection%, 0, 0, true
+
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = front | %Direction% = Front] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ% + %FillerDepth%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = left | %Direction% = Left] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX% + %FillerDepth%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = right | %Direction% = Right] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - %FillerDepth%, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = back | %Direction% = Back] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - %FillerDepth%, %PositionX% + (%Width% / 2), %PositionZ%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+	if[%Direction% = centerx | %Direction% = CenterX] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - %FillerDepth2%, %PositionZ% - (%Width% / 2), %PositionX% + %FillerDepth2%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = centerz | %Direction% = CenterZ] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - %FillerDepth2%, %PositionX% + (%Width% / 2), %PositionZ% + %FillerDepth2%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, Windows_Blank, Windows_Blank, Windows_Blank, Windows_Blank
+	if[%WinPlacement% = 1] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, Windows_Blank, Windows_Blank, Windows_Blank, Windows_Blank
+	if[%WinPlacement% = 2] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ%, %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
+#2. Add windows with interfloor covers
+<Function AddCustomWindows>
+	#SYNTAX: AddCustomWindows(WinName, MainNeg, MainPos, X1, Z1, X2, Z2, MainHeight, TW, TH, IFloorType, MainNegIF, MainPosIF)
+
+	Set WinName = %param1% #Windows' name
+	Set MainNeg = %param2% #Main negative texture
+	Set MainPos = %param3% #Main positive texture
+	Set x1 = %param4% #Coordinates, as in the AddWall code
+	Set z1 = %param5%
+	Set x2 = %param6%
+	Set z2 = %param7%
+	Set MainHeight = %param8%
+	Set tw = %param9%
+	Set th = %param10%
+	Set IFloorType = %param11% #1 for "Concrete", 2 for "Glass windows", 3 for none.
+	Set MainNegIF = %param12% #Main negative texture for interfloor - Only if Type = 1
+	Set MainPosIF = %param13% #Main positive texture for interfloor - Only if Type = 1
+
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNeg%, %MainPos%, WinBlank, WinBlank, WinBlank, WinBlank
+	AddWall %WinName%, %MainNeg%, 0, %x1%, %z1%, %x2%, %z2%, %MainHeight%, %MainHeight%, %interfloorheight%, %interfloorheight%, %tw%, %th%, true
+
+	TextureOverride %MainNegIF%, %MainPosIF%, WinBlank, WinBlank, WinBlank, WinBlank
+	if[%IFloorType% = 1] AddWall %WinName%_IFloor, %MainNeg%, 0, %x1%, %z1%, %x2%, %z2%, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+
+	TextureOverride %MainNeg%, %MainPos%, WinBlank, WinBlank, WinBlank, WinBlank
+	if[%IFloorType% = 2] AddWall %WinName%_IFloor, %MainNeg%, 0, %x1%, %z1%, %x2%, %z2%, %interfloorheight%, %interfloorheight%, 0, 0, %tw%, %th%, true
+<EndFunction>

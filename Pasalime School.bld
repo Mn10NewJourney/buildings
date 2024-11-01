@@ -1,0 +1,137 @@
+#Pasalime School (formerly Unnamed School)
+#Copyright (c) 2016-Present - Mn10
+
+#Include SROC (Credit to EG881)
+<Include SROC/Scripts/r1_script.txt>
+
+#Buildings
+<Buildings>
+	Load Pasalime School - Building 1.bld, 0, 0, 60, 0, -108, 0, -48, 108, 0, 45
+	Load Pasalime School - Building 2.bld, 255, 0, 0, 0, -48, 0, -108, 45, 0, 105
+<EndBuildings>
+
+#########################################################################
+
+#Globals
+<Globals>
+	Name = Pasalime School
+	Designer = Mn10
+	Location = Anywhere
+	CameraFloor = 0
+	CameraPosition = 5, -20
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+#Textures
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+	Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+
+	#Concrete
+	Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
+	Load data/stone.jpg, ExternalFacade, 0.25, 0.25
+
+	#Skybridge Components
+	Load data/floor065.jpg, SkybridgeFloor, 0.2, 0.2
+	Load data/stucco1b.jpg, SkybridgeCeiling, 0.25, 0.25
+<EndTextures>
+
+#########################################################################
+
+#Floor assignments
+<Floors 0 to 2>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Office
+	if[%floor% = 0] Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+	if[%floor% = 0] Altitude = -1.5
+<EndFloors>
+
+#########################################################################
+
+#Landscape
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -205, -1, -110, 305, 1, 115, false, true
+
+AddFloor landscape, ParkingLot1, Road, 0, -100, -90, 110, 10, -0.5, -0.5, 0, 0
+AddFloor landscape, ParkingLot2, Road, 0, 110, -90, 200, 10, -0.5, -0.5, 0, 0
+
+#AddFloor landscape, EntranceDriveway1, Road, 0, -200, -110, -160, -100, -0.33, -0.33, 0, 0
+#AddFloor landscape, EntranceDriveway2, Road, 0, -200, -100, -160, -90, -0.33, -0.5, 0, 0
+AddFloor landscape, Driveway1, Road, 0, 160, -110, 200, -100, -0.33, -0.33, 0, 0
+AddFloor landscape, Driveway2, Road, 0, 160, -100, 200, -90, -0.33, -0.5, 0, 0
+
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, SidewalkFront, Sidewalk, 0.5, -200, -110, 160, -90, 0, 0, 0, 0
+AddFloor landscape, SidewalkLeft, Sidewalk, 0.5, -205, -110, -200, 115, 0, 0, 0, 0
+AddFloor landscape, SidewalkRight, Sidewalk, 0.5, 200, -110, 205, 115, 0, 0, 0, 0
+AddFloor landscape, SidewalkBack, Sidewalk, 0.5, -200, 110, 200, 115, 0, 0, 0, 0
+
+AddFloor landscape, ParkingAreaDivider1, Sidewalk, 0.5, 110, 10, 200, 20, 0, 0, 0, 0
+AddFloor landscape, ParkingAreaDivider2, Sidewalk, 0.5, -110, -90, -100, 10, 0, 0, 0, 0
+
+AddFloor landscape, Building1Foundation, Sidewalk, 0.5, 0 - 110, 60 - 50, 0 + 110, 60 + 50, 0, 0, 0, 0
+AddFloor landscape, Building2Foundation, Sidewalk, 0.5, 255 - 50, 0 - 110, 255 + 50, 0 + 115, 0, 0, 0, 0
+
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Field1, Sidewalk, 0, -200, -90, -110, 110, 0, 0, 0, 0
+AddFloor landscape, Field2, Sidewalk, 0, 110, 20, 200, 110, 0, 0, 0, 0
+
+#Flower Bed
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed, Concrete1, 1, -105, -107.5, 105, -92.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed_Grass, Grass, 0, -105 + 1, -107.5 + 1, 105 - 1, -92.5 - 1, 1.01, 1.01, 0, 0
+
+#Trees
+AddTree(Tree1, -97.5, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 15, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 30, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 45, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 60, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 75, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 90, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 105, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 120, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 135, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 150, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 165, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 180, -100, 13.5, 12, 1.01)
+AddTree(Tree1, -97.5 + 195, -100, 13.5, 12, 1.01)
+
+#########################################################################
+
+#Skybridge between buildings 1 and 2
+<Floor 1>
+	#Skybridge Underside
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor Underside, SkybridgeCeiling, 0.5, 108, 60, 207, 70, %fullheight%, %fullheight%, 0, 0, true
+<EndFloor>
+
+<Floor 2>
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor Floor, SkybridgeFloor, 0.5, 108, 60, 207, 70, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+	#Railings
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	AddWall RailingFront, ExternalFacade, 0.5, 108, 60, 207, 60, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+	WallOrientation = right
+	AddWall RailingBack, ExternalFacade, 0.5, 108, 70, 207, 70, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+<EndFloor>
+
+#Skybridge supports
+CreateWallBox2 external, Support1, ExternalFacade, 115, 65, 2.5, 2.5, Floor(0).Height + Floor(1).FullHeight, 0, 0, 0, false, true, false, false
+CreateWallBox2 external, Support2, ExternalFacade, 157.5, 65, 2.5, 2.5, Floor(0).Height + Floor(1).FullHeight, 0, 0, 0, false, true, false, false
+CreateWallBox2 external, Support3, ExternalFacade, 200, 65, 2.5, 2.5, Floor(0).Height + Floor(1).FullHeight, 0, 0, 0, false, true, false, false

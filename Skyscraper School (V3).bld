@@ -1,0 +1,278 @@
+#Skyscraper School (V3)
+#Copyright (c) 2021-Present - Mn10
+
+#Include SROC (credit to EG881)
+<Include SROC/scripts/r1_script.txt>
+
+################################################################################
+
+#Disclaimer
+#As far as I know, it is fine to make this representation of a real school,
+#as there are some real-life buildings simulated, such as a hospital in UK.
+#This building simulation may or may not violate certain laws, depending on the
+#country you live in.
+
+
+		##########     TO WHOM IT MAY CONCERN     ##########
+
+#If you do not want this building simulation to be published for any reason,
+#please send me a message through the forum. This building simulation shall be
+#promptly removed, as long as you have a valid reason for me to unpublish it.
+
+
+#Other matters
+#This simulation is not intended to publicize any matters that the real school has
+#no intention to do so. I do not mean to offend anyone by creating this building set.
+
+################################################################################
+
+#Add buildings to the simulation
+<Buildings>
+	Load SkySH3 - Skydream Building.bld, 48, 0, 156, 0, -128, 0, -79, 128, 0, 69
+	Load SkySH3 - Matrix Building.bld, 104, 0, -83, 0, -36, 0, -142, 36, 0, 142
+	Load SkySH3 - Priscilla Steveson Building.bld, -16, 0, -137, 0, -84, 0, -88, 84, 0, 88
+<EndBuildings>
+
+#Global values
+<Globals>
+	Name = Skyscraper School
+	Designer = Mn10
+	Location = Anywhere
+	Version = 3
+	Description = A remake of Skyscraper School, with realistic room dimensions and an annex building next to Matrix Building.
+	CameraFloor = 0
+	CameraPosition = 10, 20
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/herringbone12.jpg, WoodenFloor, 0.2, 0.2
+	Load data/checker07.jpg, WoodenFloor2, 0.25, 0.25
+	Load data/marble6f.jpg, MarbleFloor, 0.08, 0.08
+	
+	#Plants
+	#Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+	Load data/EG881/grass2.jpg, Grass, 0.01, 0.01 #EG881
+	Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+	Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+	Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+
+	#Fence components
+	Load data/EG881/brick040+_brown.jpg, Brick, 0.25, 0.25  #EG881 #Opaque parts
+	#Load data/glasselevator1b.gif, Fences, 0.05, 1
+	Load data/windows11e_inside.gif, Fences, 0.1333, 1 #Transparent parts
+
+	#Matrix-Skydream Buildings link
+	Load data/MT/treatment01.jpg, MatrixLinkFlr, 0.11, 0.11
+	Load data/stucco1b.jpg, MatrixLinkCei, 0.25, 0.25
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, MatrixLinkWall, 0.075, 0.075 #EG881
+	Load data/EG881/cem_tr2c.jpg, MatrixLinkWall2, 0.075225, 0.0625, true #EG881
+	Load data/marb047.jpg, MatrixLinkTop, 0.11, 0.11
+	Load data/windows11e.jpg, MainWindowsB, 1, 1, false
+	Load data/windows11e_inside.gif, MainWindowsIntB, 1, 1, false
+
+	#Entrance gate
+	Load data/windows11e_inside3.gif, EntGateNarrow, 1.5, 1, false
+	Load data/windows11e_inside3.gif, EntGateWide, 3, 1, false
+	Load data/windows11e_inside3.gif, EntGateVeryWide, 5, 1, false
+	LoadCropped data/windows11e_inside3.gif, EntGateSide, 295, 0, 8, 177, 1, 1, false
+<EndTextures>
+
+#########################################################################
+
+#Floor Assignments
+<Floor 0>
+	ID = 1
+	Name = Lobby
+	Type = Lobby
+	Height = 21
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+	Group = 1
+<EndFloor>
+
+<Floor 1>
+	ID = M
+	Name = Mezzanine
+	Type = Mezzanine
+	Height = 13.5
+	InterfloorHeight = 1.5
+	Group = 0
+<EndFloor>
+
+#########################################################################
+
+#Landscape
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -100, -1, -225 - 50, 230, 1, 225, false, true
+AddFloor landscape, Floor1, WoodenFloor, 0, -100, -225, 140, 59, 0, 0, 0, 0
+AddFloor landscape, Floor2A, WoodenFloor2, 0, -100, 59, 68, 225, 0, 0, 0, 0
+AddFloor landscape, Floor2B, WoodenFloor2, 0, 68, 77, 140, 225, 0, 0, 0, 0
+AddFloor landscape, Floor2C, MarbleFloor, 0, 68, 59, 140, 77, 0, 0, 0, 0
+AddFloor landscape, Road, Road, 0, 140, -225, 230, 225, 0, 0, 0, 0
+AddFloor landscape, Road, Road, 0, -100, -225 - 50, 230, -225, 0, 0, 0, 0
+
+#########################################################################
+
+#Entrance gates
+<Floor 0>
+	#Center
+	WallOrientation = left
+	TextureOverride EntGateVeryWide, EntGateVeryWide, EntGateSide, EntGateSide, EntGateSide, EntGateSide
+	AddExternalDoor , , true, EntGateVeryWide, 0.2, 4, 75, 229.25, -20 + 10, 20, 8, %interfloorheight%, 0, 0
+	TextureOverride EntGateVeryWide, EntGateVeryWide, EntGateSide, EntGateSide, EntGateSide, EntGateSide
+	AddExternalDoor , , true, EntGateVeryWide, 0.2, 1, 75, 229.25, -20 - 10, 20, 8, %interfloorheight%, 0, 0
+
+	#South
+	TextureOverride EntGateWide, EntGateWide, EntGateSide, EntGateSide, EntGateSide, EntGateSide
+	AddExternalDoor , , true, EntGateWide, 0.2, 4, 75, 229.25, -47.875 + (13.75/4), 13.75/2, 7.5, %interfloorheight% + 0.5, 0, 0
+	TextureOverride EntGateWide, EntGateWide, EntGateSide, EntGateSide, EntGateSide, EntGateSide
+	AddExternalDoor , , true, EntGateWide, 0.2, 1, 75, 229.25, -47.875 - (13.75/4), 13.75/2, 7.5, %interfloorheight% + 0.5, 0, 0
+
+	#North
+	TextureOverride EntGateNarrow, EntGateNarrow, EntGateSide, EntGateSide, EntGateSide, EntGateSide
+	AddExternalDoor , , false, EntGateNarrow, 0.2, 4, 75, 229.25, 3, 4, 7.5, %interfloorheight% + 0.5, 0, 0
+<EndFloor>
+
+#Fences
+SetAutoSize = true, false
+DrawWalls = true, true, false, false, false, false
+AddWall External, FencesFrontMid, Fences, 0, -100 + 75, -225 - 50, 230 - 75, -225 - 50, 8, 8, 0, 0, 0, 0
+AddWall External, FencesLeftMid1, Fences, 0, -100, -225 - 50 + 10, -100, -235, 8, 8, 0, 0, 0, 0
+AddWall External, FencesLeftMid2, Fences, 0, -100, -45, -100, 75, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightMid1, Fences, 0, 230, -225 + 10, 230, -60, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightMid2, Fences, 0, 230, 20, 230, 75, 8, 8, 0, 0, 0, 0
+AddWall External, FencesBackMid, Fences, 0, -35, 225, 115, 225, 8, 8, 0, 0, 0, 0
+SetAutoSize = true, true
+
+Set FenceThickness = 0.75
+WallOrientation = left
+DrawWalls = true, true, true, true, true, false
+AddWall External, FencesFrontSide1, Brick, %FenceThickness%, -100 + %FenceThickness%, -225 - 50, -100 + 75, -225 - 50, 8, 8, 0, 0, 0, 0
+AddWall External, FencesFrontSide2, Brick, %FenceThickness%, 230 - 75, -225 - 50, 230 - %FenceThickness%, -225 - 50, 8, 8, 0, 0, 0, 0
+AddWall External, FencesLeftSide1, Brick, %FenceThickness%, -100, -225 - 50, -100, -225 - 50 + 10, 8, 8, 0, 0, 0, 0
+AddWall External, FencesLeftSide2, Brick, %FenceThickness%, -100, -235, -100, -45, 8, 8, 0, 0, 0, 0
+AddWall External, FencesLeftSide3, Brick, %FenceThickness%, -100, 75, -100, 225, 8, 8, 0, 0, 0, 0
+WallOrientation = right
+AddWall External, FencesRightSide1, Brick, %FenceThickness%, 230, -225 - 50, 230, -225 + 10, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightSide1A, Brick, %FenceThickness%, 230, -60, 230, -54.75, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightSide1B, Brick, %FenceThickness%, 230, -41, 230, -55 + 15 + 0.01, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightSide1C, Brick, %FenceThickness%, 230, 20 - 5 - 15 - 0.01, 230, 1, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightSide1D, Brick, %FenceThickness%, 230, 5, 230, 20, 8, 8, 0, 0, 0, 0
+AddWall External, FencesRightSide2, Brick, %FenceThickness%, 230, 75, 230, 225, 8, 8, 0, 0, 0, 0
+AddWall External, FencesBackSide1, Brick, %FenceThickness%, -100 + %FenceThickness%, 225, -35, 225, 8, 8, 0, 0, 0, 0
+AddWall External, FencesBackSide2, Brick, %FenceThickness%, 115, 225, 230 - %FenceThickness%, 225, 8, 8, 0, 0, 0, 0
+
+#########################################################################
+
+#Entrance dividers
+AddWall External, Entrance divider 1, Brick, %FenceThickness%, 230 - 50, -55, 230 - %FenceThickness%, -55, 6.5, 6.5, 0, 0, 0, 0
+WallOrientation = left
+AddWall External, Entrance divider 2, Brick, %FenceThickness%, 230 - 50, 15, 230 - %FenceThickness%, 15, 6.5, 6.5, 0, 0, 0, 0
+
+#Entrance sidewalk
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, EntranceSidewalk1, Sidewalk, 0.5, 230 - 50, -55, 230 - %FenceThickness%, -55 + 15, 0, 0, 0, 0
+AddFloor landscape, EntranceSidewalk1A, Sidewalk, 0.5, 230 - %FenceThickness%, -54.75, 230, -41, 0, 0, 0, 0
+AddFloor landscape, EntranceSidewalk2, Sidewalk, 0.5, 230 - 50, 15 - 15, 230 - %FenceThickness%, 15, 0, 0, 0, 0
+AddFloor landscape, EntranceSidewalk2A, Sidewalk, 0.5, 230 - %FenceThickness%, 1, 230, 5, 0, 0, 0, 0
+
+DrawWalls = true, true, true, true, true, false
+AddWall External, SidewalkDivider1, Sidewalk, %FenceThickness%, 230 - 50, 15 - 15, 230 - %FenceThickness%, 15 - 15, 1, 1, 0.5, 0.5, 0, 0
+WallOrientation = right
+AddWall External, SidewalkDivider2, Sidewalk, %FenceThickness%, 230 - 50, -55 + 15, 230 - %FenceThickness%, -55 + 15, 1, 1, 0.5, 0.5, 0, 0
+
+#########################################################################
+
+#Flower Bed 1
+Set MainX = -90 + 22.5
+Set MainZ = 14 - 23.6
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed1, FlowerBed, 1, %MainX% - 22.5, %MainZ% - 6, %MainX% + 22.5, %MainZ% + 6, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed1_Grass, Grass, 0, %MainX% - 21.5, %MainZ% - 5.5, %MainX% + 21.5, %MainZ% + 5.5, 1.01, 1.01, 0, 0
+
+	#Trees
+	AddTree(Tree1, %MainX% - 15, %MainZ%, 13.5, 12, 1.01)
+	AddTree(Tree1, %MainX%, %MainZ%, 13.5, 12, 1.01)
+	AddTree(Tree1, %MainX% + 15, %MainZ%, 13.5, 12, 1.01)
+
+#Flower Bed 2
+Set MainX = -90 + 22.5
+Set MainZ = 14 + 23.6
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed2, FlowerBed, 1, %MainX% - 22.5, %MainZ% - 6, %MainX% + 22.5, %MainZ% + 6, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed2_Grass, Grass, 0, %MainX% - 21.5, %MainZ% - 5.5, %MainX% + 21.5, %MainZ% + 5.5, 1.01, 1.01, 0, 0
+
+	#Trees
+	AddTree(Tree1, %MainX% - 15, %MainZ%, 13.5, 12, 1.01)
+	AddTree(Tree1, %MainX%, %MainZ%, 13.5, 12, 1.01)
+	AddTree(Tree1, %MainX% + 15, %MainZ%, 13.5, 12, 1.01)
+	
+#Flower Bed 3
+Set MainX = 59
+Set MainZ = 36.5
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed2, FlowerBed, 1, %MainX% - 6, %MainZ% - 22.5, %MainX% + 6, %MainZ% + 22.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed2_Grass, Grass, 0, %MainX% - 5, %MainZ% - 21.5, %MainX% + 5, %MainZ% + 21.5, 1.01, 1.01, 0, 0
+
+	#Trees
+	AddTree(Tree2, %MainX%, %MainZ% + 15, 9, 12, 1.01)
+	AddTree(Tree2, %MainX%, %MainZ%, 9, 12, 1.01)
+	AddTree(Tree2, %MainX%, %MainZ% - 15, 9, 12, 1.01)
+
+#########################################################################
+
+#Matrix-Skydream Buildings link
+<Floor 0>
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor MatrixLinkCeiling, MatrixLinkCei, 0.5, 92, 59, 102, 77, %fullheight%, %fullheight%, 0, 0, true
+<EndFloor>
+
+<Floor 1>
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor MatrixLinkFloor, MatrixLinkFlr, 0.5, 92, 59, 102, 77, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallOffset = 0
+	AddWall RailingLeft, MatrixLinkWall, 0.5, 92, 59, 92, 77, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall RailingRight, MatrixLinkWall, 0.5, 102, 59, 102, 77, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, false, false
+	TextureOverride MatrixLinkTop, MatrixLinkWall, MatrixLinkWall, MatrixLinkWall, MatrixLinkWall, MatrixLinkWall
+	AddFloor MatrixLinkCeiling, MatrixLinkTop, 2, 92, 59, 102, 77, %fullheight%, %fullheight%, 0, 0, true
+	
+	#Windows
+	Set WallHeight = %height% - 3.5
+	Set WallOffset = %interfloorheight% + 3.5
+
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride MainWindowsB, MainWindowsIntB, MainWindowsB, MainWindowsB, MainWindowsB, MainWindowsB
+	AddWall WindowsLeft, MainWindowsIntB, 0, 92, 59, 92, 79, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 4/3, 0, true
+	TextureOverride MainWindowsIntB, MainWindowsB, MainWindowsB, MainWindowsB, MainWindowsB, MainWindowsB
+	AddWall WindowsRight, MainWindowsIntB, 0, 102, 59, 102, 79, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 4/3, 0, true
+<EndFloor>
+
+#Link supports
+Set LinkSupportHeight = Floor(0).Height
+CreateWallBox2 external, SkydreamLinkSupport, MatrixLinkWall2, 97, 59 + 6, 2.5, 2.5, %LinkSupportHeight%, 0, 0, 0, false, true, false, false

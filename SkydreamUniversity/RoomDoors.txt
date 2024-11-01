@@ -1,0 +1,139 @@
+#Room door functions for School of Sci&Tech and Comm.Arts
+<Function RoomDoors_Tex>
+	#Set the textures for later use.
+	Set DoorIntTex = %param1% #Inside texture
+	Set DoorExtTex = %param2% #Outside texture
+	Set DoorSideTex = %param3% #Side texture
+	Set DoorTrimTex = %param4% #Trim texture
+<EndFunction>
+
+<Function RoomDoorsA>
+	Set Position1 = %param1%
+	Set Position2 = %param2%
+	Set WindowsExtTex = %param3%
+	Set WindowsIntTex = %param4%
+	Set RoomNo = %param5%
+
+	#Door
+	Set DoorPosition1 = %Position1% + 6 - 1.7
+	Set DoorPosition2 = %Position2% - 6 + 1.7
+	WallOrientation = left
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 4, 75, 9.5, %DoorPosition1%, 3, 7, 0, 0, 0
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 1, 75, 9.5, %DoorPosition2%, 3, 7, 0, 0, 0
+
+	#Door trims
+	SetAutoSize = false, false
+	OP_Draw(true, true, true, false)
+	OP_Trim(Room%RoomNo%_Trim1, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition1%, 3, 7, 0, 0.2, 0, 0, true)
+	OP_Trim(Room%RoomNo%_Trim2, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition2%, 3, 7, 0, 0.2, 0, 0, true)
+	SetAutoSize = true, true
+
+	#Windows around door
+	WindowsX2(Room%RoomNo%_Windows1A, 10, %Position1% - 6 + 3.95, right, 7.8, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_Windows1B, 10, %Position1%, right, 12, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_Windows2A, 10, %Position2% + 6 - 3.95, right, 7.8, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_Windows2B, 10, %Position2%, right, 12, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+<EndFunction>
+
+<Function RoomDoorsB>
+	#Door will be to the right of the windows, when looking from outside.
+	Set Position = %param1%
+	Set WindowsExtTex = %param2%
+	Set WindowsIntTex = %param3%
+	Set RoomNo = %param4%
+
+	#Door
+	Set DoorPosition = %Position% + 6 - 1.7
+	WallOrientation = left
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 4, 75, 9.5, %DoorPosition%, 3, 7, 0, 0, 0
+
+	#Door trims
+	SetAutoSize = false, false
+	OP_Draw(true, true, true, false)
+	OP_Trim(Room%RoomNo%_Trim, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition%, 3, 7, 0, 0.2, 0, 0, true)
+	SetAutoSize = true, true
+
+	#Windows around door
+	WindowsX2(Room%RoomNo%_WindowsA, 10, %Position% - 6 + 3.95, right, 7.8, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsB, 10, %Position%, right, 12, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+<EndFunction>
+
+<Function RoomDoorsC>
+	#Door will be to the left of the windows, when looking from outside.
+	Set Position = %param1%
+	Set WindowsExtTex = %param2%
+	Set WindowsIntTex = %param3%
+	Set RoomNo = %param4%
+
+	#Door
+	Set DoorPosition = %Position% - 6 + 1.7
+	WallOrientation = left
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 1, 75, 9.5, %DoorPosition%, 3, 7, 0, 0, 0
+
+	#Door trims
+	SetAutoSize = false, false
+	OP_Draw(true, true, true, false)
+	OP_Trim(Room%RoomNo%_Trim, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition%, 3, 7, 0, 0.2, 0, 0, true)
+	SetAutoSize = true, true
+
+	#Windows around door
+	WindowsX2(Room%RoomNo%_WindowsA, 10, %Position% + 6 - 3.95, right, 7.8, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsB, 10, %Position%, right, 12, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)	
+<EndFunction>
+
+<Function RoomDoors_Middle>
+	#This function create a door between the windows, instead of next to them.
+	Set Position = %param1%
+	Set WindowsExtTex = %param2%
+	Set WindowsIntTex = %param3%
+	Set DoorDirection = %param4% #Same as the AddDoor function's direction parameter.
+	Set RoomNo = %param5%
+
+	#Door
+	Set DoorPosition = %Position%
+	WallOrientation = left
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, %DoorDirection%, 75, 9.5, %DoorPosition%, 3, 7, 0, 0, 0
+
+	#Door trims
+	SetAutoSize = false, false
+	OP_Draw(true, true, true, false)
+	OP_Trim(Room%RoomNo%_Trim, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition%, 3, 7, 0, 0.2, 0, 0, true)
+	SetAutoSize = true, true
+
+	#Windows around door
+	WindowsX2(Room%RoomNo%_WindowsA, 10, %Position% - 6 + 1.85, right, 3.6, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 0.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsB, 10, %Position% + 6 - 1.85, right, 3.6, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 0.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsC, 10, %Position%, right, 12, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 1.5, %WindowsTiling%)
+<EndFunction>
+
+<Function RoomDoors_Double>
+	#This function create double doors, instead of a single door.
+	Set Position = %param1%
+	Set WindowsExtTex = %param2%
+	Set WindowsIntTex = %param3%
+	Set RoomNo = %param4%
+
+	#Door
+	Set DoorPosition = %Position%
+	WallOrientation = left
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 4, 75, 9.5, %DoorPosition% + 1.5, 3, 7, 0, 0, 0
+	TextureOverride %DoorIntTex%, %DoorExtTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%, %DoorSideTex%
+	AddDoor , , false, %DoorIntTex%, 0.2, 1, 75, 9.5, %DoorPosition% - 1.5, 3, 7, 0, 0, 0
+
+	#Door trims
+	SetAutoSize = false, false
+	OP_Draw(true, true, true, false)
+	OP_Trim(Room%RoomNo%_Trim, 1, floor, 0, %DoorTrimTex%, 0.5 + 0.02, 10 + 0.01, %DoorPosition%, 6, 7, 0, 0.2, 0, 0, true)
+	SetAutoSize = true, true
+
+	#Windows around door
+	WindowsX2(Room%RoomNo%_WindowsA, 10, %Position% - 8 + 1.85, right, 3.6, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 0.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsB, 10, %Position% + 8 - 1.85, right, 3.6, 3.5, 3.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 0.5, %WindowsTiling%)	
+	WindowsX2(Room%RoomNo%_WindowsC, 10, %Position%, right, 16, 2.5, 7.5, %WindowsIntTex%, %WindowsExtTex%, %6%, 2, %WindowsTiling%)
+<EndFunction>

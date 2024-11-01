@@ -1,0 +1,1120 @@
+# $Id: Gen5 Office Tower.bld - Mn10 $
+	
+#This building is a bare-bones building designed to help others learn how to
+#make their own buildings in Skyscraper's scripting language.
+#All of the commands and parameters used in this file are documented in the
+#script guide (designguide.html) which comes with the program.
+
+#The first thing to learn is about comments - if you put a number sign (#) anywhere
+#in a line, all text after it will be ignored.  If a line starts with that sign, the whole
+#line is ignored.
+
+#Include SROC (credit to EG881)
+<Include SROC/Scripts/r1_script.txt>
+
+#Include my script
+<Include Deco2011/Scripts/r2_script.txt>
+
+#Globals
+<Globals>
+    Name = Gen5 Office Tower
+    Designer = Ryan Thoryk / Mn10
+    CameraFloor = 0
+    CameraPosition = 13.32, -13
+    CameraRotation = 0, 0, 0
+    Sky = noon
+<EndGlobals>
+
+#In the above code, I named the building "My Building", and set the designer as "Me".  The HorizScale
+#parameter is optional, and it's there to experiment with (see the script guide for more info on that).
+#I'm also telling the camera to start on the first floor with the CameraFloor parameter.  In Skyscraper,
+#floor 0 is the first floor, floor 1 is the second, etc, and by setting the floor to "0" in that parameter,
+#I'm setting it to the first floor.  Floors were numbered that way in order to make the numbering between
+#below ground and above ground floors seamless - so they'd go from -2, -1, 0, 1, 2 instead of skipping 0.
+#I also set the camera's position to be in the center of the map horizontally (0), and 60 feet to the front
+#of the map (-60)
+
+#Next you'll have to define your textures. Most of these commands simply load a texture file and give it
+#a name.  At the bottom of the section you'll see code that adds text to existing textures.
+
+<Textures>
+	##### Misc #####
+    Load data/downtown.jpg, Downtown, 1, 1
+    Load data/brick040+.jpg, Brick, 0.269, 0.25, true
+    Load data/floorsign.jpg, FloorSign, 1, 1, false
+    Load data/Melvin/transparent128.png, Blank, 1, 1, false
+    Load data/black.jpg, Black, 1, 1, false
+
+    ###### Building Stuffs ######
+    #Doors
+	Load data/miscdoor6.jpg, Door6, 1, 1, false
+	LoadCropped data/miscdoor6.jpg, Door6Side, 236, 0, 20, 512, 1, 1, false
+
+    Load data/EG881/miscdoor8_blacktrans.png, Door88, 1, 1, false #EG881
+    LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3f.jpg, Door88_Outside, true, 1, 1, false #EG881
+	LoadCropped data/EG881/miscdoor8_blacktrans.png, Door88_Black_Side, 236, 0, 20, 512, 1, 1, false #EG881
+
+    #Exterior and Interior
+    Load data/windows11g.jpg, MainWindows, 0.05, 1
+    Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
+    Load data/graniteTexture_0001b.jpg, InterExt, 0.269, 0.25, true
+    Load data/ceilinglight1.jpg, Ceiling1, 0.2, 0.2, true
+    Load data/floor065.jpg, Carpet1, 0.2, 0.2
+    Load data/vents1.jpg, VentsExt, 3, 1, false
+    Load data/bracing1.jpg, VentsInt, 3, 1, false
+    
+    #Walls
+    Load data/cinderblocks.jpg, BWall, 0.25, 0.25, true
+    Load data/graniteTexture_0001b.jpg, RoofWall, 0.269, 0.25, true
+    Load data/marbletile.jpg, Wall1, 0.15, 0.3, true
+    Load data/stucco4c.jpg, Stucco4, 0.25, 0.25, true
+
+    #Office Signs
+    Load data/Melvin/black_shopsign.jpg, OfficeSign, 1, 1, false
+    AddText OfficeSign, SignLeft, nimbus_sans_bold.ttf, 47, Left, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText OfficeSign, SignRight, nimbus_sans_bold.ttf, 47, Right, -1, -1, -1, -1, center, center, 255, 255, 255
+
+    ###### Stairwells #####
+    Load data/floor065.jpg, Land, 0.2, 0.2
+    Load data/stucco4c.jpg, Stairs, 0.269, 0.25
+    Load data/stoneb.jpg, StairsWall, 0.25, 0.25, true
+	Load data/EG881/Doors/servicedoor2_graynovents.jpg, ServiceDoor2, 1, 1, false #EG881
+	Load data/EG881/Doors/servicedoor2back_graynovents.jpg, ServiceDoor2B, 1, 1, false #EG881
+	Load data/EG881/Doors/servicedoor2_graynovents_side.jpg, ServiceDoor2Side, 1, 1, false #EG881
+	
+	##### Elevator Door Trims #####
+	Load data/panel-back4.jpg, BFDoorTrim, 1, 1, false #EG881
+	Load data/panel-back3.jpg, 1FDoorTrim, 1, 1, false #EG881
+	Load data/panel-back3.jpg, OfficeDoorTrim, 1, 1, false
+	
+    ##### Elevators #####
+    #Exterior
+    Load data/metal1.jpg, ElevExt, 0.25, 0.25, true
+
+    #Interior
+    Load data/MarbleWhite0047b_S.jpg, ElevWall, 0.15, 0.3, true
+    Load data/panel-back3.jpg, ElevPanelMain, 1, 1, false
+    Load data/panel-back3.jpg, ElevPanelTop, 1, 0.11, false
+    Load data/ceilinglight1.jpg, ElevCeiling, 3, 2, false
+    Load data/panel-back3.jpg, ElevRail, 1, 1, false
+    Load data/floor065b.jpg, ElevFloor, 0.25, 0.25, true
+
+	#Panels
+    Load data/MT/blank.gif, ElevPanel, 1, 1, false
+    Load data/panel-back3.jpg, ElevPanel3, 1, 1, false
+    Load data/panel-back4.jpg, ElevPanel4, 1, 1, false
+    Load data/otis67/OTIS67_OTIS_PANEL_BUTTON_EXTERNAL_nologo_b.jpg, ElevExtPanels, 1, 1, false
+
+	#Call Buttons
+    Load data/callbutton3.gif, ButtonUp, 1, 1 ,false
+    Load data/callbutton3_litgreen.gif, ButtonUpLit, 1, 1, false
+    Load data/callbutton3.gif, ButtonDown, 1, -1, false
+    Load data/callbutton3_litred.gif, ButtonDownLit, 1, -1, false
+
+	#Lanterns
+    Load data/darrow_unlit.gif, ArrowUp, 1, 1
+    Load data/darrow_unlit.gif, ArrowDown, 1, -1
+    Load data/darrow_lit.gif, ArrowUp_Lit, 1, 1
+    Load data/darrow_lit.gif, ArrowDown_Lit, 1, -1
+
+    Load data/Melvin/darrow_unlit_yellow.gif, OArrowUp, 1, 1
+    Load data/Melvin/darrow_unlit_yellow.gif, OArrowDown, 1, -1
+    Load data/Melvin/darrow_lit_yellow.gif, OArrowUp_Lit, 1, 1
+    Load data/Melvin/darrow_lit_yellow.gif, OArrowDown_Lit, 1, -1
+
+    #In-Car Arrows
+    Load data/darrow_single.jpg, IArrow, 1, 1, false
+    Load data/darrow_single_up.jpg, IArrowUp, 1, 1, false
+    Load data/darrow_single_downred.jpg, IArrowDown, 1, 1, false
+
+    #Elevator Doors
+    Load data/aluminumdoor_b.jpg, ElevDoorsP, 1, 1, false #Car doors
+    Load data/aluminumdoor_b.jpg, ElevDoorsP2, -1, 1, false
+
+    Load data/EG881/lightaluminumdoor2.jpg, ElevDoorsA, 1, 1 #EG881 #Lobby
+    Load data/EG881/lightaluminumdoor2.jpg, ElevDoorsA2, -1, 1 #EG881
+    Load data/brassdoor.jpg, ElevDoorsB, 1, 1, false #Basement
+    Load data/brassdoor.jpg, ElevDoorsB2, -1, 1, false
+    Load data/aluminumdoor_b.jpg, ElevDoorsQ, 1, 1, false #Office levels
+    Load data/aluminumdoor_b.jpg, ElevDoorsQ2, -1, 1, false
+
+	##### Floor Signs #####
+	#Stairwell Floor Signs
+    AddTextRange 1, 11, Blank, SButton%number%, nimbus_sans_bold.ttf, 47, %number%, -1, -1, -1, -1, center, center, 0, 0, 0
+    AddText Blank, SButtonB, nimbus_sans_bold.ttf, 47, B, -1, -1, -1, -1, center, center, 0, 0, 0
+    AddText Blank, SButtonM1, nimbus_sans_bold.ttf, 47, M1, -1, -1, -1, -1, center, center, 0, 0, 0
+    AddText Blank, SButtonM2, nimbus_sans_bold.ttf, 47, M2, -1, -1, -1, -1, center, center, 0, 0, 0
+    AddText Blank, SButtonR, nimbus_sans_bold.ttf, 47, R, -1, -1, -1, -1, center, center, 0, 0, 0
+
+	#Elevator Floor Signs on Outside Decos
+    AddTextRange 1, 10, Black, FSButton%number%, nimbus_sans.ttf, 47, %number%, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, FSButtonB, nimbus_sans.ttf, 47, B, -1, -1, -1, -1, center, center, 255, 255, 255
+    
+    #Elevator Floor Signs on Filler Walls
+    AddTextRange 1, 10, Blank, Sign_%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0
+    AddText Blank, Sign_B, nimbus_sans_bold.ttf, 72, B, -1, -1, -1, -1, center, center, 0, 0, 0
+    
+    ##### Buttons #####
+    Load data/otis67/OTIS67_OTIS_BUTTON_OPEN.gif, ButtonOpen, 1, 1
+    Load data/otis67/OTIS67_OTIS_BUTTON_CLOSE.gif, ButtonClose, 1, 1
+    Load data/otis67/OTIS67_OTIS_BUTTON_ALARM.gif, ButtonAlarm, 1, 1
+	Load data/otis67/OTIS67_OTIS_BUTTON_UNLIGHTED.gif, Black3, 1, 1
+    Load data/otis67/OTIS67_OTIS_BUTTON_LIGHTED.gif, BlackLit3, 1, 1
+    AddText Black3, ButtonB, nimbus_sans_bold_condensed.ttf, 45, B, 0, 0, 118, 128, center, center, 255, 255, 255
+    AddText BlackLit3, ButtonLitB, nimbus_sans_bold_condensed.ttf, 45, B, 0, 0, 118, 128, center, center, 255, 255, 255
+    AddTextRange 1, 10, Black3, Button%number%, nimbus_sans_bold_condensed.ttf, 45, %number%, 0, 0, 118, 128, center, center, 255, 255, 255
+    AddTextRange 1, 10, BlackLit3, ButtonLit%number%, nimbus_sans_bold_condensed.ttf, 45, %number%, 0, 0, 118, 128, center, center, 255, 255, 255
+
+    ##### Floor Indicator #####
+    Load data/ACME Floor Indicator/ACME Floor Indicator.jpg, Black4, 1, 1, false
+    AddText Black4, Ind_ButtonB, acme_led.ttf, 188, __B, 40, 0, 472, 256, right, center, 255, 0, 0
+    #AddTextRange 1, 2, Black4, Ind_ButtonM%number%, acme_led.ttf, 188, _M%number%, 40, 0, 472, 256, right, center, 255, 0, 0
+    AddTextRange 1, 9, Black4, Ind_Button%number%, acme_led.ttf, 188, __%number%, 40, 0, 472, 256, right, center, 255, 0, 0
+    AddTextRange 10, 10, Black4, Ind_Button%number%, acme_led.ttf, 188, _%number%, 40, 0, 472, 256, right, center, 255, 0, 0
+    Load data/darrow_single.jpg, ACMEArrow, 1, 1, false
+    Load data/darrow_single_otis_upred.jpg, ACMEArrowUp, 1, 1, false
+    Load data/darrow_single_otis_downred.jpg, ACMEArrowDown, 1, 1, false
+<EndTextures>
+
+#Next you'll need to create the ground. The following code is the default ground code.
+#The second command is needed to cut a whole in the ground for the building.  In this
+#example I'm giving the building dimensions of 40x40 feet, so it needs to be cut from
+#-20 to 20 horizontally, and -20 to 20 depth-wise.
+
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -20, -1, -20, 20, 1, 20, false, true
+
+#Now it's time to start making the building's floors.  If you're making basement levels, they must
+#be specified before floor 0 and the other above-ground floors, and must also be in decending
+#order (-1, -2, -3, etc).  In this example, I'm just going to make above-ground floors. The following
+#code creates 10 floors (0 to 9).  Note that math can be used inside commands to make things easier.
+
+#Basement
+<Floor -1>
+    ID = B
+    Name = Basement
+    Type = Basement
+    Height = 12
+    InterfloorHeight = 2.24
+    Altitude = -16.48
+<EndFloor>
+
+<Floor 0>
+    ID = 1
+    Name = Floor 1
+    Type = Lobby
+    Height = 12
+    InterfloorHeight = 2.24
+	Group = 1, 2
+
+    #Floor 0 needs to have it's altitude manually set, since it's interfloor space is below the floor's base
+    if[%floor% = 0] Altitude = -2.24
+<EndFloor>
+
+<Floors 1 to 2>
+    ID = M(%floor%) #ElevatorFace
+    Name = Mezzanine Level %floor% #ElevatorFace
+    Type = Mezzanine
+    Height = 12
+    InterfloorHeight = 2.24
+	if[%floor% = 1] Group = 0, 2
+	if[%floor% = 2] Group = 0, 1
+<EndFloors>
+
+<Floors 3 to 11>
+    ID = %floor% - 1
+    Name = Floor (%floor% - 1)
+    Type = Office
+    Height = 12
+    InterfloorHeight = 2.24
+<EndFloors>
+
+<Floor 12>
+    ID = %floor% - 1
+    Name = Mechanical
+    Type = Service
+    Height = 10
+    InterfloorHeight = 2.24
+<EndFloor>
+
+#Finally create the roof (11th floor), and add a square brick floor on it.
+<Floor 13>
+    ID = R
+    Name = Roof
+    Type = Roof
+    Height = 9
+    InterfloorHeight = 2.24
+<EndFloor>
+
+<Floor -1>
+    #Internal windows - this creates the transparent windows on the inside of each floor
+    SetAutoSize = true, false
+    DrawWalls = false, true, false, false, false, false
+    AddWall Front, BWall, 0, -20, -20, 20, -20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Left, BWall, 0, -20, 20, -20, -20, %height%, %height%, 0, 0, 0, 0, False
+    DrawWalls = true, false, false, false, false, false
+    AddWall Right, BWall, 0, 20, -20, 20, 20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Back, BWall, 0, 20, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, False
+    SetAutoSize = true, true
+
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Carpet1, 0.5, -20, -20, 20, 20, 0, 0, 0, 0, False
+
+    #create a ceiling
+    DrawWalls = true, false, false, false, false, false
+    AddFloor Ceiling, Ceiling1, 0, -20, -20, 20, 20, %height%, %height%, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, 20, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+   
+<Floor 0>   
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Carpet1, 0.5, -20, -20, 20, 20, 0, 0, 0, 0, False
+
+    #create a ceiling
+    DrawWalls = true, false, false, false, false, false
+    AddFloor Ceiling, Ceiling1, 0, -20, -20, -3.03, 20, %height%, %height%, 0, 0, False
+    AddFloor Ceiling, Ceiling1, 0, -3.03, 1.54, 20, 20, %height%, %height%, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, 20, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    
+    DrawWalls = true, true, false, false, false, false
+    
+    DrawWalls = true, false, false, false, false, false
+    #AddWall Front, InterExt, 0, -20, 20, 20, 20, %interfloorheight%, %interfloorheight%, %height%, %height%, 0, 0, false
+<EndFloor>
+
+<Floors 1 to 2>        
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Carpet1, 0.5, -20, -20, -3.03, 20, 0, 0, 0, 0, False
+    AddFloor Floor, Carpet1, 0.5, -3.03, 1.54, 20, 20, 0, 0, 0, 0, False
+
+    #create a ceiling
+    DrawWalls = true, false, false, false, false, false
+    if[%floor% = 1] AddFloor Ceiling, Ceiling1, 0, -20, -20, -3.03, 20, %height%, %height%, 0, 0, False
+    if[%floor% = 1] AddFloor Ceiling, Ceiling1, 0, -3.03, 1.54, 20, 20, %height%, %height%, 0, 0, False
+    if[%floor% = 2] AddFloor Ceiling, Ceiling1, 0, -20, -20, 20, 20, %height%, %height%, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, -3.03, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, -3.03, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    #AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    #AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    #AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    
+    DrawWalls = true, true, false, false, false, false
+    
+    #Internal Interfloor Covers
+    DrawWalls = false, true, false, false, false, false
+    if[%floor% ! 0] AddWall Front, Wall1, 0, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    
+    DrawWalls = true, false, false, false, false, false
+    if[%floor% ! 0] AddWall Right, Wall1, 0, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    if[%floor% ! 0] AddWall Back, Wall1, 0, -20, 20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+<EndFloor>
+
+<Floors 3 to 11>
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Carpet1, 0.5, -20, -20, 20, 20, 0, 0, 0, 0, False
+
+    #create a ceiling
+    DrawWalls = true, false, false, false, false, false
+    AddFloor Ceiling, Ceiling1, 0, -20, -20, 20, 20, %height%, %height%, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, 20, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    
+    DrawWalls = true, true, false, false, false, false
+<EndFloors>
+    
+<Floor 0>
+    #External windows - this creates the outside versions of the windows, and also the walls outside the
+    #interfloor areas
+    SetAutoSize = true, false
+    DrawWalls = true, false, false, false, false, false
+    AddWall Front, MainWindows, 0, -20, -20, 20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True    
+    AddWall Left, MainWindows, 0, -20, 20, -20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    DrawWalls = false, true, false, false, false, false
+    AddWall Right, MainWindows, 0, 20, -20, 20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+	AddWall Back, MainWindows, 0, -20, 20, 20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    SetAutoSize = true, true
+
+    #Internal windows - this creates the transparent windows on the inside of each floor
+    SetAutoSize = true, false
+    DrawWalls = false, true, false, false, false, false
+
+    AddWall Front, MainWindowsInt, 0, -20, -20, 20, -20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Left, MainWindowsInt, 0, -20, 20, -20, -20, %height%, %height%, 0, 0, 0, 0, False
+    DrawWalls = true, false, false, false, false, false
+    AddWall Right, MainWindowsInt, 0, 20, -20, 20, 20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Back, MainWindowsInt, 0, 20, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, False
+    SetAutoSize = true, true
+<EndFloor>
+
+<Floors 1 to 11>
+    #External windows - this creates the outside versions of the windows, and also the walls outside the
+    #interfloor areas
+    SetAutoSize = true, false
+    DrawWalls = true, false, false, false, false, false
+    AddWall Front, MainWindows, 0, -20, -20, 20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True    
+    AddWall Left, MainWindows, 0, -20, 20, -20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    if[%floor% ! 0] AddWall Front, InterExt, 0, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    if[%floor% ! 0] AddWall Left, InterExt, 0, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    DrawWalls = false, true, false, false, false, false
+    AddWall Right, MainWindows, 0, 20, -20, 20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+	AddWall Back, MainWindows, 0, -20, 20, 20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+	
+    if[%floor% ! 0] AddWall Right, InterExt, 0, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    if[%floor% ! 0] AddWall Back, InterExt, 0, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+
+    #Internal windows - this creates the transparent windows on the inside of each floor
+    SetAutoSize = true, false
+    DrawWalls = false, true, false, false, false, false
+
+    AddWall Front, MainWindowsInt, 0, -20, -20, 20, -20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Left, MainWindowsInt, 0, -20, 20, -20, -20, %height%, %height%, 0, 0, 0, 0, False
+    DrawWalls = true, false, false, false, false, false
+    AddWall Right, MainWindowsInt, 0, 20, -20, 20, 20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Back, MainWindowsInt, 0, 20, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, False
+    SetAutoSize = true, true
+<EndFloors>
+
+<Floor 0>    
+	#Entrance doors
+	WallOrientation = Left
+	TextureOverride Door88_Outside, Door88, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+    AddExternalDoor , , false, Door88, 0.2, 8, 75, 0 - 1.75, -20, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride Door88_Outside, Door88, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+    AddExternalDoor , , false, Door88, 0.2, 5, 75, 0 + 1.75, -20, 3.5, 8, %interfloorheight%, 0, 0
+    
+    #Emergency Exit
+	WallOrientation = Right
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+    AddExternalDoor , , false, ServiceDoor2, 0.2, 6, 75, -2.42, 20, 3.5, 8, %interfloorheight%, 0, 0
+<EndFloor>
+   
+<Floor 12>   
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0, False
+
+    #create a ceiling
+    DrawWalls = true, false, false, false, false, false
+    AddFloor Ceiling, Brick, 0, -20, -20, 20, 20, %height%, %height%, 0, 0, False
+
+    #External windows - this creates the outside versions of the windows, and also the walls outside the
+    #interfloor areas
+    SetAutoSize = true, false
+    
+    DrawWalls = true, false, false, false, false, false
+    AddWall Front, VentsExt, 0, -20, -20, 20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    AddWall Left, VentsExt, 0, -20, 20, -20, -20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    
+    DrawWalls = false, true, false, false, false, false
+    AddWall Right, VentsExt, 0, 20, -20, 20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True
+    AddWall Back, VentsExt, 0, 20, 20, -20, 20, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, True    
+    
+    DrawWalls = true, false, false, false, false, false
+    AddWall Front, InterExt, 0, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    AddWall Left, InterExt, 0, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    
+    DrawWalls = false, true, false, false, false, false
+    AddWall Right, InterExt, 0, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    AddWall Back, InterExt, 0, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+
+    #Internal windows - this creates the transparent windows on the inside of each floor
+    SetAutoSize = true, false
+    DrawWalls = false, true, false, false, false, false
+    AddWall Front, VentsInt, 0, -20, -20, 20, -20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Left, VentsInt, 0, -20, 20, -20, -20, %height%, %height%, 0, 0, 0, 0, False
+    
+    DrawWalls = true, false, false, false, false, false
+    AddWall Right, VentsInt, 0, 20, -20, 20, 20, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Back, VentsInt, 0, 20, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, 20, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    
+    DrawWalls = true, true, false, false, false, false
+<EndFloor>
+
+<Floor 13>
+	#reset autosize
+	SetAutoSize = true, true
+	
+    #create a basic carpeted floor
+    DrawWalls = false, true, false, false, false, false
+    AddFloor Floor, Brick, 0.5, -20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+    #External windows - this creates the outside versions of the windows, and also the walls outside the
+    #interfloor areas
+    SetAutoSize = true, false
+    DrawWalls = true, false, false, false, false, false
+    if[%floor% ! 0] AddWall Front, InterExt, 0, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    if[%floor% ! 0] AddWall Left, InterExt, 0, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    DrawWalls = false, true, false, false, false, false
+    if[%floor% ! 0] AddWall Right, InterExt, 0, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    if[%floor% ! 0] AddWall Back, InterExt, 0, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorFloor IFloor, Brick, 0.5, -20, -20, 20, 20, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorFloor ITop, Brick, 0.5, -20, -20, 20, 20, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddInterfloorWall IFront, Brick, 0.5, -20, -20, 20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -20, 20, -20, -20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddInterfloorWall IRight, Brick, 0.5, 20, -20, 20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 20, 20, -20, 20, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    
+    DrawWalls = true, true, false, false, false, false
+
+    #Roof Walls
+    WallOrientation = Left
+    SetAutoSize = true, false
+    DrawWalls = true, true, false, false, true, false
+    AddWall Front, RoofWall, 1.21, -20 + 1.21, -20, 20 - 1.21, -20, %height% / 2, %height% / 2, %interfloorheight%, %interfloorheight%, 0, 0, True
+    DrawWalls = true, true, true, true, true, false
+    AddWall Left,  RoofWall, 1.21, -20, 20, -20, -20, %height% / 2, %height% / 2, %interfloorheight%, %interfloorheight%, 0, 0, True
+    WallOrientation = Right
+    AddWall Right, RoofWall, 1.21, 20, -20, 20, 20, %height% / 2, %height% / 2, %interfloorheight%, %interfloorheight%, 0, 0, True
+    DrawWalls = true, true, false, false, true, false
+    AddWall Back, RoofWall, 1.21, 20 - 1.21, 20, -20 + 1.21, 20, %height% / 2, %height% / 2, %interfloorheight%, %interfloorheight%, 0, 0, True
+    SetAutoSize = true, true
+<EndFloor>
+
+#Railings
+<Floors 1 to 2>
+	WallOrientation = right
+	DrawWalls = true, true, false, false, true, false
+	AddWall MezzanineRailing, Wall1, 0.33, -3.03, -20, -3.03, 1.54, 3.5 + %interfloorheight%, 3.5 + %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, False
+<EndFloors>
+
+<Floors 3 to 11>
+	#Office Divider Wall
+	WallOrientation = Center
+	DrawWalls = true, true, false, false, false, false
+	AddWall Divider, Wall1, 0.66, -20, -5, 20, -5, %height%, %height%, 0, 0, 0, 0, False
+	AddWall Divider, Wall1, 0.66, 0, -5, 0, -20, %height%, %height%, 0, 0, 0, 0, False
+	
+	#Office Doors
+	WallOrientation = Left
+	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+    AddDoor , , false, Door6, 0.2, 5, 75, -0.33 - 2.25, -5.33, 3.5, 8, 0, 0, 0
+	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+    AddDoor , , false, Door6, 0.2, 8, 75, 0.33 + 2.25, -5.33, 3.5, 8, 0, 0, 0
+    AddTrim(1, front, true, true, Door6Side, 0.66, -0.33 - 2.25, -5.33, 3.5, 8, 0, 0.2, 1)
+    AddTrim(1, front, true, true, Door6Side, 0.66, 0.33 + 2.25, -5.33, 3.5, 8, 0, 0.2, 1)
+   
+    #Office Signs
+    SetAutoSize = false, false
+    AddWall Left, SignLeft, 0, 0.33 + 2.25 - 2, -5 + 0.33 + 0.001, 0.33 + 2.25 + 2, -5 + 0.33 + 0.001, 1, 1, 8.2, 8.2, 1, 1, false
+    AddWall Right, SignRight, 0, -0.33 - 2.25 - 2, -5 + 0.33 + 0.001, -0.33 - 2.25 + 2, -5 + 0.33 + 0.001, 1, 1, 8.2, 8.2, 1, 1, false
+    SetAutoSize = true, true
+    
+	#AddFillerWalls Wall1, 0.5, 0 - 1.75 - 0.5, -5, 3.5, 8, 0, true, 0, 0
+    #AddFillerWalls Wall1, 0.5, 0 + 1.75 + 0.5, -5, 3.5, 8, 0, true, 0, 0
+
+	#Doors from Escalators to Office Area
+    #AddDoor , , false, Door88, 0.2, 2, 75, -3.03, -15.97, 3.5, 8, 0, 0, 0
+    #AddFillerWalls Wall1, 0.33, -3.03, -15.97, 3.5, 8, 0, false, 0, 0
+    
+	#Doors from Escalators to Elevator Lobby
+    #AddDoor , , false, Door88, 0.2, 3, 75, -3.03, -1.91, 3.5, 8, 0, 0, 0
+    #AddFillerWalls Wall1, 0.33, -3.03, -1.91, 3.5, 8, 0, false, 0, 0
+<EndFloors>
+
+#reset drawwalls
+DrawWalls = true, true, false, false, false, false
+
+#Now since the main portion of the building is done, it would be nice to have an elevator.
+#First we'll have to create an elevator shaft:
+
+#Shaft for Office Elevators
+AddShaft 1, 2, 0.97, 6, -1, 12
+ShaftCut 1, -4, -4.125 + 0.33, 12, 4.125, 0, 5
+#ShaftShowFloors 1 = -1 - 12
+#ShaftShowOutside 1 = -1 - 12
+#ShowFullShaft 1 = true
+
+#in the above code, I added a regular shaft with the number of "1" at the position (0, 6), and told it to
+#span floors 0 to 9 (1 to 10).  The second command cuts a hole for the shaft in all the levels below, and
+#in that command the whole size of the shaft needs to be specified. You'll see that it spans horizontally
+#from -4 to 4 (it's 8 feet wide), and depth-wize from -4.125 + 0.33 to 4.125 (the 0.33 is there to provide
+#some floor area in front of the elevator door, and is the width of the external wall around the shaft.
+
+#Now for the walls inside and outside of the shaft.  A floor and ceiling will also need to be made inside
+#the shaft.  Notice that the commands such as AddShaftWall are based on the shaft's central position, while
+#AddWall is not.
+
+<Floors -1 to 12>
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = -1] AddShaftFloor 1, Shaft1Base, Brick, 0.5, -4, -4.125, 12, 4.125, 0, 0, 0, 0
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 12] AddShaftFloor 1, Shaft1Top, Brick, 0.5, -4, -4.125, 12, 4.125, %fullheight%, %fullheight%, 0, 0
+	DrawWalls = true, true, false, false, false, false
+	WallOrientation = left
+	AddShaftWall 1, Shaft1Left, Brick, 0.33, -4, -4.125, -4, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall 1, Shaft1Front, Brick, 0.33, -4, -4.125, 12, -4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall 1, Shaft1Right, Brick, 0.33, 12, -4.125, 12, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall 1, Shaft1Back, Brick, 0.33, -4, 4.125, 12, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+	
+	if[%floor% < 12] Set 5 = Wall1
+	if[%floor% = 12] Set 5 = Stucco4
+	
+	WallOrientation = right
+	DrawWalls = true, false, false, false, false, false
+	#if[%floor% = -1]
+	AddWall Shaft1LeftE, %5%, 0.33, -3.03, -4.125 + 6 - 0.33, -3.03, 4.125 + 6 + 0.33, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+	#if[%floor% = 0] AddWall Shaft1LeftE, %5%, 0.33, -3.03, -4.125 + 6 - 0.33, -3.03, 4.125 + 6 + 0.33, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+	#if[%floor% = 1] AddWall Shaft1LeftE, %5%, 0.33, -3.03, -4.125 + 6 - 0.33, -3.03, 4.125 + 6 + 0.33, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+	#if[%floor% = 2] AddWall Shaft1LeftE, %5%, 0.33, -3.03, -4.125 + 6 - 0.33, -3.03, 4.125 + 6 + 0.33, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+	#if[%floor% = 12] AddWall Shaft1LeftE, %5%, 0.33, -3.03, -4.125 + 6 - 0.33, -3.03, 4.125 + 6 + 0.33, %height%, %height%, 0, 0, 0, 0, False
+	
+	#AddWall Shaft1FrontE, Wall1, 0.33, -4 - 0.33, -4.125 + 6, 3.03 + 0.33, -4.125 + 6, %height%, %height%, 0, 0, 0, 0, False
+	AddWall Shaft1FrontE, %5%, 0.33, -3.03 - 0.33, -4.125 + 6, 20, -4.125 + 6, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+	
+	WallOrientation = left
+	DrawWalls = false, true, false, false, false, false
+	AddWall Shaft1RightE, %5%, 0.33, 12.97 + 0.33, -4.125 + 6 - 0.33, 12.97 + 0.33, 4.125 + 6 + 0.33, %height%, %height%, 0, 0, 0, 0, False
+	AddWall Shaft1BackE, %5%, 0.33, -3.03 - 0.33, 4.125 + 6, 12.97 + 0.33, 4.125 + 6, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+<EndFloors>
+
+#The numbers can get complex, but for the Shaft1LeftE (external left wall), the X position is at -4,
+#and the Z starting position is -4.125 (negative half of the width of the shaft) plus 6 (central Z position
+#of the shaft) minus 0.33 (the width of the wall), and the Z ending position is 4.125 (positive
+#half of the shaft's width) plus 6 (central Z position again) plus 0.33 (the width of the wall again)
+
+#reset drawwalls
+DrawWalls = true, true, false, false, false, false
+
+#Now we create an elevator.  When creating one, first some basic parameters are defined and then
+#the CreateElevator command is used to create it.  After that, the floors/walls are created, and then
+#other objects such as panels, buttons, indicators, etc.
+
+<Elevator 1>
+    #standard elevator; 7 feet wide, 6 feet deep
+    
+    #First specify parameters
+    Speed = 20
+    Acceleration = 0.6
+    Deceleration = 0.6
+    #AccelJerk = 0.2
+    #DecelJerk = 0.2
+    ServicedFloors = -1 - 0, 3 - 11
+    AssignedShaft = 1
+    
+    #then create the elevator at position (0, 5.706) on the first floor (0)
+    CreateElevator false, 0.97, 5.706, 0
+<EndElevator>
+
+<Elevator 2>
+    #standard elevator; 7 feet wide, 6 feet deep
+    
+    #First specify parameters
+    Speed = 20
+    Acceleration = 0.6
+    Deceleration = 0.6
+    #AccelJerk = 0.2
+    #DecelJerk = 0.2
+    ServicedFloors = -1 - 0, 3 - 11
+    AssignedShaft = 1
+    
+    #then create the elevator at position (0, 5.706) on the first floor (0)
+    CreateElevator false, 8.97, 5.706, 0
+<EndElevator>
+
+<Elevators 1 to 2>
+	DisplayFloors = -1 - 0, 3 - 11
+	AutoEnable = false
+
+    #elevator's floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    TextureOverride ElevExt, ElevFloor, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Floor, ElevFloor, 0.2, -3.5, -3, 3.5, 3, 0, 0, 0, 0
+    
+    #elevator's ceiling
+    FloorOrientation = bottom
+    TextureOverride ElevCeiling, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Ceiling, ElevCeiling, 0.2, -3.5, -3, 3.5, 3, 9, 9, 0, 0 #ceiling
+    
+    #elevator's back and right walls
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    TextureOverride ElevWall, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Back, ElevWall, 0.2, -3.5, 3, 3.5, 3, 9, 9, 0, 0, 0, 0 #back wall
+    TextureOverride ElevWall, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Right, ElevWall, 0.2, 3.5, -3, 3.5, 3, 9, 9, 0, 0, 0, 0 #right wall
+    
+    #elevator's left wall
+    WallOrientation = left
+    TextureOverride ElevExt, ElevWall, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Left, ElevWall, 0.2, -3.5, -3, -3.5, 3, 9, 9, 0, 0, 0, 0 #left wall
+
+    #elevator's panels
+    DrawWalls = true, true, false, true, false, false
+    TextureOverride ElevExt, ElevPanelMain, ElevExt, ElevPanel3, ElevExt, ElevExt
+    AddWall Left Panel, ElevPanelMain, 0.5, -3.5, -3, -1.75, -3, 9, 9, 0, 0, -1, 0 #left panel
+    DrawWalls = true, true, true, false, false, false
+    TextureOverride ElevExt, ElevPanelMain, ElevPanel3, ElevExt, ElevExt, ElevExt
+    AddWall Right Panel, ElevPanelMain, 0.5, 1.75, -3, 3.5, -3, 9, 9, 0, 0, 0, 0 #right panel
+
+    DrawWalls = true, true, false, false, false, true
+    TextureOverride ElevExt, ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevPanel3
+    AddWall Top, ElevPanelTop, 0.5, -1.75, -3 - 0.002, 1.75, -3 - 0.002, 1, 1, 8, 8, 0, 0
+    
+    #elevator's handrails (upper)
+    DrawWalls = true, true, true, true, true, true
+    WallOrientation = Left
+	AddWall Left, ElevRail, 0.5, -3.3, 2.8, -3.3, -2.5, 0.5, 0.5, 3.5 - 1, 3.5 - 1, 0, 0
+    WallOrientation = Right
+	AddWall Right, ElevRail, 0.5, 3.3, 2.8, 3.3, -2.5, 0.5, 0.5, 3.5 - 1, 3.5 - 1, 0, 0
+	AddWall Back, ElevRail, 0.5, -2.8, 2.8, 2.8, 2.8, 0.5, 0.5, 3.5 - 1, 3.5 - 1, 0, 0
+	
+    #elevator's handrails (lower)
+    WallOrientation = Left
+	AddWall Left, ElevRail, 0.5, -3.3, 2.8, -3.3, -2.5, 0.5, 0.5, 0.5, 0.5, 0, 0
+    WallOrientation = Right
+	AddWall Right, ElevRail, 0.5, 3.3, 2.8, 3.3, -2.5, 0.5, 0.5, 0.5, 0.5, 0, 0
+	AddWall Back, ElevRail, 0.5, -2.8, 2.8, 2.8, 2.8, 0.5, 0.5, 0.5, 0.5, 0, 0
+    
+    #now the doors - this calls one of the functions defined in the data/scripts/elevator_doors.txt file
+    #that we included at the beginning.  That file provides a number of pre-made door styles, and for this
+    #we're going to use the standard center-open style.
+    #shaft doors can also be created later in the floor section for them to be made on a per-floor basis
+    
+    AddDoorComponent 1, Right, ElevDoorsP, ElevDoorsP, 0.2, right, 0.3, 0, -3.0, 1.75, -3.0, 8, 0, 0, 0, 0, 0
+    AddDoorComponent 1, Left, ElevDoorsP2, ElevDoorsP2, 0.2, left, 0.3, -1.75, -3.0, 0, -3.0, 8, 0, 0, 0, 0, 0
+    FinishDoors 1, false, true
+       
+    WallOrientation = left
+    SetAutoSize = true, true
+
+    #The positioning of the doors is the tricky part.  You'll see that I placed the car doors at position
+    #(0, -3.01) and the shaft doors at (0, -3.301).  If you look above at the panels, you'll notice that
+    #they're Z position is -3, so I made sure to place to car doors immediately after that (-3.01) so that
+    #they don't overlap the panels.  Since I gave them a depth size of 0.2, I need to place the shaft doors
+    #0.2 feet beyond them, at -3.301.
+    
+    #This creates the directional indicator outside the elevator
+    #AddDirectionalIndicators true, false, false, false, Blank, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 0, -3.301 - 0.2 - 0.66 - 0.001 - 0.5, 8.5, front, 1, 0.5, false, 0, 0
+    
+    #I made the positioning more obvious in that one using math.  I positioned it horizontally (X) at -3, and
+    #for the depth (Z) position, I took the shaft door position from above (-3.301), subtracted 0.2 from that
+    #(the depth of the shaft doors), subtracted 0.66 from that (the size of the shaft interior and exterior
+    #walls combined since each is 0.33), and finally subtracted an extra 0.001 to prevent it from interfering
+    #with the wall.
+    0.75 + (0.3 * 6)
+    
+    #Panel Box
+    DrawWalls = true, true, true, true, true, true
+    WallOrientation = Left
+	AddWall Left, ElevPanel3, 0.5, -3.3, 2, -3.3, -2, 1.75, 1.75, 4 - 1, 4 - 1, 0, 0
+    
+    #panel
+    #for the panel, the depth (Z) position is the front edge of the elevator (-3), plus the depth of the
+    #panels (0.2), plus an extra 0.001 to prevent overlapping interference.
+    #For the horizontal position, since it's supposed to be on the left panel (right when you're turned around
+    #inside the elevator), I first put -1.75 (the right side of the left panel specified above), then subtracted
+    #0.875 from that (half of the panel's width, or 1.75 / 2), and added 0.1 to that to pull it closer to the
+    #door just a tiny bit.
+    
+    #Elevator's Panel
+    CreatePanel ElevPanel, 2, 9, right, -3.3 + 0.5 + 0.001, 0, 0.3, 0.15, 0.3, 0.45, 4.5 - 1, 0, 0
+    AddButton 1, , Button10, ButtonLit10, 1, 8, 11, 1, 1
+    AddButton 1, , Button9, ButtonLit9, 1, 7, 10, 1, 1
+    AddButton 1, , Button8, ButtonLit8, 1, 6, 9, 1, 1
+    AddButton 1, , Button7, ButtonLit7, 1, 5, 8, 1, 1
+    AddButton 1, , Button6, ButtonLit6, 1, 4, 7, 1, 1
+
+    AddButton 1, , Button5, ButtonLit5, 2, 9, 6, 1, 1
+    AddButton 1, , Button4, ButtonLit4, 2, 8, 5, 1, 1
+    AddButton 1, , Button3, ButtonLit3, 2, 7, 4, 1, 1
+    AddButton 1, , Button2, ButtonLit2, 2, 6, 3, 1, 1
+    AddButton 1, , Button1, ButtonLit1, 2, 5, 0, 1, 1
+    AddButton 1, , ButtonB, ButtonLitB, 2, 4, -1, 1, 1
+    AddButton 1, , ButtonOpen, ButtonOpen, 1, 1, open, 1, 1
+    AddButton 1, , ButtonClose, ButtonClose, 2, 1, close, 1, 1
+	AddButton 1, , ButtonAlarm, ButtonAlarm, 2, 2, alarm, 1, 1
+
+    #Indicator set
+    AddFloorIndicator Ind_Button, right, -3.3 + 0.5 + 0.001, 0, 1, 0.5, 5 - 1
+    AddDirectionalIndicator true, true, true, ElevPanel4, ACMEArrow, ACMEArrowUp, ACMEArrow, ACMEArrowDown, -3.3 + 0.5 + 0.002, -0.375, 4.875 - 1, right, 0.5, 0.75, false, 0, 0    
+
+    #Door Jamb Lanterns
+    AddDirectionalIndicator false, false, true, ElevPanel4, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, -1.75 + 0.001, -3 + 0.25, 6, right, 0.5, 1, false, 0, 0
+    AddDirectionalIndicator false, false, true, ElevPanel4, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 1.75 - 0.001, -3 + 0.25, 6, left, 0.5, 1, false, 0, 0
+
+    #Settings
+    NotifyEarly = 1
+    OpenSound 1 = elevopenquick.wav
+    CloseSound 1 = elevclosequick.wav
+    UpChimeSound 1 = otis4_Series1_chimeup.wav
+    DownChimeSound 1 = otis4_Series1_chimedown.wav
+    MotorStartSound = motor_start2.wav
+    MotorRunSound = motor_running2.wav
+    MotorStopSound = motor_stop2.wav
+    CarStartSound = elevstart5.wav
+    CarMoveSound = elevmove5.wav
+    CarStopSound = elevstop5.wav
+
+	#Motor position
+	#MotorPosition = 0, 188.12, 0
+<EndElevators>
+
+#Finally create some call buttons for the elevator, or you'll have a hard time getting into it (unless
+#of course you use the elevator editor, but that's not very realistic).
+#This code centers the buttons at the horizontal position of 3 feet.  The depth/Z position is figured out
+#using other values from above - first I took 6, which is the central Z position of the shaft. Then I
+#subtracted 4.125 (half of the shaft's depth) from that, then subtracted 0.33 (the shaft's external wall depth)
+#and then subtracted an extra 0.1 to keep it away from the wall itself to prevent interference.
+
+<Floors -1 to 0>
+    CallButtonElevators = 1, 2
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 4.97, 1.54 - 0.001, 4, front, 0.5, 1, true, 0, 0
+<EndFloors>
+
+<Floors 3 to 11>
+    CallButtonElevators = 1, 2
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 4.97, 1.54 - 0.001, 4, front, 0.5, 1, true, 0, 0
+<EndFloors>
+
+##### Shaft Doors #####
+#Basement
+<Floor -1>
+    AddShaftDoorComponent 1, 1, Right, ElevDoorsB2, ElevDoorsB2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 1, 1, Left, ElevDoorsB, ElevDoorsB, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 1, 1, false, true
+    
+    AddShaftDoorComponent 2, 1, Right, ElevDoorsB2, ElevDoorsB2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 2, 1, Left, ElevDoorsB, ElevDoorsB, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 2, 1, false, true
+<EndFloor>
+
+#Lobby
+<Floor 0>    
+    AddShaftDoorComponent 1, 1, Right, ElevDoorsA2, ElevDoorsA2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 1, 1, Left, ElevDoorsA, ElevDoorsA, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 1, 1, false, true
+    
+    AddShaftDoorComponent 2, 1, Right, ElevDoorsA2, ElevDoorsA2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 2, 1, Left, ElevDoorsA, ElevDoorsA, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 2, 1, false, true
+<EndFloor>
+
+#Office Floors
+<Floors 3 to 11>
+    AddShaftDoorComponent 1, 1, Right, ElevDoorsQ2, ElevDoorsQ2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 1, 1, Left, ElevDoorsQ, ElevDoorsQ, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 1, 1, false, true
+    
+    AddShaftDoorComponent 2, 1, Right, ElevDoorsQ2, ElevDoorsQ2, 0.2, right, 0.3, 0, -3.501, 1.75, -3.501, 8, 0, 0, 0, 0, 0
+    AddShaftDoorComponent 2, 1, Left, ElevDoorsQ, ElevDoorsQ, 0.2, left, 0.3, -1.75, -3.501, 0, -3.501, 8, 0, 0, 0, 0, 0
+    FinishShaftDoor 2, 1, false, true
+<EndFloors>
+
+#Door Trims
+<Floor -1>
+	if[%floor% = -1] Set 11 = BFDoorTrim
+	if[%floor% = 0] Set 11 = 1FDoorTrim
+	if[%floor% > 2 & %floor% < 12] Set 11 = OfficeDoorTrim
+	if[%floor% = 0] Set 12 = %height% + Floor(1).FullHeight + Floor(2).FullHeight
+	if[%floor% ! 0] Set 12 = %height%
+
+	#Elevator 1
+	AddDeco2(%11%, %11%, front, 0.1, 0.2, 0.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+	
+	#Elevator 2
+	AddDeco2(%11%, %11%, front, 0.1, 0.2, 8.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+<EndFloor>
+
+<Floor 0>
+	if[%floor% = -1] Set 11 = BFDoorTrim
+	if[%floor% = 0] Set 11 = 1FDoorTrim
+	if[%floor% > 2 & %floor% < 12] Set 11 = OfficeDoorTrim
+	if[%floor% = 0] Set 12 = %height% + Floor(1).FullHeight + Floor(2).FullHeight
+	if[%floor% ! 0] Set 12 = %height%
+
+	#Elevator 1
+	AddDeco2(%11%, %11%, front, 0.1, 0.5, 0.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+
+	#Elevator 2
+	AddDeco2(%11%, %11%, front, 0.1, 0.5, 8.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+<EndFloor>
+
+<Floors 3 to 11>
+	if[%floor% = -1] Set 11 = BFDoorTrim
+	if[%floor% = 0] Set 11 = 1FDoorTrim
+	if[%floor% > 2 & %floor% < 12] Set 11 = OfficeDoorTrim
+	if[%floor% = 0] Set 12 = %height% + Floor(1).FullHeight + Floor(2).FullHeight
+	if[%floor% ! 0] Set 12 = %height%
+
+	#Elevator 1
+	AddDeco2(%11%, %11%, front, 0.1, 0.2, 0.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+
+	#Elevator 2
+	AddDeco2(%11%, %11%, front, 0.1, 0.2, 8.97, 1.55 - 0.001, 3.5, 8, %12%, %12% - 8, 0, true, %11%, 0.66)
+<EndFloors>
+
+#Outside Lanterns
+<Floor -1>
+	AddDirectionalIndicator 1, true, false, false, true, ElevPanel3, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 0, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 8.2, front, 0.5, 1, false, 0, 0
+	AddDirectionalIndicator 2, true, false, false, true, ElevPanel3, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 0, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 8.2, front, 0.5, 1, false, 0, 0
+<EndFloor>
+
+<Floor 0>
+	AddDirectionalIndicator 1, true, false, false, true, ElevPanel4, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 2, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 6.25, front, 0.5, 1, false, 0, 0
+	AddDirectionalIndicator 2, true, false, false, true, ElevPanel4, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, -2, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 6.25, front, 0.5, 1, false, 0, 0
+<EndFloor>
+
+<Floors 3 to 11>
+	AddDirectionalIndicator 1, true, false, false, true, ElevPanel3, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 0, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 8.2, front, 0.5, 1, false, 0, 0
+	AddDirectionalIndicator 2, true, false, false, true, ElevPanel3, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, 0, -3.301 - 0.2 - 0.66 - 0.1 - 0.002, 8.2, front, 0.5, 1, false, 0, 0
+<EndFloors>
+
+#Floor signs (filler walls)
+<Elevators 1 to 2>
+    AddFloorSigns 0, true, Sign_, left, 3.5 / 2 - 0.01, -3.301 - 0.2 - 0.33, 0.5, 0.42, 5.5
+    AddFloorSigns 0, true, Sign_, right, -3.5 / 2 + 0.01, -3.301 - 0.2 - 0.33, 0.5, 0.42, 5.5
+<EndElevators>
+
+#reset drawwalls
+DrawWalls = true, true, false, false, false, false
+
+#Floor signs on walls
+<Floors -1 to 0>
+	SetAutoSize = false, false
+    DrawWalls = true, false, false, false, false, false
+    AddWall Sign, FSButton%floorid%, 0, 4.97 - 0.5, 1.54 - 0.002, 4.97 + 0.5, 1.54 - 0.002, 0.75, 0.75, 5.5, 5.5, 1, 1, false
+    AddWall Sign, FloorSign, 0, 4.97 - 0.5, 1.54 - 0.002, 4.97 + 0.5, 1.54 - 0.002, 0.25, 0.25, 6.25, 6.25, 1, 1, false
+    SetAutoSize = true, true
+<EndFloors>
+
+<Floors 3 to 11>    
+	SetAutoSize = false, false
+    DrawWalls = true, false, false, false, false, false
+    AddWall Sign, FSButton%floorid%, 0, 4.97 - 0.5, 1.54 - 0.002, 4.97 + 0.5, 1.54 - 0.002, 0.75, 0.75, 5.5, 5.5, 1, 1, false
+    AddWall Sign, FloorSign, 0, 4.97 - 0.5, 1.54 - 0.002, 4.97 + 0.5, 1.54 - 0.002, 0.25, 0.25, 6.25, 6.25, 1, 1, false
+    SetAutoSize = true, true
+<EndFloors>
+
+WallOrientation = Center
+#Stairs
+#The stairs can be tricky, but make sense once you've worked with them a little bit.
+#First you need to create the stariwell and cut a whole in the floors for the new stairwell
+#(this is almost identical to creating a shaft) - in this we say that the stairwell is centered at
+#(10, 15) and is servicing floors 0 to 9 (1-10):
+
+CreateStairwell 1, 10, 15, -1, 13
+CutStairwell 1, -8.5, -3.5, 8.5, 3.5, 0, 5
+ShowFullStairs 1 = always
+
+#Just like the shafts, the stairs need to be cut with the whole size specified - this stairwell is 17 feet
+#wide (-8.5 to 8.5) and 7 feet deep (-3.5 to 3.5).
+
+#Now for the actual stairs themselves, and the floors/walls
+<Floors -1 to 13>
+    #More info on stairs specifics at http://en.wikipedia.org/wiki/Stairwell
+    #maximum riser height allowed in real-world settings is 8.25 inches (0.6875 feet)
+    #minimum tread length allowed in real-world settings is 9 inches (0.75 feet)
+    
+    #first get the height of each riser.  More info on stairs specifics at http://en.wikipedia.org/wiki/Stairwell
+    #this takes the total height of a single staircase level (which is the height of the floor plus the above floor's interfloor height.
+    #then divide that value by the total number of stairs you're going to be using.  Make sure that the value it comes up with is not
+    #over the riser height limit (you can have it over the limit in Skyscraper, but it won't be realistic)
+    #So, in this example, I'm using 20 total stairs, which is 10 on each side.
+    
+	Set 1 = (%height% + Floor(%floor%).InterfloorHeight) / 20 #determine riser size
+    
+    #now add the stairs themselves.  The parameters are explained in the design guide, but basically the lower stairs in this example
+    #start on the left (bottom) and end on the right (top), and so they face left.  The upper stairs are the opposite, so they face right.
+    #the important part of this is the tread size.  In this, it's specified as "10 / 9", since I'm wanting the stairs to be a total of 10 feet long,
+    #and there's 9 steps created (even though there's 10 stairs total - but like the design guide says, the top tread is not counted, since the top
+    #tread is the landing (specified later).  To calculate the height and length of the staircase (according to the design guide):
+    #the height is the number of stairs times the riser size (which would be 10 * %1%).
+    #The length is the number of stairs minus one, times the tread size - in this example it would be 9 * (10 / 9) which is 10.
+    
+    if[%floor% < 13] AddStairs 1, StairsLower, Stairs, left, 0, -1.75, 3.5, %1%, 10 / 9, 10, 0, 0, 0
+    if[%floor% < 13] AddStairs 1, StairsUpper, Stairs, right, 0, 1.75, 3.5, %1%, 10 / 9, 10, %1% * 10, 0, 0
+    FloorOrientation = top
+    
+    #For the landings, you need to know where the stairs start and end (the positions).  Since these stairs are located/centered at X position 0, you
+    #can find the left and right sides by taking the staircase length and dividing by 2.  In this example the stairs have a width of 10, and so it reaches
+    #5 feet in each direction (-5 to 5).  So the lower landing would reach from the left side of the staircase (-8.5) to the left side of the stairs (-5),
+    #and the upper landing would be the opposite (go from the stairs top, 5, to the right side of the staircase, 8.5).
+    
+    DrawWalls = true, true, false, false, false, false
+    if[%floor% > -1 & %floor% < 14] AddStairsFloor 1, LandingLower, Land, 0.5, -8.5, -3.5, -5, 3.5, 0, 0, 1, 1
+    if[%floor% = -1] AddStairsFloor 1, LandingLower, Land, 0.5, -8.5, -3.5, 8.5, 3.5, 0, 0, 1, 1
+    if[%floor% < 13] AddStairsFloor 1, LandingUpper, Land, 0.5, 5, -3.5, 8.5, 3.5, %1% * 10, %1% * 10, 1, 1
+
+    #the landing covers simply cover the portion of the landing that isn't covered up by the stairs.  You can see this cover if you're underneath a staircase,
+    #and it's the small wall piece just below it (fills in the gap between the lower floor's ceiling, and the landing above it).  In this example, the
+    #lower landing would need a cover going from Z values -3.5 to 0 (center), since the stairs in that section go from 0 to 3.5.  The upper landing is
+    #the opposite (0 to 3.5).
+    
+    DrawWalls = false, true, false, false, false, false
+    WallOrientation = right
+    AddStairsWall 1, LandingLowerCover, Land, 0.1, -5, -3.5, -5, 0, 0.5, 0.5, -0.5, -0.5, 0, 1
+    DrawWalls = true, false, false, false, false, false
+    WallOrientation = left
+    if[%floor% < 13] AddStairsWall 1, LandingUpperCover, Land, 0.1, 5, 0, 5, 3.5, 0.5, 0.5, (%1% * 10) - 0.5, (%1% * 10) - 0.5, 0, 1
+    #if[%floor% < 11] AddStairsWall 1, LandingUpperCover, Land, 0.1, 5, 0, 5, 3.5, 0.5, 0.5, 0, 0, 0, 1
+    DrawWalls = true, true, false, false, false, false
+    
+    #the stairs walls are simply the walls inside the stairwell
+    
+    #SetAutoSize = true, false
+    WallOrientation = right
+    if[%floor% < 13] DrawWalls = false, true, false, false, false, false
+    if[%floor% = 13] DrawWalls = true, true, false, false, false, false
+    AddStairsWall 1, LeftWall, StairsWall, 0.3, -8.5, -3.5 - 0.3, -8.5, 3.5 + 0.3, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+    AddStairsWall 1, FrontWall, StairsWall, 0.3, -8.5 - 0.3, -3.5, 8.5 + 0.3, -3.5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+    WallOrientation = left
+    if[%floor% < 13] DrawWalls = true, false, false, false, false, false
+    AddStairsWall 1, BackWall, StairsWall, 0.3, -8.5 - 0.3, 3.5, 8.5 + 0.3, 3.5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+    AddStairsWall 1, RightWall, StairsWall, 0.3, 8.5, -3.5 - 0.3, 8.5, 3.5 + 0.3, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+    SetAutoSize = true, true
+    
+    #Outside Wall
+    if[%floor% ! 12] Set 6 = Wall1
+    if[%floor% = 12] Set 6 = Stucco4
+	DrawWalls = true, false, false, false, false, false
+    if[%floor% < 13] AddWall LeftWallE, %6%, 0.3, 10 - 8.5 - 0.3, 20, 10 - 8.5 - 0.3, 10.45, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+    #if[%floor% = -1] AddWall LeftWallE, %6%, 0.3, 10 - 8.5 - 0.3, 50, 10 - 8.5 - 0.3, 10.45, %height%, %height%, 0, 0, 0, 0, False
+    
+    #This command adds a door, and automatically cuts the walls for you.
+	WallOrientation = left
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+    if[%floor% = 0] AddStairsDoor 1, , , False, ServiceDoor2, 0.2, 1, 0, -8.5 - 0.3, -3.5 + 2, 3, 7, 0, 1, 1
+
+	WallOrientation = right
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+    if[%floor% = -1] AddStairsDoor 1, , , False, ServiceDoor2, 0.2, 2, 0, -8.5, -3.5 + 2, 3, 7, 0, 1, 1
+
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+    if[%floor% > 0 & %floor% < 13] AddStairsDoor 1, , , False, ServiceDoor2, 0.2, 3, 0, -8.5, 3.5 - 2, 3, 7, 0, 1, 1
+
+	WallOrientation = left
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+    if[%floor% = 13] AddStairsDoor 1, , , False, ServiceDoor2, 0.2, 4, 0, -8.5 - 0.3, 3.5 - 2, 3, 7, 0, 1, 1
+	
+	#Door trims
+	if[%floor% = -1 | %floor% = 0] AddTrim(Stair1, left, true, true, SROC_StainlessSteel3, 0.3, -8.5 - 0.3, -3.5 + 2, 3, 7, 0, 0.2, 1)
+	if[%floor% > 0 & %floor% < 13] AddTrim(Stair1, right, true, true, SROC_StainlessSteel3, 0.3, -8.5, 3.5 - 2, 3, 7, 0, 0.2, 1)
+	if[%floor% = 13] AddTrim(1, left, true, false, SROC_StainlessSteel3, 0.165, 1.2, 15 + 3.5 - 2, 3, 7, 0, 0.2, 1)
+	if[%floor% = 13] AddTrim(Stair1, right, true, false, SROC_StainlessSteel3, 0.165, -8.5, 3.5 - 2, 3, 7, 0, 0.2, 1)
+
+    FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+    if[%floor% = 13] AddStairsFloor 1, Ceiling, StairsWall, 0.5, -8.5 - 0.3, -3.5 - 0.3, 8.5 + 0.3, 3.5 + 0.3, %height%, %height%, 1, 1    
+    
+	#Floor Signs
+	SetAutoSize = false, false
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = -1 | %floor% = 0] AddStairsWall 1, FloorSign, SButton%floorid%, 0, -8.5 + 0.001, 1.75 - 1, -8.5 + 0.001, 1.75 + 1, 2, 2, 4, 4, 0, 0
+	if[%floor% > 0] AddStairsWall 1, FloorSign, SButton%floorid%, 0, -8.5 + 0.001, -1.75 - 1, -8.5 + 0.001, -1.75 + 1, 2, 2, 4, 4, 0, 0
+	SetAutoSize = true, true
+<EndFloors>

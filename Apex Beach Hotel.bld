@@ -1,0 +1,1977 @@
+#Apex Beach Hotel
+#Copyright (c) 2022-Present - Mn10
+
+#Include ObjectPlus and SROC (credit to EG881)
+<Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
+<Include SROC/Scripts/r1_script.txt> #EG881
+
+#Include my scripts
+<Include Deco2011/Scripts/r4_script.txt>
+<Include Shaft Wall Creator/Scripts/r1_script.txt>
+<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+
+#Functions
+<Include buildings/ApexBeachHotel/Functions.txt>
+
+#Add buildings to the simulation
+<Buildings>
+	#Eastern side
+	Load ABH1a - Emerald Wing.bld, 508, 0, 335, 0, -90 - 10, 0, -28 - 10 - 36, 90 + 10, 0, 28 + 10
+	Load ABH1a - Autumn Wing.bld, 508, 0, -81, 0, -90 - 56, 0, -28 - 10, 90 + 10, 0, 28 + 20
+
+	#Parking garage
+	Load ABH1a - Parking Garage.bld, 216, 0, 26, 0, -75 - 10, 0, -135 - 10, 75 + 10, 0, 135 + 10
+
+	#Western side
+	Load ABH1a - Monica Beach Wing.bld, -212, 0, 478, 0, -120 - 10, 0, -90 - 18, 120 + 10, 0, 90 + 10
+	Load ABH1a - Sapphire Sea Tower.bld, 0, 0, 0, 0, -72 - 40, 0, -161 - 8, 72 + 8, 0, 161 + 8
+<EndBuildings>
+
+##--------------------------------------------------------------------------------##
+
+#Globals
+<Globals>
+	Name = Apex Beach Hotel
+	Designer = Mn10
+	Location = Anywhere
+	Version = 1a
+	Description = A beachfront hotel with four buildings and a parking garage.
+	CameraFloor = 2
+	CameraPosition = -80, 215
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+##--------------------------------------------------------------------------------##
+
+#Textures
+<Textures>
+	#Landscapes
+		#Downtown
+		Load data/downtown.jpg, Downtown, 1, 1
+	
+		#Roads
+		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+		Load data/Melvin/Roads/5lane-twoway-island.png, MainRoad, 0.05, 0.016667
+		Load data/EG881/2lanex_doubleline.jpg, SecondaryRoad, 0.05, 0.033333, true #EG881
+		Load data/Melvin/Roads/4lane-twoway1-90de.png, ParkingGarageEntranceRoad, 0.020833, 0.05
+		Load data/Melvin/Roads/2lane-oneway-90de.png, SapphireLobbyRoad, 0.041667, 0.05
+		Load data/Melvin/Roads/2lane-oneway.png, SapphireLobbyRoad2, 0.05, 0.041667
+	
+		Load data/Melvin/Roads/4lane-oneway-narrowed.png, MonicaEntranceRoad, 0.05, 0.020833
+		Load data/Melvin/Roads/2lane-oneway.png, MonicaEntranceRoad2, 0.05, 0.041667
+		Load data/Melvin/Roads/2lane-twoway-90de.png, Monica_ParkingEntranceRoad, 0.041667, 0.05
+	
+		Load data/dcircle_unlit.gif, TrafficCircle, 1, 1, false
+
+		#Road markings
+		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
+		Load data/EG881/parkingspacez.png, ParkingSpaceZ, 1, 1, false #EG881
+
+		Load data/EG881Mod/NoParkingX.png, NoParkingX, 1, 1, false #EG881 #Yellow islands
+		Load data/EG881Mod/NoParkingZ.png, NoParkingZ, 1, 1, false #EG881
+
+		#Load data/EG881Mod/WhiteIslandX.png, WhiteIslandX, 1, 1, false #EG881
+		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
+
+		#Sidewalks
+		Load data/herringbone12.jpg, WoodenFloor, 0.2, 0.2
+		Load data/checker10.jpg, WoodenFloor2, 0.25, 0.25
+		Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+		Load data/Melvin/ABH_Tex/walkway-darker.jpg, Sidewalk2A, 0.03125, 0.03125
+		#Load data/stucco4.jpg, Sidewalk3, 0.0625, 0.0625
+		Load data/cutston.jpg, Sidewalk3, 0.04, 0.04
+		Load data/cutston2.jpg, Sidewalk3A, 0.045, 0.045
+
+		#Fences
+		Load data/EG881/brick040+_brown.jpg, BrickFences, 0.25, 0.25 #EG881
+		Load data/brick021.jpg, BrickFences2, 0.2, 0.2
+		Load data/brick102.jpg, BrickFences3, 0.15, 0.15
+
+		Load data/windows11e_inside.gif, GlassFences, 0.1333, 1
+		Load data/windows11e_inside.gif, GlassFences2, -0.1333, 1
+
+		#Trees and grass
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+		Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass, 0.005, 0.005
+	
+		#Beach components
+		Load data/Melvin/ABH_Tex/Seawater.jpg, Seawater, 0.08, 0.05
+		Load data/stucco2f.jpg, Sand, 0.08, 0.08
+	
+	#Blank texture
+		Load data/Melvin/transparent128.png, Blank, 1, 1, false
+
+	#Windows (Other buildings)
+		Load data/daley.jpg, MainWindows2, 0.0666, 1
+		Load data/windows11e.jpg, MainWindows3, 0.0666, 1
+		Load data/square_offices.jpg, MainWindows4, 0.0666, 1
+		Load data/windows11h_black.jpg, MainWindows5, 0.05, 1
+
+	#Sapphire Sea Tower - Lobby deck
+		Load data/floor065b.jpg, LobbyFloor_Ext, 0.25, 0.25
+		Load data/marb047.jpg, LobbyDeck, 0.134, 0.134
+		Load data/floor065.jpg, LobbyDeckFloor2, 0.25, 0.25
+		Load data/stucco1b.jpg, LobbyDeckUnderside, 0.125, 0.125
+		Load data/stucco1.jpg, LobbyDeckUnderside2, 0.125, 0.125
+		Load data/marble4.jpg, LobbyDeckRailing, 0.0625, 0.0625
+		Load data/granite_0007e.jpg, LobbyDeckRailing-Inner, 0.08, 0.08
+		Load data/granite_0008b.jpg, LobbyDeckRailing-Stairs, 0.2, 0.2
+
+		Load data/graniteTexture_0018e.jpg, LobbyDeckCeiling, 0.1, 0.1
+		Load data/stonec.jpg, LobbyDeckCeiling2, 0.0625, 0.0625
+		Load data/wall5.jpg, LobbyDeckRFS, 0.1, 0.1 #RFS = Roof Support
+		Load data/stonec.jpg, LobbyDeckSupport, 0.05, 0.05
+
+	#Lobby deck stairs
+		Load data/floor065b.jpg, LobbyDK_Stairs, 0.25, 0.25
+		Load data/floor065.jpg, LobbyDK_Stairs2, 0.25, 0.25
+		Load data/brick040+.jpg, LobbyDK_StairsRailing, 0.15, 0.15
+		Load data/granite.jpg, LobbyDK_StairsRailing2, 0.1, 0.1
+	
+	#Sapphire Sea Tower - Roof covering lobby ramp
+		Load data/stonec.jpg, LbyRampRF_Ceiling, 0.075, 0.075
+		Load data/stone.jpg, LbyRampRF_Ceiling2, 0.075, 0.075
+
+	#Monica Beach Wing
+		#Building sign
+		Load data/Melvin/ABH_Tex/MonicaBeachWing.png, MonicaWing, 1, 1, false
+
+		#Roof covering lobby entrance
+		Load data/granite_0007e.jpg, MLbyRampRF_Ceiling, 0.075, 0.075
+		Load data/granite_0007c.jpg, MLbyRampRF_Ceiling2, 0.075, 0.075
+
+		#Facade
+		Load data/EG881/Concrete/smoothconcrete1_white.jpg, Monica_ExtFacade, 0.0625, 0.0625 #EG881
+
+	#Concrete
+		Load data/cem_tr_b.jpg, Concrete1, 0.0625, 0.0625
+		Load data/cem_tr.jpg, Concrete1A, 0.125, 0.125
+		Load data/EG881/cem_tr2d.jpg, Concrete1B, 0.075225, 0.0625 #EG881
+
+	#Facade for Sapphire Sea Tower
+		Load data/rose_marble.jpg, ExtFacade, 0.0625, 0.0625
+		Load data/marble4.jpg, ExtFacade2, 0.0625, 0.0625
+
+	#Barrier at Road Endpoint
+	Load data/panel-back3.jpg, Barrier, 1, 1, false
+	
+	#Escalators
+	Load data/MT/blank.gif, GlassBalustrade, 1, 1, false
+	Load data/Melvin/EscaStepZ-Edited.jpg, MitEscalatorsZ, 1, 1, false
+	Load data/Melvin/EscaStepZ-NoLine.jpg, MitEscalatorsZB, 1, 1, false
+	
+	#Bridge elevator shaft walls
+	Load data/granite_0007e.jpg, BridgeElevShaftWall, 0.075, 0.075
+	#--------------------
+	#Elevators
+		#Main components
+		Load data/metal1.jpg, ElevExt, 0.25, 0.25, true
+		#Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
+		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
+		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
+
+		#Bridge elevator interior
+		Load data/floor065.jpg, BridgeElevFloor, 0.25, 0.25
+		Load data/marble5.jpg, BridgeElevWall, 0.25, 0.25
+		Load data/marb148.jpg, BridgeElevWallPanel, 0.26, 0.26
+		Load data/otis4_weaveceiling_3x3.jpg, BridgeElevCeiling, 1, 1, false
+		Load data/panel-back3.jpg, BridgeElevPanelMain, 1, 1, false
+		Load data/panel-back3.jpg, BridgeElevPanelTop, 1, 0.0667, false
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, BridgeElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, BridgeElevDoors2, 1, 1, false #EG881
+
+		#Shaft doors
+		Load data/aluminumdoor_b.jpg, BridgeElevShaftDoors, 1, 1, false
+		Load data/aluminumdoor_b.jpg, BridgeElevShaftDoors2, -1, 1, false
+		Load data/panel-back3.jpg, BridgeElevShaftDoors_Trim, 1, 1, false
+		#BL = Bridge Lobby (referring to the doors opening to Monica Beach Wing's lobby)
+		#Load data/EG881/lightaluminumdoor2.jpg, BLElevDoors, 1, 1, false #EG881
+		Load data/EG881/lightaluminumdoor2.jpg, BLElevDoors2, -1, 1, false #EG881
+		Load data/panel-back3.jpg, BLElevDoors_Trim, 1, 1, false
+
+		#Hall buttons
+		Load data/Vector's Fixtures/SchindlerRT/rtcallunlit.png, ButtonUp, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtcall.png, ButtonUpLit, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtcallunlit.png, ButtonDown, 1, -1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtcall.png, ButtonDownLit, 1, -1, false
+
+		#Buttons	
+		Load data/Vector's Fixtures/SchindlerRT/rtblankunlit.png, Button, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtblanklit.png, ButtonLit, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtdopen.png, ButtonOpen, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtdclose.png, ButtonClose, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtstop.png, ButtonStop, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtalarm.png, ButtonAlarm, 1, 1, false
+		AddTextRange 1, 3, Button, Button%number%, nimbus_sans.ttf, 40, %number%, 5, 0, 128, 128, center, center, 255, 255, 255
+		AddTextRange 1, 3, ButtonLit, ButtonLit%number%, nimbus_sans.ttf, 40, %number%, 5, 0, 128, 128, center, center, 255, 255, 255
+
+		#Indicators
+		Load data/Vector's Fixtures/SchindlerRT/rtuplanternunlit.png, LanternUp, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtuplanternlit.png, LanternUpLit, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtdnlanternunlit.png, LanternDown, 1, 1, false
+		Load data/Vector's Fixtures/SchindlerRT/rtdnlanternlit.png, LanternDownLit, 1, 1, false
+
+		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator 2.jpg, IndBack, 1, 1, false
+		AddTextRange 1, 3, IndBack, Ind_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+
+			#Analog indicators
+			Load data/Melvin/ABH_Tex/Monica_Inds/MLInd_Button1.png, BInd_Button1, 1, 1, false
+			Load data/Melvin/ABH_Tex/Monica_Inds/MLInd_ButtonBlank.png, BInd_Button2, 1, 1, false
+			Load data/Melvin/ABH_Tex/Monica_Inds/MLInd_ButtonBlank.png, BInd_Button3, 1, 1, false
+
+			LoadRange 1, 3, data/Melvin/ABH_Tex/Monica_Inds/MLInd_Button%number%.png, BInd2_Button%number%, 1, 1, false
+	#--------------------
+	#Signs
+		#Elevator instruction signs
+		Load data/signs_mod/elevhallsign1.png, ElevHallSign, 1, 1, false
+
+		#Floor signs (Black)
+		Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
+		AddTextRange 1, 3, BlackTrim, Sign%number%, nimbus_sans_bold.ttf, 96, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+<EndTextures>
+
+##--------------------------------------------------------------------------------##
+
+#Floor assignments
+<Floor -1>
+	ID = -
+	Name = Shaft Pit
+	Type = Basement
+	Height = 8.5
+	InterfloorHeight = 1.5
+	Altitude = -14.5
+<EndFloor>
+
+<Floor 0>
+	ID = 1
+	Name = Ground Level
+	Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Altitude = -4.5
+	Group = 1
+<EndFloor>
+
+<Floor 1>
+	ID = %floor% + 1
+	Name = Lobby
+	Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Description = Monica Beach Wing lobby
+<EndFloor>
+
+<Floor 2>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Group = 1
+	Description = Sapphire Sea Tower lobby
+<EndFloor>
+
+<Floors 3 to 4>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Recreation
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Group = 1
+<EndFloors>
+
+##--------------------------------------------------------------------------------##
+
+#Elevator interior function (Bridge elevator)
+<Function ElevInt_Bridge>
+	Set FloorTex = %param1%
+	Set CeilingTex = %param2%
+	Set WallTex_X = %param3%
+	Set WallTex_Z = %param4%
+	Set WidthX = %param5%
+	Set LengthZ = %param6%
+	Set Direction = %param7%
+	Set ElevHeight = %param8%
+
+	Set ElevWidth = %WidthX% / 2
+	Set ElevLength = %LengthZ% / 2
+
+	#Floor
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, %FloorTex%, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor Floor, %FloorTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, 0, 0, 0, 0
+
+	#Ceiling
+	FloorOrientation = bottom
+	TextureOverride %CeilingTex%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor Ceiling, %CeilingTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0
+
+	#Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ElevExt, %WallTex_Z%, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Front & %Direction% ! front] AddWall Front, %WallTex_Z%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	TextureOverride ElevExt, %WallTex_X%, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Left & %Direction% ! left] AddWall Left, %WallTex_X%, 0.2, -%ElevWidth%, -%ElevLength%, -%ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	TextureOverride %WallTex_X%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Right & %Direction% ! right] AddWall Right, %WallTex_X%, 0.2, %ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	#TextureOverride %WallTex_Z%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	#if[%Direction% ! Back & %Direction% ! back] AddWall Back, %WallTex_Z%, 0.2, -%ElevWidth%, %ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
+#Landscape
+Set 1 = 72 #Sapphire Sea Tower Dimension X
+Set 2 = 161 #Sapphire Sea Tower Dimension Z
+Set BeachEndpoint = -600
+Set NorthernmostEnd = %2% + 40 + 60 + 20 + 400 - 8
+
+#Set EasternmostEnd = %1% + 44 + 161 + 600
+Set EasternmostEnd = 650
+
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 5, 7920, 7920
+Cut Landscape, %BeachEndpoint%, 5 - 1, -%2% - 20, 66, 5 + 1, %NorthernmostEnd%, false, true
+Cut Landscape, 66, 5 - 1, -%2% - 20, %EasternmostEnd%, 5 + 1, 526, false, true
+
+#Fences
+SetAutoSize = true, false
+DrawWalls = true, true, false, false, false, false
+TextureOverride GlassFences2, GlassFences, Blank, Blank, Blank, Blank
+AddWall External, FencesRight1, GlassFences, 0, %EasternmostEnd%, -181, %EasternmostEnd%, -170, 8, 8, 5, 5, 0, 0
+TextureOverride GlassFences2, GlassFences, Blank, Blank, Blank, Blank
+AddWall External, FencesRight2, GlassFences, 0, %EasternmostEnd%, -158 + 30, %EasternmostEnd%, 186, 8, 8, 5, 5, 0, 0
+TextureOverride GlassFences2, GlassFences, Blank, Blank, Blank, Blank
+AddWall External, FencesRight3, GlassFences, 0, %EasternmostEnd%, 273, %EasternmostEnd%, 465, 8, 8, 5, 5, 0, 0
+TextureOverride GlassFences2, GlassFences, Blank, Blank, Blank, Blank
+AddWall External, FencesRight4, GlassFences, 0, %EasternmostEnd%, 495, %EasternmostEnd%, 526, 8, 8, 5, 5, 0, 0
+SetAutoSize = true, true
+
+#Building foundations
+	#Sapphire Sea Tower
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, Sapphire_Foundation, Concrete1, 0, 0 - %1% - 40, 0 - %2% - 8, 0 + %1%, 0 + %2% + 8, Floor(0).Base, Floor(0).Base, 0, 0, 0, 0
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall landscape, Sapphire_Foundation_Divider, Sidewalk, 0, %1%, -%2% - 8, %1%, %2% + 8, 8, 8, Floor(0).Base, Floor(0).Base, 0, 0
+
+##--------------------------------------------------------------------------------##
+
+#Other buildings
+	Set LowerOffset = Floor(0).Base
+	Set UpperOffset = 5
+
+	#Inside the hotel compound
+	#CreateBldgFacade(NortheastBldg, 600, 420, 150, 80, 72, %UpperOffset%, MainWindows3, 6, Concrete1A)
+
+	#Outside the hotel compound
+	#South
+	CreateBldgFacade(UnknownBldgS1, 80, -300, 165, 50, 36, %UpperOffset%, MainWindows2, 3, Concrete1)
+	CreateBldgFacade(UnknownBldgS2, 450, -300, 165, 50, 36, %UpperOffset%, MainWindows2, 3, Concrete1)
+	CreateBldgFacade(UnknownBldgS3, 80, -580, 165, 50, 48, %UpperOffset%, MainWindows4, 4, Concrete1)
+	CreateBldgFacade(UnknownBldgS4, 450, -580, 165, 50, 48, %UpperOffset%, MainWindows4, 4, Concrete1)
+
+	#East
+	CreateBldgFacade(RandomBldgE1, 1070, 0, 50, 185, 60, %UpperOffset%, MainWindows4, 5, Concrete1)
+	CreateBldgFacade(RandomBldgE2, 1070, 420, 50, 185, 60, %UpperOffset%, MainWindows4, 5, Concrete1)
+
+	CreateBldgFacade(RandomBldgE3, 1500, 0, 50, 185, 60, %UpperOffset%, MainWindows2, 5, Concrete1)
+	CreateBldgFacade(RandomBldgE4, 1500, 420, 50, 185, 60, %UpperOffset%, MainWindows2, 5, Concrete1)
+
+	CreateBldgFacade(RandomBldgE5, 2000, 0, 50, 185, 60, %UpperOffset%, MainWindows3, 5, Concrete1A)
+	CreateBldgFacade(RandomBldgE6, 2000, 420, 50, 185, 60, %UpperOffset%, MainWindows3, 5, Concrete1A)
+
+
+	#North
+	CreateBldgFacade(UnknownBldgN1, -20, 780, 250, 50, 36, %UpperOffset%, MainWindows4, 3, Concrete1)
+	CreateBldgFacade(UnknownBldgN2, 500, 780, 250, 50, 36, %UpperOffset%, MainWindows4, 3, Concrete1)
+	CreateBldgFacade(MiscBldgN3, -20, 1350, 250, 50, 36, %UpperOffset%, MainWindows4, 3, Concrete1)
+	CreateBldgFacade(MiscBldgN4, 500, 1350, 250, 50, 36, %UpperOffset%, MainWindows4, 3, Concrete1)
+
+
+	#Far southeast
+	CreateBldgFacade(OtherBldg-FarSE1, 1500, -1000, 50, 165, 36, %UpperOffset%, MainWindows5, 3, Concrete1A)
+	CreateBldgFacade(OtherBldg-FarSE2, 1500, -1000 + 420, 50, 165, 36, %UpperOffset%, MainWindows5, 3, Concrete1A)
+
+##--------------------------------------------------------------------------------##
+
+	#Cut for beach and sea
+	DrawWalls = true, true, false, false, false, false
+
+	Set SeaLevel = Floor(0).Base - 2
+
+	Cut Landscape, -80000, 5 - 1, -158400, %BeachEndpoint%, 5 + 1, 100000, false, true
+	AddFloor landscape, Sea, Seawater, 0, -80000, -158400, %BeachEndpoint% - 50, 100000, %SeaLevel%, %SeaLevel%, 0, 0
+	#AddFloor landscape, Beach, Sand, 0, %BeachEndpoint% - 50, -158400, %BeachEndpoint%, 100000, %SeaLevel%, Floor(0).Base, 0, 0
+
+	#Due to an unknown bug with ReverseAxis, I have to resort to creating a wall instead of a floor for the beach.
+	WallOrientation = left
+	DrawWalls = false, false, false, false, true, false
+	AddWall landscape, Beach, Sand, 258400, %BeachEndpoint% - 50, -158400, %BeachEndpoint%, -158400, 0, 2, %SeaLevel%, %SeaLevel%, 0, 0
+
+	#Lobby ramps (East of Sapphire Sea Tower lobby)
+	Set RampInitialPos = 0
+	Set RampLength = 161
+
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, LobbyRamp_SidewalkTop, Sidewalk, 1.5, %1% + 8, -%2% + 27 - 24, %1% + 20, %RampInitialPos%, Floor(2).Base, Floor(2).Base, 0, 0
+	AddFloor landscape, LobbyRamp_EntranceRoadTop1, SapphireLobbyRoad, 1.5, %1% + 20, -%2% + 27, %1% + 20 + 24, %RampInitialPos%, Floor(2).Base, Floor(2).Base, 0, 0
+	AddFloor landscape, LobbyRamp_EntranceRoadTop2, Road, 1.5, %1% + 20, -%2% + 27 - 24, %1% + 20 + 24, -%2% + 27, Floor(2).Base, Floor(2).Base, 0, 0
+
+	AddFloor landscape, LobbyRamp_ParkingLink, Road, 1.5, %1% + 20 + 24, -90, 131, -14, Floor(2).Base, Floor(2).Base, 0, 0
+
+	AddFloor landscape, LobbyRamp_SidewalkSlope, Sidewalk, 1.5, %1% + 10, %RampInitialPos%, %1% + 20, %RampInitialPos% + %RampLength%, Floor(2).Base, 5, 0, 0
+	AddFloor landscape, LobbyRamp_EntranceRoadSlope, SapphireLobbyRoad, 1.5, %1% + 20, %RampInitialPos%, %1% + 20 + 24, %RampInitialPos% + %RampLength%, Floor(2).Base, 5, 0, 0
+	AddFloor landscape, LobbyRamp_EntranceRoadEnd, SapphireLobbyRoad, 1.5, %1% + 20, %2%, %1% + 20 + 24, %2% + 40, 5, 5, 0, 0
+	AddFloor landscape, LobbyRamp_SidewalkEnd1, Sidewalk, 1.5, %1%, %2%, %1% + 20, %2% + 40, 5, 5, 0, 0
+	AddFloor landscape, LobbyRamp_SidewalkEnd2, Sidewalk, 1.5, %1% + 44, %2%, %1% + 54, %2% + 40, 5, 5, 0, 0
+
+	DrawWalls = true, false, false, false, false, false
+	AddFloor landscape, LobbyRamp_Top_Underside, Concrete1A, 1.5, %1% + 8, -%2% + 27 - 24, %1% + 20 + 24, %RampInitialPos%, Floor(2).Base, Floor(2).Base, 0, 0
+	AddFloor landscape, LobbyRamp_Slope_Underside, Concrete1A, 1.5, %1% + 10, %RampInitialPos%, %1% + 20 + 24, %RampInitialPos% + %RampLength%, Floor(2).Base, 5, 0, 0
+	AddFloor landscape, LobbyRamp_ParkingLink_Underside, Concrete1A, 1.5, %1% + 20 + 24, -90, 131, -14, Floor(2).Base, Floor(2).Base, 0, 0
+
+	#Due to an unknown bug with ReverseAxis, I have to resort to creating a wall instead of a floor for this portion of ramp.
+	WallOrientation = right
+	DrawWalls = false, false, false, false, true, false
+	AddWall landscape, LobbyRamp_ExitRoadSlope, SapphireLobbyRoad2, 24, %1% + 44, -%2% + 27, %1% + 44 + %RampLength%, -%2% + 27, 16, 0, 5, 5, 0, 0
+	DrawWalls = false, false, false, false, false, true
+	AddWall landscape, LobbyRamp_ExitRoadSlope_Underside, Concrete1A, 24, %1% + 44, -%2% + 27, %1% + 44 + %RampLength%, -%2% + 27, 1, 1, Floor(2).Altitude, 5 - Floor(2).InterfloorHeight, 0, 0
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, LobbyRamp_ExitRoad1, Road, 0, %1% + 44 + %RampLength%, -%2% + 27 - 24, 349, -%2% + 27, 5, 5, 0, 0
+
+	AddFloor landscape, ParkingAccessRoad1, Road, 0, %1% + 44 + %RampLength% + 24, -%2% + 27, %1% + 44 + %RampLength% + 24 + 48, -%2% + 27 + 20, 5, 5, 0, 0
+	AddFloor landscape, ParkingAccessRoad2, ParkingGarageEntranceRoad, 0, %1% + 44 + %RampLength% + 24, -%2% + 27 + 20, %1% + 44 + %RampLength% + 24 + 48, %2% + 40, 5, 5, 0, 0
+
+	#Traffic circle, southeast of parking garage
+	AddFloor landscape, Parking_Circle, TrafficCircle, 0, (349 - 24) - 5.5, -136 - 1 - 8, (349 - 24) + 5.5, -136 - 1 + 8, 5 + 0.01, 5 + 0.01, 0, 0
+
+		#Cornering at traffic cercle
+		DrawWalls = true, false, false, false, false, false
+		AddCustomFloor landscape, Cornering_Road, Road, 301, -134, 291, -134, 301, -124, 5, 0, 0
+		AddCustomFloor landscape, Cornering_Sidewalk, Sidewalk, 291, -134, 291, -124, 301, -124, 5, 0, 0
+
+	#Roof at lobby ramp
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride LbyRampRF_Ceiling, LbyRampRF_Ceiling, LbyRampRF_Ceiling2, LbyRampRF_Ceiling2, LbyRampRF_Ceiling2, LbyRampRF_Ceiling2
+	AddFloor external, LobbyRampCeiling, LbyRampRF_Ceiling, Floor(4).InterfloorHeight, 0 + 72 + 8, -90.6, 116 + 5, -13.4, Floor(4).Base, Floor(4).Base, 0, 0
+
+#Block filler (Also parking lots around some buildings)
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, WestBlk1A, Sidewalk2A, 0, %BeachEndpoint%, -%2% - 20, -536, %2% + 40 - 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestBlk1B, Grass, 0, -536, -%2% - 20, -%1% - 50 - 275, %2% + 40 - 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Sapphire_PoolArea, Sidewalk3, 0, -%1% - 50 - 275, -%2% - 20, -%1% - 50, %2% + 40 - 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestBlk_Sidewalk, Sidewalk, 0, %BeachEndpoint%, %2% + 40 - 15, -%1% - 50, %2% + 40, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, East Block Filler, Sidewalk, 0, %1% + 54, -%2% + 27 + 10, %1% + 44 + 161 + 24, %2% + 40, 5, 5, 0, 0
+
+	AddFloor landscape, NorthBlk1, Sidewalk2A, 0, %BeachEndpoint%, %NorthernmostEnd% - 400, -536, 478 + 90 + 10, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlk1A, Sidewalk, 0, -536, %NorthernmostEnd% - 400, -480, 368, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlk1B, Sidewalk3A, 0, -536, 368, -480, 478 + 90 + 10, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlk1C, Grass, 0, -480, %NorthernmostEnd% - 400, -92, 478 + 90 + 10, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, NorthBlk1B1, Sidewalk, 0, %BeachEndpoint%, 478 + 90 + 10, -212 - 100, 478 + 90 + 30, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, MonicaWing_ActivityLot, WoodenFloor2, 0, %BeachEndpoint%, 478 + 90 + 30, -212 - 100, %NorthernmostEnd% - 20, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlk1B3, Sidewalk, 0, %BeachEndpoint%, %NorthernmostEnd% - 20, -212 - 100, %NorthernmostEnd%, Floor(0).Base, Floor(0).Base, 0, 0
+
+
+	AddFloor landscape, NorthBlk1C, Sidewalk, 0, -92, 273, -72, 370, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlk1D, Sidewalk, 0, -92, 370, -72, 578, Floor(0).Base, Floor(0).Base, 0, 0
+
+
+	AddFloor landscape, NorthBlkFil2-Link, Sidewalk, 0, -%1%, %NorthernmostEnd% - 400, %1%, %NorthernmostEnd% - 400 + 8, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NorthBlkFil2, Grass, 0, -%1%, %NorthernmostEnd% - 400 + 8, %1% - 16, 526 - 138 - 10, Floor(0).Base, Floor(0).Base, true, false, 0, 0
+	AddFloor landscape, NorthBlkFil2A1, Sidewalk, 0, -%1%, 526 - 138 - 10, %1% - 16, 526 - 138, Floor(0).Base, Floor(0).Base, true, false, 0, 0
+	AddFloor landscape, NorthBlkFil2A2, Grass, 0, %1% - 16, %NorthernmostEnd% - 400 + 8, %1%, 526 - 138 - 10, Floor(0).Base, 5, true, false, 0, 0
+
+
+	AddFloor landscape, MonicaWingParkingLot_Main, Road, 0, -82 + 10, 526 - 138, 66, %NorthernmostEnd%, Floor(0).Base, Floor(0).Base, true, false, 0, 0
+	AddFloor landscape, MonicaWingParkingLot_Main2, Road, 0, -212 - 100, 478 + 90 + 10, -212 + 120 + 10 + 10, %NorthernmostEnd%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, MonicaWingParkingLot_Extra, Road, 0, 66, 526 - 138, 72, 526, Floor(0).Base, Floor(0).Base, true, false, 0, 0
+
+	AddFloor landscape, NorthBlkFil3, Sidewalk, 0, %1%, %NorthernmostEnd% - 400, 130, 388, 5, 5, 0, 0
+	AddFloor landscape, NorthBlkFil3A, Sidewalk, 0, %1%, 388, 130, 526, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, NorthBlkFil4A, Sidewalk, 0, 130, %NorthernmostEnd% - 400, 130 + 15, 526, 5, 5, 0, 0
+	AddFloor landscape, NorthBlkFil4B, Grass, 0, 130 + 15, %NorthernmostEnd% - 400, %EasternmostEnd%, 526, 5, 5, 0, 0
+
+	AddFloor landscape, SEBlockFillerA1, Sidewalk, 0, 349, -%2% + 27 - 24, 362, -48 + 20, 5, 5, 0, 0
+	AddFloor landscape, SEBlockFillerA_PKEntrance, Road, 0, 349, -48 + 20, 349 + 15, -48 + 20 + 24, 5, 5, 0, 0
+	AddFloor landscape, SEBlockFillerA2, Sidewalk, 0, 349, -48 + 20 + 24, 349 + 15, %2% + 40 - 15, 5, 5, 0, 0
+
+	AddFloor landscape, SEBlockFillerB1, Sidewalk, 0, 362, -128, 358 + 250, -48 + 20, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing-ParkingLotA, Road, 0, 364, -48 + 20, 358 + 250 - 10, %2% + 40 - 15 - 75, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing-ParkingLotB, Road, 0, 358 + 250 - 10 - 30, %2% + 40 - 15 - 75, 358 + 250 - 10, %2% + 40 - 15, 5, 5, 0, 0
+
+	AddFloor landscape, AutumnWing-Garden1, Grass, 0, 364, %2% + 40 - 15 - 65, (385 + 80) - 7.5, %2% + 40 - 15, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing-GardenPath-Center, Sidewalk, 0, (385 + 80) - 7.5, %2% + 40 - 15 - 65, (385 + 80) + 7.5, %2% + 40 - 15, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing-Garden2, Grass, 0, (385 + 80) + 7.5, %2% + 40 - 15 - 65, 568 - 10, %2% + 40 - 15, 5, 5, 0, 0
+
+	AddFloor landscape, AutumnWing-GardenPath-Front, Sidewalk, 0, 364, %2% + 40 - 15 - 75, 568 - 10, %2% + 40 - 15 - 65, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing-GardenPath-Right, Sidewalk, 0, 568 - 10, %2% + 40 - 15 - 75, 568, %2% + 40 - 15, 5, 5, 0, 0
+
+
+	AddFloor landscape, SEBlockFillerB2B, Sidewalk, 0, 358 + 250 - 10, -48 + 20, 358 + 250, %2% + 40 - 15, 5, 5, 0, 0
+	AddFloor landscape, SEBlockFillerC, Grass, 0, 358 + 250, -%2% + 27 - 24, %EasternmostEnd%, %2% + 40 - 15, 5, 5, 0, 0
+
+	AddFloor landscape, SoutheastBlk_Sidewalk1, Sidewalk, 0, 349, %2% + 40 - 15, 598 - 30, %2% + 40, 5, 5, 0, 0
+	AddFloor landscape, AutumnWing_ParkingEntrance, Road, 0, 598 - 30, %2% + 40 - 15, 598, %2% + 40, 5, 5, 0, 0
+	AddFloor landscape, SoutheastBlk_Sidewalk2, Sidewalk, 0, 598, %2% + 40 - 15, %EasternmostEnd%, %2% + 40, 5, 5, 0, 0
+
+#Road
+	AddFloor landscape, Main Road 1A, Road, 0, %BeachEndpoint%, %NorthernmostEnd% - 400 - 12 - 60, %BeachEndpoint% + 55, %NorthernmostEnd% - 400 - 12, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Main Road 1B, MainRoad, 0, %BeachEndpoint% + 55, %NorthernmostEnd% - 400 - 12 - 60, -%1%, %NorthernmostEnd% - 400 - 12, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Main Road 2, MainRoad, 0, -%1%, %NorthernmostEnd% - 400 - 12 - 60, %1%, %NorthernmostEnd% - 400 - 12, Floor(0).Base, 5, true, false, 0, 0
+	AddFloor landscape, Main Road 3A, MainRoad, 0, %1%, %NorthernmostEnd% - 400 - 12 - 60, 92, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+	AddFloor landscape, Main Road 3B, Road, 0, 92, %NorthernmostEnd% - 400 - 12 - 60, 92 + 24, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+
+	AddFloor landscape, Main Road 4A, MainRoad, 0, 92 + 24, %NorthernmostEnd% - 400 - 12 - 60, 301, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+	AddFloor landscape, Main Road 4B, Road, 0, 301, %NorthernmostEnd% - 400 - 12 - 60, 301 + 48, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+	AddFloor landscape, Main Road 4C, MainRoad, 0, 301 + 48, %NorthernmostEnd% - 400 - 12 - 60, %EasternmostEnd% - 50, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+	AddFloor landscape, Main Road 4D, Road, 0, %EasternmostEnd% - 50, %NorthernmostEnd% - 400 - 12 - 60, %EasternmostEnd%, %NorthernmostEnd% - 400 - 12, 5, 5, 0, 0
+
+	#Barriers at Road Endpoint
+	CreateWallBox2 landscape, Barrier1, Barrier, %BeachEndpoint%, 203, 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier2, Barrier, %BeachEndpoint%, 203 + (5.5 * 1), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier3, Barrier, %BeachEndpoint%, 203 + (5.5 * 2), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier4, Barrier, %BeachEndpoint%, 203 + (5.5 * 3), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier5, Barrier, %BeachEndpoint%, 203 + (5.5 * 4), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier6, Barrier, %BeachEndpoint%, 203 + (5.5 * 5), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier7, Barrier, %BeachEndpoint%, 203 + (5.5 * 6), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier8, Barrier, %BeachEndpoint%, 203 + (5.5 * 7), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier9, Barrier, %BeachEndpoint%, 203 + (5.5 * 8), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier10, Barrier, %BeachEndpoint%, 203 + (5.5 * 9), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+	CreateWallBox2 landscape, Barrier11, Barrier, %BeachEndpoint%, 203 + (5.5 * 10), 1, 1, 5, Floor(0).Base, 0, 0, false, true, true, false
+
+#Sidewalks
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, North Road Sidewalk 1, Sidewalk, 0, %BeachEndpoint%, %NorthernmostEnd% - 400 - 12, -%1%, %NorthernmostEnd% - 400, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, North Road Sidewalk 2, Sidewalk, 0, -%1%, %NorthernmostEnd% - 400 - 12, %1%, %NorthernmostEnd% - 400, Floor(0).Base, 5, true, false, 0, 0
+
+	AddFloor landscape, North Road Sidewalk 3, Sidewalk, 0, %1%, %NorthernmostEnd% - 400 - 12, %EasternmostEnd%, %NorthernmostEnd% - 400, 5, 5, 0, 0
+
+
+	AddFloor landscape, Level 2 Ent. Sidewalk Main, LobbyFloor_Ext, 0, %1% + 8, -73, %1% + 25 + 0.5, -51, Floor(1).Base, Floor(1).Base, 0, 0
+	AddFloor landscape, Level 2 Ent. Sidewalk Ramp 1, LobbyFloor_Ext, 0, %1% + 15, -51, %1% + 25, -51 + 45, Floor(1).Base, 5, 0, 0
+
+	ReverseAxis = true
+	DrawWalls = true, false, false, false, false, false
+	AddFloor landscape, L2_NewRamp, LobbyFloor_Ext, 0, %1% + 8, -79.5 - 8, %1% + 8 + 33.36, -79.5, Floor(1).Base, 5, 0, 0
+	ReverseAxis = false
+
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, EastWalkA, Sidewalk2A, 0, %1%, -%2% - 8, %1% + 54, %2%, 5, 5, 0, 0
+	AddFloor landscape, EastWalkB, Sidewalk, 0, %1%, -%2% - 20, %1% + 8, -%2% - 8, 5, 5, 0, 0
+	AddFloor landscape, EastWalkC, Sidewalk2A, 0, %1% + 8, -%2% - 20, %1% + 54, -%2% - 8, 5, 5, 0, 0
+
+	AddFloor landscape, Southeast Sidewalk, Sidewalk, 0, %1% + 54, -%2% - 20, %1% + 44 + 161, -%2% + 27 + 10, 5, 5, 0, 0
+	AddFloor landscape, Southeast Sidewalk 2, Sidewalk, 0, %1% + 44 + 161, -%2% - 20, %EasternmostEnd%, -%2% + 27 - 24, 5, 5, 0, 0
+	AddFloor landscape, Southeast Sidewalk 3, Sidewalk, 0, %1% + 44 + 161, -%2% + 27, %1% + 44 + 161 + 24 - 10, -%2% + 27 + 10, 5, 5, 0, 0
+	AddFloor landscape, North Sidewalk, Sidewalk, 0, -%1%, %2% + 8, %1%, %2% + 20, Floor(0).Base, Floor(0).Base, 0, 0
+	#ReverseAxis = true
+	#AddFloor external, North Sidewalk 2, Sidewalk, 0, -%1%, %2% + 20, %1%, %2% + 40, Floor(0).Base, 5, 0, 0
+	#ReverseAxis = false
+
+	#Due to an unknown bug with ReverseAxis, I have to resort to creating a wall instead of a floor for this portion of sidewalk.
+	WallOrientation = left
+	DrawWalls = false, false, false, false, true, false
+	AddWall landscape, North Sidewalk 2, Sidewalk, 20, -%1%, %2% + 20, %1%, %2% + 20, 0, 8, Floor(0).Base, Floor(0).Base, 0, 0
+
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, South Sidewalk, Sidewalk, 0, -%1%, -%2% - 20, %1%, -%2% - 8, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, West Sidewalk, Sidewalk, 0, -%1% - 50, -%2% - 20, -%1% - 40, %2% + 40, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestSW-Extension-A, Sidewalk, 0, -%1% - 40, -%2% - 20, -%1%, -%2% - 8, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestSW-Extension-B, Sidewalk, 0, -%1% - 40, %2% + 8, -%1%, %2% + 40, Floor(0).Base, Floor(0).Base, 0, 0
+
+#Railings at 2nd floor entrance (Sapphire Sea Tower)
+	Set FenceThickness = 0.5
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, Level2EntRail-R1, BrickFences2, %FenceThickness%, %1% + 8, -79.5, %1% + 8 + 33.36, -79.5, 4 + 3, 3, 5, 5, 0, 0
+	#AddWall landscape, Level2EntRail-R2, BrickFences2, %FenceThickness%, %1% + 25, -73, %1% + 25, -51, 4 + 3, 4 + 3, 5, 5, 0, 0
+	AddWall landscape, Level2EntRail-R3, BrickFences2, %FenceThickness%, %1% + 25, -51, %1% + 25, -51 + 45, 4 + 3, 3, 5, 5, 0, 0
+
+	WallOrientation = right
+	AddWall landscape, Level2NewRamp-Railing2, BrickFences2, %FenceThickness%, %1% + 8, -79.5 - 8, %1% + 8 + 33.36, -79.5 - 8, 4 + 3, 3, 5, 5, 0, 0
+	AddWall landscape, Level2EntRail-L2, BrickFences2, %FenceThickness%, %1% + 8, -73, 97.5, -73, 4 + 3, 4 + 3, 5, 5, 0, 0
+	AddWall landscape, Level2EntRail-L3, BrickFences2, %FenceThickness%, %1% + 15, -51, %1% + 15, -51 + 45, 4 + 3, 3, 5, 5, 0, 0
+
+	WallOrientation = left
+	AddWall landscape, Level2EntRail-L4, BrickFences2, %FenceThickness%, %1% + 8, -51, %1% + 15 - %FenceThickness%, -51, 4 + 3, 4 + 3, 5, 5, 0, 0
+
+##--------------------------------------------------------------------------------##
+
+#Fences around Sapphire Sea Tower and lobby entrance/exit roads
+	Set FenceThickness = 0.6
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, NorthFences, BrickFences, %FenceThickness%, -%1%, %2% + 20, %1%, %2% + 20, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NortheastFencesA, BrickFences, %FenceThickness%, %1%, %2% + 8, %1%, 172.4 - 0.5, 8 + 3, 8 + 3, Floor(0).Base, Floor(0).Base, 0, 0
+	DrawWalls = true, true, true, true, false, false
+	AddWall landscape, NortheastFencesB, BrickFences, %FenceThickness%, %1%, 172.4 - 0.5, %1%, 180.4, 8, 8, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, SoutheastFencesA, BrickFences, %FenceThickness%, %1%, -%2% - 20, %1%, -%2% - 20 + 8 + 0.5, 8, 8, Floor(0).Base, Floor(0).Base, 0, 0
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, SoutheastFencesB, BrickFences, %FenceThickness%, %1%, -%2% - 20 + 8 + 0.5, %1%, -%2% - 8, 8 + 3, 8 + 3, Floor(0).Base, Floor(0).Base, 0, 0
+
+	#Lobby entrance road
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, LobbyRamp-EntrFences-L1, BrickFences, %FenceThickness%, %1% + 10, 0, %1% + 10, %2%, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, 5 - 1.5, 0, 0
+	WallOrientation = left
+	AddWall landscape, LobbyRamp-EntrFences-L2, BrickFences, %FenceThickness%, %1% + 8, 0, %1% + 10 - %FenceThickness%, 0, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+	AddWall landscape, LobbyRamp-EntrFences-R1, BrickFences, %FenceThickness%, %1% + 44, 0, %1% + 44, %2%, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, 5 - 1.5, 0, 0
+
+	AddWall landscape, LobbyRamp-EntrFences-R2A, BrickFences, %FenceThickness%, %1% + 44, -14, %1% + 44, 0, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+	AddWall landscape, LobbyRamp-EntrFences-R2B, BrickFences, %FenceThickness%, %1% + 44, -%2% + 27 + %FenceThickness%, %1% + 44, -90, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+
+	#Parking garage connector
+	AddWall landscape, Lobby-ParkingLink-Fences1, BrickFences, %FenceThickness%, 116 + %FenceThickness%, -14, 131, -14, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+
+	WallOrientation = right
+	AddWall landscape, Lobby-ParkingLink-Fences2, BrickFences, %FenceThickness%, 116 + %FenceThickness%, -90, 131, -90, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+
+	#Lobby Exit road
+	AddWall landscape, LobbyRamp-ExitFences-F1, BrickFences, %FenceThickness%, %1% + 8, -%2% + 27 - 24, %1% + 44, -%2% + 27 - 24, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, Floor(2).Altitude, 0, 0
+	AddWall landscape, LobbyRamp-ExitFences-F2, BrickFences, %FenceThickness%, %1% + 44, -%2% + 27 - 24, %1% + 44 + %RampLength%, -%2% + 27 - 24, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, 5 - 1.5, 0, 0
+	WallOrientation = left
+	AddWall landscape, LobbyRamp-ExitFences-B, BrickFences, %FenceThickness%, %1% + 44, -%2% + 27, %1% + 44 + %RampLength%, -%2% + 27, Floor(2).InterfloorHeight + 3.5, Floor(2).InterfloorHeight + 3.5, Floor(2).Altitude, 5 - 1.5, 0, 0
+
+#Map dividers
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, NorthMapFences1, BrickFences, %FenceThickness%, %BeachEndpoint%, %NorthernmostEnd%, -%1%, %NorthernmostEnd%, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NorthMapFences2, BrickFences, %FenceThickness%, -%1%, %NorthernmostEnd%, 66, %NorthernmostEnd%, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	#AddWall landscape, NorthMapFences3, BrickFences, %FenceThickness%, %1%, %NorthernmostEnd%, 130, %NorthernmostEnd%, 16, 16, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NorthMapFences3, BrickFences, %FenceThickness%, 66, 526 + %FenceThickness%, 66, %NorthernmostEnd% + %FenceThickness%, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NorthMapFences4, BrickFences, %FenceThickness%, 66, 526, 114, 526, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NorthMapFences5, BrickFences, %FenceThickness%, 114, 526, 130, 526, 8 + 3.5, 16, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, NorthMapFences6, BrickFences, %FenceThickness%, 130, 526, %EasternmostEnd%, 526, 8, 8, 5, 5, 0, 0
+
+	WallOrientation = right
+	#AddWall landscape, SouthMapFences, BrickFences, %FenceThickness%, %BeachEndpoint%, -%2% - 20, %1%, -%2% - 20, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, SouthMapFences1, BrickFences, %FenceThickness%, %BeachEndpoint%, -%2% - 20, %1% - 16, -%2% - 20, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, SouthMapFences2, BrickFences, %FenceThickness%, %1% - 16, -%2% - 20, %1%, -%2% - 20, 8 + 3.5, 16, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, SouthMapFences3, BrickFences, %FenceThickness%, %1%, -%2% - 20, %EasternmostEnd%, -%2% - 20, 8, 8, 5, 5, 0, 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddWall landscape, DowntownBeachDivider-S, BrickFences, %FenceThickness%, %BeachEndpoint%, -158400, %BeachEndpoint%, -%2% - 20 - %FenceThickness%, 8, 8, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, DowntownBeachDivider-N, BrickFences, %FenceThickness%, %BeachEndpoint%, %NorthernmostEnd% + %FenceThickness%, %BeachEndpoint%, 158400, 8, 8, Floor(0).Base, Floor(0).Base, 0, 0
+
+#Auto areas at Sapphire Sea Tower entrances.
+	#This ensures that the entrance levels are automatically enabled :
+		# * In case you fall down OR
+		# * When traversing the lobby ramp OR
+		# * When using the Landscape Transition Stairs
+
+	AddFloorAutoArea -%1% - 50, Floor(0).Base, -%2%, -%1% - 40, Floor(3).Altitude, %2% #West
+	AddFloorAutoArea %1% + 8, 5, -%2%, %1% + 20 + 24, Floor(3).Altitude, %2% #East
+
+	AddFloorAutoArea -%1%, Floor(0).Base, -%2% - 20, %1%, Floor(2).Altitude, -%2% - 8 #South
+	AddFloorAutoArea -%1%, Floor(0).Base, %2% + 8, %1%, Floor(2).Altitude, %2% + 20 #North
+
+##--------------------------------------------------------------------------------##
+
+#Landscape transition stairs (Sapphire Sea Tower)
+	Set LTSOffset = Floor(0).Base
+	OP_Draw(true, true, true, true, false, false)
+	OP_OrthoStair(landscape, Sapphire-LTStairsSouth, Sidewalk, -181, -173, left, 56, 16, 1, 0.5, %LTSOffset%, 0.5)
+	OP_OrthoStair(landscape, Sapphire-LTStairsNorth, Sidewalk, 180.4 - 8, 180.4, left, 56, 16, 1, 0.5, %LTSOffset%, 0.5)
+
+#Fence next to landscape transition stairs
+	Set FenceThickness = 0.5
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, LTStairsFences-South, BrickFences, %FenceThickness%, %1% - 16, -%2% - 20 + 8, %1%, -%2% - 20 + 8, 3 + 0.5, 3 + 0.5, Floor(0).Base - 0.5, 5 - 0.5, 0, 0
+
+	WallOrientation = right
+	AddWall landscape, LTStairsFences-North, BrickFences, %FenceThickness%, %1% - 16, 180.4 - 8, %1%, 180.4 - 8, 3 + 0.5, 3 + 0.5, Floor(0).Base - 0.5, 5 - 0.5, 0, 0
+
+#2nd floor entrance stairs
+	OP_Draw(true, false, false, false, false, false)
+	OP_OrthoStair(landscape, F2EntStairs, LobbyFloor_Ext, -73, -51, right, 97.5 + 8, 8, 1, 0.5, 5, 0.5)
+
+	#Railings next to stairs
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, F2EntStairs-Rail1, BrickFences2, %FenceThickness%, 97.5, -73, 97.5 + 8, -73, 4 + 3, 3, 5, 5, 0, 0
+	WallOrientation = left
+	AddWall landscape, F2EntStairs-Rail1, BrickFences2, %FenceThickness%, 97.5, -51, 97.5 + 8, -51, 4 + 3, 3, 5, 5, 0, 0
+
+##--------------------------------------------------------------------------------##
+
+#SAPPHIRE SEA TOWER
+#Lobby road supports
+	Set 6A = ExtFacade2 #Support texture
+	Set DistanceZ = 22 #Distance between supports Z
+	Set SupportHeight = 4 + Floor(1).Height + Floor(2).InterfloorHeight
+	Set SupportOffset = 5
+	Set ShowTop = false
+
+	#Row A
+	Set SupportX = %1% + 10 + 1.25
+	CreateWallBox2 landscape, RoadSupportAZ, %6A%, %SupportX%, -158 + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A1, %6A%, %SupportX%, -134 - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A2, %6A%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A3, %6A%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A4, %6A%, %SupportX%, -%2% + (%DistanceZ% * 4) - 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A5, %6A%, %SupportX%, -%2% + (%DistanceZ% * 5) + 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportA-A6, %6A%, %SupportX%, -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	CreateWallBox2 landscape, RoadSupportAX, %6A%, %SupportX%, 0 - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Row B
+	#Set SupportX = %1% + 44 - 1.25
+	Set SupportX = %1% + 44 - 5
+	CreateWallBox2 landscape, RoadSupportBZ, %6A%, %SupportX%, -158 + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A1, %6A%, %SupportX%, -134 - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A2, %6A%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A3, %6A%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A4, %6A%, %SupportX%, -%2% + (%DistanceZ% * 4) - 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A5, %6A%, %SupportX%, -%2% + (%DistanceZ% * 5) + 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportB-A6, %6A%, %SupportX%, -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	CreateWallBox2 landscape, RoadSupportBX, %6A%, %SupportX%, 0 - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Row C
+	Set SupportX = 131 - 1.25
+	CreateWallBox2 landscape, RoadSupportC-A3, %6A%, %SupportX%, -90 + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportC-A4, %6A%, %SupportX%, -%2% + (%DistanceZ% * 4) - 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportC-A5, %6A%, %SupportX%, -%2% + (%DistanceZ% * 5) + 1.5, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, RoadSupportC-A6, %6A%, %SupportX%, -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	CreateWallBox2 landscape, RoadSupportCX, %6A%, %SupportX%, -14 - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+#Lobby roof supports
+	Set 6A = ExtFacade #Support texture
+	Set DistanceZ = 22 #Distance between supports Z
+	Set SupportHeight = Floor(2).Height + Floor(3).FullHeight
+	Set SupportOffset = Floor(2).Base
+	Set ShowTop = false
+
+	Set SupportX = 121 - 1.75
+	CreateWallBox2 external, LbyRoofSupport1, %6A%, %SupportX%, -90.6 + 0.75, 2.5, 1.25, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, LbyRoofSupport2, %6A%, %SupportX%, -65, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, LbyRoofSupport3, %6A%, %SupportX%, -39, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, LbyRoofSupport4, %6A%, %SupportX%, -13.4 - 0.75, 2.5, 1.25, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+##--------------------------------------------------------------------------------##
+
+#Secondary Entrance Road
+	Cut Landscape, 349, 5 - 1, -158, %EasternmostEnd%, 5 + 1, -158 + 30, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, SecondaryEntranceRoad, SecondaryRoad, 0, 349, -158, %EasternmostEnd%, -158 + 30, 5, 5, 0, 0
+
+#Grass north of parking garage
+	Cut Landscape, 216 - 75, 5 - 1, 26 + 135 + 10, 216 + 75, 5 + 1, 26 + 135 + 28, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, PG_Grass2, Grass, 0, 216 - 75, 26 + 135 + 10, 216 + 75, 26 + 135 + 28, 5, 5, 0, 0
+
+	#Trees north of parking garage
+	AddTree(Tree1, 216 - 60, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216 - 40, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216 - 20, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216 + 20, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216 + 40, 26 + 135 + 18, 13.5, 12, 5)
+	AddTree(Tree1, 216 + 60, 26 + 135 + 18, 13.5, 12, 5)
+
+##--------------------------------------------------------------------------------##
+
+#Fences southeast of Monica Beach Wing
+	Set FenceThickness = 0.5
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, MonicaFences1, BrickFences, %FenceThickness%, -%1%, 273, %1%, 273, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, MonicaFences2, BrickFences, %FenceThickness%, %1% - 16, 273 + 8, %1%, 273 + 8, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, MonicaFences3, BrickFences2, %FenceThickness%, %1% - 16, 388, %1%, 388, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, MonicaFences4, BrickFences2, %FenceThickness%, 72, 388, 72, 388 + 16, 8 + 3.5, 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	WallOrientation = right
+	AddWall landscape, MonicaFences5, BrickFences2, %FenceThickness%, %1% - 16, 378, %1%, 378, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+
+	
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, Monica_PLotEntrance_Fence1, BrickFences2, %FenceThickness%, 130, 388, 130, 526 - 8, 8 + 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	WallOrientation = right
+	AddWall landscape, Monica_PLotEntrance_Fence2, BrickFences2, %FenceThickness%, 82, 388, 82, 388 + 80, 8 + 3.5, 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+	AddWall landscape, Monica_PLotEntrance_Fence3, BrickFences2, %FenceThickness%, 130 - 16, 526 - 8, 130, 526 - 8, 3.5, 8 + 3.5, Floor(0).Base, Floor(0).Base, 0, 0
+
+#Landscape transition stairs (Monica Beach Wing)
+	Set LTSOffset = Floor(0).Base
+	OP_Draw(true, true, true, true, false, false)
+	OP_OrthoStair(landscape, Monica-LTStairs1, Sidewalk, 273.5, 281, left, 56, 16, 1, 0.5, %LTSOffset%, 0.5)
+	OP_OrthoStair(landscape, Monica-LTStairs2, Sidewalk, 378, 388, left, 56, 16, 1, 0.5, %LTSOffset%, 0.5)
+	OP_OrthoStair(landscape, Monica-LTStairs3, Sidewalk, 72, 81.5, back, 404, 16, 1, 0.5, %LTSOffset%, 0.5)
+	OP_OrthoStair(landscape, Monica-LTStairs4, Sidewalk, 526 - 8, 526, left, 130 - 16, 16, 1, 0.5, %LTSOffset%, 0.5)
+
+#Paths from Monica Beach Wing to hotel entrance (from street), Emerald Wing, and other ares in the hotel
+	Cut Landscape, 145, 5 - 1, 480 - 15, %EasternmostEnd%, 5 + 1, 480 + 15, false, true
+	Cut Landscape, 315 - 10, 5 - 1, 273, 315 + 10, 5 + 1, 480 - 15, false, true
+	Cut Landscape, 315 + 10, 5 - 1, 335 - 7.5, 408, 5 + 1, 335 + 7.5, false, true
+	Cut Landscape, 508 - 15, 5 - 1, 373, 508 + 15, 5 + 1, 480 - 15, false, true
+	Cut Landscape, 145, 5 - 1, 335 - 7.5, 315 - 10, 5 + 1, 335 + 7.5, false, true
+
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, Monica_StreetLinkPath1, WoodenFloor, 0, 145, 480 - 15, %EasternmostEnd%, 480 + 15, 5, 5, 0, 0
+	AddFloor landscape, Monica_StreetLinkPath2, WoodenFloor2, 0, 315 - 10, 273, 315 + 10, 480 - 15, 5, 5, 0, 0
+	AddFloor landscape, Monica_EmeraldLink1, Sidewalk, 0, 315 + 10, 335 - 7.5, 408, 335 + 7.55, 5, 5, 0, 0
+	AddFloor landscape, Monica_EmeraldLink2, Sidewalk, 0, 508 - 15, 373, 508 + 15, 480 - 15, 5, 5, 0, 0
+	AddFloor landscape, Monica_EmeraldLink3, WoodenFloor2, 0, 145, 335 - 7.5, 315 - 10, 335 + 7.55, 5, 5, 0, 0
+
+	#Barriers at Path Endpoints
+		#East
+		CreateWallBox2 landscape, MonicaPath_BE1, Barrier, 648, 480 - (6 * 2), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BE2, Barrier, 648, 480 - (6 * 1), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BE3, Barrier, 648, 480, 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BE4, Barrier, 648, 480 + (6 * 1), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BE5, Barrier, 648, 480 + (6 * 2), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+
+		#West
+		CreateWallBox2 landscape, MonicaPath_BW1, Barrier, 147, 480 - (6 * 2), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BW2, Barrier, 147, 480 - (6 * 1), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BW3, Barrier, 147, 480, 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BW4, Barrier, 147, 480 + (6 * 1), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BW5, Barrier, 147, 480 + (6 * 2), 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+
+		#South
+		CreateWallBox2 landscape, MonicaPath_BS1, Barrier, 315 - (6 * 1), 275, 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BS2, Barrier, 315, 275, 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+		CreateWallBox2 landscape, MonicaPath_BS3, Barrier, 315 + (6 * 1), 275, 0.75, 0.75, 3.5, 5, 0, 0, false, true, true, false
+
+	#Trees around paths
+	#Path 1 - Row 1 (From Monica Beach Wing to outside the hotel)
+	AddTree(Tree2, 155, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 20, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 40, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 60, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 80, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 100, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 120, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 140, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 160, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 180, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 200, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 220, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 240, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 260, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 280, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 300, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 300, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 320, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 340, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 360, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 380, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 400, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 420, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 440, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 460, 505, 12, 16, 5)
+	AddTree(Tree2, 155 + 480, 505, 12, 16, 5)
+	
+	#Path 1 - Row 2
+	AddTree(Tree2, 155, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 20, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 40, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 60, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 80, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 100, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 120, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 140, 455, 12, 16, 5)
+
+	AddTree(Tree2, 155 + 180, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 200, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 220, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 240, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 260, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 280, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 300, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 300, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 320, 455, 12, 16, 5)
+	#AddTree(Tree2, 155 + 340, 455, 12, 16, 5)
+	#AddTree(Tree2, 155 + 360, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 380, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 400, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 420, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 440, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 460, 455, 12, 16, 5)
+	AddTree(Tree2, 155 + 480, 455, 12, 16, 5)
+	
+	#Path 2 - Row 1 (From Path 1 to hotel's main street)
+	AddTree(Tree1, 155 + 140, 450 - 20, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 40, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 60, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 80, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 100, 13.5, 12, 5)
+	#AddTree(Tree1, 155 + 140, 450 - 120, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 140 + 10, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 140, 450 - 160 + 5, 13.5, 12, 5)
+
+	#Path 2 - Row 2
+	AddTree(Tree1, 155 + 180, 450 - 20, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 40, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 60, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 80, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 100, 13.5, 12, 5)
+	#AddTree(Tree1, 155 + 180, 450 - 120, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 140 + 10, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 180, 450 - 160 + 5, 13.5, 12, 5)
+	
+	#Path 3 - Row 1 (From Path 1 to Emerald Wing side entrance)
+	#AddTree(Tree2, 155 + 200, 450 - 100, 12, 16, 5)
+	AddTree(Tree2, 155 + 220, 450 - 100, 12, 16, 5)
+	#AddTree(Tree2, 155 + 240, 450 - 100, 12, 16, 5)
+
+	#Path 3 - Row 2
+	#AddTree(Tree2, 155 + 200, 450 - 140 + 5, 12, 16, 5)
+	AddTree(Tree2, 155 + 220, 450 - 140 + 5, 12, 16, 5)
+	#AddTree(Tree2, 155 + 240, 450 - 140 + 5, 12, 16, 5)
+
+	#Path 4 - Row 1 (From Path 1 to Emerald Wing rear entrance)
+	AddTree(Tree1, 155 + 320, 450 - 20, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 320, 450 - 40, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 320, 450 - 60, 13.5, 12, 5)
+
+	#Path 4 - Row 2
+	AddTree(Tree1, 155 + 380, 450 - 20, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 380, 450 - 40, 13.5, 12, 5)
+	AddTree(Tree1, 155 + 380, 450 - 60, 13.5, 12, 5)
+	
+	#Path 5 - Row 1 (From Monica Beach Wing to Paths 2 and 3)
+	#AddTree(Tree2, 155 + 120, 450 - 100, 12, 16, 5)
+	AddTree(Tree2, 155 + 100, 450 - 100, 12, 16, 5)
+	#AddTree(Tree2, 155 + 80, 450 - 100, 12, 16, 5)
+	AddTree(Tree2, 155 + 60, 450 - 100, 12, 16, 5)
+	#AddTree(Tree2, 155 + 40, 450 - 100, 12, 16, 5)
+	AddTree(Tree2, 155 + 20, 450 - 100, 12, 16, 5)
+	#AddTree(Tree2, 155, 450 - 100, 12, 16, 5)
+
+	#Path 5 - Row 2
+	#AddTree(Tree2, 155 + 120, 450 - 140 + 10, 12, 16, 5)
+	AddTree(Tree2, 155 + 100, 450 - 140 + 10, 12, 16, 5)
+	#AddTree(Tree2, 155 + 80, 450 - 140 + 10, 12, 16, 5)
+	AddTree(Tree2, 155 + 60, 450 - 140 + 10, 12, 16, 5)
+	#AddTree(Tree2, 155 + 40, 450 - 140 + 10, 12, 16, 5)
+	AddTree(Tree2, 155 + 20, 450 - 140 + 10, 12, 16, 5)
+	#AddTree(Tree2, 155, 450 - 140 + 10, 12, 16, 5)
+
+##--------------------------------------------------------------------------------##
+
+#PARKING LOT ROAD MARKINGS
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = Floor(0).Base + 0.01
+
+	#MONICA BEACH WING PARKING LOT
+		#East lot
+		AddFloor landscape, MonicaParking1, ParkingSpaceX, 0, -72 + 24, 388 + 24, -72 + 24 + 17, 388 + 24 + (8 * 8), %Offset%, %Offset%, 1, 8
+		AddFloor landscape, MonicaParking2, ParkingSpaceX, 0, -72 + 24 + 17, 388 + 24, -72 + 24 + 34, 388 + 24 + (8 * 8), %Offset%, %Offset%, -1, 8
+		AddFloor landscape, MonicaParking3, ParkingSpaceX, 0, 66 - 23 - 17, 388 + 24, 66 - 23, 388 + 24 + (8 * 8), %Offset%, %Offset%, -1, 8
+		AddFloor landscape, MonicaParking4, ParkingSpaceX, 0, 66 - 23 - 34, 388 + 24, 66 - 23 - 17, 388 + 24 + (8 * 8), %Offset%, %Offset%, 1, 8
+
+		AddFloor landscape, MonicaParking5, ParkingSpaceX, 0, -72 + 24, 476 + 24, -72 + 24 + 17, 476 + 24 + (8 * 18), %Offset%, %Offset%, 1, 18
+		AddFloor landscape, MonicaParking6, ParkingSpaceX, 0, -72 + 24 + 17, 476 + 24, -72 + 24 + 34, 476 + 24 + (8 * 18), %Offset%, %Offset%, -1, 18
+		AddFloor landscape, MonicaParking7, ParkingSpaceX, 0, 66 - 23 - 17, 476 + 24, 66 - 23, 476 + 24 + (8 * 18), %Offset%, %Offset%, -1, 18
+		AddFloor landscape, MonicaParking8, ParkingSpaceX, 0, 66 - 23 - 34, 476 + 24, 66 - 23 - 17, 476 + 24 + (8 * 18), %Offset%, %Offset%, 1, 18
+
+		#North lot
+		AddFloor landscape, MonicaParking9, ParkingSpaceZ, 0, -72 - (8 * 12), 578 + 22, -72, 578 + 22 + 17, %Offset%, %Offset%, 12, 1
+		AddFloor landscape, MonicaParking10, ParkingSpaceZ, 0, -72 - (8 * 12), 578 + 22 + 17, -72, 578 + 22 + 34, %Offset%, %Offset%, 12, -1
+		AddFloor landscape, MonicaParking11, ParkingSpaceZ, 0, -192 - (8 * 12), 578 + 22, -192, 578 + 22 + 17, %Offset%, %Offset%, 12, 1
+		AddFloor landscape, MonicaParking12, ParkingSpaceZ, 0, -192 - (8 * 12), 578 + 22 + 17, -192, 578 + 22 + 34, %Offset%, %Offset%, 12, -1
+
+		AddFloor landscape, MonicaParking13, ParkingSpaceZ, 0, -72 - (8 * 30), 673 - 17, -72, 673, %Offset%, %Offset%, 30, 1
+
+	#AUTUMN WING PARKING LOT (also used by Emerald Wing's occupants)
+	Set Offset = 5 + 0.01
+		AddFloor landscape, AutumnParking1, ParkingSpaceZ, 0, 568 - (8 * 10), 87 - 17, 568, 87, %Offset%, %Offset%, 10, -1
+		AddFloor landscape, AutumnParking2, ParkingSpaceZ, 0, 568 - (8 * 10), 87 - 34, 568, 87 - 17, %Offset%, %Offset%, 10, 1
+		AddFloor landscape, AutumnParking3, ParkingSpaceZ, 0, 568 - (8 * 10), -4 + 17, 568, -4 + 34, %Offset%, %Offset%, 10, -1
+		AddFloor landscape, AutumnParking4, ParkingSpaceZ, 0, 568 - (8 * 10), -4, 568, -4 + 17, %Offset%, %Offset%, 10, 1
+
+		AddFloor landscape, AutumnParking5, ParkingSpaceZ, 0, 464 - (8 * 9), 87 - 17, 464, 87, %Offset%, %Offset%, 9, -1
+		AddFloor landscape, AutumnParking6, ParkingSpaceZ, 0, 464 - (8 * 9), 87 - 34, 464, 87 - 17, %Offset%, %Offset%, 9, 1
+		AddFloor landscape, AutumnParking7, ParkingSpaceZ, 0, 464 - (8 * 9), -4 + 17, 464, -4 + 34, %Offset%, %Offset%, 9, -1
+		AddFloor landscape, AutumnParking8, ParkingSpaceZ, 0, 464 - (8 * 9), -4, 464, -4 + 17, %Offset%, %Offset%, 9, 1
+
+
+##--------------------------------------------------------------------------------##
+
+#Trees around east fences
+	AddTree(Tree2, 630, 175, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 20, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 40, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 60, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 80, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 100, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 120, 12, 16, 5)
+	AddTree(Tree2, 630, 175 - 140, 12, 16, 5)
+
+	AddTree(Tree1, 630, 175 - 165, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 185, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 205, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 225, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 245, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 265, 13.5, 12, 5)
+	AddTree(Tree1, 630, 175 - 285, 13.5, 12, 5)
+	
+##--------------------------------------------------------------------------------##
+
+#AUTUMN WING GARDEN
+	#Trees
+	#Row 1
+	AddTree(Tree1, 385, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 20, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 40, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 60, 170, 13.5, 12, 5)
+
+	#AddTree(Tree1, 385 + 80, 170, 13.5, 12, 5)
+
+	AddTree(Tree1, 385 + 100, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 120, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 140, 170, 13.5, 12, 5)
+	AddTree(Tree1, 385 + 160, 170, 13.5, 12, 5)
+
+	#Row 2
+	AddTree(Tree2, 385, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 20, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 40, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 60, 170 - 30, 12, 16, 5)
+
+	#AddTree(Tree2, 385 + 80, 170 - 30, 12, 16, 5)
+
+	AddTree(Tree2, 385 + 100, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 120, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 140, 170 - 30, 12, 16, 5)
+	AddTree(Tree2, 385 + 160, 170 - 30, 12, 16, 5)
+
+##--------------------------------------------------------------------------------##
+
+
+#Monica Beach Wing entrance road and paths
+	#Paths to 1st floor entrance (and some floor fillers)
+	Cut Landscape, -212 - 72, Floor(0).Base - 1, 273, -212 - 40, Floor(0).Base + 1, 370 - 2, false, true
+	Cut Landscape, -212 - 40, Floor(0).Base - 1, 320 - 15, -212 + 40, Floor(0).Base + 1, 370 - 20, false, true
+	Cut Landscape, -212 + 40, Floor(0).Base - 1, 273, -212 + 72, Floor(0).Base + 1, 370 - 2, false, true
+
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, Monica_EntracePath1, Sidewalk, 0, -212 - 72, 273, -212 - 40, 370 - 2, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_EntracePath2, Sidewalk, 0, -212 - 40, 320 - 15, -212 + 40, 370 - 20, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_EntracePath3, Sidewalk, 0, -212 + 40, 273, -212 + 72, 370 - 2, Floor(0).Base, Floor(0).Base, 0, 0
+
+	Cut Landscape, -212 - 120 - 10, Floor(0).Base - 1, 368, -212 + 120, Floor(0).Base + 1, 388, false, true
+	AddFloor landscape, Monica_EntraceFiller, Sidewalk, 0, -212 - 120 - 10, 368, -212 + 120, 388, Floor(0).Base, Floor(0).Base, 0, 0
+
+	#Link to Main Road
+	Cut Landscape, -480 - 20 - 24, Floor(0).Base - 1, 261, -480 - 20, Floor(0).Base + 1, 320 + 36, false, true
+	Cut Landscape, -480 - 20, Floor(0).Base - 1, 320 + 36 - 24, -480, Floor(0).Base + 1, 320 + 36, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, Monica_EntraceLink, Road, 0, -480 - 20 - 24, 261, -480 - 20, 320 + 36, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_EntraceLink2, Road, 0, -480 - 20, 320 + 36 - 24, -480, 320 + 36, Floor(0).Base, Floor(0).Base, 0, 0
+
+	Cut Landscape, 72 + 20, 5 - 1, 261, 72 + 20 + 24, 5 + 1, 320 + 36, false, true #Cut for Exit Link
+	Cut Landscape, 72, 5 - 1, 320 + 36 - 24, 72 + 20, 5 + 1, 320 + 36, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, Monica_ExitLink, Monica_ParkingEntranceRoad, 0, 72 + 20, 261, 72 + 20 + 24, 320 + 36, 5, 5, 0, 0
+	AddFloor landscape, Monica_ExitLink2, MonicaEntranceRoad2, 0, 72, 320 + 36 - 24, 72 + 20, 320 + 36, 5, 5, 0, 0
+
+	Cut Landscape, 92, Floor(0).Base - 1, 356, 92 + 24, 5 + 1, 388 + 80 + 30, false, true #Cut for Parking Link
+	Cut Landscape, 72, Floor(0).Base - 1, 388 + 80, 92 + 24, 5 + 1, 388 + 80 + 42, false, true
+
+	AddFloor landscape, Monica_ParkingLink_Top, Monica_ParkingEntranceRoad, 0, 92, 356, 92 + 24, 388, 5, 5, 0, 0
+	AddFloor landscape, Monica_ParkingLink_Slope, Monica_ParkingEntranceRoad, 0, 92, 388, 92 + 24, 388 + 80, 5, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_ParkingLink_Slope_SidewalkLeft, Sidewalk, 0, 82, 388, 92, 388 + 80, 5, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_ParkingLink_Slope_SidewalkRight, Sidewalk, 0, 92 + 24, 388, 130, 388 + 80, 5, Floor(0).Base, 0, 0
+
+	AddFloor landscape, Monica_ParkingLink_Bottom1, Road, 0, 72, 388 + 80 + 6, 92 + 24, 388 + 80 + 42, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_ParkingLink_Bottom2, Sidewalk, 0, 72, 388 + 80, 92, 388 + 80 + 6, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Monica_ParkingLink_Bottom3, Monica_ParkingEntranceRoad, 0, 92, 388 + 80, 92 + 24, 388 + 80 + 6, Floor(0).Base, Floor(0).Base, 0, 0
+
+
+	#Road creation
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	ReverseAxis = true
+	TextureOverride Concrete1B, MonicaEntranceRoad, Blank, Blank, Blank, Blank
+	AddFloor landscape, Monica_Entrance, MonicaEntranceRoad, 1.5, -480, 320 + 48, -480 + 120, 320, Floor(0).Base, Floor(1).Base, 0, 0
+	TextureOverride Concrete1B, MonicaEntranceRoad, Blank, Blank, Blank, Blank
+	AddFloor landscape, Monica_Exit, MonicaEntranceRoad, 1.5, 72 - 40, 320 + 48, 72, 320, Floor(1).Base, 5, 0, 0
+	ReverseAxis = false
+	DrawWalls = true, true, false, false, true, false
+	TextureOverride Concrete1B, MonicaEntranceRoad, Blank, Blank, LobbyDeckUnderside, Blank
+	AddFloor landscape, Monica_Main, MonicaEntranceRoad, 1.5, -480 + 120, 320, 72 - 40, 320 + 48, Floor(1).Base, Floor(1).Base, 0, 0
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride Concrete1B, MonicaEntranceRoad, Blank, Blank, Blank, Blank
+	AddFloor landscape, Monica_Main_Sidewalk, MonicaEntranceRoad, 1.5, -212 - 120, 320 + 48, -212 + 120, 320 + 50, Floor(1).Base, Floor(1).Base, 0, 0
+
+	#Fences around road
+	Set FenceThickness = 0.6
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, Monica_FrontFences1, BrickFences3, %FenceThickness%, -480, 320, -480 + 120, 320, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(0).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_FrontFences2A, BrickFences3, %FenceThickness%, -480 + 120, 320, -107.5, 320, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_FrontFences2B, BrickFences3, %FenceThickness%, -72, 320, 72 - 40, 320, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_FrontFences3, BrickFences3, %FenceThickness%, 72 - 40, 320, 72, 320, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, 5 - 1.5, 0, 0
+
+	WallOrientation = left
+	AddWall landscape, Monica_RearFences1, BrickFences3, %FenceThickness%, -480, 320 + 48, -480 + 120, 320 + 48, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(0).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_RearFences2A, BrickFences3, %FenceThickness%, -480 + 120, 320 + 48, -331.5, 320 + 48, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_RearFences2B, BrickFences3, %FenceThickness%, -92.5, 320 + 48, 72 - 40, 320 + 48, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+	AddWall landscape, Monica_RearFences3, BrickFences3, %FenceThickness%, 72 - 40, 320 + 48, 72, 320 + 48, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, 5 - 1.5, 0, 0
+
+	Set FenceThickness = 0.5
+	DrawWalls = true, true, true, true, true, false
+	WallOrientation = right
+	AddWall landscape, Monica_InnerFences1, BrickFences3, %FenceThickness%, -331.5, 368.6, -331.5, 370, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+	WallOrientation = left
+	AddWall landscape, Monica_InnerFences2, BrickFences3, %FenceThickness%, -92.5, 368.6, -92.5, 370, Floor(1).InterfloorHeight + 3.5, Floor(1).InterfloorHeight + 3.5, Floor(1).Altitude, Floor(1).Altitude, 0, 0
+
+
+#Cut for North Bridge Elevator and Stairs
+	Cut Landscape, -102, Floor(0).Base - 1, 273, -92, Floor(0).Base + 1, 295, false, true
+	Cut Landscape, -108, Floor(0).Base - 1, 273, -102, Floor(0).Base + 1, 285.4, false, true
+
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, NBridgeElevWalkway, Sidewalk, 1.5, -102, 273, -92, 285 + 0.66, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, NBridgeStairsWalkway, Sidewalk, 1.5, -108, 273, -102, 285.4, Floor(0).Base, Floor(0).Base, 0, 0
+
+#Auto areas at Lobby Deck
+	AddFloorAutoArea -108, Floor(0).Base, 275, -72, Floor(3).Altitude, 320 #North
+	AddFloorAutoArea -144.5, Floor(0).Base, 168.5, -121.5, Floor(3).Altitude, 180.5 #South
+
+##--------------------------------------------------------------------------------##
+
+#MONICA BEACH WING
+#Pool area foundation
+	DrawWalls = false, true, false, false, false, false
+	Cut Landscape, -480 - 20, Floor(0).Base - 1, 368, -342, Floor(0).Base + 1, 578, false, true
+	AddFloor landscape, Monica_PoolArea, Sidewalk3, 0, -480 - 20, 368, -342, 578, Floor(0).Base, Floor(0).Base, 0, 0
+
+#Trees in front of lobby driveway
+	AddTree(Tree2, -300 - 150, 285, 12, 16, -3)
+	AddTree(Tree2, -300 - 125, 285, 12, 16, -3)
+	AddTree(Tree2, -300 - 100, 285, 12, 16, -3)
+	AddTree(Tree2, -300 - 75, 285, 12, 16, -3)
+	AddTree(Tree2, -300 - 50, 285, 12, 16, -3)
+	AddTree(Tree2, -300 - 25, 285, 12, 16, -3)
+	AddTree(Tree2, -300, 285, 12, 16, -3)
+
+	AddTree(Tree2, -212 - 25, 285, 12, 16, -3)
+	AddTree(Tree2, -212, 285, 12, 16, -3)
+	AddTree(Tree2, -212 + 25, 285, 12, 16, -3)
+
+	AddTree(Tree1, -124, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60 + 20, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60 + 40, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60 + 60, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60 + 80, 295, 13.5, 12, -3)
+	AddTree(Tree1, -60 + 100, 295, 13.5, 12, -3)
+
+
+#Lobby roof supports
+	Set 6A = Monica_ExtFacade #Support texture
+	Set SupportHeight = Floor(1).Height + Floor(2).FullHeight
+	Set SupportOffset = Floor(1).Base
+	Set ShowTop = false
+
+	#Row A
+	Set SupportZ = 328 + 1.75
+	CreateWallBox2 external, Monica_LobbySupportA1, %6A%, -212 - 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA2, %6A%, -212 - 48, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA3, %6A%, -212 - 24, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA4, %6A%, -212, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA5, %6A%, -212 + 24, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA6, %6A%, -212 + 48, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA7, %6A%, -212 + 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Row B
+	Set SupportZ = 357.8
+	CreateWallBox2 external, Monica_LobbySupportB1, %6A%, -212 - 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB2, %6A%, -212 - 48, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB3, %6A%, -212 - 24, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB4, %6A%, -212, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB5, %6A%, -212 + 24, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB6, %6A%, -212 + 48, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB7, %6A%, -212 + 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+#Lobby road supports
+	Set 6A = Monica_ExtFacade #Support texture
+	Set SupportHeight = Floor(0).Height
+	Set SupportOffset = Floor(0).Base
+	Set ShowTop = false
+
+	#Row A
+	Set SupportZ = 319.4 + 1.75
+	CreateWallBox2 external, Monica_LobbySupportA1, %6A%, -212 - 112, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA2, %6A%, -212 - 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA3, %6A%, -212 - 40, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA4, %6A%, -212, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA5, %6A%, -212 + 40, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA6, %6A%, -212 + 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA7, %6A%, -212 + 112, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA8, %6A%, -212 + 142, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA9, %6A%, -212 + 172, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA10, %6A%, -212 + 202, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportA11, %6A%, -212 + 232, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Row B
+	Set SupportZ = 350
+	CreateWallBox2 external, Monica_LobbySupportB1, %6A%, -212 - 112, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB2, %6A%, -212 - 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB3, %6A%, -212 - 40, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB4, %6A%, -212, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB5, %6A%, -212 + 40, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB6, %6A%, -212 + 72, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB7, %6A%, -212 + 112, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB8, %6A%, -212 + 142, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB9, %6A%, -212 + 172, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB10, %6A%, -212 + 202, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Monica_LobbySupportB11, %6A%, -212 + 232, %SupportZ%, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+
+##--------------------------------------------------------------------------------##
+
+<Floor 0>
+	#Monica-Sapphire bridge support (Near the North elevator and stairs)
+	Set SupportHeight = %height% + Floor(1).FullHeight + Floor(2).FullHeight
+	Set SupportOffset = 0
+
+		#Row A
+		Set SupportX = -108 + 0.25
+		CreateWallBox2 external, LbyBridge-ElevLbySupportA1, LobbyDeckRFS, %SupportX%, 285 - 0.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LbyBridge-ElevLbySupportA2, LobbyDeckRFS, %SupportX%, 302.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LbyBridge-ElevLbySupportA3, LobbyDeckRFS, %SupportX%, 320 - 0.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row B
+		Set SupportX = -102 + 0.5
+		CreateWallBox2 external, LbyBridge-ElevLbySupportB1, LobbyDeckRFS, %SupportX%, 275 + 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LbyBridge-ElevLbySupportB2, LobbyDeckRFS, %SupportX%, 285 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row C
+		Set SupportX = -92 - 0.5
+		CreateWallBox2 external, LbyBridge-ElevLbySupportC1, LobbyDeckRFS, %SupportX%, 275 + 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LbyBridge-ElevLbySupportC2, LobbyDeckRFS, %SupportX%, 285 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+<EndFloor>
+
+<Floor 1>
+	#Bridge from Sapphire Sea Tower to Monica Beach Wing (Lower Section)
+	Set 1 = 72 #Sapphire Sea Tower Dimension X
+	Set 2 = 161 #Sapphire Sea Tower Dimension Z
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Slope1A, LobbyDeckUnderside, %interfloorheight%, -%1% - 20, 275, -82.15, 287, %interfloorheight% + (0.5 * 24), %interfloorheight% + (0.5 * 12), 0, 0, true
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Slope1B, LobbyDeckUnderside, %interfloorheight%, -%1% - 20, 287, -82.15, 295, %interfloorheight% + (0.5 * 12), %interfloorheight% + (0.5 * 12), 0, 0, true
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Slope1C, LobbyDeckUnderside, %interfloorheight%, -%1% - 20, 295, -82.15, 307, %interfloorheight% + (0.5 * 12), %interfloorheight%, 0, 0, true
+
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Slope2, LobbyDeckUnderside, %interfloorheight%, -82.15, 270 + 10, -%1%, 270 + 10 + 18, %fullheight% + Floor(2).InterfloorHeight, %interfloorheight%, 0, 0, true
+
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Flat1, LobbyDeckFloor2, %interfloorheight%, -%1% - 20, 307, -82.15, 320, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_Flat2, LobbyDeckFloor2, %interfloorheight%, -82.15, 270 + 10 + 18, -%1%, 320, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride LobbyDeckUnderside, LobbyDeckFloor2, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor LowerBridge_ElevatorLink, LobbyDeckFloor2, %interfloorheight%, -%1% - 30 + 0.5, 270 + 15, -%1% - 20, 320, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor LowerBridgeCeiling, LobbyDeckCeiling, 1, -%1% - 20, 270 + 10, -%1%, 320, %fullheight% + Floor(2).FullHeight, %fullheight% + Floor(2).FullHeight, 0, 0, true
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor LowerBridgeCeiling_MonicaLink1, LobbyDeckCeiling, 1, -108, 320, -%1%, 320 + 8, %fullheight% + Floor(2).FullHeight, %fullheight% + Floor(2).FullHeight, 0, 0, true
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor LowerBridgeCeiling_MonicaLink2, LobbyDeckCeiling, 1, -140 - 30, 320, -108, 320 + 8, %fullheight% + Floor(2).FullHeight, %fullheight% + Floor(2).FullHeight, 0, 0, true
+
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor LowerBridge_ElevatorLinkCeiling, LobbyDeckCeiling, 1, -%1% - 30 - 6, 270 + 15, -%1% - 20, 320, %fullheight% + Floor(2).FullHeight, %fullheight% + Floor(2).FullHeight, 0, 0, true
+
+	#Bridge railings
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallHeight-Alt = %interfloorheight% + 3 #Override for stair railings
+	Set WallOffset = 0
+	Set WallOffset2 = %fullheight%
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall LowerBridgeRail-Left1A, LobbyDeckRailing-Stairs, 1, -%1% - 20, 275, -%1% - 20, 287, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 24, 0.5 * 12, 0, 0, true
+	AddWall LowerBridgeRail-Left1B, LobbyDeckRailing-Stairs, 1, -%1% - 20, 287, -%1% - 20, 295, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 12, 0.5 * 12, 0, 0, true
+	AddWall LowerBridgeRail-Left1C, LobbyDeckRailing-Stairs, 1, -%1% - 20, 295, -%1% - 20, 307, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 12, 0, 0, 0, true
+
+	DrawWalls = true, true, true, true, true, true
+	AddWall LowerBridgeRail-Left2, LobbyDeckRailing, 0.5, -%1% - 20 - 10, 295, -%1% - 20 - 10, 314.4, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	DrawWalls = true, true, true, true, true, false
+	WallOrientation = right
+	AddWall LowerBridgeRail-Right1, LobbyDeckRailing, 0.5, -%1%, 270 + 10, -%1%, 270 + 10 + 18, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+	AddWall LowerBridgeRail-Right2, LobbyDeckRailing, 0.5, -%1%, 270 + 10 + 18, -%1%, 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = right
+	#AddWall LowerBridgeRail-MiddleA, LobbyDeckRailing, 0.5, -86, 270, -86, 270 + 18, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+	AddWall LowerBridgeRail-MiddleB, LobbyDeckRailing-Inner, 0.5, -%1% - 20, 295, -%1% - 20, 307, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	AddWall LowerBridgeRail-MiddleC1A, LobbyDeckRailing-Inner, 0.85 / 2, -82.15, 280 - 5, -82.15, 280, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset2%, 0, 0, true
+	DrawWalls = true, true, true, true, true, true #Override, as these two walls' bottom side is exposed.
+	AddWall LowerBridgeRail-MiddleC1B, LobbyDeckRailing-Inner, 0.85 / 2, -82.15, 280, -82.15, 280 + 18, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+	AddWall LowerBridgeRail-MiddleC1C, LobbyDeckRailing-Inner, 0.85 / 2, -82.15, 280 + 18, -82.15, 280 + 18 + 9, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	DrawWalls = true, true, true, true, true, false
+
+	AddWall LowerBridgeRail-MiddleC2A, LobbyDeckRailing-Stairs, 0.85 / 2, -82.15 - (0.85/2), 275, -82.15 - (0.85/2), 287, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 24, 0.5 * 12, 0, 0, true
+	AddWall LowerBridgeRail-MiddleC2B, LobbyDeckRailing-Stairs, 0.85 / 2, -82.15 - (0.85/2), 287, -82.15 - (0.85/2), 295, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 12, 0.5 * 12, 0, 0, true
+	AddWall LowerBridgeRail-MiddleC2C, LobbyDeckRailing-Stairs, 0.85 / 2, -82.15 - (0.85/2), 295, -82.15 - (0.85/2), 307, %WallHeight-Alt%, %WallHeight-Alt%, 0.5 * 12, 0, 0, 0, true
+
+	#WallOrientation = left
+	#AddWall LowerBridgeRail-MiddleD, LobbyDeckRailing, 1, -%1% - 20, 270 + 10 + 18, -%1% - 20, 270 + 10 + 24, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Lobby deck roof supports
+	#Numbering continues from Upper Section (coded below)
+	Set SupportHeight = %height% + Floor(2).FullHeight
+	Set SupportOffset = 0
+
+		#Row LAA
+		Set SupportX = -102 + 0.5
+		CreateWallBox2 external, LDRF-SupportLAA25, LobbyDeckRFS, %SupportX%, 295 + 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLAA26, LobbyDeckRFS, %SupportX%, 320 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row LA
+		Set SupportX = -%1% - 20 + 0.5
+		#CreateWallBox2 external, LDRF-SupportLA25, LobbyDeckRFS, %SupportX%, 307, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA26, LobbyDeckRFS, %SupportX%, 320 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row LB
+		Set SupportX = -%1% - 0.5
+		CreateWallBox2 external, LDRF-SupportLB25, LobbyDeckRFS, %SupportX%, 288 + 10, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB26, LobbyDeckRFS, %SupportX%, 320 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+<EndFloor>
+
+<Floor 2>
+	#Roof covering Monica Beach Wing lobby road
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, true, true
+
+	TextureOverride MLbyRampRF_Ceiling, MLbyRampRF_Ceiling, MLbyRampRF_Ceiling2, MLbyRampRF_Ceiling2, MLbyRampRF_Ceiling2, MLbyRampRF_Ceiling2
+	AddFloor MonicaWing_RoadCover, MLbyRampRF_Ceiling, Floor(3).InterfloorHeight, -136 - 152, 320 + 8, -136, 368 + 2, %fullheight%, %fullheight%, 0, 0, true
+
+
+	#Bridge from Sapphire Sea Tower to Monica Beach Wing (Upper Section)
+	Set 1 = 72 #Sapphire Sea Tower Dimension X
+	Set 2 = 161 #Sapphire Sea Tower Dimension Z
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride LobbyDeckUnderside, LobbyDeck, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridgeA, LobbyDeck, %interfloorheight%, -%1% - 20, %2% + 8, -%1%, 265, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride LobbyDeckUnderside, LobbyDK_Stairs, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridge_SouthStairLink1, LobbyDK_Stairs, 0.5, -%1% - 50 - 5, 175 - 0.5, -121.5, 180 + 0.5, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	TextureOverride LobbyDeckUnderside, LobbyDeck, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridge_SouthStairLink2, LobbyDeck, %interfloorheight%, -121.5, 175 - 0.5, -%1% - 20, 180 + 0.5, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+
+	TextureOverride LobbyDeckUnderside, LobbyDeck, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridge_EscalatorLink, LobbyDeck, %interfloorheight%, -82.15, 265, -%1%, 270 + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	TextureOverride LobbyDeckUnderside, LobbyDeck, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridge_StairsLink, LobbyDeck, %interfloorheight%, -%1% - 20, 265, -82.15, 275, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+
+	TextureOverride LobbyDeckUnderside, LobbyDeck, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside, LobbyDeckUnderside
+	AddFloor UpperBridge_ElevatorLink, LobbyDeck, %interfloorheight%, -%1% - 30, 270 - 5, -%1% - 20, 270 + 15 + 0.66, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor UpperBridgeCeiling, LobbyDeckCeiling, 1, -%1% - 20, %2% + 8, -%1%, 270 + 10, %fullheight%, %fullheight%, 0, 0, true
+
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor UBCeiling_SouthStairLink, LobbyDeckCeiling, 1, -121.5, 175 - 0.5, -%1% - 20, 180 + 0.5, %fullheight%, %fullheight%, 0, 0, true
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor UBCeiling_SouthStairLink2, LobbyDeckCeiling, 1, -144.5, 168.5, -121.5, 180 + 0.5, %fullheight%, %fullheight%, 0, 0, true
+
+	TextureOverride LobbyDeckCeiling, LobbyDeckCeiling, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2, LobbyDeckCeiling2
+	AddFloor UpperBridge_ElevatorLinkCeiling, LobbyDeckCeiling, 1, -%1% - 30 - 6, 270 + 5, -%1% - 20, 270 + 15, %fullheight%, %fullheight%, 0, 0, true
+
+	#Bridge railings
+	Set WallHeight = %interfloorheight% + 3.5
+	Set NewWallHeight = 0.5 + 3.5
+	Set WallOffset = 0
+	Set NewWallOffset = %interfloorheight% - 0.5
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall UpperBridge-LeftA, LobbyDeckRailing, 0.5, -%1% - 20, %2% + 8, -%1% - 20, 175, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall UpperBridge-LeftB, LobbyDeckRailing, 0.5, -%1% - 20, 180, -%1% - 20, 270 - 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	AddWall UpperBridge-SouthStairLink1A, LobbyDK_StairsRailing, 0.5, -%1% - 50 - 5, 180, -121.5, 180, %NewWallHeight%, %NewWallHeight%, %NewWallOffset%, %NewWallOffset%, 0, 0, true
+	AddWall UpperBridge-SouthStairLink1B, LobbyDeckRailing, 0.5, -121.5, 180, -%1% - 20, 180, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall UpperBridge-SouthStairLink-IFloor, LobbyDeckRailing, 0.5, -121.5, 175, -121.5, 180, %interfloorheight%, %interfloorheight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	AddWall UpperBridge-SouthStairLink2, LobbyDK_StairsRailing, 0.5, -%1% - 50 - 5, 175, -121.5, 175, %NewWallHeight%, %NewWallHeight%, %NewWallOffset%, %NewWallOffset%, 0, 0, true
+	AddWall UpperBridge-SouthStairLink2, LobbyDeckRailing, 0.5, -121.5, 175, -%1% - 20, 175, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+
+	WallOrientation = left
+	AddWall UpperBridge-ElevLink1, LobbyDeckRailing, 0.5, -%1% - 30, 270 - 5, -%1% - 30, 270 + 15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall UpperBridge-ElevLink2, LobbyDeckRailing, 0.5, -%1% - 30 + 0.5, 270 - 5, -%1% - 20 + 0.5, 270 - 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall UpperBridge-Right, LobbyDeckRailing, 0.5, -%1%, %2% + 8, -%1%, 270 + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall UpperBridge-Middle, LobbyDeckRailing, 0.5, -%1% - 20, 275, -%1% - 20, 285, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Lobby deck roof supports
+	#Numbering continues from Sapphire Sea Tower
+	Set SupportHeight = %height%
+	Set SupportOffset = 0
+	
+		#Link to South Stairs
+		CreateWallBox2 external, StairlinkSupportA1, LobbyDeckRFS, -100, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, StairlinkSupportA2, LobbyDeckRFS, -117, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, StairlinkSupportB1, LobbyDeckRFS, -100, 174.75, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, StairlinkSupportB2, LobbyDeckRFS, -117, 174.75, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row LAA
+		#Set SupportX = -102 + 0.5
+		#CreateWallBox2 external, LDRF-SupportLAA23A, LobbyDeckRFS, %SupportX%, 270 + 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLAA24, LobbyDeckRFS, %SupportX%, 285 - 0.5, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row LA
+		Set SupportX = -%1% - 20 + 0.5
+		CreateWallBox2 external, LDRF-SupportLA15, LobbyDeckRFS, %SupportX%, 1 + (12 * 14), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA16, LobbyDeckRFS, %SupportX%, 1 + (12 * 15), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA17, LobbyDeckRFS, %SupportX%, 1 + (12 * 16), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA18, LobbyDeckRFS, %SupportX%, 1 + (12 * 17), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA19, LobbyDeckRFS, %SupportX%, 1 + (12 * 18), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA20, LobbyDeckRFS, %SupportX%, 1 + (12 * 19), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA21, LobbyDeckRFS, %SupportX%, 1 + (12 * 20), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA22, LobbyDeckRFS, %SupportX%, 1 + (12 * 21), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLA23, LobbyDeckRFS, %SupportX%, 1 + (12 * 22), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLA24, LobbyDeckRFS, %SupportX%, 280, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLA25, LobbyDeckRFS, %SupportX%, 1 + (12 * 24), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLA26, LobbyDeckRFS, %SupportX%, 1 + (12 * 25), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLA27, LobbyDeckRFS, %SupportX%, 1 + (12 * 26), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+		#Row LB
+		Set SupportX = -%1% - 0.5
+		CreateWallBox2 external, LDRF-SupportLB15, LobbyDeckRFS, %SupportX%, 1 + (12 * 14), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB16, LobbyDeckRFS, %SupportX%, 1 + (12 * 15), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB17, LobbyDeckRFS, %SupportX%, 1 + (12 * 16), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB18, LobbyDeckRFS, %SupportX%, 1 + (12 * 17), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB19, LobbyDeckRFS, %SupportX%, 1 + (12 * 18), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB20, LobbyDeckRFS, %SupportX%, 1 + (12 * 19), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB21, LobbyDeckRFS, %SupportX%, 1 + (12 * 20), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB22, LobbyDeckRFS, %SupportX%, 1 + (12 * 21), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB23, LobbyDeckRFS, %SupportX%, 1 + (12 * 22), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, LDRF-SupportLB24, LobbyDeckRFS, %SupportX%, 280, 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLB25, LobbyDeckRFS, %SupportX%, 1 + (12 * 24), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLB26, LobbyDeckRFS, %SupportX%, 1 + (12 * 25), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, LDRF-SupportLB27, LobbyDeckRFS, %SupportX%, 1 + (12 * 26), 0.8, 0.8, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+<Floors 0 to 2>
+	#Support for Lobby Deck South (Sapphire) Stairs
+	Set SupportHeight = %fullheight%
+	Set SupportOffset = -%interfloorheight%
+	
+		CreateWallBox2 external, SouthStairSupportA1, LobbyDK_StairsRailing2, -144.25, 168.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, SouthStairSupportA2, LobbyDK_StairsRailing2, -139.25, 168.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, SouthStairSupportA3, LobbyDK_StairsRailing2, -127.25, 168.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, SouthStairSupportA4, LobbyDK_StairsRailing2, -121.75, 168.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	
+		#CreateWallBox2 external, SouthStairSupportB1, LobbyDK_StairsRailing2, -144.25, 174.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, SouthStairSupportB2, LobbyDK_StairsRailing2, -139.25, 174.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, SouthStairSupportB3, LobbyDK_StairsRailing2, -127.25, 174.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, SouthStairSupportB4, LobbyDK_StairsRailing2, -121.75, 174.5, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	
+		CreateWallBox2 external, SouthStairSupportC1, LobbyDK_StairsRailing2, -144.25, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, SouthStairSupportC2, LobbyDK_StairsRailing2, -139.25, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		#CreateWallBox2 external, SouthStairSupportC3, LobbyDK_StairsRailing2, -127.25, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+		CreateWallBox2 external, SouthStairSupportC4, LobbyDK_StairsRailing2, -121.75, 180.25, 0.45, 0.45, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+<EndFloors>
+
+
+#--------------------
+
+#Building sign for Monica Beach Wing
+<Floor 1>
+	DrawWalls = true, false, false, false, false, false
+	WallOrientation = right
+	AddWall BldgSign, MonicaWing, 0, -212 - (3.5*6/2), 319.4 - 0.01, -212 + (3.5*6/2), 319.4 - 0.01, 3.5, 3.5, 1, 1, 0, 0, true
+<EndFloor>
+
+
+##--------------------------------------------------------------------------------##
+
+#Bridge connection stairs
+	Set STBase = Floor(1).Base
+	Set STLowerOffset = %STBase%
+	Set STUpperOffset = %STBase% + (0.5 * 12)
+
+	#Stairs
+	OP_Draw(true, false, false, false, false, false)
+	OP_OrthoStair(external, LbyBridgeStairs-Lower, LobbyDK_Stairs2, -91, -83, back, 275 + 12 + 8 + 12, 12, 1, 0.5, %STLowerOffset%, 0.5)
+	OP_OrthoStair(external, LbyBridgeStairs-Upper, LobbyDK_Stairs2, -91, -83, back, 275 + 12, 12, 1, 0.5, %STUpperOffset%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor external, LbyBridge-StairsLanding, LobbyDK_Stairs2, 0.5, -91, 275 + 12, -83, 275 + 12 + 8, %STUpperOffset%, %STUpperOffset%, 0, 0
+
+
+#Lobby deck support
+	Set 6A = LobbyDeckSupport #Support texture
+	Set SupportX = -%1% - 10
+	Set SupportHeight = Floor(0).Height + Floor(1).FullHeight
+	Set SupportOffset = Floor(0).Base
+	Set ShowTop = false
+
+	#Support at main road
+	CreateWallBox2 landscape, LDSupport-MainRoad1, %6A%, %SupportX%, 231, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, LDSupport-MainRoad2, %6A%, %SupportX%, 231 - 31.5, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 landscape, LDSupport-MainRoad3, %6A%, %SupportX%, 231 + 31.5, 2.5, 2.5, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	
+
+#Escalators at Lobby Bridge
+	#Set escalator properties
+	OP_EscBalustrades(GlassBalustrade, 0, 3.5, 0, 0)
+	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0)
+	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
+	OP_EscTruss(Balustrade1, LobbyDeckUnderside2, 0.5, 3.5, 0, 0, 0, 0)
+	
+<Floor 1>
+	OP_Draw(true, true, true, true, true, true) #Set sides to be displayed
+
+	OP_Escalator(BridgeEscalator1, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, MitEscalatorsZB, MitEscalatorsZ, back, -72.9 - 2.5, 271 + 10, 3.5, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(BridgeEscalator2, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, MitEscalatorsZB, MitEscalatorsZ, back, -77.65 - 2.25, 271 + 10, 3.5, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#Lobby deck stairs, from bridge to street
+#(Intended to be used in an emergency, such as when people on the bridge notice that any connecting building
+#is on fire. However, these stairs can also be used in normal situations.)
+
+#South (Sapphire) stairs
+	#Cut for lower landing
+	Cut Landscape, -127, Floor(0).Base - 1, 174 - 5 - 0.5, -127 + 5, Floor(0).Base + 1, 180 + 6, false, true
+
+	Set STBase = Floor(0).Base
+	Set STLowerOffset = %STBase%
+	Set STLMOffset = %STBase% + (0.5 * 12)
+	Set STUMOffset = %STBase% + (0.5 * 24)
+	Set STUpperOffset = %STBase% + (0.5 * 36)
+	Set STTopOffset = %STBase% + (0.5 * 48)
+
+	#Stairs
+	OP_Draw(true, true, false, false, false, false)
+	OP_OrthoStair(external, SouthLDKStairs_Upper, LobbyDK_Stairs, 180 - 5, 180, left, -127 - 12, 12, 1, 0.5, %STUpperOffset%, 0.5)
+	OP_OrthoStair(external, SouthLDKStairs_UpperMid, LobbyDK_Stairs, 174 - 5, 174, right, -127, 12, 1, 0.5, %STUMOffset%, 0.5)
+	OP_OrthoStair(external, SouthLDKStairs_LowerMid, LobbyDK_Stairs, 180 - 5, 180, left, -127 - 12, 12, 1, 0.5, %STLMOffset%, 0.5)
+	OP_OrthoStair(external, SouthLDKStairs_Lower, LobbyDK_Stairs, 174 - 5, 174, right, -127, 12, 1, 0.5, %STLowerOffset%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	AddFloor external, LbyBridge-UpperLanding, LobbyDK_Stairs, 0.5, -127 - 17, 174 - 5, -127 - 12, 180, %STUpperOffset%, %STUpperOffset%, 0, 0
+	AddFloor external, LbyBridge-UpperMidLanding, LobbyDK_Stairs, 0.5, -127, 174 - 5, -127 + 5, 180, %STUMOffset%, %STUMOffset%, 0, 0
+	AddFloor external, LbyBridge-LowerMidLanding, LobbyDK_Stairs, 0.5, -127 - 17, 174 - 5, -127 - 12, 180, %STLMOffset%, %STLMOffset%, 0, 0
+	AddFloor external, LbyBridge-LowerLanding, Sidewalk, 0.5, -127, 174 - 5 - 0.5, -127 + 5, 180 + 6, %STLowerOffset%, %STLowerOffset%, 0, 0
+
+	#Landing railings
+	Set LandingWallOffset1 = %STLMOffset% - 0.5
+	Set LandingWallOffset2 = %STUMOffset% - 0.5
+	Set LandingWallOffset3 = %STUpperOffset% - 0.5
+
+		#Lower landing
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		AddWall landscape, SouthLDK-Landing1-RailLeft, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5, 174 - 5, -127 - 12 - 5, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset1%, %LandingWallOffset1%, 0, 0
+		AddWall landscape, SouthLDK-Landing1-RailFront, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5 - 0.5, 174 - 5, -127 - 12, 174 - 5, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset1%, %LandingWallOffset1%, 0, 0
+		WallOrientation = left
+		AddWall landscape, SouthLDK-Landing1-RailBack, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5 - 0.5, 180, -127 - 12, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset1%, %LandingWallOffset1%, 0, 0
+		
+		#Lower-mid landing
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		AddWall landscape, SouthLDK-Landing2-RailFront, LobbyDK_StairsRailing, 0.5, -127, 174 - 5, -127 + 5 + 0.5, 174 - 5, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset2%, %LandingWallOffset2%, 0, 0
+		WallOrientation = left
+		AddWall landscape, SouthLDK-Landing2-RailRight, LobbyDK_StairsRailing, 0.5, -127 + 5, 174 - 5, -127 + 5, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset2%, %LandingWallOffset2%, 0, 0
+		AddWall landscape, SouthLDK-Landing2-RailBack, LobbyDK_StairsRailing, 0.5, -127, 180, -127 + 5 + 0.5, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset2%, %LandingWallOffset2%, 0, 0
+
+		#Upper-mid landing
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		AddWall landscape, SouthLDK-Landing3-RailLeft, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5, 174 - 5, -127 - 12 - 5, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset3%, %LandingWallOffset3%, 0, 0
+		AddWall landscape, SouthLDK-Landing3-RailFront, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5 - 0.5, 174 - 5, -127 - 12, 174 - 5, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset3%, %LandingWallOffset3%, 0, 0
+		WallOrientation = left
+		AddWall landscape, SouthLDK-Landing3-RailBack, LobbyDK_StairsRailing, 0.5, -127 - 12 - 5 - 0.5, 180, -127 - 12, 180, 3.5 + 0.5, 3.5 + 0.5, %LandingWallOffset3%, %LandingWallOffset3%, 0, 0
+
+
+	#Stair Railings
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, SouthLDK-LowerRailing1, LobbyDK_StairsRailing, 0.5, -127 - 12, 174 - 5, -127, 174 - 5, 3.5 + 0.5, 3.5 + 0.5, %STLMOffset% - 0.5, %STLowerOffset% - 0.5, 0, 0
+	AddWall landscape, SouthLDK-LowerRailing2, LobbyDK_StairsRailing, 0.5, -127 - 12, 180 - 5, -127, 180 - 5, 3.5 + 0.5, 3.5 + 0.5, %STLMOffset% - 0.5, %STUMOffset% - 0.5, 0, 0
+
+	AddWall landscape, SouthLDK-UpperRailing1, LobbyDK_StairsRailing, 0.5, -127 - 12, 174 - 5, -127, 174 - 5, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STUMOffset% - 0.5, 0, 0
+	AddWall landscape, SouthLDK-UpperRailing2, LobbyDK_StairsRailing, 0.5, -127 - 12, 180 - 5, -127, 180 - 5, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STTopOffset% - 0.5, 0, 0
+
+	WallOrientation = left
+	AddWall landscape, SouthLDK-LowerRailing3, LobbyDK_StairsRailing, 0.5, -127 - 12, 174, -127, 174, 3.5 + 0.5, 3.5 + 0.5, %STLMOffset% - 0.5, %STLowerOffset% - 0.5, 0, 0
+	AddWall landscape, SouthLDK-LowerRailing4, LobbyDK_StairsRailing, 0.5, -127 - 12, 180, -127, 180, 3.5 + 0.5, 3.5 + 0.5, %STLMOffset% - 0.5, %STUMOffset% - 0.5, 0, 0
+
+	AddWall landscape, SouthLDK-UpperRailing3, LobbyDK_StairsRailing, 0.5, -127 - 12, 174, -127, 174, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STUMOffset% - 0.5, 0, 0
+	AddWall landscape, SouthLDK-UpperRailing4, LobbyDK_StairsRailing, 0.5, -127 - 12, 180, -127, 180, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STTopOffset% - 0.5, 0, 0
+
+
+#North (Monica) stairs
+	#Cut for lower landing
+
+	Set STBase = Floor(0).Base
+	Set STLowerOffset = %STBase%
+	Set STMiddleOffset = %STBase% + (0.5 * 12)
+	Set STUpperOffset = %STBase% + (0.5 * 24)
+	Set STTopOffset = %STBase% + (0.5 * 48)
+
+	#Stairs
+	OP_Draw(true, true, false, false, false, false)
+	OP_OrthoStair(external, NorthLDKStairs_Upper, LobbyDK_Stairs2, -102.5 - 5, -102.5, front, 319.4 - 5 - 12, 12, 1, 0.5, %STMiddleOffset%, 0.5)
+	OP_OrthoStair(external, NorthLDKStairs_Lower, LobbyDK_Stairs2, -102.5 - 5, -102.5, front, 319.4 - 10 - 24, 12, 1, 0.5, %STLowerOffset%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	AddFloor external, NLbyBridge-UpperLanding, LobbyDK_Stairs2, 0.5, -102.5 - 5, 319.4 - 5, -102 + 0.5, 320, %STUpperOffset%, %STUpperOffset%, 0, 0
+	AddFloor external, NLbyBridge-LowerLanding, LobbyDK_Stairs2, 0.5, -102.5 - 5, 319.4 - 5 - 17, -102.5, 319.4 - 5 - 12, %STMiddleOffset%, %STMiddleOffset%, 0, 0
+
+	#Railings
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, NLDK-RailingL1, LobbyDeckRailing-Stairs, 0.5, -107.5, 285.4, -107.5, 285.4 + 12, 3.5 + 0.5, 3.5 + 0.5, %STLowerOffset% - 0.5, %STMiddleOffset% - 0.5, 0, 0
+	AddWall landscape, NLDK-RailingL2, LobbyDeckRailing-Stairs, 0.5, -107.5, 302.4 - 5, -107.5, 302.4, 3.5 + 0.5, 3.5 + 0.5, %STMiddleOffset% - 0.5, %STMiddleOffset% - 0.5, 0, 0
+	AddWall landscape, NLDK-RailingL3, LobbyDeckRailing-Stairs, 0.5, -107.5, 302.4, -107.5, 302.4 + 12, 3.5 + 0.5, 3.5 + 0.5, %STMiddleOffset% - 0.5, %STUpperOffset% - 0.5, 0, 0
+	AddWall landscape, NLDK-RailingL4, LobbyDeckRailing-Stairs, 0.5, -107.5, 302.4 + 12, -107.5, 319.4, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STUpperOffset% - 0.5, 0, 0
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, NLDK-RailingR1, LobbyDeckRailing-Stairs, 0.5, -102.5, 285.4, -102.5, 285.4 + 12, 3.5 + 0.5, 3.5 + 0.5, %STLowerOffset% - 0.5, %STMiddleOffset% - 0.5, 0, 0
+	AddWall landscape, NLDK-RailingR2, LobbyDeckRailing-Stairs, 0.5, -102.5, 302.4 - 5, -102.5, 302.4, 3.5 + 0.5, 3.5 + 0.5, %STMiddleOffset% - 0.5, %STMiddleOffset% - 0.5, 0, 0
+	AddWall landscape, NLDK-RailingR3, LobbyDeckRailing-Stairs, 0.5, -102.5, 302.4, -102.5, 302.4 + 12, 3.5 + 0.5, 3.5 + 0.5, %STMiddleOffset% - 0.5, %STUpperOffset% - 0.5, 0, 0
+	#AddWall landscape, NLDK-RailingR4, LobbyDeckRailing-Stairs, 0.5, -102.5, 302.4 + 12, -102.5, 319.4, 3.5 + 0.5, 3.5 + 0.5, %STUpperOffset% - 0.5, %STUpperOffset% - 0.5, 0, 0
+
+##--------------------------------------------------------------------------------##
+
+#Shafts and elevators
+#Bridge elevator
+Set ShaftTopHeight = %fullheight%
+CreateShaftMRL(1, -97, 290, 4.67, 4.67, -1, 2, %ShaftTopHeight%, Concrete1)
+ShowFullShaft 1 = true
+
+<Floors 0 to 2>
+	WallTex() #Set wall texture
+	Set 6 = BridgeElevShaftWall #Override
+	CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -97, 290, 5, 5, 1, %fullheight%, 0, true, true, true, true, false, false, true)
+<EndFloors>
+
+<Function BtnPanelE1>
+	Set PanelNumber = %param1%
+	AddButton %PanelNumber%, , Button3, ButtonLit3, 1, 1, 2, 1, 1, 0.5, 0
+	AddButton %PanelNumber%, , Button2, ButtonLit2, 2, 1, 1, 1, 1, 0.5, 0
+	AddButton %PanelNumber%, , Button1, ButtonLit1, 3, 1, 0, 1, 1, 0.5, 0
+
+	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 6, 1, open, 1, 1
+	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 6, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 7, 1, 1, 1, 0, 0, 1, run, stop, ButtonStop, ButtonStop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 7, 2, alarm, 1, 1
+<EndFunction>
+
+<Elevator 1>
+	Name = North Bridge Elevator
+	Speed = 2
+	Acceleration = 0.35
+	Deceleration = 0.35
+	ServicedFloors = 0 - 2
+	Doors = 2
+	AssignedShaft = 1
+	AutoEnable = false
+	CreateElevator false, -97 + 0.5, 290, 0
+	
+	Set Prefix = Bridge
+
+	#Interiors
+	ElevInt_Bridge(%Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall, 5.5, 7, front, 7.5)
+
+	#Panels on walls
+	Set WPanelHeight = 7.5
+	Set Texture = BridgeElevWallPanel
+
+	WallOrientation = left
+	DrawWalls = false, true, true, true, false, false
+	AddWall LeftPanel, %Texture%, 0.05, -2.55, -1.25, -2.55, 1.25, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+
+	WallOrientation = right
+	DrawWalls = true, false, true, true, false, false
+	AddWall RightPanel, %Texture%, 0.05, 2.55, -1.25, 2.55, 1.25, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+
+	##--------------------------------------------------------------------------------##
+
+	#Front Panels
+	WallOrientation = left
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride ElevExt, %Prefix%ElevPanelMain, %Prefix%ElevPanelMain, ElevExt, ElevExt, ElevExt
+	AddWall FrontP-A, ElevPanelMain, 0.2, 2.75 - 0.25, -3.5, 2.75, -3.5, 7.5, 7.5, 0, 0, 0, 0
+	DrawWalls = true, true, false, true, false, false
+	TextureOverride ElevExt, %Prefix%ElevPanelMain, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	AddWall FrontP-B, ElevPanelMain, 0.2, -2.75, -3.5, -2.75 + 1.25, -3.5, 7.5, 7.5, 0, 0, 0, 0
+	DrawWalls = true, true, false, false, false, true
+	TextureOverride ElevExt, %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelTop
+	AddWall FrontP-Top, ElevPanelTop, 0.2, -2.75 + 1.25, -3.5, 2.75 - 0.25, -3.5, 0.5, 0.5, 7, 7, 0, 0
+
+	#Front Car Doors
+	Set ElevDoorTex = BridgeElevDoors
+	WallOrientation = right
+	AddDoorComponent 1, 2Speed_Fast, %ElevDoorTex%2, %ElevDoorTex%2, 0.18, left, 0.8, 0.6, 0.5, -3.5 - 0.18, 0.5 + 2, -3.5 - 0.18, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, 2Speed_Slow, %ElevDoorTex%2, %ElevDoorTex%2, 0.18, left, 0.4, 0.3, 0.5 - 2, -3.5, 0.5, -3.5, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Front Gap filler
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt, ElevExt
+		AddWall FrontGapFiller, ElevPanelMain, 0.36, 2.75 - 0.25, -3.5, 2.75 - 0.25 + 0.05, -3.5, 7, 7, 0, 0, 0, 0
+
+		#Front Door Track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor FrontDoorTrack, ElevDoorTrackZ, 0.05, 0.5 - 4, -3.5 - 0.36, 0.5 + 2, -3.5, 0, 0, 0, 0
+
+		#Front top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor FrontTopFiller, ElevPanelTop, 0.05, 0.5, -3.5 - 0.18, 0.5 + 2, -3.5, 7, 7, 0, 0
+
+	##--------------------------------------------------------------------------------##
+
+	#Rear Panels
+	WallOrientation = right
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride %Prefix%ElevPanelMain, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt, ElevExt
+	AddWall RearP-A, ElevPanelMain, 0.2, 2.75 - 0.25, 3.5, 2.75, 3.5, 7.5, 7.5, 0, 0, 0, 0
+	DrawWalls = true, true, false, true, false, false
+	TextureOverride %Prefix%ElevPanelMain, ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	AddWall RearP-B, ElevPanelMain, 0.2, -2.75, 3.5, -2.75 + 1.25, 3.5, 7.5, 7.5, 0, 0, 0, 0
+	DrawWalls = true, true, false, false, false, true
+	TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelTop
+	AddWall RearP-Top, ElevPanelTop, 0.2, -2.75 + 1.25, 3.5, 2.75 - 0.25, 3.5, 0.5, 0.5, 7, 7, 0, 0
+
+	#Rear Car Doors
+	Set ElevDoorTex = BridgeElevDoors
+	WallOrientation = left
+	AddDoorComponent 2, 2Speed_Fast, %ElevDoorTex%, %ElevDoorTex%, 0.18, left, 0.8, 0.6, 0.5, 3.5 + 0.18, 0.5 + 2, 3.5 + 0.18, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 2, 2Speed_Slow, %ElevDoorTex%, %ElevDoorTex%, 0.18, left, 0.4, 0.3, 0.5 - 2, 3.5, 0.5, 3.5, 7, 0, 0, 0, 0, 0
+	FinishDoors 2, false, false
+
+		#Rear Gap filler
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt, ElevExt
+		AddWall RearGapFiller, ElevPanelMain, 0.36, 2.75 - 0.25, 3.5, 2.75 - 0.25 + 0.05, 3.5, 7, 7, 0, 0, 0, 0
+
+		#Rear Door Track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor RearDoorTrack, ElevDoorTrackZ, 0.05, 0.5 - 4, 3.5, 0.5 + 2, 3.5 + 0.36, 0, 0, 0, 0
+
+		#Rear top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor RearTopFiller, ElevPanelTop, 0.05, 0.5, 3.5, 0.5 + 2, 3.5 + 0.18, 7, 7, 0, 0
+
+	##--------------------------------------------------------------------------------##
+
+	#Front Button Panel
+	Set Position = -2.025
+
+	CreatePanel Blank, 7, 2, back, %Position%, -3.3 + 0.001, 0.26, 0.13, 0.1, 0.2, 3.5, 0, 0
+
+		#Buttons
+		BtnPanelE1(1)
+
+	#Rear Button Panel
+	Set Position = -2.025
+
+	CreatePanel Blank, 7, 2, front, %Position%, 3.3 - 0.001, 0.26, 0.13, 0.1, 0.2, 3.5, 0, 0
+
+		#Buttons
+		BtnPanelE1(2)
+
+	#Floor Indicators
+	#AddFloorIndicator Ind_Button, back, %Position%, -3.3 + 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	#AddFloorIndicator Ind_Button, front, %Position%, 3.3 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	
+	AddFloorIndicator BInd_Button, back, 0.5, -3.3 + 0.001, 1.6, 0.4, 7.05 #Front door
+	AddFloorIndicator BInd2_Button, front, 0.5, 3.3 - 0.001, 1.6, 0.4, 7.05 #Rear door
+<EndElevator>
+
+<Function BridgeElev-FrontDoor>
+	#Front Shaft Doors
+	WallOrientation = right
+	AddShaftDoorComponent 1, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.18, left, 0.8, 0.6, 0.5, -3.5 - 0.48, 0.5 + 2, -3.5 - 0.48, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent 1, 1, 2Speed_Slow, %DoorTexture%, %DoorTexture%, 0.18, left, 0.4, 0.3, 0.5 - 2, -3.5 - 0.66, 0.5, -3.5 - 0.66, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor 1, 1, false, false
+
+		#Gap filler
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTexture%_Trim, ElevExt, ElevExt, ElevExt
+		AddShaftWall 1, FrontGapFiller, ElevExt, 0.36, 1 + 2, -4.67 + 0.33, 1 + 2 + 0.05, -4.67 + 0.33, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+	
+		#Door tracks
+		AddDoorTrack(1, 1, 1 - 4, 1 + 2, -4.67 + 0.33, -4.67 + 0.33 + 0.36, ElevDoorTrackZ)
+	
+		#Top filler
+		AddTopFiller(1, 1, 1, 1 + 2, -4.67 + 0.33, -4.67 + 0.33 + 0.18, 7, %DoorTexture%_Trim)
+
+	#Door trims
+	WallOrientation = left
+	AddFillerWalls BridgeElevShaftWall, 0.66, -97 + 1, 285, 4, 7, %interfloorheight%, true, 0, 0, true
+
+	#Call buttons
+	CallButtonElevators = 1
+	CreateCallButtons %BPanelTexture%, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, -98 - 1.25, 285 - 0.001, 4 - 0.4, front, 0.4, 0.8, true, 0, 0
+
+	#Indicators
+	#AddDirectionalIndicator 1, false, false, false, true, %LPanelTexture%, LanternUp, LanternUpLit, LanternDown, LanternDownLit, -98 - 1.25, 285 - 0.001, 5.5, front, 0.5, 1, true, 0, 0
+		Set Offset = 8
+		if[%floor% = 2] Set Offset = 7.75
+		Set ExtraLateralOffset = 0
+		ACMELobbyInds(front, 1, -97 + 1, 285 - %ExtraLateralOffset%, %Offset%, 0, 2)
+
+	#Signs
+		DrawWalls = true, false, false, false, false, false
+		AddWall E1HallSign, ElevHallSign, 0, -99.25 - 0.375, 285 - 0.001, -99.25 + 0.375, 285 - 0.001, 1, 1, 2.4 + %interfloorheight%, 2.4 + %interfloorheight%, 0, 0, true
+<EndFunction>
+
+<Function BridgeElev-RearDoor>
+	#Front Shaft Doors
+	WallOrientation = left
+	AddShaftDoorComponent 1, 2, 2Speed_Fast, %DoorTexture%2, %DoorTexture%2, 0.18, left, 0.8, 0.6, 0.5, 3.5 + 0.48, 0.5 + 2, 3.5 + 0.48, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent 1, 2, 2Speed_Slow, %DoorTexture%2, %DoorTexture%2, 0.18, left, 0.4, 0.3, 0.5 - 2, 3.5 + 0.66, 0.5, 3.5 + 0.66, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor 1, 2, false, false
+
+		#Gap filler
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTexture%_Trim, ElevExt, ElevExt, ElevExt
+		AddShaftWall 1, RearGapFiller, ElevExt, 0.36, 1 + 2, 4.67 - 0.33, 1 + 2 + 0.05, 4.67 - 0.33, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+	
+		#Door tracks
+		AddDoorTrack(1, 1, 1 - 4, 1 + 2, 4.67 - 0.33 - 0.36, 4.67 - 0.33, ElevDoorTrackZ)
+	
+		#Top filler
+		AddTopFiller(1, 1, 1, 1 + 2, 4.67 - 0.33 - 0.18, 4.67 - 0.33, 7, %DoorTexture%_Trim)
+
+	#Door trims
+	AddDeco4(%DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, external, 0.05, 0.2, -97 + 1, 295, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66)
+
+	#Call buttons
+	CallButtonElevators = 1
+	CreateCallButtons %BPanelTexture%, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, -98 - 1.25, 295 + 0.001, 4 - 0.4, back, 0.4, 0.8, true, 0, 0
+
+	#Indicators
+	#AddDirectionalIndicator 1, false, false, false, true, %LPanelTexture%, LanternUp, LanternUpLit, LanternDown, LanternDownLit, -98 - 1.25, 295 + 0.001, 5.5, back, 0.5, 1, true, 0, 0
+		Set Offset = 8
+		Set ExtraLateralOffset = 0.05
+		ACMELobbyInds(back, 1, -97 + 1, 295 + %ExtraLateralOffset%, %Offset%, 0, 2)
+
+	#Signs
+		DrawWalls = false, true, false, false, false, false
+		AddWall E1HallSign, ElevHallSign, 0, -99.25 - 0.375, 295 + 0.001, -99.25 + 0.375, 295 + 0.001, 1, 1, 2.4 + %interfloorheight%, 2.4 + %interfloorheight%, 0, 0, true
+<EndFunction>
+
+<Floors 0 to 2>
+	#Set hall textures
+		#Shaft door texture
+		Set DoorTexture = BridgeElevShaftDoors
+		if[%floor% = 1] Set DoorTexture = BLElevDoors
+	
+		#Door trims
+			#Sides
+			Set DoorTrimTexture = %DoorTexture%_Trim
+	
+			#Top
+			Set DoorTrimTexture_Top = %DoorTrimTexture%
+	
+		#Deco dimensions
+			Set SideDecoH = 7.2
+			Set TopDecoH = 0.2
+			if[%floor% = 1] Set SideDecoH = %height% + Floor(%floor% + 1).FullHeight
+			if[%floor% = 1] Set TopDecoH = %height% + Floor(%floor% + 1).FullHeight - 7
+		
+		#Call button panels
+		Set BPanelTexture = ElevExtPanels
+	
+		#Lantern panels
+		Set LPanelTexture = %BPanelTexture%
+
+	#Set textures for ACME Floor Indicator function
+	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, Ind_Button)
+
+	#Create hall components
+	if[%floor% ! 1] BridgeElev-FrontDoor()
+	if[%floor% = 1] BridgeElev-RearDoor()
+<EndFloors>
+
+#Floor signs
+<Elevator 1>
+	AddFloorSigns 1, true, Sign, right, 0.5 - 2 + 0.001, -3.5 - 0.66 - 0.18 - 0.33, 0.35, 0.35, 4.825
+	AddFloorSigns 1, true, Sign, left, 0.5 + 2 - 0.001, -3.5 - 0.66 - 0.18 - 0.33, 0.35, 0.35, 4.825
+
+	AddFloorSigns 2, true, Sign, right, 0.5 - 2 + 0.001, 3.5 + 0.66 + 0.18 + 0.33, 0.35, 0.35, 4.825
+	AddFloorSigns 2, true, Sign, left, 0.5 + 2 - 0.001, 3.5 + 0.66 + 0.18 + 0.33, 0.35, 0.35, 4.825
+<EndElevator>
+
+#Global settings
+<Elevator 1>
+	BeepSound = EG881Sounds/MTbeep2.wav #EG881
+	MotorUpStartSound = EG881Sounds/series5motorupstart.wav #EG881
+	MotorUpRunSound = EG881Sounds/series5motorupmove.wav #EG881
+	MotorUpStopSound = EG881Sounds/series5motorupstop.wav #EG881
+	MotorDownStartSound = EG881Sounds/series5motordownstart.wav #EG881
+	MotorDownRunSound = EG881Sounds/series5motordownmove.wav #EG881
+	MotorDownStopSound = EG881Sounds/series5motordownstop.wav #EG881
+
+	#Door sounds and chimes
+	OpenSound 1 = EG881Sounds/elevopen2.wav #EG881
+	CloseSound 1 = EG881Sounds/elevclose2.wav #EG881
+	OpenSound 2 = EG881Sounds/elevopen2.wav #EG881
+	CloseSound 2 = EG881Sounds/elevclose2.wav #EG881
+	UpChimeSound 1 = EG881Sounds/MTupchime2.wav #EG881
+	DownChimeSound 1 = EG881Sounds/MTdownchime2.wav #EG881
+	UpChimeSound 2 = EG881Sounds/MTupchime2.wav #EG881
+	DownChimeSound 2 = EG881Sounds/MTdownchime2.wav #EG881
+<EndElevator>

@@ -1,0 +1,1378 @@
+#Skydream University
+#Copyright (c) 2018-Present - Mn10
+
+#Originally started on: Not later than 16 September 2018.
+#Updated 27 September 2024:
+#1. Added Tranquility City landscape, with some roads inside the campus altered as necessary.
+#2. Added stairs and an elevator to access the hanging out area (RDB 2nd floor).
+
+#SCRIPTS TO BE INCLUDED
+	#1. My new scripts
+	<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
+	<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
+	#<Include buildings/Mn10_Scripts/Windows.txt>
+	
+	#2. ObjectPlus and SROC (credit to EG881)
+	<Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
+	<Include SROC/Scripts/r1_script.txt> #EG881
+
+	#3. My previous scripts
+	#<Include CustomObjects2018/Scripts/r1_script.txt>
+	<Include Shaft Wall Creator/Scripts/r1_script.txt>
+	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+
+#Buildings
+<Buildings>
+	#East
+	Load SDU1a - School of Business Admin.bld, 350, 0, 155, 0, -80, 0, -110, 58, 0, 110
+	Load SDU1a - School of Arts.bld, 220, 0, 155, 0, -58, 0, -110, 50, 0, 110
+	Load SDU1a - Rebecca Daylight Building.bld, 300, 0, -105, 0, -90, 0, -55, 90, 0, 63
+
+	#Center
+	Load SDU1a - Parking Garage.bld, 45, 0, 155, 0, -51 - 10, 0, -113, 51 + 24, 0, 110
+	Load SDU1a - School of Comm.Arts.bld, -80, 0, -155, 0, -40, 0, -110, 38, 0, 113
+	Load SDU1a - School of Sci&Tech.bld, -80, 0, 155, 0, -40, 0, -113, 40, 0, 110
+
+	#West
+	Load SDU1a - School of Nursing.bld, -300, 0, 535, 0, -100 - 68 - 12, 0, -50, 112, 0, 45 + 50 + 15
+	Load SDU1a - School of Medicine.bld, -300, 0, 215, 0, -108, 0, -50, 110, 0, 50
+	Load SDU1a - School of Law.bld, -350, 0, -155, 0, -58, 0, -110, 60, 0, 113
+<EndBuildings>
+
+############################################################
+
+#Globals
+<Globals>
+	Name = Skydream University
+	Designer = Mn10
+	Location = 999 Daylight Street, Tranquility City (East of Downtown Area)
+	Version = 2
+	Description = A university with landscaped gardens for students to relax.
+	CameraFloor = 0
+	#CameraPosition = 200, -165 #Start point 1: Stairs to RDB's 2nd floor.
+	CameraPosition = -300, 450 #Start point 2: In front of School of Nursing building.
+	#CameraRotation = 0, 90, 0 #Rotation for start point 1
+	CameraRotation = 0, 0, 0 #Rotation for start point 2
+<EndGlobals>
+
+############################################################
+
+#Textures
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+
+		#Plants
+		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+
+		#Roads
+		Load data/grndroad1mid.jpg, Road, 0.04, 0.04, true
+		Load data/Melvin/Roads/2lane-oneway.png, 2LaneOneWayX, 0.05, 1
+		Load data/Melvin/Roads/2lane-oneway-90de.png, 2LaneOneWayZ, 1, 0.05
+		Load data/Melvin/Roads/2lane-twoway.png, 2LaneTwoWayX, 0.05, 1
+		Load data/Melvin/Roads/2lane-twoway-90de.png, 2LaneTwoWayZ, 1, 0.05
+		Load data/Melvin/Roads/2lane-twoway-90de.png, PGEntranceRoad, 0.05, 0.05 #20 feet wide
+
+		Load data/Melvin/Roads/4lane-twoway1-90de.png, 4LaneTwoWayZ, 1, 0.05
+
+		#Road markings
+		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
+		Load data/EG881/parkingspacez.png, ParkingSpaceZ, 1, 1, false #EG881
+		Load data/EG881Mod/NoParkingX.png, NoParkingX, 1, 1, false #EG881 #Yellow islands
+		Load data/EG881Mod/NoParkingZ.png, NoParkingZ, 1, 1, false #EG881
+
+	#Building signs
+		#School of Law
+		Load data/Melvin/SDU_Signs/SchoolOfLaw2.png, BldgSignLaw, 1, 1, false
+		Load data/stucco1b.jpg, BldgSignLawBack, 0.25, 0.25
+
+	#Misc textures
+	Load data/Melvin/transparent128.png, Blank, 1, 1, false
+	Load data/EG881/brick040+_brown.jpg, Brick, 0.25, 0.25 #EG881
+	Load data/herringbone04.jpg, WoodenFloor, 0.2, 0.2
+	Load data/checker10.jpg, WoodenFloor2, 0.25, 0.25
+	Load data/herringbone10.jpg, WoodenFloor3, 0.2, 0.2
+	Load data/herringbone11.jpg, WoodenFloor4, 0.2, 0.2
+	Load data/hungary04.jpg, WoodenFloor5, 0.2, 0.2
+
+	#Concrete
+	Load data/EG881/cem_tr2b.jpg, Concrete1, 0.075225, 0.0625 #EG881
+
+	#Hanging out area south of RDB (2nd floor)
+	Load data/metaldoor.jpg, HOStairsTread, 6, 1, false
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, HOFloor, 0.0625, 0.0625 #EG881
+	Load data/stucco3.jpg, HOUnderside, 0.2, 0.2
+	Load data/EG881/brick040+_brown.jpg, HORailing, 0.25, 0.25 #EG881
+	#Load data/EG881/Concrete/smoothconcrete1_white.jpg, HOAccessPath2, 0.0625, 0.0625 #EG881
+
+		#Hang-out elevator shaft walls & doors
+		Load data/EG881/cem_tr2b.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
+		Load data/granite_0007e.jpg, HOElevShaftWall, 0.075, 0.075
+		#Load data/graniteTexture_0001b.jpg, HOElevShaftWall, 0.075, 0.075
+		Load data/EG881/aluminumdoor_bschindler.jpg, HOShaftDoors, -1, 1, false #EG881
+		Load data/aluminumdoor_b.jpg, HOShaftDoors2, -1, 1, false #EG881
+		Load data/panel-back3.jpg, HOShaftDoors_Trim, 1, 1, false
+
+	#Elevators
+		#Main components
+		Load data/metal1.jpg, ElevExt, 0.25, 0.25, true
+		Load data/counterweight.png, CWeight, 1, 1, false
+		Load data/counterweight_frame.png, CWeight_Frame, 1, 1, false
+		Load data/ropes.png, Ropes, 1, 1, false
+		Load data/metal080.jpg, ElevRail, 0.5, 0.5
+		Load data/metal1.jpg, ElevRailSide, 0.25, 0.25
+		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
+		#Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
+		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
+		Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
+
+		#Elevator walls
+		Load data/Carpet0021d_S.jpg, HangoutElevFloor, 0.2, 0.2 #Elevators 4-6
+		Load data/EG881/otis4_weaveceiling_1x1.jpg, HangoutElevCeiling, 2, 2, false #EG881
+		Load data/EG881/blackdoortrim.jpg, HangoutElevWall, 1, 1, false #EG881
+		Load data/otis4_weavefloor.jpg, HangoutElevWallPanel, 1, 3, false
+		Load data/panel-back3.jpg, HangoutElevPanelMain, 1, 1, false
+		Load data/panel-back3.jpg, HangoutElevPanelTop, 1, 0.0667, false
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, HangoutElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, HangoutElevDoors2, 1, 1, false #EG881
+	
+	#TK VR fixtures
+	Load data/ThyssenKrupp_VR/call_unlit2.png, VRButtonUp, 1, 1, false
+	Load data/ThyssenKrupp_VR/call_lit2.png, VRButtonUpLit, 1, 1, false
+	Load data/ThyssenKrupp_VR/call_unlit2.png, VRButtonDown, 1, 1, false
+	Load data/ThyssenKrupp_VR/call_lit2.png, VRButtonDownLit, 1, 1, false
+	Load data/ThyssenKrupp_VR/alarm.png, VRButtonAlarm, 1, 1, false
+	Load data/ThyssenKrupp_VR/dooropen.png, VRButtonOpen, 1, 1, false
+	Load data/ThyssenKrupp_VR/doorclose.png, VRButtonClose, 1, 1, false
+	Load data/ThyssenKrupp_VR/button_unlit.png, VRButton, 1, 1, false
+	Load data/ThyssenKrupp_VR/button_lit.png, VRButtonLit, 1, 1, false
+	AddTextRange 1, 2, VRButton, VRButton%number%, nimbus_sans_bold_condensed.ttf, 45, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
+	AddTextRange 1, 2, VRButtonLit, VRButtonLit%number%, nimbus_sans_bold_condensed.ttf, 45, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
+
+		#Inside indicators
+		Load data/darrow_single.jpg, ArrowUp, 1, 1, false
+		Load data/darrow_single_otis_upred.jpg,ArrowUpLit, 1, 1, false
+		Load data/darrow_single.jpg, ArrowDown, 1, 1, false
+		Load data/darrow_single_otis_downred.jpg, ArrowDownLit, 1, 1, false
+		ScrollAnim ArrowUpLit, 0, 1
+		ScrollAnim ArrowDownLit, 0, -1
+		Load data/ThyssenKrupp_VR/floorind.png, IndBack, 1, 1, false
+		AddTextRange 1, 2, IndBack, Ind_Button%number%, nimbus_sans_bold.ttf, 45, %number%, 128, 0, 256, 128, center, center, 255, 0, 0, false
+
+		#Outside indicators
+		Load data/darrow_unlit_red.gif, LanternUp, 1, 1, false
+		Load data/darrow_lit_red.gif, LanternUpLit, 1, 1, false
+		Load data/darrow_unlit_red.gif, LanternDown, 1, -1, false
+		Load data/darrow_lit_red.gif, LanternDownLit, 1, -1, false
+		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, IndBack, 1, 1, false
+		AddTextRange 1, 2, IndBack, OutsideInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
+
+		#3. Floor signs (Black)
+		Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
+		AddTextRange 1, 2, BlackTrim, Sign%number%, nimbus_sans_bold.ttf, 96, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+<EndTextures>
+
+############################################################
+
+#Floor Assignments
+<Floor -1>
+	ID = %floor%
+	Name = Shaft Pit
+	Type = Basement
+	#Height = 8.5
+	Height = 3.5
+	InterfloorHeight = 1.5
+	Altitude = -6.5
+<EndFloor>
+
+<Floor 0>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Office
+	Height = 9.5
+	InterfloorHeight = 1.5
+	if[%floor% = 0] Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Office
+	Height = 14.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+############################################################
+
+#Functions
+<Function CreateEastWestRoad>
+	Set Name = %param1%
+	Set CenterZ = %param2%
+	Set WestEnd = %param3%
+	Set EastEnd = %param4%
+	Set WestRoadExtension = %param5%
+	Set EastRoadExtension = %param6%
+
+	#Roads
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	AddFloor landscape, (%Name%)_North, 2LaneOneWayX, 0, %WestEnd% - %param5%, %CenterZ% + 6, %EastEnd% + %param6%, %CenterZ% + 30, -0.5, -0.5, 0, 0
+	AddFloor landscape, (%Name%)_South, 2LaneOneWayX, 0, %WestEnd% - %param5%, %CenterZ% - 30, %EastEnd% + %param6%, %CenterZ% - 6, -0.5, -0.5, 0, 0
+	SetAutoSize = true, true
+
+	#Sidewalks
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	AddFloor landscape, (%Name%)Sidewalk-North, Sidewalk, 0.5, %WestEnd%, %CenterZ% + 30, %EastEnd%, %CenterZ% + 42, 0, 0, 0, 0
+	AddFloor landscape, (%Name%)Sidewalk-Center, Sidewalk, 0.5, %WestEnd% - %param5%, %CenterZ% - 6, %EastEnd% + %param6%, %CenterZ% + 6, 0, 0, 0, 0
+	AddFloor landscape, (%Name%)Sidewalk-South, Sidewalk, 0.5, %WestEnd%, %CenterZ% - 42, %EastEnd%, %CenterZ% - 30, 0, 0, 0, 0
+<EndFunction>
+
+<Function CreateNorthSouthRoad>
+	Set Name = %param1%
+	Set CenterX = %param2%
+	Set SouthEnd = %param3%
+	Set NorthEnd = %param4%
+	Set CreateSlope = %param5%
+
+	#Roads
+	SetAutoSize = false, true
+	DrawWalls = true, true, false, false, false, false
+	if[%CreateSlope% ! true] AddFloor landscape, (%Name%)_East, 2LaneOneWayZ, 0, %CenterX% + 6, %SouthEnd%, %CenterX% + 30, %NorthEnd%, -0.5, -0.5, 0, 0
+	if[%CreateSlope% ! true] AddFloor landscape, (%Name%)_West, 2LaneOneWayZ, 0, %CenterX% - 30, %SouthEnd%, %CenterX% - 6, %NorthEnd%, -0.5, -0.5, 0, 0
+	SetAutoSize = true, true
+
+		#Sloping section
+		#SetAutoSize = false, true
+		DrawWalls = true, true, false, false, false, false
+		if[%CreateSlope% = true] AddFloor landscape, (%Name%)_East_Slope, Road, 0, %CenterX% + 6, %SouthEnd%, %CenterX% + 30, %NorthEnd%, 0, -0.5, 0, 0
+		if[%CreateSlope% = true] AddFloor landscape, (%Name%)_West_Slope, Road, 0, %CenterX% - 30, %SouthEnd%, %CenterX% - 6, %NorthEnd%, 0, -0.5, 0, 0
+		#SetAutoSize = true, true
+
+	#Sidewalks
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	AddFloor landscape, (%Name%)Sidewalk-East, Sidewalk, 0.5, %CenterX% + 30, %SouthEnd%, %CenterX% + 42, %NorthEnd%, 0, 0, 0, 0
+	AddFloor landscape, (%Name%)Sidewalk-Center, Sidewalk, 0.5, %CenterX% - 6, %SouthEnd%, %CenterX% + 6, %NorthEnd%, 0, 0, 0, 0
+	AddFloor landscape, (%Name%)Sidewalk-West, Sidewalk, 0.5, %CenterX% - 42, %SouthEnd%, %CenterX% - 30, %NorthEnd%, 0, 0, 0, 0
+<EndFunction>
+
+<Function CreateNorthSouthRoad2>
+	Set Name = %param1%
+	Set CenterX = %param2%
+	Set SouthEnd = %param3%
+	Set NorthEnd = %param4%
+	Set CreateSlope = %param5%
+	Set SlopeType = %param6%
+
+	#Roads
+	SetAutoSize = false, true
+	DrawWalls = true, true, false, false, false, false
+	if[%CreateSlope% ! true] AddFloor landscape, %Name%, 4LaneTwoWayZ, 0, %CenterX% - 24, %SouthEnd%, %CenterX% + 24, %NorthEnd%, -0.5, -0.5, 0, 0
+	SetAutoSize = true, true
+
+		SetAutoSize = false, true
+		DrawWalls = true, true, false, false, false, false
+		if[%CreateSlope% = true & %SlopeType% = 1] AddFloor landscape, %Name%_Slope, Road, 0, %CenterX% - 24, %SouthEnd%, %CenterX% + 24, %NorthEnd%, 0, -0.5, 0, 0
+		if[%CreateSlope% = true & %SlopeType% = 2] AddFloor landscape, %Name%_Slope, 4LaneTwoWayZ, 0, %CenterX% - 24, %SouthEnd%, %CenterX% + 24, %NorthEnd%, -0.5, 0, 0, 0
+		SetAutoSize = true, true
+
+	#Sidewalks
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	AddFloor landscape, (%Name%)Sidewalk-East, Sidewalk, 0.5, %CenterX% + 24, %SouthEnd%, %CenterX% + 36, %NorthEnd%, 0, 0, 0, 0
+	AddFloor landscape, (%Name%)Sidewalk-West, Sidewalk, 0.5, %CenterX% - 36, %SouthEnd%, %CenterX% - 24, %NorthEnd%, 0, 0, 0, 0
+<EndFunction>
+
+############################################################
+
+#Landscape
+#Coordinate Set
+Set MainX = -14412
+Set MainZ = 2620
+Set InSDU = true
+
+#Tranquility City Landscape
+<Include buildings/KW_Maps/Tranquility City.txt>
+
+#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -550, -1, -350 - 20, 550, 1, 350 + 300, false, true
+
+########################################
+
+#Sidewalks south of University's Campus
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, SouthSW1, Sidewalk, 0.5, -550, -370, -480, -350, 0, 0, 0, 0
+AddFloor landscape, SouthSW2, Sidewalk, 0.5, -408, -370, -42, -350, 0, 0, 0, 0
+AddFloor landscape, SouthSW3, Sidewalk, 0.5, 42, -370, 408, -350, 0, 0, 0, 0
+AddFloor landscape, SouthSW4, Sidewalk, 0.5, 480, -370, 550, -350, 0, 0, 0, 0
+
+#Skylight St. Sidewalk
+AddFloor landscape, SkylightStSidewalk_MiddleEast, Sidewalk, 0.5, 480 - 12, -30, 480, 30, 0, 0, 0, 0
+AddFloor landscape, SkylightStSidewalk_NorthEast, Sidewalk, 0.5, 480 - 12, 350 + 15, 480, 350 + 300, 0, 0, 0, 0
+
+#Daylight St. Sidewalk
+AddFloor landscape, DaylightStSidewalk_NorthWest, Sidewalk, 0.5, -480, 350 + 15, -480 + 12, 485, 0, 0, 0, 0
+
+#Northern sidewalk
+AddFloor landscape, NorthernAccessSidewalk1, Sidewalk, 0.5, -320, 313, -280, 365, 0, 0, 0, 0
+AddFloor landscape, NorthernAccessSidewalk2, Sidewalk, 0.5, -25, 313, 25, 365, 0, 0, 0, 0
+AddFloor landscape, NorthernSidewalk1, Sidewalk, 0.5, -300 + 100, 350 + 300 - 20, 480 - 12, 350 + 300, 0, 0, 0, 0
+AddFloor landscape, NorthernSidewalk2, Sidewalk, 0.5, -480 + 60, 350 + 15, 480 - 60, 350 + 15 + 20, 0, 0, 0, 0
+
+########################################
+
+#Grass
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, WestGrass, Grass_Dark, 0, -550, -350, -492 + 12, 350 + 300, 0, 0, 0, 0
+AddFloor landscape, SouthGrass1A, Grass_Dark, 0, -408, -350, -42, -195, 0, 0, 0, 0
+AddFloor landscape, SouthGrass1B, Grass_Dark, 0, -408, -195, -42, -42, 0, 0, 0, 0
+AddFloor landscape, SouthGrass2A, Grass_Dark, 0, 42, -350, 408, -42, 0, 0, 0, 0
+#AddFloor landscape, SouthGrass2B, Grass, 0, 42, -175, 408, -42, 0, 0, 0, 0
+#AddFloor landscape, SouthGrass3, Grass, 0, 492 - 12, -350, 550, -42, 0, 0, 0, 0
+AddFloor landscape, NorthGrass1A, Grass_Dark, 0, -408, 42, -320, 350 + 15, 0, 0, 0, 0
+AddFloor landscape, NorthGrass1B, Grass_Dark, 0, -280, 42, -25, 350 + 15, 0, 0, 0, 0
+AddFloor landscape, NorthGrass2, Grass_Dark, 0, 25, 42, 408, 350 + 15, 0, 0, 0, 0
+AddFloor landscape, NorthGrass3, Grass_Dark, 0, -480, 350 + 300 - 20, -300 + 100, 350 + 300, 0, 0, 0, 0
+AddFloor landscape, EastGrass, Grass_Dark, 0, 492 - 12, -350, 550, 350 + 300, 0, 0, 0, 0
+
+########################################
+
+#Roads
+CreateEastWestRoad(MainRoad1, 0, -408, -42, 12, 12)
+CreateEastWestRoad(MainRoad2, 0, 42, 408, 12, 12)
+#CreateEastWestRoad(MainRoad3, 0, 492 - 12, 550, 12, 0)
+CreateNorthSouthRoad2(DaylightRoad1, -450 + 6, -370, -350, true, 1)
+CreateNorthSouthRoad2(DaylightRoad1, -450 + 6, -350, -42 + 12, false)
+CreateNorthSouthRoad2(DaylightRoad2, -450 + 6, 42 - 12, 350, false)
+CreateNorthSouthRoad2(DaylightRoad3, -450 + 6, 350, 350 + 15, true, 2)
+CreateNorthSouthRoad(CenterRoad, 0, -370, -350, true)
+CreateNorthSouthRoad(CenterRoad, 0, -350, -42 + 12, false)
+CreateNorthSouthRoad2(SkylightRoad1, 450 - 6, -370, -350, true, 1)
+CreateNorthSouthRoad2(SkylightRoad1, 450 - 6, -350, -42 + 12, false)
+CreateNorthSouthRoad2(SkylightRoad2, 450 - 6, 42 - 12, 350, false)
+CreateNorthSouthRoad2(SkylightRoad2, 450 - 6, 350, 350 + 15, true, 2)
+
+#Northern Road
+Cut Landscape, -408 - 12, -1, 265, 408 + 12, 1, 265 + 12 + 24, false, true
+Cut Landscape, -408 - 12 - 1, -1, 265 + 12, -408 - 12 + 1, 1, 265 + 12 + 24, true, false
+Cut Landscape, -408 - 1, -1, 265 + 12, -408 + 1, 1, 265 + 12 + 24, true, false
+Cut Landscape, 408 - 1, -1, 265 + 12, 408 + 1, 1, 265 + 12 + 24, true, false
+Cut Landscape, 408 + 12 - 1, -1, 265 + 12, 408 + 12 + 1, 1, 265 + 12 + 24, true, false
+Cut Landscape, -408, -1, 265 + 12 + 24, 408, 1, 265 + 12 + 24 + 12, false, true
+
+SetAutoSize = true, false
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, NorthernRoad, 2LaneTwoWayX, 0, -408 - 12, 265 + 12, 408 + 12, 265 + 12 + 24, -0.5, -0.5, 0, 0
+SetAutoSize = true, true
+
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, NorthernRoadSidewalk-North, Sidewalk, 0.5, -408, 265 + 12 + 24, 408, 265 + 12 + 24 + 12, 0, 0, 0, 0
+AddFloor landscape, NorthernRoadSidewalk-South, Sidewalk, 0.5, -408 - 12, 265, 408 + 12, 265 + 12, 0, 0, 0, 0
+
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, NorthernRoad-SidewalkFiller1, Sidewalk, 0, -420, 265 + 12 + 24, -408, 265 + 12 + 24, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, NorthernRoad-SidewalkFiller2, Sidewalk, 0, 408, 265 + 12 + 24, 420, 265 + 12 + 24, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#Trees next to Northern Road
+AddTree(Tree1, -120 - 80, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 - 60, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 - 40, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 - 20, 330, 13.5, 12, 0)
+AddTree(Tree1, -120, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 + 20, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 + 40, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 + 60, 330, 13.5, 12, 0)
+AddTree(Tree1, -120 + 80, 330, 13.5, 12, 0)
+
+AddTree(Tree2, 120 - 80, 330, 12, 16, 0)
+AddTree(Tree2, 120 - 60, 330, 12, 16, 0)
+AddTree(Tree2, 120 - 40, 330, 12, 16, 0)
+AddTree(Tree2, 120 - 20, 330, 12, 16, 0)
+AddTree(Tree2, 120, 330, 12, 16, 0)
+AddTree(Tree2, 120 + 20, 330, 12, 16, 0)
+AddTree(Tree2, 120 + 40, 330, 12, 16, 0)
+AddTree(Tree2, 120 + 60, 330, 12, 16, 0)
+AddTree(Tree2, 120 + 80, 330, 12, 16, 0)
+
+########################################
+
+#Intersection between Daylight Rd. and Main Rd.
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Daylight-MainRdIntersection, Road, 0, -480 + 12, -30, -420, 30, -0.5, -0.5, 0, 0
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, Daylight-MainRdIntersection_Sidewalk, Sidewalk, 0.5, -492 + 12, -30, -480 + 12, 30, 0, 0, 0, 0
+
+#Intersection between Center Rd. and Main Rd.
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Center-MainRdIntersection, Road, 0, -30, -30, 30, 30, -0.5, -0.5, 0, 0
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+#AddFloor landscape, Center-MainRdIntersection_Sidewalk, Sidewalk, 0.5, -30 - 12, 30, 30 + 12, 30 + 12, 0, 0, 0, 0
+AddFloor landscape, Center-MainRdIntersection_Sidewalk1, Sidewalk, 0.5, -30 - 12, 30, -30 + 24, 30 + 12, 0, 0, 0, 0
+AddFloor landscape, Center-MainRdIntersection_Sidewalk2, Sidewalk, 0.5, -30 + 24, 30, 42, 30 + 12, 0, 0, 0, 0
+
+#Intersection between Skylight Rd. and Main Rd.
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Skylight-MainRdIntersection, Road, 0, 420, -30, 480 - 12, 30, -0.5, -0.5, 0, 0
+
+########################################
+
+#Fences
+WallOrientation = left
+DrawWalls = true, true, true, true, true, false
+AddWall landscape, FencesFront1, Brick, 0.5, -550 + 0.5, -350, -492 + 12, -350, 7, 7, 0, 0, 0, 0
+AddWall landscape, FencesFront2, Brick, 0.5, -408, -350, -42, -350, 7, 7, 0, 0, 0, 0
+AddWall landscape, FencesFront3, Brick, 0.5, 42, -350, 408, -350, 7, 7, 0, 0, 0, 0
+#AddWall landscape, FencesFront3B, Brick, 0.5, 235, -350, 408, -350, 7, 7, 0, 0, 0, 0
+AddWall landscape, FencesFront4, Brick, 0.5, 492 - 12, -350, 550 - 0.5, -350, 7, 7, 0, 0, 0, 0
+AddWall landscape, FencesLeft, Brick, 0.5, -550, -350, -550, 350 + 300, 7, 7, 0, 0, 0, 0
+
+WallOrientation = right
+AddWall landscape, FencesRight, Brick, 0.5, 550, -350, 550, 350 + 300, 7, 7, 0, 0, 0, 0
+AddWall landscape, FencesBack, Brick, 0.5, -550 + 0.5, 350 + 300, 550 - 0.5, 350 + 300, 7, 7, 0, 0, 0, 0
+#AddWall landscape, FencesBack1, Brick, 0.5, -550 + 0.5, 350, -492 + 12, 350, 7, 7, 0, 0, 0, 0
+#AddWall landscape, FencesBack2, Brick, 0.5, -408, 350, 408, 350, 7, 7, 0, 0, 0, 0
+#AddWall landscape, FencesBack3, Brick, 0.5, 492 - 12, 350, 550 - 0.5, 350, 7, 7, 0, 0, 0, 0
+
+########################################
+
+#Filler in front of School of Business Administration
+Cut Landscape, 350 - 80, -1, 155 - 110 - 3, 350 + 58, 1, 155 - 110, false, true
+
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Filler-BBA, Sidewalk, 0, 350 - 80, 155 - 110 - 3, 350 + 58, 155 - 110, 0, 0, 0, 0
+
+#Filler in front of School of Arts
+Cut Landscape, 220 - 58, -1, 155 - 110 - 3, 220 + 50, 1, 155 - 110, false, true
+
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Filler-Arts, Sidewalk, 0, 220 - 58, 155 - 110 - 3, 220 + 50, 155 - 110, 0, 0, 0, 0
+
+#Cuts for parking entrance
+Cut Landscape, 280, -1, 30, 300, 1, 45, false, true
+Cut Landscape, 280, -1, 30 - 0.1, 300, 1, 30 + 0.1, true, false
+Cut Landscape, 280, -1, 42 - 0.1, 300, 1, 42 + 0.1, true, false
+
+SetAutoSize = false, true
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, ParkingEntrance, 2LaneTwoWayZ, 0, 280, 30, 300, 45, -0.5, -0.5, 0, 0
+SetAutoSize = true, true
+AddWall landscape, ParkingEnt-SidewalkFiller1, Sidewalk, 0, 280, 30, 280, 45, 0.5, 0.5, -0.5, -0.5, 0, 0
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, ParkingEnt-SidewalkFiller2, Sidewalk, 0, 300, 30, 300, 45, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+############################################################
+
+#Far North Parking Lot (No parking spaces painted, in case I want to create another building here)
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, FarNorthParkingLotA, Road, 0, -480 + 12, 350 + 15 + 20, 480 - 12, 350 + 300 - 20, 0, 0, 0, 0
+
+SetAutoSize = false, true
+AddFloor landscape, FarNorthPLAccessRoad1, 4LaneTwoWayZ, 0, -480 + 12, 350 + 15, -480 + 60, 350 + 15 + 20, 0, 0, 0, 0
+AddFloor landscape, FarNorthPLAccessRoad2, 4LaneTwoWayZ, 0, 480 - 60, 350 + 15, 480 - 12, 350 + 15 + 20, 0, 0, 0, 0
+SetAutoSize = true, true
+
+############################################################
+
+
+#North parking lot 1 (Between School of Medicine and School of Science and Technology)
+Cut Landscape, -408, -1, 42, -120, 1, 165, false, true
+Cut Landscape, -190, -1, 165, -120, 1, 265, false, true
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, NorthPL1A, Road, 0, -408, 42, -120 - 5, 164.5, -0.5, -0.5, 0, 0
+AddFloor landscape, NorthPL1B, Road, 0, -185, 164.5, -120 - 5, 265, -0.5, -0.5, 0, 0
+
+#North Entrance/Exit
+Cut Landscape, -155 - 12, -1, 265, -155 + 12, 1, 277, false, true
+Cut Landscape, -155 - 12, -1, 265 - 0.1, -155 + 12, 1, 265 + 0.1, true, false
+Cut Landscape, -155 - 12, -1, 277 - 0.1, -155 + 12, 1, 277 + 0.1, true, false
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, NorthPL1-NDriveway, Road, 0, -155 - 12, 265, -155 + 12, 277, -0.5, -0.5, 0, 0
+AddWall landscape, NorthPL1NDriveway-SidewalkFiller1, Sidewalk, 0, -155 - 12, 265, -155 - 12, 277, 0.5, 0.5, -0.5, -0.5, 0, 0
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, NorthPL1NDriveway-SidewalkFiller2, Sidewalk, 0, -155 + 12, 265, -155 + 12, 277, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#South Entrance/Exit
+Cut Landscape, -284.5, -1, 30, -260.5, 1, 42, false, true
+Cut Landscape, -284.5, -1, 30 - 0.1, -260.5, 1, 30 + 0.1, true, false
+Cut Landscape, -284.5, -1, 42 - 0.1, -260.5, 1, 42 + 0.1, true, false
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, NorthPL1-SDriveway, Road, 0, -284.5, 30, -260.5, 42, -0.5, -0.5, 0, 0
+AddWall landscape, NorthPL1SDriveway-SidewalkFiller1, Sidewalk, 0, -284.5, 30, -284.5, 42, 0.5, 0.5, -0.5, -0.5, 0, 0
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, NorthPL1SDriveway-SidewalkFiller2, Sidewalk, 0, -260.5, 30, -260.5, 42, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#Sidewalks
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, NorthPL1_SidewalkRight1, Sidewalk, 0.5, -190, 164.5, -185, 265, 0, 0, 0, 0
+AddFloor landscape, NorthPL1_SidewalkRight2, Sidewalk, 0.5, -125, 42, -120, 265, 0, 0, 0, 0
+AddFloor landscape, NorthPL1_SidewalkBack, Sidewalk, 0.5, -408, 164.5, -190, 165, 0, 0, 0, 0
+
+AddFloor landscape, NorthPL1_SidewalkMiddle1, Sidewalk, 0.5, -378 - (8.5 * 1), 102, -378 + (8.5 * 11), 104.5, 0, 0, 0, 0
+AddFloor landscape, NorthPL1_SidewalkMiddle2, Sidewalk, 0.5, -167 - (8.5 * 11), 102, -167, 104.5, 0, 0, 0, 0
+
+#Parking spaces
+Set Offset = -0.5 + 0.001
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, NorthPL1_ParkingSpace1, ParkingSpaceX, 0, -185, 225, -185 + 18, 225 + (8.5 * 4), %Offset%, %Offset%, -1, 4
+AddFloor landscape, NorthPL1_ParkingSpace2, ParkingSpaceX, 0, -185, 215 - (8.5 * 8), -185 + 18, 215, %Offset%, %Offset%, -1, 8
+AddFloor landscape, NorthPL1_NoParkingArea1, NoParkingX, 0, -185, 215, -185 + 18, 225, %Offset%, %Offset%, -1, 1
+AddFloor landscape, NorthPL1_NoParkingArea2, NoParkingX, 0, -185, 225 + (8.5 * 4), -185 + 18, 265, %Offset%, %Offset%, -1, 1
+
+AddFloor landscape, NorthPL1_ParkingSpace3, ParkingSpaceX, 0, -125 - 18, 190, -125, 190 + (8.5 * 8), %Offset%, %Offset%, 1, 8
+AddFloor landscape, NorthPL1_ParkingSpace4, ParkingSpaceX, 0, -125 - 18, 180 - (8.5 * 6), -125, 180, %Offset%, %Offset%, 1, 6
+AddFloor landscape, NorthPL1_ParkingSpace5, ParkingSpaceX, 0, -125 - 18, 120 - (8.5 * 7), -125, 120, %Offset%, %Offset%, 1, 7
+AddFloor landscape, NorthPL1_NoParkingArea3, NoParkingX, 0, -125 - 18, 190 + (8.5 * 8), -125, 265, %Offset%, %Offset%, 1, 1
+AddFloor landscape, NorthPL1_NoParkingArea4, NoParkingX, 0, -125 - 18, 180, -125, 190, %Offset%, %Offset%, 1, 1
+AddFloor landscape, NorthPL1_NoParkingArea5, NoParkingX, 0, -125 - 18, 120, -125, 180 - (8.5 * 6), %Offset%, %Offset%, 1, 1
+AddFloor landscape, NorthPL1_NoParkingArea6, NoParkingX, 0, -145.5, 42, -125, 120 - (8.5 * 7), %Offset%, %Offset%, 1, 2
+
+AddFloor landscape, NorthPL1_ParkingSpace6, ParkingSpaceZ, 0, -408, 164.5 - 18, -408 + (8.5 * 11), 164.5, %Offset%, %Offset%, 11, 1
+AddFloor landscape, NorthPL1_ParkingSpace7, ParkingSpaceZ, 0, -289, 164.5 - 18, -289 + (8.5 * 11), 164.5, %Offset%, %Offset%, 11, 1
+AddFloor landscape, NorthPL1_NoParkingArea7, NoParkingZ, 0, -408 + (8.5 * 11), 164.5 - 18, -289, 164.5, %Offset%, %Offset%, 3, 1
+AddFloor landscape, NorthPL1_NoParkingArea8, NoParkingZ, 0, -289 + (8.5 * 11), 164.5 - 18, -185, 164.5, %Offset%, %Offset%, 1, 1
+
+AddFloor landscape, NorthPL1_ParkingSpace8, ParkingSpaceZ, 0, -378 - (8.5 * 1), 122.5 - 18, -378 + (8.5 * 11), 122.5, %Offset%, %Offset%, 12, -1
+AddFloor landscape, NorthPL1_ParkingSpace9, ParkingSpaceZ, 0, -167 - (8.5 * 11), 122.5 - 18, -167, 122.5, %Offset%, %Offset%, 11, -1
+AddFloor landscape, NorthPL1_ParkingSpace10, ParkingSpaceZ, 0, -378 - (8.5 * 1), 84, -378 + (8.5 * 11), 84 + 18, %Offset%, %Offset%, 12, 1
+AddFloor landscape, NorthPL1_ParkingSpace11, ParkingSpaceZ, 0, -167 - (8.5 * 11), 84, -167, 84 + 18, %Offset%, %Offset%, 11, 1
+
+AddFloor landscape, NorthPL1_ParkingSpace12, ParkingSpaceZ, 0, -408, 42, -408 + (8.5 * 14), 42 + 18, %Offset%, %Offset%, 14, -1
+AddFloor landscape, NorthPL1_ParkingSpace13, ParkingSpaceZ, 0, -256, 42, -256 + (8.5 * 13), 42 + 18, %Offset%, %Offset%, 13, -1
+AddFloor landscape, NorthPL1_NoParkingArea9, NoParkingZ, 0, -408 + (8.5 * 14), 42, -284.5, 42 + 18, %Offset%, %Offset%, 1, -1
+AddFloor landscape, NorthPL1_NoParkingArea10, NoParkingZ, 0, -260.5, 42, -260.5 + 4.5, 42 + 18, %Offset%, %Offset%, 1, -1
+
+############################################################
+
+#Former north parking lot 2 (Between School of Science and Technology and School of Arts)
+	#Now replaced with Parking Garage
+
+	Cut Landscape, -40, -1, 42, 130, 1, 265, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, FormerNorthPL2, Road, 0, -30 + 24, 42, 120, 265, 0, 0, 0, 0
+
+#South Driveway (Now used as PG Entrance/Exit)
+Cut Landscape, 96 + 4, -1, 30, 120, 1, 42, false, true
+Cut Landscape, 96 + 4, -1, 30 - 0.1, 120, 1, 30 + 0.1, true, false
+Cut Landscape, 96 + 4, -1, 42 - 0.1, 120, 1, 42 + 0.1, true, false
+AddFloor external, NorthPL2-SDriveway2, PGEntranceRoad, 0, 96 + 4, 30, 120, 42, -0.5, 0, 0, 0
+
+DrawWalls = false, true, false, false, false, false
+AddWall landscape, NorthPL2SDriveway-SidewalkFiller1, Sidewalk, 0, 96 + 4, 30, 96 + 4, 42, 0.5, 0.5, -0.5, -0.5, 0, 0
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, NorthPL2SDriveway-SidewalkFiller2, Sidewalk, 0, 120, 30, 120, 42, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#North Driveways (Now used as PG Entrance/Exit)
+Cut Landscape, 96 + 4, -1, 265, 120, 1, 277, false, true
+Cut Landscape, 96 + 4, -1, 265 - 0.1, 120, 1, 265 + 0.1, true, false
+Cut Landscape, 96 + 4, -1, 277 - 0.1, 120, 1, 277 + 0.1, true, false
+DrawWalls = false, true, false, false, false, false
+AddFloor external, NorthPL2-NDriveway2, PGEntranceRoad, 0, 96 + 4, 265, 120, 277, 0, -0.5, 0, 0
+
+DrawWalls = false, true, false, false, false, false
+AddWall landscape, NorthPL2NDriveway2-SidewalkFiller1, Sidewalk, 0, 96 + 4, 265, 96 + 4, 277, 0.5, 0.5, -0.5, -0.5, 0, 0
+DrawWalls = true, false, false, false, false, false
+AddWall landscape, NorthPL2NDriveway2-SidewalkFiller2, Sidewalk, 0, 120, 265, 120, 277, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#Sidewalks
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor landscape, NorthPL2_SidewalkLeft, Sidewalk, 0.5, -40, 42, -30 + 24, 265, 0, 0, 0, 0
+AddFloor landscape, NorthPL2_SidewalkRight, Sidewalk, 0.5, 120, 42, 130, 265, 0, 0, 0, 0
+
+############################################################
+
+#Garden area 1 - Next to School of Arts
+Cut Landscape, 130, -1, 42, 162, 1, 265, false, true
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, GardenFloor1-1, Sidewalk, 0, 130, 42, 162, 55, 0, 0, 0, 0
+AddFloor landscape, GardenFloor1-2, WoodenFloor, 0, 130, 55, 162, 135, 0, 0, 0, 0
+AddFloor landscape, GardenFloor1-3, SidewalkDarker, 0, 130, 135, 162, 155, 0, 0, 0, 0
+AddFloor landscape, GardenFloor1-4, WoodenFloor, 0, 130, 155, 162, 250, 0, 0, 0, 0
+AddFloor landscape, GardenFloor1-5, Sidewalk, 0, 130, 250, 162, 265, 0, 0, 0, 0
+
+#Garden area 1A (South)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden1A_FlowerBed, Concrete1, 0.5, 137.5, 57.5, 152.5, 132.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden1A_Grass, Grass_Dark, 0, 137.5 + 1, 57.5 + 1, 152.5 - 1, 132.5 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 1A trees
+AddTree(Tree1, 145, 65, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 65 + 15, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 65 + 30, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 65 + 45, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 65 + 60, 13.5, 12, 0.51)
+
+#Garden area 1B (North)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden1B_FlowerBed, Concrete1, 0.5, 137.5, 157.5, 152.5, 247.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden1B_Grass, Grass_Dark, 0, 137.5 + 1, 157.5 + 1, 152.5 - 1, 247.5 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 1B trees
+AddTree(Tree1, 145, 165, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 165 + 15, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 165 + 30, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 165 + 45, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 165 + 60, 13.5, 12, 0.51)
+AddTree(Tree1, 145, 165 + 75, 13.5, 12, 0.51)
+
+############################################################
+
+#Garden area 2 - Next to School of Sci&Tech
+#Garden area 2A (South)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden2A_FlowerBed, Concrete1, 0.5, -30 - 7.5, (155 - 60) - 15, -30 + 7.5, (155 - 60) + 15, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden2A_Grass, Grass_Dark, 0, -30 - 7.5 + 1, (155 - 60) - 15 + 1, -30 + 7.5 - 1, (155 - 60) + 15 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 2A trees
+AddTree(Tree1, -30, 155 - 60 - 7.5, 13.5, 12, 0.51)
+AddTree(Tree1, -30, 155 - 60 + 7.5, 13.5, 12, 0.51)
+
+#Garden area 2B (Center)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden2B_FlowerBed, Concrete1, 0.5, -30 - 7.5, 155 - 15, -30 + 7.5, 155 + 15, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden2B_Grass, Grass_Dark, 0, -30 - 7.5 + 1, 155 - 15 + 1, -30 + 7.5 - 1, 155 + 15 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 2B trees
+AddTree(Tree2, -30, 155 - 7.5, 12, 16, 0.51)
+AddTree(Tree2, -30, 155 + 7.5, 12, 16, 0.51)
+
+#Garden area 2C (North)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden2A_FlowerBed, Concrete1, 0.5, -30 - 7.5, (155 + 60) - 15, -30 + 7.5, (155 + 60) + 15, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden2A_Grass, Grass_Dark, 0, -30 - 7.5 + 1, (155 + 60) - 15 + 1, -30 + 7.5 - 1, (155 + 60) + 15 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 2C trees
+AddTree(Tree1, -30, 155 + 60 - 7.5, 13.5, 12, 0.51)
+AddTree(Tree1, -30, 155 + 60 + 7.5, 13.5, 12, 0.51)
+
+############################################################
+
+#Garden area 3 - Near School of Communication Arts
+Cut Landscape, -60, -1, -350, -42, 1, -265, false, true
+Cut Landscape, 42, -1, -350, 60, 1, -42, false, true
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, GardenFloor3A, WoodenFloor2, 0, -60, -350, -42, -265, 0, 0, 0, 0
+AddFloor landscape, GardenFloor3B, WoodenFloor2, 0, 42, -350, 60, -42, 0, 0, 0, 0
+
+#Garden area 3A (West)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden3A_FlowerBed, Concrete1, 0.5, -51 - 6.5, -347.5, -51 + 6.5, -272.5 - 15, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden3A_Grass, Grass_Dark, 0, (-51 - 6.5) + 1, -347.5 + 1, (-51 + 6.5) - 1, -272.5 - 15 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 3A trees
+AddTree(Tree2, -51, -340, 12, 16, 0.51)
+AddTree(Tree2, -51, -340 + 15, 12, 16, 0.51)
+AddTree(Tree2, -51, -340 + 30, 12, 16, 0.51)
+AddTree(Tree2, -51, -340 + 45, 12, 16, 0.51)
+#AddTree(Tree2, -51, -340 + 60, 12, 16, 0.51)
+
+#Garden area 3B (East)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden3B_FlowerBed1, Concrete1, 0.5, 51 - 6.5, -347.5, 51 + 6.5, -227.5, 0, 0, 0, 0
+AddFloor landscape, Garden3B_FlowerBed2, Concrete1, 0.5, 51 - 6.5, -167.5, 51 + 6.5, -47.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden3B_Grass1, Grass_Dark, 0, (51 - 6.5) + 1, -347.5 + 1, (51 + 6.5) - 1, -227.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden3B_Grass2, Grass_Dark, 0, (51 - 6.5) + 1, -167.5 + 1, (51 + 6.5) - 1, -47.5 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 3B trees
+AddTree(Tree2, 51, -340, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 15, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 30, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 45, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 60, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 75, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 90, 12, 16, 0.51)
+AddTree(Tree2, 51, -340 + 105, 12, 16, 0.51)
+
+AddTree(Tree2, 51, -55 - 105, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 90, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 75, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 60, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 45, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 30, 12, 16, 0.51)
+AddTree(Tree2, 51, -55 - 15, 12, 16, 0.51)
+AddTree(Tree2, 51, -55, 12, 16, 0.51)
+
+############################################################
+
+#Garden area 4 - Near School of Business Administration
+Cut Landscape, 390, -1, -350, 408, 1, -42, false, true
+Cut Landscape, 480, -1, -350, 498, 1, -42, false, true
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, GardenFloor4A, WoodenFloor2, 0, 390, -350, 408, -42, 0, 0, 0, 0
+AddFloor landscape, GardenFloor4B, WoodenFloor2, 0, 480, -350, 498, -42, 0, 0, 0, 0
+
+#Garden area 4A (West)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden3A_FlowerBed1, Concrete1, 0.5, 399 - 6.5, -347.5, 399 + 6.5, -227.5, 0, 0, 0, 0
+AddFloor landscape, Garden3A_FlowerBed2, Concrete1, 0.5, 399 - 6.5, -167.5, 399 + 6.5, -47.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden3A_Grass1, Grass_Dark, 0, (399 - 6.5) + 1, -347.5 + 1, (399 + 6.5) - 1, -227.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden3A_Grass2, Grass_Dark, 0, (399 - 6.5) + 1, -167.5 + 1, (399 + 6.5) - 1, -47.5 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 4A trees
+AddTree(Tree2, 399, -340, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 15, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 30, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 45, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 60, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 75, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 90, 12, 16, 0.51)
+AddTree(Tree2, 399, -340 + 105, 12, 16, 0.51)
+
+AddTree(Tree2, 399, -55 - 105, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 90, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 75, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 60, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 45, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 30, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 15, 12, 16, 0.51)
+AddTree(Tree2, 399, -55, 12, 16, 0.51)
+
+#Garden area 4B (East)
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden4B_FlowerBed1, Concrete1, 0.5, 489 - 6.5, -347.5, 489 + 6.5, -227.5, 0, 0, 0, 0
+AddFloor landscape, Garden4B_FlowerBed2, Concrete1, 0.5, 489 - 6.5, -167.5, 489 + 6.5, -47.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden4B_Grass1, Grass_Dark, 0, (489 - 6.5) + 1, -347.5 + 1, (489 + 6.5) - 1, -227.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden4B_Grass2, Grass_Dark, 0, (489 - 6.5) + 1, -167.5 + 1, (489 + 6.5) - 1, -47.5 - 1, 0.51, 0.51, 0, 0
+
+#Garden area 4B trees
+AddTree(Tree2, 489, -340, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 15, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 30, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 45, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 60, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 75, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 90, 12, 16, 0.51)
+AddTree(Tree2, 489, -340 + 105, 12, 16, 0.51)
+
+AddTree(Tree2, 489, -55 - 105, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 90, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 75, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 60, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 45, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 30, 12, 16, 0.51)
+AddTree(Tree2, 489, -55 - 15, 12, 16, 0.51)
+AddTree(Tree2, 489, -55, 12, 16, 0.51)
+
+############################################################
+
+#Paths on eastern side
+DrawWalls = false, true, false, false, false, false
+Cut Landscape, 60, -1, -215, 390, 1, -195, false, true
+AddFloor landscape, EasternPath1, WoodenFloor3, 0, 60, -215, 390, -195, 0, 0, 0, 0
+
+Cut Landscape, 190, -1, -195, 210, 1, -42, false, true
+#Cut Landscape, 215, -1, -350, 235, 1, -195, false, true
+AddFloor landscape, EasternPath2, WoodenFloor2, 0, 190, -195, 210, -42, 0, 0, 0, 0
+#AddFloor landscape, EasternPath3, WoodenFloor3, 0, 215, -350, 235, -195, 0, 0, 0, 0
+
+	#Path to Rebecca Daylight Building
+	Cut Landscape, 300 - 30 - 10, -1, -195, 300 - 30 + 10, 1, -160, false, true
+	Cut Landscape, 300 + 30 - 10, -1, -195, 300 + 30 + 10, 1, -160, false, true
+	AddFloor landscape, RebeccaD.BldLink1, Sidewalk, 0, 300 - 30 - 10, -195, 300 - 30 + 10, -160, 0, 0, 0, 0
+	AddFloor landscape, RebeccaD.BldLink2, Sidewalk, 0, 300 + 30 - 10, -195, 300 + 30 + 10, -160, 0, 0, 0, 0
+
+#Trees south of Rebecca Daylight Building (RDB)
+AddTree(Tree1, 90, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 20, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 40, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 60, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 80, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 100, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 120, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 140, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 160, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 180, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 200, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 220, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 240, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 260, -225, 13.5, 12, 0)
+AddTree(Tree1, 90 + 280, -225, 13.5, 12, 0)
+
+AddTree(Tree1, 90, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 20, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 40, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 60, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 80, -185, 13.5, 12, 0)
+#AddTree(Tree1, 90 + 100, -185, 13.5, 12, 0)
+#AddTree(Tree1, 90 + 120, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 140, -185 - 3, 13.5, 12, 0)
+AddTree(Tree1, 90 + 160, -185 - 3, 13.5, 12, 0)
+#AddTree(Tree1, 90 + 180, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 200, -185 - 3, 13.5, 12, 0)
+AddTree(Tree1, 90 + 220, -185 - 3, 13.5, 12, 0)
+#AddTree(Tree1, 90 + 240, -185, 13.5, 12, 0)
+AddTree(Tree1, 90 + 260, -185 - 3, 13.5, 12, 0)
+AddTree(Tree1, 90 + 280, -185 - 3, 13.5, 12, 0)
+
+############################################################
+
+#Treads at stair steps
+<Function StairTread>
+	Set Name = %param1%
+	Set IP = %param2% #Initial position
+	Set Offset = %param3%
+
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %Name%, HOStairsTread, 0, %IP%, -180, %IP% + 0.2, -172, %Offset% + 0.001, %Offset% + 0.001, 0, 0
+<EndFunction>
+
+####================================####
+
+#Hanging out area south of RDB
+Set DeckBase = Floor(1).Base
+
+FloorOrientation = top
+DrawWalls = true, true, false, false, false, false
+TextureOverride HOUnderside, HOFloor, Blank, Blank, Blank, Blank
+AddFloor landscape, HOFloor, HOFloor, 1.5, 300 - 75 + 15, -105 - 55 - 20, 300 - 15, -105 - 55, %DeckBase%, %DeckBase%, 0, 0
+
+Cut Landscape, 210, -1, -180, 218, 1, -172, false, true
+AddFloor landscape, HOAccessPath, Sidewalk, 0, 210, -180, 218, -172, 0, 0, false, true, 0, 0
+
+Cut Landscape, 210, -1, -172, 230.66 + 0.66, 1, -160, false, true
+AddFloor landscape, HOAccessPath2, Sidewalk, 0, 210, -172, 230.66 + 0.66, -160, 0, 0, false, true, 0, 0
+
+	#Entrance stairs
+	AddFloorAutoArea 210, Floor(0).Base, -180, 240, Floor(1).Base + 7, -160 #Auto areas around stairs
+	OP_OrthoStair(landscape, HOAccessStairs, HOFloor, -180, -172, left, 218, 22, 1, 0.5, 0, 1.5)
+
+	#Treads at stair steps
+	StairTread(HOStairsTread01, 218, 0.5 * 1)
+	StairTread(HOStairsTread02, 218 + 1, 0.5 * 2)
+	StairTread(HOStairsTread03, 218 + 2, 0.5 * 3)
+	StairTread(HOStairsTread04, 218 + 3, 0.5 * 4)
+	StairTread(HOStairsTread05, 218 + 4, 0.5 * 5)
+	StairTread(HOStairsTread06, 218 + 5, 0.5 * 6)
+	StairTread(HOStairsTread07, 218 + 6, 0.5 * 7)
+	StairTread(HOStairsTread08, 218 + 7, 0.5 * 8)
+	StairTread(HOStairsTread09, 218 + 8, 0.5 * 9)
+	StairTread(HOStairsTread10, 218 + 9, 0.5 * 10)
+	StairTread(HOStairsTread11, 218 + 10, 0.5 * 11)
+	StairTread(HOStairsTread12, 218 + 11, 0.5 * 12)
+	StairTread(HOStairsTread13, 218 + 12, 0.5 * 13)
+	StairTread(HOStairsTread14, 218 + 13, 0.5 * 14)
+	StairTread(HOStairsTread15, 218 + 14, 0.5 * 15)
+	StairTread(HOStairsTread16, 218 + 15, 0.5 * 16)
+	StairTread(HOStairsTread17, 218 + 16, 0.5 * 17)
+	StairTread(HOStairsTread18, 218 + 17, 0.5 * 18)
+	StairTread(HOStairsTread19, 218 + 18, 0.5 * 19)
+	StairTread(HOStairsTread20, 218 + 19, 0.5 * 20)
+	StairTread(HOStairsTread21, 218 + 20, 0.5 * 21)
+	StairTread(HOStairsTread22, 218 + 21, 0.5 * 22)
+
+	####================================####
+
+	#Railings
+	Set FenceThickness = 0.25
+	DrawWalls = true, true, true, true, true, true
+
+	WallOrientation = left
+	AddWall landscape, HOAccessST_BRail, HORailing, %FenceThickness%, 218, -172, 240, -172, 3.5 + 1.5, 3.5 + 1.5, 0 - 1.5, %DeckBase% - 1.5, 0, 0	
+	WallOrientation = right
+	AddWall landscape, HOAccessST_FRail, HORailing, %FenceThickness%, 218, -180, 240, -180, 3.5 + 1.5, 3.5 + 1.5, 0 - 1.5, %DeckBase% - 1.5, 0, 0	
+	AddWall landscape, HOArea_FRail, HORailing, %FenceThickness%, 240, -180, 285, -180, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0	
+	WallOrientation = left
+	AddWall landscape, HOArea_RRail, HORailing, %FenceThickness%, 285, -180 - %FenceThickness%, 285, -160, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0	
+
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, HOArea_LRail, HORailing, %FenceThickness%, 240, -172, 240, -170, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0	
+
+	####================================####
+
+	#Supports under elevated floor
+	CreateWallBox2 landscape, HOSupport1, HORailing, 285 - 1.25, -180 + 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, HOSupport2, HORailing, 285 - 35, -180 + 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, HOSupport3, HORailing, 285 - 1.25, -160 - 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, HOSupport4, HORailing, 285 - 35, -160 - 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+
+	####================================####
+
+	#ELEVATOR SHAFT WALL
+	<Floors 0 to 1>
+		#Wall heights/offsets
+		Set SWHeight = %height%
+		Set SWOffset = %interfloorheight%
+		if[%floor% = 1] Set SWHeight = %fullheight%
+		if[%floor% = 1] Set SWOffset = 0
+
+		Set ShowTop = false
+		if[%floor% = 1] Set ShowTop = true
+
+		CreateShaftWall(HOElevShaftWall, HOElevShaftWall, HOElevShaftWall, HOElevShaftWall, HOElevShaftWall, HOElevShaftWall, 0.33, 235.66, -165, 5, 5, Shaft1, %SWHeight%, %SWOffset%, true, true, true, true, %ShowTop%, false, true)
+	<EndFloors>
+
+############################################################
+
+#Paths on western side
+DrawWalls = false, true, false, false, false, false
+#AddFloor landscape, WesternPath1, WoodenFloor4, 0, -408, -195, -120, -175, 0, 0, 0, 0 #Original version, no longer used
+Cut Landscape, -240, -1, -195, -120, 1, -175, false, true
+AddFloor landscape, WesternPath1, WoodenFloor4, 0, -240, -195, -120, -175, 0, 0, 0, 0
+
+#Cut Landscape, -280, -1, -175, -260, 1, -42, false, true #Original version, no longer used
+#AddFloor landscape, WesternPath2, WoodenFloor4, 0, -280, -175, -260, -42, 0, 0, 0, 0
+
+Cut Landscape, -260, -1, -265, -240, 1, -42, false, true
+AddFloor landscape, WesternPath2, WoodenFloor4, 0, -260, -265, -240, -42, 0, 0, 0, 0
+
+Cut Landscape, -408, -1, -265 - 20, -60, 1, -265, false, true
+AddFloor landscape, WesternPath3, WoodenFloor5, 0, -408, -265 - 20, -60, -265, 0, 0, 0, 0
+
+	#Path to School of Law
+	Cut Landscape, -290, -1, -155 - 60, -260, 1, -155 - 30, false, true
+	Cut Landscape, -290, -1, -155 + 30, -260, 1, -155 + 60, false, true
+	AddFloor landscape, LawLink1, Sidewalk, 0, -290, -155 - 60, -260, -155 - 30, 0, 0, 0, 0
+	AddFloor landscape, LawLink2, Sidewalk, 0, -290, -155 + 30, -260, -155 + 60, 0, 0, 0, 0
+
+#Trees
+	#Western Path 1
+	#AddTree(Tree1, -380, -205, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 20, -205, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 40, -205, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 60, -205, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 80, -205, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 160, -205, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 180, -205, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 200, -205, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 220, -205, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 240, -205, 13.5, 12, 0)
+	
+	#AddTree(Tree1, -380, -165, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 20, -165, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 40, -165, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 60, -165, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 80, -165, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 160, -165, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 180, -165, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 200, -165, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 220, -165, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 240, -165, 13.5, 12, 0)
+
+	#Western Path 3
+	AddTree(Tree1, -380, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 20, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 40, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 60, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 80, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 100, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 120, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 140, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 160, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 180, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 200, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 220, -295, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 240, -295, 13.5, 12, 0)
+	
+	AddTree(Tree1, -380, -255, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 20, -255, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 40, -255, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 60, -255, 13.5, 12, 0)
+	AddTree(Tree1, -380 + 80, -255, 13.5, 12, 0)
+	#AddTree(Tree2, -380 + 140, -255, 12, 16, 0)
+	AddTree(Tree2, -380 + 160, -255, 12, 16, 0)
+	AddTree(Tree2, -380 + 180, -255, 12, 16, 0)
+	AddTree(Tree2, -380 + 200, -255, 12, 16, 0)
+	AddTree(Tree2, -380 + 220, -255, 12, 16, 0)
+	AddTree(Tree2, -380 + 240, -255, 12, 16, 0)
+	
+	#In front of School of Law
+	AddTree(Tree2, -275, -155 - 100, 12, 16, 0)
+	AddTree(Tree2, -275, -155 - 80, 12, 16, 0)
+	AddTree(Tree2, -275, -155 - 20, 12, 16, 0)
+	AddTree(Tree2, -275, -155, 12, 16, 0)
+	AddTree(Tree2, -275, -155 + 20, 12, 16, 0)
+	AddTree(Tree2, -275, -155 + 80, 12, 16, 0)
+	AddTree(Tree2, -275, -155 + 100, 12, 16, 0)
+
+############################################################
+
+#Building signs
+	#School of Law
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	TextureOverride BldgSignLawBack, BldgSignLaw, BldgSignLawBack, BldgSignLawBack, BldgSignLawBack, BldgSignLawBack
+	AddWall landscape, BldgSignLaw, BldgSignLaw, 0.25, -260, -155 - 7, -260, -155 + 7, 4, 4, 0, 0, 0, 0
+
+############################################################
+
+#SHAFTWORKS
+#Hang-out access elevator
+AddStdShaft(1, 2, 235.66, -165, 4.67, 4.67, -1, 1, ShaftIntWall, 0.5, 0.33, 0, 5, %fullheight%)
+Cut landscape, 230.66 + 0.66, -1, -170 + 0.66, 240.66 - 0.66, 1, -160 - 0.66, false, true #Cut landscape for shaft
+ShowFullShaft 1 = true
+
+#Entrance Elevator
+<Function BtnPanelE1>
+	Set PanelNumber = %param1%
+	Set PanelNumber2 = %param1% + 1
+	Set Prefix = VRButton
+
+	AddButton %PanelNumber2%, , %Prefix%2, %Prefix%Lit2, 1, 1, 1, 1, 1
+	AddButton %PanelNumber2%, , %Prefix%1, %Prefix%Lit1, 2, 1, 0, 1, 1
+	AddButton %PanelNumber%, , %Prefix%Open, %Prefix%Open, 4, 1, open, 1, 1
+	AddButton %PanelNumber%, , %Prefix%Close, %Prefix%Close, 4, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %Prefix%Alarm, %Prefix%Alarm, 5, 2, alarm, 1, 1
+<EndFunction>
+
+<Elevator 1>
+	Name = Hang-Out Access Elevator
+	Speed = 3
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0 - 1
+	Doors = 2
+	AssignedShaft = 1
+
+	MotorPosition = 0, Floor(1).Base + Floor(1).Height - 0.5, 0
+	AutoEnable = false
+	CreateElevator true, 0, -0.5, 0
+	#--------------------
+	Set Prefix = Hangout
+
+	#Set textures and dimensions
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(7.28, 6, 7.5, 0.2, 0.2, true, false, false, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 0.25, 1.25, 0.5, 0.2, false, true, true, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	#--------------------
+	#MORE DETAILS
+	#DETAILED INTERIORS
+	#1. Panels on walls
+	Set WPTex = %Prefix%ElevWallPanel
+	Set WPanelHeight = 7
+
+		#Front panels
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (6.88 * 1/3), -2.8 + 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F2, %WPTex%, 0 - (6.88 * 0), -2.8 + 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (6.88 * 1/3), -2.8 + 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+
+		#Rear panels
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, 0 - (6.88 * 1/3), 2.8 - 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R2, %WPTex%, 0 - (6.88 * 0), 2.8 - 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R3, %WPTex%, 0 + (6.88 * 1/3), 2.8 - 0.01, (6.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+	#--------------------
+
+	#Front Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -3.64
+
+	WallOrientation = right
+	AddDoorComponent 1, 2Speed_Fast, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, right, 0.8, 0.6, %IDP% - (0.15 * 1), -2.75, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, 2Speed_Slow, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, right, 0.4, 0.3, %IDP%, -2.75 + (2.25 * 1), %IDP%, -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP% - (0.15 * 2), -2.75, %IDP%, -2.75 + (2.25 * 3), 0, 0, 0, 0
+
+		#Top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor TopFiller, %Prefix%ElevPanelTop, 0.05, %IDP% - (0.15 * 1), -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 7, 0, 0
+
+	#Gap filler
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	AddWall GapFiller, %Prefix%ElevPanelMain, 0.15 * 2, %IDP%, -3, %IDP%, -2.75, 7, 7, 0, 0, 0, 0
+
+	#--------------------
+
+	#Rear Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = 3.64
+
+	WallOrientation = left
+	AddDoorComponent 2, 2Speed_Fast, %ElevDoorTex%, %ElevDoorTex%, 0.15, right, 0.8, 0.6, %IDP% + (0.15 * 1), -2.75, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+	AddDoorComponent 2, 2Speed_Slow, %ElevDoorTex%, %ElevDoorTex%, 0.15, right, 0.4, 0.3, %IDP%, -2.75 + (2.25 * 1), %IDP%, -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+	FinishDoors 2, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP%, -2.75, %IDP% + (0.15 * 2), -2.75 + (2.25 * 3), 0, 0, 0, 0
+
+		#Top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor TopFiller, %Prefix%ElevPanelTop, 0.05, %IDP%, -2.75, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), 7, 7, 0, 0
+
+	#Gap filler
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	AddWall GapFiller, %Prefix%ElevPanelMain, 0.15 * 2, %IDP%, -3, %IDP%, -2.75, 7, 7, 0, 0, 0, 0
+
+	#--------------------
+	#Main Panel (Front Doors)
+	Set P1_PositionX = -3.44 + 0.001
+	Set P1_PositionZ = 2.275
+
+		#Panels
+		CreatePanel , 5, 2, right, %P1_PositionX%, %P1_PositionZ%, 0.22, 0.11, 0.35, 0.35, 3.75, 0, 0 #Control buttons
+		CreatePanel , 5, 1, right, %P1_PositionX%, %P1_PositionZ%, 0.22, 0.11, 0.35, 0.35, 3.75, 0, 0 #Floor buttons
+
+			#Buttons
+			BtnPanelE1(1)
+
+	#Indicator set above this panel
+	AddFloorIndicator Ind_Button, right, %P1_PositionX%, %P1_PositionZ%, 0.6, 0.3, 5.75 + 0.25 - (0.3 / 2)
+	AddDirectionalIndicator true, true, true, Blank, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX%, %P1_PositionZ% - (0.3 / 2), 5.75 + 0.25 - (0.3 / 2), right, 0.3, 0.3, true, 0, 0
+	#--------------------
+	#Secondary Panel (Rear Doors)
+	Set P2_PositionX = 3.44 - 0.001
+	Set P2_PositionZ = 2.275
+
+		#Panels
+		CreatePanel , 5, 2, left, %P2_PositionX%, %P2_PositionZ%, 0.22, 0.11, 0.35, 0.35, 3.75, 0, 0 #Control buttons
+		CreatePanel , 5, 1, left, %P2_PositionX%, %P2_PositionZ%, 0.22, 0.11, 0.35, 0.35, 3.75, 0, 0 #Floor buttons
+
+			#Buttons
+			BtnPanelE1(3)
+
+	#Indicator set above this panel
+	AddFloorIndicator Ind_Button, left, %P2_PositionX%, %P2_PositionZ%, 0.6, 0.3, 5.75 + 0.25 - (0.3 / 2)
+	AddDirectionalIndicator true, true, true, Blank, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX%, %P2_PositionZ% + (0.3 / 2), 5.75 + 0.25 - (0.3 / 2), left, 0.3, 0.3, true, 0, 0
+
+	#--------------------
+	#Shaft components
+	DrawWalls = true, true, true, true, true, true
+		#Ropes
+		RopePosition = 0, 7.5 + 0.2, 0
+		RopeTexture = Ropes
+	
+		#Counterweight
+		Set Position = 3 + 0.8
+
+		CreateCounterweight CWeight_Frame, CWeight, 0, %Position%, 2, 6, 0.5, 0.5
+	
+		#Rails
+		AddRails ElevRail, ElevRailSide, 0, 0, true, 3 + 0.06, 0.1
+		AddRails ElevRail, ElevRailSide, 0, %Position%, false, 1 + 0.06, 0.1
+<EndElevator>
+
+#--------------------
+
+#SET HALL STATIONS' TEXTURES
+<Function ElevHallTex>
+	#Shaft doors
+	Set DoorTexture = HOShaftDoors
+	
+	#Use automatic filler walls or not
+	Set AutoFiller = false
+	
+	#Door trims
+		#Sides
+		Set DoorTrimTexture = %DoorTexture%_Trim
+
+		#Top
+		Set DoorTrimTexture_Top = %DoorTrimTexture%
+
+	#Deco dimensions
+		Set SideDecoH = 7.2
+		Set TopDecoH = 0.2
+
+	#Call button panels
+	#Set BPanelTexture = ElevExtPanels
+	Set BPanelTexture = ElevExtPanels-Alt
+	Set ButtonPrefix = VRButton
+
+	#Lantern panels
+	#Set LPanelTexture = %BPanelTexture%
+	Set LPanelTexture = ElevExtPanels
+
+		#Lateral offset for lantern panels
+		Set ExtraLateralOffset = 0
+		#Set ExtraLateralOffset = 0.05
+<EndFunction>
+
+#Hall stations (Front door)
+<Floor 0>
+	#Shaft Doors
+	ElevHallTex() #Set shaft door and panel textures
+	Set StartNo = 1
+
+		#Elevator 1
+		Set IDP = -3.64 - 0.4
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, -1, 0, -1, 0
+		FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(1, 1, -4.34, -4.04, -1 - 2.25, -1 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+
+	#Top filler
+	AddShaftTrack(1, 1, -4.34, -4.34 + 0.15, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+
+	#Gap filler
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 1, GapFiller_Elev1_Door1, ElevExt, 0.15 * 2, -4.34, -1 - 2.25 - 0.25, -4.34, -1 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+
+	#****************************************#
+
+	#Door trims/fillers
+	Set Shaft1CX = 235.66 #1st shaft for elevator bank
+	Set Shaft1CZ = -165
+	Set DecoType = external
+
+		#1st shaft
+		AddDecoObject(E1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 5, %Shaft1CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+	#****************************************#
+
+	#Call buttons
+	CallButtonElevators = 1
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% - 1 + 2.25 + 1.25, 3.5, left, 0.5, 1, true, 0, 0
+
+	#****************************************#
+
+	#Indicator sets
+	Set Offset = 8
+
+		#Set textures
+		ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, OutsideInd_Button)
+
+		#Indicator creation
+		ACMELobbyInds(left, 1, %Shaft1CX% - 5 - %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, 0, 1)
+<EndFloor>
+
+#Hall stations (Rear door)
+<Floor 1>
+	#Shaft Doors
+	ElevHallTex() #Set shaft door and panel textures
+	Set StartNo = 1
+
+		#Elevator 1
+		Set IDP = 3.64 + 0.4
+		WallOrientation = left
+		AddShaftDoorComponent %StartNo%, 2, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, -1, 0, -1, 0
+		AddShaftDoorComponent %StartNo%, 2, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), %IDP% + (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo%, 2, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(1, 1, 4.04, 4.34, -1 - 2.25, -1 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+
+	#Top filler
+	AddShaftTrack(1, 1, 4.34 - 0.15, 4.34, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+
+	#Gap filler
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 1, GapFiller_Elev1_Door2, ElevExt, 0.15 * 2, 4.34, -1 - 2.25 - 0.25, 4.34, -1 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+
+	#****************************************#
+
+	#Door trims/fillers
+	Set Shaft1CX = 235.66 #1st shaft for elevator bank
+	Set Shaft1CZ = -165
+	Set DecoType = external
+
+		#1st shaft
+		AddDecoObject(E1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+	#****************************************#
+
+	#Call buttons
+	CallButtonElevators = 1
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 1 + 2.25 + 1.25, 3.5, right, 0.5, 1, true, 0, 0
+
+	#****************************************#
+
+	#Indicator sets
+	Set Offset = 8
+
+		#Set textures
+		ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, OutsideInd_Button)
+
+		#Indicator creation
+		ACMELobbyInds(right, 1, %Shaft1CX% + 5 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, 0, 1)
+<EndFloor>
+
+#Floor signs
+<Elevator 1>
+	AddFloorSigns 1, true, Sign, back, -3.64 - 0.7 - 0.33, -0.5 - 2.25 + 0.001, 0.35, 0.35, 4.825
+	AddFloorSigns 1, true, Sign, front, -3.64 - 0.7 - 0.33, -0.5 + 2.25 - 0.001, 0.35, 0.35, 4.825
+
+	AddFloorSigns 2, true, Sign, back, 3.64 + 0.7 + 0.33, -0.5 - 2.25 + 0.001, 0.35, 0.35, 4.825
+	AddFloorSigns 2, true, Sign, front, 3.64 + 0.7 + 0.33, -0.5 + 2.25 - 0.001, 0.35, 0.35, 4.825
+<EndElevator>
+
+#****************************************#
+
+#Global Settings
+<Elevator 1>
+	#Chimes
+	NotifyEarly = 1
+	UpChimeSound 1 = KW_Sounds/tk_us_upchime.wav
+	DownChimeSound 1 = KW_Sounds/tk_us_downchime.wav
+	UpChimeSound 2 = KW_Sounds/tk_us_upchime.wav
+	DownChimeSound 2 = KW_Sounds/tk_us_downchime.wav
+
+	#Door settings
+	DoorTimer 1 = 9000
+	QuickClose 1 = 6000
+	DoorTimer 2 = 9000
+	QuickClose 2 = 6000
+
+	#Motor movement sounds
+	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
+	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
+	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+
+	#Car movement sounds
+	CarStartSound = EG881Sounds/slowelevstart.wav #EG881
+	CarMoveSound = EG881Sounds/slowelevmove.wav #EG881
+	CarStopSound = EG881Sounds/slowelevstop.wav #EG881
+
+	#Door sounds
+	OpenSound 1 = EG881Sounds/elevopen2.wav #EG881
+	CloseSound 1 = EG881Sounds/elevclose2.wav #EG881
+	OpenSound 2 = EG881Sounds/elevopen2.wav #EG881
+	CloseSound 2 = EG881Sounds/elevclose2.wav #EG881
+<EndElevator>

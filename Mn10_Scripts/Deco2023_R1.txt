@@ -1,0 +1,134 @@
+#Mn10 Scripts - Deco2023 (Release 1)
+#Copyright (c) 2023-Present Mn10
+#Originated from Deco2011, initially released in 2011 mainly for internal decos.
+
+#SCRIPT INCLUSION CODE (Remove hashtag first):
+#<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
+
+#COPYRIGHT POLICY:
+#1. You may include this script (as well as my other scripts) with your
+#buildings, if it is used in AT LEAST one or more buildings in your packages.
+
+#2. I would also appreciate it if you can directly or indirectly give a credit to me.
+
+#3. #DO NOT release this script (and any of my scripts) alone without having used in any buildings.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Decos
+<Function AddDecoObject>
+	#SYNTAX: AddDecoObject(DecoName, SideTex, TopTex, Direction, MainSide, BackSide, Thickness, SideLen, X, Z, W, H, H_Side, H_Top, Offset, Filler, FillerTex, FillerDepth, Mesh)
+
+	#PREVIOUS CODE FROM Deco2011, FOR REFERENCE ONLY:
+	#AddDeco4(sidetexture, toptexture, direction, mainside, backside, mesh, thickness, sidelength, x, z, width, height, height_sidedeco, height_topdeco, voffset, fillerwalls, fillerwallstexture, fillerwallsdepth)
+
+	#Set values
+	Set DecoName = %param1%
+	Set SideTex = %param2% #Side Texture
+	Set TopTex = %param3% #Top Texture
+	Set Direction = %param4% #Direction
+	Set MainSide = %param5% #Show main side (true/false)
+	Set BackSide = %param6% #Show back side (true/false)
+	Set Thickness = %param7% #Thickness
+	Set SideLen = %param8% #Length of side decos
+	Set X = %param9% #Center X
+	Set Z = %param10% #Center Z
+	Set W = %param11% #Door Width
+	Set H = %param12% #Door Height
+	Set H_Side = %param13% #Side Deco Height
+	Set H_Top = %param14% #Top Deco Height
+	Set Offset = %param15% #Offset
+	Set Filler = %param16% #Create filler walls (true/false)
+	Set FillerTex = %param17% #Filler walls' texture
+	Set FillerDepth = %param18% #Filler walls' depth
+	Set Mesh = %param19% #Mesh (Floor/external)
+
+	#Internal use only
+	Set Distance = (%FillerDepth% + %Thickness%) / 2 #Distance between trims for CenterX and CenterZ trims
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#1. FILLER WALLS
+	#Internal use for filler walls section
+	if[%Direction% = left | %Direction% = Left | %Direction% = right | %Direction% = Right | %Direction% = centerx | %Direction% = CenterX] Set FWallDir = false #Direction of the filler walls
+	if[%Direction% = front | %Direction% = Front | %Direction% = back | %Direction% = Back | %Direction% = centerz | %Direction% = CenterZ] Set FWallDir = true #Direction of the filler walls
+	if[%Direction% = left | %Direction% = Left | %Direction% = front | %Direction% = Front] Set FWallOrient = Left #Wall Orientation of the filler walls
+	if[%Direction% = right | %Direction% = Right | %Direction% = back | %Direction% = Back] Set FWallOrient = Right #Wall Orientation of the filler walls
+	if[%Direction% = centerx | %Direction% = CenterX | %Direction% = centerz | %Direction% = CenterZ] Set FWallOrient = Center #Wall Orientation of the filler walls
+
+		#Determine floor/external mesh
+		if[%Mesh% = Floor | %Mesh% = floor] Set IsExternal = false
+		if[%Mesh% = External | %Mesh% = external] Set IsExternal = true
+		
+		Set ExtraOffset = 0
+		if[%IsExternal% = true] Set ExtraOffset = %interfloorheight%
+
+		if[%Filler% = true | %Filler% = True] WallOrientation = %FWallOrient%
+		if[%Filler% = true | %Filler% = True] AddFillerWalls %FillerTex%, %FillerDepth%, %X%, %Z%, %W%, %H%, %Offset% + %ExtraOffset%, %FWallDir%, 0, 0, %IsExternal%
+
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#2. FRONT/BACK DECOS
+
+	#Front Facing Decos (Main Side)
+	if[(%Direction% = front | %Direction% = Front) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X%, %Z% - (%Thickness% / 2), %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = front | %Direction% = Front) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% - (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = front | %Direction% = Front) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% - (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Front Facing Decos (Back Side)
+	if[(%Direction% = front | %Direction% = Front) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X%, %Z% + %FillerDepth% + (%Thickness% / 2), %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = front | %Direction% = Front) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% + %FillerDepth% + (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = front | %Direction% = Front) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% + %FillerDepth% + (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#Back Facing Decos (Main Side)
+	if[(%Direction% = back | %Direction% = Back) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X%, %Z% + (%Thickness% / 2), %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = back | %Direction% = Back) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% + (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = back | %Direction% = Back) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% + (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Back Facing Decos (Back Side)
+	if[(%Direction% = back | %Direction% = Back) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X%, %Z% - %FillerDepth% - (%Thickness% / 2), %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = back | %Direction% = Back) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% - %FillerDepth% - (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = back | %Direction% = Back) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% - %FillerDepth% - (%Thickness% / 2), %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#3. LEFT/RIGHT DECOS
+
+	#Left Facing Decos (Main Side)
+	if[(%Direction% = left | %Direction% = Left) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X% - (%Thickness% / 2), %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = left | %Direction% = Left) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% - (%Thickness% / 2), %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = left | %Direction% = Left) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% - (%Thickness% / 2), %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Left Facing Decos (Back Side)
+	if[(%Direction% = left | %Direction% = Left) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X% + %FillerDepth% + (%Thickness% / 2), %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = left | %Direction% = Left) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% + %FillerDepth% + (%Thickness% / 2), %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = left | %Direction% = Left) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% + %FillerDepth% + (%Thickness% / 2), %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#Right Facing Decos (Main Side)
+	if[(%Direction% = right | %Direction% = Right) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X% + (%Thickness% / 2), %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = right | %Direction% = Right) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% + (%Thickness% / 2), %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = right | %Direction% = Right) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% + (%Thickness% / 2), %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Right Facing Decos (Back Side)
+	if[(%Direction% = right | %Direction% = Right) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X% - %FillerDepth% - (%Thickness% / 2), %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = right | %Direction% = Right) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% - %FillerDepth% - (%Thickness% / 2), %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = right | %Direction% = Right) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% - %FillerDepth% - (%Thickness% / 2), %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#4. CENTER X DECOS
+
+	#Center X (Main Side)
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X% - %Distance%, %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% - %Distance%, %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% - %Distance%, %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Center X (Back Side)
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X% + %Distance%, %Z%, %Thickness%, %W%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% + %Distance%, %Z% - (%W% / 2) - (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerx | %Direction% = CenterX) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% + %Distance%, %Z% + (%W% / 2) + (%SideLen% / 2), %Thickness%, %SideLen%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	#------------------------------------------------------------------------------------------------------------------------------------------------------------
+	#5. CENTER Z DECOS
+
+	#Center Z (Main Side)
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainTop, %TopTex%, %X%, %Z% - %Distance%, %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% - %Distance%, %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%MainSide% = true | %MainSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_MainRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% - %Distance%, %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+
+	#Center Z (Back Side)
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackTop, %TopTex%, %X%, %Z% + %Distance%, %W%, %Thickness%, %H_Top%, %H% + %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackLeft, %SideTex%, %X% - (%W% / 2) - (%SideLen% / 2), %Z% + %Distance%, %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+	if[(%Direction% = centerz | %Direction% = CenterZ) & (%BackSide% = true | %BackSide% = True)] CreateWallBox2 %Mesh%, %DecoName%_BackRight, %SideTex%, %X% + (%W% / 2) + (%SideLen% / 2), %Z% + %Distance%, %SideLen%, %Thickness%, %H_Side%, %Offset%, 0, 0, false, true, true, true
+<EndFunction>

@@ -1,0 +1,107 @@
+#Millennia Plaza
+#Copyright (c) 2020-Present - Mn10
+
+#Buildings
+<Buildings>
+	Load Millennia Plaza - Parking Garage.bld, -140, 0, -190, 0, -110, 0, -230, 110, 0, 230
+	Load Millennia Plaza - Mall.bld, 140, 0, -140, 0, -130, 0, -158, 130, 0, 158
+<EndBuildings>
+
+#Globals
+<Globals>
+	Name = Millennia Plaza
+	Designer = Mn10
+	Location = Anywhere
+	Description = One of the finest shopping destinations in the Skyscraper Simulator World.
+	CameraFloor = 0
+	CameraPosition = 5, -235
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+#Textures
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	#Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+
+	#Misc textures
+	#Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
+
+	#Parking-Mall Connector
+	Load data/granite_0007e.jpg, ConnectorFloor, 0.25, 0.25
+	Load data/stucco1b.jpg, ConnectorCeiling, 0.05, 0.05
+	Load data/cutston2.jpg, ConnectorRailing, 0.0625, 0.0625
+<EndTextures>
+
+############################################################
+
+#Floor Assignments
+<Floors 0 to 4>
+	ID = %floor% + 1
+	Name = Floor %floorid%
+	Type = Recreation
+	Height = 18.5
+	InterfloorHeight = 1.5
+	if[%floor% = 0] Altitude = -1.5
+<EndFloors>
+
+############################################################
+
+#Landscape
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -265, -1, -420, 300, 1, 50, false, true
+
+#Fillers
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
+
+############################################################
+
+#Parking-Mall Connector
+<Floors 0 to 4>
+	#South connector
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% > 0] AddFloor SouthContFlr, ConnectorFloor, 0.5, -30, -220, 10, -200, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% < 4] AddFloor SouthContCeiling, ConnectorCeiling, 0.5, -30, -220, 10, -200, %fullheight%, %fullheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	if[%floor% > 0] AddWall SouthConnectorRailingFront, ConnectorRailing, 1, -30, -220, 10, -220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	if[%floor% > 0] AddWall SouthConnectorRailingBack, ConnectorRailing, 1, -30, -200, 10, -200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#--------------------
+
+	#North connector
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% > 0] AddFloor NorthContFlr, ConnectorFloor, 0.5, -30, -100, 10, -80, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% < 4] AddFloor NorthContCeiling, ConnectorCeiling, 0.5, -30, -100, 10, -80, %fullheight%, %fullheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	if[%floor% > 0] AddWall NorthConnectorRailingFront, ConnectorRailing, 1, -30, -100, 10, -100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	if[%floor% > 0] AddWall NorthConnectorRailingBack, ConnectorRailing, 1, -30, -80, 10, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>

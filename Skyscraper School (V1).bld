@@ -1,0 +1,237 @@
+#Skyscraper School
+#Copyright (c) 2016-Present - Mn10
+
+#Include SROC (Credit to EG881)
+<Include SROC/scripts/r1_script.txt>
+
+#Buildings
+<Buildings>
+	Load SkySch1 - Matrix Building.bld, -25, 0, 30, 0, -40, 0, -190, 40, 0, 190
+	Load SkySch1 - Skydream Building.bld, -95, 0, 275, 0, -100, 0, -45, 108, 0, 35
+<EndBuildings>
+
+#Globals
+<Globals>
+	Name = Skyscraper School
+	Designer = Mn10
+	Location = Anywhere
+	CameraFloor = 0
+	CameraPosition = 40, 0
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1, true
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04, true
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125, true
+	Load data/EG881/parkingspacex.png, ParkingSpaceX, 0.0606, 0.125, true #EG881
+	Load data/EG881/parkingspacex.png, ParkingSpaceX2, -0.0606, 0.125, true #EG881
+	Load data/EG881/parkingspacez.png, ParkingSpaceZ, 0.125, 0.0606, true #EG881
+	Load data/EG881/parkingspacez.png, ParkingSpaceZ2, 0.125, -0.0606, true #EG881
+
+	Load data/EG881/Parking/vanacc_parkingislandx.png, HandicappedParkingIsland, -1, 1, false #EG881
+	Load data/signs/Handicapped.gif, HandicappedSign, -1, -1, false
+	Rotate HandicappedSign, 90
+	LoadCropped data/EG881/Parking/vanacc_parkingislandx.png, HandicappedParkingIsland2, 0, 0, 540, 298, -1, 1 #EG881
+
+	Load data/herringbone02r.jpg, WoodenFloor, 0.2, 0.2
+	Load data/checker02.jpg, WoodenFloor2, 0.25, 0.25
+	Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+	Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+
+	#Main Textures
+	Load data/granite_0007e.jpg, MainFloor, 0.25, 0.25, true
+	Load data/stucco1b.jpg, Ceiling2, 0.25, 0.25, true
+	Load data/stucco1.jpg, ExternalFacade2, 0.25, 0.25, true
+	Load data/glasselevator1b.gif, Fences, 0.05, 1
+	Load data/EG881/cem_tr2b.jpg, Concrete1, 0.075225, 0.0625 #EG881
+<EndTextures>
+
+#########################################################################
+
+#Floor Assignments
+<Floor 0>
+	ID = 1
+	Name = Level 1
+	Type = Lobby
+	Height = 18.5
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = M
+	Name = Mezzanine
+	Type = Mezzanine
+	Height = 16.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+#########################################################################
+
+#Landscape
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -200, -1, -165, 100, 1, 315, false, true
+Cut Landscape, 100, -1, 135, 106, 1, 195, false, true
+
+#Parking Lot
+AddFloor Landscape, Road, Road, 0, -195, -160, 86.5, 310, -0.5, -0.5, 0, 0
+AddFloor Landscape, Road, Road, 0, 86.5, 145, 90, 185, -0.5, -0.5, true, false, 0, 0
+AddFloor Landscape, Road, Road, 0, 90, 145, 100, 185, -0.5, -0.33, true, false, 0, 0
+AddFloor Landscape, Road, Road, 0, 100, 145, 106, 185, -0.33, -0.33, true, false, 0, 0
+
+#Parking Spaces (Normal)
+AddFloor Landscape, ParkingSpace1, ParkingSpaceX2, 0, 20, -125, 20 + 16.5, -45, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, ParkingSpace2, ParkingSpaceX2, 0, 20, -10, 20 + 16.5, 142, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, ParkingSpace3, ParkingSpaceX, 0, 70, -160, 70 + 16.5, 144, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, ParkingSpace4, ParkingSpaceX2, 0, 20, 184, 20 + 16.5, 240, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, ParkingSpace5, ParkingSpaceX2, 0, 20, 278, 20 + 16.5, 310, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, ParkingSpace6, ParkingSpaceX, 0, 70, 190, 70 + 16.5, 310, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+
+#Parking Space (Handicapped)
+SetAutoSize = false, false
+AddFloor Landscape, PSpaceH1Island, HandicappedParkingIsland2, 0, 20 + 6, -160, 20 + 18, -155, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH1, HandicappedSign, 0, 35 - 5, -150 - 2.5, 35, -150 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH1-H2Island, HandicappedParkingIsland, 0, 20, -145, 20 + 18, -145 + 5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH2, HandicappedSign, 0, 35 - 5, -135 - 2.5, 35, -135 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH2Island, HandicappedParkingIsland, 0, 20, -130, 20 + 18, -125, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH3Island, HandicappedParkingIsland, 0, 20, -45, 20 + 18, -40, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH3, HandicappedSign, 0, 35 - 5, -35 - 2.5, 35, -35 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH3-H4Island, HandicappedParkingIsland, 0, 20, -30, 20 + 18, -30 + 5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH4, HandicappedSign, 0, 35 - 5, -20 - 2.5, 35, -20 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH4Island, HandicappedParkingIsland2, 0, 20 + 6, -15, 20 + 18, -15 + 5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH5Island, HandicappedParkingIsland2, 0, 20 + 6, 240, 20 + 18, 245, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH5, HandicappedSign, 0, 35 - 5, 250 - 2.5, 35, 250 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH5-H6Island, HandicappedParkingIsland, 0, 20, 255, 20 + 18, 255 + 5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, Sign_ParkingSpaceH6, HandicappedSign, 0, 35 - 5, 265 - 2.5, 35, 265 + 2.5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+AddFloor Landscape, PSpaceH6Island, HandicappedParkingIsland, 0, 20, 270, 20 + 18, 270 + 5, -0.5 + 0.001, -0.5 + 0.001, 0, 0
+SetAutoSize = true, true
+
+#Sidewalks around parking lot
+FloorOrientation = top
+DrawWalls = true, true, true, true, true, true
+AddFloor Landscape, SidewalkFront, Sidewalk, 0.5, -195, -165, -25 - 45, -160, 0, 0, 0, 0
+AddFloor Landscape, SidewalkFront, Sidewalk, 0.5, -25 + 45, -165, 86.5, -160, 0, 0, 0, 0
+AddFloor Landscape, SidewalkLeft, Sidewalk, 0.5, -200, -165, -195, 315, 0, 0, 0, 0
+AddFloor Landscape, SidewalkRight1, Sidewalk, 0.5, 86.5, -165, 100, 145, 0, 0, 0, 0
+AddFloor Landscape, SidewalkRight2, Sidewalk, 0.5, 86.5, 185, 100, 315, 0, 0, 0, 0
+AddFloor Landscape, SidewalkRight3, Sidewalk, 0.5, 100, 135, 106, 145, 0, 0, 0, 0
+AddFloor Landscape, SidewalkRight4, Sidewalk, 0.5, 100, 185, 106, 195, 0, 0, 0, 0
+AddFloor Landscape, SidewalkBack, Sidewalk, 0.5, 20, 310, 86.5, 315, 0, 0, 0, 0
+
+#Fences
+SetAutoSize = true, false
+DrawWalls = true, true, false, false, false, false
+AddWall Landscape, FencesFront, Fences, 0, -200, -165, 100, -165, 8, 8, 0, 0, 0, 0
+AddWall Landscape, FencesLeft, Fences, 0, -200, -165, -200, 315, 8, 8, 0, 0, 0, 0
+AddWall Landscape, FencesRight1, Fences, 0, 100, -165, 100, 135, 8, 8, 0, 0, 0, 0
+AddWall Landscape, FencesRight2, Fences, 0, 100, 195, 100, 315, 8, 8, 0, 0, 0, 0
+AddWall Landscape, FencesBack, Fences, 0, -200, 315, 100, 315, 8, 8, 0, 0, 0, 0
+SetAutoSize = true, true
+
+#Ramps
+FloorOrientation = top
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, Ramp1, Sidewalk, 0.5, 20, -160, 20 + 6, -160 + 5, 0, -0.5, true, false, 0, 0
+AddFloor Landscape, Ramp2, Sidewalk, 0.5, 20, -15, 20 + 6, -15 + 5, 0, -0.5, true, false, 0, 0
+AddFloor Landscape, Ramp3, Sidewalk, 0.5, 20, 240, 20 + 6, 240 + 5, 0, -0.5, true, false, 0, 0
+
+#Sidewalks around Matrix Building
+Set CenterX = -25
+Set CenterZ = 30
+Set X = 45
+Set Z = 195
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, MatrixBuildingSidewalk, Sidewalk, 0.5, %CenterX% - %X%, %CenterZ% - %Z%, %CenterX% + %X%, %CenterZ% + %Z%, 0, 0, 0, 0
+AddFloor Landscape, MatrixBuildingSidewalk2, Sidewalk, 0.5, 20, 142, 20 + 16.5, 184, 0, 0, 0, 0
+
+#Sidewalks around Skydream Building
+Set CenterX = -95
+Set CenterZ = 275
+Set X = 100
+Set Z = 35
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, SkydreamBuildingSidewalk, Sidewalk, 0.5, %CenterX% - %X%, %CenterZ% - %Z% - 15, %CenterX% + %X% + 15, %CenterZ% + %Z% + 5, 0, 0, 0, 0
+#AddFloor Landscape, SkydreamBuildingSidewalk2, Sidewalk, 0.5, %CenterX% + %X%, %CenterZ% + %Z% + 5, %CenterX% + %X% + 15, %CenterZ% + %Z% + 5, 0, 0, 0, 0
+
+#Floors
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, NorthFloor, WoodenFloor, 0, -195, 65, -80, 225, 0, 0, 0, 0
+AddFloor Landscape, CentralFloor, WoodenFloor2, 0, -195, 55, -80, 65, 0, 0, 0, 0
+AddFloor Landscape, EastFloor, WoodenFloor2, 0, -80, -160, -70, 225, 0, 0, 0, 0
+AddFloor Landscape, SouthFloor, WoodenFloor, 0, -195, -160, -80, 55, 0, 0, 0, 0
+
+#Flower Bed 1
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed1, Concrete1, 1, -195, 190, -135, 205, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed1_Grass, Grass, 0, -195 + 1, 190 + 1, -135 - 1, 205 - 1, 1.01, 1.01, 0, 0
+
+#Flower Bed 1 Trees
+AddTree(Tree1, -187.5, 197.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 15, 197.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 30, 197.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 45, 197.5, 13.5, 12, 1.01)
+
+#Flower Bed 2
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed2, Concrete1, 1, -195, 115, -135, 130, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed2_Grass, Grass, 0, -195 + 1, 115 + 1, -135 - 1, 130 - 1, 1.01, 1.01, 0, 0
+
+#Flower Bed 2 Trees
+AddTree(Tree1, -187.5, 122.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 15, 122.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 30, 122.5, 13.5, 12, 1.01)
+AddTree(Tree1, -187.5 + 45, 122.5, 13.5, 12, 1.01)
+
+#Flower Bed 3
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor Landscape, FlowerBed3, Concrete1, 1, -95, -150, -80, -90, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor Landscape, FlowerBed3_Grass, Grass, 0, -95 + 1, -150 + 1, -80 - 1, -90 - 1, 1.01, 1.01, 0, 0
+
+#Flower Bed 3 Trees
+AddTree(Tree1, -87.5, -142.5, 13.5, 12, 1.01)
+AddTree(Tree1, -87.5, -142.5 + 15, 13.5, 12, 1.01)
+AddTree(Tree1, -87.5, -142.5 + 30, 13.5, 12, 1.01)
+AddTree(Tree1, -87.5, -142.5 + 45, 13.5, 12, 1.01)
+
+#########################################################################
+
+#Skybridge between Matrix Building and Skydream Building
+<Floor 0>
+	#Set Values
+	Set 0 = -25 #Building Center X
+	Set 1 = 30 #Building Center Z
+	Set 3 = 30 #Building Dimension X
+	Set 4 = 180 #Building Dimension Z
+	
+	#Ceiling
+	DrawWalls = true, false, false, false, false, false
+	AddFloor SkybridgeCeiling, Ceiling2, 0, (%0% - %3%) + 20, (%1% + %4%) + 10, (%0% - %3%) + 30, (%1% + %4%) + 20, %fullheight%, %fullheight%, 0, 0, true
+<EndFloor>
+
+<Floor 1>
+	#Set Values
+	Set 0 = -25 #Building Center X
+	Set 1 = 30 #Building Center Z
+	Set 3 = 30 #Building Dimension X
+	Set 4 = 180 #Building Dimension Z
+	
+	#Floor
+	DrawWalls = false, true, false, false, false, false
+	AddFloor SkybridgeFloor, MainFloor, 0, (%0% - %3%) + 20, (%1% + %4%) + 10, (%0% - %3%) + 30, (%1% + %4%) + 20, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Skybridge Railings
+	WallOrientation = Left
+	DrawWalls = true, true, false, false, true, false
+	AddWall Railing1, ExternalFacade2, 0.5, (%0% - %3%) + 20, (%1% + %4%) + 10, (%0% - %3%) + 20, (%1% + %4%) + 20, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+	WallOrientation = Right
+	DrawWalls = true, true, false, false, true, false
+	AddWall Railing2, ExternalFacade2, 0.5, (%0% - %3%) + 30, (%1% + %4%) + 10, (%0% - %3%) + 30, (%1% + %4%) + 20, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+<EndFloor>

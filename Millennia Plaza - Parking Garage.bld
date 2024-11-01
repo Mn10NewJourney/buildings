@@ -1,0 +1,1448 @@
+#Millennia Plaza Parking Garage
+#Copyright (c) 2020-Present - Mn10
+
+#Include ObjectPlus (credit to EG881)
+<Include ObjectPlus/Scripts/OP_Script2.txt>
+
+#Include my scripts
+<Include Deco2011/Scripts/r4_script.txt>
+#<Include CustomObjects2018/Scripts/r1_script.txt>
+<Include Shaft Wall Creator/Scripts/r1_script.txt>
+<Include data/Hitachi Modern Traditional/Scripts/Indicators.txt> 
+
+#Globals
+<Globals>
+	Name = Millennia Plaza Parking Garage
+	Designer = Mn10 (floor indicator font made by Test Tower)
+	Location = Millennia Plaza
+	CameraFloor = 0
+	CameraPosition = 95, -24
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+############################################################
+
+#Textures
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+
+		#Road markings
+		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
+		#Load data/EG881/parkingspacez.png, ParkingSpaceZ, 1, 1, false #EG881
+		Load data/EG881Mod/NoParkingX.png, NoParkingX, 1, 1, false #EG881
+		Load data/EG881Mod/NoParkingZ.png, NoParkingZ, 1, 1, false #EG881
+	#--------------------
+	#Main textures
+	Load data/black.jpg, Black, 1, 1, false
+	Load data/Melvin/transparent128.png, Blank, 1, 1, false
+	Load data/windows11h.jpg, MainWindowsB, 1, 1, false
+	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
+
+	Load data/stucco3.jpg, ParkingWall, 0.25, 0.25
+	Load data/stucco2.jpg, ElevShaftWall, 0.18, 0.18
+	Load data/cem_tr.jpg, ParkingCeiling, 0.25, 0.25
+	Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
+	Load data/cutston.jpg, ExtFacade, 0.0625, 0.0625
+	Load data/panel-back3.jpg, Barrier, 1, 1, false
+
+	Load data/cutston2.jpg, ExtFacade2, 0.0625, 0.0625
+	Load data/floor065.jpg, ElevLbyFloor, 0.2, 0.2
+	Load data/MarbleWhite0047b_S.jpg, ElevLbyFloor2, 0.15, 0.3
+	Load data/marble5.jpg, ElevLbyWall, 0.2, 0.2
+	Load data/wall5.jpg, ElevLbyWall2, 0.25, 0.25
+	Load data/stucco1b.jpg, ElevLbyCeiling, 0.2, 0.2
+	
+		#Parking-Mall Connector
+		Load data/granite_0007e.jpg, ConnectorFloor, 0.25, 0.25
+		Load data/stucco1b.jpg, ConnectorCeiling, 0.05, 0.05
+		Load data/cutston2.jpg, ConnectorRailing, 0.0625, 0.0625
+
+		#Doors
+		Load data/miscdoor8.jpg, Door8, 1, 1, false
+		LoadCropped data/miscdoor8.jpg, Door8Side, 236, 0, 20, 512, 1, 1, false
+		Load data/miscdoor88.gif, Door88, 1, 1, false
+		LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
+	#--------------------
+	#Stairwells
+	Load data/cem_tr.jpg, Stairs, 0.25, 0.25
+	Load data/cem_tr.jpg, StairsLanding, 0.25, 0.25
+	#Load data/cinderblocks.jpg, StairsWall, 0.25, 0.25
+	Load data/cutston.jpg, StairsCeiling, 0.25, 0.25
+	Load data/stucco3.jpg, StairsRail, 0.25, 0.25
+	#--------------------
+	#Elevators
+		#Main components
+		Load data/metal1.jpg, ElevExt, 0.25, 0.25
+		Load data/counterweight.png, CWeight, 1, 1, false
+		Load data/counterweight_frame.png, CWeight_Frame, 1, 1, false
+		Load data/ropes.png, Ropes, 1, 1, false
+		Load data/metal080.jpg, ElevRail, 0.5, 0.5
+		Load data/metal1.jpg, ElevRailSide, 0.25, 0.25
+		#Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
+		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
+
+		#Interiors
+		#Load data/Threadplate0055_2_S.jpg, ElevFloor, 0.5, 0.5
+		Load data/floor065.jpg, ElevFloor, 0.25, 0.25
+		Load data/otis4_weaveceiling_2x3.jpg, ElevCeiling, 1, 1, false
+		Load data/EG881/blackdoortrim.jpg, ElevWall, 1, 1, false #EG881
+		Load data/checker24.jpg, ElevWallPanel, 0.4, 0.4
+		Load data/checker20.jpg, ElevWallPanel2, 0.4, 0.4
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ElevPanelMain, 1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ElevPanelTop, 1, 0.125, false #EG881
+		Load data/panel-back3.jpg, ElevPanel, 1, 1, false
+		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, ElevDoorsA, 1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, ElevDoorsA2, -1, 1, false #EG881
+		#--------------------
+		#Car fixtures
+		Load data/Hitachi Modern Traditional/Floor.png, Button, 1, 1, false
+		Load data/Hitachi Modern Traditional/Floor.png, ButtonLit, 1, 1, false
+		Load data/Hitachi Modern Traditional/Open.png, ButtonOpen, 1, 1, false
+		Load data/Hitachi Modern Traditional/Close.png, ButtonClose, 1, 1, false
+		Load data/Hitachi Modern Traditional/Phone.png, ButtonAlarm, 1, 1, false
+		AddTextRange 1, 5, Button, Button%number%, nimbus_sans.ttf, 72, %number%, -1, -1, -1, -1, center, center, 73, 101, 81, false
+		AddTextRange 1, 5, ButtonLit, ButtonLit%number%, nimbus_sans.ttf, 72, %number%, -1, -1, -1, -1, center, center, 255, 255, 118, false
+		AddTextRange 1, 4, Button, Button%number%A, nimbus_sans.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 73, 101, 81, false
+		AddTextRange 1, 4, ButtonLit, ButtonLit%number%A, nimbus_sans.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 255, 255, 118, false
+
+		Load data/MT/blank.gif, ArrowUpUnlit, 1, 1, false
+		Load data/Hitachi Modern Traditional/DirectionArrowUp_Trans.png, ArrowUpLit, 1, 1, false
+		Load data/MT/blank.gif, ArrowDownUnlit, 1, 1, false
+		Load data/Hitachi Modern Traditional/DirectionArrowDown_Trans.png, ArrowDownLit, 1, 1, false
+		AddTextRange 1, 5, Blank, Ind_Button%number%, hitachi_modern.ttf, 63, %number%, -1, -1, -1, -1, center, center, 255, 0, 0 #Test Tower
+		AddTextRange 1, 4, Blank, Ind_Button%number%A, hitachi_modern.ttf, 63, %number%A, -1, -1, -1, -1, center, center, 255, 0, 0 #Test Tower
+		
+		#Labels around indicators
+		Load data/Melvin/blank_long2.png, BadgeBack, 1, 1, false
+		AddText BadgeBack, HitachiBadge, nimbus_sans_bold.ttf, 24, HITACHI, 0, 0, 256, 122, center, bottom, 255, 255, 255, false
+
+		AddText BadgeBack, CapacityBadge_Temp1, nimbus_sans_bold.ttf, 20, FOR PASSENGER, 0, 4, 256, 43, center, center, 255, 255, 255, false
+		AddText CapacityBadge_Temp1, CapacityBadge_Temp2, nimbus_sans_bold.ttf, 20, 20  PERSONS, 0, 43, 256, 85, center, center, 255, 255, 255, false
+		AddText CapacityBadge_Temp2, CapacityBadge, nimbus_sans_bold.ttf, 20, LOAD 1350 kg, 0, 85, 256, 126, center, center, 255, 255, 255, false
+		#--------------------
+		#Hall fixtures
+		Load data/Hitachi Modern Traditional/Up.png, ButtonUp, 1, 1, false
+		Load data/Hitachi Modern Traditional/UpLit.png, ButtonUpLit, 1, 1, false
+		Load data/Hitachi Modern Traditional/Down.png, ButtonDown, 1, 1, false
+		Load data/Hitachi Modern Traditional/DownLit.png, ButtonDownLit, 1, 1, false
+		Load data/Old_Hitachi_Elevator/LanternUpUnlit.png, LanternUp, 1, 1, false
+		LoadAnimated data/Old_Hitachi_Elevator/LanternUpLit.png, data/Old_Hitachi_Elevator/LanternUpUnlit.png, data/Old_Hitachi_Elevator/LanternUpLit.png, LanternUpLit, 0.5, 1, 1, false
+		Load data/Old_Hitachi_Elevator/LanternDownUnlit.png, LanternDown, 1, 1, false
+		LoadAnimated data/Old_Hitachi_Elevator/LanternDownLit.png, data/Old_Hitachi_Elevator/LanternDownUnlit.png, data/Old_Hitachi_Elevator/LanternDownLit.png, LanternDownLit, 0.5, 1, 1, false
+
+		Load data/Melvin/blank_long2.png, IndBack, 1, 1, false
+		AddTextRange 1, 5, IndBack, OutsideInd_Button%number%, hitachi_modern.ttf, 95, %number%, -1, -1, -1, -1, center, center, 255, 0, 0, false #Test Tower
+		AddTextRange 1, 4, IndBack, OutsideInd_Button%number%A, hitachi_modern.ttf, 95, %number%A, -1, -1, -1, -1, center, center, 255, 0, 0, false #Test Tower
+		#--------------------
+		#Elevator lobby
+		Load data/rose_marble.jpg, LobbyDeco_Level1, 0.2, 0.2
+		Load data/aluminumdoor_c.jpg, ElevDoors-1Level, 1, 1, false
+		Load data/aluminumdoor_c.jpg, ElevDoors-1Level2, -1, 1, false
+		Load data/panel-back3.jpg, ElevDoors-1Level_Trim, 1, 1, false
+
+			Load data/door2.jpg, ElevDoors-1ALevel, 1, 1, false
+			Load data/door2.jpg, ElevDoors-1ALevel2, -1, 1, false
+
+		Load data/marble2.jpg, LobbyDeco_Level2, 0.2, 0.2
+		Load data/aluminumdoor_b.jpg, ElevDoors-2Level, 1, 1, false
+		Load data/aluminumdoor_b.jpg, ElevDoors-2Level2, -1, 1, false
+		Load data/panel-back3.jpg, ElevDoors-2Level_Trim, 1, 1, false
+
+			Load data/door1.jpg, ElevDoors-2ALevel, 1, 1, false
+			Load data/door1.jpg, ElevDoors-2ALevel2, -1, 1, false
+
+		Load data/marble1.jpg, LobbyDeco_Level3, 0.2, 0.2
+		Load data/aluminumdoor_b.jpg, ElevDoors-3Level, 1, 1, false
+		Load data/aluminumdoor_b.jpg, ElevDoors-3Level2, -1, 1, false
+		Load data/panel-back3.jpg, ElevDoors-3Level_Trim, 1, 1, false
+
+			Load data/dark muntz door.jpg, ElevDoors-3ALevel, 1, 1, false
+			Load data/dark muntz door.jpg, ElevDoors-3ALevel2, -1, 1, false
+
+		Load data/marble3.jpg, LobbyDeco_Level4, 0.2, 0.2
+		Load data/light muntz door.tga, ElevDoors-4Level, 1, 1, false
+		Load data/light muntz door.tga, ElevDoors-4Level2, -1, 1, false
+		LoadCropped data/light muntz door.tga, ElevDoors-4Level_Trim, 0, 0, 195, 512, 1, 1, false
+
+			Load data/brushed metal door.tga, ElevDoors-4ALevel, 1, 1, false
+			Load data/brushed metal door.tga, ElevDoors-4ALevel2, -1, 1, false
+
+		Load data/marb148.jpg, LobbyDeco_Level5, 0.25, 0.25
+		Load data/aluminumdoor_c.jpg, ElevDoors-5Level, 1, 1, false
+		Load data/aluminumdoor_c.jpg, ElevDoors-5Level2, -1, 1, false
+		Load data/panel-back3.jpg, ElevDoors-5Level_Trim, 1, 1, false #EG881
+
+		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
+	#--------------------
+	#Signs
+		#Elevator instruction signs
+		Load data/signs_mod/elevhallsign1.png, ElevHallSign, 1, 1, false
+		Load data/signs_mod/elevcarsign1.png, ElevCarSign, 1, 1, false
+
+		#Elevator number signs (Inside)
+		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
+		AddTextRange 1, 4, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
+
+		#Floor signs (Blank)
+		AddTextRange 1, 5, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 4, Blank, BlankSign%number%A, nimbus_sans_bold.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+<EndTextures>
+
+############################################################
+
+#Floor Assignments
+<Floor -1>
+	ID = X
+	Name = Shaft Pit
+	Type = Basement
+	Height = 8.5
+	InterfloorHeight = 1.5
+	Altitude = -11.5
+<EndFloor>
+
+<Floor 0>
+	ID = 1
+	Name = Parking Level 1
+	Type = Lobby
+	Height = 8.5
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = 1A
+	Name = Parking Level 1A
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 2>
+	ID = 2
+	Name = Parking Level 2
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 3>
+	ID = 2A
+	Name = Parking Level 2A
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 4>
+	ID = 3
+	Name = Parking Level 3
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 5>
+	ID = 3A
+	Name = Parking Level 3A
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 6>
+	ID = 4
+	Name = Parking Level 4
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 7>
+	ID = 4A
+	Name = Parking Level 4A
+	Type = Recreation
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 8>
+	ID = 5
+	Name = Parking Level 5
+	Type = Roof
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Group = 9
+<EndFloor>
+
+<Floor 9>
+	ID = 6
+	Name = Shaft Top
+	Type = Roof
+	Height = 8.5
+	InterfloorHeight = 1.5
+	Group = 8
+<EndFloor>
+
+############################################################
+
+#Landscape
+AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+Cut Landscape, -110, -1, -230, 110, 1, 230, false, true
+
+DrawWalls = true, true, false, false, false, false
+AddFloor landscape, Filler, Sidewalk, 0, -110, -230, 110, 230, 0, 0, 0, 0
+
+Cut Landscape, -100, -1, -200, 100, 1, 200, false, true
+
+#Cuts for parking ramps
+Cut Landscape, -80, -1, 200, -60, 1, 200 + 6 + 22, false, true
+Cut Landscape, -80, -1, -200 - 6 - 22, -60, 1, -200, false, true
+
+#Cuts for elevator lobby
+Cut Landscape, 100, -1, -35, 105, 1, -5, false, true
+
+#Cuts for entrance
+Cut Landscape, 100, -1, -180 - 12, 110, 1, -180 + 12, false, true
+Cut Landscape, 100, -1, 180 - 12, 110, 1, 180 + 12, false, true
+AddFloor landscape, SouthEnt, Road, 0, 100, -180 - 12, 110, -180 + 12, 0, 0, 0, 0
+AddFloor landscape, NorthEnt, Road, 0, 100, 180 - 12, 110, 180 + 12, 0, 0, 0, 0
+
+############################################################
+
+#Functions
+<Include buildings/MillenniaPlaza/Functions.txt>
+
+#Exterior and interior
+#Set wall textures
+<Function WallTex>
+	Set 6 = ElevShaftWall
+
+	#Override wall texture for support columns
+	#Set 6A = %6%
+	Set 6A = ParkingWall
+<EndFunction>
+
+<Floors 0 to 8>
+	#Sets
+	Set 1 = 100 #Building Dimension X
+	Set 2 = 200 #Building Dimension Z
+	Set 5 = Road #Floor Texture
+	WallTex() #Set wall texture
+	Set 7 = ParkingCeiling #Ceiling Texture
+
+	########################################
+
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor Floor, %5%, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+	Set 5A = ElevLbyFloor #Floor Texture
+	if[%floor% > 0] Set 5A = ElevLbyFloor2 #Floor Texture
+
+	CutAll 85, %interfloorheight% - 0.1, -35, %1%, %interfloorheight% + 0.1, -5, false, true
+	AddFloor ElevLobbyFloor, %5A%, 0.5, 85, -35, 105, -5, 0, 0, 0, 0, false
+	#--------------------
+	#Ceiling
+	Set ParkingHeight = %fullheight% + (Floor(%floor% + 1).InterfloorHeight - 0.5)
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% < 8] AddFloor Ceiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %ParkingHeight%, %ParkingHeight%, 0, 0, true
+	if[%floor% < 8] AddFloor ElevLobbyCeiling, ElevLbyCeiling, 0.5, 85, -35, 105, -5, %height%, %height%, 0, 0, false
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	#AddWall Front, ExtFacade, 1, -%1% + 1, -%2%, %1% - 1, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Front1, ExtFacade, 1, -%1% + 1, -%2%, -80, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Front2, ExtFacade, 1, -60, -%2%, %1% - 1, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Front1, ExtFacade, 1, -%1% + 1, -%2%, -80, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Front2, ExtFacade, 1, -60, -%2%, 60, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Front3, ExtFacade, 1, 80, -%2%, %1% - 1, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 8] AddWall Front1, ExtFacade, 1, -%1% + 1, -%2%, 60, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 8] AddWall Front2, ExtFacade, 1, 80, -%2%, %1% - 1, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall Left, ExtFacade, 1, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = right
+	if[%floor% = 0] AddWall Right1, ExtFacade, 1, %1%, -%2%, %1%, -180 - 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Right2, ExtFacade, 1, %1%, -180 + 12, %1%, -35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Right2, ExtFacade, 1, %1%, -5, %1%, 180 - 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Right2, ExtFacade, 1, %1%, 180 + 12, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddWall Right1, ExtFacade, 1, %1%, -%2%, %1%, -35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddWall Right2, ExtFacade, 1, %1%, -5, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall Right1, ExtFacade, 1, %1%, -%2%, %1%, -35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall Right2, ExtFacade, 1, %1%, -5, %1%, 90 + 1, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall Right3, ExtFacade, 1, %1%, 110 - 1, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	DrawWalls = true, true, false, false, false, true
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall Right2A, ExtFacade, 1, %1%, 90 + 1, %1%, 110 - 1, %interfloorheight%, %interfloorheight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% = 0] AddWall Back1, ExtFacade, 1, -%1% + 1, %2%, -80, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 0] AddWall Back2, ExtFacade, 1, -60, %2%, %1% - 1, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Back1, ExtFacade, 1, -%1% + 1, %2%, -80, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Back2, ExtFacade, 1, -60, %2%, 60, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0 & %floor% < 8] AddWall Back3, ExtFacade, 1, 80, %2%, %1% - 1, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 8] AddWall Back1, ExtFacade, 1, -%1% + 1, %2%, 60, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 8] AddWall Back2, ExtFacade, 1, 80, %2%, %1% - 1, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	########################################
+
+	#Road markings
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = %interfloorheight% + 0.001
+	AddFloor ParkingSpaceB_Spacer, NoParkingZ, 0, -61 + 18, 20 - 17, -19 - 18, 140 + 17, %Offset%, %Offset%, 1, 8, true
+	AddFloor ParkingSpaceC_Spacer, NoParkingZ, 0, -61 + 18, -140 - 17, -19 - 18, -60 + 17, %Offset%, %Offset%, 1, -6, true
+	AddFloor ParkingSpaceD_Spacer, NoParkingZ, 0, 19 + 18, 20 - 17, 61 - 18, 140 + 17, %Offset%, %Offset%, 1, 8, true
+	AddFloor ParkingSpaceE_Spacer, NoParkingZ, 0, 19 + 18, -140 - 17, 61 - 18, -60 + 17, %Offset%, %Offset%, 1, -6, true
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFloor NorthConnectorSpacer, NoParkingX, 0, 85 - 5, 88.3, 100, 119, %Offset%, %Offset%, 1, 4, true
+	AddFloor ElevLobbyAreaFront, NoParkingX, 0, 85 - 5, -60 + 17, 99, -35, %Offset%, %Offset%, 1, 1, true
+	AddFloor ElevLobbyAreaLeft, NoParkingZ, 0, 85 - 5, -35, 85, -5, %Offset%, %Offset%, 1, 2, true
+	AddFloor ElevLobbyAreaBack, NoParkingX, 0, 85 - 5, -5, 99, 20 - 17, %Offset%, %Offset%, 1, 1, true
+
+	#Parking spaces
+	AddFloor ParkingSpaceA1, ParkingSpaceX, 0, -99, 180 - 17, -99 + 18, 180 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA2, ParkingSpaceX, 0, -99, 140 - 17, -99 + 18, 140 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA3, ParkingSpaceX, 0, -99, 100 - 17, -99 + 18, 100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA4, ParkingSpaceX, 0, -99, 60 - 17, -99 + 18, 60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA5, ParkingSpaceX, 0, -99, 20 - 17, -99 + 18, 20 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA6, ParkingSpaceX, 0, -99, -20 - 17, -99 + 18, -20 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA7, ParkingSpaceX, 0, -99, -60 - 17, -99 + 18, -60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA8, ParkingSpaceX, 0, -99, -100 - 17, -99 + 18, -100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA9, ParkingSpaceX, 0, -99, -140 - 17, -99 + 18, -140 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceA10, ParkingSpaceX, 0, -99, -180 - 17, -99 + 18, -180 + 17, %Offset%, %Offset%, -1, 4, true
+
+	AddFloor ParkingSpaceB1, ParkingSpaceX, 0, -61, 140 - 17, -61 + 18, 140 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceB2, ParkingSpaceX, 0, -61, 100 - 8.5, -61 + 18, 100 + 17, %Offset%, %Offset%, 1, 3, true
+	AddFloor ParkingSpaceB3, ParkingSpaceX, 0, -61, 60 - 17, -61 + 18, 60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceB4, ParkingSpaceX, 0, -61, 20 - 17, -61 + 18, 20 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceB5, ParkingSpaceX, 0, -19 - 18, 140 - 17, -19, 140 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceB6, ParkingSpaceX, 0, -19 - 18, 100 - 17, -19, 100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceB7, ParkingSpaceX, 0, -19 - 18, 60 - 17, -19, 60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceB8, ParkingSpaceX, 0, -19 - 18, 20 - 17, -19, 20 + 17, %Offset%, %Offset%, -1, 4, true
+
+	AddFloor ParkingSpaceC1, ParkingSpaceX, 0, -61, -60 - 17, -61 + 18, -60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceC2, ParkingSpaceX, 0, -61, -100 - 17, -61 + 18, -100 + 8.5, %Offset%, %Offset%, 1, 3, true
+	AddFloor ParkingSpaceC3, ParkingSpaceX, 0, -61, -140 - 17, -61 + 18, -140 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceC4, ParkingSpaceX, 0, -19 - 18, -60 - 17, -19, -60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceC5, ParkingSpaceX, 0, -19 - 18, -100 - 17, -19, -100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceC6, ParkingSpaceX, 0, -19 - 18, -140 - 17, -19, -140 + 17, %Offset%, %Offset%, -1, 4, true
+
+	AddFloor ParkingSpaceD1, ParkingSpaceX, 0, 19, 140 - 17, 19 + 18, 140 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceD2, ParkingSpaceX, 0, 19, 100 - 17, 19 + 18, 100 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceD3, ParkingSpaceX, 0, 19, 60 - 17, 19 + 18, 60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceD4, ParkingSpaceX, 0, 19, 20 - 17, 19 + 18, 20 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceD5, ParkingSpaceX, 0, 61 - 18, 140 - 17, 61, 140 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceD6, ParkingSpaceX, 0, 61 - 18, 100 - 17, 61, 100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceD7, ParkingSpaceX, 0, 61 - 18, 60 - 17, 61, 60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceD8, ParkingSpaceX, 0, 61 - 18, 20 - 17, 61, 20 + 17, %Offset%, %Offset%, -1, 4, true
+
+	AddFloor ParkingSpaceE1, ParkingSpaceX, 0, 19, -60 - 17, 19 + 18, -60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceE2, ParkingSpaceX, 0, 19, -100 - 17, 19 + 18, -100 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceE3, ParkingSpaceX, 0, 19, -140 - 17, 19 + 18, -140 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceE4, ParkingSpaceX, 0, 61 - 18, -60 - 17, 61, -60 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceE5, ParkingSpaceX, 0, 61 - 18, -100 - 17, 61, -100 + 17, %Offset%, %Offset%, -1, 4, true
+	AddFloor ParkingSpaceE6, ParkingSpaceX, 0, 61 - 18, -140 - 17, 61, -140 + 17, %Offset%, %Offset%, -1, 4, true
+
+	if[%floor% > 0] AddFloor ParkingSpaceF1, ParkingSpaceX, 0, 99 - 18, 180 - 17, 99, 180 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceF2, ParkingSpaceX, 0, 99 - 18, 140 - 17, 99, 140 + 17, %Offset%, %Offset%, 1, 4, true
+	if[%floor% = 0 | %floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFloor ParkingSpaceF3, ParkingSpaceX, 0, 99 - 18, 100 - 8.5, 99, 100 + 17, %Offset%, %Offset%, 1, 3, true
+	AddFloor ParkingSpaceF4, ParkingSpaceX, 0, 99 - 18, 60 - 17, 99, 60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceF5, ParkingSpaceX, 0, 99 - 18, 20 - 17, 99, 20 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceF6, ParkingSpaceX, 0, 99 - 18, -60 - 17, 99, -60 + 17, %Offset%, %Offset%, 1, 4, true
+	AddFloor ParkingSpaceF7, ParkingSpaceX, 0, 99 - 18, -100 - 17, 99, -100 + 8.5, %Offset%, %Offset%, 1, 3, true
+	AddFloor ParkingSpaceF8, ParkingSpaceX, 0, 99 - 18, -140 - 17, 99, -140 + 17, %Offset%, %Offset%, 1, 4, true
+	if[%floor% > 0] AddFloor ParkingSpaceF9, ParkingSpaceX, 0, 99 - 18, -180 - 17, 99, -180 + 17, %Offset%, %Offset%, 1, 4, true
+<EndFloors>
+
+<Floor 9>
+	#Ceiling
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ElevLbyCeiling, ExtFacade, Blank, Blank, Blank, Blank
+	AddFloor ElevLobbyCeiling, ElevLbyCeiling, 0.5, 85, -26, 105, -14, %fullheight%, %fullheight%, 0, 0, true
+<EndFloor>
+
+<Floors 0 to 9>
+	#External shaft walls
+	if[%floor% = 0] Set WallHeight = %height%
+	if[%floor% = 0] Set WallOffset = %interfloorheight%
+	if[%floor% ! 0] Set WallHeight = %fullheight%
+	if[%floor% ! 0] Set WallOffset = 0
+
+	Set ShowTop = false
+	if[%floor% = 9] Set ShowTop = true
+
+	Set 6B = %6%
+	if[%floor% > 7] Set 6B = ExtFacade
+
+	Set 6C = ElevLbyWall
+	if[%floor% > 0] Set 6C = ElevLbyWall2
+
+	CreateShaftWall(%6%, %6B%, ExtFacade, %6%, %6B%, %6%, 0.33, 95, -9.5, 10, 4.5, 1, %WallHeight%, %WallOffset%, false, true, true, false, %ShowTop%, false, true)
+	CreateShaftWall(%6%, %6B%, ExtFacade, %6%, %6B%, %6%, 0.33, 95, -30.5, 10, 4.5, 1, %WallHeight%, %WallOffset%, false, true, true, false, %ShowTop%, false, true)
+
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddWall Shaft1BackExt-1, %6B%, 0.33, 85, -5, 100, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall Shaft1BackExt-2, ExtFacade, 0.33, 100, -5, 105, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% < 8] AddWall Shaft2Back, %6C%, 0.33, 85, -26 + 0.34, 105, -26 + 0.34, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% = 8] AddWall Shaft2Back, %6C%, 0.33, 85, -26 + 0.34, 105, -26 + 0.34, %height% + Floor(9).FullHeight, %height% + Floor(9).FullHeight, 0, 0, 0, 0, false
+	AddWall Shaft1RightExt, ExtFacade, 0.33, 105, -14 - 0.34, 105, -14, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall Shaft2RightExt, ExtFacade, 0.33, 105, -26, 105, -26 + 0.34, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddWall Shaft2FrontExt-1, %6B%, 0.33, 85, -35, 100, -35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall Shaft2FrontExt-2, ExtFacade, 0.33, 100, -35, 105, -35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	AddWall Shaft1LeftExt, %6B%, 0.33, 85, -14 - 0.34, 85, -14, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% < 8] AddWall Shaft1Front, %6C%, 0.33, 85, -14 - 0.34, 105, -14 - 0.34, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% = 8] AddWall Shaft1Front, %6C%, 0.33, 85, -14 - 0.34, 105, -14 - 0.34, %height% + Floor(9).FullHeight, %height% + Floor(9).FullHeight, 0, 0, 0, 0, false
+	AddWall Shaft2LeftExt, %6B%, 0.33, 85, -26, 85, -26 + 0.34, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	#--------------------
+	#Elevator lobby walls & doors
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %6B%, %6C%, Blank, Blank, Blank, Blank
+	AddWall ElevLbyWall-Left, %6B%, 0.5, 85, -26 + 0.34, 85, -14 - 0.34, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
+	if[%floor% < 9] AddExternalDoor , , false, Door88, 0.2, 4, 75, 85, -20 + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
+	if[%floor% < 9] AddExternalDoor , , false, Door88, 0.2, 1, 75, 85, -20 - 1.5, 3, 7, %interfloorheight%, 0, 0
+	if[%floor% < 9] AddFillerWalls %6C%, 0.5, 85, -20, 6, 7, %interfloorheight%, false, 0, 0, true
+	if[%floor% = 9] WindowsX2(ElevLbyWindows, 85, -20, left, 10, %height% - 2, 1, MainWindowsB, MainWindowsIntB, %6C%, 0.5, 1)
+
+	WallOrientation = right
+	TextureOverride %6C%, ExtFacade, Blank, Blank, Blank, Blank
+	AddWall ElevLbyWall-Right, %6B%, 0.5, 105, -26 + 0.34, 105, -14 - 0.34, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7 | %floor% = 9] WindowsX2(ElevLbyWindows, 105, -20, right, 10, %height% - 2, 1, MainWindowsIntB, MainWindowsB, %6C%, 0.5, 1)
+
+	TextureOverride Door8, Door8, Door8Side, Door8Side, Door8Side, Door8Side
+	if[%floor% = 0] AddExternalDoor , , false, Door8, 0.2, 3, 75, 105, -20 + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride Door8, Door8, Door8Side, Door8Side, Door8Side, Door8Side
+	if[%floor% = 0] AddExternalDoor , , false, Door8, 0.2, 2, 75, 105, -20 - 1.5, 3, 7, %interfloorheight%, 0, 0
+	if[%floor% = 0] AddFillerWalls %6C%, 0.5, 105, -20, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFloors>
+
+#Connector to Mall
+<Floors 1 to 8>
+	#South connector
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFloor SouthContFlr, ConnectorFloor, 0.5, 105, -30, 110, -10, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFloor SouthContCeiling, ConnectorCeiling, 0.5, 105, -30, 110, -10, %fullheight%, %fullheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall SouthContRailingFront, ConnectorRailing, 1, 105, -30, 110, -30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall SouthContRailingBack, ConnectorRailing, 1, 105, -10, 110, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors
+	TextureOverride Door8, Door8, Door8Side, Door8Side, Door8Side, Door8Side
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddExternalDoor , , false, Door8, 0.2, 3, 75, 105, -20 + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride Door8, Door8, Door8Side, Door8Side, Door8Side, Door8Side
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddExternalDoor , , false, Door8, 0.2, 2, 75, 105, -20 - 1.5, 3, 7, %interfloorheight%, 0, 0
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFillerWalls %6C%, 0.5, 105, -20, 6, 7, %interfloorheight%, false, 0, 0, true
+	#--------------------
+	#North connector
+	#Floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFloor NorthContFlr, ConnectorFloor, 0.5, 100, 90, 110, 110, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFloor NorthContCeiling, ConnectorCeiling, 0.5, 100, 90, 110, 110, %fullheight%, %fullheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall NorthContRailingFront, ConnectorRailing, 1, 100, 90, 110, 90, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall NorthContRailingBack, ConnectorRailing, 1, 100, 110, 110, 110, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Barriers
+	if[%floor% = 2 | %floor% = 4] CreateWallBox2 External, Barrier1, Barrier, 105, 100 + 3, 0.75, 0.75, 4, 0, 0, 0, false, true, true, false
+	if[%floor% = 2 | %floor% = 4] CreateWallBox2 External, Barrier2, Barrier, 105, 100 - 3, 0.75, 0.75, 4, 0, 0, 0, false, true, true, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] CreateWallBox2 External, Barrier3, Barrier, 85, 100 + 3, 0.75, 0.75, 4, 0, 0, 0, false, true, true, false
+	if[%floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] CreateWallBox2 External, Barrier4, Barrier, 85, 100 - 3, 0.75, 0.75, 4, 0, 0, 0, false, true, true, false
+<EndFloors>
+#--------------------
+#Parking ramps
+#Auto area
+AddFloorAutoArea -60, 0, %2% + 6, 60, Floor(8).Base + 4, %2% + 6 + 22
+AddFloorAutoArea -60, 0, -%2% - 6 - 22, 60, Floor(8).Base + 4, -%2% - 6
+
+<Floors 0 to 8>
+	Set RampHeight = %fullheight% + Floor(%floor% + 1).InterfloorHeight
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% < 8] AddFloor UpRamp, %5%, 0.5, -60, %2% + 6, 60, %2% + 6 + 22, %interfloorheight%, %RampHeight%, true, false, 0, 0, true
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% < 8] AddFloor UpRamp_LowerEnd, %5%, 0.5, -60 - 20, %2%, -60, %2% + 6 + 22, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% > 0] AddFloor UpRamp_UpperEnd, %5%, 0.5, 60, %2%, 60 + 20, %2% + 6 + 22, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% < 8] AddFloor DownRamp, %5%, 0.5, -60, -%2% - 6 - 22, 60, -%2% - 6, %interfloorheight%, %RampHeight%, true, false, 0, 0, true
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% < 8] AddFloor DownRamp_LowerEnd, %5%, 0.5, -60 - 20, -%2% - 6 - 22, -60, -%2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride %7%, %5%, Blank, Blank, Blank, Blank
+	if[%floor% > 0] AddFloor DownRamp_UpperEnd, %5%, 0.5, 60, -%2% - 6 - 22, 60 + 20, -%2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings next to ramp
+	Set RailHeight = %interfloorheight% + 4
+	Set RampHeight = %height% + Floor(%floor% + 1).InterfloorHeight
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	if[%floor% < 8] AddWall UpRamp_Rail1, ExtFacade, 0.5, -80, %2% - 1, -80, %2% + 6 + 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = right
+	if[%floor% < 8] AddWall UpRamp_Rail2, ExtFacade, 0.5, -80 + 0.5, %2% + 6 + 22, -60, %2% + 6 + 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	if[%floor% < 8] AddWall UpRamp_Rail3, ExtFacade, 0.5, -60, %2% + 6 + 22, 60, %2% + 6 + 22, %RailHeight%, %RailHeight%, 0, %RampHeight%, 0, 0, true
+	if[%floor% < 8] AddWall UpRamp_Rail4, ExtFacade, 0.5, -60, %2% - 1, -60, %2% + 6 + 0.5, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = left
+	if[%floor% < 8] AddWall UpRamp_Rail5, ExtFacade, 0.5, -60, %2% + 6, 60, %2% + 6, %RailHeight%, %RailHeight%, 0, %RampHeight%, 0, 0, true
+	if[%floor% > 0] AddWall UpRamp_Rail6, ExtFacade, 0.5, 60, %2% - 1, 60, %2% + 6, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = right
+	if[%floor% > 0] AddWall UpRamp_Rail7, ExtFacade, 0.5, 80, %2% - 1, 80, %2% + 6 + 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	if[%floor% > 0] AddWall UpRamp_Rail8, ExtFacade, 0.5, 60, %2% + 6 + 22, 80 - 0.5, %2% + 6 + 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	
+	WallOrientation = left
+	if[%floor% < 8] AddWall DownRamp_Rail1, ExtFacade, 0.5, -80, -%2% - 6 - 22, -80, -%2% + 1, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	if[%floor% < 8] AddWall DownRamp_Rail2, ExtFacade, 0.5, -80 + 0.5, -%2% - 6 - 22, -60, -%2% - 6 - 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	if[%floor% < 8] AddWall DownRamp_Rail3, ExtFacade, 0.5, -60, -%2% - 6 - 22, 60, -%2% - 6 - 22, %RailHeight%, %RailHeight%, 0, %RampHeight%, 0, 0, true
+	if[%floor% < 8] AddWall DownRamp_Rail4, ExtFacade, 0.5, -60, -%2% - 6 - 0.5, -60, -%2% + 1, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = right
+	if[%floor% < 8] AddWall DownRamp_Rail5, ExtFacade, 0.5, -60, -%2% - 6, 60, -%2% - 6, %RailHeight%, %RailHeight%, 0, %RampHeight%, 0, 0, true
+	WallOrientation = left
+	if[%floor% > 0] AddWall DownRamp_Rail6, ExtFacade, 0.5, 60, -%2% - 6, 60, -%2% + 1, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = right
+	if[%floor% > 0] AddWall DownRamp_Rail7, ExtFacade, 0.5, 80, -%2% - 6 - 22, 80, -%2% + 1, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+	WallOrientation = left
+	if[%floor% > 0] AddWall DownRamp_Rail8, ExtFacade, 0.5, 60, -%2% - 6 - 22, 80 - 0.5, -%2% - 6 - 22, %RailHeight%, %RailHeight%, 0, 0, 0, 0, true
+<EndFloors>
+#--------------------
+#Supports
+<Floors 0 to 8>
+	#Set Values
+	Set 1 = 100 #Building Dimension X
+	Set 2 = 200 #Building Dimension Z
+	WallTex() #Set wall texture
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 40 #Distance between supports Z
+	Set SupportHeight = %fullheight%
+	if[%floor% = 8] Set SupportHeight = %interfloorheight% + 3.5
+	Set SupportOffset = -%interfloorheight%
+
+	Set SupportHeight2 = %SupportHeight%
+	if[%floor% = 7] Set SupportHeight2 = %interfloorheight% + 3.5
+
+	Set SupportHeight3 = %SupportHeight%
+	if[%floor% = 7] Set SupportHeight3 = %interfloorheight% + 5
+
+	Set SupportHeight4 = %SupportHeight%
+	if[%floor% = 7] Set SupportHeight4 = %interfloorheight% + 8.5
+
+	Set SupportHeight5 = %SupportHeight%
+	if[%floor% = 8] Set SupportHeight5 = %interfloorheight% + 2
+
+	Set ShowTop = false
+	if[%floor% = 8] Set ShowTop = true
+	Set ShowTop2 = false
+	if[%floor% = 7 | %floor% = 8] Set ShowTop2 = true
+	#--------------------
+	#Corner Supports
+	CreateWallBox2 External, SupportNW, %6A%, -%1% + 1.25, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportNE, %6A%, %1% - 1.25, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportSW, %6A%, -%1% + 1.25, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportSE, %6A%, %1% - 1.25, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	#--------------------
+	#North Supports
+	CreateWallBox2 External, SupportN1, %6A%, -%1% + (%DistanceX% * 1), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportN2, %6A%, -%1% + (%DistanceX% * 2), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportN3, %6A%, -%1% + (%DistanceX% * 3), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportN4, %6A%, -%1% + (%DistanceX% * 4), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	if[%floor% < 8] CreateWallBox2 External, NorthRampSupportA, ExtFacade2, -80, %2% + 6 + 22, 2, 2, %SupportHeight2%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	if[%floor% < 8] CreateWallBox2 External, NorthRampSupportB, ExtFacade2, -80 + (%DistanceX% * 1), %2% + 6 + 22, 2, 2, %SupportHeight3%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	if[%floor% < 8] CreateWallBox2 External, NorthRampSupportC, ExtFacade2, -80 + (%DistanceX% * 2), %2% + 6 + 22, 2, 2, %SupportHeight4%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	CreateWallBox2 External, NorthRampSupportD, ExtFacade2, -80 + (%DistanceX% * 3), %2% + 6 + 22, 2, 2, %SupportHeight5%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, NorthRampSupportE, ExtFacade2, -80 + (%DistanceX% * 4), %2% + 6 + 22, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#South Supports
+	CreateWallBox2 External, SupportS1, %6A%, -%1% + (%DistanceX% * 1), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportS2, %6A%, -%1% + (%DistanceX% * 2), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportS3, %6A%, -%1% + (%DistanceX% * 3), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportS4, %6A%, -%1% + (%DistanceX% * 4), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	if[%floor% < 8] CreateWallBox2 External, SouthRampSupportA, ExtFacade2, -80, -%2% - 6 - 22, 2, 2, %SupportHeight2%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	if[%floor% < 8] CreateWallBox2 External, SouthRampSupportB, ExtFacade2, -80 + (%DistanceX% * 1), -%2% - 6 - 22, 2, 2, %SupportHeight3%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	if[%floor% < 8] CreateWallBox2 External, SouthRampSupportC, ExtFacade2, -80 + (%DistanceX% * 2), -%2% - 6 - 22, 2, 2, %SupportHeight4%, %SupportOffset%, 0, 0, false, true, %ShowTop2%, false
+	CreateWallBox2 External, SouthRampSupportD, ExtFacade2, -80 + (%DistanceX% * 3), -%2% - 6 - 22, 2, 2, %SupportHeight5%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SouthRampSupportE, ExtFacade2, -80 + (%DistanceX% * 4), -%2% - 6 - 22, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#West Supports
+	CreateWallBox2 External, SupportW1, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW2, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW3, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW4, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW5, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW6, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW7, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW8, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportW9, %6A%, -%1% + 1.25, -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#East Supports
+	CreateWallBox2 External, SupportE1, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE2, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE3, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE4, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE5, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE6, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE7, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE8, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, SupportE9, %6A%, %1% - 1.25, -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	#--------------------
+	#Inner supports - Row A
+	CreateWallBox2 External, InnerSp-A1, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A2, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A3, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A4, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A5, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A6, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A7, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A8, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-A9, %6A%, -%1% + (%DistanceX% * 1), -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Inner supports - Row B
+	CreateWallBox2 External, InnerSp-B1, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B2, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B3, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B4, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B5, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B6, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B7, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B8, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-B9, %6A%, -%1% + (%DistanceX% * 2), -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Inner supports - Row C
+	CreateWallBox2 External, InnerSp-C1, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C2, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C3, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C4, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C5, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C6, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C7, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C8, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-C9, %6A%, -%1% + (%DistanceX% * 3), -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+
+	#Inner supports - Row D
+	CreateWallBox2 External, InnerSp-D1, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D2, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D3, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D4, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D5, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D6, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D7, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D8, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 External, InnerSp-D9, %6A%, -%1% + (%DistanceX% * 4), -%2% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+<EndFloor>
+
+############################################################
+
+#Stairwells
+#Northeast stairs
+CreateStairwell 1, 90, 84.4, 0, 8
+CutStairwell 1, -6.75, -3.4, 6.75, 3.4, 5, 5
+ShowFullStairs 1 = always
+
+<Floors 0 to 8>
+	Set 21 = 90 #Center X
+	Set 22 = 84.4 #Center Z
+	Set 23 = 6.75 #Cut X
+	Set 24 = 3.4 #Cut Z
+	Set 25 = 1 #Stairwell Number
+	Set 26 = (%height% + Floor(%floor% + 1).InterfloorHeight) / 20 #Riser Size
+
+	Set SWallHeight = 0.5
+	Set SWallOffset = -0.5
+
+	#Walls
+	Set RailHeight = 3.5
+	Set RailOffset = -0.5
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Front, StairsRail, 0.5, -%23% + 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	WallOrientation = left
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Right, StairsRail, 0.5, %23%, -%24% - 0.5, %23%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Back, StairsRail, 0.5, -%23% + 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+
+	#Stairs
+	OP_Draw(true, true, false, false, true, false)
+	if[%floor% < 8] OP_OrthoStair(%25%, LowerStairs, Stairs, %24% - 0.2 - 3, %24% - 0.2, left, -3.75, 10, 0.75, %26%, 0, 0.5)
+	OP_Draw(true, true, false, false, false, true)
+	if[%floor% < 8] OP_OrthoStair(%25%, UpperStairs, Stairs, -%24% + 0.2, -%24% + 0.2 + 3, right, 3.75, 10, 0.75, %26%, %26% * 10, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% > 0] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, -%23%, -%24%, -3.75, %24%, 0, 0, 0, 0
+	if[%floor% < 8] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, 3.75, -%24%, %23%, %24%, %26% * 10, %26% * 10, 0, 0
+
+	#Railings
+	Set Position1 = %24% - 0.2 - 3 #Lower stairs
+	Set Position2 = -%24% + 0.2 + 3 #Upper stairs
+
+	#Rails next to stairs
+	Set End = 3.75
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower1, StairsRail, 0.2, -%End%, %Position1%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower2, StairsRail, 0.2, -%End%, %24%, %End%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	WallOrientation = left
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper1, StairsRail, 0.2, -%End%, %Position2%, %End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper2, StairsRail, 0.2, -%End%, -%24%, %End%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	#Rails next to landings
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingUpperA, StairsRail, 0.2, %End%, %Position2%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperB, StairsRail, 0.2, %23%, -%24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperC, StairsRail, 0.2, %23% - 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperD, StairsRail, 0.2, %23% - 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% = 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+<EndFloors>
+
+#Southeast stairs
+CreateStairwell 2, 90, -84.4, 0, 8
+CutStairwell 2, -6.75, -3.4, 6.75, 3.4, 5, 5
+ShowFullStairs 2 = always
+
+<Floors 0 to 8>
+	Set 21 = 90 #Center X
+	Set 22 = -84.4 #Center Z
+	Set 23 = 6.75 #Cut X
+	Set 24 = 3.4 #Cut Z
+	Set 25 = 2 #Stairwell Number
+	Set 26 = (%height% + Floor(%floor% + 1).InterfloorHeight) / 20 #Riser Size
+
+	Set SWallHeight = 0.5
+	Set SWallOffset = -0.5
+
+	#Walls
+	Set RailHeight = 3.5
+	Set RailOffset = -0.5
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Front, StairsRail, 0.5, -%23% + 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	WallOrientation = left
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Right, StairsRail, 0.5, %23%, -%24% - 0.5, %23%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Back, StairsRail, 0.5, -%23% + 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+
+	#Stairs
+	OP_Draw(true, true, false, false, true, false)
+	if[%floor% < 8] OP_OrthoStair(%25%, LowerStairs, Stairs, -%24% + 0.2, -%24% + 0.2 + 3, left, -3.75, 10, 0.75, %26%, 0, 0.5)
+	OP_Draw(true, true, false, false, false, true)
+	if[%floor% < 8] OP_OrthoStair(%25%, UpperStairs, Stairs, %24% - 0.2 - 3, %24% - 0.2, right, 3.75, 10, 0.75, %26%, %26% * 10, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% > 0] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, -%23%, -%24%, -3.75, %24%, 0, 0, 0, 0
+	if[%floor% < 8] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, 3.75, -%24%, %23%, %24%, %26% * 10, %26% * 10, 0, 0
+
+	#Railings
+	Set Position1 = -%24% + 0.2 + 3 #Upper stairs
+	Set Position2 = %24% - 0.2 - 3 #Lower stairs
+
+	#Rails next to stairs
+	Set End = 3.75
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower1, StairsRail, 0.2, -%End%, %Position1%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower2, StairsRail, 0.2, -%End%, -%24%, %End%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper1, StairsRail, 0.2, -%End%, %Position2%, %End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper2, StairsRail, 0.2, -%End%, %24%, %End%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	#Rails next to landings
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingUpperA, StairsRail, 0.2, %End%, %Position2%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperB, StairsRail, 0.2, %23%, -%24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperC, StairsRail, 0.2, %23% - 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperD, StairsRail, 0.2, %23% - 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% = 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, -%24% - 0.5, -%End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+<EndFloors>
+
+#Southwest stairs
+CreateStairwell 3, -52, -84.4, 0, 8
+CutStairwell 3, -6.75, -3.4, 6.75, 3.4, 5, 5
+ShowFullStairs 3 = always
+
+<Floors 0 to 8>
+	Set 21 = -52 #Center X
+	Set 22 = -84.4 #Center Z
+	Set 23 = 6.75 #Cut X
+	Set 24 = 3.4 #Cut Z
+	Set 25 = 3 #Stairwell Number
+	Set 26 = (%height% + Floor(%floor% + 1).InterfloorHeight) / 20 #Riser Size
+
+	Set SWallHeight = 0.5
+	Set SWallOffset = -0.5
+
+	#Walls
+	Set RailHeight = 3.5
+	Set RailOffset = -0.5
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Front, StairsRail, 0.5, -%23% + 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	WallOrientation = left
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Right, StairsRail, 0.5, %23%, -%24% - 0.5, %23%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Back, StairsRail, 0.5, -%23% + 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+
+	#Stairs
+	OP_Draw(true, true, false, false, true, false)
+	if[%floor% < 8] OP_OrthoStair(%25%, LowerStairs, Stairs, -%24% + 0.2, -%24% + 0.2 + 3, left, -3.75, 10, 0.75, %26%, 0, 0.5)
+	OP_Draw(true, true, false, false, false, true)
+	if[%floor% < 8] OP_OrthoStair(%25%, UpperStairs, Stairs, %24% - 0.2 - 3, %24% - 0.2, right, 3.75, 10, 0.75, %26%, %26% * 10, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% > 0] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, -%23%, -%24%, -3.75, %24%, 0, 0, 0, 0
+	if[%floor% < 8] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, 3.75, -%24%, %23%, %24%, %26% * 10, %26% * 10, 0, 0
+
+	#Railings
+	Set Position1 = -%24% + 0.2 + 3 #Upper stairs
+	Set Position2 = %24% - 0.2 - 3 #Lower stairs
+
+	#Rails next to stairs
+	Set End = 3.75
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower1, StairsRail, 0.2, -%End%, %Position1%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower2, StairsRail, 0.2, -%End%, -%24%, %End%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper1, StairsRail, 0.2, -%End%, %Position2%, %End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper2, StairsRail, 0.2, -%End%, %24%, %End%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	#Rails next to landings
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingUpperA, StairsRail, 0.2, %End%, %Position2%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperB, StairsRail, 0.2, %23%, -%24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperC, StairsRail, 0.2, %23% - 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperD, StairsRail, 0.2, %23% - 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% = 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, -%24% - 0.5, -%End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+<EndFloors>
+
+#Northwest stairs
+CreateStairwell 4, -52, 84.4, 0, 8
+CutStairwell 4, -6.75, -3.4, 6.75, 3.4, 5, 5
+ShowFullStairs 4 = always
+
+<Floors 0 to 8>
+	Set 21 = -52 #Center X
+	Set 22 = 84.4 #Center Z
+	Set 23 = 6.75 #Cut X
+	Set 24 = 3.4 #Cut Z
+	Set 25 = 4 #Stairwell Number
+	Set 26 = (%height% + Floor(%floor% + 1).InterfloorHeight) / 20 #Riser Size
+
+	Set SWallHeight = 0.5
+	Set SWallOffset = -0.5
+
+	#Walls
+	Set RailHeight = 3.5
+	Set RailOffset = -0.5
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Front, StairsRail, 0.5, -%23% + 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	WallOrientation = left
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Right, StairsRail, 0.5, %23%, -%24% - 0.5, %23%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+	if[%floor% > 0] AddStairsWall %25%, Stair%25%Back, StairsRail, 0.5, -%23% + 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %RailOffset%, %RailOffset%, 0, 0
+
+	#Stairs
+	OP_Draw(true, true, false, false, true, false)
+	if[%floor% < 8] OP_OrthoStair(%25%, LowerStairs, Stairs, %24% - 0.2 - 3, %24% - 0.2, left, -3.75, 10, 0.75, %26%, 0, 0.5)
+	OP_Draw(true, true, false, false, false, true)
+	if[%floor% < 8] OP_OrthoStair(%25%, UpperStairs, Stairs, -%24% + 0.2, -%24% + 0.2 + 3, right, 3.75, 10, 0.75, %26%, %26% * 10, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% > 0] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, -%23%, -%24%, -3.75, %24%, 0, 0, 0, 0
+	if[%floor% < 8] AddStairsFloor %25%, UpperLanding, StairsLanding, 0.5, 3.75, -%24%, %23%, %24%, %26% * 10, %26% * 10, 0, 0
+
+	#Railings
+	Set Position1 = %24% - 0.2 - 3 #Lower stairs
+	Set Position2 = -%24% + 0.2 + 3 #Upper stairs
+
+	#Rails next to stairs
+	Set End = 3.75
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower1, StairsRail, 0.2, -%End%, %Position1%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingLower2, StairsRail, 0.2, -%End%, %24%, %End%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	WallOrientation = left
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper1, StairsRail, 0.2, -%End%, %Position2%, %End%, %Position2%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpper2, StairsRail, 0.2, -%End%, -%24%, %End%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, (%26% * 20) - 0.5, (%26% * 10) - 0.5, 0, 0
+
+	#Rails next to landings
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingUpperA, StairsRail, 0.2, %End%, %Position2%, %End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperB, StairsRail, 0.2, %23%, -%24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperC, StairsRail, 0.2, %23% - 3, -%24%, %23%, -%24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	WallOrientation = right
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% < 8] AddStairsWall %25%, RailingUpperD, StairsRail, 0.2, %23% - 3, %24%, %23%, %24%, %RailHeight% + 0.5, %RailHeight% + 0.5, %26% * 10 - 0.5, %26% * 10 - 0.5, 0, 0
+	#TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	#if[%floor% < 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %Position1%, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+	TextureOverride StairsRail, StairsRail, StairsRail, StairsRail, StairsRail, Stairs
+	if[%floor% = 8] AddStairsWall %25%, RailingLowerA, StairsRail, 0.2, -%End%, %Position2%, -%End%, %24% + 0.5, %RailHeight% + 0.5, %RailHeight% + 0.5, 0 - 0.5, 0 - 0.5, 0, 0
+<EndFloors>
+
+############################################################
+
+#Shaftwork and elevators
+CreateShaftMRL(1, 95, -9.5, 9.67, 4.17, -1, 9, %fullheight%)
+CreateShaftMRL(2, 95, -30.5, 9.67, 4.17, -1, 9, %fullheight%)
+
+<Elevator 1>
+	Type = Local
+	Speed = 5.5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0 - 8
+	AssignedShaft = 1
+	MotorPosition = 0, Floor(9).Altitude + Floor(9).FullHeight, 0
+	CreateElevator false, 90, -10.34, 0
+<EndElevator>
+
+<Elevator 2>
+	Type = Local
+	Speed = 5.5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0 - 8
+	AssignedShaft = 1
+	MotorPosition = 0, Floor(9).Altitude + Floor(9).FullHeight, 0
+	CreateElevator false, 100, -10.34, 0
+<EndElevator>
+
+<Function BtnPanelE1-4>
+	Set PanelNumber = %param1%
+	AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 1, 1, alarm, 1, 1, 0.6, 0
+	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 3, 1, open, 1, 1
+	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 3, 2, close, 1, 1
+	AddButton %PanelNumber%, , Button5, ButtonLit5, 5, 2, 8, 1, 1
+	AddButton %PanelNumber%, , Button4A, ButtonLit4A, 6, 2, 7, 1, 1
+	AddButton %PanelNumber%, , Button4, ButtonLit4, 7, 2, 6, 1, 1
+	AddButton %PanelNumber%, , Button3A, ButtonLit3A, 8, 2, 5, 1, 1
+	AddButton %PanelNumber%, , Button3, ButtonLit3, 6, 1, 4, 1, 1
+	AddButton %PanelNumber%, , Button2A, ButtonLit2A, 7, 1, 3, 1, 1
+	AddButton %PanelNumber%, , Button2, ButtonLit2, 8, 1, 2, 1, 1
+	AddButton %PanelNumber%, , Button1A, ButtonLit1A, 9, 1, 1, 1, 1
+	AddButton %PanelNumber%, , Button1, ButtonLit1, 10, 1, 0, 1, 1
+<EndFunction>
+
+<Elevators 1 to 2>
+	#Interiors
+	ElevInterior(ElevFloor, ElevCeiling, ElevWall, ElevWall, 7.5, 5, front, 8)
+	
+	#Panels
+	WallOrientation = left
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride ElevExt, ElevPanelMain, ElevPanelMain, ElevExt, ElevExt, ElevExt
+	AddWall Left Panel, ElevPanelMain, 0.2, 2, -2.5, 3.75, -2.5, 8, 8, 0, 0, 0, 0
+	DrawWalls = true, true, false, true, false, false
+	TextureOverride ElevExt, ElevPanelMain, ElevExt, ElevPanelMain, ElevExt, ElevExt
+	AddWall Right Panel, ElevPanelMain, 0.2, -3.75, -2.5, -2, -2.5, 8, 8, 0, 0, 0, 0
+	DrawWalls = true, true, false, false, false, true
+	TextureOverride ElevExt, ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevPanelTop
+	AddWall Top Panel, ElevPanelTop, 0.2, -2, -2.5, 2, -2.5, 1, 1, 7, 7, 0, 0
+	#--------------------
+	#Car Doors
+	WallOrientation = right
+	AddDoorComponent 1, Left, ElevDoorsA, ElevDoorsA, 0.2, right, 0.6, 0, -2.5, 2, -2.5, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, ElevDoorsA2, ElevDoorsA2, 0.2, left, 0.6, -2, -2.5, 0, -2.5, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+	#Door Track
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor DoorTrack, ElevDoorTrackZ, 0.05, -2 - 2, -2.7, 2 + 2, -2.5, 0, 0, 0, 0
+	#--------------------
+	#Button panel
+	#Panel back
+	WallOrientation = left
+	DrawWalls = false, true, true, true, true, true
+	AddWall PanelBack, ElevPanel, 0.05, -2.775 - 0.35, -2.3, -2.775 + 0.35, -2.3, 3.4, 3.4, 2.5, 2.5, 0, 0
+
+	#Buttons
+	CreatePanel Blank, 11, 2, back, -2.775, -2.3 + 0.051, 0.2, 0.2, 0.1, -0.1, 4.1, 0, 0
+	BtnPanelE1-4(1)
+	
+	#Sign
+	DrawWalls = false, true, false, false, false, false
+	AddWall ElevSign, ElevCarSign, 0, 2.775 - 0.5, -2.3 + 0.001, 2.775 + 0.5, -2.3 + 0.001, 1, 1, 5.5, 5.5, 0, 0
+	#--------------------
+	#Indicator sets
+	Set IndOffset = 7.15
+	DrawWalls = false, true, false, false, false, false
+	#AddWall IndicatorBack, Black, 0, 0 - 1.5, -2.3 + 0.001, 0 + 1.5, -2.3 + 0.001, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	AddWall IndicatorBack, Black, 0, 0 - 2.25, -2.3 + 0.001, 0 + 2.25, -2.3 + 0.001, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	AddFloorIndicator Ind_Button, back, 0 - 0.15, -2.3 + 0.002, 0.3, 0.3, %IndOffset% + 0.1
+	AddDirectionalIndicator true, true, true, Blank, ArrowUpUnlit, ArrowUpLit, ArrowDownUnlit, ArrowDownLit, 0 + 0.15, -2.3 + 0.002, %IndOffset% + 0.1 + 0.15 - 0.155, back, 0.34, 0.31, true, 0, 0
+
+	#Labels
+	AddWall Label1, HitachiBadge, 0, -1.85 - 0.28, -2.3 + 0.002, -1.85 + 0.28, -2.3 + 0.002, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	AddWall Label2, CapacityBadge, 0, 1.75 - 0.28, -2.3 + 0.002, 1.75 + 0.28, -2.3 + 0.002, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	#--------------------
+	#Ropes
+	RopePosition = 0, 8 + 0.2, 0
+	RopeTexture = Ropes
+
+	#Counterweight
+	DrawWalls = true, true, true, true, true, true
+	CreateCounterweight CWeight_Frame, CWeight, 0, 2.5 + 0.5, 2, 6, 0.5, 0.5
+
+	#Rails
+	AddRails ElevRail, ElevRailSide, 0, 0, false, 3.75 + 0.06, 0.1
+	AddRails ElevRail, ElevRailSide, 0, 2.5 + 0.5, false, 1 + 0.06, 0.1
+<EndElevators>
+
+<Elevator 3>
+	Type = Local
+	Speed = 5.5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0 - 8
+	AssignedShaft = 2
+	MotorPosition = 0, Floor(9).Altitude + Floor(9).FullHeight, 0
+	CreateElevator false, 90, -29.66, 0
+<EndElevator>
+
+<Elevator 4>
+	Type = Local
+	Speed = 5.5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0 - 8
+	AssignedShaft = 2
+	MotorPosition = 0, Floor(9).Altitude + Floor(9).FullHeight, 0
+	CreateElevator false, 100, -29.66, 0
+<EndElevator>
+
+<Elevators 3 to 4>
+	#Interiors
+	ElevInterior(ElevFloor, ElevCeiling, ElevWall, ElevWall, 7.5, 5, back, 8)
+
+	#Panels
+	WallOrientation = right
+	DrawWalls = true, true, false, true, false, false
+	TextureOverride ElevPanelMain, ElevExt, ElevExt, ElevPanelMain, ElevExt, ElevExt
+	AddWall Left Panel, ElevPanelMain, 0.2, -3.75, 2.5, -2, 2.5, 8, 8, 0, 0, 0, 0
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride ElevPanelMain, ElevExt, ElevPanelMain, ElevExt, ElevExt, ElevExt
+	AddWall Right Panel, ElevPanelMain, 0.2, 2, 2.5, 3.75, 2.5, 8, 8, 0, 0, 0, 0
+	DrawWalls = true, true, false, false, false, true
+	TextureOverride ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevPanelTop
+	AddWall Top Panel, ElevPanelTop, 0.2, -2, 2.5, 2, 2.5, 1, 1, 7, 7, 0, 0
+	#--------------------
+	#Car Doors
+	WallOrientation = left
+	AddDoorComponent 1, Left, ElevDoorsA, ElevDoorsA, 0.2, left, 0.6, -2, 2.5, 0, 2.5, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, ElevDoorsA2, ElevDoorsA2, 0.2, right, 0.6, 0, 2.5, 2, 2.5, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+	#Door Track
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor DoorTrack, ElevDoorTrackZ, 0.05, -2 - 2, 2.5, 2 + 2, 2.7, 0, 0, 0, 0
+	#--------------------
+	#Button panel
+	#Panel back
+	WallOrientation = right
+	DrawWalls = true, false, true, true, true, true
+	AddWall PanelBack, ElevPanel, 0.05, 2.775 - 0.35, 2.3, 2.775 + 0.35, 2.3, 3.4, 3.4, 2.5, 2.5, 0, 0
+
+	#Buttons
+	CreatePanel Blank, 11, 2, front, 2.775, 2.3 - 0.051, 0.2, 0.2, 0.1, -0.1, 4.1, 0, 0
+	BtnPanelE1-4(1)
+
+	#Sign
+	DrawWalls = true, false, false, false, false, false
+	AddWall ElevSign, ElevCarSign, 0, -2.775 - 0.5, 2.3 - 0.001, -2.775 + 0.5, 2.3 - 0.001, 1, 1, 5.5, 5.5, 0, 0
+	#--------------------
+	#Indicator sets
+	Set IndOffset = 7.15
+	DrawWalls = true, false, false, false, false, false
+	AddWall IndicatorBack, Black, 0, 0 - 2.25, 2.3 - 0.001, 0 + 2.25, 2.3 - 0.001, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	AddFloorIndicator Ind_Button, front, 0 + 0.15, 2.3 - 0.002, 0.3, 0.3, %IndOffset% + 0.1
+	AddDirectionalIndicator true, true, true, Blank, ArrowUpUnlit, ArrowUpLit, ArrowDownUnlit, ArrowDownLit, 0 - 0.15, 2.3 - 0.002, %IndOffset% + 0.1 + 0.15 - 0.155, front, 0.34, 0.31, true, 0, 0
+
+	#Labels
+	AddWall Label1, HitachiBadge, 0, 1.85 - 0.28, 2.3 - 0.002, 1.85 + 0.28, 2.3 - 0.002, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	AddWall Label2, CapacityBadge, 0, -1.75 - 0.28, 2.3 - 0.002, -1.75 + 0.28, 2.3 - 0.002, 0.28, 0.28, %IndOffset% + 0.25 - 0.14, %IndOffset% + 0.25 - 0.14, 0, 0
+	#--------------------
+	#Ropes
+	RopePosition = 0, 8 + 0.2, 0
+	RopeTexture = Ropes
+
+	#Counterweight
+	DrawWalls = true, true, true, true, true, true
+	CreateCounterweight CWeight_Frame, CWeight, 0, -2.5 - 0.5, 2, 6, 0.5, 0.5
+
+	#Rails
+	AddRails ElevRail, ElevRailSide, 0, 0, false, 3.75 + 0.06, 0.1
+	AddRails ElevRail, ElevRailSide, 0, -2.5 - 0.5, false, 1 + 0.06, 0.1
+<EndElevators>
+
+<Elevators 1 to 4>
+	if[%elevator% < 3] Set CenterX = -2.775
+	if[%elevator% > 2] Set CenterX = 2.775
+
+	#Elevator number sign
+	DrawWalls = false, true, false, false, false, false
+	if[%elevator% < 3] AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %CenterX% - 0.25, -2.3 + 0.001, %CenterX% + 0.25, -2.3 + 0.001, 0.5, 0.5, 6.5, 6.5, 0, 0
+	DrawWalls = true, false, false, false, false, false
+	if[%elevator% > 2] AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %CenterX% - 0.25, 2.3 - 0.001, %CenterX% + 0.25, 2.3 - 0.001, 0.5, 0.5, 6.5, 6.5, 0, 0
+
+	#Panels on walls
+	Set WPTex = ElevWallPanel
+	if[%elevator% > 2] Set WPTex = ElevWallPanel2
+
+		#Front panels
+		if[%elevator% > 2] CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (7.1 * 1/3), -2.3 + 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		if[%elevator% > 2] CreateWallBox2 elevator, Panel_F2, %WPTex%, 0, -2.3 + 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		if[%elevator% > 2] CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (7.1 * 1/3), -2.3 + 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+
+		#Left panels
+		CreateWallBox2 elevator, Panel_L1, %WPTex%, -3.55 + 0.01, 0 - (4.6 * 1/4), 0.02, (4.6 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_L2, %WPTex%, -3.55 + 0.01, 0 + (4.6 * 1/4), 0.02, (4.6 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+
+		#Right panels
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, 3.55 - 0.01, 0 - (4.6 * 1/4), 0.02, (4.6 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R2, %WPTex%, 3.55 - 0.01, 0 + (4.6 * 1/4), 0.02, (4.6 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+
+		#Back panels
+		if[%elevator% < 3] CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (7.1 * 1/3), 2.3 - 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		if[%elevator% < 3] CreateWallBox2 elevator, Panel_B2, %WPTex%, 0, 2.3 - 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		if[%elevator% < 3] CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (7.1 * 1/3), 2.3 - 0.01, (7.1 * 1/3) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+<EndElevators>
+
+<Floors 0 to 8>
+	Set DoorTexture = ElevDoors-%floorid%Level
+
+	#Shaft Doors
+	Set StartNo = 1
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo%, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, left, 0.6, -2, -2.8, 0, -2.8, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo%, 1, Right, (%DoorTexture%)2, (%DoorTexture%)2, 0.2, right, 0.6, 0, -2.8, 2, -2.8, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo%, 1, false, false
+
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo% + 1, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, left, 0.6, -2, -2.8, 0, -2.8, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo% + 1, 1, Right, (%DoorTexture%)2, (%DoorTexture%)2, 0.2, right, 0.6, 0, -2.8, 2, -2.8, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo% + 1, 1, false, false
+
+	Set StartNo = 3
+	WallOrientation = left
+	AddShaftDoorComponent %StartNo%, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.6, 0, 2.8, 2, 2.8, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo%, 1, Right, (%DoorTexture%)2, (%DoorTexture%)2, 0.2, left, 0.6, -2, 2.8, 0, 2.8, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo%, 1, false, false
+
+	WallOrientation = left
+	AddShaftDoorComponent %StartNo% + 1, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.6, 0, 2.8, 2, 2.8, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo% + 1, 1, Right, (%DoorTexture%)2, (%DoorTexture%)2, 0.2, left, 0.6, -2, 2.8, 0, 2.8, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo% + 1, 1, false, false
+	#--------------------
+	#Door tracks
+	AddDoorTrack(1, 1, -5 - 2 - 2, -5 + 2 + 2, -4.17 + 0.33, -4.17 + 0.33 + 0.2, ElevDoorTrackZ)
+	AddDoorTrack(2, 1, 5 - 2 - 2, 5 + 2 + 2, -4.17 + 0.33, -4.17 + 0.33 + 0.2, ElevDoorTrackZ)
+	AddDoorTrack(3, 2, -5 - 2 - 2, -5 + 2 + 2, 4.17 - 0.33 - 0.2, 4.17 - 0.33, ElevDoorTrackZ)
+	AddDoorTrack(4, 2, 5 - 2 - 2, 5 + 2 + 2, 4.17 - 0.33 - 0.2, 4.17 - 0.33, ElevDoorTrackZ)
+	#--------------------
+	#Elevator decos
+	Set DecoTex = LobbyDeco_Level%floorid%
+	Set 6C = ElevLbyWall
+	if[%floor% > 0] Set 6C = ElevLbyWall2
+
+	WallOrientation = left
+	#Sets for floors connected to mall
+	Set A1 = 0 #Outer filler walls depth
+	Set A2 = 1 #Inner filler walls depth
+	
+	#Sets for floors not connected to mall
+	#Set A3 = 0.75 #Outer filler walls depth
+	Set A3 = 1 #Outer filler walls depth
+	#Set A4 = 1 - %A3% #Inner filler walls depth
+
+	#Elevator 1
+	Set ElevPosition = 90
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFillerWalls Blank, 0.1, %ElevPosition%, -14.34, 4 + (1 * 2), %height%, 0, true, 0, 0, false #Wall cuts
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DecoTex%, %DecoTex%, front, true, false, floor, 0, 1, %ElevPosition%, -14.34, 4, 7, %height%, %height% - 7, 0, false, %DecoTex%, %A1%)
+		if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %6C%, %A3%, %ElevPosition%, -14.34, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = false, false
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, %ElevPosition%, -14.34 - 0.01, 4, 7, 7.2, 0.2, 0, true, %DoorTexture%_Trim, %A2% + 0.01)
+		#if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %DoorTexture%_Trim, %A4%, %ElevPosition%, -14.34 + %A3%, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = true, true
+
+	#Elevator 2
+	Set ElevPosition = 100
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFillerWalls Blank, 0.1, %ElevPosition%, -14.34, 4 + (1 * 2), %height%, 0, true, 0, 0, false #Wall cuts
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DecoTex%, %DecoTex%, front, true, false, floor, 0, 1, %ElevPosition%, -14.34, 4, 7, %height%, %height% - 7, 0, false, %DecoTex%, %A1%)
+		if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %6C%, %A3%, %ElevPosition%, -14.34, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = false, false
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, %ElevPosition%, -14.34 - 0.01, 4, 7, 7.2, 0.2, 0, true, %DoorTexture%_Trim, %A2% + 0.01)
+		#if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %DoorTexture%_Trim, %A4%, %ElevPosition%, -14.34 + %A3%, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = true, true
+
+	WallOrientation = right
+	#Elevator 3
+	Set ElevPosition = 90
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFillerWalls Blank, 0.1, %ElevPosition%, -25.66, 4 + (1 * 2), %height%, 0, true, 0, 0, false #Wall cuts
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DecoTex%, %DecoTex%, back, true, false, floor, 0, 1, %ElevPosition%, -25.66, 4, 7, %height%, %height% - 7, 0, false, %DecoTex%, %A1%)
+		if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %6C%, %A3%, %ElevPosition%, -25.66, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = false, false
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, back, true, false, floor, 0, 0.2, %ElevPosition%, -25.66 + 0.01, 4, 7, 7.2, 0.2, 0, true, %DoorTexture%_Trim, %A2% + 0.01)
+		#if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %DoorTexture%_Trim, %A4%, %ElevPosition%, -25.66 - %A3%, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = true, true
+
+	#Elevator 4
+	Set ElevPosition = 100
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddFillerWalls Blank, 0.1, %ElevPosition%, -25.66, 4 + (1 * 2), %height%, 0, true, 0, 0, false #Wall cuts
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DecoTex%, %DecoTex%, back, true, false, floor, 0, 1, %ElevPosition%, -25.66, 4, 7, %height%, %height% - 7, 0, false, %DecoTex%, %A1%)
+		if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %6C%, %A3%, %ElevPosition%, -25.66, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = false, false
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, back, true, false, floor, 0, 0.2, %ElevPosition%, -25.66 + 0.01, 4, 7, 7.2, 0.2, 0, true, %DoorTexture%_Trim, %A2% + 0.01)
+		#if[%floor% = 1 | %floor% = 3 | %floor% = 5 | %floor% = 7] AddFillerWalls %DoorTexture%_Trim, %A4%, %ElevPosition%, -25.66 - %A3%, 4, 7, 0, true, 0, 0, false
+		SetAutoSize = true, true
+	#--------------------
+	#Call buttons
+	Set PanelTexture = ElevExtPanels
+	CallButtonElevators = 1, 2, 3, 4
+	CreateCallButtons %PanelTexture%, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 95, -14 - 0.34 - 0.001, 3.5, front, 0.5, 1, true, 0, 0
+	CreateCallButtons %PanelTexture%, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 95, -26 + 0.34 + 0.001, 3.5, back, 0.5, 1, true, 0, 0
+
+	#Signs
+	DrawWalls = true, false, false, false, false, false
+	AddWall E1-4HallSign1, BlankSign%floorid%, 0, 95 - 0.75, -14 - 0.34 - 0.001, 95 + 0.75, -14 - 0.34 - 0.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
+	AddWall E1-4HallSign2, ElevHallSign, 0, 95 - 0.375, -14 - 0.34 - 0.001, 95 + 0.375, -14 - 0.34 - 0.001, 1, 1, 2.4, 2.4, 0, 0, false
+	DrawWalls = false, true, false, false, false, false
+	AddWall E1-4HallSign3, BlankSign%floorid%, 0, 95 - 0.75, -26 + 0.34 + 0.001, 95 + 0.75, -26 + 0.34 + 0.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
+	AddWall E1-4HallSign4, ElevHallSign, 0, 95 - 0.375, -26 + 0.34 + 0.001, 95 + 0.375, -26 + 0.34 + 0.001, 1, 1, 2.4, 2.4, 0, 0, false
+	#--------------------
+	#Indicator sets
+	#Indicator texture specification
+	#Set PanelTexture = ElevExtPanels
+	HitachiInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%) 
+	HitachiInd_IndicatorTex(ArrowUpUnlit, ArrowUpLit, ArrowDownUnlit, ArrowDownLit, OutsideInd_Button) 
+
+	#Indicator creation
+	if[%floor% = 8] Set IndOffset = 7.75
+	if[%floor% ! 8] Set IndOffset = 7.5
+	HitachiLobbyInds_Front(1, 90, -14 - 0.34 - 0.00, %IndOffset%, 0, 8, false)
+	HitachiLobbyInds_Front(2, 100, -14 - 0.34 - 0.00, %IndOffset%, 0, 8, false)
+	HitachiLobbyInds_Back(3, 90, -26 + 0.34 + 0.00, %IndOffset%, 0, 8, false)
+	HitachiLobbyInds_Back(4, 100, -26 + 0.34 + 0.00, %IndOffset%, 0, 8, false)
+<EndFloor>
+
+#Global Settings
+<Elevators 1 to 4>
+	ReOpen = false
+	ChimeOnArrival = true
+	NotifyEarly = 1
+	QueueResets = true
+	ChimeSound 1 = KW_Sounds/hitachimtchime1.wav
+	OpenSound 1 = EG881Sounds/elevopen4.wav #EG881
+	CloseSound 1 = EG881Sounds/elevclose4.wav #EG881
+	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
+	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
+	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+
+	CarStartSound = EG881Sounds/slowelevstart.wav #EG881
+	CarMoveSound = EG881Sounds/slowelevmove.wav #EG881
+	CarStopSound = EG881Sounds/slowelevstop.wav #EG881
+<EndElevators>

@@ -1,0 +1,430 @@
+#Burgundy Crimson Hotel
+#Copyright (c) 2023-Present - Mn10
+
+#Include ObjectPlus and SROC (credit to EG881)
+<Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
+<Include SROC/Scripts/r1_script.txt> #EG881
+
+#Add buildings to the simulation
+<Buildings>
+	Load BCH - Burgundy Building.bld, 0, 0, 0, 0, -105 - 15, 0, -75 - 10, 105 + 10, 0, 75 + 15
+	Load BCH - Rosewood Building.bld, -330, 0, 20, 0, -50 - 10, 0, -100 - 15, 50 + 15, 0, 100 + 15
+	Load BCH - Parking Garage.bld, -316, 0, -365, 0, -64 - 10, 0, -120 - 10, 64 + 8, 0, 120 + 5
+<EndBuildings>
+
+##--------------------------------------------------------------------------------##
+
+#Globals
+<Globals>
+	Name = Burgundy Crimson Hotel
+	Designer = Mn10 (Fixtures made by Vector)
+	Location = Anywhere
+	Description = A hotel with two buildings, a large parking lot, and landscaped gardens.
+	Version = 1
+	CameraFloor = 0
+	CameraPosition = -35, -165
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+##--------------------------------------------------------------------------------##
+
+#Textures
+<Textures>
+	#Landscapes
+	Load data/downtown.jpg, Downtown, 1, 1
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/cutston.jpg, Sidewalk2, 0.04, 0.04
+	Load data/cutston2.jpg, Sidewalk2A, 0.045, 0.045
+
+		#Plants
+		Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
+		Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass_Light, 0.005, 0.005
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+		Load data/EG881/cem_tr2c.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr2b.jpg, FlowerBed2, 0.075225, 0.0625 #EG881
+
+		#Roads
+		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+
+		#Road markings
+		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
+		Load data/EG881/parkingspacez.png, ParkingSpaceZ, 1, 1, false #EG881
+
+		Load data/EG881Mod/NoParkingX.png, NoParkingX, 1, 1, false #EG881 #Yellow islands
+		Load data/EG881Mod/NoParkingZ.png, NoParkingZ, 1, 1, false #EG881
+
+		Load data/EG881Mod/WhiteIslandX.png, WhiteIslandX, 1, 1, false #EG881
+		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
+
+		#Fences
+		Load data/EG881/brick040+_brown.jpg, BrickFences, 0.25, 0.25 #EG881
+
+	#Building sign
+	Load data/Melvin/BCH/Rosewood.png, BldgSignRosewood, 1, 1, false
+	Load data/marb148.jpg, BldgSignRosewoodBack, 0.25, 0.25
+
+<EndTextures>
+
+##--------------------------------------------------------------------------------##
+
+#Floor assignments
+<Floor -1>
+	ID = LL
+	Name = Lower Level
+	Type = Basement
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Altitude = -13.5
+<EndFloor>
+
+<Floor 0>
+	ID = ML
+	Name = Middle Level
+	Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = UL
+	Name = Upper Level
+	Type = Lobby
+	Height = 10.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#Landscape
+Set 1 = 105 #Burgundy Tower Dimension X
+Set 2 = 75 #Burgundy Tower Dimension Z
+Set LowerLevel = -4
+
+	#Downtown ground
+	AddGround Ground, Downtown, -158400, -158400, 158400, 158400, %LowerLevel%, 7920, 7920
+	Cut Landscape, -%1% - 15 - 120, %LowerLevel% - 1, -%2% - 15 - 340 - 65, %1% + 15, %LowerLevel% + 1, %2% + 15 + 50, false, true
+	#Cut Landscape, -240 - 150, %LowerLevel% - 1, -%2% - 15 - 100, -240, %LowerLevel% + 1, %2% + 15 + 50, false, true
+	Cut Landscape, -240 - 150, %LowerLevel% - 1, -%2% - 15 - 340 - 65, -240, %LowerLevel% + 1, %2% + 15 + 50, false, true
+
+	#Sidewalk
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, BGDTower_PerimeterSidewalk, Sidewalk, 0, -%1% - 15, -%2% - 10, %1% + 15, %2% + 15, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BGDTower_NorthSidewalk, SidewalkDarker, 0, -%1% - 15, %2% + 15, %1% + 15, %2% + 15 + 50, Floor(0).Base, Floor(0).Base, 0, 0	
+	#AddFloor landscape, LowerLevelSidewalk1, Sidewalk, 0, -240 - 25, -%2% - 15 - 100, -240, %2% + 15 + 50, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, LowerLevelSidewalk1, Sidewalk, 0, -240 - 25, -100 - 140, -240, %2% + 15 + 50, %LowerLevel%, %LowerLevel%, 0, 0	
+	#AddFloor landscape, LowerLevelSidewalk2, SidewalkDarker, 0, -240 - 150, -%2% - 15 - 100, -240 - 25, %2% + 15 + 50, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, LowerLevelSidewalk2, SidewalkDarker, 0, -240 - 150, -100, -240 - 25, %2% + 15 + 50, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, RosewoodPoolArea-Left, Sidewalk2, 0, -240 - 150, -100 - 140, -240 - 150 + 12, -100, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, RosewoodPoolArea-Mid, Sidewalk2A, 0, -240 - 150 + 12, -100 - 140, -240 - 25 - 12, -100, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, RosewoodPoolArea-Right, Sidewalk2, 0, -240 - 25 - 12, -100 - 140, -240 - 25, -100, %LowerLevel%, %LowerLevel%, 0, 0	
+
+	AddFloor landscape, LowerLevelLink1, Sidewalk, 0, -240 - 10, -15, -240, 20, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LowerLevelLink2, Sidewalk, 0, -240 - 9.5, 20, -240, 20 + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LowerLevelLinkRamp-N, Sidewalk, 0, -240 - 9.5, 20 + 5, -240, 20 + 5 + 48, Floor(0).Base, %LowerLevel%, 0, 0	
+	AddFloor landscape, LowerLevelLinkRamp-S, Sidewalk, 0, -240 - 9.5, -15 - 5 - 48, -240, -15 - 5, %LowerLevel%, Floor(0).Base, 0, 0	
+	AddFloor landscape, LowerLevelLink3, Sidewalk, 0, -240 - 9.5, -15 - 5, -240, -15, Floor(0).Base, Floor(0).Base, 0, 0	
+
+	AddFloor landscape, WestSidewalk1, Sidewalk, 0, -%1% - 15 - 120, -174, -222, %2% + 15 + 50, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, WestSidewalk2, Sidewalk, 0, -%1% - 15 - 120, -254, -222, -174, %LowerLevel%, Floor(0).Base, 0, 0	
+	AddFloor landscape, WestSidewalk3, Sidewalk, 0, -%1% - 15 - 120, -%2% - 15 - 340 - 65, -222, -254, %LowerLevel%, %LowerLevel%, 0, 0	
+
+####################
+
+#Landscape transition stairs
+	Set LTSOffset = %LowerLevel%
+	OP_Draw(true, true, true, true, false, false)
+	OP_OrthoStair(landscape, Sapphire-LTStairsSouth, Sidewalk, -15, 20, left, -240 - 10 - 8, 8, 1, 0.5, %LTSOffset%, 0.5)
+
+#Railings at sloping areas
+	Set FenceThickness = 0.5
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, false
+	AddWall landscape, WestRail1A, BrickFences, %FenceThickness%, -%1% - 15 - 120, -174, -%1% - 15 - 120, -15, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, WestRail1B, BrickFences, %FenceThickness%, -%1% - 15 - 120, 20, -%1% - 15 - 120, %2% + 15 + 50, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, WestRail2, BrickFences, %FenceThickness%, -%1% - 15 - 120, -254, -%1% - 15 - 120, -174, 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+
+	AddWall landscape, LowerLevelRampRail1, BrickFences, %FenceThickness%, -240 - 9.5, 20, -240 - 9.5, 20 + 5, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, LowerLevelRampRail2, BrickFences, %FenceThickness%, -240 - 9.5, 20 + 5, -240 - 9.5, 20 + 5 + 48, 4 + 3.5, 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, LowerLevelRampRail3, BrickFences, %FenceThickness%, -240 - 9.5, -15 - 5, -240 - 9.5, -15, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, LowerLevelRampRail4, BrickFences, %FenceThickness%, -240 - 9.5, -15 - 5 - 48, -240 - 9.5, -15 - 5, 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, LowerLevelStairRail1, BrickFences, %FenceThickness%, -240 - 18, -15, -240 - 10, -15, 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	#AddWall landscape, LowerLevelStairRail2, BrickFences, %FenceThickness%, -240 - 10, -15, -240, -15, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+
+	WallOrientation = left
+	AddWall landscape, LowerLevelStairRail3, BrickFences, %FenceThickness%, -240 - 18, 20, -240 - 10, 20, 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, EastRail1, BrickFences, %FenceThickness%, %1% + 15, -174, %1% + 15, %2% + 15 + 50, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, EastRail2, BrickFences, %FenceThickness%, %1% + 15, -254, %1% + 15, -174, 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+	AddWall landscape, NorthRail, BrickFences, %FenceThickness%, -%1% - 15 - 120 - %FenceThickness%, %2% + 15 + 50, %1% + 15 + %FenceThickness%, %2% + 15 + 50, 4 + 3.5, 4 + 3.5, %LowerLevel%, %LowerLevel%, 0, 0
+
+####################
+
+#Parking lot
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, ParkingLot_South1, Road, 0, -%1% - 15, -174, %1% + 15, -%2% - 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, ParkingLot_South2, Road, 0, -%1% - 15, -254, %1% + 15, -174, %LowerLevel%, Floor(0).Base, 0, 0	
+	AddFloor landscape, ParkingLot_South3, Road, 0, -%1% - 15, -%2% - 15 - 340 - 65, %1% + 15, -254, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, ParkingLot_West1, Road, 0, -222, -174, -%1% - 15, %2% + 15 + 50, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, ParkingLot_West2, Road, 0, -222, -254, -%1% - 15, -174, %LowerLevel%, Floor(0).Base, 0, 0	
+	AddFloor landscape, ParkingLot_West3, Road, 0, -222, -%2% - 15 - 340 - 65, -%1% - 15, -174, %LowerLevel%, %LowerLevel%, 0, 0	
+	AddFloor landscape, ParkingGarageFoundation, Sidewalk, 0, -240 - 150, -%2% - 15 - 340 - 65, -240, -100 - 140, %LowerLevel%, %LowerLevel%, 0, 0	
+
+#Parking Garage Entrance Driveway
+	Cut Landscape, -244, %LowerLevel% - 1, -365, -222, %LowerLevel% + 1, -365 + 40, false, true
+	AddFloor landscape, PGEntranceDriveway, Road, 0, -244, -365, -222, -365 + 40, %LowerLevel%, %LowerLevel%, 0, 0	
+
+	#Parking lot road markings
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = Floor(0).Base + 0.01
+	Set Offset2 = %LowerLevel% + 0.01
+
+		####################
+
+		#South parking lot
+		AddFloor landscape, SouthParkingA1, ParkingSpaceZ, 0, -40 - (8.5 * 9), -85 - 18, -40, -85, %Offset%, %Offset%, 9, 1
+		AddFloor landscape, SouthParkingA1_Spacer, NoParkingZ, 0, -40, -85 - 18, -20, -85, %Offset%, %Offset%, 3, 1
+		AddFloor landscape, SouthParkingA2_Spacer1, WhiteIslandZ, 0, -20, -85 - 18, 0 - (8.5 * 2), -85, %Offset%, %Offset%, 1, 1
+		AddFloor landscape, SouthParkingA2, ParkingSpaceZ, 0, 0 - (8.5 * 2), -85 - 18, 0 + (8.5 * 2), -85, %Offset%, %Offset%, 4, 1
+		AddFloor landscape, SouthParkingA2_Spacer2, WhiteIslandZ, 0, 0 + (8.5 * 2), -85 - 18, 20, -85, %Offset%, %Offset%, 1, 1
+		AddFloor landscape, SouthParkingA3_Spacer, NoParkingZ, 0, 20, -85 - 18, 40, -85, %Offset%, %Offset%, 3, 1
+		AddFloor landscape, SouthParkingA3, ParkingSpaceZ, 0, 40, -85 - 18, 40 + (8.5 * 9), -85, %Offset%, %Offset%, 9, 1
+
+		Set EastEdge = 96
+		AddFloor landscape, SouthParkingB1A, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114 - (8.5 * 2), %Offset%, %Offset%, -1, 5
+		AddFloor landscape, SouthParkingB1B, ParkingSpaceX, 0, %EastEdge% - 36, -114 - (8.5 * 7), %EastEdge% - 18, -114 - (8.5 * 2), %Offset%, %Offset%, 1, 5
+		#AddFloor landscape, SouthParkingB1_Spacer, NoParkingX, 0, %EastEdge% - 36, -174, %EastEdge%, -114 - (8.5 * 7), %Offset%, %Offset%, -2, 1
+		AddFloor landscape, SouthParkingB2A, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		AddFloor landscape, SouthParkingB2B, ParkingSpaceX, 0, %EastEdge% - 36, -254, %EastEdge% - 18, -174, %Offset2%, %Offset%, 1, 9
+		AddFloor landscape, SouthParkingB2_Spacer, NoParkingX, 0, %EastEdge% - 36, -254 - 5, %EastEdge%, -254, %Offset2%, %Offset2%, -2, 1
+		AddFloor landscape, SouthParkingB3A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 10), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 10
+		AddFloor landscape, SouthParkingB3B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 10), %EastEdge% - 18, -259, %Offset2%, %Offset2%, 1, 10
+
+		Set EastEdge = 36
+		AddFloor landscape, SouthParkingC1A, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114 - (8.5 * 2), %Offset%, %Offset%, -1, 5
+		#AddFloor landscape, SouthParkingC1B, ParkingSpaceX, 0, %EastEdge% - 36, -114 - (8.5 * 7), %EastEdge% - 18, -114 - (8.5 * 2), %Offset%, %Offset%, 1, 5
+		#AddFloor landscape, SouthParkingC1_Spacer, NoParkingX, 0, %EastEdge% - 18, -174, %EastEdge%, -114 - (8.5 * 7), %Offset%, %Offset%, -1, 1
+		AddFloor landscape, SouthParkingC2A, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		#AddFloor landscape, SouthParkingC2B, ParkingSpaceX, 0, %EastEdge% - 36, -254, %EastEdge% - 18, -174, %Offset2%, %Offset%, 1, 9
+		AddFloor landscape, SouthParkingC2_Spacer, NoParkingX, 0, %EastEdge% - 18, -254 - 5, %EastEdge%, -254, %Offset2%, %Offset2%, -1, 1
+		AddFloor landscape, SouthParkingC3A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 10), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 10
+		#AddFloor landscape, SouthParkingC3B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 10), %EastEdge% - 18, -259, %Offset2%, %Offset2%, 1, 10
+
+		Set EastEdge = -24
+		#AddFloor landscape, SouthParkingD1A, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114 - (8.5 * 2), %Offset%, %Offset%, -1, 5
+		AddFloor landscape, SouthParkingD1B, ParkingSpaceX, 0, %EastEdge% - 36, -114 - (8.5 * 7), %EastEdge% - 18, -114 - (8.5 * 2), %Offset%, %Offset%, 1, 5
+		#AddFloor landscape, SouthParkingD1_Spacer, NoParkingX, 0, %EastEdge% - 36, -174, %EastEdge% - 18, -114 - (8.5 * 7), %Offset%, %Offset%, 1, 1
+		#AddFloor landscape, SouthParkingD2A, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		AddFloor landscape, SouthParkingD2B, ParkingSpaceX, 0, %EastEdge% - 36, -254, %EastEdge% - 18, -174, %Offset2%, %Offset%, 1, 9
+		AddFloor landscape, SouthParkingD2_Spacer, NoParkingX, 0, %EastEdge% - 36, -254 - 5, %EastEdge% - 18, -254, %Offset2%, %Offset2%, 1, 1
+		#AddFloor landscape, SouthParkingD3A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 10), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 10
+		AddFloor landscape, SouthParkingD3B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 10), %EastEdge% - 18, -259, %Offset2%, %Offset2%, 1, 10
+
+		Set EastEdge = -84
+		AddFloor landscape, SouthParkingE1A, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114 - (8.5 * 2), %Offset%, %Offset%, -1, 5
+		AddFloor landscape, SouthParkingE1B, ParkingSpaceX, 0, %EastEdge% - 36, -114 - (8.5 * 7), %EastEdge% - 18, -114 - (8.5 * 2), %Offset%, %Offset%, 1, 5
+		#AddFloor landscape, SouthParkingE1_Spacer, NoParkingX, 0, %EastEdge% - 36, -174, %EastEdge%, -114 - (8.5 * 7), %Offset%, %Offset%, -2, 1
+		AddFloor landscape, SouthParkingE2A, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		AddFloor landscape, SouthParkingE2B, ParkingSpaceX, 0, %EastEdge% - 36, -254, %EastEdge% - 18, -174, %Offset2%, %Offset%, 1, 9
+		AddFloor landscape, SouthParkingE2_Spacer, NoParkingX, 0, %EastEdge% - 36, -254 - 5, %EastEdge%, -254, %Offset2%, %Offset2%, -2, 1
+		AddFloor landscape, SouthParkingE3A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 10), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 10
+		AddFloor landscape, SouthParkingE3B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 10), %EastEdge% - 18, -259, %Offset2%, %Offset2%, 1, 10
+
+		AddFloor landscape, SouthParkingF1, ParkingSpaceZ, 0, -120, -369.5 - 18, -120 + (8.5 * 25), -369.5, %Offset2%, %Offset2%, 25, -1
+		AddFloor landscape, SouthParkingF2, ParkingSpaceZ, 0, -120, -369.5 - 36, -120 + (8.5 * 25), -369.5 - 18, %Offset2%, %Offset2%, 25, 1
+
+		####################
+
+		#West parking lot (North)
+		AddFloor landscape, NWParking1A, ParkingSpaceX, 0, -144 - 18, 116 - (8.5 * 12), -144, 116, %Offset%, %Offset%, -1, 12
+		AddFloor landscape, NWParking1B, ParkingSpaceX, 0, -144 - 36, 116 - (8.5 * 12), -144 - 18, 116, %Offset%, %Offset%, 1, 12
+		AddFloor landscape, NWParking2A, ParkingSpaceX, 0, -144 - 18, -10 - (8.5 * 11), -144, -10, %Offset%, %Offset%, -1, 11
+		AddFloor landscape, NWParking2B, ParkingSpaceX, 0, -144 - 36, -10 - (8.5 * 11), -144 - 18, -10, %Offset%, %Offset%, 1, 11
+
+		AddFloor landscape, NWParking3_Spacer1, WhiteIslandX, 0, -204 - 18, 116 + (8.5 * 2), -204, %2% + 15 + 50, %Offset%, %Offset%, -1, 1
+		AddFloor landscape, NWParking3, ParkingSpaceX, 0, -204 - 18, 116 - (8.5 * 12), -204, 116 + (8.5 * 2), %Offset%, %Offset%, -1, 14
+		AddFloor landscape, NWParking3_Spacer2, NoParkingX, 0, -204 - 18, -10, -204, 116 - (8.5 * 12), %Offset%, %Offset%, -1, 3
+		AddFloor landscape, NWParking4, ParkingSpaceX, 0, -204 - 18, -10 - (8.5 * 12), -204, -10, %Offset%, %Offset%, -1, 12
+		AddFloor landscape, NWParking4_Spacer, NoParkingX, 0, -204 - 18, -114, -204, -10 - (8.5 * 12), %Offset%, %Offset%, -1, 1
+
+		#West parking lot (South)
+		Set EastEdge = -144
+		AddFloor landscape, SWParking1A, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114 - (8.5 * 2), %Offset%, %Offset%, -1, 5
+		AddFloor landscape, SWParking1B, ParkingSpaceX, 0, %EastEdge% - 36, -114 - (8.5 * 7), %EastEdge% - 18, -114 - (8.5 * 2), %Offset%, %Offset%, 1, 5
+		#AddFloor landscape, SWParking1_Spacer, NoParkingX, 0, %EastEdge% - 36, -174, %EastEdge%, -114 - (8.5 * 7), %Offset%, %Offset%, -2, 1
+		AddFloor landscape, SWParking2A, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		AddFloor landscape, SWParking2B, ParkingSpaceX, 0, %EastEdge% - 36, -254, %EastEdge% - 18, -174, %Offset2%, %Offset%, 1, 9
+		AddFloor landscape, SWParking2_Spacer, NoParkingX, 0, %EastEdge% - 36, -254 - 5, %EastEdge%, -254, %Offset2%, %Offset2%, -2, 1
+		AddFloor landscape, SWParking3A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 7), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 7
+		AddFloor landscape, SWParking3B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 7), %EastEdge% - 18, -259, %Offset2%, %Offset2%, 1, 7
+		AddFloor landscape, SWParking4A, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 23), %EastEdge%, -259 - (8.5 * 13), %Offset2%, %Offset2%, -1, 10
+		AddFloor landscape, SWParking4B, ParkingSpaceX, 0, %EastEdge% - 36, -259 - (8.5 * 23), %EastEdge% - 18, -259 - (8.5 * 13), %Offset2%, %Offset2%, 1, 10
+
+		Set EastEdge = -204
+		AddFloor landscape, SWParking5, ParkingSpaceX, 0, %EastEdge% - 18, -114 - (8.5 * 7), %EastEdge%, -114, %Offset%, %Offset%, -1, 7
+		#AddFloor landscape, SWParking5_Spacer, NoParkingX, 0, %EastEdge% - 18, -174, %EastEdge%, -114 - (8.5 * 7), %Offset%, %Offset%, -1, 1
+		AddFloor landscape, SWParking6, ParkingSpaceX, 0, %EastEdge% - 18, -254, %EastEdge%, -174, %Offset2%, %Offset%, -1, 9
+		AddFloor landscape, SWParking6_Spacer, NoParkingX, 0, %EastEdge% - 18, -254 - 5, %EastEdge%, -254, %Offset2%, %Offset2%, -1, 1
+		AddFloor landscape, SWParking7, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 7), %EastEdge%, -259, %Offset2%, %Offset2%, -1, 7
+		AddFloor landscape, SWParking8, ParkingSpaceX, 0, %EastEdge% - 18, -259 - (8.5 * 23), %EastEdge%, -259 - (8.5 * 13), %Offset2%, %Offset2%, -1, 10
+
+####################
+
+#Garden south of Burgundy Tower
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden1_Sidewalk1, Sidewalk, 0.5, -24 - 18, -174, 36 - 18, -114 - (8.5 * 2), 0, 0, 0, 0
+AddFloor landscape, Garden1_Sidewalk2, Sidewalk, 0.5, -24 - 18, -254, 36 - 18, -174, %LowerLevel%, 0, 0, 0
+AddFloor landscape, Garden1_Sidewalk3, Sidewalk, 0.5, -24 - 18, -344, 36 - 18, -254, %LowerLevel%, %LowerLevel%, 0, 0
+
+AddFloor landscape, Garden1_FlowerBed1, FlowerBed, 0.75, -42 + 10, -174, 18 - 10, -129 - 7.5, 0 + 0.5, 0 + 0.5, 0, 0
+AddFloor landscape, Garden1_FlowerBed2, FlowerBed, 0.75, -42 + 10, -254, 18 - 10, -174, %LowerLevel% + 0.5, 0 + 0.5, 0, 0
+AddFloor landscape, Garden1_FlowerBed3, FlowerBed, 0.75, -42 + 10, -344 + 7.5, 18 - 10, -254, %LowerLevel% + 0.5, %LowerLevel% + 0.5, 0, 0
+
+AddFloor landscape, Garden1_Grass1, Grass_Dark, 0, -42 + 10 + 1, -174, 18 - 10 - 1, -129 - 7.5 - 1, 0 + 1.26, 0 + 1.26, 0, 0
+AddFloor landscape, Garden1_Grass2, Grass_Dark, 0, -42 + 10 + 1, -254, 18 - 10 - 1, -174, %LowerLevel% + 1.26, 0 + 1.26, 0, 0
+AddFloor landscape, Garden1_Grass3, Grass_Dark, 0, -42 + 10 + 1, -344 + 7.5 + 1, 18 - 10 - 1, -254, %LowerLevel% + 1.26, %LowerLevel% + 1.26, 0, 0
+
+	#Trees
+	AddTree(Tree1, -22, -145, 13.5, 12, 0 + 1.26)
+	AddTree(Tree1, -22, -145 - 15, 13.5, 12, 0 + 1.26)
+	AddTree(Tree1, -22, -145 - 30, 13.5, 12, -0.15 + 1.26)
+	AddTree(Tree1, -22, -145 - 45, 13.5, 12, -0.8 + 1.26)
+	AddTree(Tree1, -22, -145 - 60, 13.5, 12, -1.55 + 1.26)
+	AddTree(Tree2, -22, -145 - 75, 12, 16, -2.3 + 1.26)
+	AddTree(Tree2, -22, -145 - 90, 12, 16, -3.05 + 1.26)
+	AddTree(Tree2, -22, -145 - 105, 12, 16, -3.81 + 1.26)
+	AddTree(Tree2, -22, -145 - 120, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree1, -22, -145 - 135, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -22, -145 - 150, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -22, -145 - 165, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -22, -145 - 180, 13.5, 12, %LowerLevel% + 1.26)
+
+	AddTree(Tree1, -2, -145, 13.5, 12, 0 + 1.26)
+	AddTree(Tree1, -2, -145 - 15, 13.5, 12, 0 + 1.26)
+	AddTree(Tree1, -2, -145 - 30, 13.5, 12, -0.15 + 1.26)
+	AddTree(Tree1, -2, -145 - 45, 13.5, 12, -0.8 + 1.26)
+	AddTree(Tree1, -2, -145 - 60, 13.5, 12, -1.55 + 1.26)
+	AddTree(Tree2, -2, -145 - 75, 12, 16, -2.3 + 1.26)
+	AddTree(Tree2, -2, -145 - 90, 12, 16, -3.05 + 1.26)
+	AddTree(Tree2, -2, -145 - 105, 12, 16, -3.81 + 1.26)
+	AddTree(Tree2, -2, -145 - 120, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree1, -2, -145 - 135, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -2, -145 - 150, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -2, -145 - 165, 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -2, -145 - 180, 13.5, 12, %LowerLevel% + 1.26)
+
+####################
+
+#Garden north of Burgundy Tower
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden2_FlowerBed1, FlowerBed2, 0.75, -95, 120, -15, 135, 0, 0, 0, 0
+AddFloor landscape, Garden2_FlowerBed2, FlowerBed2, 0.75, 15, 120, 95, 135, 0, 0, 0, 0
+AddFloor landscape, Garden2_FlowerBed3, FlowerBed2, 0.75, -95, 92.5, -15, 107.5, 0, 0, 0, 0
+AddFloor landscape, Garden2_FlowerBed4, FlowerBed2, 0.75, 15, 92.5, 95, 107.5, 0, 0, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden2_Grass1, Grass, 0, -95 + 1, 120 + 1, -15 - 1, 135 - 1, 0.76, 0.76, 0, 0
+AddFloor landscape, Garden2_Grass2, Grass_Light, 0, 15 + 1, 120 + 1, 95 - 1, 135 - 1, 0.76, 0.76, 0, 0
+AddFloor landscape, Garden2_Grass3, Grass_Dark, 0, -95 + 1, 92.5 + 1, -15 - 1, 107.5 - 1, 0.76, 0.76, 0, 0
+AddFloor landscape, Garden2_Grass4, Grass_Dark, 0, 15 + 1, 92.5 + 1, 95 - 1, 107.5 - 1, 0.76, 0.76, 0, 0
+
+	#Trees
+	#Flower Bed 1
+	AddTree(Tree1, -85, 127.5, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 20, 127.5, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 40, 127.5, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 60, 127.5, 13.5, 12, 0.76)
+
+	#Flower Bed 2
+	AddTree(Tree2, 85 - 60, 127.5, 12, 16, 0.76)
+	AddTree(Tree2, 85 - 40, 127.5, 12, 16, 0.76)
+	AddTree(Tree2, 85 - 20, 127.5, 12, 16, 0.76)
+	AddTree(Tree2, 85, 127.5, 12, 16, 0.76)
+
+	#Flower Bed 3
+	AddTree(Tree1, -85, 100, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 20, 100, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 40, 100, 13.5, 12, 0.76)
+	AddTree(Tree1, -85 + 60, 100, 13.5, 12, 0.76)
+
+	#Flower Bed 4
+	AddTree(Tree1, 85 - 60, 100, 13.5, 12, 0.76)
+	AddTree(Tree2, 85 - 40, 100, 12, 16, 0.76)
+	AddTree(Tree2, 85 - 20, 100, 12, 16, 0.76)
+	AddTree(Tree1, 85, 100, 13.5, 12, 0.76)	
+
+####################
+
+#Garden between Rosewood Building and parking garage
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden3A_FlowerBed, FlowerBed, 0.5, -375, -237.5, -285, -222.5, %LowerLevel%, %LowerLevel%, 0, 0
+AddFloor landscape, Garden3B_FlowerBed, FlowerBed, 0.5, -375, -117.5, -285, -102.5, %LowerLevel%, %LowerLevel%, 0, 0
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, Garden3A_Grass, Grass_Dark, 0, -375 + 1, -237.5 + 1, -285 - 1, -222.5 - 1, %LowerLevel% + 0.51, %LowerLevel% + 0.51, 0, 0
+AddFloor landscape, Garden3B_Grass, Grass, 0, -375 + 1, -117.5 + 1, -285 - 1, -102.5 - 1, %LowerLevel% + 0.51, %LowerLevel% + 0.51, 0, 0
+
+	#Trees
+	AddTree(Tree1, -367.5, -230, 13.5, 12, %LowerLevel% + 0.51)
+	AddTree(Tree1, -367.5 + 15, -230, 13.5, 12, %LowerLevel% + 0.51)
+	AddTree(Tree1, -367.5 + 30, -230, 13.5, 12, %LowerLevel% + 0.51)
+	AddTree(Tree1, -367.5 + 45, -230, 13.5, 12, %LowerLevel% + 0.51)
+	AddTree(Tree1, -367.5 + 60, -230, 13.5, 12, %LowerLevel% + 0.51)
+	AddTree(Tree1, -367.5 + 75, -230, 13.5, 12, %LowerLevel% + 0.51)
+
+	AddTree(Tree2, -367.5, -110, 12, 16, %LowerLevel% + 0.51)
+	AddTree(Tree2, -367.5 + 15, -110, 12, 16, %LowerLevel% + 0.51)
+	AddTree(Tree2, -367.5 + 30, -110, 12, 16, %LowerLevel% + 0.51)
+	AddTree(Tree2, -367.5 + 45, -110, 12, 16, %LowerLevel% + 0.51)
+	AddTree(Tree2, -367.5 + 60, -110, 12, 16, %LowerLevel% + 0.51)
+	AddTree(Tree2, -367.5 + 75, -110, 12, 16, %LowerLevel% + 0.51)
+
+
+####################
+
+#Garden east of parking garage
+FloorOrientation = bottom
+DrawWalls = false, true, true, true, true, true
+AddFloor landscape, Garden4_Sidewalk, Sidewalk, 0.5, -120, -495, 120, -495 + 50, %LowerLevel%, %LowerLevel%, 0, 0
+
+AddFloor landscape, Garden4_FlowerBed, FlowerBed2, 0.75, -120 + 10, -495 + 10, 120 - 10, -495 + 50 - 10, %LowerLevel% + 0.5, %LowerLevel% + 0.5, 0, 0
+
+AddFloor landscape, Garden4_Grass, Grass, 0, -120 + 10 + 1, -495 + 10 + 1, 120 - 10 - 1, -495 + 50 - 10 - 1, %LowerLevel% + 1.26, %LowerLevel% + 1.26, 0, 0
+
+	#Trees
+	AddTree(Tree2, -100, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 20, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 40, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 60, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 80, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 100, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 120, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 140, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 160, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 180, -477.5, 12, 16, %LowerLevel% + 1.26)
+	AddTree(Tree2, -100 + 200, -477.5, 12, 16, %LowerLevel% + 1.26)
+
+	AddTree(Tree1, -100, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 20, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 40, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 60, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 80, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 100, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 120, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 140, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 160, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 180, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+	AddTree(Tree1, -100 + 200, -477.5 + (15 * 1), 13.5, 12, %LowerLevel% + 1.26)
+
+####################
+
+#Building signs
+	#Rosewood Building
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	TextureOverride BldgSignRosewoodBack, BldgSignRosewood, BldgSignRosewoodBack, BldgSignRosewoodBack, BldgSignRosewoodBack, BldgSignRosewoodBack
+	AddWall landscape, BldgSignRosewood, BldgSignRosewood, 0.25, -240, 27 - 7, -240, 27 + 7, 4, 4, 0, 0, 0, 0

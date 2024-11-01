@@ -1,0 +1,190 @@
+#Windows Function (For windows above doors)
+<Function WindowsX3>
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set TitleX = %param11%
+	Set TitleZ = %param12%
+	
+	#Filler Walls
+	if[%Direction% = left | %Direction% = Left] WallOrientation = Left
+	if[%Direction% = right | %Direction% = Right] WallOrientation = Right
+	AddFillerWalls %FillerWallTexture%, 0.5, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset%, false, 0, 0
+	
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = left | %Direction% = Left] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX% + 0.5, %PositionZ% + (%Width% / 2), %Offset%, %Offset%, 0, 0, false
+	if[%Direction% = right | %Direction% = Right] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - 0.5, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Offset%, %Offset%, 0, 0, false
+	
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	if[%Direction% = left | %Direction% = Left] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% + 0.25, %PositionZ% - (%Width% / 2), %PositionX% + 0.25, %PositionZ% + (%Width% / 2), %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	if[%Direction% = right | %Direction% = Right] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - 0.25, %PositionZ% - (%Width% / 2), %PositionX% - 0.25, %PositionZ% + (%Width% / 2), %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+<Function WindowsZ3>
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set TitleX = %param11%
+	Set TitleZ = %param12%
+	
+	#Filler Walls
+	if[%Direction% = front | %Direction% = Front] WallOrientation = Left
+	if[%Direction% = back | %Direction% = Back] WallOrientation = Right
+	AddFillerWalls %FillerWallTexture%, 0.5, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset%, true, 0, 0
+	
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = front | %Direction% = Front] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ% + 0.5, %Offset%, %Offset%, 0, 0, false
+	if[%Direction% = back | %Direction% = Back] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - 0.5, %PositionX% + (%Width% / 2), %PositionZ%, %Offset%, %Offset%, 0, 0, false
+	
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	if[%Direction% = front | %Direction% = Front] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% + 0.25, %PositionX% + (%Width% / 2), %PositionZ% + 0.25, %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%, %MainPositiveTexture%
+	if[%Direction% = back | %Direction% = Back] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - 0.25, %PositionX% + (%Width% / 2), %PositionZ% - 0.25, %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+#Classroom Doors (West Wing)
+<Function WestWingClassroomDoors>
+	Set Type = %param1% #1 for right door larger than left door, 2 for left door larger than right door
+	Set MainZ = %param2%
+	
+	Set DoorWidth1 = 4 #Width of wider door
+	Set DoorWidth2 = 2 #Width of narrower door
+	Set 1 = %DoorWidth1% / 2
+	Set 2 = %DoorWidth2% / 2
+
+	#Doors
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 3, 75, -10, %MainZ% + 3 - %1%, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor, 0.2, 2, 75, -10, %MainZ% - 3 + %2%, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 3, 75, -10, %MainZ% + 3 - %2%, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor, 0.2, 2, 75, -10, %MainZ% - 3 + %1%, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+	
+	#Door Trims
+	AddTrim(1, right, true, true, ClassroomDoor2_Trim, 0.5, -10, %MainZ%, 6, 7, 0, 0.2)
+<EndFunction>
+
+<Function WestWingClassroomWindows>
+	Set Name_Prefix = %param1%
+	Set WindowFrameTexture = %param2%
+	Set WindowTextureMainNegative = %param3%
+	Set WindowTextureMainPositive = %param4%
+
+	WindowsX3(%Name_Prefix%_Windows, -10, %MainZ%, right, 12 + 0.2, 2, 7.5, %WindowTextureMainNegative%, %WindowTextureMainPositive%, HallwayWall, 1, 1)
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame1, %WindowFrameTexture%, -10 - 0.25, %MainZ% - 6, 0.5, 0.2, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame2, %WindowFrameTexture%, -10 - 0.25, %MainZ% - 3, 0.5, 0.2, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame3, %WindowFrameTexture%, -10 - 0.25, %MainZ%, 0.5, 0.2, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame4, %WindowFrameTexture%, -10 - 0.25, %MainZ% + 3, 0.5, 0.2, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame5, %WindowFrameTexture%, -10 - 0.25, %MainZ% + 6, 0.5, 0.2, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame6, %WindowFrameTexture%, -10 - 0.25, %MainZ%, 0.5, 12 + 0.2, 0.2, 7.5, 0, 0, false, true, true, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame7, %WindowFrameTexture%, -10 - 0.25, %MainZ%, 0.5, 12 + 0.2, 0.2, 9.5 - 0.2, 0, 0, false, true, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddWall %Name_Prefix%_IFloorCover, Ceiling2, 0, -10 - 0.5, %MainZ% - 6, -10 - 0.5, %MainZ% + 6, 1.17, 1.17, %fullheight%, %fullheight%, 0, 0, true
+<EndFunction>
+
+#Classroom Doors (South Wing)
+<Function SouthWingClassroomDoors>
+	Set Type = %param1% #1 for right door larger than left door, 2 for left door larger than right door
+	Set MainX = %param2%
+
+	Set DoorWidth1 = 4 #Width of wider door
+	Set DoorWidth2 = 2 #Width of narrower door
+	Set 1 = %DoorWidth1% / 2
+	Set 2 = %DoorWidth2% / 2
+
+	#Doors
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 6, 75, %MainX% + 3 - %2%, -180, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor, 0.2, 7, 75, %MainX% - 3 + %1%, -180, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 6, 75, %MainX% + 3 - %1%, -180, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor, 0.2, 7, 75, %MainX% - 3 + %2%, -180, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+
+	#Door Trims
+	AddTrim(1, back, true, true, ClassroomDoor2_Trim, 0.5, %MainX%, -180, 6, 7, 0, 0.2)
+<EndFunction>
+
+<Function SouthWingClassroomWindows>
+	Set Name_Prefix = %param1%
+	Set WindowFrameTexture = %param2%
+	Set WindowTextureMainNegative = %param3%
+	Set WindowTextureMainPositive = %param4%
+
+	WindowsZ3(%Name_Prefix%_Windows, %MainX%, -180, back, 12 + 0.2, 2, 7.5, %WindowTextureMainNegative%, %WindowTextureMainPositive%, HallwayWall, 1, 1)
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame1, %WindowFrameTexture%, %MainX% - 6, -180 - 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame2, %WindowFrameTexture%, %MainX% - 3, -180 - 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame3, %WindowFrameTexture%, %MainX%, -180 - 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame4, %WindowFrameTexture%, %MainX% + 3, -180 - 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame5, %WindowFrameTexture%, %MainX% + 6, -180 - 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame6, %WindowFrameTexture%, %MainX%, -180 - 0.25, 12 + 0.2, 0.5, 0.2, 7.5, 0, 0, false, true, true, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame7, %WindowFrameTexture%, %MainX%, -180 - 0.25, 12 + 0.2, 0.5, 0.2, 9.5 - 0.2, 0, 0, false, true, false, true
+	DrawWalls = false, true, false, false, false, false
+	AddWall %Name_Prefix%_IFloorCover, Ceiling2, 0, %MainX% - 6, -180 - 0.5, %MainX% + 6, -180 - 0.5, 1.17, 1.17, %fullheight%, %fullheight%, 0, 0, true
+<EndFunction>
+
+#Classroom Doors (North Wing)
+<Function NorthWingClassroomDoors>
+	Set Type = %param1% #1 for right door larger than left door, 2 for left door larger than right door
+	Set MainX = %param2%
+
+	Set DoorWidth1 = 4 #Width of wider door
+	Set DoorWidth2 = 2 #Width of narrower door
+	Set 1 = %DoorWidth1% / 2
+	Set 2 = %DoorWidth2% / 2
+
+	#Doors
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 5, 75, %MainX% + 3 - %1%, 0, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 1] AddExternalDoor , , false, ClassroomDoor, 0.2, 8, 75, %MainX% - 3 + %2%, 0, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2_Narrow, ClassroomDoor2_Narrow, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor2_Narrow, 0.2, 5, 75, %MainX% + 3 - %2%, 0, %DoorWidth2%, 7, %interfloorheight%, 0, 0
+	TextureOverride ClassroomDoor2, ClassroomDoor2, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side, ClassroomDoor2_Side
+	if[%Type% = 2] AddExternalDoor , , false, ClassroomDoor, 0.2, 8, 75, %MainX% - 3 + %1%, 0, %DoorWidth1%, 7, %interfloorheight%, 0, 0
+
+	#Door Trims
+	AddTrim(1, front, true, true, ClassroomDoor2_Trim, 0.5, %MainX%, 0, 6, 7, 0, 0.2)
+<EndFunction>
+
+<Function NorthWingClassroomWindows>
+	Set Name_Prefix = %param1%
+	Set WindowFrameTexture = %param2%
+	Set WindowTextureMainNegative = %param3%
+	Set WindowTextureMainPositive = %param4%
+
+	WindowsZ3(%Name_Prefix%_Windows, %MainX%, 0, front, 12 + 0.2, 2, 7.5, %WindowTextureMainNegative%, %WindowTextureMainPositive%, HallwayWall, 1, 1)
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame1, %WindowFrameTexture%, %MainX% - 6, 0 + 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame2, %WindowFrameTexture%, %MainX% - 3, 0 + 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame3, %WindowFrameTexture%, %MainX%, 0 + 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame4, %WindowFrameTexture%, %MainX% + 3, 0 + 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame5, %WindowFrameTexture%, %MainX% + 6, 0 + 0.25, 0.2, 0.5, 2 - 0.4, 7.5 + 0.2, 0, 0, false, true, false, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame6, %WindowFrameTexture%, %MainX%, 0 + 0.25, 12 + 0.2, 0.5, 0.2, 7.5, 0, 0, false, true, true, false
+	CreateWallBox2 external, %Name_Prefix%_WindowFrame7, %WindowFrameTexture%, %MainX%, 0 + 0.25, 12 + 0.2, 0.5, 0.2, 9.5 - 0.2, 0, 0, false, true, false, true
+	DrawWalls = true, false, false, false, false, false
+	AddWall %Name_Prefix%_IFloorCover, Ceiling2, 0, %MainX% - 6, 0 + 0.5, %MainX% + 6, 0 + 0.5, 1.17, 1.17, %fullheight%, %fullheight%, 0, 0, true
+<EndFunction>

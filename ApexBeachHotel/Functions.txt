@@ -1,0 +1,350 @@
+#Functions
+<Textures>
+	Load data/MT/blank.gif, Windows_Blank, 1, 1, false
+<EndTextures>
+
+#Windows functions
+<Function Windows3>
+	Set Name = %param1%
+	Set PositionX = %param2%
+	Set PositionZ = %param3%
+	Set Direction = %param4%
+	Set Width = %param5%
+	Set Height = %param6%
+	Set Offset = %param7%
+	Set MainNegativeTexture = %param8%
+	Set MainPositiveTexture = %param9%
+	Set FillerWallTexture = %param10%
+	Set FillerDepth = %param11%
+	Set TitleX = %param12%
+	Set TitleZ = %param13%
+
+	Set FillerDepth2 = %FillerDepth% / 2
+
+	#Determine direction value for windows' placement
+	if[%Direction% = left | %Direction% = Left | %Direction% = right | %Direction% = Right] Set WinPlacement = 1
+	if[%Direction% = front | %Direction% = Front | %Direction% = back | %Direction% = Back] Set WinPlacement = 2
+	if[%Direction% = centerx | %Direction% = CenterX] Set WinPlacement = 1
+	if[%Direction% = centerz | %Direction% = CenterZ] Set WinPlacement = 2
+	if[%WinPlacement% = 1] Set FillerDirection = false
+	if[%WinPlacement% = 2] Set FillerDirection = true
+
+	#Filler Walls
+	if[%Direction% = front | %Direction% = Front] WallOrientation = Left
+	if[%Direction% = left | %Direction% = Left] WallOrientation = Left
+	if[%Direction% = right | %Direction% = Right] WallOrientation = Right
+	if[%Direction% = back | %Direction% = Back] WallOrientation = Right
+	if[%Direction% = centerx | %Direction% = CenterX | %Direction% = centerz | %Direction% = CenterZ] WallOrientation = Center
+
+	AddFillerWalls %FillerWallTexture%, %FillerDepth%, %PositionX%, %PositionZ%, %Width%, %Height%, %Offset% + %interfloorheight%, %FillerDirection%, 0, 0, true
+
+	#Filler Floor
+	DrawWalls = false, true, false, false, false, false
+	if[%Direction% = front | %Direction% = Front] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ% + %FillerDepth%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = left | %Direction% = Left] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX% + %FillerDepth%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = right | %Direction% = Right] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - %FillerDepth%, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = back | %Direction% = Back] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - %FillerDepth%, %PositionX% + (%Width% / 2), %PositionZ%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+	if[%Direction% = centerx | %Direction% = CenterX] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - %FillerDepth2%, %PositionZ% - (%Width% / 2), %PositionX% + %FillerDepth2%, %PositionZ% + (%Width% / 2), %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+	if[%Direction% = centerz | %Direction% = CenterZ] AddFloor (%Name%)_FillerFloor, %FillerWallTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ% - %FillerDepth2%, %PositionX% + (%Width% / 2), %PositionZ% + %FillerDepth2%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, 0, 0, true
+
+
+	#Windows
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, Windows_Blank, Windows_Blank, Windows_Blank, Windows_Blank
+	if[%WinPlacement% = 1] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX%, %PositionZ% - (%Width% / 2), %PositionX%, %PositionZ% + (%Width% / 2), %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+	TextureOverride %MainNegativeTexture%, %MainPositiveTexture%, Windows_Blank, Windows_Blank, Windows_Blank, Windows_Blank
+	if[%WinPlacement% = 2] AddWall %Name%, %MainPositiveTexture%, 0, %PositionX% - (%Width% / 2), %PositionZ%, %PositionX% + (%Width% / 2), %PositionZ%, %Height%, %Height%, %Offset% + %interfloorheight%, %Offset% + %interfloorheight%, %TitleX%, %TitleZ%, true
+<EndFunction>
+
+#Building facade function
+<Function CreateBldgFacade>
+	#Set values
+	Set BldgName = %param1%
+	Set Bldg-CtrX = %param2% #Building Center X
+	Set Bldg-CtrZ = %param3% #Building Center Z
+	Set Bldg-X = %param4% #Building Dimension X
+	Set Bldg-Z = %param5% #Building Dimension Z
+	Set BldgHeight = %param6%
+	Set BldgOffset = %param7%
+	Set WinTex = %param8%
+	Set WinVT = %param9%
+	Set RoofTex = %param10%
+
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	AddWall buildings, %BldgName%_Front, %WinTex%, 0, %Bldg-CtrX% - %Bldg-X%, %Bldg-CtrZ% - %Bldg-Z%, %Bldg-CtrX% + %Bldg-X%, %Bldg-CtrZ% - %Bldg-Z%, %BldgHeight%, %BldgHeight%, %BldgOffset%, %BldgOffset%, 0, %WinVT%
+	AddWall buildings, %BldgName%_Left, %WinTex%, 0, %Bldg-CtrX% - %Bldg-X%, %Bldg-CtrZ% - %Bldg-Z%, %Bldg-CtrX% - %Bldg-X%, %Bldg-CtrZ% + %Bldg-Z%, %BldgHeight%, %BldgHeight%, %BldgOffset%, %BldgOffset%, 0, %WinVT%
+	AddWall buildings, %BldgName%_Right, %WinTex%, 0, %Bldg-CtrX% + %Bldg-X%, %Bldg-CtrZ% - %Bldg-Z%, %Bldg-CtrX% + %Bldg-X%, %Bldg-CtrZ% + %Bldg-Z%, %BldgHeight%, %BldgHeight%, %BldgOffset%, %BldgOffset%, 0, %WinVT%
+	AddWall buildings, %BldgName%_Back, %WinTex%, 0, %Bldg-CtrX% - %Bldg-X%, %Bldg-CtrZ% + %Bldg-Z%, %Bldg-CtrX% + %Bldg-X%, %Bldg-CtrZ% + %Bldg-Z%, %BldgHeight%, %BldgHeight%, %BldgOffset%, %BldgOffset%, 0, %WinVT%
+	SetAutoSize = true, true
+	AddFloor buildings, %BldgName%_Roof, %RoofTex%, 0, %Bldg-CtrX% - %Bldg-X%, %Bldg-CtrZ% - %Bldg-Z%, %Bldg-CtrX% + %Bldg-X%, %Bldg-CtrZ% + %Bldg-Z%, %BldgOffset% + %BldgHeight%, %BldgOffset% + %BldgHeight%, 0, 0
+<EndFunction>
+
+########################################
+
+#Shaft function (Elevator shafts)
+<Function CreateShaft>
+	Set 8 = %param2% #Center X
+	Set 9 = %param3% #Center Z
+	Set 10 = %param4% #Cut X
+	Set 11 = %param5% #Cut Z
+	Set 12 = %param1% #Shaft Number
+	Set LowestFloor = %param6% #Lowest Floor
+	Set HighestFloor = %param7% #Highest Floor
+	Set MROffset = %param8% #Machine Room Offset
+	Set SHWallTex = %param9% #Wall Texture
+
+	AddShaft %12%, %8%, %9%, %LowestFloor%, %HighestFloor%
+	ShaftCut %12%, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, 0, 5
+
+<Floors %LowestFloor% to %HighestFloor%>
+	#Shaft Floor
+	FloorOrientation = bottom
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = %LowestFloor%] AddShaftFloor %12%, Shaft%12%Base, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = %HighestFloor%] AddShaftFloor %12%, Shaft%12%MRBase, %SHWallTex%, 0.5, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, %MROffset%, %MROffset%, 0, 0
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = %HighestFloor%] AddShaftFloor %12%, Shaft%12%Top, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
+
+	#Shaft Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddShaftWall %12%, Shaft%12%Front, %SHWallTex%, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Left, %SHWallTex%, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall %12%, Shaft%12%Right, %SHWallTex%, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Back, %SHWallTex%, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+<EndFloors>
+<EndFunction>
+
+#Shaft function (MRL elevator shafts)
+<Function CreateShaftMRL>
+	Set 8 = %param2% #Center X
+	Set 9 = %param3% #Center Z
+	Set 10 = %param4% #Cut X
+	Set 11 = %param5% #Cut Z
+	Set 12 = %param1% #Shaft Number
+	Set LowestFloor = %param6% #Lowest Floor
+	Set HighestFloor = %param7% #Highest Floor
+	Set TopHeight = %param8% #Top Height
+	Set SHWallTex = %param9% #Wall Texture
+
+	AddShaft %12%, %8%, %9%, %LowestFloor%, %HighestFloor%
+	ShaftCut %12%, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, 0, 5
+
+<Floors %LowestFloor% to %HighestFloor%>
+	#Shaft Floor
+	FloorOrientation = bottom
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = %LowestFloor%] AddShaftFloor %12%, Shaft%12%Base, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = %HighestFloor%] AddShaftFloor %12%, Shaft%12%Top, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, %TopHeight%, %TopHeight%, 0, 0
+
+	#Shaft Walls
+	if[%floor% ! %HighestFloor%] Set ShaftWallHeight = %fullheight%
+	if[%floor% = %HighestFloor%] Set ShaftWallHeight = %TopHeight%
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddShaftWall %12%, Shaft%12%Front, %SHWallTex%, 0.33, -%10%, -%11%, %10%, -%11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Left, %SHWallTex%, 0.33, -%10%, -%11%, -%10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall %12%, Shaft%12%Right, %SHWallTex%, 0.33, %10%, -%11%, %10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Back, %SHWallTex%, 0.33, -%10%, %11%, %10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+<EndFloors>
+<EndFunction>
+
+#Shaft function (Utility shafts)
+<Function CreateShaft2>
+	Set 8 = %param2% #Center X
+	Set 9 = %param3% #Center Z
+	Set 10 = %param4% #Cut X
+	Set 11 = %param5% #Cut Z
+	Set 12 = %param1% #Shaft Number
+	Set LowestFloor = %param6% #Lowest Floor
+	Set HighestFloor = %param7% #Highest Floor
+	Set SHWallTex = %param8% #Wall Texture
+
+	AddShaft %12%, %8%, %9%, %LowestFloor%, %HighestFloor%
+	ShaftCut %12%, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, 0, 5
+
+<Floors %LowestFloor% to %HighestFloor%>
+	#Shaft Floor
+	FloorOrientation = bottom
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = %LowestFloor%] AddShaftFloor %12%, Shaft%12%Base, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% > %LowestFloor%] AddShaftFloor %12%, Shaft%12%UtilityBase, %SHWallTex%, 0.5, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, %interfloorheight%, %interfloorheight%, 0, 0
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = %HighestFloor%] AddShaftFloor %12%, Shaft%12%Top, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
+
+	#Shaft Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddShaftWall %12%, Shaft%12%Front, %SHWallTex%, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Left, %SHWallTex%, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall %12%, Shaft%12%Right, %SHWallTex%, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Back, %SHWallTex%, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+<EndFloors>
+<EndFunction>
+
+#Shaft function (Utility shafts, without access doors)
+<Function CreateShaft3>
+	Set 8 = %param2% #Center X
+	Set 9 = %param3% #Center Z
+	Set 10 = %param4% #Cut X
+	Set 11 = %param5% #Cut Z
+	Set 12 = %param1% #Shaft Number
+	Set LowestFloor = %param6% #Lowest Floor
+	Set HighestFloor = %param7% #Highest Floor
+	Set SHWallTex = %param8% #Wall Texture
+
+	AddShaft %12%, %8%, %9%, %LowestFloor%, %HighestFloor%
+	ShaftCut %12%, -%10% + 0.33, -%11% + 0.33, %10% - 0.33, %11% - 0.33, 0, 5
+
+<Floors %LowestFloor% to %HighestFloor%>
+	#Shaft Floor
+	FloorOrientation = bottom
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = %LowestFloor%] AddShaftFloor %12%, Shaft%12%Base, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = %HighestFloor%] AddShaftFloor %12%, Shaft%12%Top, %SHWallTex%, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
+
+	#Shaft Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddShaftWall %12%, Shaft%12%Front, %SHWallTex%, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Left, %SHWallTex%, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall %12%, Shaft%12%Right, %SHWallTex%, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Back, %SHWallTex%, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
+<EndFloors>
+<EndFunction>
+
+########################################
+
+#Elevator interior function
+<Function ElevInterior>
+	Set FloorTex = %param1%
+	Set CeilingTex = %param2%
+	Set WallTex_X = %param3%
+	Set WallTex_Z = %param4%
+	Set WidthX = %param5%
+	Set LengthZ = %param6%
+	Set Direction = %param7%
+	Set ElevHeight = %param8%
+
+	Set ElevWidth = %WidthX% / 2
+	Set ElevLength = %LengthZ% / 2
+
+	#Floor
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, %FloorTex%, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor Floor, %FloorTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, 0, 0, 0, 0
+
+	#Ceiling
+	FloorOrientation = bottom
+	TextureOverride %CeilingTex%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	AddFloor Ceiling, %CeilingTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0
+
+	#Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ElevExt, %WallTex_Z%, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Front & %Direction% ! front] AddWall Front, %WallTex_Z%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	TextureOverride ElevExt, %WallTex_X%, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Left & %Direction% ! left] AddWall Left, %WallTex_X%, 0.2, -%ElevWidth%, -%ElevLength%, -%ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	TextureOverride %WallTex_X%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Right & %Direction% ! right] AddWall Right, %WallTex_X%, 0.2, %ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	TextureOverride %WallTex_Z%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	if[%Direction% ! Back & %Direction% ! back] AddWall Back, %WallTex_Z%, 0.2, -%ElevWidth%, %ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+<EndFunction>
+
+#Elevator interiors (Elevators 11-12, Sapphire Sea Tower)
+<Function ElevInterior_Lobby>
+	Set FloorTex = %param1%
+	Set CeilingTex = %param2%
+	Set WallTex_X = %param3%
+	Set WallTex_Z = %param4%
+	Set WidthX = %param5%
+	Set LengthZ = %param6%
+	Set Direction = %param7%
+	Set ElevHeight = %param8%
+
+	Set ElevWidth = %WidthX% / 2
+	Set ElevLength = %LengthZ% / 2
+
+	#Floor
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride LobbyElevExt, %FloorTex%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	AddFloor Floor, %FloorTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, 0, 0, 0, 0
+
+	#Ceiling
+	FloorOrientation = bottom
+	TextureOverride %CeilingTex%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	AddFloor Ceiling, %CeilingTex%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0
+
+	#Walls
+	WallOrientation = left
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride LobbyElevExt, %WallTex_Z%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	if[%Direction% ! Front & %Direction% ! front] AddWall Front, %WallTex_Z%, 0.2, -%ElevWidth%, -%ElevLength%, %ElevWidth%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	DrawWalls = true, true, false, false, false, false
+	#TextureOverride LobbyElevExt, %WallTex_X%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	if[%Direction% ! Left & %Direction% ! left] AddWall Left, %WallTex_X%, 0, -%ElevWidth%, -%ElevLength% + 0.2, -%ElevWidth%, %ElevLength% - 0.2, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %WallTex_X%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	if[%Direction% ! Right & %Direction% ! right] AddWall Right, %WallTex_X%, 0.2, %ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	DrawWalls = true, true, true, false, false, false
+	TextureOverride %WallTex_Z%, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt, LobbyElevExt
+	if[%Direction% ! Back & %Direction% ! back] AddWall Back, %WallTex_Z%, 0.2, -%ElevWidth%, %ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+<EndFunction>
+
+########################################
+
+#Door track and top filler functions
+<Function AddDoorTrack>
+	Set ElevNo = %param1% #Elevator Number
+	Set ShaftNo = %param2% #Shaft Number
+	Set X1 = %param3% #Door Track Position X1
+	Set X2 = %param4% #Door Track Position X2
+	Set Z1 = %param5% #Door Track Position Z1
+	Set Z2 = %param6% #Door Track Position Z2
+	Set Texture = %param7% #Door Track Texture
+
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, %Texture%, ElevExt, ElevExt, ElevExt, ElevExt
+	AddShaftFloor %ShaftNo%, Elev(%ElevNo%)_Track, %Texture%, 0.05, %X1%, %Z1%, %X2%, %Z2%, %interfloorheight%, %interfloorheight%, 0, 0
+<EndFunction>
+
+<Function AddTopFiller>
+	Set ElevNo = %param1% #Elevator Number
+	Set ShaftNo = %param2% #Shaft Number
+	Set X1 = %param3% #Door Track Position X1
+	Set X2 = %param4% #Door Track Position X2
+	Set Z1 = %param5% #Door Track Position Z1
+	Set Z2 = %param6% #Door Track Position Z2
+	Set DoorHeight = %param7% #Door Height
+	Set Texture = %param8% #Top Filler Texture
+
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %Texture%, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+	AddShaftFloor %ShaftNo%, Elev(%ElevNo%)_Filler, %Texture%, 0.05, %X1%, %Z1%, %X2%, %Z2%, %interfloorheight% + %DoorHeight%, %interfloorheight% + %DoorHeight%, 0, 0
+<EndFunction>

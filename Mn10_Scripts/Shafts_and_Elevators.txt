@@ -1,0 +1,274 @@
+#Mn10 Scripts - Shafts and Elevators
+#Copyright (c) 2023-Present Mn10
+
+#SCRIPT INCLUSION CODE (Remove hashtag first):
+#<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
+
+#COPYRIGHT POLICY:
+#1. You may include this script (as well as my other scripts) with your
+#buildings, if it is used in AT LEAST one or more buildings in your packages.
+
+#2. I would also appreciate it if you can directly or indirectly give a credit to me.
+
+#3. #DO NOT release this script (and any of my scripts) alone without having used in any buildings.
+
+##--------------------------------------------------------------------------------##
+
+#1. Shaft function
+#This works only for standard shafts without many additional details. More complex shafts, such as glass elevator tracks, would require manual creation.
+<Function AddStdShaft>
+	#SYNTAX: AddStdShaft(ShaftNo, ShaftType, CenterX, CenterZ, CutX, CutZ, LowestFloor, HighestFloor, SHWallTex, FloorThick, WallThick, StartOFS, EndOFS, MROffset/TopHeight)
+	#CutX and CutZ are half width and length.
+	#Example: AddStdShaft(1, 1, -10, 0, 4.67, 9.67, -1, 8, %interfloorheight%, 0.5, 0.33, ShaftIntWall)
+
+	Set ShaftType = %param2% #DO NOT confuse this with the "Shaft type" parameter in the "AddShaft" code in older Skyscraper versions.
+	#The types for this function are listed as below:
+	#1: Standard Machine Room Elevators
+	#2: MRL Elevators, and Utility Shafts without Access Doors
+	#3: Utility Shafts with Access Doors
+
+	Set 8 = %param3% #Center X
+	Set 9 = %param4% #Center Z
+	Set 10 = %param5% #Cut X
+	Set 11 = %param6% #Cut Z
+	Set 12 = %param1% #Shaft Number
+	Set LowestFloor = %param7% #Lowest Floor
+	Set HighestFloor = %param8% #Highest Floor
+	Set SHWallTex = %param9% #Wall Texture
+	Set FloorThick = %param10% #Floor/Ceiling Thickness
+	Set WallThick = %param11% #Wall Thickness
+	Set StartOFS = %param12% #Starting offset above the lowest floor
+	Set EndOFS =  %param13% #Ending offset above the highest floor
+
+	Set TopOffset = %param14%
+	#This variable can be one of the followings for shaft types 1 and 2. (If the shaft type is 3, this parameter can be ignored.):
+		#Type 1 (Standard Machine Room Elevators): Machine room floor's offset. This is typically "%interfloorheight%", but can be higher if the shaft's highest floor has a high ceiling, to allow overhead space between
+		#the highest serviced floor and the machine room floor.
+		
+		#Type 2 (MRL Elevators/Utility Shafts without Access Doors): Full height for the shaft's ceiling and walls on the top floor. This is in case you want the shaft on the top floor to be higher
+		#without creating a separate floor for the shaft top, you can set to something like "%fullheight% + 5". However, you can set to just "%fullheight%" if you also have one more floor above the highest serviced floor for the shaft top.
+
+	AddShaft %12%, %8%, %9%, %LowestFloor%, %HighestFloor%
+	ShaftCut %12%, -%10% + %WallThick%, -%11% + %WallThick%, %10% - %WallThick%, %11% - %WallThick%, %StartOFS%, %EndOFS%
+
+<Floors %LowestFloor% to %HighestFloor%>
+	#Set shaft walls' height for different types
+	if[%floor% ! %HighestFloor% & %ShaftType% ! 2] Set ShaftWallHeight = %fullheight%
+	if[%floor% = %HighestFloor% & %ShaftType% ! 2] Set ShaftWallHeight = %fullheight%
+	if[%floor% ! %HighestFloor% & %ShaftType% = 2] Set ShaftWallHeight = %fullheight%
+	if[%floor% = %HighestFloor% & %ShaftType% = 2] Set ShaftWallHeight = %TopOffset%
+
+	#Shaft Floor
+	FloorOrientation = bottom
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = %LowestFloor%] AddShaftFloor %12%, Shaft%12%-PitBase, %SHWallTex%, %FloorThick%, -%10%, -%11%, %10%, %11%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = %HighestFloor% & %ShaftType% = 1] AddShaftFloor %12%, Shaft%12%-MRBase, %SHWallTex%, %FloorThick%, -%10% + %WallThick%, -%11% + %WallThick%, %10% - %WallThick%, %11% - %WallThick%, %TopOffset%, %TopOffset%, 0, 0
+	if[%floor% > %LowestFloor% & %ShaftType% = 3] AddShaftFloor %12%, Shaft%12%-UtilityBase, %SHWallTex%, %FloorThick%, -%10% + %WallThick%, -%11% + %WallThick%, %10% - %WallThick%, %11% - %WallThick%, %interfloorheight%, %interfloorheight%, 0, 0
+
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = %HighestFloor% & (%ShaftType% = 1 | %ShaftType% = 3)] AddShaftFloor %12%, Shaft%12%-MRTop, %SHWallTex%, %FloorThick%, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
+	if[%floor% = %HighestFloor% & %ShaftType% = 2] AddShaftFloor %12%, Shaft%12%-Top, %SHWallTex%, %FloorThick%, -%10%, -%11%, %10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddShaftWall %12%, Shaft%12%Front, %SHWallTex%, %WallThick%, -%10%, -%11%, %10%, -%11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Left, %SHWallTex%, %WallThick%, -%10%, -%11%, -%10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	AddShaftWall %12%, Shaft%12%Right, %SHWallTex%, %WallThick%, %10%, -%11%, %10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+	AddShaftWall %12%, Shaft%12%Back, %SHWallTex%, %WallThick%, -%10%, %11%, %10%, %11%, %ShaftWallHeight%, %ShaftWallHeight%, 0, 0, 0, 0
+<EndFloors>
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
+#2. Elevator interior functions
+
+#2a. Set elevator car's internal and external textures.
+<Function M10_ElevCabTex>
+	#SYNTAX: M10_ElevCabTex(ExtTex, FloorTex, CeilingTex, WallTex_X, WallTex_Z)
+	#Example: M10_ElevCabTex(ElevExt, OfficeElevFloor, OfficeElevCeiling, OfficeElevWall2, OfficeElevWall) 
+
+	Set ExtTex = %param1%
+	Set FloorTex = %param2%
+	Set CeilingTex = %param3%
+	Set WallTex_X = %param4% #Left/Right walls
+	Set WallTex_Z = %param5% #Front/Back walls
+<EndFunction>
+
+#2b. Set the elevator car's dimensions and sides to be displayed.
+<Function M10_ElevDimensions>
+	#SYNTAX: M10_ElevDimensions(WidthX, LengthZ, ElevHeight, FloorThickness, WallThickness, DispWFront, DispWLeft, DispWRight, DispWBack)
+	#Example: M10_ElevDimensions(7.5, 5, 8, 0.2, 0.2, false, true, true, true)
+
+	Set WidthX = %param1%
+	Set LengthZ = %param2%
+	Set ElevHeight = %param3%
+	Set FloorThickness = %param4%
+	Set WallThickness = %param5%
+
+	Set DispWFront = %param6%
+	Set DispWLeft = %param7%
+	Set DispWRight = %param8%
+	Set DispWBack = %param9%
+<EndFunction>
+
+#2c: Set the side and top panels' dimensions, and the sides be displayed.
+<Function M10_ElevPanels>
+	#SYNTAX: M10_ElevPanels(SidePanelTex, TopPanelTex, P1Width, P2Width, TopPanelHeight, PanelThickness, DispPFront, DispPLeft, DispPRight, DispPBack)
+	#Example: M10_ElevPanels(OfficeElevPanelMain, OfficeElevPanelTop, 1.75, 1.75, 1, 0.4, true, false, false, false)
+
+	Set SidePanelTex = %param1%
+	Set TopPanelTex = %param2%
+	Set P1Width = %param3%
+	Set P2Width = %param4%
+	Set TopPanelHeight = %param5%
+	Set PanelThickness = %param6%
+
+	#Top panel's width is automatically calculated by the following formula:
+	#Panels at front/back: WidthX - (P1Width + P2Width)
+	#Panels at left/right: LengthZ - (P1Width + P2Width)
+
+	#Given the elevator's corners from the top is at following:
+	(-X, +Z)	(+X, +Z)
+	(-X, -Z)	(+X, -Z)
+	
+	#The spans for each panel is as followings:
+	
+	#Panel	 | Direction		|	Starting  	 |  Ending
+	#Panel 1 | Front/Back		|	-X		  	 |	 -X + P1Width
+	#Panel 2 | Front/Back		|	+X - P2Width |	 +X
+
+	#Panel 1 | Left/Right		|	-Z			 |	 -Z + P1Width
+	#Panel 2 | Left/Right		|	+Z - P2Width |	 +Z
+
+	Set DispPFront = %param7%
+	Set DispPLeft = %param8%
+	Set DispPRight = %param9%
+	Set DispPBack = %param10%
+<EndFunction>
+
+#2d: Finish elevator assembly function.
+#This function must be called AFTER having done the following:
+#1. Specified the elevator's necessary parameters.
+#2. Used the "CreateElevator" command.
+#3. Used the above three functions to set the textures and sizes.
+
+#SUMMARY: What you need to add after using the "CreateElevator" command:
+	# M10_ElevCabTex(ElevExt, OfficeElevFloor, OfficeElevCeiling, OfficeElevWall2, OfficeElevWall) 
+	# M10_ElevDimensions(7.5, 5, 8, 0.2, 0.2, false, true, true, true)
+	# M10_ElevPanels(OfficeElevPanelMain, OfficeElevPanelTop, 1.75, 1.75, 1, 0.4, true, false, false, false)
+	# M10_ElevInterior()
+
+<Function M10_ElevInterior>
+	#SYNTAX: M10_ElevInterior()
+
+	#Internal use only
+	Set ElevWidth = %WidthX% / 2
+	Set ElevLength = %LengthZ% / 2
+
+	#Floor
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %ExtTex%, %FloorTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	AddFloor Floor, %FloorTex%, %FloorThickness%, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, 0, 0, 0, 0
+
+	#Ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %CeilingTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	AddFloor Ceiling, %CeilingTex%, %FloorThickness%, -%ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0
+
+	#Walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %ExtTex%, %WallTex_Z%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	if[%DispWFront% = true | %DispWFront% = True] AddWall Front, %WallTex_Z%, %WallThickness%, -%ElevWidth%, -%ElevLength%, %ElevWidth%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	TextureOverride %ExtTex%, %WallTex_X%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	if[%DispWLeft% = true | %DispWLeft% = True] AddWall Left, %WallTex_X%, %WallThickness%, -%ElevWidth%, -%ElevLength%, -%ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	WallOrientation = right
+	TextureOverride %WallTex_X%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	if[%DispWRight% = true | %DispWRight% = True] AddWall Right, %WallTex_X%, %WallThickness%, %ElevWidth%, -%ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+	TextureOverride %WallTex_Z%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%
+	if[%DispWBack% = true | %DispWBack% = True] AddWall Back, %WallTex_Z%, %WallThickness%, -%ElevWidth%, %ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+
+	#Panels
+	#Front-facing
+		WallOrientation = left
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride %ExtTex%, %SidePanelTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%
+		if[%DispPFront% = true | %DispPFront% = True] AddWall Panel1, %SidePanelTex%, %PanelThickness%, -%ElevWidth%, -%ElevLength%, -%ElevWidth% + %P1Width%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %ExtTex%, %SidePanelTex%, %SidePanelTex%, %ExtTex%, %ExtTex%, %ExtTex%
+		if[%DispPFront% = true | %DispPFront% = True] AddWall Panel2, %SidePanelTex%, %PanelThickness%, %ElevWidth% - %P2Width%, -%ElevLength%, %ElevWidth%, -%ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, false, false, false, true
+		TextureOverride %ExtTex%, %TopPanelTex%, %ExtTex%, %ExtTex%, %ExtTex%, %TopPanelTex%
+		if[%DispPFront% = true | %DispPFront% = True] AddWall TopPanel, %TopPanelTex%, %PanelThickness%, -%ElevWidth% + %P1Width%, -%ElevLength%, %ElevWidth% - %P2Width%, -%ElevLength%, %TopPanelHeight%, %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, 0, 0
+
+	#Left-facing
+		WallOrientation = left
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride %ExtTex%, %SidePanelTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%
+		if[%DispPLeft% = true | %DispPLeft% = True] AddWall Panel1, %SidePanelTex%, %PanelThickness%, -%ElevWidth%, -%ElevLength%, -%ElevWidth%, -%ElevLength% + %P1Width%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %ExtTex%, %SidePanelTex%, %SidePanelTex%, %ExtTex%, %ExtTex%, %ExtTex%
+		if[%DispPLeft% = true | %DispPLeft% = True] AddWall Panel2, %SidePanelTex%, %PanelThickness%, -%ElevWidth%, %ElevLength% - %P2Width%, -%ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, false, false, false, true
+		TextureOverride %ExtTex%, %TopPanelTex%, %ExtTex%, %ExtTex%, %ExtTex%, %TopPanelTex%
+		if[%DispPLeft% = true | %DispPLeft% = True] AddWall TopPanel, %TopPanelTex%, %PanelThickness%, -%ElevWidth%, -%ElevLength% + %P1Width%, -%ElevWidth%, %ElevLength% - %P2Width%, %TopPanelHeight%, %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, 0, 0
+
+	#Right-facing
+		WallOrientation = right
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride %SidePanelTex%, %ExtTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%
+		if[%DispPRight% = true | %DispPRight% = True] AddWall Panel1, %SidePanelTex%, %PanelThickness%, %ElevWidth%, -%ElevLength%, %ElevWidth%, -%ElevLength% + %P1Width%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %SidePanelTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%, %ExtTex%
+		if[%DispPRight% = true | %DispPRight% = True] AddWall Panel2, %SidePanelTex%, %PanelThickness%, %ElevWidth%, %ElevLength% - %P2Width%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, false, false, false, true
+		TextureOverride %TopPanelTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%, %TopPanelTex%
+		if[%DispPRight% = true | %DispPRight% = True] AddWall TopPanel, %TopPanelTex%, %PanelThickness%, %ElevWidth%, -%ElevLength% + %P1Width%, %ElevWidth%, %ElevLength% - %P2Width%, %TopPanelHeight%, %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, 0, 0
+
+	#Back-facing
+		WallOrientation = right
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride %SidePanelTex%, %ExtTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%
+		if[%DispPBack% = true | %DispPBack% = True] AddWall Panel1, %SidePanelTex%, %PanelThickness%, -%ElevWidth%, %ElevLength%, -%ElevWidth% + %P1Width%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %SidePanelTex%, %ExtTex%, %SidePanelTex%, %ExtTex%, %ExtTex%, %ExtTex%
+		if[%DispPBack% = true | %DispPBack% = True] AddWall Panel2, %SidePanelTex%, %PanelThickness%, %ElevWidth% - %P2Width%, %ElevLength%, %ElevWidth%, %ElevLength%, %ElevHeight%, %ElevHeight%, 0, 0, 0, 0
+		DrawWalls = true, true, false, false, false, true
+		TextureOverride %TopPanelTex%, %ExtTex%, %ExtTex%, %ExtTex%, %ExtTex%, %TopPanelTex%
+		if[%DispPBack% = true | %DispPBack% = True] AddWall TopPanel, %TopPanelTex%, %PanelThickness%, -%ElevWidth% + %P1Width%, %ElevLength%, %ElevWidth% - %P2Width%, %ElevLength%, %TopPanelHeight%, %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, %ElevHeight% - %TopPanelHeight%, 0, 0
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
+#3. Door track and top filler functions
+<Function AddShaftTrack>
+	#SYNTAX: AddShaftTrack(ElevNo, ShaftNo, X1, X2, Z1, Z2, Texture, OtherTexture, Thickness, Type, DoorHeight)
+
+	Set ElevNo = %param1% #Elevator Number
+	Set ShaftNo = %param2% #Shaft Number
+	Set X1 = %param3% #Position X1
+	Set X2 = %param4% #Position X2
+	Set Z1 = %param5% #Position Z1
+	Set Z2 = %param6% #Position Z2
+
+	Set Texture = %param7% #Texture
+	Set OtherTexture = %param8% #Texture for other sides
+	Set Thickness = %param9% #Door Track/Top Filler Thickness
+	Set Type = %param10% #1 for door track, 2 for top filler
+	Set DoorHeight = %param11% #Door Height, only for top filler
+
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride %OtherTexture%, %Texture%, %OtherTexture%, %OtherTexture%, %OtherTexture%, %OtherTexture%
+	if[%Type% = 1] AddShaftFloor %ShaftNo%, DTrack_Elev(%ElevNo%), %Texture%, %Thickness%, %X1%, %Z1%, %X2%, %Z2%, %interfloorheight%, %interfloorheight%, 0, 0
+
+	FloorOrientation = bottom
+	TextureOverride %Texture%, %OtherTexture%, %OtherTexture%, %OtherTexture%, %OtherTexture%, %OtherTexture%
+	if[%Type% = 2] AddShaftFloor %ShaftNo%, DTopFiller_Elev(%ElevNo%), %Texture%, %Thickness%, %X1%, %Z1%, %X2%, %Z2%, %interfloorheight% + %DoorHeight%, %interfloorheight% + %DoorHeight%, 0, 0
+<EndFunction>
