@@ -3,7 +3,6 @@ Welcome to my repository. This place is intended to be used for storing my WIP b
 me to rollback if needed. However, if you have a recent official release of my IP installed, and
 enough patience, you may download a WIP building file for experimental purposes.
 
-REMINDER:
-
-If you download a building from here and it does not load, or load with missing textures,
-it is recommended that you wait for me to make an official release at the forum.
+Due to copyright reasons, this repo contains only the buildings I created by myself and Simple mods.
+If you download a building from here and it does not load, or load with missing textures, you are
+recommended to wait for me to make an official release (with all data) at the forum.
