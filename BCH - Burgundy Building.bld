@@ -275,6 +275,7 @@
 		#Lobby Elevators (No. 7-8)
 			#Floor and ceiling
 			Load data/EG881/eg881_Carpet1.jpg, LobbyElevFloor, 0.3, 0.3 #EG881
+			Load data/EG881/Carpet/eg881_Carpet2.jpg, LobbyElevFloor2, 0.3, 0.3 #EG881
 			Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LobbyElevCeiling, 1, 1, false
 
 				#Ceiling lights
@@ -823,7 +824,7 @@ AddFloorAutoArea 35, Floor(1).Base, -5 - 36, 43, Floor(2).Base + 5, -5 #Escalato
 		AddWall StorageLeft, %6%, 0.5, -15, 0, -15, 10, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = right
-		AddWall StorageRight, %6%, 0.5, 5, 0, 5, 10.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall StorageRight, %6%, 0.5, 5, 0, 5, 10, %height%, %height%, 0, 0, 0, 0, false
 		#AddWall StorageBack, %6%, 0.5, 5, 10.5, 15, 10.5, %height%, %height%, 0, 0, 0, 0, false
 
 		#Storage doors
@@ -1237,7 +1238,7 @@ AddFloorAutoArea 35, Floor(1).Base, -5 - 36, 43, Floor(2).Base + 5, -5 #Escalato
 	DrawWalls = true, true, false, true, false, false
 	#AddWall WestShopDiv1, %6%, 1, -%1%, -12.5, -71.25, -12.5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall WestShopDiv1, %6%, 1, -80, -30.5, -71.25, -30.5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall WestShopDiv2, %6%, 1, -%1%, 28.5, -71.25, 28.5, %height%, %height%, 0, 0, 0, 0, false
+	#AddWall WestShopDiv2, %6%, 1, -%1%, 28.5, -71.25, 28.5, %height%, %height%, 0, 0, 0, 0, false
 	DrawWalls = true, true, false, false, false, false
 	#AddWall WestShopDiv2, %6%, 1, -%1%, 12.5, -71.25, 12.5, %height%, %height%, 0, 0, 0, 0, false
 	DrawWalls = true, true, true, false, false, false
@@ -1249,7 +1250,7 @@ AddFloorAutoArea 35, Floor(1).Base, -5 - 36, 43, Floor(2).Base + 5, -5 #Escalato
 	AddWall EastShopDiv1, %6%, 1, 71.25, -12.5, %1%, -12.5, %height%, %height%, 0, 0, 0, 0, false
 	DrawWalls = true, true, true, false, false, false
 	#AddWall EastShopDiv2, %6%, 1, 71.25, 12.5, %1%, 12.5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall EastShopDiv2, %6%, 1, 71.25, 28.5, 80, 28.5, %height%, %height%, 0, 0, 0, 0, false
+	#AddWall EastShopDiv2, %6%, 1, 71.25, 28.5, 80, 28.5, %height%, %height%, 0, 0, 0, 0, false
 	DrawWalls = true, true, false, true, false, false
 	AddWall EastShopDiv3, %6%, 1, 5, 52, 45, 52, %height%, %height%, 0, 0, 0, 0, false
 	AddWall EastShopDiv3A, %6%, 1, 5 + 8.5, 29.5, 45, 29.5, %height%, %height%, 0, 0, 0, 0, false
@@ -2996,6 +2997,8 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 
 <Elevators 7 to 10>
 	Set Prefix = Lobby
+	Set FloorSuffix = Floor
+	if[%elevator% > 8] Set FloorSuffix = Floor2
 
 	#Set textures and dimensions
 	if[%elevator% = 7 | %elevator% = 9] Set P1Width = 1.25
@@ -3003,7 +3006,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	if[%elevator% = 8 | %elevator% = 10] Set P1Width = 0.25
 	if[%elevator% = 8 | %elevator% = 10] Set P2Width = 1.25
 
-	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevCabTex(ElevExt, %Prefix%Elev%FloorSuffix%, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
 	M10_ElevDimensions(6, 9.28, 8, 0.2, 0.2, false, true, true, true)
 	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, %P1Width%, %P2Width%, 1, 0.2, true, false, false, false)
 
@@ -3109,7 +3112,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	
 	#Floor Indicator Set
 	AddFloorIndicator TES4Ind_Button, back, %P1_PositionX%, %P1_PositionZ% + 0.05, 0.6, 0.3, 5.75 + 0.25 - (0.3 / 2)
-	AddDirectionalIndicator true, true, true, Blank, TES4ArrowUp, TES4ArrowUpLit, TES4ArrowDown, TES4ArrowDownLit, %P1_PositionX% - (0.3 / 2), %P1_PositionZ% + 0.051, 5.75 + 0.25 - (0.3 / 2), back, 0.3, 0.3, true, 0, 0
+	AddDirectionalIndicator true, true, true, Blank, TES4ArrowUp, TES4ArrowUpLit, TES4ArrowDown, TES4ArrowDownLit, %P1_PositionX% + (0.3 / 2), %P1_PositionZ% + 0.051, 5.75 + 0.25 - (0.3 / 2), back, 0.3, 0.3, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
