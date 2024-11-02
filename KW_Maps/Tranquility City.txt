@@ -195,6 +195,21 @@
 		Load data/windows11h.jpg, BLC_ACC_Windows, 0.05, 1
 		Load data/cutston.jpg, BLC_ACC_ExtFacade, 0.075, 0.075, true
 		Load data/EG881/cem_tr2b.jpg, BLC_ACC_RoofFloor, 0.075225, 0.0625 #EG881
+		
+	#Facades of Burgundy Crimson Hotel's buildings
+		#1. Parking Garage
+		Load data/EG881/Concrete/smoothconcrete1_white.jpg, BCH_PG_ExtFacade, 0.0625, 0.0625, true #EG881 #Main external walls
+
+		#2. Rosewood Building
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky1.jpg, BCH_RWB_MainWindows, true, 0.05, 1 #EG881
+		Load data/graniteTexture_0015b.jpg, BCH_RWB_ExtFacade, 0.075, 0.075, true
+		Load data/EG881/cem_tr2c.jpg, BCH_RWB_RoofFloor, 0.075225, 0.0625, true #EG881
+
+		#3. Burgundy Building
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, BCH_BB_MainWindows, true, 0.05, 1
+		Load data/rose_marble.jpg, BCH_BB_ExtFacade, 0.0625, 0.0625, true
+		Load data/EG881/cem_tr3.jpg, BCH_BB_RoofFloor, 0.075225, 0.0625, true #EG881 #Roof
+		Load data/EG881/cem_tr2b.jpg, BCH_BB_RoofFloor2, 0.075225, 0.0625, true #EG881 #4th floor
 <EndTextures>
 
 #Landscape
@@ -741,6 +756,165 @@ AddFloor landscape, NWGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, 3577 - 485
     AddFloor landscape, (%StreetName6%)Street_SouthSW_(%BlockName%), TCity_Sidewalk, 0.5, -2505 - 4000 + %MainX%, -2740 - 250 - 102 + %MainZ%, -2505 + %MainX%, -2740 - 250 - 87 + %MainZ%, 0, 0, 0, 0
     AddFloor landscape, (%StreetName6%)Street_Island_(%BlockName%), TCity_Sidewalk, 0.5, -2505 - 4000 + %MainX%, -2740 - 250 - 51 + %MainZ%, -2505 + %MainX%, -2740 - 250 - 36 + %MainZ%, 0, 0, 0, 0
     AddFloor landscape, (%StreetName6%)Street_NorthSW_(%BlockName%), TCity_Sidewalk, 0.5, -2505 - 4000 + %MainX%, -2740 - 250 + %MainZ%, -2505 + %MainX%, -2740 - 250 + 15 + %MainZ%, 0, 0, 0, 0
+
+################################################################################
+#EXTERNAL FACADE OF Burgundy Crimson Hotel
+################################################################################
+
+#Burgundy Crimson Hotel
+<Function BCH>
+	Set 0X = -3750 + %MainX% #University's Center X
+	Set 1X = -2480 + %MainZ% #University's Center Z
+
+	Cut Landscape, %0X% - 240, -1, %1X% - 495, %0X% + 120, 1, %1X% + 140, false, true
+	Cut Landscape, %0X% - 240 - 150, -1, %1X% - 495, %0X% - 240, 1, %1X% + 140, false, true
+
+	DrawWalls = true, true, false, false, false, false
+	AddFloor landscape, BCH_Ground1, TCity_Road, 0, %0X% - 240, %1X% - 495, %0X% + 120, %1X% + 140, 0, 0, 0, 0
+	AddFloor landscape, BCH_Ground2, TCity_Road, 0, %0X% - 240 - 150, %1X% - 495, %0X% - 240, %1X% + 140, 0, 0, 0, 0
+
+	############################################################
+	#BUILDINGS IN THIS HOTEL
+	############################################################
+
+	### 1. Rosewood Building ###
+	Set 0 = %0X% - 330 #Building Center X
+	Set 1 = %1X% + 20 #Building Center Z
+
+	Set 3 = 50 #Building Dimension X
+	Set 4 = 100 #Building Dimension Z
+	Set CO = 10 #Corner Offset
+
+	#1st-10th floors
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	AddWall buildings, BCH_RWB_Front, BCH_RWB_MainWindows, 0, %0% - %3% + %CO%, %1% - %4%, %0% + %3% - %CO%, %1% - %4%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_Left, BCH_RWB_MainWindows, 0, %0% - %3%, %1% - %4% + %CO%, %0% - %3%, %1% + %4% - %CO%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_Right, BCH_RWB_MainWindows, 0, %0% + %3%, %1% - %4% + %CO%, %0% + %3%, %1% + %4% - %CO%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_Back, BCH_RWB_MainWindows, 0, %0% - %3% + %CO%, %1% + %4%, %0% + %3% - %CO%, %1% + %4%, 102, 102, 0, 0, 0, 10
+
+	AddWall buildings, BCH_RWB_SW, BCH_RWB_MainWindows, 0, %0% - %3%, %1% - %4% + %CO%, %0% - %3% + %CO%, %1% - %4%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_SE, BCH_RWB_MainWindows, 0, %0% + %3%, %1% - %4% + %CO%, %0% + %3% - %CO%, %1% - %4%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_NW, BCH_RWB_MainWindows, 0, %0% - %3%, %1% + %4% - %CO%, %0% - %3% + %CO%, %1% + %4%, 102, 102, 0, 0, 0, 10
+	AddWall buildings, BCH_RWB_NE, BCH_RWB_MainWindows, 0, %0% + %3%, %1% + %4% - %CO%, %0% + %3% - %CO%, %1% + %4%, 102, 102, 0, 0, 0, 10
+	SetAutoSize = true, true
+
+	#11th floor
+	AddWall buildings, BCH_RWB_Mech_Front, BCH_RWB_ExtFacade, 0, %0% - %3% + %CO%, %1% - %4%, %0% + %3% - %CO%, %1% - %4%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Left, BCH_RWB_ExtFacade, 0, %0% - %3%, %1% - %4% + %CO%, %0% - %3%, %1% + %4% - %CO%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_Right, BCH_RWB_ExtFacade, 0, %0% + %3%, %1% - %4% + %CO%, %0% + %3%, %1% + %4% - %CO%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_Back, BCH_RWB_ExtFacade, 0, %0% - %3% + %CO%, %1% + %4%, %0% + %3% - %CO%, %1% + %4%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_SW, BCH_RWB_ExtFacade, 0, %0% - %3%, %1% - %4% + %CO%, %0% - %3% + %CO%, %1% - %4%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_SE, BCH_RWB_ExtFacade, 0, %0% + %3%, %1% - %4% + %CO%, %0% + %3% - %CO%, %1% - %4%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_NW, BCH_RWB_ExtFacade, 0, %0% - %3%, %1% + %4% - %CO%, %0% - %3% + %CO%, %1% + %4%, 12, 12, 102, 102, 0, 0
+	AddWall buildings, BCH_RWB_Mech_Mech_NE, BCH_RWB_ExtFacade, 0, %0% + %3%, %1% + %4% - %CO%, %0% + %3% - %CO%, %1% + %4%, 12, 12, 102, 102, 0, 0
+
+	#Roof
+	AddCustomFloor buildings, BCH_RWB_Roof, BCH_RWB_RoofFloor, %0% - %3% + %CO%, %1% - %4%, %0% - %3%, %1% - %4% + %CO%, %0% - %3%, %1% + %4% - %CO%, %0% - %3% + %CO%, %1% + %4%, %0% + %3% - %CO%, %1% + %4%, %0% + %3%, %1% + %4% - %CO%, %0% + %3%, %1% - %4% + %CO%, %0% + %3% - %CO%, %1% - %4%, 114, 0, 0
+
+	#====================================================================================================#
+
+	### 2. Burgundy Building ###
+	Set 0 = %0X% #Building Center X
+	Set 1 = %1X% #Building Center Z
+
+	Set 3 = 105 #Building Dimension X
+	Set 4 = 75 #Building Dimension Z
+
+	#Base
+	DrawWalls = true, true, false, false, false, false
+	AddWall buildings, BCH_BB_Base_Front, BCH_BB_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 4, 4, 0, 0, 0, 0
+	AddWall buildings, BCH_BB_Base_Left, BCH_BB_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 4, 4, 0, 0, 0, 0
+	AddWall buildings, BCH_BB_Base_Right, BCH_BB_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 4, 4, 0, 0, 0, 0
+	AddWall buildings, BCH_BB_Base_Back, BCH_BB_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 4, 4, 0, 0, 0, 0
+
+	#Levels GL-3
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	AddWall buildings, BCH_BB_1F-3F_Front, BCH_BB_MainWindows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 48, 48, 4, 4, 0, 4
+	AddWall buildings, BCH_BB_1F-3F_Left, BCH_BB_MainWindows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 48, 48, 4, 4, 0, 4
+	AddWall buildings, BCH_BB_1F-3F_Right, BCH_BB_MainWindows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 48, 48, 4, 4, 0, 4
+	AddWall buildings, BCH_BB_1F-3F_Back, BCH_BB_MainWindows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 48, 48, 4, 4, 0, 4
+	SetAutoSize = true, true
+
+	#4th-18th floors
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	
+		#Exterior perimeter windows
+		AddWall buildings, BCH_BB_4F-18F_Front1, BCH_BB_MainWindows, 0, %0% - %3%, %1% - %4%, %0% - %3% + 45, %1% - %4%, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_Front2, BCH_BB_MainWindows, 0, %0% + %3% - 45, %1% - %4%, %0% + %3%, %1% - %4%, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_Left, BCH_BB_MainWindows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_Right, BCH_BB_MainWindows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_Back, BCH_BB_MainWindows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 154, 154, 52, 52, 0, 15
+
+		#Interior perimeter windows
+		AddWall buildings, BCH_BB_4F-18F_InnerCenterFront, BCH_BB_MainWindows, 0, %0% - %3% + 45, %1% + %4% - 80, %0% + %3% - 45, %1% + %4% - 80, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_InnerWestRight, BCH_BB_MainWindows, 0, %0% - %3% + 45, %1% - %4%, %0% - %3% + 45, %1% + %4% - 80, 154, 154, 52, 52, 0, 15
+		AddWall buildings, BCH_BB_4F-18F_InnerEastLeft, BCH_BB_MainWindows, 0, %0% + %3% - 45, %1% - %4%, %0% + %3% - 45, %1% + %4% - 80, 154, 154, 52, 52, 0, 15
+
+	SetAutoSize = true, true
+
+	#19th floor
+	DrawWalls = true, true, false, false, false, false
+	
+		#Exterior perimeter walls
+		AddWall buildings, BCH_BB_19F_Front1, BCH_BB_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3% + 45, %1% - %4%, 12, 12, 206, 206, 0, 0
+		AddWall buildings, BCH_BB_19F_Front2, BCH_BB_ExtFacade, 0, %0% + %3% - 45, %1% - %4%, %0% + %3%, %1% - %4%, 12, 12, 206, 206, 0, 0
+		AddWall buildings, BCH_BB_19F_Left, BCH_BB_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 12, 12, 206, 206, 0, 0
+		AddWall buildings, BCH_BB_19F_Right, BCH_BB_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 12, 12, 210, 210, 0, 0
+		AddWall buildings, BCH_BB_19F_Back, BCH_BB_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 12, 12, 206, 206, 0, 0
+
+		#Interior perimeter walls
+		AddWall buildings, BCH_BB_19F_InnerCenterFront, BCH_BB_ExtFacade, 0, %0% - %3% + 45, %1% + %4% - 80, %0% + %3% - 45, %1% + %4% - 80, 12, 12, 206, 206, 0, 0
+		AddWall buildings, BCH_BB_19F_InnerWestRight, BCH_BB_ExtFacade, 0, %0% - %3% + 45, %1% - %4%, %0% - %3% + 45, %1% + %4% - 80, 12, 12, 206, 206, 0, 0
+		AddWall buildings, BCH_BB_19F_InnerEastLeft, BCH_BB_ExtFacade, 0, %0% + %3% - 45, %1% - %4%, %0% + %3% - 45, %1% + %4% - 80, 12, 12, 206, 206, 0, 0
+
+	#Roofs
+		#Rooftop (20th floor)
+		AddFloor buildings, BCH_BB_20F-Rooftop_West, BCH_BB_RoofFloor, 0, %0% - %3%, %1% - %4%, %0% - %3% + 45, %1% + %4%, 218, 218, 0, 0
+		AddFloor buildings, BCH_BB_20F-Rooftop_Center, BCH_BB_RoofFloor, 0, %0% - %3% + 45, %1% + %4% - 80, %0% + %3% - 45, %1% + %4%, 218, 218, 0, 0
+		AddFloor buildings, BCH_BB_20F-Rooftop_East, BCH_BB_RoofFloor, 0, %0% + %3% - 45, %1% - %4%, %0% + %3%, %1% + %4%, 218, 218, 0, 0
+
+		#Roof garden (4th floor)
+		AddFloor buildings, BCH_BB_4F-Roof_Center, BCH_BB_RoofFloor2, 0, %0% - %3% + 45, %1% - %4%, %0% + %3% - 45, %1% + %4% - 80, 52, 52, 0, 0
+
+	#====================================================================================================#
+
+	### 3. Parking Garage ###
+	Set 0 = %0X% - 316 #Building Center X
+	Set 1 = %1X% - 365 #Building Center Z
+	Set 3 = 64 #Building Dimension X
+	Set 4 = 120 #Building Dimension Z
+
+		#East Side Walls (Levels 1A-6A)
+		SetAutoSize = true, false
+		AddWall buildings, BCH_PG_EastFront, TCity_MainWindows6, 0, %0%, %1% - %4%, %0% + %3%, %1% - %4%, 60, 60, 0, 0, 0, 6
+		AddWall buildings, BCH_PG_CenterWall, BCH_PG_ExtFacade, 0, %0%, %1% - %4%, %0%, %1% + %4%, 5, 5, 55, 55, 0, 0
+		AddWall buildings, BCH_PG_EastRight, TCity_MainWindows6, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 60, 60, 0, 0, 0, 6
+		AddWall buildings, BCH_PG_EastBack, TCity_MainWindows6, 0, %0%, %1% + %4%, %0% + %3%, %1% + %4%, 60, 60, 0, 0, 0, 6
+		SetAutoSize = true, true
+
+		#West Side Base Walls (Level BB's exterior)
+		AddWall buildings, BCH_PG_WestBaseFront, BCH_PG_ExtFacade, 0, %0% - %3%, %1% - %4%, %0%, %1% - %4%, 5, 5, 0, 0, 0, 0
+		AddWall buildings, BCH_PG_WestBaseLeft, BCH_PG_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 5, 5, 0, 0, 0, 0
+		AddWall buildings, BCH_PG_WestBaseBack, BCH_PG_ExtFacade, 0, %0% - %3%, %1% + %4%, %0%, %1% + %4%, 5, 5, 0, 0, 0, 0
+
+		#West Side Walls (Levels 1B-5B)
+		SetAutoSize = true, false
+		AddWall buildings, BCH_PG_WestFront, TCity_MainWindows6, 0, %0% - %3%, %1% - %4%, %0%, %1% - %4%, 50, 50, 5, 5, 0, 5
+		AddWall buildings, BCH_PG_WestLeft, TCity_MainWindows6, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 50, 50, 5, 5, 0, 5
+		AddWall buildings, BCH_PG_WestBack, TCity_MainWindows6, 0, %0% - %3%, %1% + %4%, %0%, %1% + %4%, 50, 50, 5, 5, 0, 5
+		SetAutoSize = true, true
+
+		#East Roof (Level 7A)
+		AddFloor buildings, BCH_PG_EastRoof, TCity_Concrete4, 0, %0%, %1% - %4%, %0% + %3%, %1% + %4%, 60, 60, 0, 0
+
+		#West Roof (Level 6B)
+		AddFloor buildings, BCH_PG_WestRoof, TCity_Concrete4, 0, %0% - %3%, %1% - %4%, %0%, %1% + %4%, 55, 55, 0, 0
+<EndFunction>
+
+if[%InBCH% ! true] BCH()
 
 ################################################################################
 #ORIGINAL LANDSCAPE (Since LATE 2015)
