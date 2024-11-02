@@ -323,9 +323,13 @@
 	Load data/EG881/lightaluminumdoor2.jpg, ElevDoorsD2, -1, 1, false #EG881
 	Load data/panel-back3.jpg, ElevDoorsD_Trim, 1, 1, false
 	
-	Load data/aluminumdoor_b.jpg, ElevDoorsDD, 1, 1, false #EG881 #8th-10th floors
+	Load data/aluminumdoor_b.jpg, ElevDoorsDD, 1, 1, false #EG881 #8th-9th floors
 	Load data/EG881/aluminumdoor_bschindler.jpg, ElevDoorsDD2, 1, 1, false #EG881
 	Load data/panel-back3.jpg, ElevDoorsDD_Trim, 1, 1, false
+
+	Load data/dark muntz door.jpg, ElevDoors10F, 1, 1, false #EG881 #10th floor
+	Load data/dark muntz door.jpg, ElevDoors10F2, 1, 1, false #EG881
+	Load data/EG881/stainlesssteel2.jpg, ElevDoors10F_Trim, 1, 1, false #EG881
 
 	Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ElevDoorsDInt, -1, 1, false #EG881 #Bed elevators
 	Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ElevDoorsDInt2, 1, 1, false #EG881
@@ -361,10 +365,15 @@
 	Load data/door1.jpg, BedElevDoor3BL, 1, 1, false
 	Load data/door1.jpg, BedElevDoor3BR, 1, 1, false
 
-	Load data/EG881/aluminumdoor_bschindler.jpg, BedElevDoor4AL, 1, 1, false #EG881 #Office levels
+	Load data/EG881/aluminumdoor_bschindler.jpg, BedElevDoor4AL, 1, 1, false #EG881 #Office levels 8-9
 	Load data/aluminumdoor_b.jpg, BedElevDoor4AR, -1, 1, false #EG881
 	Load data/aluminumdoor_b.jpg, BedElevDoor4BL, 1, 1, false #EG881
 	Load data/EG881/aluminumdoor_bschindler.jpg, BedElevDoor4BR, -1, 1, false #EG881
+	
+		Load data/dark muntz door.jpg, BedElevDoor10F_AL, -1, 1, false #Office level 10
+		Load data/dark muntz door.jpg, BedElevDoor10F_AR, -1, 1, false
+		Load data/dark muntz door.jpg, BedElevDoor10F_BL, 1, 1, false
+		Load data/dark muntz door.jpg, BedElevDoor10F_BR, 1, 1, false
 
 	Load data/EG881_Otis/Doors/otisbrassdoorleft.jpg, BedElevDoor5AL, -1, 1, false #EG881 #23rd-27th floors
 	Load data/EG881_Otis/Doors/otisbrassdoorright.jpg, BedElevDoor5AR, 1, 1, false #EG881
@@ -1120,7 +1129,7 @@ Cut Landscape, 250 - 0.1, -1, 100, 250 + 0.1, 1, 130, true, false
 	if[%floor% > 9 & %floor% < 27] Set 6 = WardWall #Wall Texture
 	if[%floor% = 27] Set 6 = ServiceWall #Wall Texture
 	if[%floor% > 27] Set 6 = ServiceWall2 #Wall Texture
-	
+
 	#Override wall texture for support columns
 	Set 6A = %6%
 	if[%floor% = -1] Set 6A = ColumnTex
@@ -4121,6 +4130,8 @@ ElevCeilingLight
 
 #Set hall stations' textures for all elevators
 <Function ElevHallTex>
+	WallTex() #Set filler walls to match with shaft walls
+
 	#Use automatic filler walls or not
 	Set AutoFiller = false
 	#if[%floor% = -1] Set AutoFiller = true
@@ -4133,7 +4144,7 @@ ElevCeilingLight
 
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
-		if[%floor% > 6 & %floor% < 27] Set ExtraLateralOffset = 0.01
+		if[(%floor% > 6 & %floor% < 27) & %floor% ! 9] Set ExtraLateralOffset = 0.01
 <EndFunction>
 
 <Function E1-5LanternSet>
@@ -4163,7 +4174,8 @@ ElevCeilingLight
 
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -4226,15 +4238,15 @@ ElevCeilingLight
 <Floors -1 to 13>
 	ElevHallTex()
 
-	#Filler walls on level B
+	#Filler walls on levels B and 10
 	WallOrientation = right #Elevators 1-3
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -20, -45, 4, 7, 0, false, 0, 0, false
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -20, -35, 4, 7, 0, false, 0, 0, false
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -20, -25, 4, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -20, -45, 4, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -20, -35, 4, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -20, -25, 4, 7, 0, false, 0, 0, false
 
 	WallOrientation = left #Elevators 4-6
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -10, -45, 4, 7, 0, false, 0, 0, false
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -10, -35, 4, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -10, -45, 4, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -10, -35, 4, 7, 0, false, 0, 0, false
 	#--------------------
 	#Wall cuts for decos
 	Set Dheight = %height% #Deco height
@@ -4260,15 +4272,16 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 1
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 2
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -25, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 3
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 4
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 5
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 1
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 2
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -25, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 3
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 4
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 5
 
 	#Lanterns/Indicators
 	Set PanelTexture = StainlessSteel
@@ -4524,7 +4537,8 @@ ElevCeilingLight
 
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -4596,7 +4610,8 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -4860,7 +4875,8 @@ ElevCeilingLight
 	#Top filler
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set TrimTexPrefix = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set TrimTexPrefix = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set TrimTexPrefix = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 	AddTopFiller(10, 3, 5.67 - 0.33 - 0.18, 5.67 - 0.33, -1 - 2.25, -1, 7, %TrimTexPrefix%_Trim)
@@ -4884,7 +4900,7 @@ ElevCeilingLight
 	Set SignCenterZ = -26
 	Set SignOffset = 8.75
 	Set ExtraLatOff = 0
-	if[%floor% > 6 & %floor% < 10] Set ExtraLatOff = 0.01
+	if[%floor% > 6 & %floor% < 9] Set ExtraLatOff = 0.01
 	if[%floor% > 9] Set SignCenterZ = -23.95 + 1.75
 	if[%floor% > 9] Set SignOffset = 6.5 - 0.75
 
@@ -4908,15 +4924,16 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set TrimTexPrefix = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set TrimTexPrefix = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set TrimTexPrefix = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 
-	if[%floor% ! -1] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, right, true, false, floor, 0, 0.2, 10 + 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, right, true, false, floor, 0, 0.2, 10 + 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
 
-	#Filler walls on level B
+	#Filler walls on levels B and 10
 	WallOrientation = right
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, 10, -26, 4.5, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, 10, -26, 4.5, 7, 0, false, 0, 0, false
 
 	########################################
 
@@ -4947,7 +4964,8 @@ ElevCeilingLight
 	#Top filler
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set TrimTexPrefix = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set TrimTexPrefix = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set TrimTexPrefix = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 
@@ -4972,7 +4990,7 @@ ElevCeilingLight
 	Set SignCenterZ = -26
 	Set SignOffset = 8.75
 	Set ExtraLatOff = 0
-	if[%floor% > 6 & %floor% < 10] Set ExtraLatOff = 0.01
+	if[%floor% > 6 & %floor% < 9] Set ExtraLatOff = 0.01
 	if[%floor% > 9] Set SignCenterZ = -23.95 + 1.75
 	if[%floor% > 9] Set SignOffset = 6.5 - 0.75
 
@@ -4996,15 +5014,16 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set TrimTexPrefix = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set TrimTexPrefix = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set TrimTexPrefix = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 
-	if[%floor% ! -1] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, left, true, false, floor, 0, 0.2, -2 - 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, left, true, false, floor, 0, 0.2, -2 - 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
 
-	#Filler walls on level B
+	#Filler walls on levels B and 10
 	WallOrientation = left
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -2, -26, 4.5, 7, 0, false, 0, 0, false
+	if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -2, -26, 4.5, 7, 0, false, 0, 0, false
 
 	########################################
 
@@ -5027,14 +5046,16 @@ ElevCeilingLight
 
 	if[%floor% = -1] Set DoorTexture = BedElevDoor3A
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1A
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4A
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4A
+	if[%floor% = 9] Set DoorTexture = BedElevDoor10F_A
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2A
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5A
 	if[%floor% = 0 | %floor% > 13] E10ShaftDoors-Front()
 	
 	if[%floor% = -1] Set DoorTexture = BedElevDoor3B
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1B
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4B
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4B
+	if[%floor% = 9] Set DoorTexture = BedElevDoor10F_B
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2B
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5B
 	if[%floor% < 14] E10ShaftDoors-Rear()
@@ -5166,7 +5187,8 @@ ElevCeilingLight
 	#Top filler
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -5217,7 +5239,7 @@ ElevCeilingLight
 
 	#Filler walls on level B
 	WallOrientation = right
-	if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -116, 40, 5, 7, 0, true, 0, 0, false
+	if[%floor% = -1] AddFillerWalls %6%, 0.66, -116, 40, 5, 7, 0, true, 0, 0, false
 
 	#Wall cuts for decos
 	Set Dheight = %height% #Deco height
@@ -5234,7 +5256,8 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -5663,7 +5686,8 @@ ElevCeilingLight
 		#Main Freight cars (#12-13)
 		if[%floor% = -1] Set DoorTexture = BedElevDoor3B
 		if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1B
-		if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4B
+		if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4B
+		if[%floor% = 9] Set DoorTexture = BedElevDoor10F_B
 		if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2B
 		if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5B
 
@@ -5674,7 +5698,8 @@ ElevCeilingLight
 
 		if[%floor% = -1] Set DoorTexture = BedElevDoor3A
 		if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1A
-		if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4A
+		if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4A
+		if[%floor% = 9] Set DoorTexture = BedElevDoor10F_A
 		if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2A
 		if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5A
 
@@ -5686,7 +5711,8 @@ ElevCeilingLight
 		#Patient Transport cars (#14-15)
 		if[%floor% = -1] Set DoorTexture = BedElevDoor3B
 		if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1B
-		if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4B
+		if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4B
+		if[%floor% = 9] Set DoorTexture = BedElevDoor10F_B
 		if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2B
 		if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5B
 	
@@ -5697,7 +5723,8 @@ ElevCeilingLight
 	
 		if[%floor% = -1] Set DoorTexture = BedElevDoor3A
 		if[%floor% > -1 & %floor% < 7] Set DoorTexture = BedElevDoor1A
-		if[%floor% > 6 & %floor% < 10] Set DoorTexture = BedElevDoor4A
+		if[%floor% > 6 & %floor% < 9] Set DoorTexture = BedElevDoor4A
+		if[%floor% = 9] Set DoorTexture = BedElevDoor10F_A
 		if[%floor% > 9 & %floor% < 22] Set DoorTexture = BedElevDoor2A
 		if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5A
 	
@@ -5711,7 +5738,8 @@ ElevCeilingLight
 	#Gap filler
 		if[%floor% = -1] Set DoorTexture = ElevDoorsE
 		if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-		if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+		if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+		if[%floor% = 9] Set DoorTexture = ElevDoors10F
 		if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 		if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
@@ -5785,16 +5813,16 @@ ElevCeilingLight
 
 	########################################
 
-	#Filler walls on level B
+	#Filler walls on levels B and 10
 		#ELEVATORS 12-13 (Freight)
 		WallOrientation = left
-		if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -124, 78, 4.5, 7, 0, true, 0, 0, false
-		if[%floor% = -1] AddFillerWalls BasementWall, 0.66, -116, 78, 4.5, 7, 0, true, 0, 0, false
+		if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -124, 78, 4.5, 7, 0, true, 0, 0, false
+		if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, -116, 78, 4.5, 7, 0, true, 0, 0, false
 
 		#ELEVATORS 14-15 (Patient Transport)
 		WallOrientation = left
-		if[%floor% = -1] AddFillerWalls BasementWall, 0.66, 116, 78, 4.5, 7, 0, true, 0, 0, false
-		if[%floor% = -1] AddFillerWalls BasementWall, 0.66, 124, 78, 4.5, 7, 0, true, 0, 0, false
+		if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, 116, 78, 4.5, 7, 0, true, 0, 0, false
+		if[%floor% = -1 | %floor% = 9] AddFillerWalls %6%, 0.66, 124, 78, 4.5, 7, 0, true, 0, 0, false
 
 	#Wall cuts for decos
 	Set Dheight = %height% #Deco height
@@ -5817,14 +5845,15 @@ ElevCeilingLight
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
-	if[%floor% > 6 & %floor% < 10] Set DoorTexture = ElevDoorsDD
+	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
+	if[%floor% = 9] Set DoorTexture = ElevDoors10F
 	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, -124, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 12
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, -116, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 13
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 116, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 14
-	if[%floor% ! -1] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 124, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 15
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, -124, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 12
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, -116, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 13
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 116, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 14
+	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 124, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 15
 <EndFloors>
 
 #Floor signs
