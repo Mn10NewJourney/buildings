@@ -1365,6 +1365,7 @@ AddStdShaft(3, 1, -19, 20, 5.67, 4.67, -2, 11, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 #Function for Elevator Buttons
 <Function BtnPanelE1-5>
 	Set PanelNumber = %param1%
+	Set PanelNumber2 = %PanelNumber% + 1
 	Set BtnPrefix = DVRButton
 
 	AddButton %PanelNumber%, , %BtnPrefix%10, %BtnPrefix%Lit10, 1, 2, 9, 1, 1
@@ -1377,7 +1378,7 @@ AddStdShaft(3, 1, -19, 20, 5.67, 4.67, -2, 11, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	AddButton %PanelNumber%, , %BtnPrefix%3, %BtnPrefix%Lit3, 4, 1, 2, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 5, 2, 1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 5, 1, 0, 1, 1
-	AddButton %PanelNumber%, , %BtnPrefix%LL, %BtnPrefix%LitLL, 6, 1, -1, 1, 1
+	AddButton %PanelNumber2%, , %BtnPrefix%LL, %BtnPrefix%LitLL, 6, 1, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 8, 1, open, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 8, 2, close, 1, 1
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 9, 1, alarm, 1, 1
@@ -1434,13 +1435,17 @@ AddStdShaft(3, 1, -19, 20, 5.67, 4.67, -2, 11, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set Position = 2.775 #Right panel
 	Set Position2 = -2.775 #Left panel
 
-		#Panel
+		#Right Panel
 		CreatePanel , 9, 2, front, %Position%, 2.3 - 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 1, front, %Position%, 2.3 - 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #For the "LL" button only
+
+		#Left Panel
 		CreatePanel , 9, 2, front, %Position2%, 2.3 - 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 1, front, %Position2%, 2.3 - 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #For the "LL" button only
 
 			#Buttons
 			BtnPanelE1-5(1)
-			BtnPanelE1-5(2)
+			BtnPanelE1-5(3)
 
 	#Indicators
 	AddFloorIndicator DVRInd_Button, front, %Position%, 2.3 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
@@ -1514,13 +1519,17 @@ AddStdShaft(3, 1, -19, 20, 5.67, 4.67, -2, 11, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set Position = -2.775 #Right panel
 	Set Position2 = 2.775 #Left panel
 
-		#Panel
+		#Right Panel
 		CreatePanel , 9, 2, back, %Position%, -2.3 + 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 1, back, %Position%, -2.3 + 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #For the "LL" button only
+
+		#Left Panel
 		CreatePanel , 9, 2, back, %Position2%, -2.3 + 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 1, back, %Position2%, -2.3 + 0.001, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #For the "LL" button only
 
 			#Buttons
 			BtnPanelE1-5(1)
-			BtnPanelE1-5(2)
+			BtnPanelE1-5(3)
 
 	#Indicators
 	AddFloorIndicator DVRInd_Button, back, %Position%, -2.3 + 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
@@ -1668,6 +1677,7 @@ AddStdShaft(3, 1, -19, 20, 5.67, 4.67, -2, 11, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 
 		#Panel
 		CreatePanel , 9, 2, left, 4.3 - 0.001, %Position%, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 1, left, 4.3 - 0.001, %Position%, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #For the "LL" button only
 
 			#Buttons
 			BtnPanelE1-5(1)
