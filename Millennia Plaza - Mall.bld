@@ -14,7 +14,7 @@
 <Globals>
 	Name = Millennia Plaza
 	Designer = Mn10 (floor indicator font made by Test Tower)
-	Location = Millennia Plaza
+	Location = 1102 Pleasure Street, Tranquility City
 	Description = One of the finest shopping destinations in the Skyscraper Simulator World.
 	CameraFloor = 0
 	CameraPosition = 0, -20
@@ -27,7 +27,7 @@
 <Textures>
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
-	#Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
 
 	#Concrete
 	Load data/stucco1.jpg, ExtFacade, 0.05, 0.05
@@ -530,7 +530,15 @@
 
 #Landscape
 AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
-Cut Landscape, -120, -1, -150, 120, 1, 150, false, true
+Cut Landscape, -120 - 10, -1, -150 - 15, 120 + 10, 1, 150 + 15, false, true
+
+	#Perimeter floors
+	Set SidewalkBase = Floor(0).Base
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, WestPFloor, Sidewalk, 0, -120 - 10, -150, -120, 150, %SidewalkBase%, %SidewalkBase%, false, true, 0, 0
+	AddFloor landscape, EastPFloor, Sidewalk, 0, 120, -150, 120 + 10, 150, %SidewalkBase%, %SidewalkBase%, false, true, 0, 0
+	AddFloor landscape, NorthPFloor, Sidewalk, 0, -120 - 10, 150, 120 + 10, 150 + 15, %SidewalkBase%, %SidewalkBase%, false, true, 0, 0
+	AddFloor landscape, SouthPFloor, Sidewalk, 0, -120 - 10, -150 - 15, 120 + 10, -150, %SidewalkBase%, %SidewalkBase%, false, true, 0, 0
 
 #Functions
 <Include buildings/MillenniaPlaza/Functions.txt>

@@ -3,15 +3,15 @@
 
 #Buildings
 <Buildings>
-	Load Millennia Plaza - Parking Garage.bld, -140, 0, -190, 0, -110, 0, -230, 110, 0, 230
-	Load Millennia Plaza - Mall.bld, 140, 0, -140, 0, -130, 0, -158, 130, 0, 158
+	Load Millennia Plaza - Parking Garage.bld, -140, 0, -50, 0, -110, 0, -230, 110, 0, 230
+	Load Millennia Plaza - Mall.bld, 140, 0, 0, 0, -130, 0, -165, 130, 0, 165
 <EndBuildings>
 
 #Globals
 <Globals>
 	Name = Millennia Plaza
 	Designer = Mn10
-	Location = Anywhere
+	Location = 1102 Pleasure Street, Tranquility City
 	Description = One of the finest shopping destinations in the Skyscraper Simulator World.
 	CameraFloor = 0
 	CameraPosition = 5, -235
@@ -50,12 +50,51 @@
 ############################################################
 
 #Landscape
-AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
-Cut Landscape, -265, -1, -420, 300, 1, 50, false, true
+#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 
-#Fillers
+#Coordinate Set
+Set MainX = 2330
+Set MainZ = 1096
+Set InMLI = true
+
+#Tranquility City Landscape
+<Include buildings/KW_Maps/Tranquility City.txt>
+
+Cut Landscape, -30, -1, -242, 10, 1, 195, false, true
+Cut Landscape, 10, -1, -195, 310, 1, 195, false, true
+
+#Ground Fillers
 DrawWalls = true, true, false, false, false, false
-AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
+AddFloor landscape, Filler1, Road, 0, -30, -242, 10, 195, 0, 0, 0, 0
+AddFloor landscape, Filler2, Road, 0, 10, -195, 310, 195, 0, 0, 0, 0
+
+#Pleasure Street South Driveway Cuts
+Cut Landscape, 310, -1, -195, 325, 1, -165, false, true
+Cut Landscape, 310 - 0.1, -1, -195, 310 + 0.1, 1, -165, true, false
+Cut Landscape, 325 - 0.1, -1, -195, 325 + 0.1, 1, -165, true, false
+
+	#Driveway creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, PleasureStDriveway_South, Road, 0, 310, -195, 325, -165, Floor(0).Base, Floor(0).Base - 0.5, true, false, 0, 0
+
+	#Sidewalk fillers
+	DrawWalls = true, true, false, false, false, false
+	AddWall landscape, PleasureStreet_F1, Sidewalk, 0, 310, -195, 325, -195, 0.5, 0.5, -0.5, -0.5, 0, 0
+	AddWall landscape, PleasureStreet_F2, Sidewalk, 0, 310, -165, 325, -165, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+#Pleasure Street North Driveway Cuts
+Cut Landscape, 310, -1, 165, 325, 1, 195, false, true
+Cut Landscape, 310 - 0.1, -1, 165, 310 + 0.1, 1, 195, true, false
+Cut Landscape, 325 - 0.1, -1, 165, 325 + 0.1, 1, 195, true, false
+
+	#Driveway creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, PleasureStDriveway_South, Road, 0, 310, 165, 325, 195, Floor(0).Base, Floor(0).Base - 0.5, true, false, 0, 0
+
+	#Sidewalk fillers
+	DrawWalls = true, true, false, false, false, false
+	AddWall landscape, PleasureStreet_F3, Sidewalk, 0, 310, 165, 325, 165, 0.5, 0.5, -0.5, -0.5, 0, 0
+	AddWall landscape, PleasureStreet_F4, Sidewalk, 0, 310, 195, 325, 195, 0.5, 0.5, -0.5, -0.5, 0, 0
 
 ############################################################
 
@@ -65,12 +104,12 @@ AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% > 0] AddFloor SouthContFlr, ConnectorFloor, 0.5, -30, -220, 10, -200, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% > 0] AddFloor SouthContFlr, ConnectorFloor, 0.5, -30, -220 + 140, 10, -200 + 140, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceiling
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% < 4] AddFloor SouthContCeiling, ConnectorCeiling, 0.5, -30, -220, 10, -200, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% < 4] AddFloor SouthContCeiling, ConnectorCeiling, 0.5, -30, -220 + 140, 10, -200 + 140, %fullheight%, %fullheight%, 0, 0, true
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 4
@@ -78,9 +117,9 @@ AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
 
 	WallOrientation = left
 	DrawWalls = true, true, false, false, true, false
-	if[%floor% > 0] AddWall SouthConnectorRailingFront, ConnectorRailing, 1, -30, -220, 10, -220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0] AddWall SouthConnectorRailingFront, ConnectorRailing, 1, -30, -220 + 140, 10, -220 + 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	WallOrientation = right
-	if[%floor% > 0] AddWall SouthConnectorRailingBack, ConnectorRailing, 1, -30, -200, 10, -200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0] AddWall SouthConnectorRailingBack, ConnectorRailing, 1, -30, -200 + 140, 10, -200 + 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#--------------------
 
@@ -88,12 +127,12 @@ AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% > 0] AddFloor NorthContFlr, ConnectorFloor, 0.5, -30, -100, 10, -80, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% > 0] AddFloor NorthContFlr, ConnectorFloor, 0.5, -30, -100 + 140, 10, -80 + 140, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceiling
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% < 4] AddFloor NorthContCeiling, ConnectorCeiling, 0.5, -30, -100, 10, -80, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% < 4] AddFloor NorthContCeiling, ConnectorCeiling, 0.5, -30, -100 + 140, 10, -80 + 140, %fullheight%, %fullheight%, 0, 0, true
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 4
@@ -101,7 +140,7 @@ AddFloor landscape, Filler, Road, 0, -265, -420, 300, 50, 0, 0, 0, 0
 
 	WallOrientation = left
 	DrawWalls = true, true, false, false, true, false
-	if[%floor% > 0] AddWall NorthConnectorRailingFront, ConnectorRailing, 1, -30, -100, 10, -100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0] AddWall NorthConnectorRailingFront, ConnectorRailing, 1, -30, -100 + 140, 10, -100 + 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	WallOrientation = right
-	if[%floor% > 0] AddWall NorthConnectorRailingBack, ConnectorRailing, 1, -30, -80, 10, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% > 0] AddWall NorthConnectorRailingBack, ConnectorRailing, 1, -30, -80 + 140, 10, -80 + 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
