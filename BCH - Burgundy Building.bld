@@ -30,7 +30,7 @@
 	Description = The tallest building in the hotel.
 	Version = 1
 	CameraFloor = -1
-	CameraPosition = -55, -65
+	CameraPosition = -55, -50
 	CameraRotation = 0, 0, 0
 <EndGlobals>
 
@@ -95,7 +95,7 @@
 		Load data/EG881/eg881_Carpet1.jpg, LobbyCarpet, 0.2, 0.2 #EG881
 		Load data/EG881/ceilingtile2.jpg, LobbyCeiling, 0.125, 0.125 #EG881
 		Load data/EG881/lopacwall3stripe.jpg, LobbyWall, 0.15, 0.3 #EG881
-		Load data/marble3.jpg, LobbyEscWall, 0.25, 0.25 #Escalators from ML to 3
+		#Load data/marble3.jpg, LobbyEscWall, 0.25, 0.25 #Escalators from ML to 3
 
 		#Facilities (4th floor)
 		Load data/floor065.jpg, FCFloor, 0.25, 0.25
@@ -123,7 +123,7 @@
 		#Service elevator lobby
 		Load data/stucco5.jpg, ServiceLobbyWall, 0.25, 0.25
 		Load data/wall5b.jpg, ServiceLobbyWall2, 0.25, 0.25
-		Load data/stucco4.jpg, ServiceLobbyWall3, 0.2, 0.2 #Levels LL and GL
+		Load data/stucco4b.jpg, ServiceLobbyWall3, 0.25, 0.25 #Levels LL and GL
 		Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881
 
 		#Service level
@@ -736,12 +736,17 @@ Set 2 = 75 #Building Dimension Z
 	AddWall LobbyOpeningBack, GroundLobbyWall, 0.5, -15.25 - 0.5, -29.75, 15.25 + 0.5, -29.75, %RailHeight%, %RailHeight%, %RailOffset%, %RailOffset%, 0, 0, false
 <EndFloor>
 
+#Auto area for stairs and escalators between LL and 3
+AddFloorAutoArea -15.25, Floor(-1).Base, -34 - 18, -15.25 + 18, Floor(0).Base + 5, -34 #Stairs from LL to GL
+AddFloorAutoArea -43.5, Floor(0).Base, -12 - 18, -43.5 + 12, Floor(1).Base + 5, -12 #Escalators from GL to ML
+AddFloorAutoArea 35, Floor(1).Base, -5 - 36, 43, Floor(2).Base + 5, -5 #Escalators from ML to 3
+
 <Floor -1>
 	#Additional carpeting
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor Carpetway_West, LowerLobbyCarpet2, 0, -70.25, -25, -30, 52.5, 0.001, 0.001, 0, 0, false
-	AddFloor Carpetway_East, LowerLobbyCarpet2, 0, 30, -25, 70.25, 52.5, 0.001, 0.001, 0, 0, false
+	AddFloor Carpetway_West, LowerLobbyCarpet2, 0, -60, -25, -30, 52.5, 0.001, 0.001, 0, 0, false
+	AddFloor Carpetway_East, LowerLobbyCarpet2, 0, 30, -25, 60, 52.5, 0.001, 0.001, 0, 0, false
 
 	#Stairs between LL and GL
 		#Stairs creation
@@ -820,8 +825,8 @@ Set 2 = 75 #Building Dimension Z
 		AddWall StorageLeft, %6%, 0.5, -15, 0, -15, 10, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = right
-		AddWall StorageRight, %6%, 0.5, 15, 0, 15, 10.5, %height%, %height%, 0, 0, 0, 0, false
-		AddWall StorageBack, %6%, 0.5, 5, 10.5, 15, 10.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall StorageRight, %6%, 0.5, 5, 0, 5, 10.5, %height%, %height%, 0, 0, 0, 0, false
+		#AddWall StorageBack, %6%, 0.5, 5, 10.5, 15, 10.5, %height%, %height%, 0, 0, 0, 0, false
 
 		#Storage doors
 		Set DTex = ServiceDoor3
@@ -839,7 +844,7 @@ Set 2 = 75 #Building Dimension Z
 			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 
 			#East doors
-			Set Door_MainX = 15
+			Set Door_MainX = 5
 			Set Door_MainZ = 5
 		
 			WallOrientation = right
@@ -1889,9 +1894,9 @@ AddTree(Tree2, -37.5 + 75, -67.5, 10.5, 14, Floor(3).Base + 1.01)
 		AddFillerWalls ADDeco2, 0.5, -5 + 4.5 - 1.75, 30 + %RLength% - 0.5, 3.5, 7.5, 0, true, 0, 0, false
 		
 		Set BoxTex = WoodSign2
-		if[%floor% = 3 | %floor% = 17] Set BoxTex = BlackTrim
+		if[%floor% = 0 | %floor% = 3 | %floor% = 17] Set BoxTex = BlackTrim
 		Set SignSuffix = #Empty
-		if[%floor% = 3 | %floor% = 17] Set SignSuffix = _Gray #Gray signs
+		if[%floor% = 0 | %floor% = 3 | %floor% = 17] Set SignSuffix = _Gray #Gray signs
 
 			#Signs above doors
 			AddBoxSign(Restroom1, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, false, true, true, -5 - 4.5 + 1.75, 30 + %RLength% + 0.625, 1.25, 1.25, 8, false)
@@ -2286,11 +2291,11 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 ########################################
 
 #External shaft walls for all shafts
-<Floors -1 to 2>
+<Floors -1 to 3>
 	WallTex()
 
 	#Lobby elevators
-	CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -95, 22, 10, 6, Shaft4, %height%, 0, true, false, true, true, false, false, false)
+	CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -95, 22, 10, 6, Shaft4, %height%, 0, true, false, true, false, false, false, false)
 <EndFloors>
 
 ##Machine room doors (Shaft 4) - NOT IN USE
@@ -3061,7 +3066,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	Set P1_PositionZ = -4.44 + 0.001
 
 		#Panel back
-		CreateWallBox2 elevator, MainPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% - 0.001 + 0.025, 0.75, 0.05, 5, 2, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, MainPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% - 0.001 + 0.025, 0.8, 0.05, 4.5, 2, 0, 0, false, true, true, true
 
 		#Panel
 		CreatePanel , 7, 2, back, %P1_PositionX%, %P1_PositionZ% + 0.05, 0.22, 0.11, 0.35, 0.35, 3.75, 0, 0 #Control buttons
@@ -3078,7 +3083,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	
 	#Floor Indicator Set
 	AddFloorIndicator TES4Ind_Button, back, %P1_PositionX%, %P1_PositionZ% + 0.05, 0.6, 0.3, 5.75 + 0.25 - (0.3 / 2)
-	AddDirectionalIndicator true, true, true, Blank, TES4ArrowUp, TES4ArrowUpLit, TES4ArrowDown, TES4ArrowDownLit, 2.3 - 0.002, %P1_PositionX% - (0.3 / 2), %P1_PositionZ% + 0.051, back, 0.3, 0.3, true, 0, 0
+	AddDirectionalIndicator true, true, true, Blank, TES4ArrowUp, TES4ArrowUpLit, TES4ArrowDown, TES4ArrowDownLit, %P1_PositionX% - (0.3 / 2), %P1_PositionZ% + 0.051, 5.75 + 0.25 - (0.3 / 2), back, 0.3, 0.3, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -3377,7 +3382,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 
 	#Deco dimensions
 		Set SideDecoH = %height%
-		if[%floor% = 1] Set SideDecoH = 10
+		#if[%floor% = 1] Set SideDecoH = 10
 		Set TopDecoH = %SideDecoH% - 7
 	
 	#Call button panels
@@ -3486,6 +3491,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Other settings
 	NotifyEarly = 2
 	RecallFloor = 0
+	QueueResets = true
 <EndElevators>
 
 <Elevators 7 to 8>
@@ -3508,6 +3514,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Other settings
 	NotifyEarly = 1
 	RecallFloor = 0
+	QueueResets = true
 	UpChimeSound 1 = KW_Sounds/tk_us_upchime.wav
 	DownChimeSound 1 = KW_Sounds/tk_us_downchime.wav
 	BeepSound = Other People's Fixtures/ThyssenKrupp Studio/tkstudiobeep.wav #Vector, gooper1, et al.
@@ -3579,7 +3586,7 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 <EndFloor>
 
 #Change textures for ML-3 escalators
-OP_EscTruss(SilverBalustrade, LobbyEscWall, 0.5, 3.5, 0, 0, 0, 0)
+OP_EscTruss(SilverBalustrade, LobbyWall, 0.5, 3.5, 0, 0, 0, 0)
 
 #Escalators from ML to 3
 <Floor 1>
@@ -3793,7 +3800,7 @@ ShowFullStairs 2 = always
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% > 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0
 	WallOrientation = left
-	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% < 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, %23%, %24% - 2, 3, 7, 0, 0, 0
 
 		#Filler walls for external mesh
