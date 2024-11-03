@@ -125,6 +125,10 @@
 	Load data/wall3.jpg, OfficeIntWall, 0.25, 0.25 #Rooms
 	Load data/EG881/ceilingtile3x3.jpg, OfficeCeiling, 0.125, 0.125 #EG881
 	
+		#Elevator Lobby Floors (10th floor)
+		Load data/floor065.jpg, 10FLobbyFloor, 0.2, 0.2 #Elevators 1-5 and 10
+		Load data/Carpet0021b_S.jpg, 10FLobbyFloor2, 0.2, 0.2 #Elevators 12-15
+
 		#Rooms on 8th floor
 		Load data/EG881/Carpet/eg881_Carpet4.jpg, MKTFloor, 0.2, 0.2 #EG881
 		Load data/EG881/Carpet/eg881_Carpet4.jpg, PRFloor, 0.2, 0.2 #EG881
@@ -1433,7 +1437,7 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	TextureOverride EntDoorBack, EntDoorFront, EntDoorSide, EntDoorSide, EntDoorSide, EntDoorSide
 	AddExternalDoor , , false, EntDoorFront, 0.2, 6, 75, %CenterX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
 	AddFillerWalls %6%, 0.5, %CenterX%, %2%, 7, 8, %interfloorheight%, true, 0, 0, true
-	WindowsZ2(NorthEntB_Windows, %CenterX%, %2%, back, 6, %height% - 8.45, 8.25, MainWindowsIntB, MainWindowsB, %6%, 1/3, 1)
+	WindowsZ2(NorthEntB_Windows, %CenterX%, %2%, back, 7, %height% - 8.45, 8.25, MainWindowsIntB, MainWindowsB, %6%, 1/3, 1)
 <EndFloor>
 #--------------------
 <Floors 1 to 27>
@@ -2728,6 +2732,29 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 #Floorings on 10th floor
 <Floor 9>
+	#Elevator lobbies
+	CutAll -30, %interfloorheight% - 0.1, -50, 0, %interfloorheight% + 0.1, -20, false, true #Passenger elevators
+	CutAll -130, %interfloorheight% - 0.1, 66, -110, %interfloorheight% + 0.1, %2%, false, true #Main Freight elevators
+	CutAll 110, %interfloorheight% - 0.1, 66, 130, %interfloorheight% + 0.1, %2%, false, true #Patient Transport elevators
+
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+	
+		#Passenger elevators
+		AddFloor 10FCenterLobby_TR, BlackTrim, 0.5, -30, -20 - 0.2, 0, -20, 0, 0, 0, 0, false
+		AddFloor 10FCenterLobby, 10FLobbyFloor, 0.5, -30, -50, 0, -20 - 0.2, 0, 0, 0, 0, false
+
+		#Main Freight elevators
+		AddFloor 10FWestLobby_TR, BlackTrim, 0.5, -130, 66, -110, 66 + 0.2, 0, 0, 0, 0, false
+		AddFloor 10FWestLobby, 10FLobbyFloor2, 0.5, -130, 66 + 0.2, -110, %2%, 0, 0, 0, 0, false
+
+		#East Freight elevators
+		AddFloor 10FEastLobby_TR, BlackTrim, 0.5, 110, 66, 130, 66 + 0.2, 0, 0, 0, 0, false
+		AddFloor 10FEastLobby, 10FLobbyFloor2, 0.5, 110, 66 + 0.2, 130, %2%, 0, 0, 0, 0, false
+
+	########################################
+
+	#Offices
 	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Purchasing
 	CutAll 20 + 0.3, %interfloorheight% - 0.1, -1.25, %1%, %interfloorheight% + 0.1, 40 - 0.3, false, true #Hospital Mgnt.
 	CutAll -110, %interfloorheight% - 0.1, 50.5 - 0.2, 110, %interfloorheight% + 0.1, %2%, false, true #North side offices
@@ -5086,16 +5113,17 @@ ElevCeilingLight
 
 <Function BtnPanelE11>
 	Set PanelNumber = %param1%
-	AddButton %PanelNumber%, , RTButton4, RTButtonLit4, 1, 1, 3, 1, 1
-	AddButton %PanelNumber%, , RTButton3, RTButtonLit3, 2, 2, 2, 1, 1
-	AddButton %PanelNumber%, , RTButton2, RTButtonLit2, 2, 1, 1, 1, 1
-	AddButton %PanelNumber%, , RTButton1, RTButtonLit1, 3, 2, 0, 1, 1
-	AddButton %PanelNumber%, , RTButtonB, RTButtonLitB, 3, 1, -1, 1, 1
+	Set PanelNumber2 = %PanelNumber% + 1
+	AddButton %PanelNumber2%, , RTButton4, RTButtonLit4, 1, 1, 3, 1, 1
+	AddButton %PanelNumber2%, , RTButton3, RTButtonLit3, 2, 1, 2, 1, 1
+	AddButton %PanelNumber2%, , RTButton2, RTButtonLit2, 3, 1, 1, 1, 1
+	AddButton %PanelNumber2%, , RTButton1, RTButtonLit1, 4, 1, 0, 1, 1
+	AddButton %PanelNumber2%, , RTButtonB, RTButtonLitB, 5, 1, -1, 1, 1
 
-	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 6, 1, open, 1, 1
-	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 6, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 7, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 7, 2, alarm, 1, 1
+	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 7, 1, open, 1, 1
+	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 7, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 8, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 8, 2, alarm, 1, 1
 <EndFunction>
 
 <Elevator 11>
@@ -5142,7 +5170,8 @@ ElevCeilingLight
 	#Button panels & floor indicators
 	#Buttons
 	Set PanelCenter = 2.9
-	CreatePanel Blank, 7, 2, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
+	CreatePanel Blank, 8, 2, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
+	CreatePanel Blank, 8, 1, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0 #Floor buttons
 	BtnPanelE11(1)
 
 	#Indicator
@@ -5883,15 +5912,16 @@ ElevCeilingLight
 
 <Function BtnPanelE16>
 	Set PanelNumber = %param1%
-	AddButton %PanelNumber%, , RTButtonR, RTButtonLitR, 1, 2, 29, 1, 1
-	AddButton %PanelNumber%, , RTButton29, RTButtonLit29, 1, 1, 28, 1, 1
-	AddButton %PanelNumber%, , RTButton28, RTButtonLit28, 2, 2, 27, 1, 1
-	AddButton %PanelNumber%, , RTButton27, RTButtonLit27, 2, 1, 26, 1, 1
+	Set PanelNumber2 = %PanelNumber% + 1
+	AddButton %PanelNumber2%, , RTButtonR, RTButtonLitR, 1, 1, 29, 1, 1
+	AddButton %PanelNumber2%, , RTButton29, RTButtonLit29, 2, 1, 28, 1, 1
+	AddButton %PanelNumber2%, , RTButton28, RTButtonLit28, 3, 1, 27, 1, 1
+	AddButton %PanelNumber2%, , RTButton27, RTButtonLit27, 4, 1, 26, 1, 1
 
-	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 5, 1, open, 1, 1
-	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 5, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 6, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 6, 2, alarm, 1, 1
+	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 6, 1, open, 1, 1
+	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 6, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 7, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 7, 2, alarm, 1, 1
 <EndFunction>
 
 <Elevator 16>
@@ -5925,7 +5955,8 @@ ElevCeilingLight
 	#Button panels & floor indicators
 	#Buttons
 	Set PanelCenter = -2.15
-	CreatePanel Blank, 6, 2, left, 3.75 - 0.2 - 0.001, %PanelCenter%, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
+	CreatePanel Blank, 7, 2, left, 3.75 - 0.2 - 0.001, %PanelCenter%, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
+	CreatePanel Blank, 7, 1, left, 3.75 - 0.2 - 0.001, %PanelCenter%, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0 #Floor buttons
 	BtnPanelE16(1)
 	
 	#Indicator
