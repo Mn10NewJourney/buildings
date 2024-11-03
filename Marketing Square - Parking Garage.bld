@@ -49,7 +49,11 @@
 	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
 	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
-	Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+	
+		#Plants
+		Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
 		#Road markings
 		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
@@ -453,11 +457,27 @@ Set 2 = 100 #Building Dimension Z
 	AddFloor landscape, FrontFloor4, Sidewalk, 0, 46, -%2% - 15, 71, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, FrontFloor5, Grass, 0, 71, -%2% - 15, %1% + 5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
 
-	AddFloor landscape, LeftFloorA, SidewalkDarker, 0, -%1% - 45, -%2%, -%1%, -20, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
-	AddFloor landscape, LeftFloorB, Road, 0, -%1% - 45, -20, -%1%, 20, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, LeftFloorC, SidewalkDarker, 0, -%1% - 45, 20, -%1%, %2%, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
+	AddFloor landscape, LeftGrass1A, Grass, 0, -%1% - 45, -%2%, -%1%, -70, Floor(0).Base, Floor(0).Base, 0, 0		
+	AddFloor landscape, LeftGrass1B, Grass, 0, -%1% - 45, -60, -%1%, -20, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftGrass2A, Grass, 0, -%1% - 45, 20, -%1%, 60, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftGrass2B, Grass, 0, -%1% - 45, 68, -%1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, Left_PathtoElev.1-3, Sidewalk, 0, -%1% - 45, -70, -%1%, -60, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
+	AddFloor landscape, Left_PathtoStairwell4, Sidewalk, 0, -%1% - 45, 60, -%1%, 68, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
+	AddFloor landscape, EntranceDriveway, Road, 0, -%1% - 45, -20, -%1%, 20, Floor(0).Base, Floor(0).Base, 0, 0	
 
 	AddFloor landscape, RightFloor, Grass, 0, %1%, -%2%, %1% + 5, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+
+	#West Trees
+	AddTree(Tree1, -130, 91, 13.5, 12, 0)
+	AddTree(Tree1, -130, 91 - 15, 13.5, 12, 0)
+	AddTree(Tree1, -130, 50, 13.5, 12, 0)
+	AddTree(Tree1, -130, 50 - 15, 13.5, 12, 0)
+
+	AddTree(Tree2, -130, -30, 12, 16, 0)
+	AddTree(Tree2, -130, -30 - 15, 12, 16, 0)
+	AddTree(Tree2, -130, -77.5, 12, 16, 0)
+	AddTree(Tree2, -130, -77.5 - 15, 12, 16, 0)
+
 
 ##--------------------------------------------------------------------------------##
 
@@ -821,11 +841,15 @@ Set 2 = 100 #Building Dimension Z
 		if[%floor% = 1] AddWall LeftWall, ExtFacade, 0.5, %WestEnd_Flr%, -%2%, %WestEnd_Flr%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		TextureOverride ExtFacade, ExtFacade%InnerSuffix%, ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%
-		if[%floor% = 0] AddWall LeftWallA1, ExtFacade, 0.5, %WestEnd_Flr%, -%2%, %WestEnd_Flr%, -55, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = 0] AddWall LeftWallA1A, ExtFacade, 0.5, %WestEnd_Flr%, -%2%, %WestEnd_Flr%, -70, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%
+		if[%floor% = 0] AddWall LeftWallA1B, ExtFacade, 0.5, %WestEnd_Flr%, -60, %WestEnd_Flr%, -55, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%
 		if[%floor% = 0] AddWall LeftWallA2, ExtFacade, 0.5, %WestEnd_Flr%, -25, %WestEnd_Flr%, -20, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%
+		if[%floor% = 0] AddWall LeftWallB1, ExtFacade, 0.5, %WestEnd_Flr%, 20, %WestEnd_Flr%, 60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%, ExtFacade, ExtFacade%InnerSuffix%, ExtFacade%InnerSuffix%
-		if[%floor% = 0] AddWall LeftWallB, ExtFacade, 0.5, %WestEnd_Flr%, 20, %WestEnd_Flr%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = 0] AddWall LeftWallB2, ExtFacade, 0.5, %WestEnd_Flr%, 68, %WestEnd_Flr%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set Drawwalls for Right/Back sides
 		DrawWalls = true, %ShowExt%, true, true, true, %ShowBottom%
