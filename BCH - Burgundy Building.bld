@@ -99,6 +99,7 @@
 		Load data/EG881/eg881_Carpet1.jpg, LobbyCarpet, 0.2, 0.2 #EG881
 		Load data/EG881/ceilingtile2.jpg, LobbyCeiling, 0.125, 0.125 #EG881
 		Load data/EG881/lopacwall3stripe.jpg, LobbyWall, 0.15, 0.3 #EG881
+		Load data/EG881/diamondtile.jpg, LobbyEscWall, 0.15, 0.15 #EG881 #Escalators from ML to 3
 
 		#Facilities (4th floor)
 		Load data/floor065.jpg, FCFloor, 0.25, 0.25
@@ -926,12 +927,13 @@ AddFloorAutoArea 35, Floor(1).Base, -5 - 36, 43, Floor(2).Base + 5, -5 #Escalato
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
 	if[%floor% = 2] AddWall LobbyAtrium_Front, %6%, 0.5, -%1% + 55, -%2% + 20, %1% - 55, -%2% + 20, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	if[%floor% = 2] AddWall LobbyAtrium_Left, %6%, 0.5, -%1% + 55, -%2% + 20 - 0.5, -%1% + 55, %NEndpoint_Floor% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 2] AddWall LobbyAtrium_Left1, %6%, 0.5, -%1% + 55, -%2% + 20 - 0.5, -%1% + 55, -53, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 2] AddWall LobbyAtrium_Left2, %6%, 0.5, -%1% + 55, -53 + 8, -%1% + 55, %NEndpoint_Floor% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	WallOrientation = left
 	if[%floor% = 2] AddWall LobbyAtrium_Right, %6%, 0.5, %1% - 55, -%2% + 20 - 0.5, %1% - 55, %NEndpoint_Floor% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	if[%floor% = 2] AddWall LobbyAtrium_Back1, %6%, 0.5, -%1% + 55, %NEndpoint_Floor%, -15, %NEndpoint_Floor%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	if[%floor% = 2] AddWall LobbyAtrium_Back2, %6%, 0.5, 15, %NEndpoint_Floor%, 43 - 8, %NEndpoint_Floor%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	if[%floor% = 2] AddWall LobbyAtrium_Back3, %6%, 0.5, 43, %NEndpoint_Floor%, %1% - 55, %NEndpoint_Floor%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 2] AddWall LobbyAtrium_Back2, %6%, 0.5, 15, %NEndpoint_Floor%, %1% - 55, %NEndpoint_Floor%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	#if[%floor% = 2] AddWall LobbyAtrium_Back3, %6%, 0.5, 43, %NEndpoint_Floor%, %1% - 55, %NEndpoint_Floor%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Skylight
 	DrawWalls = true, true, false, false, false, false
@@ -3727,8 +3729,8 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 #ESCALATORS
 #Floor cuts
 <Floors 0 to 1>
-	if[%floor% > 0] Cut -43.5, %interfloorheight% - 0.1, -12 - 18, -43.5 + 12, %interfloorheight% + 0.1, -12, false, true
-	if[%floor% < 1] Cut -43.5, %fullheight% - 0.1, -12 - 18, -43.5 + 12, %fullheight% + 0.1, -12, false, true
+	if[%floor% > 0] Cut -43.5, %interfloorheight% - 0.1, -12 - 20, -43.5 + 12, %interfloorheight% + 0.1, -12, false, true
+	if[%floor% < 1] Cut -43.5, %fullheight% - 0.1, -12 - 20, -43.5 + 12, %fullheight% + 0.1, -12, false, true
 <EndFloors>
 
 <Floor 1>
@@ -3739,10 +3741,10 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Railings
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
-	AddWall LobbyEscRail_Front, %6%, 0.5, -43.5, -12 - 18, -43.5 + 12, -12 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	AddWall LobbyEscRail_Left, %6%, 0.5, -43.5, -12 - 18 - 0.5, -43.5, -12 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall LobbyEscRail_Front, %6%, 0.5, -43.5, -12 - 20, -43.5 + 12, -12 - 20, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall LobbyEscRail_Left, %6%, 0.5, -43.5, -12 - 20 - 0.5, -43.5, -12 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	WallOrientation = left
-	AddWall LobbyEscRail_Right, %6%, 0.5, -43.5 + 12, -12 - 18 - 0.5, -43.5 + 12, -12 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall LobbyEscRail_Right, %6%, 0.5, -43.5 + 12, -12 - 20 - 0.5, -43.5 + 12, -12 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall LobbyEscRail_Back1, %6%, 0.5, -43.5, -12, -43.5 + 2, -12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall LobbyEscRail_Back2, %6%, 0.5, -43.5 + 12 - 2, -12, -43.5 + 12, -12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
@@ -3753,19 +3755,20 @@ AddStdShaft(3, 1, -9, 25, 5.67, 4.67, -2, 19, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
 	OP_EscTruss(SilverBalustrade, GroundLobbyEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
-#Escalators from GL to ML
+#Shorter Escalators from GL to ML
 <Floor 0>
-	OP_Escalator(%floorid%Escalator1, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -39.5, -12, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-	OP_Escalator(%floorid%Escalator2, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -39.5 + 4, -12, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%Escalator1, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -39.5, -12, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%Escalator2, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -39.5 + 4, -12, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 <EndFloor>
 
 #Change textures for ML-3 escalators
-OP_EscTruss(SilverBalustrade, LobbyWall, 0.5, 3.5, 0, 0, 0, 0)
+OP_EscLanding(EscalatorLandingX, 5.5, 0, 0, EscalatorLandingX, 5.5, 0, 0)
+OP_EscTruss(SilverBalustrade, LobbyEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
-#Escalators from ML to 3
+#Longer Escalators from ML to 3
 <Floor 1>
-	OP_Escalator(%floorid%Escalator1, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 43 - 6, -5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-	OP_Escalator(%floorid%Escalator2, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 43 - 2, -5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%Escalator1, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -50, -53 + 2, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%Escalator2, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -50, -53 + 6, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
