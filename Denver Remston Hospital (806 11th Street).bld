@@ -57,7 +57,6 @@
 	Load data/panel-back3.jpg, StainlessSteel, 1, 1, false
 	Load data/panel-back4.jpg, BrassPanel, 1, 1, false #23rd-27th floors
 	Load data/Other People's Textures/marb044.png, LobbyDeco, 0.3, 0.3
-	#Load data/granite_0008b.jpg, LobbyDeco2, 0.5, 0.5
 
 	#Landscapes
 	#Load data/downtown.jpg, Downtown, 1, 1
@@ -127,7 +126,7 @@
 	
 		#Elevator Lobby Floors (10th floor)
 		Load data/floor065.jpg, 10FLobbyFloor, 0.2, 0.2 #Elevators 1-5 and 10
-		Load data/marb047.jpg, 10FLobbyFloor2, 0.2, 0.2 #Elevators 12-15
+		Load data/marb047.jpg, 10FLobbyFloor2, 0.25, 0.25 #Elevators 12-15
 
 		#Rooms on 8th floor
 		Load data/EG881/Carpet/eg881_Carpet4.jpg, MKTFloor, 0.2, 0.2 #EG881
@@ -499,11 +498,14 @@
 	AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	#Signs at elevator lobbies
-	Load data/Melvin/DRH/bluegradient_DRH.jpg, ELFlrSignBack, 1, 1, false #Levels B-22
+	Load data/Melvin/DRH/bluegradient_DRH.jpg, ELFlrSignBack, 1, 1, false #Levels B-9 and 11-22
+	Load data/graygradient.jpg, ELFlrSignBack_10F, 1, 1, false #Level 10 only
 	Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack_Monica.png, ELFlrSignBack_Upper, 1, 1, false #Levels 23-27
 
 	AddText ELFlrSignBack, ELFlrSignB, nimbus_sans_bold_condensed.ttf, 130, B, 0, 0, 256, 198, center, center, 0, 0, 0, false
-	AddTextRange 1, 22, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold_condensed.ttf, 130, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
+	AddTextRange 1, 9, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold_condensed.ttf, 130, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
+	AddText ELFlrSignBack_10F, ELFlrSign10, nimbus_sans_bold.ttf, 128, 10, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddTextRange 11, 22, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold_condensed.ttf, 130, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
 	AddTextRange 23, 27, ELFlrSignBack_Upper, ELFlrSign%number%, nimbus_sans_condensed.ttf, 130, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	#--------------------
 	#Elevator number signs (Inside)
@@ -4254,11 +4256,11 @@ ElevCeilingLight
 
 	#Signs
 	DrawWalls = false, true, false, false, false, false
-	#AddWall E1-5Hall-FireSign1, FireSign, 0, -20 + 0.001, (-40 + 0.3 + 0.4) - 0.25, -20 + 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
+	if[%floor% = 9] AddWall E1-5Hall-FireSign1, FireSign, 0, -20 + 0.001, (-40 + 0.3 + 0.4) - 0.25, -20 + 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
 	AddWall E1-5Hall-FloorSign1, ELFlrSign%floorid%, 0, -20 + 0.001, -40 - 0.5, -20 + 0.001, -40 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 	AddWall E1-5Hall-FloorSign2, ELFlrSign%floorid%, 0, -20 + 0.001, -30 - 0.5, -20 + 0.001, -30 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 	DrawWalls = true, false, false, false, false, false
-	#AddWall E1-5Hall-FireSign2, FireSign, 0, -10 - 0.001, (-40 + 0.3 + 0.4) - 0.25, -10 - 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
+	if[%floor% = 9] AddWall E1-5Hall-FireSign2, FireSign, 0, -10 - 0.001, (-40 + 0.3 + 0.4) - 0.25, -10 - 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
 	AddWall E1-5Hall-FloorSign3, ELFlrSign%floorid%, 0, -10 - 0.001, -40 - 0.5, -10 - 0.001, -40 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 <EndFloors>
 
@@ -5817,12 +5819,12 @@ ElevCeilingLight
 	#Signs
 	Set ButtonPosition = -120
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% > 21 & %floor% < 27] AddWall E12-13Hall-FireSign, FireSign, 0, %ButtonPosition% - 0.25, 78 - 0.001, %ButtonPosition% + 0.25, 78 - 0.001, 0.75, 0.75, 3 - 0.375, 3 - 0.375, 0, 0, false
+	if[%floor% = 9 | (%floor% > 21 & %floor% < 27)] AddWall E12-13Hall-FireSign, FireSign, 0, %ButtonPosition% - 0.25, 78 - 0.001, %ButtonPosition% + 0.25, 78 - 0.001, 0.75, 0.75, 3 - 0.375, 3 - 0.375, 0, 0, false
 	AddWall E12-13Hall-FloorSign, ELFlrSign%floorid%, 0, %ButtonPosition% - 0.5, 78 - 0.001, %ButtonPosition% + 0.5, 78 - 0.001, 1, 1, 5.5, 5.5, 0, 0, false
 
 	Set ButtonPosition = 120
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% > 21 & %floor% < 27] AddWall E14-15Hall-FireSign, FireSign, 0, %ButtonPosition% - 0.25, 78 - 0.001, %ButtonPosition% + 0.25, 78 - 0.001, 0.75, 0.75, 3 - 0.375, 3 - 0.375, 0, 0, false
+	if[%floor% = 9 | (%floor% > 21 & %floor% < 27)] AddWall E14-15Hall-FireSign, FireSign, 0, %ButtonPosition% - 0.25, 78 - 0.001, %ButtonPosition% + 0.25, 78 - 0.001, 0.75, 0.75, 3 - 0.375, 3 - 0.375, 0, 0, false
 	AddWall E14-15Hall-FloorSign, ELFlrSign%floorid%, 0, %ButtonPosition% - 0.5, 78 - 0.001, %ButtonPosition% + 0.5, 78 - 0.001, 1, 1, 5.5, 5.5, 0, 0, false
 
 	########################################
@@ -5905,7 +5907,6 @@ ElevCeilingLight
 	Deceleration = 0.6
 	ServicedFloors = 26 - 29
 	AssignedShaft = 9
-	#MotorPosition = 0, Floor(30).Altitude + Floor(30).FullHeight, 0
 	MotorPosition = 0, Floor(29).Altitude + Floor(29).FullHeight - 0.5, 0
 	CreateElevator false, -24.91, -25, 26
 <EndElevator>
