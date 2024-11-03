@@ -1141,6 +1141,7 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	AddWall RightWindows, MainWindows, 0, %1%, -70, %1%, %2% - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
 	AddWall BackWindows, MainWindows, 0, -%1% + 30, %2%, %1% - 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	SetAutoSize = true, true
 
 	########################################
 
@@ -1520,6 +1521,7 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	AddWall ElevLbyWindows_Front1, MainWindows, 0, -20, -50, -10, -50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	TextureOverride %WinPrefix%Windows, %WinPrefix%WindowsInt, Blank, Blank, Blank, Blank
 	AddWall ElevLbyWindows_Front2, MainWindows, 0, 10, -50, 20, -50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	SetAutoSize = true, true
 
 	########################################
 
@@ -2347,6 +2349,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
 		AddWall BEastWindows1, MainWindows, 0, 10, %2%, 10, %2% + 10, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
 	<EndFloor>
 
 
@@ -4126,13 +4129,6 @@ ElevCeilingLight
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E3_Deco, %DecoTex%, %DecoTex%, right, true, false, 0, 1, -20, -25, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E4_Deco, %DecoTex%, %DecoTex%, left, true, false, 0, 1, -10, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E5_Deco, %DecoTex%, %DecoTex%, left, true, false, 0, 1, -10, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
-	
-
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, -20, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 1
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, -20, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 2
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, -20, -25, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 3
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, left, true, false, floor, 0, 1, -10, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 4
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, left, true, false, floor, 0, 1, -10, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 5
 	#--------------------
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
@@ -4147,12 +4143,6 @@ ElevCeilingLight
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E3_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, 0, 0.2, -20 + 0.01, -25, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E4_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, 0, 0.2, -10 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E5_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, 0, 0.2, -10 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
-
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 1
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 2
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, -20 + 0.01, -25, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 3
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 4
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, -10 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 5
 
 	#Lanterns/Indicators
 	Set PanelTexture = StainlessSteel
@@ -4478,11 +4468,6 @@ ElevCeilingLight
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E8_Deco, %DecoTex%, %DecoTex%, left, true, false, 0, 1, 20, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E9_Deco, %DecoTex%, %DecoTex%, left, true, false, 0, 1, 20, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
 
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, 10, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 6
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, 10, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 7
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, left, true, false, floor, 0, 1, 20, -45, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 8
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, left, true, false, floor, 0, 1, 20, -35, 4, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 9
-
 	#Door trims
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
@@ -4495,11 +4480,6 @@ ElevCeilingLight
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E7_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, 0, 0.2, 10 + 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E8_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, 0, 0.2, 20 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E9_Trim, %DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, 0, 0.2, 20 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01, external)
-
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, 10 + 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 6
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, right, true, false, floor, 0, 0.2, 10 + 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 7
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, 20 - 0.01, -45, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 8
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, left, true, false, floor, 0, 0.2, 20 - 0.01, -35, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 9
 <EndFunction>
 
 <Floor 0>
@@ -4800,7 +4780,6 @@ ElevCeilingLight
 	#Decos
 	Set DecoTex = LobbyDeco
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E10_Deco_F, %DecoTex%, %DecoTex%, left, true, false, 0, 1, 10, -26, 4.5, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, right, true, false, floor, 0, 1, 10, -26, 4.5, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 10
 
 	#Door trims
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
@@ -4811,7 +4790,6 @@ ElevCeilingLight
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E10_Trim_F, %TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, right, true, false, 0, 0.2, 10 + 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01, external)
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, right, true, false, floor, 0, 0.2, 10 + 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
 
 	#Filler walls on levels B and 10
 	WallOrientation = right
@@ -4892,8 +4870,6 @@ ElevCeilingLight
 	Set DecoTex = LobbyDeco
 	if[%floor% > -1 & %floor% < 7] AddDecoObject(E10_Deco_R, %DecoTex%, %DecoTex%, left, true, false, 0, 1, -2, -26, 4.5, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0, external)
 
-	#if[%floor% > -1 & %floor% < 7] AddDeco4(%DecoTex%, %DecoTex%, left, true, false, floor, 0, 1, -2, -26, 4.5, 7, %Dheight%, %Dheight% - 7, 0, false, Blank, 0) #Elevator 10
-
 	#Door trims
 	if[%floor% = -1] Set TrimTexPrefix = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set TrimTexPrefix = ElevDoorsD
@@ -4903,8 +4879,6 @@ ElevCeilingLight
 	if[%floor% > 21 & %floor% < 27] Set TrimTexPrefix = UpperWardsShaftDoors
 
 	if[%floor% ! -1 & %floor% ! 9] AddDecoObject(E10_Trim_R, %TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, left, true, false, 0, 0.2, -2 - 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01, external)
-
-	#if[%floor% ! -1 & %floor% ! 9] AddDeco4(%TrimTexPrefix%_Trim, %TrimTexPrefix%_Trim, left, true, false, floor, 0, 0.2, -2 - 0.01, -26, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %TrimTexPrefix%_Trim, 0.66 + 0.01) #Elevator 10
 
 	#Filler walls on levels B and 10
 	WallOrientation = left
