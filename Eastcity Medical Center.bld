@@ -526,7 +526,7 @@ Set 2 = 60 #Building Dimension Z
 Cut Landscape, -120 - 10 - 24 - 10, -1, -60 - 30, 120 + 15, 1, 60 + 10 + 24, false, true #Main cuts
 DrawWalls = true, true, false, false, false, false
 
-	#Hospital Building Filler (Hashed out when the hospital bldg. is loaded)
+	#Hospital Building Filler (Will be cut when the hospital bldg. is loaded)
 	AddFloor landscape, HBFiller, ServiceFloor, 0, -120, -60, 120, 60, 0, 0, 0, 0
 
 	#Front perimeter floors
@@ -650,7 +650,13 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 	AddTree(Tree1, -175, -78 + 135, 13.5, 12, Floor(0).Base)
 	AddTree(Tree1, -175, -78 + 150, 13.5, 12, Floor(0).Base)
 
-<End>
+#<End>
+
+####================================####
+
+#Cut for hospital bldg.
+Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
+
 #Functions
 #Windows functions
 <Function WindowsX2>
@@ -1058,7 +1064,7 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 	TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
 	if[%floor% ! 1] AddWall FrontWindows2, MainWindows, 0, 0 + 25, -%2%, %1%, -%2%, %winheight%, %winheight%, %winoffset%, %winoffset%, 0, 0, true
 	TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
-	if[%floor% ! 1] AddWall LeftWindows, MainWindows, 0, -%1%, -%2% + 40 + 20, -%1%, 20, %winheight%, %winheight%, %winoffset%, %winoffset%, 0, 0, true
+	if[%floor% > 1] AddWall LeftWindows, MainWindows, 0, -%1%, -%2% + 40 + 20, -%1%, 20, %winheight%, %winheight%, %winoffset%, %winoffset%, 0, 0, true
 	TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
 	if[%floor% ! 1] AddWall RightWindows, MainWindows, 0, %1%, -%2%, %1%, 10, %winheight%, %winheight%, %winoffset%, %winoffset%, 0, 0, true
 	#TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
@@ -1319,21 +1325,6 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 	WallTex()
 	if[%floor% = 8] CreateDepartment(Rehab_8F, Sign_Rehab_8F)
 	if[%floor% = 9] CreateDepartment(MRI, Sign_MRI)
-
-	#Determine wall heights
-	#Set WallHeight = %height%
-	#Set WallOffset = 0
-
-	#Office walls
-	#DrawWalls = true, true, false, false, false, false
-		#North
-		#WallOrientation = left
-		#AddWall Office_North, %6%, 0.5, -79.5, 20, 97.5, 20, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-
-		#South
-		WallOrientation = right
-		#AddWall Office_South1, %6%, 0.5, -60, 0, 11.5, 0, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		#AddWall Office_South2, %6%, 0.5, 22.5, 0, %1%, 0, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloors>
 
 <Floors 25 to 26>
@@ -1693,6 +1684,8 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 	Cut external, %1% - 0.1, Floor(0).Base, -40, %1% + 0.1, Floor(2).Altitude, -30, true, false
 	Cut external, %1% - 0.1, Floor(0).Base, -10, %1% + 0.1, Floor(2).Altitude, 0, true, false
 
+	#North side
+	Cut external, 40, Floor(0).Base, %2% - 0.1, -20, Floor(2).Altitude, %2% + 0.1, true, false
 
 <Floor 0>
 	WallTex() #Set wall textures
@@ -1718,10 +1711,31 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 		AddCustomWindows(FrontLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, 40, -%2%, 50, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
 		AddCustomWindows(FrontLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, 70, -%2%, 80, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
 
+		#Left
+		AddCustomWindows(LeftLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, 0, -%1%, 20, %winheight%, 0, 0, 3, ExtFacade, %6%)
+
 		#Right
 		AddCustomWindows(RightLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -40, %1%, -30, %winheight%, 0, 0, 3, ExtFacade, %6%)
-		AddCustomWindows(RightLobbyWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -20, %1%, -10, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		AddCustomWindows(RightLobbyWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -10, %1%, 0, %winheight%, 0, 0, 3, ExtFacade, %6%)
+
+		#Back
+		AddCustomWindows(BackLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -40, %2%, -20, %2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
 		SetAutoSize = true, true
+
+	### West Entrance Doors ###
+	Set MainZ = 5
+	WallOrientation = left
+	TextureOverride Door88Trans_Ext, Door88Trans_Int, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 4, 75, %1%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride Door88Trans_Ext, Door88Trans_Int, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 1, 75, %1%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+
+	Set MainZ = 15
+	WallOrientation = left
+	TextureOverride Door88Trans_Ext, Door88Trans_Int, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 4, 75, %1%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride Door88Trans_Ext, Door88Trans_Int, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 1, 75, %1%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
 
 	### East Entrance Doors ###
 	Set MainZ = -35
@@ -1737,6 +1751,21 @@ Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
 	AddExternalDoor , , false, Door88Trans_Int, 0.2, 3, 75, %1%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
 	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
 	AddExternalDoor , , false, Door88Trans_Int, 0.2, 2, 75, %1%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+
+	### North Entrance Doors ###
+	Set MainX = -35
+	WallOrientation = right
+	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+
+	Set MainX = -25
+	WallOrientation = right
+	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
+	AddExternalDoor , , false, Door88Trans_Int, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
 
 	### South Entrance Doors ###
 	#West (Elevator lobby)
