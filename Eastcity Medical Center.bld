@@ -1,12 +1,18 @@
 #Eastcity Medical Center
 #Copyright (c) 2021-Present - Mn10
 
-#Include my scripts
-<Include Deco2011/Scripts/r4_script.txt>
-<Include CustomObjects2018/Scripts/r1_script.txt>
-<Include Shaft Wall Creator/Scripts/r1_script.txt>
-<Include data/Hitachi Modern Traditional/Scripts/Indicators.txt> 
+#SCRIPT INCLUSIONS
+	#1. My new scripts
+	#<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
+	#<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
+	<Include buildings/Mn10_Scripts/Windows.txt>
 
+	#2. my previous scripts
+	<Include Deco2011/Scripts/r4_script.txt>
+	<Include CustomObjects2018/Scripts/r1_script.txt>
+	<Include Shaft Wall Creator/Scripts/r1_script.txt>
+	<Include data/Hitachi Modern Traditional/Scripts/Indicators.txt>
+	
 #Globals
 <Globals>
     Name = Eastcity Medical Center
@@ -37,10 +43,17 @@
 	Load data/metal080.jpg, ColumnTex, 0.5, 0.5
 
 	#Windows and vents
+		#Main windows
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1 #EG881
 		Load data/EG881/windows11h_insideblack.png, MainWindowsInt, 0.05, 1 #EG881
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false #EG881
 		Load data/EG881/windows11h_insideblack.png, MainWindowsIntB, 1, 1, false #EG881
+
+		#Lobby windows
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, LobbyWindows, true, 0.025, 1 #EG881
+		Load data/EG881/windows11h_insideblack.png, LobbyWindowsInt, 0.025, 1 #EG881
+
+		#Vents
 		Load data/vents1.jpg, VentsExt, 1, 1, false
 		Load data/bracing1.jpg, VentsInt, 1, 1, false
 
@@ -1518,8 +1531,36 @@ Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
 		if[%floor% > 15] PatientRoom-South(-65, 5, 14)
 <EndFloors>
 
+#Cut windows for "Lobby windows"
+	#South side
+	Cut external, -50, Floor(0).Base, -%2% - 0.1, -40, Floor(2).Altitude, -%2% + 0.1, true, false
+	Cut external, -20, Floor(0).Base, -%2% - 0.1, -10, Floor(2).Altitude, -%2% + 0.1, true, false
+	Cut external, 40, Floor(0).Base, -%2% - 0.1, 50, Floor(2).Altitude, -%2% + 0.1, true, false
+	Cut external, 70, Floor(0).Base, -%2% - 0.1, 80, Floor(2).Altitude, -%2% + 0.1, true, false
+
+	#East side
+	Cut external, %1% - 0.1, Floor(0).Base, -40, %1% + 0.1, Floor(2).Altitude, -30, true, false
+	Cut external, %1% - 0.1, Floor(0).Base, -20, %1% + 0.1, Floor(2).Altitude, -10, true, false
+
+
 <Floor 0>
 	WallTex()
+	
+	#Lobby windows
+	Set WinPrefix = Lobby
+	Set winheight = %height% + Floor(1).FullHeight
+
+		#Front
+		SetAutoSize = true, false
+		AddCustomWindows(FrontLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -50, -%2%, -40, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		AddCustomWindows(FrontLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -20, -%2%, -10, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		AddCustomWindows(FrontLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, 40, -%2%, 50, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		AddCustomWindows(FrontLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, 70, -%2%, 80, -%2%, %winheight%, 0, 0, 3, ExtFacade, %6%)
+
+		#Right
+		AddCustomWindows(RightLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -40, %1%, -30, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		AddCustomWindows(RightLobbyWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -20, %1%, -10, %winheight%, 0, 0, 3, ExtFacade, %6%)
+		SetAutoSize = true, true
 
 	### East Entrance Doors ###
 	Set MainZ = -35
