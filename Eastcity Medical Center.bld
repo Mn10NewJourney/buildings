@@ -60,6 +60,7 @@
 	#Main textures
 		#Floors
 		Load data/checker08.jpg, LobbyFloor, 0.45, 0.45
+		Load data/EG881/eg881_Carpet1.jpg, LobbyFloor_West, 0.2, 0.2 #EG881
 		Load data/MT/treatment02.jpg, LobbyFloor2, 0.15, 0.15
 		Load data/Carpet0013b_S.jpg, WardFloor, 0.2, 0.2
 		Load data/floor065.jpg, SummitFloor, 0.25, 0.25
@@ -296,7 +297,7 @@
 			AddText Sign_LB_Long, Sign_X-Ray, nimbus_sans_bold.ttf, 90, X-Ray Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 			#1st floor
-			AddText Sign_LB_Long, Sign_ER, nimbus_sans_bold_condensed.ttf, 80, Emergency Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_ER, nimbus_sans_bold_condensed.ttf, 90, Emergency Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 			#2nd floor
 			AddText Sign_LB_Long, Sign_F2_Clinic1_Temp, nimbus_sans_bold.ttf, 80, Health Check-up, 0, 30, 1024, 128, center, center, 0, 0, 0, false
@@ -1544,8 +1545,18 @@ Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
 
 
 <Floor 0>
-	WallTex()
+	WallTex() #Set wall textures
 	
+	#Flooring at elevator lobby
+	CutAll -%1%, %interfloorheight% - 0.1, -%2%, -60, %interfloorheight% + 0.1, 0, false, true
+
+		#Floor creation
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		AddFloor LobbyFloor_TR1, BlackTrim, 0.5, -60 - 0.2, -%2%, -60, 0, 0, 0, 0, 0, false
+		AddFloor LobbyFloor_TR2, BlackTrim, 0.5, -%1%, 0 - 0.2, -60 - 0.2, 0, 0, 0, 0, 0, false
+		AddFloor LobbyFloor_Main, LobbyFloor_West, 0.5, -%1%, -%2%, -60 - 0.2, 0 - 0.2, 0, 0, 0, 0, false
+
 	#Lobby windows
 	Set WinPrefix = Lobby
 	Set winheight = %height% + Floor(1).FullHeight
