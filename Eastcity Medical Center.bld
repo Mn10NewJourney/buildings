@@ -7,12 +7,23 @@
 	#<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
 	<Include buildings/Mn10_Scripts/Windows.txt>
 
+	#Include ObjectPlus and SROC (credit to EG881)
+	#<Include ObjectPlus/Scripts/OP_Script2.txt>
+	<Include SROC/Scripts/r1_script.txt>
+
 	#2. my previous scripts
 	<Include Deco2011/Scripts/r4_script.txt>
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
 	<Include data/Hitachi Modern Traditional/Scripts/Indicators.txt>
-	
+
+#Add buildings
+<Buildings>
+	Load EMC - Parking Garage.bld, -15, 0, 225, 0, -105 - 5, 0, -100 - 5, 105 + 45, 0, 100 + 5
+<EndBuildings>
+
+##--------------------------------------------------------------------------------##
+
 #Globals
 <Globals>
     Name = Eastcity Medical Center
@@ -24,6 +35,8 @@
     CameraRotation = 0, 0, 0
 <EndGlobals>
 
+##--------------------------------------------------------------------------------##
+
 #Textures
 <Textures>
 	#Misc textures
@@ -32,9 +45,23 @@
 
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
-	#Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+
+		#Plants
+		Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+
+		#Roads
+		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+		Load data/Melvin/Roads/2lane-twoway.png, N-SRoad, 0.05, 0.0416 #North and south of building (Running in east-west direction)
+		Load data/Melvin/Roads/2lane-oneway.png, N-SRoad-1W, 0.05, 0.0416
+		Load data/Melvin/Roads/2lane-twoway-90de.png, W-ERoad, 0.0416, 0.05 #East and west of building (Running in north-south direction)
+		Load data/Melvin/Roads/2lane-oneway-90de.png, W-ERoad-1W, 0.0416, 0.05
+
+		#Load data/Melvin/Roads/2lane-twoway-90de.png, PGAccessRoad, 0.0333, 0.05 #30 ft. width
+		Load data/Melvin/Roads/2lane-oneway-90de.png, PGAccessRoad-1W, 0.0333, 0.05 #30 ft. width
 
 	#External facade and concrete
 	Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.075, 0.075, true #EG881
@@ -496,11 +523,134 @@
 Set 1 = 120 #Building Dimension X
 Set 2 = 60 #Building Dimension Z
 
-Cut Landscape, -120 - 10, -1, -60 - 30, 120 + 15, 1, 60 + 10, false, true
-AddFloor landscape, Sidewalk, SidewalkDarker, 0, -120 - 10, -60, 120 + 15, 60 + 10, 0, 0, 0, 0
-AddFloor landscape, Sidewalk2, Sidewalk, 0, -120 - 10, -60 - 30, 120 + 15, -60, 0, 0, 0, 0
-Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
+Cut Landscape, -120 - 10 - 24 - 10, -1, -60 - 30, 120 + 15, 1, 60 + 10 + 24, false, true #Main cuts
+DrawWalls = true, true, false, false, false, false
 
+	#Hospital Building Filler (Hashed out when the hospital bldg. is loaded)
+	AddFloor landscape, HBFiller, ServiceFloor, 0, -120, -60, 120, 60, 0, 0, 0, 0
+
+	#Front perimeter floors
+	AddFloor landscape, FrontFloor, Sidewalk, 0, -120, -60 - 6, 80 + 6, -60, 0, 0, 0, 0
+	AddFloor landscape, FrontFloor2, Sidewalk, 0, 80, -60 - 6 - 24, 80 + 6, -60 - 6, 0, 0, 0, 0
+	AddFloor landscape, FrontRoad, N-SRoad-1W, 0, -120 - 10, -60 - 30, 80 - 24, -60 - 6, 0, 0, 0, 0
+	AddFloor landscape, FrontRoad2, Road, 0, -120 - 10 - 24, -60 - 30, -120 - 10, -60 - 6, 0, 0, 0, 0
+	AddFloor landscape, FrontRoad3, Road, 0, 80 - 24, -60 - 30, 80, -60 - 6, 0, 0, 0, 0
+	AddFloor landscape, FrontGrass, Grass, 0, 80 + 6, -60 - 30, 120 + 15, -60, 0, 0, 0, 0
+
+	#Left perimeter floors
+	AddFloor landscape, LeftFloor, Sidewalk, 0, -120 - 10, -60 - 6, -120, 60 + 10, 0, 0, 0, 0
+	AddFloor landscape, LeftEdgeSidewalk, Sidewalk, 0, -120 - 10 - 34, -60 - 30, -120 - 10 - 24, 60 + 10 + 24, 0, 0, 0, 0
+
+	AddFloor landscape, LeftRoad, W-ERoad, 0, -120 - 10 - 24, -60 - 6, -120 - 10, 60 + 10, 0, 0, 0, 0
+
+	#Right perimeter floors
+	AddFloor landscape, RightGrass1, Grass, 0, 120, -60, 120 + 15, -40, 0, 0, false, true, 0, 0
+	AddFloor landscape, RightGrass2, Grass, 0, 120, -30, 120 + 15, -10, 0, 0, false, true, 0, 0
+	AddFloor landscape, RightGrass3, Grass, 0, 120, 0, 120 + 15, 60, 0, 0, false, true, 0, 0
+	AddFloor landscape, RightSidewalk1, Sidewalk, 0, 120, -40, 120 + 15, -30, 0, 0, false, true, 0, 0
+	AddFloor landscape, RightSidewalk2, Sidewalk, 0, 120, -10, 120 + 15, 0, 0, 0, false, true, 0, 0
+
+	#Back perimeter floors
+	AddFloor landscape, BackFloor, Sidewalk, 0, -120, 60, 120 + 15, 60 + 10, 0, 0, 0, 0
+	AddFloor landscape, BackRoad1, N-SRoad, 0, -120 - 10, 70, 135, 70 + 24, 0, 0, 0, 0
+	AddFloor landscape, BackRoad2, Road, 0, -120 - 10 - 24, 70, -120 - 10, 70 + 24, 0, 0, 0, 0
+
+	#AddFloor landscape, BackRoad3, N-SRoad, 0, -120 - 10, 70, -120, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad4, N-SRoad, 0, -90, 70, 0, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad5, N-SRoad, 0, 30, 70, 60, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad6, N-SRoad, 0, 90, 70, 135, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad7, Road, 0, -120, 70, -90, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad8, Road, 0, 0, 70, 30, 70 + 24, 0, 0, 0, 0
+	#AddFloor landscape, BackRoad9, Road, 0, 60, 70, 90, 70 + 24, 0, 0, 0, 0
+
+####================================####
+
+#Parking garage access driveways
+Cut Landscape, -120, -1, 94, -120 + 30, 1, 225 - 105, false, true #West driveway
+Cut Landscape, 0, -1, 94, 30, 1, 225 - 105, false, true #East driveways
+Cut Landscape, 60, -1, 94, 90, 1, 225 - 105, false, true #East driveways
+
+AddFloor landscape, PGWestDriveway, PGAccessRoad-1W, 0, -120, 94, -120 + 30, 225 - 105, 0, 0, 0, 0
+AddFloor landscape, PGEastDriveway1, PGAccessRoad-1W, 0, 0, 94, 30, 225 - 105, 0, 0, 0, 0
+AddFloor landscape, PGEastDriveway2, PGAccessRoad-1W, 0, 60, 94, 90, 225 - 105, 0, 0, 0, 0
+
+#Extra cuts for north sidewalks
+Cut Landscape, -164, -1, 94, -120, 1, 100, false, true
+Cut Landscape, -90, -1, 94, 0, 1, 100, false, true
+Cut Landscape, 30, -1, 94, 60, 1, 100, false, true
+Cut Landscape, 90, -1, 94, 135, 1, 100, false, true
+
+AddFloor landscape, NorthSidewalk1, Sidewalk, 0, -164, 94, -120, 100, 0, 0, 0, 0
+AddFloor landscape, NorthSidewalk2, Sidewalk, 0, -90, 94, 0, 100, 0, 0, 0, 0
+AddFloor landscape, NorthSidewalk3, Sidewalk, 0, 30, 94, 60, 100, 0, 0, 0, 0
+AddFloor landscape, NorthSidewalk4, Sidewalk, 0, 90, 94, 135, 100, 0, 0, 0, 0
+
+####================================####
+
+
+#SIDEWALK CUTS FOR DRIVEWAYS
+#6th Street West Driveway Cuts
+Cut Landscape, -154, -1, -105, -130, 1, -90, false, true
+Cut Landscape, -154, -1, -105 - 0.1, -130, 1, -105 + 0.1, true, false
+Cut Landscape, -154, -1, -90 - 0.1, -130, 1, -90 + 0.1, true, false
+
+#6th Street East Driveway Cuts
+Cut Landscape, 56, -1, -105, 80, 1, -90, false, true
+Cut Landscape, 56, -1, -105 - 0.1, 80, 1, -105 + 0.1, true, false
+Cut Landscape, 56, -1, -90 - 0.1, 80, 1, -90 + 0.1, true, false
+
+	#Driveways
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, 6thStreetWestDriveway, Road, 0, -154, -105, -130, -90, Floor(0).Base - 0.5, Floor(0).Base, false, false, 0, 0	
+	AddFloor landscape, 6thStreetWestDriveway, Road, 0, 56, -105, 80, -90, Floor(0).Base - 0.5, Floor(0).Base, false, false, 0, 0	
+
+	#Sidewalk fillers
+	DrawWalls = true, true, false, false, false, false
+	AddWall landscape, 6thStreet_WF1, Sidewalk, 0, -154, -105, -154, -90, 0.5, 0.5, -0.5, -0.5, 0, 0
+	AddWall landscape, 6thStreet_WF2, Sidewalk, 0, -130, -105, -130, -90, 0.5, 0.5, -0.5, -0.5, 0, 0
+	AddWall landscape, 6thStreet_EF1, Sidewalk, 0, 56, -105, 56, -90, 0.5, 0.5, -0.5, -0.5, 0, 0
+	AddWall landscape, 6thStreet_EF2, Sidewalk, 0, 80, -105, 80, -90, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+
+#Tranquility Street Driveway Cuts
+Cut Landscape, 135, -1, 70, 150, 1, 94, false, true
+Cut Landscape, 135 - 0.1, -1, 70, 135 + 0.1, 1, 94, true, false
+Cut Landscape, 150 - 0.1, -1, 70, 150 + 0.1, 1, 94, true, false
+
+	#Driveways
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, TranquilityStreetDriveway, Road, 0, 135, 70, 150, 94, Floor(0).Base, Floor(0).Base - 0.5, true, false, 0, 0	
+
+####================================####
+
+#TREES
+	#Trees at southeast corner
+	AddTree(Tree2, 95, -75, 12, 16, Floor(0).Base)
+	AddTree(Tree2, 95 + 15, -75, 12, 16, Floor(0).Base)
+	AddTree(Tree2, 95 + 30, -75, 12, 16, Floor(0).Base)
+
+	#Trees at east edge
+	AddTree(Tree1, 120 + 7.5, -50, 10, 11.25, Floor(0).Base)
+	AddTree(Tree1, 120 + 7.5, -20, 10, 11.25, Floor(0).Base)
+	AddTree(Tree1, 120 + 7.5, 7.5, 10, 11.25, Floor(0).Base)
+	AddTree(Tree1, 120 + 7.5, 7.5 + 15, 10, 11.25, Floor(0).Base)
+	AddTree(Tree1, 120 + 7.5, 7.5 + 30, 10, 11.25, Floor(0).Base)
+	AddTree(Tree1, 120 + 7.5, 7.5 + 45, 10, 11.25, Floor(0).Base)
+
+	#Trees at western road
+	AddTree(Tree1, -175, -78, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 15, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 30, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 45, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 60, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 75, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 90, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 105, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 120, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 135, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -175, -78 + 150, 13.5, 12, Floor(0).Base)
+
+<End>
 #Functions
 #Windows functions
 <Function WindowsX2>
@@ -1541,7 +1691,7 @@ Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
 
 	#East side
 	Cut external, %1% - 0.1, Floor(0).Base, -40, %1% + 0.1, Floor(2).Altitude, -30, true, false
-	Cut external, %1% - 0.1, Floor(0).Base, -20, %1% + 0.1, Floor(2).Altitude, -10, true, false
+	Cut external, %1% - 0.1, Floor(0).Base, -10, %1% + 0.1, Floor(2).Altitude, 0, true, false
 
 
 <Floor 0>
@@ -1581,7 +1731,7 @@ Cut Landscape, -120, -1, -60, 120, 1, 60, false, true
 	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
 	AddExternalDoor , , false, Door88Trans_Int, 0.2, 2, 75, %1%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
 
-	Set MainZ = -15
+	Set MainZ = -5
 	WallOrientation = right
 	TextureOverride Door88Trans_Int, Door88Trans_Ext, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side, Door88Trans_Side
 	AddExternalDoor , , false, Door88Trans_Int, 0.2, 3, 75, %1%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
