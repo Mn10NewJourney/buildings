@@ -15,7 +15,7 @@
 
 	#Add all builings
 	Load DRH - Parking Garage.bld, -145, 0, 220, 0, -75 - 15, 0, -60 - 15, 75 + 15, 0, 60 + 90 + 10
-	Load DRH - San Rafael Building.bld, 145, 0, 220, 0, -75 - 15, 0, -45 - 30, 75 + 15, 0, 45 + 15
+	Load DRH - San Rafael Building.bld, 145, 0, 220, 0, -75 - 15, 0, -45 - 30, 75 + 15, 0, 45 + 115
 	Load DRH - San Francisco Building.bld, 0, 0, 0, 0, -140 - 10, 0, -90, 140 + 10, 0, 90 + 10
 <EndBuildings>
 
@@ -47,10 +47,10 @@
 		#Plants
 		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
 		#Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass_Light, 0.005, 0.005
-		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		#Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
-		Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+		#Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
 
 		#Roadways
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04	
@@ -96,8 +96,18 @@ Set InDRH = true
 
 #Cut landscape for the hospital
 Cut Landscape, -235, -1, -90, 235, 1, 90 + 10 + 30 + 15, false, true #SF Bldg.
-Cut Landscape, 145 - 90, -1, 220 - 75, 145 + 90, 1, 220 + 60, false, true #SR Bldg.
+Cut Landscape, 145 - 90, -1, 220 - 75, 145 + 90, 1, 220 + 45 + 115, false, true #SR Bldg.
 Cut Landscape, -145 - 90, -1, 220 - 75, -145 + 90, 1, 220 + 160, false, true #Parking Garage
+
+#Northern path between SR Bldg. and Parking Garage
+Cut Landscape, -145 + 90, -1, 220 + 102.5 - 10, 145 - 90, 1, 220 + 102.5 + 10, false, true
+Cut Landscape, 15, -1, 220 + 112.5, 35, 1, 220 + 160, false, true #North branch path to Northcity Street
+Cut Landscape, 15, -1, 220 - 75, 35, 1, 220 + 92.5, false, true #South branch path to SF Bldg.
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, SR_PGPath, Sidewalk, 0.5, -145 + 90, 220 + 92.5, 145 - 90, 220 + 112.5, 0, 0, 0, 0
+AddFloor landscape, BranchPathtoNorthcitySt., Sidewalk, 0.5, 15, 220 + 112.5, 35, 220 + 160, 0, 0, 0, 0
+AddFloor landscape, BranchPathtoSFBldg., Sidewalk, 0.5, 15, 220 - 75, 35, 220 + 92.5, 0, 0, 0, 0
 
 #Sidewalks around SF Building
 FloorOrientation = top
@@ -109,6 +119,20 @@ DrawWalls = true, true, true, true, true, true
 AddFloor landscape, SidewalkRight_Extra1, Sidewalk, 0.5, 150, 100 - 20, 180, 100, 0, 0, 0, 0
 AddFloor landscape, SidewalkRight_Extra2, Sidewalk, 0.5, 150, -90, 180, -90 + 20, 0, 0, 0, 0
 #AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0, 0, 0, 0
+
+#Trees at SR-PG Path
+	#Western branch path to SR Bldg.
+	AddTree(Tree1, 0 - 45, 220 + 85, 13.5, 12, 0)
+	AddTree(Tree1, 0 - 30, 220 + 85, 13.5, 12, 0)
+	AddTree(Tree1, 0 - 15, 220 + 85, 13.5, 12, 0)
+	AddTree(Tree1, 0, 220 + 85, 13.5, 12, 0)
+	AddTree(Tree1, 0 + 45, 220 + 85, 13.5, 12, 0)
+	
+	AddTree(Tree1, 0 - 45, 220 + 120, 13.5, 12, 0)
+	AddTree(Tree1, 0 - 30, 220 + 120, 13.5, 12, 0)
+	AddTree(Tree1, 0 - 15, 220 + 120, 13.5, 12, 0)
+	AddTree(Tree1, 0, 220 + 120, 13.5, 12, 0)
+	AddTree(Tree1, 0 + 45, 220 + 120, 13.5, 12, 0)
 
 #Plazas
 DrawWalls = true, true, true, true, true, true
