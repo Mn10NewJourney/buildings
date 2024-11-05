@@ -375,12 +375,34 @@
 	#Ground cuts for building
 	Set 1 = 120 #Building Dimension X
 	Set 2 = 60 #Building Dimension Z
-	Cut Landscape, -%1% - 10, -1, -%2% - 20, %1% + 20, 1, %2% + 10, false, true
+	Cut Landscape, -%1% - 10 - 140, -1, -%2% - 20, %1% + 20, 1, %2% + 10 + 230, false, true
+
+	#Parking lot
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, WestParkingLot, Road, 0, -%1% - 10 - 140, -%2% - 20, -%1% - 10, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, NorthParkingLot, Road, 0, -%1% - 10 - 140, %2% + 10, %1% + 20, %2% + 10 + 230, Floor(0).Base, Floor(0).Base, 0, 0	
 
 	#Sidewalk
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, PerimeterSidewalk, SidewalkDarker, 0, -%1% - 10, -%2% - 20, %1% + 20, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
 	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
+
+
+###************###
+
+#Sidewalk cuts for 2nd Street driveway
+Cut Landscape, -205 - 15, -1, -95, -205 + 15, 1, -80, false, true
+Cut Landscape, -205 - 15, -1, -95 - 0.1, -205 + 15, 1, -95 + 0.1, true, false
+Cut Landscape, -205 - 15, -1, -80 - 0.1, -205 + 15, 1, -80 + 0.1, true, false
+
+DrawWalls = false, true, false, false, false, false
+AddFloor landscape, 2ndStreetDriveway, Road, 0, -205 - 15, -95, -205 + 15, -80, Floor(0).Base - 0.5, Floor(0).Base, false, false, 0, 0	
+
+	#Sidewalk fillers
+	DrawWalls = false, true, false, false, false, false
+	AddWall landscape, 2ndStreetDW_SWF1, Sidewalk, 0, -205 - 15, -95, -205 - 15, -80, 0.5, 0.5, -0.5, -0.5, 0, 0
+	DrawWalls = true, false, false, false, false, false
+	AddWall landscape, 2ndStreetDW_SWF2, Sidewalk, 0, -205 + 15, -95, -205 + 15, -80, 0.5, 0.5, -0.5, -0.5, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -529,7 +551,49 @@
 		TextureOverride %DTex%, %DTex_Ext%_Key, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
-		#2. South doors
+		#2. West doors
+		#Access point W1
+		Set Door_MainX = -%1%
+		Set Door_MainZ = 5
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%_Key, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Access point W2
+		Set Door_MainX = -%1%
+		Set Door_MainZ = -5
+		
+		WallOrientation = left
+		TextureOverride %DTex_Ext%_Key, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#3. North doors
+		#Access point N1
+		Set Door_MainX = -25
+		Set Door_MainZ = %2%
+		
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%_Key, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Access point N2
+		Set Door_MainX = -15
+		Set Door_MainZ = %2%
+		
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%_Key, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#4. South doors
 		#Access point S1
 		Set Door_MainX = -25
 		Set Door_MainZ = -%2%
