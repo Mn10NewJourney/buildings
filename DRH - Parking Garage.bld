@@ -57,6 +57,9 @@
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
 		Load data/EG881/paint_white.png, WhiteLine, 1, 1, false #EG881
 
+		#Barrier at certain wall openings
+		Load data/panel-back3.jpg, Barrier, 1, 1, false
+
 	########################################
 
 	#Windows
@@ -667,10 +670,18 @@ Set ExtraNorth = 90 #Extra length on the north side
 	Set Offset = %interfloorheight% + 0.01
 
 		#Spacers
-		if[%floor% = 2] AddFloor P3_EntDoorSpacer, NoParkingZ, 0, 75 - 4.5, -10, 75 - 0.5, 10, %Offset%, %Offset%, 1, 2, true
+		if[%floor% = 0] AddFloor %floorid%_PathAccessSpacer, NoParkingZ, 0, 75 - 4.5, 87.5, 75, 112.5, %Offset%, %Offset%, 1, 2, true
+		if[%floor% = 2] AddFloor %floorid%_EntDoorSpacer, NoParkingZ, 0, 75 - 4.5, -10, 75 - 0.5, 10, %Offset%, %Offset%, 1, 2, true
 		AddFloor EastSTSpacer, NoParkingZ, 0, 75 - 4.5, 75 - 12.5, 75 - 0.5, 75 - 12.5 + 7.5, %Offset%, %Offset%, 1, 1, true
 		AddFloor WestSTSpacer, NoParkingZ, 0, -75 + 0.5, -15 + 12.5 - 7.5, -75 + 4.5, -15 + 12.5, %Offset%, %Offset%, 1, -1, true
 <EndFloors>
+
+<Floor 0>
+	#Barriers at northeast wall opening
+	CreateWallBox2 external, BarrierA1, Barrier, 73.125, 111, 0.75, 0.75, 3.5, 0, 0, 0, false, true, true, false
+	CreateWallBox2 external, BarrierA2, Barrier, 73.125, 111 - 8, 0.75, 0.75, 3.5, 0, 0, 0, false, true, true, false
+	CreateWallBox2 external, BarrierA3, Barrier, 73.125, 111 - 16, 0.75, 0.75, 3.5, 0, 0, 0, false, true, true, false
+<EndFloor>
 
 #Bridge to San Francisco and San Rafael Buildings
 Set BHeight = 9.5 #Bridge's ceiling height
