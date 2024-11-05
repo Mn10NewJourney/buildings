@@ -44,6 +44,7 @@
 	#Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
 	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
 
 	########################################
 
@@ -300,12 +301,20 @@ Set 2 = 40 #Building Dimension Z
 	AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 	Cut Landscape, -%1% - 15, -1, -%2% - 5, %1% + 5, 1, %2% + 5, false, true
 
-	#Sidewalk
+	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, FrontSidewalk, Sidewalk, 0, -%1%, -%2% - 5, %1%, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, LeftSidewalk, Sidewalk, 0, -%1% - 15, -%2% - 5, -%1%, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, RightSidewalk, Sidewalk, 0, %1%, -%2% - 5, %1% + 5, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, BackSidewalk, Sidewalk, 0, -%1%, %2%, %1%, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, FrontSidewalk, Sidewalk, 0, -25, -%2% - 5, 55, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, FrontGrass1, Grass, 0, -%1%, -%2% - 5, -25, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, FrontGrass2, Grass, 0, 55, -%2% - 5, %1%, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+
+	AddFloor landscape, LeftSidewalk, Sidewalk, 0, -%1% - 15, -10, -%1%, 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftGrass1, Grass, 0, -%1% - 15, -%2% - 5, -%1%, -10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftGrass2, Grass, 0, -%1% - 15, 10, -%1%, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, RightGrass, Grass, 0, %1%, -%2% - 5, %1% + 5, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+
+	AddFloor landscape, BackSidewalk, Sidewalk, 0, -55, %2%, 0, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackGrass1, Grass, 0, -%1%, %2%, -55, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackGrass2, Grass, 0, 0, %2%, %1%, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
 
 	#Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true	
 	
@@ -753,7 +762,7 @@ ShowFullStairs 1 = always
 		SetLock 2, 0
 		WallOrientation = right
 		TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 6, 75, %23% - 2, %24% + 0.5, 3, 7, 0, 0, 0
+		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, %23% - 2, %24% + 0.5, 3, 7, 0, 0, 0
 		SetLock 0, 0
 
 		#Manual fillers (external mesh)
@@ -839,7 +848,7 @@ ShowFullStairs 2 = always
 		SetLock 1, 0
 		WallOrientation = left
 		TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 8, 75, -%23% + 2, -%24% - 0.5, 3, 7, 0, 0, 0
+		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, -%23% + 2, -%24% - 0.5, 3, 7, 0, 0, 0
 		SetLock 0, 0
 
 		#Manual fillers (external mesh)
