@@ -782,32 +782,34 @@
 	#Landscape cuts for building
 	Set 1 = 135 #Building Dimension X
 	Set 2 = 75 #Building Dimension Z
-	Cut Landscape, -%1% - 65, -1, -%2% - 50, %1% + 15, 1, %2% + 65, false, true
+	Cut Landscape, -%1% - 65, -1, -%2% - 50, %1%, 1, %2%, false, true
 	
 	#****************************************#
 
-	#Sidewalk
+	#Sidewalks
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, PerimeterSidewalk, Sidewalk, 0, -%1% - 15, -%2% - 15, %1% + 15, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0
-	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
-	Cut Landscape, 150, Floor(0).Base - 1, -20, 270, Floor(0).Base + 1, 45, false, true
+	Cut Landscape, 135, Floor(0).Base - 1, -20, 270, Floor(0).Base + 1, 45, false, true #Cut for "EastEntSidewalk"
 
-	AddFloor landscape, WestEntSidewalk1, Sidewalk, 0,  -%1% - 65, 45 - 15, -%1% - 15, 45, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, WestEntSidewalk2, SidewalkDarker, 0,  -%1% - 65, -15 + 15, -%1% - 15, 45 - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, WestEntSidewalk3, Sidewalk, 0,  -%1% - 65, -15, -%1% - 15, -15 + 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SouthEntSidewalk1, Sidewalk, 0, -70 - 7.5, -%2% - 50, -70 + 7.5, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SouthEntSidewalk2, Sidewalk, 0, -15, -%2% - 50, 15, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SouthEntSidewalk3, Sidewalk, 0, 70 - 7.5, -%2% - 50, 70 + 7.5, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, EastEntSidewalk, Sidewalk, 0, 150, -20, 270, 45, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+	AddFloor landscape, WestEntSidewalk1, Sidewalk, 0,  -%1% - 65, 45 - 15, -%1%, 45, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestEntSidewalk2, SidewalkDarker, 0,  -%1% - 65, -15 + 15, -%1%, 45 - 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestEntSidewalk3, Sidewalk, 0,  -%1% - 65, -15, -%1%, -15 + 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthEntSidewalk1, Sidewalk, 0, -70 - 7.5, -%2% - 50, -70 + 7.5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthEntSidewalk2, Sidewalk, 0, -15, -%2% - 50, 15, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthEntSidewalk3, Sidewalk, 0, 70 - 7.5, -%2% - 50, 70 + 7.5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastEntSidewalk1, Sidewalk, 0, 135, -20, 270, -20 + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+	AddFloor landscape, EastEntSidewalk2, Sidewalk, 0, 135, -20 + 10, 270, 45 - 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+	AddFloor landscape, EastEntSidewalk3, Sidewalk, 0, 135, 45 - 10, 270, 45, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 
 	#****************************************#
 
 	#Additional pathways after North Wing's creation
 	DrawWalls = false, true, false, false, false, false
-	Cut Landscape, -120, Floor(0).Base - 1, 140, -90, Floor(0).Base + 1, 186, false, true #South-North Wings
+	Cut Landscape, -105, Floor(0).Base - 1, 75, -85, Floor(0).Base + 1, 95, false, true #South-North Wings (1)
+	Cut Landscape, -120, Floor(0).Base - 1, 140, -90, Floor(0).Base + 1, 186, false, true #South-North Wings (2)
 	Cut Landscape, -90, Floor(0).Base - 1, 305, -60, Floor(0).Base + 1, 345, false, true #North Wing-4th Street
 
-	AddFloor landscape, Pathway_S&NWings, Sidewalk, 0, -120, 140, -90, 186, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Pathway_SNWings1, Sidewalk, 0, -105, 75, -85, 95, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, Pathway_SNWings2, Sidewalk, 0, -120, 140, -90, 186, Floor(0).Base, Floor(0).Base, 0, 0
 	AddFloor landscape, Pathway_NWing_4thStreet, Sidewalk, 0, -90, 305, -60, 345, Floor(0).Base, Floor(0).Base, 0, 0
 
 	#****************************************#
@@ -832,41 +834,46 @@
 
 	#Grass
 	DrawWalls = false, true, false, false, false, false
-	Cut Landscape, 55, Floor(0).Base - 1, %2% + 10, %1% + 15, Floor(0).Base + 1, 135 + 5, false, true
-	AddFloor landscape, NEGrass, Grass, 0, 55, %2% + 10, %1% + 15, 135 + 5, Floor(0).Base, Floor(0).Base, 0, 0
+	Cut Landscape, 55, Floor(0).Base - 1, %2%, %1%, Floor(0).Base + 1, 135 + 5, false, true
+	AddFloor landscape, NEGrass, Grass, 0, 55, %2%, %1%, 135 + 5, Floor(0).Base, Floor(0).Base, 0, 0
 
-	AddFloor landscape, WGrass1, Grass, 0, -%1% - 65, -%2% - 50, -%1% - 15, -15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, WGrass2, Grass, 0, -%1% - 65, 45, -%1% - 15, 85, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WGrass1, Grass, 0, -%1% - 65, -%2% - 50, -%1%, -15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WGrass2, Grass, 0, -%1% - 65, 45, -%1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0
 
-	AddFloor landscape, SGrass1, Grass, 0, -%1% - 15, -%2% - 50, -70 - 7.5, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SGrass2, Grass, 0, -70 + 7.5, -%2% - 50, -15, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SGrass3, Grass, 0, 15, -%2% - 50, 70 - 7.5, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
-	AddFloor landscape, SGrass4, Grass, 0, 70 + 7.5, -%2% - 50, %1% + 15, -%2% - 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SGrass1, Grass, 0, -%1%, -%2% - 50, -70 - 7.5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SGrass2, Grass, 0, -70 + 7.5, -%2% - 50, -15, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SGrass3, Grass, 0, 15, -%2% - 50, 70 - 7.5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SGrass4, Grass, 0, 70 + 7.5, -%2% - 50, %1%, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
 
 	#****************************************#
 
 	#Trees
 	#Trees at west entrances
-		AddTree(Tree1, -160, 45 + 10, 13.5, 12, 0)
-		AddTree(Tree2, -160 - 20, 45 + 10, 12, 16, 0)
-		AddTree(Tree1, -160, -15 - 10, 13.5, 12, 0)
-		AddTree(Tree2, -160 - 20, -15 - 10, 12, 16, 0)
+		AddTree(Tree2, -150 - 30, 45 + 10, 12, 16, 0)
+		AddTree(Tree2, -150 - 15, 45 + 10, 12, 16, 0)
+		AddTree(Tree2, -150, 45 + 10, 12, 16, 0)
+		AddTree(Tree2, -150 - 30, -15 - 10, 12, 16, 0)
+		AddTree(Tree2, -150 - 15, -15 - 10, 12, 16, 0)
+		AddTree(Tree2, -150, -15 - 10, 12, 16, 0)
 
 	#Trees at south entrances
 		#West
 		AddTree(Tree1, -70 - 7.5 - 10, -107.5, 13.5, 12, 0)
-		#AddTree(Tree1, -70 + 7.5 + 10, -107.5, 13.5, 12, 0)
+		AddTree(Tree1, -70 - 7.5 - 10, -107.5 + 15, 13.5, 12, 0)
 
 		#Center
-		AddTree(Tree1, -15 - 10, -107.5, 13.5, 12, 0)
-		AddTree(Tree1, 15 + 10, -107.5, 13.5, 12, 0)
+		AddTree(Tree2, -15 - 10, -107.5, 12, 16, 0)
+		AddTree(Tree2, -15 - 10, -107.5 + 15, 12, 16, 0)
+		AddTree(Tree2, 15 + 10, -107.5, 12, 16, 0)
+		AddTree(Tree2, 15 + 10, -107.5 + 15, 12, 16, 0)
 
 		#East
-		#AddTree(Tree1, 70 - 7.5 - 10, -107.5, 13.5, 12, 0)
 		AddTree(Tree1, 70 + 7.5 + 10, -107.5, 13.5, 12, 0)
+		AddTree(Tree1, 70 + 7.5 + 10, -107.5 + 15, 13.5, 12, 0)
 		
 	#Trees at east entrances
 		#North
+		AddTree(Tree1, 165 - 15, 45 + 10, 13.5, 12, 0)
 		AddTree(Tree1, 165, 45 + 10, 13.5, 12, 0)
 		AddTree(Tree1, 165 + 15, 45 + 10, 13.5, 12, 0)
 		AddTree(Tree1, 165 + 30, 45 + 10, 13.5, 12, 0)
@@ -876,6 +883,7 @@
 		AddTree(Tree1, 165 + 90, 45 + 10, 13.5, 12, 0)
 
 		#South
+		AddTree(Tree1, 165 - 15, -20 - 10, 13.5, 12, 0)
 		AddTree(Tree1, 165, -20 - 10, 13.5, 12, 0)
 		AddTree(Tree1, 165 + 15, -20 - 10, 13.5, 12, 0)
 		AddTree(Tree1, 165 + 30, -20 - 10, 13.5, 12, 0)
@@ -1641,8 +1649,8 @@
 
 #Parking Ramp Cuts
 Cut External, -74, Floor(-4).Base + 1, 101.75 + 5, 44, Floor(0).Altitude + 1, 125.75 + 5, false, true
-Cut landscape, -150 - 50, -1, 85, 44, 1, 135 + 5, false, true
-Cut landscape, 44, -1, 85, 55, 1, 135 + 5, false, true
+Cut landscape, -150 - 50, -1, 95, 44, 1, 135 + 5, false, true
+Cut landscape, 44, -1, 95, 55, 1, 135 + 5, false, true
 
 <Floors -4 to -1>
 	FloorTex() #Set floor Texture
@@ -1678,9 +1686,9 @@ Cut landscape, 44, -1, 85, 55, 1, 135 + 5, false, true
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor RampConnection, ParkingRampRoad, 0.5, -150 - 50, 101.75 + 5, -74, 125.75 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor RampConnection_Sidewalk1, Sidewalk, 0.5, -150 - 50, 85, 44, 101.75 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor RampConnection_Sidewalk1, Sidewalk, 0.5, -150 - 50, 95, 44, 101.75 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor RampConnection_Sidewalk2, Sidewalk, 0.5, -150 - 50, 125.75 + 5, 44, 135 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor RampConnection_Sidewalk3, Sidewalk, 0.5, 44, 85, 55, 135 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor RampConnection_Sidewalk3, Sidewalk, 0.5, 44, 95, 55, 135 + 5, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ramp Railings
 	Set WallHeight = %interfloorheight% + 3.5
@@ -2305,14 +2313,14 @@ Cut landscape, 44, -1, 85, 55, 1, 135 + 5, false, true
 		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %1%, %MainZ% - 1.75, 3.5, 8.5, %interfloorheight%, 0, 0
 
 		#North
-		Set MainX = -40
+		Set MainX = -100
 		WallOrientation = right
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8.5, %interfloorheight%, 0, 0
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8.5, %interfloorheight%, 0, 0
 
-		Set MainX = 40
+		Set MainX = -90
 		WallOrientation = right
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8.5, %interfloorheight%, 0, 0
