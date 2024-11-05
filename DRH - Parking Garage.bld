@@ -46,7 +46,8 @@
 	#Load data/downtown.jpg, Downtown, 1, 1
 	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
 
 		#Road markings
 		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
@@ -353,14 +354,36 @@ Set ExtraNorth = 90 #Extra length on the north side
 	#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 	#Cut Landscape, -%1% - 15, -1, -%2% - 15, %1% + 15, 1, %2% + %ExtraNorth% + 10, false, true
 
-	#Sidewalk and road
+	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, FrontDriveway, Road, 0, -%1% + 30, -%2% - 15, -%1% + 90, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, FrontSidewalk1, SidewalkDarker, 0, -%1%, -%2% - 15, -%1% + 30, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, FrontSidewalk2, SidewalkDarker, 0, -%1% + 90, -%2% - 15, %1%, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, LeftSidewalk, Sidewalk, 0, -%1% - 15, -%2% - 15, -%1%, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, RightSidewalk, Sidewalk, 0, %1%, -%2% - 15, %1% + 15, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, BackSidewalk, SidewalkDarker, 0, -%1%, %2% + %ExtraNorth%, %1%, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0
+
+		#Front
+		AddFloor landscape, FrontDriveway, Road, 0, -%1% + 30, -%2% - 15, -%1% + 90, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, FrontGrass1, Grass, 0, -%1% - 15, -%2% - 15, -53, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, FrontGrass2, Grass, 0, -%1% + 90, -%2% - 15, 37, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, FrontGrass3, Grass, 0, 45, -%2% - 15, %1%, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, FrontSidewalk1, Sidewalk, 0, -53, -%2% - 15, -%1% + 30, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, FrontSidewalk2, Sidewalk, 0, 37, -%2% - 15, 45, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+
+		#Left
+		AddFloor landscape, LeftSidewalk1, Sidewalk, 0, -%1% - 15, -7.5, -%1%, -2.5, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftSidewalk2, Sidewalk, 0, -%1% - 15, 25, -%1%, 30, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftSidewalk3, Sidewalk, 0, -%1% - 15, 60, -%1%, 65, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftGrass1, Grass, 0, -%1% - 15, -%2%, -%1%, -7.5, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftGrass2, Grass, 0, -%1% - 15, -2.5, -%1%, 25, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftGrass3, Grass, 0, -%1% - 15, 30, -%1%, 60, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, LeftGrass4, Grass, 0, -%1% - 15, 65, -%1%, %2% + %ExtraNorth%, Floor(0).Base, Floor(0).Base, 0, 0	
+
+		#Right
+		AddFloor landscape, RightGrass1, Grass, 0, %1%, -47, %1% + 15, 62.5, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, RightGrass2, Grass, 0, %1% + 10, -%2% - 15, %1% + 15, -47, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, RightGrass3, Grass, 0, %1%, 112.5, %1% + 5, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, RightSidewalk1, Sidewalk, 0, %1%, -%2% - 15, %1% + 10, -47, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, RightSidewalk2, Sidewalk, 0, %1%, 62.5, %1% + 15, 112.5, Floor(0).Base, Floor(0).Base, 0, 0	
+		AddFloor landscape, RightSidewalk2, Sidewalk, 0, %1% + 5, 112.5, %1% + 15, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+
+		#Back
+		AddFloor landscape, BackGrass, Grass, 0, -%1% - 15, %2% + %ExtraNorth%, %1%, %2% + %ExtraNorth% + 10, Floor(0).Base, Floor(0).Base, 0, 0
 
 	#Cut for elevator shaft(s)
 	Cut Landscape, 60 - 14.67, Floor(0).Base - 1, -%2% - 5, 60 + 14.67, Floor(0).Base + 1, -%2%, false, true #Original elevators
