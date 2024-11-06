@@ -95,7 +95,8 @@
 			Load data/panel-back3.jpg, UHShaftDoors_Trim, 1, 1, false
 
 		#Patient room levels
-		Load data/Carpet0006_S.jpg, WardFloor, 0.2, 0.2 #Elevator lobbies + hallways to patient rooms
+		Load data/Carpet0006_S.jpg, WardFloor, 0.2, 0.2 #Hallways to patient rooms
+		Load data/Carpet0013b_S.jpg, WardFloor2, 0.2, 0.2 #Elevator lobby
 		Load data/EG881/Drywall/wall5c_bluegray.jpg, WardWall, 0.2, 0.2 #EG881 #Hallway walls
 		Load data/black_granite.jpg, WardDecoWall, 0.1, 0.1
 		Load data/EG881/ceilingtile3x3.jpg, WardCeiling, 0.125, 0.125 #EG881 #Entire floor
@@ -248,10 +249,10 @@
 	AddTextRange 1, 18, Button, Button%number%, nimbus_sans.ttf, 110, %number%, -1, -1, -1, -1, center, center, 81, 79, 80
 	AddTextRange 1, 18, ButtonLit, ButtonLit%number%, nimbus_sans.ttf, 110, %number%, -1, -1, -1, -1, center, center, 254, 249, 183
 
-	AddText Button, ButtonBTemp, nimbus_sans.ttf, 110, B, 20, 0, 156, 256, center, center, 81, 79, 80
-	AddText ButtonLit, ButtonLitBTemp, nimbus_sans.ttf, 110, B, 20, 0, 156, 256, center, center, 254, 249, 183
-	AddTextRange 1, 3, ButtonBTemp, ButtonB%number%, nimbus_sans.ttf, 72, %number%, 145, 45, 190, 240, center, center, 81, 79, 80
-	AddTextRange 1, 3, ButtonLitBTemp, ButtonLitB%number%, nimbus_sans.ttf, 72, %number%, 145, 45, 190, 240, centers, center, 254, 249, 183
+	AddText Button, ButtonBTemp, nimbus_sans.ttf, 110, B, 30, 0, 156, 256, center, center, 81, 79, 80
+	AddText ButtonLit, ButtonLitBTemp, nimbus_sans.ttf, 110, B, 30, 0, 156, 256, center, center, 254, 249, 183
+	AddTextRange 1, 3, ButtonBTemp, ButtonB%number%, nimbus_sans.ttf, 72, %number%, 150, 51, 190, 240, center, center, 81, 79, 80
+	AddTextRange 1, 3, ButtonLitBTemp, ButtonLitB%number%, nimbus_sans.ttf, 72, %number%, 150, 51, 190, 240, centers, center, 254, 249, 183
 
 	Load data/Mitsubishi_MTS/256x256/ButtonOpen.jpg, ButtonOpen, 1, 1
 	Load data/Mitsubishi_MTS/256x256/ButtonClose.jpg, ButtonClose, 1, 1
@@ -468,6 +469,30 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %height%, %height%, 0, 0, false
 <EndFloors>
 
+<Floors -3 to -1>
+	#Railings/walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %height%
+	Set WallOffset = 0
+
+		#Set DrawWalls for Front/Left sides
+		DrawWalls = false, true, false, false, false, false
+
+		WallOrientation = left
+		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+		#Set DrawWalls for Right/Back sides
+		DrawWalls = true, false, false, false, false, false
+
+		WallOrientation = right
+		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - %ExtraSouth%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% ! -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallB, %5%Wall, 0.5, -8, %2%, 8, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallC, %5%Wall, 0.5, 8, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+<EndFloors>
+
 <Floors -1 to 17>
 	TexPrefix() #Set texture prefix/suffix
 
@@ -498,6 +523,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 	#Storage doors
 	Set DTex = Door8
+	if[%floor% > 2] Set DTex = Door9b
 	if[%floor% > 8] Set DTex = ServiceDoor3
 	Set DSTex = %DTex%Side
 	
@@ -509,7 +535,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
 
-		#West storage
+		#East storage
 		Set Door_MainX = 8 + 0.5
 		Set Door_MainZ = 35 + 2
 	
@@ -520,8 +546,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 <Floor 17>
 	#Extra storage doors on Mechanical Mezzanine
-	Set DTex = Door8
-	if[%floor% > 8] Set DTex = ServiceDoor3
+	Set DTex = ServiceDoor3
 	Set DSTex = %DTex%Side
 	
 		#West storage
@@ -532,7 +557,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		AddStdDoor Floor %floor%, %floorid%_WestStrDoor2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 10, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 10, false, 0, 0, false
 
-		#West storage
+		#East storage
 		Set Door_MainX = 8 + 0.5
 		Set Door_MainZ = 35 + 2
 	
@@ -541,28 +566,149 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 10, false, 0, 0, false
 <EndFloor>
 
-<Floors -3 to -1>
-	#Railings/walls
+<Floors 7 to 8>
 	TexPrefix() #Set texture prefix/suffix
-	Set WallHeight = %height%
-	Set WallOffset = 0
 
-		#Set DrawWalls for Front/Left sides
-		DrawWalls = false, true, false, false, false, false
+	#Storage south of Shafts 3-4
+	Set StorageExtTex = %5%%PTSuffix%
+	Set StorageExtTex2 = %5%%PTSuffix2%
+	Set StorageIntTex = %5%Wall
 
+	DrawWalls = true, true, false, false, false, false
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddWall WestSTR3, %5%Wall, 0.5, -60, -%2%, -60, -35, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = right
+	AddWall WestSTR4, %5%Wall, 0.5, -48, -%2%, -48, -35, %height%, %height%, 0, 0, 0, 0, false
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddWall EastSTR3, %5%Wall, 0.5, 48, -%2%, 48, -35, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = right
+	AddWall EastSTR4, %5%Wall, 0.5, 60, -%2%, 60, -35, %height%, %height%, 0, 0, 0, 0, false
+
+	#====================#
+
+	#Storage doors
+	Set DTex = Door8
+	if[%floor% > 2] Set DTex = Door9b
+	if[%floor% > 8] Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+	
+		#West storage
+		Set Door_MainX = -48 - 0.5
+		Set Door_MainZ = -35 - 2
+	
 		WallOrientation = left
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
 
-		#Set DrawWalls for Right/Back sides
+		#East storage
+		Set Door_MainX = 48 + 0.5
+		Set Door_MainZ = -35 - 2
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_EastStrDoor, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
+<EndFloors>
+
+#Set door textures for restrooms
+<Function RR_DTex>
+	Set DTex = Door8
+	if[%floor% < 0] Set DTex = Door6
+	if[%floor% > 2] Set DTex = Door9b
+	Set DSTex = %DTex%Side
+<EndFunction>
+
+<Floors -3 to 8>
+	TexPrefix() #Set texture prefixes
+
+	#Restrooms
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -50, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -50, 5, -50, 35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -50, 35, -50, %2%, %height%, %height%, 0, 0, 0, 0, false
+
+	WallOrientation = right
+	Set Showext = false
+	if[%floor% < -1] Set Showext = true
+	DrawWalls = true, %Showext%, false, false, false, false
+	AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+	DrawWalls = true, true, false, false, false, false
+	AddWall Floor%floorid%Restroom_Back, %5%Wall, 0.5, -50, 35, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+
+	WallOrientation = center
+	DrawWalls = true, true, false, false, false, false
+	AddWall Floor%floorid%Restroom_Mid, %5%Wall, 0.5, -50, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, false
+
+		#Restrooms' dropped ceiling
+		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
+		AddFloor RR_DropCeiling, DropCeiling, 0.5, -50, 5, -20, 35, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+
+		#Restroom doors
+		RR_DTex() #Set door texture for restrooms
 
 		WallOrientation = right
-		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - %ExtraSouth%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		if[%floor% ! -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		if[%floor% = -1] AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		if[%floor% = -1] AddWall BackWallB, %5%Wall, 0.5, -8, %2%, 8, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		if[%floor% = -1] AddWall BackWallC, %5%Wall, 0.5, 8, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, -49.5, 20 + 2.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, -49.5, 20 - 2.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, -49.5, 20 + 2.5, 3, 7, 0, false, 0, 0, false
+		AddFillerWalls ConnectionWall, 0.5, -49.5, 20 - 2.5, 3, 7, 0, false, 0, 0, false
+	
+		#Restroom signs
+		Set BoxTex = WoodSign2
+		Set SignSuffix = _Brown
+		if[%floor% > 2] Set BoxTex = BlackTrim
+		if[%floor% > 2] Set SignSuffix = _Gray
+
+			#Signs at hallways
+			AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, false, true, true, -49.75, 5 - 0.75, 1.5, 1.5, 8, false)
+
+			#Signs above doors
+			AddBoxSign(RR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, false, true, true, -50 - 0.025, 20 + 2.5, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, false, true, true, -50 - 0.025, 20 - 2.5, 1.25, 1.25, 7.25, false)
+
+	#Doors for storage next to restrooms
+	Set DTex = Door8
+	if[%floor% ! 0] Set DTex = Door1
+	Set DSTex = %DTex%Side
+
+		Set Door_MainX = -50 + 0.5
+		Set Door_MainZ = 35 + 2
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_EastStrDoor, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
+<EndFloors>
+
+<Floors 9 to 16>
+	TexPrefix() #Set texture prefixes
+
+	#FLOORINGS
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+
+	#Elevator lobby
+		CutAll -20, %interfloorheight% - 0.1, 5, 20, %interfloorheight% + 0.1, %2%, false, true
+		AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20, 5.2, 20, %2%, 0, 0, 0, 0, false
+		AddFloor ElevLobbyFloorTR, BlackTrim, 0.5, -20, 5, 20, 5.2, 0, 0, 0, 0, false
+		
+	#NW patient rooms
+		CutAll -%1%, %interfloorheight% - 0.1, 5.3, -20, %interfloorheight% + 0.1, %2%, false, true
+		AddFloor NWRoomFloor, %5%Floor_Int, 0.5, -%1%, 5.5, -20, %2%, 0, 0, 0, 0, false
+		AddFloor NWRoomFloorTR, BlackTrim, 0.5, -%1%, 5.3, -20, 5.5, 0, 0, 0, 0, false
+		
+	#NE patient rooms
+		CutAll 20, %interfloorheight% - 0.1, 5.3, %1%, %interfloorheight% + 0.1, %2%, false, true
+		AddFloor NERoomFloor, %5%Floor_Int, 0.5, 20, 5.5, %1%, %2%, 0, 0, 0, 0, false
+		AddFloor NERoomFloorTR, BlackTrim, 0.5, 20, 5.3, %1%, 5.5, 0, 0, 0, 0, false
+
+	#South patient rooms
+		CutAll -%1%, %interfloorheight% - 0.1, -%2%, %1%, %interfloorheight% + 0.1, -5.3, false, true
+		AddFloor SRoomFloor, %5%Floor_Int, 0.5, -%1%, -%2%, %1%, -5.5, 0, 0, 0, 0, false
+		AddFloor SRoomFloorTR, BlackTrim, 0.5, -%1%, -5.5, %1%, -5.3, 0, 0, 0, 0, false
 <EndFloors>
 
 <Floors 0 to 16>
@@ -1890,6 +2036,7 @@ AddStdShaft(4, 1, 54, -20, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 
 	#Indicator sets
 	Set Offset = 7.75
+	if[%floor% = 0] Set Offset = 8
 
 		#Indicator creation (Lobby)
 		if[%floor% = 0] MitsubishiLobbyInds(left, 10, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% + 9, %Offset%, -3, 6)
