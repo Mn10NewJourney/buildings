@@ -1,14 +1,25 @@
-#Serenity Hospital
+#Serenity Hospital - Narita Building
 #Copyright (c) 2016-Present - Mn10
 
 #Originally started on: ~18 July 2016
 #Updated 27 October 2024: Added an extra elevator and separated elevator banks for the lower and upper floors.
+
+#Include SROC (Credit to EG881)
+<Include SROC/Scripts/r1_script.txt> #EG881
 
 #Include my scripts
 <Include AutomaticDoor2013/Scripts/r3_script.txt>
 <Include Deco2011/Scripts/r4_script.txt>
 <Include Shaft Wall Creator/Scripts/r1_script.txt>
 <Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+
+
+#Add buildings
+<Buildings>
+	Load SRH - Haneda Building.bld, -20, 0, 290, 0, -100 - 6, 0, -45 - 40 - 5, 100 + 6, 0, 45 + 5
+<EndBuildings>
+
+#########################################################################
 
 #Globals
 <Globals>
@@ -40,8 +51,16 @@
 	Load data/downtown.jpg, Downtown, 1, 1
 	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/herringbone04.jpg, WoodenFloor, 0.2, 0.2
 	#Load data/stonec.jpg, Plaza, 0.04, 0.04
+
+		#Plants
+		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
+		#Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass_Light, 0.005, 0.005
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+		#Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
 
 	#Concrete
 	Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
@@ -368,7 +387,9 @@ Cut Landscape, -120 - 140, -1, -60, -120 - 10, 1, 60 + 230, false, true
 AddFloor landscape, SidewalkLeftA, Sidewalk, 0, -120 - 10, -60 - 60, -120, -60, 0, 0, 0, 0
 AddFloor landscape, SidewalkLeftB, Sidewalk, 0, -120 - 10, -10, -120, 60 + 10, 0, 0, 0, 0
 AddFloor landscape, RoadLeft, Road, 0, -120 - 10, -60, -120, -10, 0, 0, 0, 0
-AddFloor landscape, SidewalkRight, Sidewalk, 0, 120, -60 - 60, 120 + 30, 60 + 10, 0, 0, 0, 0
+AddFloor landscape, SidewalkRight, Sidewalk, 0, 120, -10, 120 + 6, 60 + 10, 0, 0, 0, 0
+AddFloor landscape, RoadRight1, Road, 0, 120 + 6, -10, 120 + 30, 60 + 10, 0, 0, 0, 0
+AddFloor landscape, RoadRight2, Road, 0, 120, -60 - 60, 120 + 30, -10, 0, 0, 0, 0
 AddFloor landscape, SidewalkBack, Sidewalk, 0, -120, 60, 120, 60 + 10, 0, 0, 0, 0
 
 #Parking lot
@@ -404,8 +425,12 @@ Cut Landscape, 90, -1, -120 - 0.1, 120, 1, -120 + 0.1, true, false
 	#Road creation
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, SouthSidewalk1, Sidewalk, 0, -90, -120, 90, -60, 0, 0, 0, 0
-	#AddFloor landscape, SouthSidewalk1B, SidewalkDarker, 0, -90, -105, 90, -60, 0, 0, 0, 0
+	AddFloor landscape, SouthGrass1, Grass_Dark, 0, -90 + 6, -120, -7.5, -75, 0, 0, 0, 0
+	AddFloor landscape, SouthGrass2, Grass_Dark, 0, 7.5, -120, 90 - 6, -75, 0, 0, 0, 0
+	AddFloor landscape, SouthSidewalk1, Sidewalk, 0, -90, -75, 90, -60, 0, 0, 0, 0
+	AddFloor landscape, SouthSidewalk2, Sidewalk, 0, -90, -120, -90 + 6, -75, 0, 0, 0, 0
+	AddFloor landscape, SouthSidewalk3, Sidewalk, 0, 90 - 6, -120, 90, -75, 0, 0, 0, 0
+	AddFloor landscape, SouthSidewalk4, WoodenFloor, 0, -7.5, -120, 7.5, -75, 0, 0, 0, 0
 
 	FloorOrientation = bottom
 	DrawWalls = false, true, true, true, true, true
@@ -419,6 +444,33 @@ Cut Landscape, 90, -1, -120 - 0.1, 120, 1, -120 + 0.1, true, false
 		AddFloor landscape, WestRoad, Road, 0, -120, -120, -90, -60, 0, 0, 0, 0
 		AddFloor landscape, EastDriveway, Road, 0, 90, -135, 120, -120, -0.5, 0, 0, 0
 		AddFloor landscape, EastRoad, Road, 0, 90, -120, 120, -60, 0, 0, 0, 0
+
+#SOUTH TREES
+	#Row 1
+	AddTree(Tree1, -7.5 - 60, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, -7.5 - 45, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, -7.5 - 30, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, -7.5 - 15, -87.5, 13.5, 12, 0)
+	#AddTree(Tree1, -7.5, -87.5, 13.5, 12, 0)
+
+	#AddTree(Tree1, 7.5, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, 7.5 + 15, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, 7.5 + 30, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, 7.5 + 45, -87.5, 13.5, 12, 0)
+	AddTree(Tree1, 7.5 + 60, -87.5, 13.5, 12, 0)
+
+	#Row 2
+	AddTree(Tree2, -7.5 - 60, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, -7.5 - 45, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, -7.5 - 30, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, -7.5 - 15, -87.5 - 20, 12, 16, 0)
+	#AddTree(Tree2, -7.5, -87.5 - 20, 12, 16, 0)
+
+	#AddTree(Tree2, 7.5, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, 7.5 + 15, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, 7.5 + 30, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, 7.5 + 45, -87.5 - 20, 12, 16, 0)
+	AddTree(Tree2, 7.5 + 60, -87.5 - 20, 12, 16, 0)
 
 #########################################################################
 
