@@ -111,7 +111,7 @@
 			Load data/EG881/stainlesssteel2.jpg, WardShaftDoors_Trim, 1, 1, false #EG881
 
 		#Drop ceilings
-		Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms
+		Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms and storages
 		#Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
 
 		#Service level
@@ -521,6 +521,14 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 	#====================#
 
+	#Dropped ceilings for storages
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 0] AddFloor WestSTRCeil, DropCeiling, 0.5, -20, 35, -8, %2%, 9.5, 9.5, 0, 0, false
+	if[%floor% = 0] AddFloor EastSTRCeil, DropCeiling, 0.5, 8, 35, 20, %2%, 9.5, 9.5, 0, 0, false
+
+	#====================#
+
 	#Storage doors
 	Set DTex = Door8
 	if[%floor% > 2] Set DTex = Door9b
@@ -629,13 +637,14 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	DrawWalls = true, true, false, false, false, false
 	AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -50, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -50, 5, -50, 35, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -50, 35, -50, %2%, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -50, 35, -50, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
 
 	WallOrientation = right
 	Set Showext = false
 	if[%floor% < -1] Set Showext = true
 	DrawWalls = true, %Showext%, false, false, false, false
 	AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Right_EX, %5%Wall, 0.5, -20, 35, -20, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
 	DrawWalls = true, true, false, false, false, false
 	AddWall Floor%floorid%Restroom_Back, %5%Wall, 0.5, -50, 35, -20, 35, %height%, %height%, 0, 0, 0, 0, false
 
@@ -646,7 +655,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		#Restrooms' dropped ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor RR_DropCeiling, DropCeiling, 0.5, -50, 5, -20, 35, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+		AddFloor RR_DropCeiling, DropCeiling, 0.5, -50, 5, -20, 35, 8.5, 8.5, 0, 0, false
 
 		#Restroom doors
 		RR_DTex() #Set door texture for restrooms
