@@ -59,14 +59,19 @@
 
 	########################################
 
-	#Windows
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1 #EG881
-	Load data/EG881/windows11h_insideblack.png, MainWindowsInt, 0.05, 1 #EG881
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false #EG881
-	Load data/EG881/windows11h_insideblack.png, MainWindowsIntB, 1, 1, false #EG881
+	#Windows and vents
+		#Windows
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1 #EG881
+		Load data/EG881/windows11h_insideblack.png, MainWindowsInt, 0.05, 1 #EG881
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false #EG881
+		Load data/EG881/windows11h_insideblack.png, MainWindowsIntB, 1, 1, false #EG881
+	
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, LobbyWindows, true, 0.025, 1 #EG881
+		Load data/EG881/windows11h_insideblack.png, LobbyWindowsInt, 0.025, 1 #EG881
 
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, LobbyWindows, true, 0.025, 1 #EG881
-	Load data/EG881/windows11h_insideblack.png, LobbyWindowsInt, 0.025, 1 #EG881
+		#Vents
+		Load data/vents1b.jpg, VentsExt, 1, 1, false
+		Load data/vents1b.jpg, VentsInt, 1, 1, false
 
 	########################################
 
@@ -767,9 +772,11 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	DrawWalls = false, true, false, false, false, false
 
 	#Elevator lobby
-		CutAll -20, %interfloorheight% - 0.1, 5, 20 - 0.66, %interfloorheight% + 0.1, %2%, false, true
-		AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20, 5.2, 20 - 0.66, %2%, 0, 0, 0, 0, false
-		AddFloor ElevLobbyFloorTR, BlackTrim, 0.5, -20, 5, 20 - 0.66, 5.2, 0, 0, 0, 0, false
+		CutAll -20, %interfloorheight% - 0.1, 5, 30, %interfloorheight% + 0.1, %2%, false, true
+		AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20, 5.2, 30, %2%, 0, 0, 0, 0, false
+		#AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20, 5.2, 20 - 0.66, %2%, 0, 0, 0, 0, false
+		#AddFloor ServiceElevLobbyFloor, %5%Floor3, 0.5, 20 - 0.66, 5.2, 30, %2%, 0, 0, 0, 0, false
+		AddFloor ElevLobbyFloorTR, BlackTrim, 0.5, -20, 5, 30, 5.2, 0, 0, 0, 0, false
 		
 	#NW patient rooms
 		CutAll -%1%, %interfloorheight% - 0.1, 5.3, -20, %interfloorheight% + 0.1, %2%, false, true
@@ -1229,6 +1236,24 @@ AddTree(Tree1, 90 - 60, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 		AddWall RightWall, %5%Wall2, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5%Wall2, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
 		AddWall BackWall, %5%Wall2, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Vents
+	Set winheight = %height% - 1 #Named "win (Short for windows)" for compatibility reasons
+	Set winoffset = 0.5
+
+		#Front
+		Add3DWindows(FrontVents1, -80, -%2%, front, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(FrontVents2, -40, -%2%, front, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(FrontVents3, 0, -%2%, front, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(FrontVents4, 40, -%2%, front, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(FrontVents5, 80, -%2%, front, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+
+		#Back
+		Add3DWindows(BackVents1, -80, %2%, back, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(BackVents2, -40, %2%, back, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(BackVents3, 0, %2%, back, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(BackVents4, 40, %2%, back, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
+		Add3DWindows(BackVents5, 80, %2%, back, 36, %height% - 2, 1, VentsExt, VentsInt, %5%Wall2, 0.5, 2, 1)
 <EndFloor>
 
 #########################################################################
