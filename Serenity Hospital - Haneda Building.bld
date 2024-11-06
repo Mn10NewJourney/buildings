@@ -1,0 +1,1452 @@
+#Serenity Hospital - Haneda Building
+#Copyright (c) 2024-Present - Mn10
+#Entire hospital copyright (c) 2016-Present - Mn10
+
+#Start date: 6 November 2024
+#Major detail finish date: ???
+
+#SCRIPTS TO BE INCLUDED
+	#1. My new scripts
+	<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
+	<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
+	<Include buildings/Mn10_Scripts/Windows.txt>
+	
+	#2. ObjectPlus and SROC (credit to EG881)
+	<Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
+	<Include SROC/Scripts/r1_script.txt> #EG881
+
+	#3. My previous scripts
+	<Include CustomObjects2018/Scripts/r1_script.txt>
+	<Include Shaft Wall Creator/Scripts/r1_script.txt>
+	#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+	<Include data/New_Mitsubishi_Elevator/Scripts/Indicators.txt>
+
+#########################################################################
+
+#Globals
+<Globals>
+	Name = Serenity Hospital - Haneda Building
+	Designer = Mn10 (name suggested by ningsama in August 2016)
+	Location = 731 8th Street, Tranquility City
+	CameraFloor = 0
+	CameraPosition = 0, 0
+	CameraRotation = 0, 0, 0
+<EndGlobals>
+
+#########################################################################
+
+
+#Textures
+<Textures>
+	#Commons
+	Load data/black.jpg, Black, 1, 1, false
+	Load data/Melvin/Black_Ind.jpg, Black2, 1, 1, false
+	Load data/Melvin/transparent128.png, Blank, 1, 1, false
+	Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
+	Load data/signs_mod/elevhallsign1a.png, FireSign, 1, 1, false #EG881
+
+	#Landscapes
+	#Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	
+		#Plants
+		Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
+		#Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass_Light, 0.005, 0.005
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
+
+	########################################
+
+	#Windows
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1 #EG881
+	Load data/EG881/windows11h_insideblack.png, MainWindowsInt, 0.05, 1 #EG881
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false #EG881
+	Load data/EG881/windows11h_insideblack.png, MainWindowsIntB, 1, 1, false #EG881
+
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, LobbyWindows, true, 0.025, 1 #EG881
+	Load data/EG881/windows11h_insideblack.png, LobbyWindowsInt, 0.025, 1 #EG881
+
+	########################################
+
+	#External facades
+	Load data/granite_0008b.jpg, ExtFacade, 0.0625, 0.0625
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade_Inner, 0.075, 0.075, true #EG881
+
+	#Main textures
+		#Lower hospital levels
+		Load data/marb047.jpg, LHFloor, 0.2, 0.2
+		Load data/marbl3.jpg, LHWall, 0.25, 0.25, true
+		Load data/EG881/ceilingtile3x3.jpg, LHCeiling, 0.125, 0.125 #EG881
+
+			Load data/EG881/elevdoorright_black.jpg, LHShaftDoors, -1, 1, false #EG881
+			Load data/EG881/elevdoorleft_black.jpg, LHShaftDoors2, -1, 1, false #EG881
+			Load data/EG881/elevdoortrim_black.jpg, LHShaftDoors_Trim, 1, 1, false #EG881
+
+		#Upper hospital levels
+		Load data/floor065.jpg, UHFloor, 0.25, 0.25
+		Load data/marb148.jpg, UHWall, 0.15, 0.15, true
+		Load data/EG881/ceilingtile2b.jpg, UHCeiling, 0.125, 0.125 #EG881
+
+			Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, UHShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, UHShaftDoors2, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, UHShaftDoors_Trim, 1, 1, false #EG881
+
+		#Patient room levels
+		Load data/Carpet0006_S.jpg, WardFloor, 0.2, 0.2 #Elevator lobbies + hallways to patient rooms
+		Load data/EG881/Drywall/wall5c_bluegray.jpg, WardWall, 0.2, 0.2 #EG881 #Hallway walls
+		Load data/black_granite.jpg, WardDecoWall, 0.1, 0.1
+		Load data/EG881/ceilingtile3x3.jpg, WardCeiling, 0.125, 0.125 #EG881 #Entire floor
+
+			#Inside patient rooms
+			Load data/Carpet0012_S.jpg, WardFloor_Int, 0.2, 0.2
+			Load data/stucco22b.jpg, WardWall_Int, 0.125, 0.125
+
+			#Shaft doors
+			Load data/dark muntz door.jpg, WardShaftDoors, 1, 1, false #EG881
+			Load data/dark muntz door.jpg, WardShaftDoors2, 1, 1, false #EG881
+			Load data/EG881/stainlesssteel2.jpg, WardShaftDoors_Trim, 1, 1, false #EG881
+
+		#Drop ceilings
+		Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms
+		#Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
+
+		#Service level
+		Load data/EG881/cem_tr2b.jpg, ServiceFloor, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr3.jpg, ServiceFloor2, 0.075225, 0.0625 #EG881
+		Load data/stucco4.jpg, ServiceWall, 0.25, 0.25
+		Load data/stucco1.jpg, ServiceWall2, 0.125, 0.125
+		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr2c.jpg, ServiceCeiling2, 0.075225, 0.0625 #EG881
+
+		#Roof
+		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
+		Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881 #4th floor setback
+
+	########################################
+
+	#Doors
+		#Main doors
+		Load data/miscdoor1.jpg, Door1, 1, 1, false
+		LoadCropped data/miscdoor1.jpg, Door1Side, 118, 0, 10, 256, 1, 1, false
+		Load data/miscdoor6.jpg, Door6, 1, 1, false
+		LoadCropped data/miscdoor6.jpg, Door6Side, 236, 0, 20, 512, 1, 1, false
+
+		Load data/miscdoor8.jpg, Door8, 1, 1, false
+		LoadCropped data/miscdoor8.jpg, Door8Side, 236, 0, 20, 512, 1, 1, false
+		Load data/miscdoor88.gif, Door88, 1, 1, false
+		LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
+		Load data/miscdoor9b.jpg, Door9b, 1, 1, false
+		Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
+
+		#Service doors
+		Load data/servicedoor1.jpg, ServiceDoor1, -1, 1, false
+		LoadCropped data/servicedoor1.jpg, ServiceDoor1Side, 0, 0, 10, 256, 1, 1, false
+		Load data/EG881/Doors/servicedoor2_graynovents.jpg, ServiceDoor2, 1, 1, false #EG881
+		Load data/EG881/Doors/servicedoor2back_graynovents.jpg, ServiceDoor2B, 1, 1, false #EG881
+		Load data/EG881/Doors/servicedoor2_graynovents_side.jpg, ServiceDoor2Side, 1, 1, false #EG881
+		Load data/servicedoor3.jpg, ServiceDoor3, 1, 1, false
+		LoadCropped data/servicedoor3.jpg, ServiceDoor3Side, 236, 0, 20, 512, 1, 1, false
+
+		#Black entrance doors
+		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
+		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3c.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
+		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
+
+	########################################
+
+	#Stairwells
+	Load data/EG881/cem_tr2b.jpg, Stairs, 0.075225, 0.0625 #EG881
+	Load data/EG881/cem_tr2b.jpg, StairsFloor, 0.075225, 0.0625 #EG881
+	Load data/stucco1.jpg, StairsWall, 0.25, 0.25
+	Load data/stucco3.jpg, StairsWall2, 0.25, 0.25
+	Load data/EG881/cem_tr2b.jpg, StairsCeiling, 0.075225, 0.0625 #EG881
+
+	########################################
+
+	#Shafts
+	Load data/EG881/cem_tr3.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
+
+	#Elevators
+		#Main components
+		Load data/metal1.jpg, ElevExt, 0.25, 0.25
+		Load data/metal080.jpg, ElevExt2, 0.5, 0.5, true
+		Load data/counterweight.png, CWeight, 1, 1, false
+		Load data/counterweight_frame.png, CWeight_Frame, 1, 1, false
+		Load data/ropes.png, Ropes, 1, 1, false
+		Load data/metal080.jpg, ElevRail, 0.5, 0.5
+		Load data/metal1.jpg, ElevRailSide, 0.25, 0.25
+		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
+		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
+		#Load data/panel-back3.jpg, ElevPanel, 1, 1, false
+		Load data/Melvin/ABH_Tex/otis4_buttonpanel-lighter.jpg, ElevPanel, 1, 1, false
+		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
+		#Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
+
+		#High zone elevators
+		Load data/Carpet0013b_S.jpg, HZElevFloor, 0.2, 0.2
+		#Load data/EG881/stainlesssteel2.jpg, HZElevCeiling, 1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HZElevCeiling, 1, 1, false
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HZElevCeiling2, 1, 1, false
+		Rotate HZElevCeiling, 90
+		Rotate HZElevCeiling2, 270
+
+		Load data/EG881/light1x.jpg, HZElevCeilingLight, 2, 1, false #EG881
+		Load data/panel-back3.jpg, HZElevCeilingTrim, 1, 1, false
+		Rotate HZElevCeilingTrim, 90
+		Load data/EG881/blackdoortrim.jpg, HZElevWall, 1, 1, false #EG881
+		Load data/checker23.jpg, HZElevWallPanel, 0.5, 0.5
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, HZElevPanelMain, 1, 1, false #EG881
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, HZElevPanelTop, 1, 0.125, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors2, 1, 1, false #EG881
+
+		#Service elevators
+		Load data/metal072.jpg, ServiceElevFloor, 0.2, 0.2
+		Load data/metal080.jpg, ServiceElevCeiling, 0.5, 0.5
+		Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
+		Load data/stucco22d.jpg, ServiceElevWall, 0.25, 0.25
+		Load data/EG881/stainlesssteel2.jpg, ServiceElevWallTrim, 1, 1, false #EG881
+		Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false #EG881
+		Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
+
+	####################
+
+	#Mitsubishi MTS fixtures
+	#Hall buttons
+	Load data/Mitsubishi_MTS/CallButtons/ButtonUp.png, ButtonUp, 1, 1
+	Load data/Mitsubishi_MTS/CallButtons/ButtonUpLit.png, ButtonUpLit, 1, 1
+	Load data/Mitsubishi_MTS/CallButtons/ButtonDown.png, ButtonDown, 1, 1
+	Load data/Mitsubishi_MTS/CallButtons/ButtonDownLit.png, ButtonDownLit, 1, 1
+
+	#Car buttons
+	Load data/Mitsubishi_MTS/256x256/ButtonBlank.jpg, Button, 1, 1
+	Load data/Mitsubishi_MTS/256x256/ButtonBlank.jpg, ButtonLit, 1, 1
+	AddTextRange 1, 18, Button, Button%number%, nimbus_sans.ttf, 110, %number%, -1, -1, -1, -1, center, center, 81, 79, 80
+	AddTextRange 1, 18, ButtonLit, ButtonLit%number%, nimbus_sans.ttf, 110, %number%, -1, -1, -1, -1, center, center, 254, 249, 183
+
+	AddText Button, ButtonBTemp, nimbus_sans.ttf, 110, B, 0, 0, 156, 256, center, center, 81, 79, 80
+	AddText ButtonLit, ButtonLitBTemp, nimbus_sans.ttf, 110, B, 0, 0, 156, 256, center, center, 254, 249, 183
+	AddTextRange 1, 3, ButtonBTemp, ButtonB%number%, nimbus_sans.ttf, 85, %number%, 156, 0, 256, 256, center, center, 81, 79, 80
+	AddTextRange 1, 3, ButtonLitBTemp, ButtonLitB%number%, nimbus_sans.ttf, 85, %number%, 156, 0, 256, 256, center, center, 254, 249, 183
+
+	Load data/Mitsubishi_MTS/256x256/ButtonOpen.jpg, ButtonOpen, 1, 1
+	Load data/Mitsubishi_MTS/256x256/ButtonClose.jpg, ButtonClose, 1, 1
+	Load data/Mitsubishi_MTS/256x256/ButtonStop-Running.jpg, ButtonStop-Run, 1, 1
+	Load data/Mitsubishi_MTS/256x256/ButtonStop-Stopped.jpg, ButtonStop-Stop, 1, 1
+	Load data/Mitsubishi_MTS/256x256/ButtonAlarm.jpg, ButtonAlarm, 1, 1
+
+	#Car indicators
+	Load data/black.jpg, IndBack, 1, 1, false
+	Load data/black.jpg, Ind_Background, 1, 1, false
+	AddTextRange 1, 18, IndBack, Ind_Button%number%, Mitsubishi-Modern-V2.ttf, 60, %number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+	AddTextRange 1, 3, IndBack, Ind_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 60, B%number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrow2.jpg, ArrowUnlit, 1, 1, false #Test Tower
+	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrowUp2.jpg, ArrowUpLit, 1, 1, false #Test Tower
+	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrowDown2.jpg, ArrowDownLit, 1, 1, false #Test Tower
+
+	#Hall indicators
+	Load data/Mitsubishi_Modern/Indicator_Set/LanternBulb.gif, LanternUp, 1, 1, false #Test Tower
+	LoadAnimated data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulb.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, LanternUpLit, 0.5, 1, 1, false #Test Tower
+	Load data/Mitsubishi_Modern/Indicator_Set/LanternBulb.gif, LanternDown, 1, -1, false #Test Tower
+	LoadAnimated data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulb.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, LanternDownLit, 0.5, 1, -1, false #Test Tower
+	AddTextRange 1, 18, Black2, OutsideInd_Button%number%, Mitsubishi-Modern-V2.ttf, 110, %number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+	AddTextRange 1, 3, Black2, OutsideInd_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 110, B%number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+
+	########################################
+
+	#Miscellaneous
+		#1. Restrooms
+		Load data/text16.jpg, WoodSign2, 1, 1, false
+		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
+		Load data/signs_mod/Restroom1.png, Sign_Restroom_Gray, 1, 1, false
+		Load data/signs_mod/Sign_Restroom_1A.png, Sign_RestroomW_Brown, 1, 1, false
+		Load data/signs_mod/Sign_Restroom_3A.png, Sign_RestroomM_Brown, 1, 1, false
+		Load data/signs_mod/Sign_Restroom_1.png, Sign_RestroomW_Gray, 1, 1, false
+		Load data/signs_mod/Sign_Restroom_3.png, Sign_RestroomM_Gray, 1, 1, false
+
+		#2. Exit signs
+		Load data/panel-back3.jpg, StainlessSteel, 1, 1, false
+		Load data/Melvin/ExitSignDown.png, ExitSign, 1, 1, false
+		Load data/Melvin/ExitSignUp.png, ExitSignUp, 1, 1, false
+		Load data/Melvin/ExitSignLeft.png, ExitSignLeft, 1, 1, false
+		Load data/Melvin/ExitSignRight.png, ExitSignRight, 1, 1, false
+		#Load data/Melvin/ExitSignBoth.png, ExitSignBoth, 1, 1, false
+
+		#4. Floor signs (Transparent or blank)
+		AddTextRange 1, 3, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 18, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#5. Signs at elevator lobbies
+		Load data/signs_mod/Elev3.png, Sign_Elev, 1, 1, false
+		Load data/signs_mod/Elev4A.png, Sign_ServiceElevA, 1, 1, false
+		Load data/signs_mod/Elev4B.png, Sign_ServiceElevB, 1, 1, false
+
+			#Floor signs
+			Load data/graygradient.jpg, ELFlrSignBack, 1, 1, false
+			AddTextRange 1, 3, ELFlrSignBack, ELFlrSignB%number%, nimbus_sans_bold_condensed.ttf, 130, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddTextRange 1, 17, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold_condensed.ttf, 130, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#6. Elevator number signs (Inside)
+		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
+		AddTextRange 1, 6, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
+		AddTextRange 7, 14, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#7. Access control
+		#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
+		#Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
+		#Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
+
+		#8. Other signs
+		Load data/Melvin/DRH/09-2024/Dir_SR_W.png, WestDir, 1, 1, false #Floor directory
+		Load data/Melvin/DRH/09-2024/Dir_SR_W_3F.png, WestDir_3F, 1, 1, false
+		Load data/Melvin/DRH/09-2024/Dir_SR_E.png, EastDir, 1, 1, false
+		Load data/signs_mod/Parking_Blue.png, ParkingSign, 1, 1, false
+<EndTextures>
+
+############################################################
+
+#Floor Assignments
+<Floor -1>
+	ID = B1
+	Name = Basement Level 1
+	Type = Hospital
+	Height = 10.5
+	InterfloorHeight = 1.5
+	Altitude = -13.5
+<EndFloor>
+
+<Floors -2 to -3>
+	ID = B(0 - %floor%)
+	Name = Basement Level (0 - %floor%)
+	Type = Hospital
+	Height = 10.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor -4>
+	ID = X
+	Name = Shaft Pit
+	Type = Basement
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 0>
+	ID = 1
+	Name = Level %floorid%
+	Type = Lobby
+	Height = 22
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Hospital
+	Height = 10.5
+	InterfloorHeight = 2
+<EndFloor>
+
+<Floors 2 to 8>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Hospital
+	Height = 10.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floors 9 to 16>
+	ID = %floor% + 1
+	Name = Ward Level %floorid%
+	Type = Hospital
+	Height = 8.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 17>
+	ID = %floor% + 1
+	Name = Mechanical
+	Type = Service
+	Height = 18.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+<Floor 18>
+	ID = R
+	Name = Roof
+	Type = Roof
+	Height = 9.5
+	InterfloorHeight = 1.5
+<EndFloor>
+
+
+##--------------------------------------------------------------------------------##
+
+#Common values
+Set 1 = 100 #Building Dimension X
+Set 2 = 45 #Building Dimension Z
+Set ExtraSouth = 40 #Extra south dimensions for levels B3 to 3
+if[%floor% > 2] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
+
+#Landscape
+	#Perimeter floors
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, FrontFloor, Sidewalk, 0, -%1% - 6, -%2% - %ExtraSouth% - 5, %1% + 6, -%2% - %ExtraSouth%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftFloor, Sidewalk, 0, -%1% - 6, -%2% - %ExtraSouth%, -%1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, RightFloor, Sidewalk, 0, %1%, -%2% - %ExtraSouth% - 5, %1% + 6, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackFloor, Grass, 0, -%1% - 6, %2%, %1% + 6, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+
+##--------------------------------------------------------------------------------##
+
+#Set texture prefixes/suffixes
+<Function TexPrefix>
+	#Main prefixes
+	Set 5 = LH
+	if[%floor% > 2 & %floor% < 9] Set 5 = UH
+	if[%floor% > 8 & %floor% < 17] Set 5 = Ward
+	if[%floor% = 17] Set 5 = Service
+
+		#Add "ExtraSouth" value for floor section.
+		Set ExtraSouth = 40 #Extra south dimensions for levels B3 to 3
+		if[%floor% > 2] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
+		
+		#Suffixes for walls inside patient rooms
+		Set PTSuffix = Wall
+		if[%floor% > 8 & %floor% < 17] Set PTSuffix = Wall_Int
+		
+		#Suffixes for deco walls on patient room levels
+		Set PTSuffix2 = Wall
+		if[%floor% > 8 & %floor% < 17] Set PTSuffix2 = DecoWall
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
+#Exterior & interior
+#All floors
+<Floors -3 to 17>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, 0, 0, 0, 0, false
+
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %height%, %height%, 0, 0, false
+<EndFloors>
+
+<Floors -3 to -1>
+	#Railings/walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %height%
+	Set WallOffset = 0
+
+		#Set DrawWalls for Front/Left sides
+		DrawWalls = false, true, false, false, false, false
+
+		WallOrientation = left
+		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - %ExtraSouth%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+		#Set DrawWalls for Right/Back sides
+		DrawWalls = true, false, false, false, false, false
+
+		WallOrientation = right
+		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - %ExtraSouth%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% ! -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallB, %5%Wall, 0.5, -8, %2%, 8, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = -1] AddWall BackWallC, %5%Wall, 0.5, 8, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+<EndFloors>
+
+<Floors 0 to 16>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Windows
+	Set MyIFloorType = 2
+	if[%floor% = 0] Set MyIFloorType = 3
+	Set WinPrefix = Main
+
+	SetAutoSize = true, false
+	AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% - %ExtraSouth%, %1%, -%2% - %ExtraSouth%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% - %ExtraSouth%, -%1%, %2%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% - %ExtraSouth%, %1%, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	#AddCustomWindows(BackWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1%, %2%, %1%, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1%, %2%, -20, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin2, %WinPrefix%WindowsIntB, %WinPrefix%WindowsB, -8, %2%, 8, %2%, %height%, 3/4, 1, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin3, %WinPrefix%WindowsInt, %WinPrefix%Windows, 20, %2%, %1%, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	SetAutoSize = true, true
+<EndFloors>
+
+#Cut windows for "Lobby windows"
+	#South side
+	Cut external, -20, Floor(0).Base, -%2% - 40 - 0.1, 20, Floor(1).Altitude, -%2% - 40 + 0.1, true, false
+
+<Floor 0>
+	TexPrefix() #Set wall textures
+
+	#Lobby windows
+	Set WinPrefix = Lobby
+	Set winheight = %height%
+
+		#Front
+		SetAutoSize = true, false
+		AddCustomWindows(FrontLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -20, -%2% - %ExtraSouth%, 20, -%2% - %ExtraSouth%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		SetAutoSize = true, true
+
+	#Entrance doors
+	Set DTex = BLKEntDoorInt
+	Set DTex_Ext = BLKEntDoorExt
+	#Set DSTex = %DTex%Side
+	Set DSTex = BLKEntDoorSide
+	
+		#SOUTH DOORS
+		#Door set 1A
+		Set Door_MainX = -15
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		#WallOrientation = left
+		#TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		#AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		#TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		#AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 1B
+		Set Door_MainX = -5
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2A
+		Set Door_MainX = 5
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2B
+		Set Door_MainX = 15
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		#WallOrientation = left
+		#TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		#AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		#TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		#AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+<EndFloor>
+
+<Floor 3>
+	#4th floor setback
+	Set ExtraSouth = 40 #Override for setback
+
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor Setback, RoofFloor2, %interfloorheight%, -%1%, -%2% - %ExtraSouth%, %1%, -%2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 4.5
+	Set WallOffset = 0
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, true, false
+	TextureOverride ExtFacade, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner
+	AddWall FrontRailing, ExtFacade, 0.5, -%1% + 0.5, -%2% - %ExtraSouth%, %1% - 0.5, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	DrawWalls = true, true, true, false, true, false
+	TextureOverride ExtFacade, ExtFacade_Inner, ExtFacade, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner
+	AddWall LeftRailing, ExtFacade, 0.5, -%1%, -%2% - %ExtraSouth%, -%1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	TextureOverride ExtFacade_Inner, ExtFacade, ExtFacade, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner
+	AddWall RightRailing, ExtFacade, 0.5, %1%, -%2% - %ExtraSouth%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
+
+#Cut windows for perimeter walls
+	#North side
+	#Cut external, -20, Floor(0).Base, %2% - 0.1, -5, Floor(17).Altitude, %2% + 0.1, true, false
+	#Cut external, 5, Floor(0).Base, %2% - 0.1, 20, Floor(17).Altitude, %2% + 0.1, true, false
+
+	#South side
+	Cut external, -70, Floor(3).Base, -%2% - 0.1, -60, Floor(17).Altitude, -%2% + 0.1, true, false
+	Cut external, 60, Floor(3).Base, -%2% - 0.1, 70, Floor(17).Altitude, -%2% + 0.1, true, false
+
+<Floors 0 to 16>
+	#Perimeter walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %fullheight%
+	Set WallOffset = 0
+	if[%floor% = 0] Set WallHeight = %height%
+	if[%floor% = 0] Set WallOffset = %interfloorheight%
+
+		#Back walls
+		WallOrientation = right
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride %5%%PTSuffix2%, ExtFacade, %5%%PTSuffix%, %5%%PTSuffix2%, %5%%PTSuffix2%, %5%%PTSuffix2%
+		AddWall BackWall_A, ExtFacade, 0.5, -20, %2%, -8, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		TextureOverride %5%%PTSuffix2%, ExtFacade, %5%%PTSuffix2%, %5%%PTSuffi2%, %5%%PTSuffix2%, %5%%PTSuffix2%
+		AddWall BackWall_B, ExtFacade, 0.5, 8, %2%, 20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
+
+<Floors 3 to 16>
+	#Perimeter walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %fullheight%
+	Set WallOffset = 0
+	if[%floor% = 3] Set WallHeight = %height%
+	if[%floor% = 3] Set WallOffset = %interfloorheight%
+
+		#Front walls
+		WallOrientation = left
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ExtFacade, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%
+		AddWall FrontWall_A, ExtFacade, 0.5, -70, -%2%, -60, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		TextureOverride ExtFacade, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%
+		AddWall FrontWall_B, ExtFacade, 0.5, 60, -%2%, 70, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
+
+<Floor 17>
+	#Mechanical Mezzanine
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ServiceCeiling2, ServiceFloor2, Blank, Blank, Blank, Blank
+	AddFloor MechMezzanine, ServiceFloor2, 1.5, -20, -5, 20, %2%, 10, 10, 0, 0, false
+
+		#Mechanical mezzanine railings
+		Set WallHeight = 1.5 + 3.5
+		Set WallOffset = 10 - 1.5
+	
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, false
+		AddWall MechMezRailLeft, ServiceWall2, 0.5, -20, -5, -20, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall MechMezRailFront, ServiceWall2, 0.5, -20 + 0.5, -5, 20 - 0.5, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		WallOrientation = right
+		AddWall MechMezRailRight, ServiceWall2, 0.5, 20, -5, 20, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+	#Perimeter walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %fullheight%
+	Set WallOffset = 0
+
+		#Set DrawWalls for all sides
+		DrawWalls = true, true, false, false, false, false
+
+		WallOrientation = left
+		TextureOverride ExtFacade, %5%Wall2, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall FrontWall, %5%Wall2, 0.5, -%1%, -%2%, %1%, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, %5%Wall2, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall LeftWall, %5%Wall2, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		TextureOverride %5%Wall2, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall RightWall, %5%Wall2, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5%Wall2, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall BackWall, %5%Wall2, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
+
+#Support columns
+<Floors -3 to 17>
+	#Set Values
+	TexPrefix() #Set wall texture
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 30 #Distance between supports Z
+	Set SupportHeight = %fullheight%
+	Set SupportOffset = -%interfloorheight%
+
+	#Corner Supports
+	CreateWallBox2 External, SupportNW, %5%%PTSuffix%, -%1% + 1.25, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportNE, %5%%PTSuffix%, %1% - 1.25, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportSW, %5%%PTSuffix%, -%1% + 1.25, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportSE, %5%%PTSuffix%, %1% - 1.25, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#North Supports
+	CreateWallBox2 External, SupportN1, %5%%PTSuffix%, -%1% + (%DistanceX% * 1), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportN2, %5%%PTSuffix%, -%1% + (%DistanceX% * 2), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportN3, %5%%PTSuffix%, -%1% + (%DistanceX% * 3), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportN4, %5%%PTSuffix%, -%1% + (%DistanceX% * 4), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#South Supports
+	CreateWallBox2 External, SupportS1, %5%%PTSuffix%, -%1% + (%DistanceX% * 1), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS2, %5%%PTSuffix%, -%1% + (%DistanceX% * 2), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS3, %5%%PTSuffix%, -%1% + (%DistanceX% * 3), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS4, %5%%PTSuffix%, -%1% + (%DistanceX% * 4), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#West Supports
+	CreateWallBox2 External, SupportW1, %5%%PTSuffix%, -%1% + 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportW2, %5%%PTSuffix%, -%1% + 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#East Supports
+	CreateWallBox2 External, SupportE1, %5%%PTSuffix%, %1% - 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportE2, %5%%PTSuffix%, %1% - 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFloors>
+
+#Extra suppports (Levels B3-4)
+<Floors -3 to 3>
+	#Set Values
+	TexPrefix() #Set wall texture
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 30 #Distance between supports Z
+	Set SupportHeight = %fullheight%
+	Set SupportOffset = -%interfloorheight%
+
+
+	#South Supports
+	Set SupportZ = -%2% - %ExtraSouth% + 1.25
+
+	CreateWallBox2 External, SupportS1, %5%Wall, -%1% + 1.25, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS1, %5%Wall, -%1% + (%DistanceX% * 1), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS2, %5%Wall, -%1% + (%DistanceX% * 2), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS3, %5%Wall, -%1% + (%DistanceX% * 3), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS4, %5%Wall, -%1% + (%DistanceX% * 4), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS4, %5%Wall, %1% - 1.25, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFloors>
+
+#Roof
+<Floor 18>
+	#Roof floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor Roof, RoofFloor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Roof railings
+	Set WallHeight = %interfloorheight% + 4.5
+	Set WallOffset = 0
+
+	WallOrientation = Left
+	DrawWalls = true, true, true, true, true, false
+	TextureOverride ExtFacade, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner
+	AddWall FrontRail, ExtFacade, 0.5, -%1% + 0.5, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	TextureOverride ExtFacade, ExtFacade_Inner, ExtFacade, ExtFacade, ExtFacade_Inner, ExtFacade_Inner
+	AddWall LeftRail, ExtFacade, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = Right
+	TextureOverride ExtFacade_Inner, ExtFacade, ExtFacade, ExtFacade, ExtFacade_Inner, ExtFacade_Inner
+	AddWall RightRail, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	TextureOverride ExtFacade_Inner, ExtFacade, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner, ExtFacade_Inner
+	AddWall BackRail, ExtFacade, 0.5, -%1% + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#EXTERNAL SHAFT & STAIRWELL WALLS
+<Floors -3 to 17>
+	TexPrefix() #Set texture prefixes
+	
+	#Shafts 1-2: High zone Elevators
+	CreateShaftWall(%5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix2%, %5%Wall, ExtFacade, ExtFacade, 0.33, -14, 20, 6, 15, Shaft1, %height%, 0, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%%PTSuffix%, %5%%PTSuffix2%, %5%%PTSuffix%, %5%Wall, ExtFacade, ExtFacade, 0.33, 14, 20, 6, 15, Shaft2, %height%, 0, true, true, true, true, false, false, false)
+
+	#Stairwells
+		#West stairwell
+		Set ShowRight = true
+		if[%floor% < 9] Set ShowRight = false
+		CreateShaftWall(%5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%Wall, ExtFacade, ExtFacade, 0.5, -65, -17.5, 5, 12.5, WestST, %height%, 0, true, true, %ShowRight%, true, false, false, false)
+
+		#East stairwell
+		Set ShowLeft = true
+		if[%floor% < 9] Set ShowLeft = false
+		CreateShaftWall(%5%%PTSuffix%, %5%%PTSuffix%, %5%%PTSuffix%, %5%Wall, ExtFacade, ExtFacade, 0.5, 65, -17.5, 5, 12.5, EastST, %height%, 0, true, %ShowLeft%, true, true, false, false, false)
+<EndFloors>
+
+<Floors -3 to 8>
+	TexPrefix() #Set texture prefixes
+	
+	#Shaft 3: West Low zone Elevators
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, -54, -20, 6, 15, Shaft3, %height%, 0, true, true, true, true, false, false, false)
+
+	#Shaft 4: West Low zone Elevators
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 54, -20, 6, 15, Shaft3, %height%, 0, true, true, true, true, false, false, false)
+<EndFloors>
+
+<Floor 18>
+	#Stairwells (Roof level)
+		#West stairwell
+		CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.5, -65, -17.5, 5, 12.5, WestST_RF, %height%, %interfloorheight%, true, true, true, true, true, false, true)
+
+		#East stairwell
+		CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.5, 65, -17.5, 5, 12.5, EastST_RF, %height%, %interfloorheight%, true, true, true, true, true, false, true)
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#SHAFTS
+#High zone elevators (1, 8-17)
+#Changed the "end_voffset" due to the "Mechanical Mezzanine" I created.
+AddStdShaft(1, 1, -14, 20, 5.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 10)
+AddStdShaft(2, 1, 14, 20, 5.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 10)
+
+#Machine room doors
+<Floor 17>
+	Set DTex = ServiceDoor1
+	Set DSTex = %DTex%Side
+
+	Set Door_MainX = -14 + 6
+	Set Door_MainZ = 20
+
+	WallOrientation = right
+	AddStdDoor Floor %floor%, %floorid%_Shaft1MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 10, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft1MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 10, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 10, false, 0, 0, false
+
+	Set Door_MainX = -14 - 6
+	Set Door_MainZ = 20
+
+	WallOrientation = left
+	AddStdDoor Floor %floor%, %floorid%_Shaft2MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 10, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft2MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 10, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 10, false, 0, 0, false
+<EndFloor>
+
+#Low zone elevators
+AddStdShaft(3, 1, -54, -20, 5.67, 14.67, -3, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%) #Serviced floors: B2-7
+AddStdShaft(4, 1, 54, -20, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%) #Serviced floors: B3-7
+
+#Machine room doors
+<Floor 8>
+	Set DTex = ServiceDoor2
+	Set DSTex = %DTex%Side
+
+	Set Door_MainX = -54 + 6
+	Set Door_MainZ = -20
+
+	WallOrientation = right
+	AddStdDoor Floor %floor%, %floorid%_Shaft3MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft3MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+	Set Door_MainX = -54 - 6
+	Set Door_MainZ = -20
+
+	WallOrientation = left
+	AddStdDoor Floor %floor%, %floorid%_Shaft4MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft4MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+<EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#ELEVATORS
+#High zone elevators
+<Elevator 1>
+	Name = High Zone Elevator 1
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 1
+	CreateElevator true, 0, -10 - 0.5, 0
+<EndElevator>
+
+<Elevator 2>
+	Name = High Zone Elevator 2
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 1
+	CreateElevator true, 0, 0 - 0.5, 0
+<EndElevator>
+
+<Elevator 3>
+	Name = High Zone Elevator 3
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 1
+	CreateElevator true, 0, 10 - 0.5, 0
+<EndElevator>
+
+<Function BtnPanelE1-6>
+	Set PanelNumber = %param1%
+
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, switch.wav, 1, 2, 1, 1, 0, 0, 1, run, stop, ButtonStop-Run, ButtonStop-Stop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 3, 2, alarm, 1, 1
+
+	AddButton %PanelNumber%, , Button17, ButtonLit17, 6, 3, 16, 1, 1
+	AddButton %PanelNumber%, , Button16, ButtonLit16, 7, 3, 15, 1, 1
+	AddButton %PanelNumber%, , Button15, ButtonLit15, 8, 3, 14, 1, 1
+	AddButton %PanelNumber%, , Button14, ButtonLit14, 9, 3, 13, 1, 1
+	AddButton %PanelNumber%, , Button13, ButtonLit13, 10, 3, 12, 1, 1
+
+	AddButton %PanelNumber%, , Button12, ButtonLit12, 6, 1, 11, 1, 1
+	AddButton %PanelNumber%, , Button11, ButtonLit11, 7, 1, 10, 1, 1
+	AddButton %PanelNumber%, , Button10, ButtonLit10, 8, 1, 9, 1, 1
+	AddButton %PanelNumber%, , Button9, ButtonLit9, 9, 1, 8, 1, 1
+	AddButton %PanelNumber%, , Button8, ButtonLit8, 10, 1, 7, 1, 1
+	AddButton %PanelNumber%, , Button1, ButtonLit1, 11, 1, 0, 1, 1
+
+	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 13, 1, open, 1, 1
+	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 13, 3, close, 1, 1
+<EndFunction>
+
+<Elevator 4>
+	Name = High Zone Elevator 4
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 2
+	CreateElevator true, 0, -10 - 0.5, 0
+<EndElevator>
+
+<Elevator 5>
+	Name = High Zone Elevator 5
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 2
+	CreateElevator true, 0, 0 - 0.5, 0
+<EndElevator>
+
+<Elevator 6>
+	Name = High Zone Elevator 6
+	Speed = 15
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 0, 7 - 16
+	AssignedShaft = 2
+	CreateElevator true, 0, 10 - 0.5, 0
+<EndElevator>
+
+<Elevators 4 to 6>
+	Set Prefix = HZ
+
+	#Set textures and dimensions
+	M10_ElevCabTex(ElevExt2, %Prefix%ElevFloor, %Prefix%ElevCeiling2, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(9.28, 6, 8, 0.2, 0.2, true, false, true, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 0.25, 1.25, 1, 0.2, false, true, false, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	#--------------------
+	#Car Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -4.64
+
+	WallOrientation = right
+	AddDoorComponent 1, 2Speed_Fast, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, right, 0.8, 0.6, %IDP% - (0.15 * 1), -2.75, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, 2Speed_Slow, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, right, 0.4, 0.3, %IDP%, -2.75 + (2.25 * 1), %IDP%, -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP% - (0.15 * 2), -2.75, %IDP%, -2.75 + (2.25 * 3), 0, 0, 0, 0
+
+		#Top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor TopFiller, %Prefix%ElevPanelTop, 0.05, %IDP% - (0.15 * 1), -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 7, 0, 0
+
+	#Gap filler
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	AddWall GapFiller, %Prefix%ElevPanelMain, 0.15 * 2, %IDP%, -3, %IDP%, -2.75, 7, 7, 0, 0, 0, 0
+	#--------------------
+	#Button Panel
+	Set P1_PositionX = -4.44 + 0.001
+	Set P1_PositionZ = 2.275
+
+		#Floor buttons
+		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% - 0.001 + 0.025, %P1_PositionZ%, 0.05, 0.8, 4.65, 2.2, 0, 0, false, true, true, true
+		CreatePanel Blank, 13, 3, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.15, 0.15, 0.22, 0.25, 4, 0, 0 #All buttons
+		BtnPanelE1-6(1)
+
+	#--------------------
+	#Indicator sets
+	Set IndOffset = 6.1 - 0.2
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall IndicatorBack, IndBack, 0, %P1_PositionX% + 0.051, %P1_PositionZ% - 0.3, %P1_PositionX% + 0.051, %P1_PositionZ% + 0.3, 0.75 + 0.2, 0.75 + 0.2, %IndOffset%, %IndOffset%, 0, 0
+	AddDirectionalIndicator true, true, true, Ind_Background, ArrowUnlit, ArrowUpLit, ArrowUnlit, ArrowDownLit, %P1_PositionX% + 0.0052, %P1_PositionZ% - 0.125, %IndOffset% + 0.4 + 0.05, right, 0.25, 0.25, true, 0, 0
+	AddFloorIndicator Ind_Button, right, %P1_PositionX% + 0.052, %P1_PositionZ% + 0.125, 0.25, 0.25, %IndOffset% + 0.4 + 0.05
+
+	#Elevator number sign
+	DrawWalls = false, true, false, false, false, false
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, -4.44 + 0.001, -0.5 - 0.25, -4.44 + 0.001, -0.5 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+	#--------------------
+	#Shaft components
+	DrawWalls = true, true, true, true, true, true
+		#Ropes
+		RopePosition = 0, 8 + 0.2, 0
+		RopeTexture = Ropes
+	
+		#Counterweight
+		Set Position = 3 + 0.8
+
+		CreateCounterweight CWeight_Frame, CWeight, 0, %Position%, 2, 6, 0.5, 0.5
+	
+		#Rails
+		AddRails ElevRail, ElevRailSide, 0, 0, true, 3 + 0.06, 0.1
+		AddRails ElevRail, ElevRailSide, 0, %Position%, false, 1 + 0.06, 0.1
+<EndElevator>
+
+<Elevators 1 to 6>
+	#DETAILED INTERIORS
+	#1. Lights
+	Set LightWidth = 8.88
+	Set LightLength = 1.25
+	Set TrimWidth = 0.15
+
+	CreateWallBox2 elevator, CL_Light1, %Prefix%ElevCeilingLight, 0, -2.8 + (%LightLength% / 2), %LightWidth%, %LightLength%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, CL_Light2, %Prefix%ElevCeilingLight, 0, 2.8 - (%LightLength% / 2), %LightWidth%, %LightLength%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+
+		#1a. Trims around lights
+		CreateWallBox2 elevator, CL_Trim_Front, %Prefix%ElevCeilingTrim, 0, -2.8 + %LightLength% + (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Back, %Prefix%ElevCeilingTrim, 0, 2.8 - %LightLength% - (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+
+	#2. Panels on walls
+	Set WPTex = %Prefix%ElevWallPanel
+	Set WPanelHeight = 8 - 0.5
+
+		#Front panels
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F2, %WPTex%, 0 - (8.88 * 0), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+
+		#Left/Right panels
+		Set PanelCtr = -4.44 + 0.01
+		if[%elevator% > 3] Set PanelCtr = 4.44 - 0.01
+		CreateWallBox2 elevator, Panel_LR1, %WPTex%, %PanelCtr%, 0 - (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_LR2, %WPTex%, %PanelCtr%, 0 + (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+
+		#Back panels
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B2, %WPTex%, 0 - (8.88 * 0), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+<EndElevators>
+
+##--------------------------------------------------------------------------------##
+
+#HALL STATIONS
+#Set textures for Elevators 1-12
+<Function ElevHallTex>
+	#Shaft doors
+	TexPrefix() #Set prefixes for shaft doors
+	Set DoorTexture = %5%ShaftDoors
+
+	#Use automatic filler walls or not
+	Set AutoFiller = false
+
+	#Door trims
+		#Sides
+		Set DoorTrimTexture = %DoorTexture%_Trim
+
+		#Top
+		Set DoorTrimTexture_Top = %DoorTrimTexture%
+
+	#Deco dimensions
+		Set SideDecoH = 7.2
+		if[%floor% < 9] Set SideDecoH = %height%
+		Set TopDecoH = %SideDecoH% - 7
+
+	#Call button panels
+	Set BPanelTexture = ElevExtPanels
+	Set ButtonPrefix = Button
+
+	#Lantern panels
+	Set LPanelTexture = %BPanelTexture%
+	Set LanternPrefix = Lantern
+
+		#Lateral offset for lantern panels
+		Set ExtraLateralOffset = 0
+		if[%floor% < 9] Set ExtraLateralOffset = 0.05
+<EndFunction>
+
+#Elevators 1-6
+<Function E1-6HallStation>
+	#Shaft Doors
+	ElevHallTex() #Set shaft door and panel textures
+	Set StartNo = 1 #Number of the first elevator
+
+		Set IDP = 4.64 + 0.4
+		WallOrientation = left
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, -1, 0, -1, 0
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), %IDP% + (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+
+		WallOrientation = left
+		AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, -1, 0, -1, 0
+		AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), %IDP% + (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo% + 1, 1, %AutoFiller%, false
+
+		WallOrientation = left
+		AddShaftDoorComponent %StartNo% + 2, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, -1, 0, -1, 0
+		AddShaftDoorComponent %StartNo% + 2, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% + (0.15 * 1), -2.75 + (2.25 * 1), %IDP% + (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo% + 2, 1, %AutoFiller%, false
+
+	Set StartNo = 4 #Number of the first elevator
+
+		Set IDP = -4.64 - 0.4
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo%, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, -1, 0, -1, 0
+		FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, -1, 0, -1, 0
+		FinishShaftDoor %StartNo% + 1, 1, %AutoFiller%, false
+
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo% + 2, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, %IDP%, -2.75, %IDP%, -2.75 + (2.25 * 1), 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo% + 2, 1, 2Speed_Slow, (%DoorTexture%)2, (%DoorTexture%)2, 0.15, right, 0.4, 0.3, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), -2.75 + (2.25 * 2), 7, 0, -1, 0, -1, 0
+		FinishShaftDoor %StartNo% + 2, 1, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(1, 1, 5.04, 5.34, -11 - 2.25, -11 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(2, 1, 5.04, 5.34, -1 - 2.25, -1 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(3, 1, 5.04, 5.34, 9 - 2.25, 9 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(4, 2, -5.34, -5.04, -11 - 2.25, -11 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(5, 2, -5.34, -5.04, -1 - 2.25, -1 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(6, 2, -5.34, -5.04, 9 - 2.25, 9 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+
+	#Top filler
+	AddShaftTrack(1, 1, 5.34 - 0.15, 5.34, -11 - 2.25, -11, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(2, 1, 5.34 - 0.15, 5.34, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(3, 1, 5.34 - 0.15, 5.34, 9 - 2.25, 9, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(4, 2, -5.34, -5.34 + 0.15, -11 - 2.25, -11, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(5, 2, -5.34, -5.34 + 0.15, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(6, 2, -5.34, -5.34 + 0.15, 9 - 2.25, 9, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+
+	#Gap filler
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 1, GapFiller_Elev1, ElevExt, 0.15 * 2, 5.34, -11 - 2.25 - 0.25, 5.34, -11 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 1, GapFiller_Elev2, ElevExt, 0.15 * 2, 5.34, -1 - 2.25 - 0.25, 5.34, -1 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 1, GapFiller_Elev3, ElevExt, 0.15 * 2, 5.34, 9 - 2.25 - 0.25, 5.34, 9 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 2, GapFiller_Elev4, ElevExt, 0.15 * 2, -5.34, -11 - 2.25 - 0.25, -5.34, -11 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 2, GapFiller_Elev5, ElevExt, 0.15 * 2, -5.34, -1 - 2.25 - 0.25, -5.34, -1 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 2, GapFiller_Elev6, ElevExt, 0.15 * 2, -5.34, 9 - 2.25 - 0.25, -5.34, 9 - 2.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
+
+	#****************************************#
+
+	#Door trims/fillers
+	Set Shaft1CX = -14 #1st shaft for elevator bank
+	Set Shaft1CZ = 20
+	Set Shaft2CX = 14 #1st shaft for elevator bank
+	Set Shaft2CZ = 20
+	Set DecoType = floor
+
+		#10th-17th floors
+		WallOrientation = right
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft1CX% + 6, %Shaft1CZ% - 11, 4.5, 7, 0, false, 0, 0, false #Elevator 1
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft1CX% + 6, %Shaft1CZ% - 1, 4.5, 7, 0, false, 0, 0, false
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft1CX% + 6, %Shaft1CZ% + 9, 4.5, 7, 0, false, 0, 0, false
+
+		WallOrientation = left
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft2CX% - 6, %Shaft2CZ% - 11, 4.5, 7, 0, false, 0, 0, false #Elevator 4
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft2CX% - 6, %Shaft2CZ% - 1, 4.5, 7, 0, false, 0, 0, false
+		if[%floor% > 8] AddFillerWalls %5%%PTSuffix2%, 0.66, %Shaft2CX% - 6, %Shaft2CZ% + 9, 4.5, 7, 0, false, 0, 0, false
+
+		#All other floors
+		if[%floor% < 9] AddDecoObject(E1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% < 9] AddDecoObject(E2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% < 9] AddDecoObject(E3_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% < 9] AddDecoObject(E4_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% < 9] AddDecoObject(E5_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% < 9] AddDecoObject(E6_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+	#****************************************#
+
+	#Call buttons
+	CallButtonElevators = 1, 2, 3, 4, 5, 6
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 6.001, %Shaft1CZ% - 5 - 1, 3.5, right, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 6.001, %Shaft1CZ% + 5 - 1, 3.5, right, 0.5, 1, true, 0, 0
+
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 6.001, %Shaft2CZ% - 5 - 1, 3.5, left, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 6.001, %Shaft2CZ% + 5 - 1, 3.5, left, 0.5, 1, true, 0, 0
+
+		#Signs
+		Set Suffix = %floorid%
+
+		DrawWalls = false, true, false, false, false, false
+		AddWall E1-6FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddWall E1-6FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddWall E1-6HallSign1, FireSign, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.25, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+		DrawWalls = true, false, false, false, false, false
+		AddWall E1-6FloorSign3, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddWall E1-6FloorSign4, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddWall E1-6HallSign2, FireSign, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) - 0.25, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+	#****************************************#
+
+	#Indicator sets
+	Set Offset = 7.5
+	if[%floor% = 0] Set Offset = 8
+
+		#Set textures
+		MitsubishiInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, OutsideInd_Button)
+	
+		#Indicator creation (Lobby)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 1, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, 0, 16)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 2, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, 0, 16)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 3, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, 0, 16)
+
+		if[%floor% = 0] MitsubishiLobbyInds(left, 4, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% - 11, %Offset%, 0, 16)
+		if[%floor% = 0] MitsubishiLobbyInds(left, 5, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% - 1, %Offset%, 0, 16)
+		if[%floor% = 0] MitsubishiLobbyInds(left, 6, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% + 9, %Offset%, 0, 16)
+
+		#Indicator creation (Other floors)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 1, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, 0, 16)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 2, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, 0, 16)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 3, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, 0, 16)
+
+		if[%floor% ! 0] MitsubishiLobbyLanterns(left, 4, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% - 11, %Offset%, 0, 16)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(left, 5, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% - 1, %Offset%, 0, 16)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(left, 6, %Shaft2CX% - 6 - %ExtraLateralOffset%, %Shaft2CZ% + 9, %Offset%, 0, 16)
+<EndFunction>
+
+<Floor 0>
+	E1-6HallStation()
+<EndFloor>
+
+<Floors 7 to 16>
+	E1-6HallStation()
+<EndFloors>
+
+#Global Settings
+<Elevators 1 to 6>
+	#Notifications
+	ChimeSound 1 = KW_Sounds/mitsubishidtchimedown.wav
+	ReOpen = false
+	ChimeOnArrival = true
+	NotifyEarly = 1
+	QueueResets = true
+	RecallFloor = 0
+
+	#Door settings
+	DoorTimer 1 = 15000
+	QuickClose 1 = 10000
+	OpenSound 1 = EG881Sounds/freightelevatoropen3.wav #EG881
+	CloseSound 1 = EG881Sounds/freightelevatorclose3.wav #EG881
+
+	#Movement sounds
+	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
+	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
+	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+
+	CarStartSound = elevstart5.wav
+	CarMoveSound = elevmove5.wav
+	CarStopSound = elevstop5.wav
+<EndElevators>
+
+##--------------------------------------------------------------------------------##
+
+#STAIRWELLS
+<Function StairwellSets>
+	#Set Values
+	Set NumSteps = 12 #Total: 24 steps
+	if[%floor% > 8] Set NumSteps = 10 #Total: 20 steps
+
+	#Extra sets at transition points
+	Set NumSteps2 = %NumSteps%
+	if[%floor% = 9] Set NumSteps2 = 12
+
+	#Floors with double stairs (40/48 steps instead of the usual 20/24)
+	Set DblStairs = false
+	if[%floor% = 0 | %floor% = 17] Set DblStairs = true
+<EndFunction>
+
+#West Stairwell
+CreateStairwell 1, -65, -17.5, -3, 18
+CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
+
+<Floors -3 to 18>
+	StairwellSets() #Determine stairs' size
+
+	Set 21 = -65 #Center X
+	Set 22 = -17.5 #Center Z
+	Set 23 = 4.5 #Cut X
+	Set 24 = 12 #Cut Z
+	Set 25 = 1 #Stairwell Number
+	Set 26 = 0.5 #Riser Size
+
+	#Walls
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddStairsWall %25%, Stair%25%Front, StairsWall, 0.5, -%23%, -%24%, %23%, -%24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Left, StairsWall, 0.5, -%23%, -%24%, -%23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddStairsWall %25%, Stair%25%Right, StairsWall, 0.5, %23%, -%24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Back, StairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	WallOrientation = center
+	DrawWalls = true, true, true, true, false, true
+	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, -%24% + 5, 0, -%24% + 5 + %NumSteps%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% = 9] AddStairsWall %25%, Stair%25%TransitionWall, StairsWall2, 1, 0, -%24% + 5 + %NumSteps%, 0, -%24% + 5 + %NumSteps2%, %interfloorheight% + 3, %interfloorheight% + 3, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	#Railing
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	if[%floor% = 18] AddStairsWall %25%, Stair%25%Rail, StairsWall2, 0.5, %23% - 4, -%24% + 5 + %NumSteps%, %23%, -%24% + 5 + %NumSteps%, 0.5 + 3.5, 0.5 + 3.5, -0.5, -0.5, 0, 0
+
+	#Ceiling
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 18] AddStairsFloor %25%, Stairs%25%Ceiling, StairsCeiling, 0.5, -%23%, -%24%, %23%, %24%, %height%, %height%, false, false, 0, 0
+
+	#Stairs
+	Set NumStepsU2 = %NumSteps% * 2
+	Set NumStepsU3 = %NumSteps% * 3
+
+	OP_Draw(true, true, true, true, true, true)
+	if[%floor% < 18] OP_OrthoStair(%25%, ST%25%_LowerStairs, Stairs, %23% - 4, %23%, back, -%24% + 5 + %NumSteps%, %NumSteps%, 1, %26%, 0, 0.5)
+	if[%floor% < 18] OP_OrthoStair(%25%, ST%25%_UpperStairs, Stairs, -%23%, -%23% + 4, front, -%24% + 5, %NumSteps%, 1, %26%, %26% * %NumSteps%, 0.5)
+	if[%DblStairs% = true] OP_OrthoStair(%25%, ST%25%_LowerStairsEX, Stairs, %23% - 4, %23%, back, -%24% + 5 + %NumSteps%, %NumSteps%, 1, %26%, %26% * %NumStepsU2%, 0.5)
+	if[%DblStairs% = true] OP_OrthoStair(%25%, ST%25%_UpperStairsEX, Stairs, -%23%, -%23% + 4, front, -%24% + 5, %NumSteps%, 1, %26%, %26% * %NumStepsU3%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = -3] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% > -3] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps2%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% = 9] AddStairsFloor %25%, Stairs%25%Transition, StairsFloor, 0.5, %23% - 4, -%24% + 5 + %NumSteps%, %23%, -%24% + 5 + %NumSteps2%, 0, 0, false, false, 0, 0
+	if[%floor% < 18] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5, -%23%, -%24%, %23%, -%24% + 5, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
+	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingLowerEX, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps%, %23%, %24%, %26% * %NumStepsU2%, %26% * %NumStepsU2%, false, false, 0, 0
+	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingUpperEX, StairsFloor, 0.5, -%23%, -%24%, %23%, -%24% + 5, %26% * %NumStepsU3%, %26% * %NumStepsU3%, false, false, 0, 0
+
+	#Floor Signs
+	Set Suffix = %floorid%
+	Set SignCenterPoint = 0
+
+	DrawWalls = true, false, false, false, false, false
+	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 0.75, %24% - 0.001, %SignCenterPoint% + 0.75, %24% - 0.001, 1.5, 1.5, 3.75, 3.75, 0, 0
+
+	#Doors
+	WallOrientation = left
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, %23% - 2, %24%, 3, 7, 0, 0, 0
+	WallOrientation = right
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, %23% - 2, %24% + 0.5, 3, 7, 0, 0, 0
+
+		#Manual filler walls
+		WallOrientation = left
+		if[%floor% = 18] AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% - 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+
+	#Exit Signs
+	Set SignTex = ExitSign
+	if[%floor% < 0] Set SignTex = ExitSignUp
+
+	if[%floor% ! 0] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% + %24% + 0.55, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% ! 0 & %floor% < 17] AddBoxSign(Stair%25%_SignHall, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, false, true, true, %21% + %23% - 2, 0, 1.8, 0.9, %height% - 0.9, false)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignGround, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% + %24% - 0.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
+<EndFloors>
+
+#East Stairwell
+CreateStairwell 2, 65, -17.5, -3, 18
+CutStairwell 2, -4.5, -12, 4.5, 12, 0, 5
+
+<Floors -3 to 18>
+	StairwellSets() #Determine stairs' size
+
+	Set 21 = 65 #Center X
+	Set 22 = -17.5 #Center Z
+	Set 23 = 4.5 #Cut X
+	Set 24 = 12 #Cut Z
+	Set 25 = 2 #Stairwell Number
+	Set 26 = 0.5 #Riser Size
+
+	#Walls
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddStairsWall %25%, Stair%25%Front, StairsWall, 0.5, -%23%, -%24%, %23%, -%24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Left, StairsWall, 0.5, -%23%, -%24%, -%23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddStairsWall %25%, Stair%25%Right, StairsWall, 0.5, %23%, -%24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Back, StairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	WallOrientation = center
+	DrawWalls = true, true, true, true, false, true
+	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, -%24% + 5, 0, -%24% + 5 + %NumSteps%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% = 9] AddStairsWall %25%, Stair%25%TransitionWall, StairsWall2, 1, 0, -%24% + 5 + %NumSteps%, 0, -%24% + 5 + %NumSteps2%, %interfloorheight% + 3, %interfloorheight% + 3, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	#Railing
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	if[%floor% = 18] AddStairsWall %25%, Stair%25%Rail, StairsWall2, 0.5, -%23%, -%24% + 5 + %NumSteps%, -%23% + 4, -%24% + 5 + %NumSteps%, 0.5 + 3.5, 0.5 + 3.5, -0.5, -0.5, 0, 0
+
+	#Ceiling
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 18] AddStairsFloor %25%, Stairs%25%Ceiling, StairsCeiling, 0.5, -%23%, -%24%, %23%, %24%, %height%, %height%, false, false, 0, 0
+
+	#Stairs
+	Set NumStepsU2 = %NumSteps% * 2
+	Set NumStepsU3 = %NumSteps% * 3
+
+	OP_Draw(true, true, true, true, true, true)
+	if[%floor% < 18] OP_OrthoStair(%25%, ST%25%_LowerStairs, Stairs, -%23%, -%23% + 4, back, -%24% + 5 + %NumSteps%, %NumSteps%, 1, %26%, 0, 0.5)
+	if[%floor% < 18] OP_OrthoStair(%25%, ST%25%_UpperStairs, Stairs, %23% - 4, %23%, front, -%24% + 5, %NumSteps%, 1, %26%, %26% * %NumSteps%, 0.5)
+	if[%DblStairs% = true] OP_OrthoStair(%25%, ST%25%_LowerStairsEX, Stairs, -%23%, -%23% + 4, back, -%24% + 5 + %NumSteps%, %NumSteps%, 1, %26%, %26% * %NumStepsU2%, 0.5)
+	if[%DblStairs% = true] OP_OrthoStair(%25%, ST%25%_UpperStairsEX, Stairs, %23% - 4, %23%, front, -%24% + 5, %NumSteps%, 1, %26%, %26% * %NumStepsU3%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = -3] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% > -3] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps2%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% = 9] AddStairsFloor %25%, Stairs%25%Transition, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps%, -%23% + 4, -%24% + 5 + %NumSteps2%, 0, 0, false, false, 0, 0
+	if[%floor% < 18] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5, -%23%, -%24%, %23%, -%24% + 5, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
+	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingLowerEX, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps%, %23%, %24%, %26% * %NumStepsU2%, %26% * %NumStepsU2%, false, false, 0, 0
+	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingUpperEX, StairsFloor, 0.5, -%23%, -%24%, %23%, -%24% + 5, %26% * %NumStepsU3%, %26% * %NumStepsU3%, false, false, 0, 0
+
+	#Floor Signs
+	Set Suffix = %floorid%
+	Set SignCenterPoint = 0
+
+	DrawWalls = true, false, false, false, false, false
+	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 0.75, %24% - 0.001, %SignCenterPoint% + 0.75, %24% - 0.001, 1.5, 1.5, 3.75, 3.75, 0, 0
+
+	#Doors
+	WallOrientation = left
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 8, 75, -%23% + 2, %24%, 3, 7, 0, 0, 0
+	WallOrientation = right
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 6, 75, -%23% + 2, %24% + 0.5, 3, 7, 0, 0, 0
+
+		#Manual filler walls
+		WallOrientation = left
+		if[%floor% = 18] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+
+	#Exit Signs
+	Set SignTex = ExitSign
+	if[%floor% < 0] Set SignTex = ExitSignUp
+
+	if[%floor% ! 0] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% + %24% + 0.55, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% ! 0 & %floor% < 17] AddBoxSign(Stair%25%_SignHall, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, false, true, true, %21% + %23% - 2, 0, 1.8, 0.9, %height% - 0.9, false)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignGround, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% + %24% - 0.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
+<EndFloors>
