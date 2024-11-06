@@ -8,6 +8,10 @@
 #1. Completion of all elevators and stairwells: 6 November 2024
 #2. All detail finish date: ???
 
+#ELEVATOR BACKSTORY
+#1. Main hospital elevators (No. 1-13): Installed by Mitsubishi during November 1998 - January 1999.
+#2. Atrium elevators (No. 14-15): Installed by Otis sometimes in February 2002.
+
 #SCRIPTS TO BE INCLUDED
 	#1. My new scripts
 	<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
@@ -31,9 +35,9 @@
 	Name = Serenity Hospital - Haneda Building
 	Designer = Mn10 (some content made by Test Tower)
 	Location = 731 8th Street, Tranquility City
-	CameraFloor = -1
-	CameraPosition = 0, -20
-	CameraRotation = 0, 0, 0
+	CameraFloor = -2
+	CameraPosition = -15, -60
+	CameraRotation = 0, 90, 0
 <EndGlobals>
 
 #########################################################################
@@ -71,6 +75,11 @@
 	
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, LobbyWindows, true, 0.025, 1 #EG881
 		Load data/EG881/windows11h_insideblack.png, LobbyWindowsInt, 0.025, 1 #EG881
+
+		#Skylight
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3j.jpg, Skylight, true, 1, 1, false #EG881
+		Load data/EG881/windows11h_insideblack.png, SkylightInt, 1, 1, false #EG881
+		#Load data/windows11h_inside.gif, SkylightInt, 1, 1, false
 
 		#Vents
 		Load data/vents1b.jpg, VentsExt, 1, 1, false
@@ -189,6 +198,7 @@
 
 	#Shafts
 	Load data/EG881/cem_tr2b.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
+	Load data/EG881/cem_tr3.jpg, ShaftIntWall2, 0.075225, 0.0625 #EG881
 
 	#Elevators
 		#Main components
@@ -202,7 +212,8 @@
 		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 		#Load data/panel-back3.jpg, ElevPanel, 1, 1, false
-		Load data/Melvin/ABH_Tex/otis4_buttonpanel-lighter.jpg, ElevPanel, 1, 1, false
+		Load data/Melvin/ABH_Tex/otis4_buttonpanel-lighter.jpg, ElevPanel, 1, 1, false #Mitsubishi elevators
+		Load data/panel-back3.jpg, ElevPanel2, 1, 0.5, false #Otis elevators
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
 		#Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
 
@@ -277,9 +288,25 @@
 			Load data/brushed metal door.tga, ServiceDShaftDoors2, -1, 1, false #epco_rules
 			Load data/Melvin/brushed metal panel.jpg, ServiceDShaftDoors_Trim, 1, 1, false #epco_rules
 
+		#Atrium elevators
+		Load data/EG881/Carpet/eg881_Carpet2.jpg, AtriumElevFloor, 0.3, 0.3 #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, AtriumElevCeiling, 1, 1, false
+
+		Load data/EG881/Lights/squarelight1_white.jpg, AtriumElevCeilingLight, 1, 1, false #EG881
+		Load data/EG881/stainlesssteel2grid.gif, AtriumElevCeilingGrid, 1, 1, false #EG881
+		Load data/otis67/OTIS67_EU_Button_Lighted.gif, AtriumElevCeilingDL, 1, 1, false #DL = Downlight
+		Load data/EG881/elevdoortrim_white.jpg, AtriumElevWall, 0.5, 0.5 #EG881
+		Load data/marble2.jpg, AtriumElevWallPanel, 0.311, 0.311
+
+		Load data/EG881/elevdoortrim_white.jpg, AtriumElevPanelMain, 0.5, 0.5 #EG881
+		Load data/panel-back3.jpg, AtriumElevPanelTop, 1, 0.0667, false
+
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, AtriumElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, AtriumElevDoors2, 1, 1, false #EG881
+
 	####################
 
-	#Mitsubishi MTS fixtures
+	#Mitsubishi MTS fixtures (Elevators 1-13)
 	#Hall buttons
 	Load data/Mitsubishi_MTS/CallButtons/ButtonUp.png, ButtonUp, 1, 1
 	Load data/Mitsubishi_MTS/CallButtons/ButtonUpLit.png, ButtonUpLit, 1, 1
@@ -319,6 +346,65 @@
 	LoadAnimated data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulb.gif, data/Mitsubishi_Modern/Indicator_Set/LanternBulbLit.gif, LanternDownLit, 0.5, 1, -1, false #Test Tower
 	AddTextRange 1, 18, Black2, OutsideInd_Button%number%, Mitsubishi-Modern-V2.ttf, 110, %number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
 	AddTextRange 1, 3, Black2, OutsideInd_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 110, B%number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+
+	####################
+
+	#Otis Series 3/4 Luxury fixtures (Elevators 14-15)
+		#Call buttons
+		Load data/callbutton2.gif, OtisButtonUp, 1, 1, false
+		Load data/callbutton2_litgreen.gif, OtisButtonUpLit, 1, 1, false
+		Load data/callbutton2.gif, OtisButtonDown, 1, -1, false
+		Load data/callbutton2_litred.gif, OtisButtonDownLit, 1, -1, false
+
+		#Car buttons
+		Load data/Vector's Fixtures/Series Four/seriesfourblankunlit.png, OtisButton, 1, 1, false
+		Load data/Vector's Fixtures/Series Four/seriesfourblanklitred.png, OtisButtonLit, 1, 1, false
+		Load data/Vector's Fixtures/Series Four/seriesfourblanklitgreen.png, OtisButtonLitGreen, 1, 1, false
+		Load data/Vector's Fixtures/Series Four/seriesfourdopenwhite.png, OtisButtonOpen, 1, 1, false
+		Load data/Vector's Fixtures/Series Four/seriesfourdclosewhite.png, OtisButtonClose, 1, 1, false
+		Load data/Vector's Fixtures/Series Four/seriesfouralarmylw.png, OtisButtonAlarm, 1, 1, false
+	
+		AddTextRange 1, 2, OtisButton, OtisButtonB%number%, nimbus_sans_bold.ttf, 45, B%number%, 0, 0, 133, 128, center, center, 0, 0, 0, false
+		AddTextRange 1, 5, OtisButton, OtisButton%number%, nimbus_sans_bold.ttf, 45, %number%, 0, 0, 133, 128, center, center, 0, 0, 0, false
+
+		AddTextRange 1, 2, OtisButtonLit, OtisButtonLitB%number%, nimbus_sans_bold.ttf, 45, B%number%, 0, 0, 133, 128, center, center, 0, 0, 0, false
+		AddTextRange 1, 5, OtisButtonLit, OtisButtonLit%number%, nimbus_sans_bold.ttf, 45, %number%, 0, 0, 133, 128, center, center, 0, 0, 0, false
+
+		#Lanterns
+			#Lobby level
+				#If lobby is NOT the lowest floor, the "MainLantern" textures are used, with the following indicator added separately:
+				Load data/Otis_Series_1_and_3/Series 3/Indicators/Ind-Outside.png, OtisLobbyIndicator, 1, 1, false
+
+				#If lobby is the lowest floor, the following indicators are used:
+				Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-IndicatorUnlit.png, OtisLobbyLanternUp, 1, 1, false
+				Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-IndicatorLit.png, OtisLobbyLanternUpLit, 1, 1, false
+
+			#Lowest floor
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-UpUnlit.png, OtisLowestLanternUp, 1, 1, false
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-UpLit.png, OtisLowestLanternUpLit, 1, 1, false
+
+			#Intermediate floors
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Double-Unlit.png, OtisMainLanternUp, 1, 1, false
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Double-UpLit.png, OtisMainLanternUpLit, 1, 1, false
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Double-Unlit.png, OtisMainLanternDown, 1, 1, false
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Double-DownLit.png, OtisMainLanternDownLit, 1, 1, false
+
+			#Highest floor
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-DownUnlit.png, OtisHighestLanternUp, 1, 1, false #Used as the unlit texture for "single indicators"
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-DownUnlit.png, OtisHighestLanternDown, 1, 1, false
+			Load data/Otis_Series_1_and_3/Series 3/Indicators/Arrow/Single-DownLit.png, OtisHighestLanternDownLit, 1, 1, false
+
+		#Inside arrows
+		Load data/darrow_single.jpg, OtisArrowUp, 1, 1, false
+		Load data/darrow_single.jpg, OtisArrowDown, 1, 1, false
+		Load data/darrow_single_otis_upred.jpg, OtisArrowUp_Lit, 1, 1, false
+		Load data/darrow_single_otis_downred.jpg, OtisArrowDown_Lit, 1, 1, false
+
+		#Floor indicators (outside and inside)
+		Load data/black.jpg, OtisInd_Background, 1, 1, false
+		Load data/Melvin/transparent128.png, OtisInd_ButtonBlank, 1, 1, false
+		AddTextRange 1, 2, OtisInd_ButtonBlank, OtisInd_ButtonB%number%, acme_led.ttf, 75, B%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
+		AddTextRange 1, 5, OtisInd_ButtonBlank, OtisInd_Button%number%, acme_led.ttf, 75, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
 
 	########################################
 
@@ -388,7 +474,7 @@
 		#6. Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 		AddTextRange 1, 6, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
-		AddTextRange 7, 13, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 7, 15, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#7. Access control
 		Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
@@ -591,18 +677,18 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	
 		#X-Axis
 		Set EC_Flr_X = 0
-		if[%floor% = 1] Set EC_Flr_X = 8.875
+		if[%floor% = 1] Set EC_Flr_X = 9.5
 		Set EC_Cei_X = 0
-		if[%floor% = 0] Set EC_Cei_X = 8.875
+		if[%floor% = 0] Set EC_Cei_X = 9.5
 <EndFunction>
 
 <Floors -3 to -1>
 	ATR_ExtraCuts() #Extra cut values
 
 	#Atrium cuts
-	if[%floor% > -3] CutAll -10 - %EC_Flr_X%, %interfloorheight% - 1, -%2% - 40 + %EC_Flr%, 10, %interfloorheight% + 1, -5.5 - 20 - 10, false, true
+	if[%floor% > -3] CutAll -10 - %EC_Flr_X%, %interfloorheight% - 1, -%2% - 40 + %EC_Flr%, 10, %interfloorheight% + 1, -5.5 - 20 - 12, false, true
 	if[%floor% > -3] CutAll -10 - %EC_Flr_X%, %interfloorheight% - 1, -5.5 - 20, 10, %interfloorheight% + 1, -5.5, false, true
-	if[%floor% < -1] CutAll -10 - %EC_Cei_X%, %fullheight% - 1, -%2% - 40 + %EC_Cei%, 10, %fullheight% + 1, -5.5 - 20 - 10, false, true
+	if[%floor% < -1] CutAll -10 - %EC_Cei_X%, %fullheight% - 1, -%2% - 40 + %EC_Cei%, 10, %fullheight% + 1, -5.5 - 20 - 12, false, true
 	if[%floor% < -1] CutAll -10 - %EC_Cei_X%, %fullheight% - 1, -5.5 - 20, 10, %fullheight% + 1, -5.5, false, true
 <EndFloors>
 
@@ -630,11 +716,13 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
 	AddWall A1FrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall A1LeftRail, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -5.5 - 30, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall A1LeftRail, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
 	WallOrientation = left
-	AddWall A1RightRail, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5 - 30, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall A1BackRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5 - 30, 10 + 0.5, -5.5 - 30, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% ! -1] AddWall A1RightRail, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = -1] AddWall A1RightRail_A, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -65, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = -1] AddWall A1RightRail_B, %5%Wall2, 0.5, 10, -57, 10, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall A1BackRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5 - 32, 10 + 0.5, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
 	#North atrium railings
 	Set RailingHeight = %interfloorheight% + 3.5
@@ -671,28 +759,42 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	Set Extra = 0
 	if[%floor% = 0] Set Extra = 8
 
-	WallOrientation = right
-	DrawWalls = true, true, true, true, true, false
-	if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 1 | %floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr% + %Extra%, -10 - %EC_Flr_X%, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 6] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		#Front rails
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, false
+		if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
-	if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail3, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail4, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -30, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 0 & %floor% ! 0] AddWall ALeftRail5, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -14, -10 - %EC_Flr_X%, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		#Left rails
+		DrawWalls = true, true, false, true, true, false
+		if[(%Mod% = 1 & %floor% ! 1) | %floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr% + %Extra%, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	
+		DrawWalls = true, true, false, true, true, false
+		if[%floor% = 6] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	
+		DrawWalls = true, true, false, true, true, false
+		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail3, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		DrawWalls = true, true, true, true, true, false
+		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail4, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -30, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 0 & %floor% ! 0] AddWall ALeftRail5, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -14, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
-	WallOrientation = left
-	if[%Mod% = 0] AddWall ARightRail1, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 1] AddWall ARightRail2, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail3, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail4, %5%Wall2, 0.5, 10, -30, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%Mod% = 1] AddWall ARightRail5, %5%Wall2, 0.5, 10, -14, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		#Right rails
+		WallOrientation = left
+		DrawWalls = true, true, false, true, true, false
+		if[%Mod% = 0] AddWall ARightRail1, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	
+		DrawWalls = true, true, false, true, true, false
+		if[%floor% = 1] AddWall ARightRail2, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	
+		DrawWalls = true, true, false, true, true, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail3, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		DrawWalls = true, true, true, true, true, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail4, %5%Wall2, 0.5, 10, -30, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 1] AddWall ARightRail5, %5%Wall2, 0.5, 10, -14, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
-	if[%floor% ! 1 & %floor% ! 0] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 1] AddWall ABackRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 0] AddWall ABackRail4, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5, 1, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = 0] AddWall ABackRail5, %5%Wall2, 0.5, 9, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		#Back rails
+		if[%floor% ! 1] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ABackRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 <EndFloors>
 
 #########################################################################
@@ -995,7 +1097,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	AddWall NWClinicHall1, %5%Wall, 0.5, -70, -5, -70, 5.5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall NWClinicHall2, %5%Wall, 0.5, -70, 5, -40, 5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall NEClinicHall3, %5%Wall, 0.5, 30.5, 5, 70, 5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < -2] AddWall NEClinicHall3A, %5%Wall, 0.5, -20, 5, 19.5, 5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% = -2] AddWall NEClinicHall3A, %5%Wall, 0.5, -20, 5, 19.5, 5, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
 	AddWall NEClinicHall4, %5%Wall, 0.5, 70, -5, 70, 5.5, %height%, %height%, 0, 0, 0, 0, false
 
@@ -1016,12 +1118,12 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		Set Door_MainZ = 5.5
 	
 		WallOrientation = right
-		if[%floor% < -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+		if[%floor% = -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		if[%floor% = -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		if[%floor% = -2] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 
 			#Windows above doors
-			if[%floor% < -2] Add3DWindows(Clinic1A_Win1, %Door_MainX%, %Door_MainZ% - 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			if[%floor% = -2] Add3DWindows(Clinic1A_Win1, %Door_MainX%, %Door_MainZ% - 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
 
 		#Clinic 2 doors
 		Set Door_MainX = 70 - 0.5
@@ -1052,8 +1154,10 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	AddWall SClinicHall5, %5%Wall, 0.5, 38 - 0.5, -35, 48, -35, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = center
 	#if[%floor% < -1] AddWall SClinicDivider, %5%Wall, 1, 0, -%2% - %ExtraSouth%, 0, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider1, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -5, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	#AddWall SClinicDivider2, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -5, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SClinicDivider2A, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -70, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SClinicDivider2B, %5%Wall, 1, 20, -50, 20, -5, %height%, %height%, 0, 0, 0, 0, false
 
 		#Clinic 3 west doors
 		Set Door_MainX = -43
@@ -1464,6 +1568,23 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 <EndFloor>
 
+#ATRIUM SKYLIGHT
+<Floors 6 to 7>
+	TexPrefix() #Set texture prefixes
+
+	#Cuts for atrium skylight
+	if[%floor% > 6] CutAll -10, %interfloorheight% - 1, -80, 10, %interfloorheight% + 1, -50, false, true
+	if[%floor% < 7] CutAll -10, %fullheight% - 1, -80, 10, %fullheight% + 1, -50, false, true
+
+		#Skylight
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
+		if[%floor% = 7] AddFloor SkylightFloor, SkylightInt, 0, -10, -80, 10, -50, %interfloorheight%, %interfloorheight%, 2/4, 3, true
+
+		#Skylight atrium cover
+		if[%floor% = 6] CreateWallBox2 floor, SkylightAtriumCover, %5%Wall, 0, -65, 20, 30, Floor(7).InterfloorHeight, %height%, 0, 0, true, false, false, false
+<EndFloors>
+
 #West Trees
 AddTree(Tree1, -90, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 AddTree(Tree1, -90 + 15, -77.5, 10, 11.25, Floor(7).Base + 1.01)
@@ -1738,7 +1859,10 @@ AddTree(Tree1, 90 - 60, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, -54, -20, 6, 15, Shaft3, %height%, 0, true, true, true, true, false, false, false)
 
 	#Shaft 4: West Low zone Elevators
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 54, -20, 6, 15, Shaft3, %height%, 0, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 54, -20, 6, 15, Shaft4, %height%, 0, true, true, true, true, false, false, false)
+
+	#Shaft 6: Atrium Elevators
+	if[%floor% < 7] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 24.5, -60, 5, 10, Shaft6, %height%, 0, true, true, true, true, false, false, false)
 <EndFloors>
 
 <Floor 18>
@@ -1876,6 +2000,25 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	AddStdDoor DoorManager, %floorid%_Shaft5MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 	AddStdDoor DoorManager, %floorid%_Shaft5MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFloor>
+
+########################################
+
+#Atrium elevators (B2-5)
+AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, %interfloorheight%)
+
+#Machine room doors
+<Floor 6>
+	Set DTex = ServiceDoor2
+	Set DSTex = %DTex%Side
+
+	Set Door_MainX = 24.5 - 5
+	Set Door_MainZ = -60
+
+	WallOrientation = left
+	AddStdDoor Floor %floor%, %floorid%_Shaft6MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft6MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -2618,6 +2761,171 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		AddRails ElevRail, ElevRailSide, 0, %Position%, false, 1 + 0.06, 0.1
 <EndElevators>
 
+#Atrium elevators (B2-5)
+<Elevator 14>
+	Name = Atrium Elevator 1
+	Speed = 8
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - 4
+	AssignedShaft = 6
+	CreateElevator true, -1.34, 5, 0
+<EndElevator>
+
+<Elevator 15>
+	Name = Atrium Elevator 2
+	Speed = 8
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - 4
+	AssignedShaft = 6
+	CreateElevator true, -1.34, -5, 0
+<EndElevator>
+
+<Function BtnPanelE14-15>
+	Set PanelNumber = %param1%
+	#Set PanelNumber2 = %PanelNumber% + 1
+	Set BtnPrefix = OtisButton
+	#Set BeepSound in Elevator section
+	
+	Set LitSuffix = Lit
+	#if[%elevator% = 7] Set LitSuffix = LitGreen
+
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%5, %BtnPrefix%%LitSuffix%5, 1, 1, 4, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%4, %BtnPrefix%%LitSuffix%4, 2, 2, 3, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%3, %BtnPrefix%%LitSuffix%3, 2, 1, 2, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%2, %BtnPrefix%%LitSuffix%2, 3, 2, 1, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%1, %BtnPrefix%%LitSuffix%1, 3, 1, 0, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%B1, %BtnPrefix%%LitSuffix%B1, 4, 2, -1, 1, 1
+	AddButton %PanelNumber%, %BeepSound%, %BtnPrefix%B2, %BtnPrefix%%LitSuffix%B2, 4, 1, -2, 1, 1
+
+	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 6, 1, open, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 6, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 7, 2, alarm, 1, 1
+<EndFunction>
+
+<Elevators 14 to 15>
+	Set Prefix = Atrium
+
+	#Set textures and dimensions
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(5, 7.5, 7.5, 0.2, 0.2, true, false, true, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.75, 1.75, 0.5, 0.2, false, true, false, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	
+	#DETAILED INTERIORS CREATED IN THE NEXT SECTION.
+	#--------------------
+	#Car Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -2.5
+
+	WallOrientation = right
+	AddDoorComponent 1, Left, %ElevDoorTex%, %ElevDoorTex%, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, %ElevDoorTex%2, %ElevDoorTex%2, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP% - 0.2, -2 - (2 * 1), %IDP%, 2 + (2 * 1), 0, 0, 0, 0
+	#--------------------
+	#Main Panel (Right of Doors)
+	Set P1_PositionX = -2.3 + 0.001
+	Set P1_PositionZ = 2.775
+
+		#Panel back
+		CreateWallBox2 elevator, MainPB, ElevPanel2, %P1_PositionX% - 0.001 + 0.025, %P1_PositionZ%, 0.05, 0.8, 2.5, 2.5, 0, 0, false, true, true, true
+
+		#Panel creation
+		CreatePanel , 8, 2, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0
+		#CreatePanel , 8, 1, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0 #5th floor button only
+
+		#Buttons
+		Set BeepSound = KW_Sounds/OtisS3Beep1.wav
+		BtnPanelE14-15(1)
+	#--------------------
+	#Elevator number sign
+	DrawWalls = false, true, false, false, false, false
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX%, %P1_PositionZ% - 0.25, %P1_PositionX%, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.35, 6.35, 0, 0
+
+	#Indicator sets above main panel
+	Set LowerOffset = 5.65
+	DrawWalls = false, true, false, false, false, false
+	AddWall IndicatorBack, OtisInd_Background, 0, %P1_PositionX%, %P1_PositionZ% - 0.65, %P1_PositionX%, %P1_PositionZ% + 0.65, 0.65, 0.65, %LowerOffset%, %LowerOffset%, 0, 0
+	AddFloorIndicator OtisInd_Button, right, %P1_PositionX% + 0.001, %P1_PositionZ%, 0.45, 0.45, %LowerOffset% + 0.22
+	AddDirectionalIndicator true, false, false, Ind_ButtonBlank, OtisArrowUp, OtisArrowUp_Lit, OtisArrowDown, OtisArrowDown_Lit, %P1_PositionX% + 0.001, %P1_PositionZ%, %LowerOffset%, right, 0.5, 0.25, false, 0, 0
+	#--------------------
+	#Secondary Panel (Left of Doors)
+	Set P2_PositionX = -2.3 + 0.001
+	Set P2_PositionZ = -2.775
+
+		#Panel back
+		CreateWallBox2 elevator, SecondaryPB, ElevPanel, %P2_PositionX% - 0.001 + 0.025, %P2_PositionZ%, 0.05, 0.8, 2.5, 2.5, 0, 0, false, true, true, true
+
+		#Panel creation
+		CreatePanel , 8, 2, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0
+		#CreatePanel , 8, 1, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0 #5th floor button only
+
+		#Buttons
+		Set BeepSound = KW_Sounds/OtisS3Beep1.wav
+		BtnPanelE14-15(2)
+	#--------------------
+	#Indicator sets above secondary panel
+	Set LowerOffset = 5.65
+	DrawWalls = false, true, false, false, false, false
+	AddWall IndicatorBack, OtisInd_Background, 0, %P2_PositionX%, %P2_PositionZ% - 0.65, %P2_PositionX%, %P2_PositionZ% + 0.65, 0.65, 0.65, %LowerOffset%, %LowerOffset%, 0, 0
+	AddFloorIndicator OtisInd_Button, right, %P2_PositionX% + 0.001, %P2_PositionZ%, 0.45, 0.45, %LowerOffset% + 0.22
+	AddDirectionalIndicator true, false, false, Ind_ButtonBlank, OtisArrowUp, OtisArrowUp_Lit, OtisArrowDown, OtisArrowDown_Lit, %P2_PositionX% + 0.001, %P2_PositionZ%, %LowerOffset%, right, 0.5, 0.25, false, 0, 0
+<EndElevators>
+
+<Elevators 14 to 15>
+	#DETAILED INTERIORS
+	#1. Ceiling lights
+	Set LightOffset = 7.5 - 0.001
+	Set LightOffset2 = 7.5 - 0.002
+	
+	DrawWalls = true, false, false, false, false, false
+	AddFloor CeilingLight, %Prefix%ElevCeilingLight, 0, 0 - 2, -2, 0 + 2, 2, %LightOffset%, %LightOffset%, 0, 0
+	AddFloor CeilingGrid, %Prefix%ElevCeilingGrid, 0, 0 - 2, -2, 0 + 2, 2, %LightOffset2%, %LightOffset2%, 4/0.5, 4/0.5
+
+	#2. Panels on walls
+	Set WPTex = %Prefix%ElevWallPanel
+	Set WPanelHeight = 7.5
+
+		#Front/back panels
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0, -3.55 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0, 3.55 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+		#Left/right panels
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, 2.3 - 0.01, 0, 0.02, 3.75, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+	#3. Downlights
+	DrawWalls = true, false, false, false, false, false
+	Set DLOffset = 7.5 - 0.001 #Offsets for downlights
+	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -1.25 - 0.11, -2.775 - 0.11, -1.25 + 0.11, -2.775 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 1.25 - 0.11, -2.775 - 0.11, 1.25 + 0.11, -2.775 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -1.25 - 0.11, 2.775 - 0.11, -1.25 + 0.11, 2.775 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 1.25 - 0.11, 2.775 - 0.11, 1.25 + 0.11, 2.775 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	#--------------------
+	DrawWalls = true, true, true, true, true, true
+	#Ropes
+	RopePosition = 0, 7.5 + 0.2, 0
+	RopeTexture = Ropes
+
+	#Counterweight
+	Set Position = 2.5 + 0.5
+
+	DrawWalls = true, true, true, true, true, true
+	CreateCounterweight CWeight_Frame, CWeight, %Position%, 0, 0.5, 6, 2, 0.5
+
+	#Rails
+	AddRails ElevRail, ElevRailSide, 0, 0, true, 3.75 + 0.06, 0.1
+	AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
+<EndElevators>
+
 ##--------------------------------------------------------------------------------##
 
 #HALL STATIONS
@@ -3072,8 +3380,8 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		Set Suffix = %floorid%
 
 		DrawWalls = false, true, false, false, false, false
-		AddWall E13FloorSign1, ServFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, %Shaft1CZ% - 0.5, %Shaft1CX% + 6.001, %Shaft1CZ% + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		#AddWall E13HallSign1, FireSign, 0, %Shaft1CX% + 6.001, %Shaft1CZ% - 0.25, %Shaft1CX% + 6.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		AddWall E12-13FloorSign, ServFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, %Shaft1CZ% - 0.5, %Shaft1CX% + 6.001, %Shaft1CZ% + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		#AddWall E12-13HallSign, FireSign, 0, %Shaft1CX% + 6.001, %Shaft1CZ% - 0.25, %Shaft1CX% + 6.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
 
@@ -3084,6 +3392,116 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		#Indicator creation (Lobby)
 		MitsubishiLobbyInds(right, 12, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 4, %Offset%, -3, 17)
 		MitsubishiLobbyInds(right, 13, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 4, %Offset%, -3, 17)
+<EndFloors>
+
+########################################
+
+#Set textures for Elevators 14-15
+<Function ElevHallTex_Otis>
+	#Shaft doors
+	TexPrefix() #Set prefixes for shaft doors
+	Set DoorTexture = %5%ShaftDoors
+
+	#Use automatic filler walls or not
+	Set AutoFiller = false
+
+	#Door trims
+		#Sides
+		Set DoorTrimTexture = %DoorTexture%_Trim
+
+		#Top
+		Set DoorTrimTexture_Top = %DoorTrimTexture%
+
+	#Deco dimensions
+		Set SideDecoH = 7.2
+		if[%floor% < 9] Set SideDecoH = %height%
+		Set TopDecoH = %SideDecoH% - 7
+
+	#Call button panels
+	Set BPanelTexture = ElevExtPanels
+	Set ButtonPrefix = OtisButton
+
+	#Lantern panels
+	Set LPanelTexture = %BPanelTexture%
+	Set LanternPrefix = OtisMainLantern
+	if[%floor% = 4] Set LanternPrefix = OtisHighestLantern
+	if[%floor% = -2] Set LanternPrefix = OtisLowestLantern
+
+		#Lantern heights
+		Set LHeight = 1.5
+		if[%floor% = -2 | %floor% = 4] Set LHeight = 0.8
+		Set LOffset = 6 - (%LHeight% / 2)
+
+		#Lateral offset for lantern panels
+		Set ExtraLateralOffset = 0
+		#if[%floor% < 9] Set ExtraLateralOffset = 0.05
+<EndFunction>
+
+#Elevators 14-15
+<Floors -2 to 4>
+	#Shaft Doors
+	ElevHallTex_Otis() #Set shaft door and panel textures
+		Set StartNo = 14 #Number of the first elevator
+	
+		Set ElevDoorTex = %Prefix%ElevDoors
+		Set IDP = -2.5 - 0.3
+	
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo%, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo%, 1, Right, %DoorTexture%2, %DoorTexture%2, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+	
+		WallOrientation = right
+		AddShaftDoorComponent %StartNo% + 1, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+		AddShaftDoorComponent %StartNo% + 1, 1, Right, %DoorTexture%2, %DoorTexture%2, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+		FinishShaftDoor %StartNo% + 1, 1, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(14, 6, -4.34, -4.14, 5 - 4, 5 + 4, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(14, 6, -4.34, -4.14, -5 - 4, -5 + 4, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+
+	#****************************************#
+
+	#Door trims/fillers
+	WallTex() #Set filler textures to match with shaft walls
+	Set Shaft2CX = 24.5 #2nd shaft for elevator bank
+	Set Shaft2CZ = -60
+
+		#All floors
+		AddDecoObject(E14_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 5, %Shaft2CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
+		AddDecoObject(E15_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 5, %Shaft2CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
+
+	#****************************************#
+
+	#Call buttons
+	CallButtonElevators = 14, 15
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 5 - 0.001, %Shaft2CZ%, 3.5, left, 0.5, 1, true, 0, 0
+
+		#Signs
+		Set Suffix = %floorid%
+
+		DrawWalls = true, false, false, false, false, false
+		AddWall E14-15FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.5, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddWall E14-15HallSign1, FireSign, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.25, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+	#****************************************#
+
+	#Indicator sets
+	AddDirectionalIndicator 14, true, false, true, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.661 - %ExtraLateralOffset%, -2 - 0.75, %LOffset%, left, 0.95, %LHeight%, false, 0, 0
+	AddDirectionalIndicator 15, true, false, true, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.661 - %ExtraLateralOffset%, 2 + 0.75, %LOffset%, left, 0.95, %LHeight%, false, 0, 0
+
+	#Upper levels floor indicators
+	Set ExtraVOffset = 0
+	if[%floor% = 4] Set ExtraVOffset = 0.1
+
+		#Indicator
+		DrawWalls = true, false, false, false, false, false
+		if[%floor% = 0] AddWall E14Indicator, OtisLobbyIndicator, 0, %Shaft2CX% - 5.001, %Shaft2CZ% + 5 - 2.75 - 0.2425, %Shaft2CX% - 5.001, %Shaft2CZ% + 5 - 2.75 + 0.2425, 0.65, 0.65, %LOffset% - 0.75 + 0.225 - %ExtraVOffset%, %LOffset% - 0.75 + 0.225 - %ExtraVOffset%, 0, 0, false
+		if[%floor% = 0] AddWall E15Indicator, OtisLobbyIndicator, 0, %Shaft2CX% - 5.001, %Shaft2CZ% - 5 + 2.75 - 0.2425, %Shaft2CX% - 5.001, %Shaft2CZ% - 5 + 2.75 + 0.2425, 0.65, 0.65, %LOffset% - 0.75 + 0.225 - %ExtraVOffset%, %LOffset% - 0.75 + 0.225 - %ExtraVOffset%, 0, 0, false
+
+		#Floor number display
+		if[%floor% = 0] AddFloorIndicator 14, true, OtisInd_Button, left, -3.661 - 0.002 - %ExtraLateralOffset%, -2 - 0.75, 0.425, 0.425, %LOffset% - 0.75 + 0.41 - %ExtraVOffset%
+		if[%floor% = 0] AddFloorIndicator 15, true, OtisInd_Button, left, -3.661 - 0.002 - %ExtraLateralOffset%, 2 + 0.75, 0.425, 0.425, %LOffset% - 0.75 + 0.41 - %ExtraVOffset%
 <EndFloors>
 
 ########################################
@@ -3143,6 +3561,32 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	CarStartSound = elevstart5.wav
 	CarMoveSound = elevmove5.wav
 	CarStopSound = elevstop5.wav
+<EndElevators>
+
+<Elevators 14 to 15>
+	#Door settings
+	DoorTimer 1 = 9000
+	QuickClose 1 = 6000
+	OpenSound 1 = EG881Sounds/elevopenquick2.wav #EG881
+	CloseSound 1 = EG881Sounds/elevclosequick2.wav #EG881
+
+	#Notifications
+	UpChimeSound 1 = chime3-up.wav
+	DownChimeSound 1 = chime3-down.wav
+	BeepSound = KW_Sounds/OtisS3Beep1.wav
+
+	NotifyEarly = 1
+	QueueResets = true
+	RecallFloor = 0
+
+	#Movement sounds
+	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
+	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
+	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+
+	CarStartSound = EG881Sounds/elevstart10.wav #EG881
+	CarMoveSound = EG881Sounds/elevmove10.wav #EG881
+	CarStopSound = EG881Sounds/elevstop10.wav #EG881
 <EndElevators>
 
 ##--------------------------------------------------------------------------------##
