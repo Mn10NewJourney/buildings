@@ -289,7 +289,7 @@
 			Load data/Melvin/brushed metal panel.jpg, ServiceDShaftDoors_Trim, 1, 1, false #epco_rules
 
 		#Atrium elevators
-		Load data/EG881/Carpet/eg881_Carpet2.jpg, AtriumElevFloor, 0.3, 0.3 #EG881
+		Load data/EG881/Carpet/eg881_Carpet2.jpg, AtriumElevFloor, 0.35, 0.35 #EG881
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, AtriumElevCeiling, 1, 1, false
 
 		Load data/EG881/Lights/squarelight1_white.jpg, AtriumElevCeilingLight, 1, 1, false #EG881
@@ -954,6 +954,33 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		#AddStdDoor Floor %floor%, %floorid%_EastStrDoor2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 10, 0, 0, 0, 0
 		#AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 10, false, 0, 0, false
 <EndFloor>
+
+<Floors -3 to 6>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Storage south of Shaft 6
+	DrawWalls = true, true, false, false, false, false
+
+	WallOrientation = left
+	#AddWall SouthSTR1, %5%Wall, 0.5, 19.5, -85, 19.5, -80, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = right
+	AddWall SouthSTR2, %5%Wall, 0.5, 29.5, -85, 29.5, -80, %height%, %height%, 0, 0, 0, 0, false
+
+	#====================#
+
+	#Storage doors
+	Set DTex = ServiceDoor3
+	if[%floor% > 2] Set DTex = Door9b
+	Set DSTex = %DTex%Side
+	
+		#West storage
+		Set Door_MainX = 29
+		Set Door_MainZ = -80 - 2
+	
+		WallOrientation = left
+		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
+<EndFloors>
 
 <Floors 7 to 8>
 	TexPrefix() #Set texture prefix/suffix
@@ -1862,7 +1889,7 @@ AddTree(Tree1, 90 - 60, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 54, -20, 6, 15, Shaft4, %height%, 0, true, true, true, true, false, false, false)
 
 	#Shaft 6: Atrium Elevators
-	if[%floor% < 7] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 24.5, -60, 5, 10, Shaft6, %height%, 0, true, true, true, true, false, false, false)
+	if[%floor% < 7] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 24.5, -70, 5, 10, Shaft6, %height%, 0, true, true, true, true, false, false, false)
 <EndFloors>
 
 <Floor 18>
@@ -2005,7 +2032,7 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 ########################################
 
 #Atrium elevators (B2-5)
-AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, %interfloorheight%)
+AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, %interfloorheight%)
 
 #Machine room doors
 <Floor 6>
@@ -2013,7 +2040,7 @@ AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 	Set DSTex = %DTex%Side
 
 	Set Door_MainX = 24.5 - 5
-	Set Door_MainZ = -60
+	Set Door_MainZ = -70
 
 	WallOrientation = left
 	AddStdDoor Floor %floor%, %floorid%_Shaft6MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
@@ -2764,6 +2791,7 @@ AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 #Atrium elevators (B2-5)
 <Elevator 14>
 	Name = Atrium Elevator 1
+	Type = Express
 	Speed = 8
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2774,6 +2802,7 @@ AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 <Elevator 15>
 	Name = Atrium Elevator 2
+	Type = Express
 	Speed = 8
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2863,7 +2892,7 @@ AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 	Set P2_PositionZ = -2.775
 
 		#Panel back
-		CreateWallBox2 elevator, SecondaryPB, ElevPanel, %P2_PositionX% - 0.001 + 0.025, %P2_PositionZ%, 0.05, 0.8, 2.5, 2.5, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, SecondaryPB, ElevPanel2, %P2_PositionX% - 0.001 + 0.025, %P2_PositionZ%, 0.05, 0.8, 2.5, 2.5, 0, 0, false, true, true, true
 
 		#Panel creation
 		CreatePanel , 8, 2, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0
@@ -3465,7 +3494,7 @@ AddStdShaft(6, 1, 24.5, -60, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 	#Door trims/fillers
 	WallTex() #Set filler textures to match with shaft walls
 	Set Shaft2CX = 24.5 #2nd shaft for elevator bank
-	Set Shaft2CZ = -60
+	Set Shaft2CZ = -70
 
 		#All floors
 		AddDecoObject(E14_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 5, %Shaft2CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
