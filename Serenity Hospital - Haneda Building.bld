@@ -88,6 +88,7 @@
 		Load data/marb047.jpg, LHFloor, 0.2, 0.2
 		Load data/Carpet0013_S.jpg, LHCarpet, 0.2, 0.2
 		Load data/marbl3.jpg, LHWall, 0.25, 0.25, true
+		Load data/EG881/lopacwall3stripe.jpg, LHWall2, 0.15, 0.3 #EG881 #Atrium railings
 		Load data/EG881/ceilingtile3x3.jpg, LHCeiling, 0.125, 0.125 #EG881
 
 			Load data/EG881/elevdoorright_black.jpg, LHShaftDoors, -1, 1, false #EG881
@@ -97,6 +98,7 @@
 		#Upper hospital levels
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
 		Load data/marb148.jpg, UHWall, 0.15, 0.15, true
+		Load data/EG881/granite_0007e_black.jpg, UHWall2, 0.075, 0.075 #EG881 #Atrium railings
 		Load data/EG881/ceilingtile2b.jpg, UHCeiling, 0.125, 0.125 #EG881
 
 			Load data/EG881/lightaluminumdoor2.jpg, UHShaftDoors, 1, 1, false #EG881
@@ -534,9 +536,9 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, 0, 0, 0, 0, false
 
 		#Carpeting on lobby
-		FloorOrientation = top
-		DrawWalls = false, true, false, false, false, false
-		if[%floor% = 0] AddFloor LobbyCarpet, %5%Carpet, 0.5, -43, -35, 43, -5, 0.001, 0.001, 0, 0, false
+		#FloorOrientation = top
+		#DrawWalls = false, true, false, false, false, false
+		#if[%floor% = 0] AddFloor LobbyCarpet, %5%Carpet, 0.5, -43, -35, 43, -5, 0.001, 0.001, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -579,8 +581,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	if[%floor% = -1] Set EC_Cei = 20
 
 	#Atrium cuts
-	if[%floor% > -1] CutAll -10, %interfloorheight% - 1, -%2% + %EC_Flr%, 10, %interfloorheight% + 1, -5.5, false, true
-	if[%floor% < 6] CutAll -10, %fullheight% - 1, -%2% + %EC_Cei%, 10, %fullheight% + 1, -5.5, false, true
+	if[%floor% > -1] CutAll -10, %interfloorheight% - 1, -%2% - 40 + %EC_Flr%, 10, %interfloorheight% + 1, -5.5, false, true
+	if[%floor% < 6] CutAll -10, %fullheight% - 1, -%2% - 40 + %EC_Cei%, 10, %fullheight% + 1, -5.5, false, true
 <EndFloors>
 
 <Floors 0 to 6>
@@ -598,11 +600,11 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
-	if[%floor% = 0] AddWall AFrontRail, %5%Wall, 0.5, -10, -%2% + %EC_Flr%, 10, -%2% + %EC_Flr%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall ALeftRail, %5%Wall, 0.5, -10, -%2% + %EC_Flr%, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall ALeftRail, %5%Wall2, 0.5, -10, -%2% - 40 + %EC_Flr%, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 	WallOrientation = left
-	AddWall ARightRail, %5%Wall, 0.5, 10, -%2% + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall ABackRail, %5%Wall, 0.5, -10, -5.5, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall ARightRail, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall ABackRail, %5%Wall2, 0.5, -10 - 0.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 <EndFloors>
 
 #########################################################################
