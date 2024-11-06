@@ -112,7 +112,7 @@
 
 		#Drop ceilings
 		Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms and storages
-		#Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
+		Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
 
 		#Service level
 		Load data/EG881/cem_tr2b.jpg, ServiceFloor, 0.075225, 0.0625 #EG881
@@ -739,9 +739,9 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	DrawWalls = false, true, false, false, false, false
 
 	#Elevator lobby
-		CutAll -20 + 0.66, %interfloorheight% - 0.1, 5, 20, %interfloorheight% + 0.1, %2%, false, true
-		AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20 + 0.66, 5.2, 20, %2%, 0, 0, 0, 0, false
-		AddFloor ElevLobbyFloorTR, BlackTrim, 0.5, -20 + 0.66, 5, 20, 5.2, 0, 0, 0, 0, false
+		CutAll -20, %interfloorheight% - 0.1, 5, 20 - 0.66, %interfloorheight% + 0.1, %2%, false, true
+		AddFloor ElevLobbyFloor, %5%Floor2, 0.5, -20, 5.2, 20 - 0.66, %2%, 0, 0, 0, 0, false
+		AddFloor ElevLobbyFloorTR, BlackTrim, 0.5, -20, 5, 20 - 0.66, 5.2, 0, 0, 0, 0, false
 		
 	#NW patient rooms
 		CutAll -%1%, %interfloorheight% - 0.1, 5.3, -20, %interfloorheight% + 0.1, %2%, false, true
@@ -753,10 +753,15 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		AddFloor NERoomFloor, %5%Floor_Int, 0.5, 30, 5.5, %1%, %2%, 0, 0, 0, 0, false
 		AddFloor NERoomFloorTR, BlackTrim, 0.5, 30, 5.3, %1%, 5.5, 0, 0, 0, 0, false
 
-	#South patient rooms
-		CutAll -%1%, %interfloorheight% - 0.1, -%2%, %1%, %interfloorheight% + 0.1, -5.3, false, true
-		AddFloor SRoomFloor, %5%Floor_Int, 0.5, -%1%, -%2%, %1%, -5.5, 0, 0, 0, 0, false
-		AddFloor SRoomFloorTR, BlackTrim, 0.5, -%1%, -5.5, %1%, -5.3, 0, 0, 0, 0, false
+	#SW patient rooms
+		CutAll -%1%, %interfloorheight% - 0.1, -%2%, -20, %interfloorheight% + 0.1, -5.3, false, true
+		AddFloor SWRoomFloor, %5%Floor_Int, 0.5, -%1%, -%2%, -20, -5.5, 0, 0, 0, 0, false
+		AddFloor SWRoomFloorTR, BlackTrim, 0.5, -%1%, -5.5, -20, -5.3, 0, 0, 0, 0, false
+
+	#SE patient rooms
+		CutAll 20, %interfloorheight% - 0.1, -%2%, %1%, %interfloorheight% + 0.1, -5.3, false, true
+		AddFloor SERoomFloor, %5%Floor_Int, 0.5, 20, -%2%, %1%, -5.5, 0, 0, 0, 0, false
+		AddFloor SERoomFloorTR, BlackTrim, 0.5, 20, -5.5, %1%, -5.3, 0, 0, 0, 0, false
 <EndFloors>
 
 <Floors 0 to 16>
@@ -1184,6 +1189,48 @@ AddStdShaft(4, 1, 54, -20, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 
 #Service elevator
 AddStdShaft(5, 1, 14, 40, 5.67, 4.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
+
+#Service elevator lobby walls
+<Floors -3 to 16>
+	#Wall creation
+	TexPrefix() #Set texture prefixes
+	Set SouthEnd = 5
+	if[%floor% < -1] Set SouthEnd = 35
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	AddWall SEL_%floorid%F_Front, %5%Wall, 0.5, 20, %SouthEnd%, 30.5, %SouthEnd%, %height%, %height%, 0, 0, 0, 0, false
+
+	WallOrientation = center
+	TextureOverride %5%Wall, %5%%PTSuffix%, Blank, Blank, Blank, Blank
+	AddWall SEL_%floorid%F_Right, %5%Wall, 1, 30, %SouthEnd%, 30, 45, %height%, %height%, 0, 0, 0, 0, false
+
+		#Dropped ceiling on 1st floor
+		FloorOrientation = bottom
+		DrawWalls = true, false, false, false, false, false
+		if[%floor% = 0] AddFloor SEL_%floorid%F_Ceiling, DropCeiling, 0.5, 20, %SouthEnd%, 30, 45, 9.5, 9.5, 0, 0, false
+
+	#Door creation
+	Set DTex = ServiceDoor1
+	if[%floor% = 0] Set DTex = Door8
+	if[%floor% > 0 & %floor% < 3] Set DTex = ServiceDoor3
+	if[%floor% > 2 & %floor% < 9] Set DTex = ServiceDoor2
+	if[%floor% > 8] Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+	Set Door_MainX = 25
+	Set Door_MainZ = %SouthEnd%
+
+	WallOrientation = right
+	if[%floor% > -2] AddStdDoor Floor %floor%, SEL_%floorid%_D1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ% + 0.5, 3, 7, 0, 0, 0, 0, 0
+	if[%floor% > -2] AddStdDoor Floor %floor%, SEL_%floorid%_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ% + 0.5, 3, 7, 0, 0, 0, 0, 0
+	if[%floor% > -2] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ% + 0.5, 6, 7, 0, true, 0, 0, false
+
+	WallOrientation = left
+	if[%floor% < -1] AddStdDoor Floor %floor%, SEL_%floorid%_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+	if[%floor% < -1] AddStdDoor Floor %floor%, SEL_%floorid%_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+	if[%floor% < -1] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+<EndFloors>
 
 #Machine room doors
 <Floor 18>
