@@ -720,8 +720,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 	WallOrientation = left
 	if[%floor% ! -1] AddWall A1RightRail, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = -1] AddWall A1RightRail_A, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -65, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	if[%floor% = -1] AddWall A1RightRail_B, %5%Wall2, 0.5, 10, -57, 10, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = -1] AddWall A1RightRail_A, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -62, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = -1] AddWall A1RightRail_B, %5%Wall2, 0.5, 10, -54, 10, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 	AddWall A1BackRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -5.5 - 32, 10 + 0.5, -5.5 - 32, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
 	#North atrium railings
@@ -755,9 +755,6 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	#Atrium railings
 	Set RailingHeight = %interfloorheight% + 3.5
 	Set RailingOffset = -%interfloorheight%
-	
-	Set Extra = 0
-	if[%floor% = 0] Set Extra = 8
 
 		#Front rails
 		WallOrientation = right
@@ -765,8 +762,12 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
 		#Left rails
+		DrawWalls = true, true, true, true, true, false
+		if[%floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -62, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 0] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -62 + 8, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
 		DrawWalls = true, true, false, true, true, false
-		if[(%Mod% = 1 & %floor% ! 1) | %floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr% + %Extra%, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 	
 		DrawWalls = true, true, false, true, true, false
 		if[%floor% = 6] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
@@ -824,8 +825,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	OP_EscLanding(EscalatorLandingX, 5.5, 0, 0, EscalatorLandingX, 5.5, 0, 0)
 
 <Floor -1>
-	OP_Escalator(%floorid%_OPDEscalatorUP, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -10, -63, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-	OP_Escalator(%floorid%_OPDEscalatorDN, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -10, -59, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_OPDEscalatorUP, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -10, -60, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_OPDEscalatorDN, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -10, -56, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 <EndFloor>
 
 #2. Longer Escalators from 1 to 2
@@ -974,11 +975,11 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Set DSTex = %DTex%Side
 	
 		#West storage
-		Set Door_MainX = 29
+		Set Door_MainX = 29.5
 		Set Door_MainZ = -80 - 2
 	
-		WallOrientation = left
-		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
 <EndFloors>
 
@@ -1183,8 +1184,8 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	#if[%floor% < -1] AddWall SClinicDivider, %5%Wall, 1, 0, -%2% - %ExtraSouth%, 0, -5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	#AddWall SClinicDivider2, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider2A, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -70, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider2B, %5%Wall, 1, 20, -50, 20, -5, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SClinicDivider2A, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -80, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SClinicDivider2B, %5%Wall, 1, 20, -60, 20, -5, %height%, %height%, 0, 0, 0, 0, false
 
 		#Clinic 3 west doors
 		Set Door_MainX = -43
