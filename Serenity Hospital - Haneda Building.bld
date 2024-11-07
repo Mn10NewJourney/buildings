@@ -1102,39 +1102,46 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 <Floors -3 to 8>
 	TexPrefix() #Set texture prefixes
 
+	Set SEP = 0 #South extra position
+	if[%floor% = 0 | %floor% = 1] Set SEP = 8 #South extra position
+
 	#Restrooms
 	WallOrientation = left
 	DrawWalls = true, true, false, false, false, false
-	AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -40, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -40, 5, -40, 35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -40, 5 + %SEP%, -20, 5 + %SEP%, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -40, 5 + %SEP%, -40, 35, %height%, %height%, 0, 0, 0, 0, false
 	AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -40, 35, -40, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
+
+		#Extra wall to provide privacy
+		DrawWalls = true, true, true, false, false, false
+		if[%floor% = 0 | %floor% = 1] AddWall Floor%floorid%Restroom_Front_EXPriv, %5%Wall, 0.75, -40, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
 
 	WallOrientation = right
 	Set Showext = false
 	if[%floor% < -1] Set Showext = true
 	DrawWalls = true, %Showext%, false, false, false, false
-	AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5 + %SEP%, -20, 35, %height%, %height%, 0, 0, 0, 0, false
 	AddWall Floor%floorid%Restroom_Right_EX, %5%Wall, 0.5, -20, 35, -20, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
 	DrawWalls = true, true, false, false, false, false
 	AddWall Floor%floorid%Restroom_Back, %5%Wall, 0.5, -40, 35, -20, 35, %height%, %height%, 0, 0, 0, 0, false
 
 	WallOrientation = center
 	DrawWalls = true, true, false, false, false, false
-	AddWall Floor%floorid%Restroom_Mid, %5%Wall, 0.5, -30, 5, -30, 35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Floor%floorid%Restroom_Mid, %5%Wall, 0.5, -30, 5 + %SEP%, -30, 35, %height%, %height%, 0, 0, 0, 0, false
 
 		#Restrooms' dropped ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor RR_DropCeiling, DropCeiling, 0.5, -40, 5, -20, 35, 8.5, 8.5, 0, 0, false
+		AddFloor RR_DropCeiling, DropCeiling, 0.5, -40, 5 + %SEP%, -20, 35, 8.5, 8.5, 0, 0, false
 
 		#Restroom doors
 		RR_DTex() #Set door texture for restrooms
 
 		WallOrientation = right
-		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -35, 5.5, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -25, 5.5, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, -35, 5.5, 3, 7, 0, true, 0, 0, false
-		AddFillerWalls ConnectionWall, 0.5, -25, 5.5, 3, 7, 0, true, 0, 0, false
+		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -35, 5.5 + %SEP%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -25, 5.5 + %SEP%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, -35, 5.5 + %SEP%, 3, 7, 0, true, 0, 0, false
+		AddFillerWalls ConnectionWall, 0.5, -25, 5.5 + %SEP%, 3, 7, 0, true, 0, 0, false
 	
 		#Restroom signs
 		Set BoxTex = WoodSign2
@@ -1143,11 +1150,12 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		if[%floor% > 2] Set SignSuffix = _Gray
 
 			#Signs at hallways
-			AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, false, true, true, -20 - 0.5, 5 - 0.75, 1.5, 1.5, 8, false)
+			if[%floor% ! 0 & %floor% ! 1] AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, false, true, true, -20 - 0.5, 5 - 0.75, 1.5, 1.5, 8, false)
+			if[%floor% = 0 | %floor% = 1] AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, true, true, true, -40 - 0.75, 5 + 0.375, 1.5, 1.5, 8, false)
 
 			#Signs above doors
-			AddBoxSign(RR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, -35, 5 - 0.025, 1.25, 1.25, 7.25, false)
-			AddBoxSign(RR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, -25, 5 - 0.025, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, -35, 5 + %SEP% - 0.025, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, -25, 5 + %SEP% - 0.025, 1.25, 1.25, 7.25, false)
 
 	#Doors for storage next to restrooms
 	Set DTex = Door8
