@@ -94,7 +94,7 @@
 
 	#Main textures
 		#Level B3
-		Load data/checker08.jpg, B3FFloor, 0.4, 0.4
+		Load data/checker08.jpg, B3FFloor, 0.35, 0.35
 		Load data/Carpet0021d_S.jpg, B3FCarpet, 0.2, 0.2
 		Load data/st_wall2.jpg, B3FWall, 0.13635, 0.09765
 		#Load data/st_wall.jpg, B3FWall2, 0.1875, 0.1344 #Atrium railings
@@ -119,7 +119,7 @@
 			Load data/EG881/stainlesssteel.jpg, LHShaftDoors_Trim, 1, 1, false #EG881
 			Load data/EG881/stainlesssteel2.jpg, LHShaftDoors_TrimTop, 1, 1, false #EG881
 
-		#Upper hospital levels (4-7)
+		#Upper hospital levels (4-9)
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
 		Load data/Carpet0012_S.jpg, UHCarpet, 0.2, 0.2
 		Load data/marb148.jpg, UHWall, 0.15, 0.15, true
@@ -287,21 +287,25 @@
 		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
 		
 			#Shaft doors for service elevators
-			Load data/Melvin/WestinTQC/text16door.jpg, ServiceAShaftDoors, 1, 1, false
+			Load data/Melvin/WestinTQC/text16door.jpg, ServiceAShaftDoors, 1, 1, false #Levels B2-3
 			Load data/Melvin/WestinTQC/text16door.jpg, ServiceAShaftDoors2, -1, 1, false
 			Load data/text16.jpg, ServiceAShaftDoors_Trim, 0.5, 0.5, true
 
-			Load data/door1.jpg, ServiceBShaftDoors, 1, 1, false
+			Load data/door1.jpg, ServiceBShaftDoors, 1, 1, false #Levels 4-9
 			Load data/door1.jpg, ServiceBShaftDoors2, -1, 1, false
 			Load data/elevpanelsilver.jpg, ServiceBShaftDoors_Trim, 1, 1, false
 
-			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceCShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceCShaftDoors, 1, 1, false #EG881 #Levels 10-17
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceCShaftDoors2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ServiceCShaftDoors_Trim, 1, 1, false
 
-			Load data/brushed metal door.tga, ServiceDShaftDoors, 1, 1, false #epco_rules
+			Load data/brushed metal door.tga, ServiceDShaftDoors, 1, 1, false #epco_rules #Level 18
 			Load data/brushed metal door.tga, ServiceDShaftDoors2, -1, 1, false #epco_rules
 			Load data/Melvin/brushed metal panel.jpg, ServiceDShaftDoors_Trim, 1, 1, false #epco_rules
+
+			Load data/st_doors.jpg, ServiceEShaftDoors, -1, 1, false #Level B3
+			Load data/st_doors.jpg, ServiceEShaftDoors2, 1, 1, false
+			Load data/Melvin/st_panel.jpg, ServiceEShaftDoors_Trim, 1, 1, false
 
 		#Atrium elevators
 		Load data/EG881/Carpet/eg881_Carpet2.jpg, AtriumElevFloor, 0.35, 0.35 #EG881
@@ -633,6 +637,7 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	if[%floor% > 2 & %floor% < 9] Set 5S = ServiceB
 	if[%floor% > 8 & %floor% < 17] Set 5S = ServiceC
 	if[%floor% = 17] Set 5S = ServiceD
+	if[%floor% = -3] Set 5S = ServiceE
 <EndFunction>
 
 ##--------------------------------------------------------------------------------##
@@ -654,6 +659,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 <EndFloors>
 
 <Floors -3 to 6>
+	TexPrefix() #Set texture prefix/suffix
+
 	#Carpeting at elevator lobbies
 		#Floor cuts
 		if[%floor% ! -3 & %floor% ! 0] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
@@ -1169,6 +1176,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	if[%floor% < -2 | %floor% > 4] AddWall NWClinicHall2, %5%Wall, 0.5, -70, 5, -40, 5, %height%, %height%, 0, 0, 0, 0, false
 	#if[%floor% = -2] AddWall NEClinicHall3A, %5%Wall, 0.5, -20, 5, 19.5, 5, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall3B, %5%Wall, 0.5, 30.5, 5, 70, 5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < -2] AddWall NEClinicHall3C, %5%Wall, 0.5, 30, 5, 30, 25, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
 	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall4, %5%Wall, 0.5, 70, -5, 70, 5.5, %height%, %height%, 0, 0, 0, 0, false
 
@@ -1344,7 +1352,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Set SideTex = WoodSign2
 	if[%floor% > 2] Set SideTex = BlackTrim
 
-	if[%floor% ! 0] AddBoxSign(SELbySign1, Sign_ServiceElev%SignSuffix1%, Sign_ServiceElev%SignSuffix2%, %SideTex%, 0.1, false, true, true, %Position%, 5 - 0.75, 1.5, 1.5, 7.5, false)
+	if[%floor% ! -3 & %floor% ! -2 & %floor% ! 0] AddBoxSign(SELbySign1, Sign_ServiceElev%SignSuffix1%, Sign_ServiceElev%SignSuffix2%, %SideTex%, 0.1, false, true, true, %Position%, 5 - 0.75, 1.5, 1.5, 7.5, false)
 <EndFloors>
 
 #########################################################################
@@ -2098,7 +2106,7 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Wall creation
 	TexPrefix() #Set texture prefixes
 	Set SouthEnd = 5
-	#if[%floor% < -1] Set SouthEnd = 25
+	if[%floor% < -1] Set SouthEnd = 25
 	
 	Set Extra = 0
 	if[%floor% < -1] Set Extra = 0.5
