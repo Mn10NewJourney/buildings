@@ -234,7 +234,6 @@
 
 		#High zone elevators
 		Load data/Carpet0021b_S.jpg, HZElevFloor, 0.2, 0.2
-		#Load data/EG881/stainlesssteel2.jpg, HZElevCeiling, 1, 1, false #EG881
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HZElevCeiling, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HZElevCeiling2, 1, 1, false
 		Rotate HZElevCeiling, 90
@@ -247,10 +246,8 @@
 		Load data/checker23.jpg, HZElevWallPanel2, 0.5, 0.5
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, HZElevPanelMain, 1, 1, false #EG881
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, HZElevPanelTop, 1, 0.125, false #EG881
-		#Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors, -1, 1, false #EG881
-		#Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors2, 1, 1, false #EG881
-		Load data/dark muntz door.jpg, HZElevDoors, 1, 1, false #EG881
-		Load data/dark muntz door.jpg, HZElevDoors2, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, HZElevDoors2, 1, 1, false #EG881
 
 		#Low zone elevators
 		Load data/Carpet0012_S.jpg, LZElevFloor, 0.2, 0.2
@@ -1548,9 +1545,11 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
 	#West side
 	Cut external, -%1% - 0.1, Floor(0).Base, -15, -%1% + 0.1, Floor(1).Altitude, 15, true, false
+	Cut external, -%1% - 0.1, Floor(0).Base, -65, -%1% + 0.1, Floor(1).Altitude, -45, true, false
 
 	#East side
 	Cut external, %1% - 0.1, Floor(0).Base, -15, %1% + 0.1, Floor(1).Altitude, 15, true, false
+	Cut external, %1% - 0.1, Floor(0).Base, -65, %1% + 0.1, Floor(1).Altitude, -45, true, false
 
 <Floor 0>
 	TexPrefix() #Set wall textures
@@ -1561,8 +1560,10 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
 		SetAutoSize = true, false
 		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -20, -%2% - %ExtraSouth%, 20, -%2% - %ExtraSouth%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
-		AddCustomWindows(LeftLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -15, -%1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
-		AddCustomWindows(RightLobbyWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -15, %1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(LeftLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -15, -%1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(LeftLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -65, -%1%, -45, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(RightLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -15, %1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(RightLobbyWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -65, %1%, -45, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		SetAutoSize = true, true
 
 	#Entrance doors
@@ -1591,11 +1592,13 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		
+		####################################
 
 		#2. WEST DOORS
-		#Door set 1
+		#Door set 1A
 		Set Door_MainX = -%1%
-		Set Door_MainZ = 0
+		Set Door_MainZ = -50
 
 		WallOrientation = left
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
@@ -1603,7 +1606,27 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
-		#Door set 2
+		#Door set 1B
+		Set Door_MainX = -%1%
+		Set Door_MainZ = 40
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2A
+		Set Door_MainX = -%1%
+		Set Door_MainZ = -10
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2B
 		Set Door_MainX = -%1%
 		Set Door_MainZ = 10
 
@@ -1613,10 +1636,12 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
+		####################################
+
 		#3. EAST DOORS
-		#Door set 1
+		#Door set 1A
 		Set Door_MainX = %1%
-		Set Door_MainZ = 0
+		Set Door_MainZ = -50
 
 		WallOrientation = right
 		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
@@ -1624,7 +1649,27 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
-		#Door set 2
+		#Door set 1B
+		Set Door_MainX = %1%
+		Set Door_MainZ = -40
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2A
+		Set Door_MainX = %1%
+		Set Door_MainZ = -10
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2B
 		Set Door_MainX = %1%
 		Set Door_MainZ = 10
 
