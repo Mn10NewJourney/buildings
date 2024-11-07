@@ -1187,7 +1187,11 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	if[%floor% < -2 | %floor% > 4] AddWall NWClinicHall1, %5%Wall, 0.5, -70, -5, -70, 5.5, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% < -2 | %floor% > 4] AddWall NWClinicHall2, %5%Wall, 0.5, -70, 5, -40, 5, %height%, %height%, 0, 0, 0, 0, false
 	#if[%floor% = -2] AddWall NEClinicHall3A, %5%Wall, 0.5, -20, 5, 19.5, 5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall3B, %5%Wall, 0.5, 30.5, 5, 70, 5, %height%, %height%, 0, 0, 0, 0, false
+
+		Set ExtraPoint = 0
+		if[%floor% = -3] Set ExtraPoint = 0.5
+
+	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall3B, %5%Wall, 0.5, 30.5 - %ExtraPoint%, 5, 70, 5, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% < -2] AddWall NEClinicHall3C, %5%Wall, 0.5, 30, 5, 30, 25, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
 	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall4, %5%Wall, 0.5, 70, -5, 70, 5.5, %height%, %height%, 0, 0, 0, 0, false
@@ -1235,7 +1239,6 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	WallOrientation = left
 	if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall1_West, %5%Wall, 0.5, -%1%, -30, -70, -30, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% > -3 & %floor% < 5] AddWall SClinicHall5_East, %5%Wall, 0.5, 70, -30, %1%, -30, %height%, %height%, 0, 0, 0, 0, false
-
 
 	if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall1, %5%Wall, 0.5, -48, -35, -38 + 0.5, -35, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall2, %5%Wall, 0.5, -38, -35, -38, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
