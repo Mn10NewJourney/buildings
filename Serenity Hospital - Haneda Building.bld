@@ -738,6 +738,15 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	if[%floor% < 6] CutAll -10 - %EC_Cei_X%, %fullheight% - 1, -%2% - 40 + %EC_Cei%, 10, %fullheight% + 1, -5.5, false, true
 <EndFloors>
 
+#Extra cuts on the 1st-2nd floors
+<Floor 0 to 1>
+	ATR_ExtraCuts() #Extra cut values
+
+	#Atrium cuts
+	if[%floor% > 0] CutAll -38, %interfloorheight% - 1, -%2% - 40 + %EC_Flr%, -19.5, %interfloorheight% + 1, -5.5, false, true
+	if[%floor% < 1] CutAll -38, %fullheight% - 1, -%2% - 40 + %EC_Cei%, -19.5, %fullheight% + 1, -5.5, false, true
+<EndFloors>
+
 <Floors -2 to -1>
 	TexPrefix() #Set texture prefix/suffix
 
@@ -832,7 +841,10 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 		#Back rails
 		if[%floor% ! 1] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%floor% = 1] AddWall ABackRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -5.5, -30, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -22, -5.5, -19.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+		if[%floor% = 1] AddWall ABackRail2B, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 <EndFloors>
 
@@ -875,8 +887,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0)
 
 <Floor 0>
-	OP_Escalator(%floorid%_OPDEscalatorUP, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -16.5, -5.5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-	OP_Escalator(%floorid%_OPDEscalatorDN, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -12.5, -5.5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_OPDEscalatorUP, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -36, -5.5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_OPDEscalatorDN, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -32, -5.5, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 <EndFloor>
 
 #3. Standard-length Escalators from 2 to 7
@@ -1221,11 +1233,14 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	if[%floor% > -3 & %floor% < 5] AddWall SClinicHall1_West, %5%Wall, 0.5, -%1%, -30, -70, -30, %height%, %height%, 0, 0, 0, 0, false
 	if[%floor% > -3 & %floor% < 5] AddWall SClinicHall5_East, %5%Wall, 0.5, 70, -30, %1%, -30, %height%, %height%, 0, 0, 0, 0, false
 
+	Set ExtraSouth = 0
+	if[%floor% = -1 | %floor% = 1] Set ExtraSouth = 50
+
 	if[%floor% ! -3] AddWall SClinicHall1, %5%Wall, 0.5, -48, -35, -38 + 0.5, -35, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% ! -3] AddWall SClinicHall2, %5%Wall, 0.5, -38, -35, -38, -5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% ! -3] AddWall SClinicHall2, %5%Wall, 0.5, -38, -35 - %ExtraSouth%, -38, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	WallOrientation = right
 	#if[%floor% < -1] AddWall SClinicHall3, %5%Wall, 0.5, -38 - %ExtraOffset%, -5, 38, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicHall3A, %5%Wall, 0.5, -38 - %ExtraOffset%, -5, -20 + 0.5, -5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% ! -1 & %floor% ! 1] AddWall SClinicHall3A, %5%Wall, 0.5, -38 - %ExtraOffset%, -5, -20 + 0.5, -5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall SClinicHall3B, %5%Wall, 0.5, 20 - 0.5, -5, 38, -5, %height%, %height%, 0, 0, 0, 0, false
 
 	AddWall SClinicHall4, %5%Wall, 0.5, 38, -35, 38, -5, %height%, %height%, 0, 0, 0, 0, false
@@ -1233,7 +1248,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	AddWall SClinicHall5, %5%Wall, 0.5, 38 - 0.5, -35, 48, -35, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = center
 	#if[%floor% < -1] AddWall SClinicDivider, %5%Wall, 1, 0, -%2% - %ExtraSouth%, 0, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	if[%floor% ! -1 & %floor% ! 1] AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %height%, %height%, 0, 0, 0, 0, false
 	#AddWall SClinicDivider2, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall SClinicDivider2A, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -80, %height%, %height%, 0, 0, 0, 0, false
 	AddWall SClinicDivider2B, %5%Wall, 1, 20, -60, 20, -5, %height%, %height%, 0, 0, 0, 0, false
