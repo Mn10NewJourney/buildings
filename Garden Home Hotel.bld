@@ -99,6 +99,7 @@
 
 		#East parking elevator lobby (Lobby level)
 		Load data/floor065.jpg, EastPK_GLFloor, 0.25, 0.25
+		Load data/Carpet0013_S.jpg, EastPK_GLCarpet, 0.2, 0.2
 		Load data/st_wall.jpg, EastPK_GLWall, 0.1875, 0.1344 #Entire walls (Lobby level)
 		Load data/EG881/ceilingtile2b.jpg, EastPK_GLCeiling, 0.125, 0.125 #EG881
 
@@ -153,8 +154,9 @@
 
 		#East Parking Elevators
 			#Floor and Ceiling
-			Load data/checker07.jpg, ParkingElevFloor, 0.45, 0.45
-			Load data/panel-back3.jpg, ParkingElevCeiling, 1, 1, false
+			Load data/Carpet0021b_S.jpg, ParkingElevFloor, 0.2, 0.2
+			Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevCeiling, 1, 1, false
+			Rotate ParkingElevCeiling, 270
 			Rotate ParkingElevCeiling, 90
 
 			#Ceiling Lights
@@ -167,7 +169,7 @@
 			Load data/EG881/blackdoortrim.jpg, ParkingElevWall, 1, 1, false #EG881
 			Load data/marb148.jpg, ParkingElevWallPanel, 0.25, 0.25
 			Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevPanelMain, 1, 1, false
-			Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevPanelTop, 1, 0.125, false
+			Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevPanelTop, 1, 0.0667, false
 			
 			#Car doors
 			Load data/Melvin/OTIS67_Darkaluminium_door.jpg, ParkingElevDoors, 1, 1, false #EG881
@@ -439,6 +441,11 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 	TexPrefix() #Set texture prefixes
 
 	#East Elevator Lobby (Continued)
+		#1. Carpeting on Floor
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 170, 5, 190, 15, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+
 		#2. Ceiling (Exterior)
 		Set ELH = %fullheight%
 
@@ -613,8 +620,8 @@ ShowFullShaft 1 = true
 
 	#Set textures and dimensions	
 	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
-	M10_ElevDimensions(7.68, 6.5, 8, 0.2, 0.2, true, false, true, true)
-	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.5, 1.5, 1, 0.2, false, true, false, false)
+	M10_ElevDimensions(7.68, 6.5, 7.5, 0.2, 0.2, true, false, true, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.5, 1.5, 0.5, 0.2, false, true, false, false)
 
 	#Finish elevator assembly
 	M10_ElevInterior()
@@ -625,36 +632,36 @@ ShowFullShaft 1 = true
 	Set LightLength = 2
 	Set TrimWidth = 0.2
 
-	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
 
 		#2a. Trims around lights
-		CreateWallBox2 elevator, CL_Trim_Front, %Prefix%ElevCeilingTrim2, 0, 0 - (%LightLength% / 2) - (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Back, %Prefix%ElevCeilingTrim2, 0, 0 + (%LightLength% / 2) + (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Left, %Prefix%ElevCeilingTrim, 0 - (%LightWidth% / 2) - (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 8 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Right, %Prefix%ElevCeilingTrim, 0 + (%LightWidth% / 2) + (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Front, %Prefix%ElevCeilingTrim2, 0, 0 - (%LightLength% / 2) - (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Back, %Prefix%ElevCeilingTrim2, 0, 0 + (%LightLength% / 2) + (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Left, %Prefix%ElevCeilingTrim, 0 - (%LightWidth% / 2) - (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Right, %Prefix%ElevCeilingTrim, 0 + (%LightWidth% / 2) + (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel
 
 		#Front panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (7.28 * 1/4), -3.05 + 0.01, (7.28 * 1/2) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F2, %WPTex%, 0 + (7.28 * 1/4), -3.05 + 0.01, (7.28 * 1/2) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (7.28 * 1/4), -3.05 + 0.01, (7.28 * 1/2) - 0.3, 0.02, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F2, %WPTex%, 0 + (7.28 * 1/4), -3.05 + 0.01, (7.28 * 1/2) - 0.3, 0.02, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
 
 		#Right panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 3.64 - 0.01, 0 - (6.1 * 1/4), 0.02, (6.1 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F2, %WPTex%, 3.64 - 0.01, 0 + (6.1 * 1/4), 0.02, (6.1 * 1/2) - 0.3, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, 3.64 - 0.01, 0 - (6.1 * 1/4), 0.02, (6.1 * 1/2) - 0.3, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R2, %WPTex%, 3.64 - 0.01, 0 + (6.1 * 1/4), 0.02, (6.1 * 1/2) - 0.3, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
 
 		#Back panels
-		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (7.28 * 1/4), 3.05 - 0.01, (7.28 * 1/2) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_B2, %WPTex%, 0 + (7.28 * 1/4), 3.05 - 0.01, (7.28 * 1/2) - 0.3, 0.02, 8 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (7.28 * 1/4), 3.05 - 0.01, (7.28 * 1/2) - 0.3, 0.02, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B2, %WPTex%, 0 + (7.28 * 1/4), 3.05 - 0.01, (7.28 * 1/2) - 0.3, 0.02, 7.5 - 0.5, 0.25, 0, 0, false, true, true, true
 	#--------------------
 	#Car Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
 	Set IDP = -3.84
 
 	WallOrientation = right
-	AddDoorComponent 1, Left, %ElevDoorTex%2, %ElevDoorTex%2, 0.2, left, 0.8, 0.6, %IDP%, -1.75, %IDP%, 0, 7, 0, 0, 0, 0, 0
-	AddDoorComponent 1, Right, %ElevDoorTex%, %ElevDoorTex%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 1.75, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Left, %ElevDoorTex%, %ElevDoorTex%, 0.2, left, 0.8, 0.6, %IDP%, -1.75, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, %ElevDoorTex%2, %ElevDoorTex%2, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 1.75, 7, 0, 0, 0, 0, 0
 	FinishDoors 1, false, false
 
 		#Door track
@@ -690,13 +697,13 @@ ShowFullShaft 1 = true
 
 	#Elevator number sign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX% + 0.05, %P1_PositionZ% - 0.25, %P1_PositionX% + 0.05, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.25, 6.25, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX% + 0.05, %P1_PositionZ% - 0.25, %P1_PositionX% + 0.05, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.5, 6.5, 0, 0
 
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
 		#Ropes
-		RopePosition = 0, 8.2, 0
+		RopePosition = 0, 7.7, 0
 		RopeTexture = Ropes
 	
 		#Counterweight
