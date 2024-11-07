@@ -104,7 +104,7 @@
 			Load data/EG881/stainlesssteeldoorschindler.jpg, LHShaftDoors, -1, 1, false #EG881
 			Load data/EG881/stainlesssteeldoor.jpg, LHShaftDoors2, -1, 1, false #EG881
 			Load data/EG881/stainlesssteel.jpg, LHShaftDoors_Trim, 1, 1, false #EG881
-			Load data/EG881/stainlesssteel.jpg, LHShaftDoors_TrimTop, 1, 1, false #EG881
+			Load data/EG881/stainlesssteel2.jpg, LHShaftDoors_TrimTop, 1, 1, false #EG881
 
 		#Upper hospital levels
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
@@ -2981,6 +2981,8 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Top
 		Set DoorTrimTexture_Top = %DoorTrimTexture%
+		if[%floor% < 0] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
+		if[%floor% > 0 & %floor% < 3] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
 
 	#Deco dimensions
 		Set SideDecoH = 7.2
@@ -3149,8 +3151,8 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 		AddWall E1-6HallSign2, FireSign, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) - 0.25, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 		#Elevator bank sign on lobby walls
-		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX1, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, -14 - 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
-		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX2, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, 14 + 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
+		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX1, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, -8 - 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
+		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX2, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, 8 + 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
 
 	#****************************************#
 
@@ -3308,9 +3310,9 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 	AddShaftTrack(11, 4, -5.34, -5.04, -11 - 2.25, -11 + 4.5, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
 
 	#Top filler
-	AddShaftTrack(10, 4, -5.34, -5.34 + 0.15, 9 - 2.25, 9, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
-	AddShaftTrack(11, 4, -5.34, -5.34 + 0.15, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
-	AddShaftTrack(12, 4, -5.34, -5.34 + 0.15, -11 - 2.25, -11, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(9, 4, -5.34, -5.34 + 0.15, 9 - 2.25, 9, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(10, 4, -5.34, -5.34 + 0.15, -1 - 2.25, -1, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(11, 4, -5.34, -5.34 + 0.15, -11 - 2.25, -11, %DoorTrimTexture_Top%, ElevExt, 0.05, 2, 7)
 
 	#Gap filler
 		WallOrientation = left
@@ -3348,7 +3350,7 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 		DrawWalls = true, false, false, false, false, false
 		AddWall E9-11FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 		#AddWall E9-11FloorSign2, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		AddBoxSign(ElevBank3Sign, ElevBank3, ElevBank3, ElevBankSide, 0.01, false, false, false, %Shaft1CX% - 6, %Shaft1CZ% - 6, 2.25, 1.5, 5.25, false)
+		AddBoxSign(ElevBank3Sign, ElevBank3, ElevBank3, ElevBankSide, 0.01, false, false, false, %Shaft2CX% - 6, %Shaft2CZ% - 6, 2.25, 1.5, 5.25, false)
 		AddWall E9-11HallSign1, FireSign, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.25, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
@@ -3458,7 +3460,8 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Top
 		Set DoorTrimTexture_Top = %DoorTrimTexture%
-		if[%floor% < 0 | (%floor% > 0 & %floor% < 3)] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
+		if[%floor% < 0] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
+		if[%floor% > 0 & %floor% < 3] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
 
 	#Deco dimensions
 		Set SideDecoH = 7.2
@@ -3531,11 +3534,12 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		DrawWalls = true, false, false, false, false, false
 		#AddWall E14-15FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.5, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		AddBoxSign(ElevBank4Sign, ElevBank4, ElevBank4, ElevBankSide, 0.01, false, false, false, %Shaft1CX% - 5, %Shaft1CZ%, 2.25, 1.5, 5.25, false)
+		AddBoxSign(ElevBank4Sign, ElevBank4, ElevBank4, ElevBankSide, 0.01, false, false, false, %Shaft2CX% - 5, %Shaft2CZ%, 2.25, 1.5, 5.25, false)
 		AddWall E14-15HallSign1, FireSign, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.25, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 		WallOrientation = center
-		DrawWalls = true, true, true, true, true, false
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSignBack, ELFlrSignBack
 		AddWall E14-15FloorSign_Hall, ELFlrSign%Suffix%, 1, 15, (%Shaft2CZ%) - 0.5, 15, (%Shaft2CZ%) + 0.5, 1, 1, %height% - 1, %height% - 1, 0, 0, false
 
 	#****************************************#
