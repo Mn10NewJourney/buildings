@@ -95,6 +95,7 @@
 	#Main textures
 		#Level B3
 		Load data/checker08.jpg, B3FFloor, 0.4, 0.4
+		Load data/Carpet0021d_S.jpg, B3FCarpet, 0.2, 0.2
 		Load data/st_wall2.jpg, B3FWall, 0.13635, 0.09765
 		#Load data/st_wall.jpg, B3FWall2, 0.1875, 0.1344 #Atrium railings
 		Load data/st_wall.jpg, B3FEscWall, 0.1875, 0.1344 #Escalator outer walls
@@ -107,7 +108,7 @@
 
 		#Lower hospital levels (B2-3)
 		Load data/marb047.jpg, LHFloor, 0.2, 0.2
-		#Load data/Carpet0013_S.jpg, LHCarpet, 0.2, 0.2
+		Load data/Carpet0013_S.jpg, LHCarpet, 0.2, 0.2
 		Load data/marbl3.jpg, LHWall, 0.25, 0.25, true
 		Load data/EG881/lopacwall3stripe.jpg, LHWall2, 0.15, 0.3 #EG881 #Atrium railings
 		Load data/rose_marble.jpg, LHEscWall, 0.1, 0.1 #Escalator outer walls
@@ -120,6 +121,7 @@
 
 		#Upper hospital levels (4-7)
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
+		Load data/Carpet0012_S.jpg, UHCarpet, 0.2, 0.2
 		Load data/marb148.jpg, UHWall, 0.15, 0.15, true
 		Load data/EG881/granite_0007e_black.jpg, UHWall2, 0.075, 0.075 #EG881 #Atrium railings
 		Load data/black_granite.jpg, UHEscWall, 0.1, 0.1 #EG881 #Escalator outer walls
@@ -645,15 +647,31 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	DrawWalls = false, true, false, false, false, false
 	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, 0, 0, 0, 0, false
 
-		#Carpeting on lobby
-		#FloorOrientation = top
-		#DrawWalls = false, true, false, false, false, false
-		#if[%floor% = 0] AddFloor LobbyCarpet, %5%Carpet, 0.5, -43, -35, 43, -5, 0.001, 0.001, 0, 0, false
-
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %height%, %height%, 0, 0, false
+<EndFloors>
+
+<Floors -3 to 6>
+	#Carpeting at elevator lobbies
+		#Floor cuts
+		if[%floor% ! -3 & %floor% ! 0] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
+		if[%floor% ! 0] CutAll 38, %interfloorheight% - 1, -35, 48.66, %interfloorheight% + 1, -5, false, true #East
+
+		#West carpeting
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% ! -3 & %floor% ! 0] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -48.66, -34.8, -38, -5.2, 0, 0, 0, 0, false
+		if[%floor% ! -3 & %floor% ! 0] AddFloor WestLobbyCarpet_TR1, BlackTrim, 0.5, -48.66, -35, -38, -34.8, 0, 0, 0, 0, false
+		if[%floor% ! -3 & %floor% ! 0] AddFloor WestLobbyCarpet_TR2, BlackTrim, 0.5, -48.66, -5.2, -38, -5, 0, 0, 0, 0, false
+
+		#East carpeting
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 38, -34.8, 48.66, -5.2, 0, 0, 0, 0, false
+		if[%floor% ! 0] AddFloor EastLobbyCarpet_TR1, BlackTrim, 0.5, 38, -35, 48.66, -34.8, 0, 0, 0, 0, false
+		if[%floor% ! 0] AddFloor EastLobbyCarpet_TR2, BlackTrim, 0.5, 38, -5.2, 48.66, -5, 0, 0, 0, 0, false
 <EndFloors>
 
 <Floors -3 to -1>
