@@ -101,9 +101,10 @@
 		Load data/rose_marble.jpg, LHEscWall, 0.1, 0.1 #Escalator outer walls
 		Load data/EG881/ceilingtile3x3.jpg, LHCeiling, 0.125, 0.125 #EG881
 
-			Load data/EG881/elevdoorright_black.jpg, LHShaftDoors, -1, 1, false #EG881
-			Load data/EG881/elevdoorleft_black.jpg, LHShaftDoors2, -1, 1, false #EG881
-			Load data/EG881/elevdoortrim_black.jpg, LHShaftDoors_Trim, 1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoorschindler.jpg, LHShaftDoors, -1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor.jpg, LHShaftDoors2, -1, 1, false #EG881
+			Load data/EG881/stainlesssteel.jpg, LHShaftDoors_Trim, 1, 1, false #EG881
+			Load data/EG881/stainlesssteel.jpg, LHShaftDoors_TrimTop, 1, 1, false #EG881
 
 		#Upper hospital levels
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
@@ -460,6 +461,10 @@
 		Load data/signs_mod/Elev4A.png, Sign_ServiceElevA, 1, 1, false
 		Load data/signs_mod/Elev4B.png, Sign_ServiceElevB, 1, 1, false
 		Load data/signs_mod/Elev2.png, Sign_ServiceElev_Gray, 1, 1, false
+
+			#Elevator bank signs
+			Load data/graygradient.jpg, ElevBankSide, 1, 1, false
+			LoadRange 1, 4, data/Melvin/SRH/Haneda/HND_ElevBank%number%.png, ElevBank%number%, 1, 1, false
 
 			#Floor signs (Passenger)
 			Load data/graygradient.jpg, ELFlrSignBack, 1, 1, false
@@ -3132,6 +3137,7 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Signs
 		Set Suffix = %floorid%
+		WallOrientation = right
 
 		DrawWalls = false, true, false, false, false, false
 		AddWall E1-6FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
@@ -3141,6 +3147,10 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 		DrawWalls = true, false, false, false, false, false
 		AddWall E1-6FloorSign3, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 		AddWall E1-6HallSign2, FireSign, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) - 0.25, %Shaft2CX% - 6.001, (%Shaft2CZ% - 1) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+		#Elevator bank sign on lobby walls
+		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX1, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, -14 - 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
+		if[%floor% = 0] AddBoxSign(ElevBank1Sign_EX2, ElevBank1, ElevBank1, ElevBankSide, 0.02, true, true, true, 14 + 1.85, 5 - 0.01, 2.7, 1.8, 4.25, false)
 
 	#****************************************#
 
@@ -3242,10 +3252,13 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Signs
 		Set Suffix = %floorid%
+		WallOrientation = left
 
 		DrawWalls = false, true, false, false, false, false
 		AddWall E6-8FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		AddWall E6-8FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		#AddWall E6-8FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddBoxSign(ElevBank2Sign, ElevBank2, ElevBank2, ElevBankSide, 0.01, false, false, false, %Shaft1CX% + 6, %Shaft1CZ% + 4, 2.25, 1.5, 5.25, false)
+
 		AddWall E6-8HallSign1, FireSign, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.25, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
@@ -3330,10 +3343,12 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Signs
 		Set Suffix = %floorid%
+		WallOrientation = right
 
 		DrawWalls = true, false, false, false, false, false
 		AddWall E9-11FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		AddWall E9-11FloorSign2, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		#AddWall E9-11FloorSign2, ELFlrSign%Suffix%, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.5, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddBoxSign(ElevBank3Sign, ElevBank3, ElevBank3, ElevBankSide, 0.01, false, false, false, %Shaft1CX% - 6, %Shaft1CZ% - 6, 2.25, 1.5, 5.25, false)
 		AddWall E9-11HallSign1, FireSign, 0, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) - 0.25, %Shaft2CX% - 6.001, (%Shaft2CZ% + 4) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
@@ -3443,6 +3458,7 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Top
 		Set DoorTrimTexture_Top = %DoorTrimTexture%
+		if[%floor% < 0 | (%floor% > 0 & %floor% < 3)] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
 
 	#Deco dimensions
 		Set SideDecoH = 7.2
@@ -3511,10 +3527,16 @@ AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, 
 
 		#Signs
 		Set Suffix = %floorid%
+		WallOrientation = right
 
 		DrawWalls = true, false, false, false, false, false
-		AddWall E14-15FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.5, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		#AddWall E14-15FloorSign1, ELFlrSign%Suffix%, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.5, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
+		AddBoxSign(ElevBank4Sign, ElevBank4, ElevBank4, ElevBankSide, 0.01, false, false, false, %Shaft1CX% - 5, %Shaft1CZ%, 2.25, 1.5, 5.25, false)
 		AddWall E14-15HallSign1, FireSign, 0, %Shaft2CX% - 5.001, (%Shaft2CZ%) - 0.25, %Shaft2CX% - 5.001, (%Shaft2CZ%) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+		WallOrientation = center
+		DrawWalls = true, true, true, true, true, false
+		AddWall E14-15FloorSign_Hall, ELFlrSign%Suffix%, 1, 15, (%Shaft2CZ%) - 0.5, 15, (%Shaft2CZ%) + 0.5, 1, 1, %height% - 1, %height% - 1, 0, 0, false
 
 	#****************************************#
 
