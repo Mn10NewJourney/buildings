@@ -45,8 +45,6 @@
 	#Load data/downtown.jpg, Downtown, 1, 1
 	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	#Load data/herringbone04.jpg, WoodenFloor, 0.2, 0.2
-	#Load data/stonec.jpg, Plaza, 0.04, 0.04
 
 		#Plants
 		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
@@ -54,7 +52,6 @@
 		#Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		#Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		#Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
-		#Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
 
 	#Concrete
 	Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
@@ -94,6 +91,7 @@
 	#Support Columns
 	Load data/metal080.jpg, Column_Basement, 0.5, 0.5
 	Load data/metal080.jpg, Column_Lobby, 0.5, 0.5
+	Load data/marb148.jpg, Column_OR, 0.15, 0.15
 	Load data/stucco22.jpg, Column_PatientRoom, 0.25, 0.25
 	Load data/cem_tr.jpg, ColumnTex, 0.25, 0.25
 
@@ -1263,7 +1261,8 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 
 	#Support Columns
 	#Row A
-	if[%floor% < 9] Set SupportTexture = Column_Lobby
+	if[%floor% < 8] Set SupportTexture = Column_Lobby
+	if[%floor% = 8] Set SupportTexture = Column_OR
 	if[%floor% > 8] Set SupportTexture = Column_PatientRoom
 	Set RowCenterZ = 60 - 1.25
 	Set SupportHeight = %fullheight%
@@ -1858,15 +1857,18 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 
 ##--------------------------------------------------------------------------------##
 
-#Operating Room - Added on November 8, 2024
+#OPERATING ROOM
+#Added on November 8, 2024
 
 <Floor 8>
 	#Operating room area
 	WallOrientation = right
 	DrawWalls = true, true, false, false, false, false
 	AddWall ORWall1, ORWall, 0.5, -98, 20, 0.5, 20, %height%, %height%, 0, 0, 0, 0, false
-	AddWall ORWall2, ORWall, 0.5, 0, 5, 0, 20, %height%, %height%, 0, 0, 0, 0, false
-	AddWall ORWall3, ORWall, 0.5, 0, 5, 28.5, 5, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = left
+	AddWall ORWall2, ORWall, 0.5, 0, 12.5, 0, 20, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = right
+	AddWall ORWall3, ORWall, 0.5, 0, 12.5, 28.5, 12.5, %height%, %height%, 0, 0, 0, 0, false
 	AddWall ORWall4, ORWall, 0.5, 50.5, 20, 98, 20, %height%, %height%, 0, 0, 0, 0, false
 
 	#Set door textures
@@ -1875,27 +1877,33 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 		Set DSTex = %DTex%Side
 
 			#East doors
-			Set Door_MainX = 10
-			Set Door_MainZ = 5 - 0.5
+			Set Door_MainX = 5
+			Set Door_MainZ = 12.5
 		
-			WallOrientation = left
+			WallOrientation = right
 			AddStdDoor Floor %floor%, OR_MainDoor1A, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, OR_MainDoor1B, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 
+			#Exit sign
+			AddBoxSign(OR_ExitSign1, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.55, 1.8, 0.9, 7.2, false)
+
 			#Sign between doors
 			WallOrientation = left
 			DrawWalls = false, true, true, true, true, true
-			AddBoxSign(OR_Entrance_Sign, Sign_OR, Sign_OR, Sign_LB_Long, 0.1, true, false, false, 0, 20, 6, 1.5, 5.5, false)
+			AddBoxSign(OR_Entrance_Sign, Sign_OR, Sign_OR, Sign_LB_Long, 0.1, true, false, false, 14.5, 12.5, 6, 1.5, 5.5, false)
 
 			#West doors
-			Set Door_MainX = -10
-			Set Door_MainZ = 5 - 0.5
+			Set Door_MainX = 24
+			Set Door_MainZ = 12.5
 		
-			WallOrientation = left
+			WallOrientation = right
 			AddStdDoor Floor %floor%, OR_MainDoor2A, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, OR_MainDoor2B, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+			#Exit sign
+			AddBoxSign(OR_ExitSign2, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.55, 1.8, 0.9, 7.2, false)
 
 		#West emergency exit doors
 		Set DTex = ServiceDoor2B
@@ -1914,6 +1922,9 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 		SetLock 0, 0
 
+			#Exit sign
+			AddBoxSign(OR_ExitSign3, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.55, 1.8, 0.9, 7.2, false)
+
 		#East emergency exit doors
 		Set Door_MainX = 94
 		Set Door_MainZ = 20
@@ -1926,6 +1937,9 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 		AddStdDoor Floor %floor%, OR_EastEmerExit_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 		SetLock 0, 0
+
+			#Exit sign
+			AddBoxSign(OR_ExitSign3, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.55, 1.8, 0.9, 7.2, false)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
