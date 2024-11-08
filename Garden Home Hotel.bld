@@ -95,7 +95,8 @@
 
 		#Stairs from P4 to L
 		Load data/floor065.jpg, EastPK_PLStairs, 0.25, 0.25
-		Load data/wall5b.jpg, EastPK_MainStairsWall, 0.25, 0.25
+		#Load data/wall5b.jpg, EastPK_MainStairsWall, 0.25, 0.25
+		Load data/stucco5.jpg, EastPK_MainStairsWall, 0.2, 0.2
 		Load data/black_granite.jpg, EastPK_PLStairsWall, 0.1, 0.1
 		Load data/EG881/granite_0007e_black.jpg, EastPK_PLStairsWall2, 0.075, 0.075 #EG881
 		Load data/st_wall2.jpg, EastPK_GLStairsWall, 0.13635, 0.09765
@@ -164,8 +165,8 @@
 
 			#Ceiling Lights
 			Load data/EG881/Lights/squarelight1_white.jpg, ParkingElevCeilingLight, 1, 1, false #EG881 #Elevators 1-6
-			Load data/EG881/stainlesssteel2.jpg, ParkingElevCeilingTrim, 1, 1, false #EG881 #Elevators 4-6
-			Load data/EG881/stainlesssteel2.jpg, ParkingElevCeilingTrim2, 1, 1, false #EG881		
+			Load data/panel-back3.jpg, ParkingElevCeilingTrim, 1, 1, false
+			Load data/panel-back3.jpg, ParkingElevCeilingTrim2, 1, 1, false
 			Rotate ParkingElevCeilingTrim2, 90
 
 			#Walls and panels
@@ -217,9 +218,13 @@
 
 	#Floor signs
 		#Floor signs (Elevator lobby)
-		Load data/graygradient.jpg, FlrSignBack, 1, 1, false #Service
-		AddTextRange 1, 4, FlrSignBack, FlrSignP%number%, nimbus_sans_bold.ttf, 128, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText FlrSignBack, FlrSignL, nimbus_sans_bold.ttf, 128, L, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		Load data/Melvin/ABH_Tex/NewFS256/FSBack_SapphireService.jpg, FlrSignBack, 1, 1, false #Passenger
+		AddTextRange 1, 4, FlrSignBack, FlrSignP%number%, nimbus_sans.ttf, 120, P%number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
+		AddText FlrSignBack, FlrSignL, nimbus_sans.ttf, 120, L, 0, 0, 256, 198, center, center, 0, 0, 0, false
+
+		#Load data/graygradient.jpg, FlrSignBack, 1, 1, false
+		#AddTextRange 1, 4, FlrSignBack, FlrSignP%number%, nimbus_sans_bold.ttf, 128, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddText FlrSignBack, FlrSignL, nimbus_sans_bold.ttf, 128, L, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	#Other signs and objects
 		#Exit signs
@@ -257,7 +262,6 @@
 
 <Floor 0>
 	ID = L
-	NumberID = 1
 	Name = Lobby
 	Type = Lobby
 	Height = 15
@@ -416,9 +420,9 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 		DrawWalls = true, false, false, false, false, false
 		if[%floor% ! 0] AddWall_CustomTex(EastLobbyWall_Right_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, 175 + 20, 0, 175 + 20, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
 		WallOrientation = right
-		#if[%floor% ! 0] AddWall_CustomTex(EastLobbyWall_Back_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, %WestEnd%, 25, 175 + 20, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
-		if[%floor% ! 0] AddWall_CustomTex(EastLobbyWall_Back1_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, %WestEnd%, 25, 165.5, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
-		if[%floor% ! 0] AddWall_CustomTex(EastLobbyWall_Back2_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, 185.5, 25, 175 + 20, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
+		if[%floor% = -4] AddWall_CustomTex(EastLobbyWall_Back_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, %WestEnd%, 25, 175 + 20, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
+		if[%floor% ! -4 & %floor% ! 0] AddWall_CustomTex(EastLobbyWall_Back1_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, %WestEnd%, 25, 165.5, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
+		if[%floor% ! -4 & %floor% ! 0] AddWall_CustomTex(EastLobbyWall_Back2_%floorid%, 2, %5%Wall, %5%Wall_Upper, Blank, 0.5, 185.5, 25, 175 + 20, 25, 3.5, %height% - 3.5, 0, %interfloorheight%, true)
 
 		#3b. Walls (Lobby level)
 		WallOrientation = left
@@ -449,7 +453,7 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 		#1. Carpeting on Floor
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 170, 5, 190, 15, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+		AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 170 - 2, 5 - 2, 190 + 2, 15 + 2, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
 
 		#2. Ceiling (Exterior)
 		Set ELH = %fullheight%
@@ -474,15 +478,18 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 		#Set DSTex = %DTex%Side
 		Set DSTex = BLKEntDoorSide
 	
-		Set Door_MainX = 145 + 20 + 0.5
+		Set Door_MainX = 145 + 20
 		Set Door_MainZ = 10
 		
-		WallOrientation = right
+		WallOrientation = left
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , true, %DTex%, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+		AddExternalDoor , , true, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , true, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+		AddExternalDoor , , true, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
 		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#Exit sign
+		AddBoxSign(LobbyLevel_ExitSign1, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7.2, true)
 
 	#5. Emergency Exit Door
 	Set DTex = ServiceDoor2
@@ -501,7 +508,7 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 		SetLock 0, 0
 		
 		#Exit sign
-		AddBoxSign(LobbyLevel_ExitSign, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7.2, true)
+		AddBoxSign(LobbyLevel_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -550,7 +557,7 @@ ShowFullStairs 1 = always
 	
 	Set EH = 0 #Extra height
 	if[%floor% = -1] Set EH = Floor(0).InterfloorHeight #Extra height
-	if[%floor% < 0] AddStairsWall %25%, Stair%25%Back, EastPK_MainStairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight% + %EH%, %fullheight% + %EH%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	if[%floor% > -4 & %floor% < 0] AddStairsWall %25%, Stair%25%Back, EastPK_MainStairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight% + %EH%, %fullheight% + %EH%, -%interfloorheight%, -%interfloorheight%, 0, 0
 
 	#Railings next to stairs
 	Set RailHeight = 3.5 + 0.5
@@ -571,8 +578,8 @@ ShowFullStairs 1 = always
 
 ##--------------------------------------------------------------------------------##
 
-#EAST PARKING ELEVATORS
-#Shaftwork
+#SHAFTWORK
+#East Parking Elevators
 AddStdShaft(1, 2, 180 + 20, 10, 4.67, 9.67, -5, 0, ShaftIntWall, 0.5, 0.33, 0, 5, %fullheight%)
 ShowFullShaft 1 = true
 
@@ -582,8 +589,11 @@ ShowFullShaft 1 = true
 	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 180 + 20, 10, 5, 10, Shaft1, %height%, %interfloorheight%, true, false, true, true, true, false, true)
 <EndFloor>
 
-#Elevator creation
+##--------------------------------------------------------------------------------##
 
+#ELEVATORS
+
+#East Parking Elevators
 #Set motors' position + Idle Sound
 <Elevators 1 to 2>
 	MotorPosition = 0, Floor(0).Altitude + Floor(0).FullHeight - 0.5, 0
@@ -639,8 +649,8 @@ ShowFullShaft 1 = true
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Ceiling lights
-	Set LightWidth = 3
-	Set LightLength = 2
+	Set LightWidth = 3.6
+	Set LightLength = 2.4
 	Set TrimWidth = 0.2
 
 	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
@@ -812,7 +822,7 @@ ShowFullShaft 1 = true
 
 		DrawWalls = true, false, false, false, false, false
 		AddWall E1-2FloorSign, FlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
-		AddWall E1-2HallSign, FireSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		#AddWall E1-2HallSign, FireSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
 
