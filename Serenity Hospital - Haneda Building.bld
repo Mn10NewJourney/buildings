@@ -109,6 +109,7 @@
 		#Lower hospital levels (B2-3)
 		Load data/marb047.jpg, LHFloor, 0.2, 0.2
 		Load data/Carpet0013_S.jpg, LHCarpet, 0.2, 0.2
+		Load data/Carpet0013b_S.jpg, LHCarpet2, 0.2, 0.2 #Elevators 1-5's lobby area on 1st floor
 		Load data/marbl3.jpg, LHWall, 0.25, 0.25, true
 		Load data/EG881/lopacwall3stripe.jpg, LHWall2, 0.15, 0.3 #EG881 #Atrium railings
 		Load data/rose_marble.jpg, LHEscWall, 0.1, 0.1 #Escalator outer walls
@@ -668,6 +669,8 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	#Carpeting at elevator lobbies
 		#Floor cuts
 		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
+		if[%floor% = 0] CutAll -8.66, %interfloorheight% - 1, 5, 8.66, %interfloorheight% + 1, 35, false, true #Center
+		if[%floor% = 0] CutAll -8.5, %interfloorheight% - 1, 35, 8, %interfloorheight% + 1, 45, false, true #Center
 		if[%floor% ! 0] CutAll 38, %interfloorheight% - 1, -35, 48.66, %interfloorheight% + 1, -5, false, true #East
 
 		#West carpeting
@@ -676,6 +679,14 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -48.66, -34.8, -38, -5.2, 0, 0, 0, 0, false
 		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR1, BlackTrim, 0.5, -48.66, -35, -38, -34.8, 0, 0, 0, 0, false
 		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR2, BlackTrim, 0.5, -48.66, -5.2, -38, -5, 0, 0, 0, 0, false
+
+		#Center carpeting
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% = 0] AddFloor CenterLobbyCarpet1_Trim, BlackTrim, 0.5, -8.66, 5, 8.66, 5.2, 0, 0, 0, 0, false
+		if[%floor% = 0] AddFloor CenterLobbyCarpet1, %5%Carpet2, 0.5, -8.66, 5.2, 8.66, 35, 0, 0, 0, 0, false
+		if[%floor% = 0] AddFloor CenterLobbyCarpet2, %5%Carpet2, 0.5, -8.3, 35, 8, 45, 0, 0, 0, 0, false
+		if[%floor% = 0] AddFloor CenterLobbyCarpet2_Trim, BlackTrim, 0.5, -8.5, 35, -8.3, 45, 0, 0, 0, 0, false
 
 		#East carpeting
 		FloorOrientation = top
@@ -1574,8 +1585,8 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
 #Cut windows for "Lobby windows"
 	#South side
-	Cut external, -20, Floor(0).Base, -%2% - 40 - 0.1, 20, Floor(1).Altitude, -%2% - 40 + 0.1, true, false
-	Cut external, -20, Floor(7).Base, -%2% - 0.1, 20, Floor(8).Altitude, -%2% + 0.1, true, false
+	Cut external, -60, Floor(0).Base, -%2% - 40 - 0.1, 60, Floor(1).Altitude, -%2% - 40 + 0.1, true, false
+	Cut external, -20, Floor(7).Base, -%2% - 0.1, 20, Floor(8).Altitude, -%2% + 0.1, true, false #8th floor garden access
 
 	#West side
 	Cut external, -%1% - 0.1, Floor(0).Base, -5, -%1% + 0.1, Floor(1).Altitude, 15, true, false
@@ -1593,7 +1604,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Set winheight = %height%
 
 		SetAutoSize = true, false
-		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -20, -%2% - %ExtraSouth%, 20, -%2% - %ExtraSouth%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -60, -%2% - %ExtraSouth%, 60, -%2% - %ExtraSouth%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(LeftLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -15, -%1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(LeftLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -65, -%1%, -45, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(RightLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -15, %1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
@@ -1608,6 +1619,16 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	
 		#1. SOUTH DOORS
 		#Door set 1
+		Set Door_MainX = -45
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2A
 		Set Door_MainX = -15
 		Set Door_MainZ = -%2% - %ExtraSouth%
 
@@ -1617,7 +1638,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 
-		#Door set 2
+		#Door set 2B
 		Set Door_MainX = 15
 		Set Door_MainZ = -%2% - %ExtraSouth%
 
@@ -1626,7 +1647,17 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-		
+
+		#Door set 3
+		Set Door_MainX = 45
+		Set Door_MainZ = -%2% - %ExtraSouth%
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
 		####################################
 
 		#2. WEST DOORS
