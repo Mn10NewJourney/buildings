@@ -150,9 +150,9 @@
 			#Load data/EG881/cem_tr3.jpg, GHH_Roof2, 0.075225, 0.0625 #EG881 #4th floor pool area
 			Load data/EG881/Concrete/smoothconcrete1.jpg, GHH_Roof2, 0.0625, 0.0625 #EG881 #4th floor pool area
 
-		#Marketing Square
-		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3f.jpg, MKTSquare_Windows, true, 0.05, 1 #EG881
-		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3f.jpg, MKTSquare_Windows2, true, 0.025, 1 #EG881
+		#Marketing Square (Same windows for both West and East Buildings)
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3d.jpg, MKTSquare_Windows, true, 0.05, 1 #EG881
+		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3d.jpg, MKTSquare_Windows2, true, 0.025, 1 #EG881
 		Load data/EG881/Concrete/smoothconcrete1.jpg, MKTSquare_Roof, 0.0625, 0.0625 #EG881
 
 		#Tranquility Conference Center
@@ -1820,31 +1820,53 @@ AddFloor buildings, 148-1501stStreet_Roof, TCity_InterExt, 0, %0% - %3%, %1% - %
 	Set 3 = 90 #Building Dimension X
 	Set 4 = 90 #Building Dimension Z
 	
-	#1. Main building
+	#1. West building
 	SetAutoSize = true, false
 	DrawWalls = true, true, false, false, false, false
 	
 		#Lobby
-		AddWall buildings, MKTSQLby_Front, MKTSquare_Windows2, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 24, 24, 0, 0, 0, 1
-		AddWall buildings, MKTSQLby_Left, MKTSquare_Windows2, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
-		AddWall buildings, MKTSQLby_Right, MKTSquare_Windows2, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
-		AddWall buildings, MKTSQLby_Back, MKTSquare_Windows2, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
+		AddWall buildings, MKTSQ_West_Lby_Front, MKTSquare_Windows2, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 24, 24, 0, 0, 0, 1
+		AddWall buildings, MKTSQ_West_Lby_Left, MKTSquare_Windows2, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
+		AddWall buildings, MKTSQ_West_Lby_Right, MKTSquare_Windows2, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
+		AddWall buildings, MKTSQ_West_Lby_Back, MKTSquare_Windows2, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 24, 24, 0, 0, 0, 1
 	
 
 		#Upper floors
-		AddWall buildings, MKTSQ_Front, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 276, 276, 24, 24, 0, 23
-		AddWall buildings, MKTSQ_Left, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
-		AddWall buildings, MKTSQ_Right, MKTSquare_Windows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
-		AddWall buildings, MKTSQ_Back, MKTSquare_Windows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
+		AddWall buildings, MKTSQ_West_Front, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 276, 276, 24, 24, 0, 23
+		AddWall buildings, MKTSQ_West_Left, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
+		AddWall buildings, MKTSQ_West_Right, MKTSquare_Windows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
+		AddWall buildings, MKTSQ_West_Back, MKTSquare_Windows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 276, 276, 24, 24, 0, 23
 
 	SetAutoSize = true, true
 	
 		#Roof
-		AddFloor buildings, MKTSQ_Roof, MKTSquare_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 300, 300, 0, 0
+		AddFloor buildings, MKTSQ_West_Roof, MKTSquare_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 300, 300, 0, 0
 
 	###************###
 
-	#2. Parking Garage
+	#2. East building
+	Set 0 = -100 + 210 + %MainX% #Building Center X
+	Set 1 = 1644 - 100 + 15 + %MainZ% #Building Center Z
+	Set 3 = 40 #Building Dimension X
+	Set 4 = 75 #Building Dimension Z
+	
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	
+		#1st-7th floors
+		AddWall buildings, MKTSQ_East_Front, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 77, 77, 0, 0, 0, 7
+		AddWall buildings, MKTSQ_East_Left, MKTSquare_Windows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 77, 77, 0, 0, 0, 7
+		AddWall buildings, MKTSQ_East_Right, MKTSquare_Windows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 77, 77, 0, 0, 0, 7
+		AddWall buildings, MKTSQ_East_Back, MKTSquare_Windows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 77, 77, 0, 0, 0, 7
+
+	SetAutoSize = true, true
+
+		#Roof
+		AddFloor buildings, MKTSQ_East_Roof, MKTSquare_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 77, 77, 0, 0
+
+	###************###
+
+	#3. Parking Garage
 	Set 0 = -100 + 15 + %MainX% #Building Center X
 	Set 1 = 1644 - 100 + 235 + %MainZ% #Building Center Z
 	Set 3 = 105 #Building Dimension X
