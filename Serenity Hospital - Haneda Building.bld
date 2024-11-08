@@ -603,16 +603,48 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, FrontSW, Sidewalk, 0, -%1% - 6, -%2% - %ExtraSouth% - 10, %1%, -%2% - %ExtraSouth%, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, LeftSW, Sidewalk, 0, -%1% - 6, -%2% - %ExtraSouth%, -%1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, LeftSW, Sidewalk, 0, -%1% - 6, -%2% - %ExtraSouth%, -%1%, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
 
 	AddFloor landscape, RightSW1, Sidewalk, 0, %1%, -65, %1% + 70, -45, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
 	AddFloor landscape, RightSW2, Sidewalk, 0, %1%, -5, %1% + 70, 15, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
 	#AddFloor landscape, RightSW3, Sidewalk, 0, %1%, -%2% - %ExtraSouth%, %1% + 8, -65, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, RightGrass1, Grass, 0, %1%, -%2% - %ExtraSouth% - 10, %1% + 70, -65, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, RightGrass2, Grass, 0, %1%, -45, %1% + 70, -5, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, RightGrass3, Grass, 0, %1%, 15, %1% + 70, %2%, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, RightGrass3, Grass, 0, %1%, 15, %1% + 70, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
 
-	AddFloor landscape, BackGrass, Grass, 0, -%1% - 6, %2%, %1% + 70, %2% + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackGrass1, Grass, 0, -%1%, %2%, 30, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackGrass2, Grass, 0, 50, %2%, %1%, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, BackSW, Sidewalk, 0, 30, %2%, 50, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
+
+#North Trees
+AddTree(Tree2, 30 - 10, 52.5, 12, 16, 0)
+AddTree(Tree2, 30 - 10, 52.5 + 15, 12, 16, 0)
+AddTree(Tree2, 30 - 10, 52.5 + 30, 12, 16, 0)
+AddTree(Tree2, 30 - 10, 52.5 + 45, 12, 16, 0)
+
+AddTree(Tree2, 50 + 10, 52.5, 12, 16, 0)
+AddTree(Tree2, 50 + 10, 52.5 + 15, 12, 16, 0)
+AddTree(Tree2, 50 + 10, 52.5 + 30, 12, 16, 0)
+AddTree(Tree2, 50 + 10, 52.5 + 45, 12, 16, 0)
+
+#East Trees
+	#Southern path
+	AddTree(Tree1, 107.5 + 15, -65 - 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 30, -65 - 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 45, -65 - 10, 13.5, 12, 0)
+
+	AddTree(Tree1, 107.5 + 15, -45 + 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 30, -45 + 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 45, -45 + 10, 13.5, 12, 0)
+
+	#Northern path
+	AddTree(Tree1, 107.5 + 15, -5 - 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 30, -5 - 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 45, -5 - 10, 13.5, 12, 0)
+
+	AddTree(Tree1, 107.5 + 15, 15 + 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 30, 15 + 10, 13.5, 12, 0)
+	AddTree(Tree1, 107.5 + 45, 15 + 10, 13.5, 12, 0)
 
 ##--------------------------------------------------------------------------------##
 
@@ -1588,6 +1620,9 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Cut external, -60, Floor(0).Base, -%2% - 40 - 0.1, 60, Floor(1).Altitude, -%2% - 40 + 0.1, true, false
 	Cut external, -20, Floor(7).Base, -%2% - 0.1, 20, Floor(8).Altitude, -%2% + 0.1, true, false #8th floor garden access
 
+	#North side
+	Cut external, 30, Floor(0).Base, %2% - 0.1, 60, Floor(1).Altitude, %2% + 0.1, true, false
+
 	#West side
 	Cut external, -%1% - 0.1, Floor(0).Base, -5, -%1% + 0.1, Floor(1).Altitude, 15, true, false
 	Cut external, -%1% - 0.1, Floor(0).Base, -65, -%1% + 0.1, Floor(1).Altitude, -45, true, false
@@ -1609,6 +1644,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		AddCustomWindows(LeftLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -65, -%1%, -45, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(RightLobbyWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -15, %1%, 15, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(RightLobbyWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -65, %1%, -45, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(BackLobbyWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, 30, -%2% - %ExtraSouth%, 60, -%2% - %ExtraSouth%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		SetAutoSize = true, true
 
 	#Entrance doors
@@ -1660,7 +1696,30 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
 		####################################
 
-		#2. WEST DOORS
+		#2. NORTH DOORS
+		#Door set 1
+		Set Door_MainX = 35
+		Set Door_MainZ = %2%
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Door set 2
+		Set Door_MainX = 45
+		Set Door_MainZ = %2%
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+		####################################
+
+		#3. WEST DOORS
 		#Door set 1A
 		Set Door_MainX = -%1%
 		Set Door_MainZ = -60
@@ -1703,7 +1762,7 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 
 		####################################
 
-		#3. EAST DOORS
+		#4. EAST DOORS
 		#Door set 1A
 		Set Door_MainX = %1%
 		Set Door_MainZ = -60
