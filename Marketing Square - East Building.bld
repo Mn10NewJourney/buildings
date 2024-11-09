@@ -165,11 +165,9 @@
 
 		#Office Elevators
 		Load data/Carpet0013b_S.jpg, OfficeElevFloor, 0.2, 0.2
-		Load data/panel-back3.jpg, OfficeElevCeiling, 1, -1, false
+		Load data/EG881/stainlesssteel2.jpg, OfficeElevCeiling, 1, 1, false #EG881
 		Load data/EG881/Lights/squarelight1_white.jpg, OfficeElevCeilingLight, 1, 1, false #EG881
-		Load data/panel-back3.jpg, OfficeElevCeilingTrim, 1, 1, false
-		Load data/panel-back3.jpg, OfficeElevCeilingTrim2, 1, 1, false
-		Rotate OfficeElevCeilingTrim2, 90
+		Load data/panel-back3.jpg, OfficeElevCeilingTrim, 1, -1, false
 
 		Load data/marbl3.jpg, OfficeElevWall, 0.25, 0.25, true #EG881
 		Load data/checker06.jpg, OfficeElevWallPanel, 0.5, 0.5
@@ -900,17 +898,20 @@ AddStdShaft(2, 1, 10, -28, 4.67, 4.67, -1, 7, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Lights
-	Set LightWidth = 3.3
-	Set LightLength = 2.2
-	Set TrimWidth = 0.2
+	Set LightWidth = 1.5
+	Set LightLength = 1.85
+	#Set TrimWidth = 0.2
 
-	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light1/1, %Prefix%ElevCeilingLight, -3.3 + 0.05 + (%LightWidth% / 2), 0 - 0.2 - %LightLength%, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light1/2, %Prefix%ElevCeilingLight, -3.3 + 0.05 + (%LightWidth% / 2), 0, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light1/3, %Prefix%ElevCeilingLight, -3.3 + 0.05 + (%LightWidth% / 2), 0 + 0.2 + %LightLength%, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
 
-		#1a. Trims around lights
-		CreateWallBox2 elevator, CL_Trim_Front, %Prefix%ElevCeilingTrim2, 0, 0 - (%LightLength% / 2) - (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Back, %Prefix%ElevCeilingTrim2, 0, 0 + (%LightLength% / 2) + (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Left, %Prefix%ElevCeilingTrim, 0 - (%LightWidth% / 2) - (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Right, %Prefix%ElevCeilingTrim, 0 + (%LightWidth% / 2) + (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light2/1, %Prefix%ElevCeilingLight, 3.3 - 0.05 - (%LightWidth% / 2), 0 - 0.2 - %LightLength%, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light2/2, %Prefix%ElevCeilingLight, 3.3 - 0.05 - (%LightWidth% / 2), 0, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, Light2/3, %Prefix%ElevCeilingLight, 3.3 - 0.05 - (%LightWidth% / 2), 0 + 0.2 + %LightLength%, %LightWidth%, %LightLength%, 0.05, 7.5 - 0.05, 0, 0, false, true, true, true
+
+	#2. Middle trims
+	CreateWallBox2 elevator, CeilingTrim, %Prefix%ElevCeilingTrim, 0, 0, 3.25, 6.1, 0.1, 7.5 - 0.1, 0, 0, false, true, true, true
 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel
