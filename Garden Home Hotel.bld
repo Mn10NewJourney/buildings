@@ -86,7 +86,6 @@
 		Load data/EG881/granite_0007e_black.jpg, EastPK_PLWall, 0.075, 0.075 #EG881 #Lower walls
 		Load data/stucco5.jpg, EastPK_PLWall_Upper, 0.2, 0.2 #Upper walls (P4-P1)
 		Load data/EG881/ceilingtile3x3.jpg, EastPK_PLCeiling, 0.125, 0.125 #EG881
-		#Load data/stucco4.jpg, EastPK_PLCeiling2, 0.25, 0.25
 
 			#Shaft doors
 			Load data/EG881/elevdoorleft_black.jpg, EastPK_PLShaftDoors, 1, 1, false #EG881
@@ -117,10 +116,10 @@
 		Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
 
 		#Main doors
-		Load data/miscdoor88.gif, Door88, 1, 1, false
-		LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
-		Load data/miscdoor9b.jpg, Door9b, 1, 1, false
-		Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
+		#Load data/miscdoor88.gif, Door88, 1, 1, false
+		#LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
+		#Load data/miscdoor9b.jpg, Door9b, 1, 1, false
+		#Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
 
 		#Service doors
 		Load data/EG881/Doors/servicedoor2_graynovents.jpg, ServiceDoor2, 1, 1, false #EG881
@@ -424,8 +423,9 @@ Cut Landscape, 175 + 20, -1, 0, 175.5 + 20, 1, 25, false, true #Landscape cut fo
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		if[%floor% = 0] AddWall EastLobbyWall_Front_%floorid%, ExtFacade, 0.5, %WestEnd%, 0, 175 + 20, 0, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
-		if[%floor% = 0] AddWall EastLobbyWall_Left_%floorid%, ExtFacade, 0.5, %WestEnd%, 0, %WestEnd%, 25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-		if[%floor% = 0] AddWall EastLobbyWall_Left2, %5%Wall, 0.5, %WestEnd%, 20, %WestEnd%, 25, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+		if[%floor% = 0] AddWall EastLobbyWall_Left1_%floorid%, ExtFacade, 0.5, %WestEnd%, 0, %WestEnd%, 25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% = 0] AddWall EastLobbyWall_Left2L, EastPK_MainStairsWall, 0.5, %WestEnd%, 20, %WestEnd%, 25, %interfloorheight% / 2, %interfloorheight% / 2, 0, 0, 0, 0, true
+		if[%floor% = 0] AddWall EastLobbyWall_Left2U, %5%Wall, 0.5, %WestEnd%, 20, %WestEnd%, 25, %interfloorheight% / 2, %interfloorheight% / 2, %interfloorheight% / 2, %interfloorheight% / 2, 0, 0, true
 	
 		WallOrientation = right
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
@@ -550,10 +550,11 @@ ShowFullStairs 1 = always
 	#if[%floor% > -4] AddStairsWall %25%, Stair%25%Back, EastPK_%Infix%StairsWall, 0.5, -%23%, %24%, %23%, %24%, %RailHeight%, %RailHeight%, %RailOffset%, %RailOffset%, 0, 0
 
 	Set EH = 0 #Extra height
+	if[%floor% = -1] Set EH = Floor(0).InterfloorHeight / 2 #Extra height
 	#if[%floor% = -1] Set EH = Floor(0).InterfloorHeight #Extra height
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% > -4 & %floor% < 0] AddStairsWall %25%, Stair%25%Back, EastPK_MainStairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight% + %EH%, %fullheight% + %EH%, -%interfloorheight%, -%interfloorheight%, 0, 0
-	if[%floor% = 0] AddStairsWall %25%, Stair%25%Back, EastPK_%Infix%StairsWall2, 0.5, -%23%, %24%, %23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	if[%floor% = 0] AddStairsWall %25%, Stair%25%Back, EastPK_%Infix%StairsWall2, 0.5, -%23%, %24%, %23%, %24%, %interfloorheight% / 2, %interfloorheight% / 2, -1 * (%interfloorheight% / 2), -1 * (%interfloorheight% / 2), 0, 0
 
 	#Railings next to stairs
 	Set RailHeight = 3.5 + 0.5
