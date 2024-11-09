@@ -95,11 +95,11 @@
 
 		#Stairs from P4 to L
 		Load data/floor065.jpg, EastPK_PLStairs, 0.25, 0.25
-		#Load data/wall5b.jpg, EastPK_MainStairsWall, 0.25, 0.25
 		Load data/stucco5.jpg, EastPK_MainStairsWall, 0.2, 0.2
 		Load data/black_granite.jpg, EastPK_PLStairsWall, 0.1, 0.1
 		Load data/EG881/granite_0007e_black.jpg, EastPK_PLStairsWall2, 0.075, 0.075 #EG881
 		Load data/st_wall2.jpg, EastPK_GLStairsWall, 0.13635, 0.09765
+		Load data/st_wall.jpg, EastPK_GLStairsWall2, 0.1875, 0.1344
 
 		#East parking elevator lobby (Lobby level)
 		Load data/floor065.jpg, EastPK_GLFloor, 0.25, 0.25
@@ -154,7 +154,6 @@
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ElevPanel, 1, 1, false
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
-		#Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
 
 		#East Parking Elevators
 			#Floor and Ceiling
@@ -237,7 +236,6 @@
 
 		#Miscellaneous
 		Load data/signs_mod/elevhallsign1.png, FireSign, 1, 1, false
-		#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -272,9 +270,6 @@
 ##--------------------------------------------------------------------------------##
 
 #Landscape
-	#Downtown ground
-	#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
-
 	#Coordinate Set
 	Set MainX = -1096 + 35
 	Set MainZ = 1644 + 110
@@ -286,7 +281,6 @@
 	#Landscape dimension for building(s)
 	Set 1 = 135 #South Wing Dimension X
 	Set 2 = 75 #South Wing Dimension Z
-	#Cut Landscape, -%1% - 65, -1, -%2% - 50, %1%, 1, %2%, false, true
 	
 	#****************************************#
 
@@ -554,11 +548,12 @@ ShowFullStairs 1 = always
 	WallOrientation = left
 	if[%floor% > -4] AddStairsWall %25%, Stair%25%RightIFloor, EastPK_%Infix%StairsWall, 0.5, %23%, -%24%, %23%, %24%, %RailHeight2%, %RailHeight2%, %RailOffset%, %RailOffset%, 0, 0
 	#if[%floor% > -4] AddStairsWall %25%, Stair%25%Back, EastPK_%Infix%StairsWall, 0.5, -%23%, %24%, %23%, %24%, %RailHeight%, %RailHeight%, %RailOffset%, %RailOffset%, 0, 0
-	
+
 	Set EH = 0 #Extra height
-	if[%floor% = -1] Set EH = Floor(0).InterfloorHeight #Extra height
+	#if[%floor% = -1] Set EH = Floor(0).InterfloorHeight #Extra height
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% > -4 & %floor% < 0] AddStairsWall %25%, Stair%25%Back, EastPK_MainStairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight% + %EH%, %fullheight% + %EH%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	if[%floor% = 0] AddStairsWall %25%, Stair%25%Back, EastPK_%Infix%StairsWall2, 0.5, -%23%, %24%, %23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 
 	#Railings next to stairs
 	Set RailHeight = 3.5 + 0.5
