@@ -76,6 +76,7 @@
 	#Lobby level
 	Load data/floor111b.jpg, LobbyFloor, 0.25, 0.25
 	Load data/floor065.jpg, LobbyFloor2, 0.25, 0.25
+	Load data/checker08.jpg, LobbyFloor3, 0.3, 0.3
 	Load data/st_wall2.jpg, LobbyWall, 0.13635, 0.09765
 	#Load data/st_wall.jpg, LobbyWall, 0.1875, 0.1344
 	Load data/EG881/ceilingtile2.jpg, LobbyCeiling, 0.125, 0.125 #EG881
@@ -95,9 +96,9 @@
 	Load data/EG881/ceilingtile2b.jpg, OfficeLobbyCeiling, 0.125, 0.125 #EG881
 
 		#Shaft doors
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, OfficeShaftDoors, -1, 1, false
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, OfficeShaftDoors2, 1, 1, false
-		Load data/panel-back3.jpg, OfficeShaftDoors_Trim, 1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, OfficeShaftDoors, 1, 1, false
+		Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, OfficeShaftDoors2, 1, 1, false
+		Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, OfficeShaftDoors_Trim, 1, 1, false #EG881
 
 	########################################
 
@@ -164,7 +165,7 @@
 
 		#Office Elevators
 		Load data/Carpet0013b_S.jpg, OfficeElevFloor, 0.2, 0.2
-		Load data/graygradient.jpg, OfficeElevCeiling, 1, -1, false
+		Load data/panel-back3.jpg, OfficeElevCeiling, 1, -1, false
 		Load data/EG881/Lights/squarelight1_white.jpg, OfficeElevCeilingLight, 1, 1, false #EG881
 		Load data/panel-back3.jpg, OfficeElevCeilingTrim, 1, 1, false
 		Load data/panel-back3.jpg, OfficeElevCeilingTrim2, 1, 1, false
@@ -529,22 +530,34 @@ Set 2 = 75 #Building Dimension Z
 <EndFloor>
 
 <Floor 0>
-	#Floor cuts for elevator lobby
-	CutAll 5, %interfloorheight% - 0.1, 10, 25, %interfloorheight% + 0.1, 23.66, false, true
-	CutAll 25, %interfloorheight% - 0.1, 10, %1%, %interfloorheight% + 0.1, 23, false, true
-	CutAll 25, %interfloorheight% - 0.1, 23, %1%, %interfloorheight% + 0.1, 33, false, true
-	CutAll 30, %interfloorheight% - 0.1, 33, %1%, %interfloorheight% + 0.1, 45, false, true
+	#Floor cuts for lobby area
+		#North side
+		CutAll 5, %interfloorheight% - 0.1, 10, 25, %interfloorheight% + 0.1, 23.66, false, true
+		CutAll 25, %interfloorheight% - 0.1, 10, %1%, %interfloorheight% + 0.1, 23, false, true
+		CutAll 25, %interfloorheight% - 0.1, 23, %1%, %interfloorheight% + 0.1, 33, false, true
+		CutAll 30, %interfloorheight% - 0.1, 33, %1%, %interfloorheight% + 0.1, 45, false, true
+
+		#South side
+		CutAll 5, %interfloorheight% - 0.1, -33, %1%, %interfloorheight% + 0.1, 10, false, true
+		CutAll 30, %interfloorheight% - 0.1, -45, %1%, %interfloorheight% + 0.1, -33, false, true
+
 
 	#==============================#
 
-	#Elevator lobby
-		#Floors
+	#Lobby floors
+		#North
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		AddFloor LobbyFloor1, LobbyFloor2, 0.5, 5, 10, 25, 23.66, 0, 0, 0, 0, false
-		AddFloor LobbyFloor2, LobbyFloor2, 0.5, 25, 10, %1%, 23, 0, 0, 0, 0, false
-		AddFloor LobbyNorthSTRFloor1, LobbyFloor2, 0.5, 25, 23, %1%, 33, 0, 0, 0, 0, false
-		AddFloor LobbyNorthSTRFloor2, LobbyFloor2, 0.5, 30, 33, %1%, 45, 0, 0, 0, 0, false
+		AddFloor NorthFloor1, LobbyFloor2, 0.5, 5, 10, 25, 23.66, 0, 0, 0, 0, false
+		AddFloor NorthFloor2, LobbyFloor2, 0.5, 25, 10, %1%, 23, 0, 0, 0, 0, false
+		AddFloor NorthSTRFloor1, LobbyFloor2, 0.5, 25, 23, %1%, 33, 0, 0, 0, 0, false
+		AddFloor NorthSTRFloor2, LobbyFloor2, 0.5, 30, 33, %1%, 45, 0, 0, 0, 0, false
+
+		#South
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		AddFloor SouthFloor, LobbyFloor3, 0.5, 5, -33, %1%, 10, 0, 0, 0, 0, false
+		AddFloor SouthSTRFloor, LobbyFloor3, 0.5, 30, -45, %1%, -33, 0, 0, 0, 0, false
 <EndFloor>
 
 <Floors 1 to 6>
@@ -622,8 +635,10 @@ Set 2 = 75 #Building Dimension Z
 	WallOrientation = right
 	DrawWalls = true, true, false, false, false, false
 	AddWall NorthSTR2, %5%Wall, 0.5, 30, 45, %1%, 45, %height%, %height%, 0, 0, 0, 0, false
+	AddWall NorthSTR_Inner, %5%Wall, 0.5, 30, 23, 30, 33, %height%, %height%, 0, 0, 0, 0, false
 
-		#Storage door
+		#Storage doors
+		#1. Eastern room
 		Set DTex = Door8
 		if[%floor% > 0] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
@@ -632,8 +647,19 @@ Set 2 = 75 #Building Dimension Z
 		Set Door_MainZ = 23
 	
 		WallOrientation = left
-		AddStdDoor Floor %floor%, %floorid%_NorthStrDoor, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_NorthStr1Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
+
+		#2. Western room
+		Set DTex = ServiceDoor1
+		Set DSTex = %DTex%Side
+
+		Set Door_MainX = 29.5 - 1.875
+		Set Door_MainZ = 23
+	
+		WallOrientation = left
+		AddStdDoor Floor %floor%, %floorid%_NorthStr2Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 2.75, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 2.75, 7, 0, true, 0, 0, false
 
 	#==============================#
 
@@ -1096,14 +1122,23 @@ AddStdShaft(2, 1, 10, -28, 4.67, 4.67, -1, 7, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	Set ElevNo = %param1%
 	Set CenterX = %param2%
 
+	########################################
+	
+	#1. Outer trims
 	#Upper filler walls
 	WallOrientation = left
-	AddFillerWalls %5%LobbyWall, 0.66, %CenterX%, %Shaft1CZ% - 5, 4, 7 - 4, 4, true, 0, 0, false
+	AddFillerWalls %5%LobbyWall, 0.66 - 0.15, %CenterX%, %Shaft1CZ% - 5, 4, 7 - 4, 4, true, 0, 0, false
 
 		#Lower filler walls to match with shaft walls
 		DrawWalls = true, true, false, false, false, false
-		AddWall E%Elevator%Filler1, %5%LobbyWallLower, 0, %CenterX% - 2, %Shaft1CZ% - 5, %CenterX% - 2, %Shaft1CZ% - 5 + 0.66, 4, 4, 0, 0, 0, 0, false
-		AddWall E%Elevator%Filler2, %5%LobbyWallLower, 0, %CenterX% + 2, %Shaft1CZ% - 5, %CenterX% + 2, %Shaft1CZ% - 5 + 0.66, 4, 4, 0, 0, 0, 0, false
+		AddWall E%Elevator%Filler1, %5%LobbyWallLower, 0, %CenterX% - 2, %Shaft1CZ% - 5, %CenterX% - 2, %Shaft1CZ% - 5 + 0.66 - 0.15, 4, 4, 0, 0, 0, 0, false
+		AddWall E%Elevator%Filler2, %5%LobbyWallLower, 0, %CenterX% + 2, %Shaft1CZ% - 5, %CenterX% + 2, %Shaft1CZ% - 5 + 0.66 - 0.15, 4, 4, 0, 0, 0, 0, false
+
+	########################################
+
+	#2. Inner trims
+	WallOrientation = left
+	AddFillerWalls %DoorTrimTexture%, 0.15, %CenterX%, %Shaft1CZ% - 5 + 0.51, 4, 7, 0, true, 0, 0, false
 <EndFunction>
 
 <Floors 0 to 6>
@@ -1231,14 +1266,14 @@ AddStdShaft(2, 1, 10, -28, 4.67, 4.67, -1, 7, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 
 	#Call buttons
 	CallButtonElevators = 3
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 2 - 1.25, %Shaft1CZ% + 5.001, 3.5, back, 1, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 2 - 1, %Shaft1CZ% + 5.001, 3.5, back, 1, 1, true, 0, 0
 
 		#Signs
 		Set Suffix = %floorid%
 
 		DrawWalls = false, true, false, false, false, false
-		AddWall E3FloorSign, BlankSign%Suffix%, 0, %Shaft1CX% - 3.25 - 0.75, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% - 3.25 + 0.75, %Shaft1CZ% + 5 + 0.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
-		AddWall E3HallSign, FireSign, 0, %Shaft1CX% - 3.25 - 0.25, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% - 3.25 + 0.25, %Shaft1CZ% + 5 + 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		AddWall E3FloorSign, BlankSign%Suffix%, 0, %Shaft1CX% - 3 - 0.75, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% - 3 + 0.75, %Shaft1CZ% + 5 + 0.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
+		AddWall E3HallSign, FireSign, 0, %Shaft1CX% - 3 - 0.25, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% - 3 + 0.25, %Shaft1CZ% + 5 + 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
 
