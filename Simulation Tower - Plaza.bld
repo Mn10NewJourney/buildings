@@ -71,7 +71,7 @@
 
 	#External facades
 	Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.075, 0.075, true #EG881
-	#Load data/cutston2.jpg, ExtFacade2, 0.075, 0.075, true
+	Load data/cutston2.jpg, ExtFacade2, 0.075, 0.075, true
 	Load data/cutston3.jpg, ExtFacade3, 0.075, 0.075, true
 	#Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 	Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor, 0.0625, 0.0625 #EG881
@@ -397,11 +397,10 @@ Set 2 = 40 #Building Dimension Z
 
 	#Supports under roof extension
 	Set WholeHeight = Floor(0).Height + Floor(1).FullHeight + Floor(2).FullHeight
-	CreateWallBox2 landscape, RoofEXSupport1, ExtFacade, 20 + 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, RoofEXSupport2, ExtFacade, 30 - 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade, 25, 50, 4, 2, 2, 13, 0, 0, false, true, true, true
-	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade, 25, 50, 4, 2, 2, 26, 0, 0, false, true, true, true
-
+	CreateWallBox2 landscape, RoofEXSupport1, ExtFacade2, 20 + 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, RoofEXSupport2, ExtFacade2, 30 - 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade2, 25, 50, 4, 2, 2, 13, 0, 0, false, true, true, true
+	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade2, 25, 50, 4, 2, 2, 26, 0, 0, false, true, true, true
 
 #Trees around "Plaza to 5th Street" path
 AddTree(Tree1, -32.5, 45 + 15, 13.5, 12, 0)
@@ -838,6 +837,13 @@ AddTree(Tree1, 7.5, 45 + 60, 13.5, 12, 0)
 	TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 	AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
 	AddFillerWalls RoofLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFloor>
+
+<Floor 4>
+	#Roof lobby cover
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor TopCover, ExtFacade, 0.5, 20, 50, 30, 70, %fullheight%, %fullheight%, 0, 0, true
 <EndFloor>
 
 <Floors 2 to 3>
