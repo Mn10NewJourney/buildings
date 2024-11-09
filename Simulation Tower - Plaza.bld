@@ -71,7 +71,7 @@
 
 	#External facades
 	Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.075, 0.075, true #EG881
-	Load data/cutston2.jpg, ExtFacade2, 0.075, 0.075, true
+	#Load data/cutston2.jpg, ExtFacade2, 0.075, 0.075, true
 	Load data/cutston3.jpg, ExtFacade3, 0.075, 0.075, true
 	#Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 	Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor, 0.0625, 0.0625 #EG881
@@ -90,8 +90,8 @@
 
 	#Roof level
 	Load data/Carpet0013b_S.jpg, RoofLobbyFloor, 0.2, 0.2
-	Load data/EG881/lopacwall2stripe.jpg, RoofLobbyWall_Lower, 0.125, 0.25 #EG881
-	Load data/Melvin/Aceheart/wall5c_darker.jpg, RoofLobbyWall, 0.25, 0.25
+	Load data/EG881/lopacwall2stripe.jpg, RoofLobbyWall_Lower, 0.15, 0.3 #EG881
+	Load data/black_granite.jpg, RoofLobbyWall, 0.1, 0.1
 	Load data/EG881/ceilingtile3x3.jpg, RoofLobbyCeiling, 0.125, 0.125 #EG881
 
 	#Drop ceilings
@@ -122,6 +122,7 @@
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
 		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky1.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
+		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3j.jpg, BLKEntDoorExt2, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
 
 	########################################
@@ -152,7 +153,8 @@
 		
 		#Roof Elevator Shaft
 		Load data/marbletile.jpg, RoofElevShaft_Lower, 0.15, 0.3
-		Load data/stone.jpg, RoofElevShaft, 0.0625, 0.0625
+		Load data/EG881/granite_0007e_black.jpg, RoofElevShaft, 0.075, 0.075, true #EG881
+		#Load data/stone.jpg, RoofElevShaft, 0.0625, 0.0625
 
 	#Elevators
 	#Main components
@@ -395,7 +397,10 @@ Set 2 = 40 #Building Dimension Z
 
 	#Supports under roof extension
 	Set WholeHeight = Floor(0).Height + Floor(1).FullHeight + Floor(2).FullHeight
-	CreateWallBox2 landscape, RoofEXSupport, ExtFacade, 25, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, RoofEXSupport1, ExtFacade, 20 + 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, RoofEXSupport2, ExtFacade, 30 - 1.5, 50, 3, 3, %WholeHeight%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade, 25, 50, 4, 2, 2, 13, 0, 0, false, true, true, true
+	CreateWallBox2 landscape, RoofEXSupport3, ExtFacade, 25, 50, 4, 2, 2, 26, 0, 0, false, true, true, true
 
 
 #Trees around "Plaza to 5th Street" path
@@ -818,6 +823,21 @@ AddTree(Tree1, 7.5, 45 + 60, 13.5, 12, 0)
 	Add3DWindows(E4LobbyWin_Front1, 25 - 3.75, 50, front, 1, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB2, RoofLobbyWall, 0.5, 1/4, 1)
 	Add3DWindows(E4LobbyWin_Front2, 25 + 3.75, 50, front, 1, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB2, RoofLobbyWall, 0.5, 1/4, 1)
 	Add3DWindows(E4LobbyWin_Front3, 25 + 0.00, 50, front, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB2, RoofLobbyWall, 0.5, 1/4, 1)
+
+	#Roof lobby access doors
+	Set DTex = BLKEntDoorInt
+	Set DTex_Ext = BLKEntDoorExt2
+	Set DSTex = BLKEntDoorSide
+
+	Set Door_MainX = 25
+	Set Door_MainZ = 50.5
+	
+	WallOrientation = right
+	TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+	AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+	AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+	AddFillerWalls RoofLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 <EndFloor>
 
 <Floors 2 to 3>
@@ -1235,7 +1255,7 @@ ShowFullShaft 3 = true
 ShaftShowOutside 3 = 0 - 3
 
 	#Landscape cut for shaft
-	Cut landscape, 25 - 4.67, 0 - 1, 65 - 4.67, 25 + 4.67, 4 + 1, 65 + 4.67, false, true
+	Cut landscape, 25 - 4.67, 0 - 1, 65 - 4.67, 25 + 4.67, 4 + 1, 65 + 4.67 - 0.33, false, true
 
 #External walls for shaft 3
 <Floor 0>
@@ -1243,8 +1263,8 @@ ShaftShowOutside 3 = 0 - 3
 	if[%floor% = 4] Set ShowTop = true
 
 	TexPrefix()
-	CreateShaftWall(RoofElevShaft_Lower, RoofElevShaft_Lower, RoofElevShaft_Lower, RoofElevShaft_Lower, ExtFacade2, ExtFacade2, 0.33, 25, 65, 5, 5, SH3, 10, %interfloorheight%, true, true, true, true, %ShowTop%, false, true)
-	CreateShaftWall(RoofElevShaft, RoofElevShaft, RoofElevShaft, RoofElevShaft, ExtFacade2, ExtFacade2, 0.33, 25, 65, 5, 5, SH3, %height% - 10, %interfloorheight% + 9, true, true, true, true, %ShowTop%, false, true)
+	CreateShaftWall(RoofElevShaft_Lower, RoofElevShaft_Lower, RoofElevShaft_Lower, RoofElevShaft_Lower, ExtFacade, ExtFacade, 0.33, 25, 65, 5, 5, SH3, 4.5, %interfloorheight%, true, true, true, true, %ShowTop%, false, true)
+	CreateShaftWall(RoofElevShaft, RoofElevShaft, RoofElevShaft, RoofElevShaft, ExtFacade, ExtFacade, 0.33, 25, 65, 5, 5, SH3, %height% - 4.5, %interfloorheight% + 4.5, true, true, true, true, %ShowTop%, false, true)
 <EndFloor>
 
 <Floors 1 to 4>
@@ -1547,7 +1567,7 @@ ShaftShowOutside 3 = 0 - 3
 <Elevator 4>
 	Name = Roof Elevator
 	Type = Express
-	Speed = 8
+	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 3
@@ -2084,6 +2104,10 @@ ShaftShowOutside 3 = 0 - 3
 <EndElevator>
 
 <Elevator 4>
+	#Chimes for Rear Doors
+	UpChimeSound 2 = chime2-up.wav
+	DownChimeSound 2 = chime2-down.wav
+
 	#Door timers
 	DoorTimer 1 = 12000
 	QuickClose 1 = 8000
