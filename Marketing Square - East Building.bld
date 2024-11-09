@@ -89,12 +89,15 @@
 		Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false
 		Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
 
-	#Office levels
-	Load data/Carpet0006_S.jpg, OfficeFloor, 0.2, 0.2
-	Load data/stucco22b.jpg, OfficeWall, 0.25, 0.25
+	#Lower office levels (2-5)
+	Load data/Carpet0013b_S.jpg, OfficeFloor, 0.2, 0.2 #Hallways
+	Load data/Carpet0006_S.jpg, OfficeFloor2, 0.2, 0.2 #Office units
+	Load data/stucco22b.jpg, OfficeWall, 0.25, 0.25 #Hallways
+
 	Load data/Carpet0012_S.jpg, OfficeLobbyFloor, 0.2, 0.2
 	Load data/marbletile.jpg, OfficeLobbyWallLower, 0.15, 0.3
 	Load data/wall5.jpg, OfficeLobbyWall, 0.25, 0.25
+
 	Load data/EG881/ceilingtile3x3.jpg, OfficeCeiling, 0.125, 0.125 #EG881
 	Load data/EG881/ceilingtile2b.jpg, OfficeLobbyCeiling, 0.125, 0.125 #EG881
 
@@ -102,6 +105,23 @@
 		Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, OfficeShaftDoors, 1, 1, false
 		Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, OfficeShaftDoors2, 1, 1, false
 		Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, OfficeShaftDoors_Trim, 1, 1, false #EG881
+
+	#Upper office levels (6-7)
+	Load data/Carpet0021b_S.jpg, UpperOfficeFloor, 0.2, 0.2 #Hallways
+	Load data/EG881/Carpet/eg881_Carpet4.jpg, UpperOfficeFloor2, 0.2, 0.2 #EG881 #Office units
+	Load data/wall3.jpg, UpperOfficeWall, 0.25, 0.25 #Hallways
+
+	Load data/Carpet0021d_S.jpg, UpperOfficeLobbyFloor, 0.2, 0.2
+	Load data/marble22.jpg, UpperOfficeLobbyWallLower, 0.1345, 0.125
+	Load data/marble5c.jpg, UpperOfficeLobbyWall, 0.15, 0.15
+
+	Load data/EG881/ceilingtile3x3.jpg, UpperOfficeCeiling, 0.125, 0.125 #EG881
+	#Load data/EG881/ceilingtile2b.jpg, UpperOfficeLobbyCeiling, 0.125, 0.125 #EG881
+
+		#Shaft doors
+		Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, UpperOfficeShaftDoors, 1, 1, false
+		Load data/EG881_Otis/Doors/otisgraydoorright.jpg, UpperOfficeShaftDoors2, 1, 1, false
+		Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, UpperOfficeShaftDoors_Trim, 1, 1, false #EG881
 
 	#Drop ceilings
 	Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms
@@ -398,7 +418,8 @@ Set 2 = 75 #Building Dimension Z
 <Function TexPrefix>
 	#Main prefixes
 	Set 5 = Lobby
-	if[%floor% > 0] Set 5 = Office
+	if[%floor% > 0 & %floor% < 5] Set 5 = Office
+	if[%floor% > 4] Set 5 = UpperOffice
 	
 	#Special for office lobby walls
 	Set OfficeSuffix = Wall
@@ -591,7 +612,7 @@ Set 2 = 75 #Building Dimension Z
 	CutAll 30, %interfloorheight% - 0.1, 33, %1%, %interfloorheight% + 0.1, 45, false, true
 
 	#Ceiling cuts for elevator lobby
-	CutAll 5, %fullheight% - 0.1, 13, %1%, %fullheight% + 0.1, 23, false, true
+	if[%floor% < 5] CutAll 5, %fullheight% - 0.1, 13, %1%, %fullheight% + 0.1, 23, false, true
 
 	#==============================#
 
@@ -599,11 +620,11 @@ Set 2 = 75 #Building Dimension Z
 		#Floors
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		AddFloor OFLobbyFloor1, OfficeLobbyFloor, 0.5, 5.2, 13, 25, 23.66, 0, 0, 0, 0, false
-		AddFloor OFLobbyFloor2, OfficeLobbyFloor, 0.5, 25, 13, %1%, 23, 0, 0, 0, 0, false
+		AddFloor OFLobbyFloor1, %5%LobbyFloor, 0.5, 5.2, 13, 25, 23.66, 0, 0, 0, 0, false
+		AddFloor OFLobbyFloor2, %5%LobbyFloor, 0.5, 25, 13, %1%, 23, 0, 0, 0, 0, false
 		AddFloor OFLobbyFloor1_TR, BlackTrim, 0.5, 5, 13, 5.2, 23.66, 0, 0, 0, 0, false
-		AddFloor OFNorthSTRFloor1, OfficeLobbyFloor, 0.5, 25, 23, %1%, 33, 0, 0, 0, 0, false
-		AddFloor OFNorthSTRFloor2, OfficeLobbyFloor, 0.5, 30, 33, %1%, 45, 0, 0, 0, 0, false
+		AddFloor OFNorthSTRFloor1, %5%LobbyFloor, 0.5, 25, 23, %1%, 33, 0, 0, 0, 0, false
+		AddFloor OFNorthSTRFloor2, %5%LobbyFloor, 0.5, 30, 33, %1%, 45, 0, 0, 0, 0, false
 
 		#Walls
 		WallOrientation = left
@@ -612,11 +633,117 @@ Set 2 = 75 #Building Dimension Z
 		DrawWalls = true, false, false, false, false, false
 		AddWall OFLobbyWall_Ext, %5%Wall, 0.5, 5, 13, %1%, 13, %height%, %height%, 0, 0, 0, 0, false
 
-
 		#Elevator lobby ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor OFLobbyCeiling, OfficeLobbyCeiling, 0.5, 5, 13, %1%, 23, %height%, %height%, 0, 0, false
+		if[%floor% < 5] AddFloor OFLobbyCeiling, %5%LobbyCeiling, 0.5, 5, 13, %1%, 23, %height%, %height%, 0, 0, false
+
+	#==============================#
+	
+	#Office unit floors
+		#Floor cuts for elevator lobby
+		CutAll -%1%, %interfloorheight% - 0.1, -%2%, -5.3, %interfloorheight% + 0.1, 45, false, true #West
+
+		CutAll 5.3, %interfloorheight% - 0.1, -%2%, %1%, %interfloorheight% + 0.1, -45, false, true #East 1
+		CutAll 30, %interfloorheight% - 0.1, -45, %1%, %interfloorheight% + 0.1, -33, false, true #East Storage
+		CutAll 15, %interfloorheight% - 0.1, -33, %1%, %interfloorheight% + 0.1, -14, false, true #East 2A
+		CutAll 5.3, %interfloorheight% - 0.1, -14, %1%, %interfloorheight% + 0.1, 13, false, true #East 2B
+		CutAll 5.3, %interfloorheight% - 0.1, 45, %1%, %interfloorheight% + 0.1, %2%, false, true #East 4
+
+		#Floors
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		AddFloor WestUnitFloor, %5%Floor2, 0.5, -%1%, -%2%, -5.5, 45, 0, 0, 0, 0, false
+		AddFloor WestUnitFloor_Trim, BlackTrim, 0.5, -5.5, -%2%, -5.3, 45, 0, 0, 0, 0, false
+
+		AddFloor E1UnitFloor, %5%Floor2, 0.5, 5.5, -%2%, %1%, -45, 0, 0, 0, 0, false
+		AddFloor E1UnitFloor_Trim, BlackTrim, 0.5, 5.3, -%2%, 5.5, -45, 0, 0, 0, 0, false
+		AddFloor EastStorageFloor, %5%Floor2, 0.5, 30, -45, %1%, -33, 0, 0, 0, 0, false
+		AddFloor E2AUnitFloor, %5%Floor2, 0.5, 15, -33, %1%, -14, 0, 0, 0, 0, false
+		AddFloor E2BUnitFloor, %5%Floor2, 0.5, 5.5, -14, %1%, 13, 0, 0, 0, 0, false
+		AddFloor E3UnitFloor_Trim, BlackTrim, 0.5, 5.3, -14, 5.5, 13, 0, 0, 0, 0, false
+		AddFloor E4UnitFloor, %5%Floor2, 0.5, 5.5, 45, %1%, %2%, 0, 0, 0, 0, false
+		AddFloor E4UnitFloor_Trim, BlackTrim, 0.5, 5.3, 45, 5.5, %2%, 0, 0, 0, 0, false
+
+	#Office unit walls & Doors
+	Set DTex = Door9b #Set door texture
+	if[%floor% > 4] Set DTex = Door6 #Set door texture
+	Set DSTex = %DTex%Side
+	DrawWalls = true, true, true, false, false, false
+
+		#West
+		WallOrientation = right
+		AddWall WUnitWall, %5%Wall, 0.5, -5, -%2%, -5, 45, %height%, %height%, 0, 0, 0, 0, false
+
+			#Unit W1A Doors
+			Set Door_MainX = -5.5
+			Set Door_MainZ = -50
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%_UnitW1A_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitW1A_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Unit W1B Doors
+			Set Door_MainX = -5.5
+			Set Door_MainZ = -40
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%_UnitW1A_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitW1A_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Unit W2A Doors
+			Set Door_MainX = -5.5
+			Set Door_MainZ = 10
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%_UnitW2A_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitW2A_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Unit W2B Doors
+			Set Door_MainX = -5.5
+			Set Door_MainZ = 20
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%_UnitW2B_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitW2B_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+		#East
+		WallOrientation = left
+		DrawWalls = true, true, true, false, false, false
+		AddWall E1UnitWall, %5%Wall, 0.5, 5, -%2%, 5, -45, %height%, %height%, 0, 0, 0, 0, false
+		AddWall E2UnitWall, %5%Wall, 0.5, 5, -14, 5, 13, %height%, %height%, 0, 0, 0, 0, false
+		AddWall E3UnitWall, %5%Wall, 0.5, 5, 45, 5, %2%, %height%, %height%, 0, 0, 0, 0, false
+
+			#Unit E1 Doors
+			Set Door_MainX = 5.5
+			Set Door_MainZ = -50
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, %floorid%_UnitE1_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitE1_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Unit E2 Doors
+			Set Door_MainX = 5.5
+			Set Door_MainZ = 0
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, %floorid%_UnitE2_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitE2_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Unit E3 Doors
+			Set Door_MainX = 5.5
+			Set Door_MainZ = 50
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, %floorid%_UnitE3_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%_UnitE3_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 
 	#==============================#
 
