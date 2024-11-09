@@ -292,6 +292,10 @@
 	AddTextRange 1, 7, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
+	#Floor signs (Passenger elevators) - Used on the 6th-7th floors only
+	Load data/graygradient.jpg, FloorSignBack, 1, 1, false
+	AddTextRange 6, 7, FloorSignBack, FlrSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
 	#Floor signs (Service Elevator)
 	Load data/Melvin/ABH_Tex/NewFS256/FSBack_SapphireService.jpg, ServFlrSignBack, 1, 1, false #Service
 	AddTextRange 1, 7, ServFlrSignBack, ServFlrSign%number%, nimbus_sans.ttf, 120, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
@@ -1411,7 +1415,8 @@ AddStdShaft(2, 1, 10, -28, 4.67, 4.67, -1, 7, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		Set Suffix = %floorid%
 
 		DrawWalls = true, false, false, false, false, false
-		AddWall E1-2FloorSign, BlankSign%Suffix%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 5.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 5.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
+		if[%floor% < 5] AddWall E1-2FloorSign, BlankSign%Suffix%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 5.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 5.001, 1.5, 1.5, 5.25, 5.25, 0, 0, false
+		if[%floor% > 4] AddWall E1-2FloorSign, FlrSign%Suffix%, 0, %Shaft1CX% - 0.5, %Shaft1CZ% - 5.001, %Shaft1CX% + 0.5, %Shaft1CZ% - 5.001, 1, 1, 5.5, 5.5, 0, 0, false
 		AddWall E1-2HallSign, FireSign, 0, %Shaft1CX% - 0.25, %Shaft1CZ% - 5.001, %Shaft1CX% + 0.25, %Shaft1CZ% - 5.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
