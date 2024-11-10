@@ -66,7 +66,7 @@
 		Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
 
 		#Fences
-		Load data/brick040+.jpg, BrickFences, 0.25, 0.25 #Office entrance
+		#Load data/brick040+.jpg, BrickFences, 0.25, 0.25 #Office entrance
 		Load data/EG881/brick040+_brown.jpg, BrickFences2, 0.25, 0.25 #EG881 #Mall entrance
 		Load data/brick021.jpg, BrickFences3, 0.25, 0.25
 
@@ -122,8 +122,9 @@
 			Load data/black_granite.jpg, LowerShopLinkWall3, 0.1, 0.1 #Stairs railing
 			Load data/EG881/brick021_red.jpg, LowerShopWall, 0.15, 0.15 #EG881
 			Load data/EG881/diamondtile.jpg, LowerShopWall2, 0.5, 0.5 #EG881 #Support columns
-			Load data/EG881/lopacwall2stripe.jpg, LowerShopWall4L, 0.125, 0.25 #EG881 #Mall elevator shaft
-			Load data/Melvin/Aceheart/wall5c_darker.jpg, LowerShopWall4, 0.25, 0.25
+
+			#CEILINGS
+			Load data/EG881/ceilingtile3x3.jpg, LowerShopCeiling, 0.125, 0.125 #EG881
 
 	#Doors
 		#Black entrance doors
@@ -133,7 +134,9 @@
 
 	#Shafts
 	Load data/EG881/cem_tr2b.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
-	Load data/granite_0007e.jpg, EntranceElevShaftWall, 0.075, 0.075
+	Load data/granite_0008b.jpg, EntranceElevShaftWall_Lower, 0.25, 0.25
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, EntranceElevShaftWall, 0.0625, 0.0625, true #EG881
+	#Load data/granite_0007e.jpg, EntranceElevShaftWall, 0.075, 0.075
 
 	#Elevators
 		#Main components
@@ -398,17 +401,21 @@ Set InAceheart = true
 
 	#Grass
 	GrassCreator(WestGrass1, Grass_Dark, -%1%, 220, -100, 295, 0)
-	GrassCreator(WestGrass2A, Grass_Dark, -100, 220, -40, 269, 0)
-	GrassCreator(WestGrass2B, Grass_Dark, -60, 277, -30, 295, 0)
-	GrassCreator(WestGrass3A, Grass_Dark, -30, 220, 0, 269, 0)
-	GrassCreator(WestGrass3B, Grass_Dark, -30, 277, 0, 295, 0)
-	
+	GrassCreator(WestGrass2, Grass_Dark, -100, 220, -60, 259, 0)
+	GrassCreator(WestGrass3A, Grass_Dark, -60, 220, -40, 269, 0)
+	GrassCreator(WestGrass3B, Grass_Dark, -60, 277, -30, 295, 0)
+	GrassCreator(WestGrass4A, Grass_Dark, -30, 220, 0, 269, 0)
+	GrassCreator(WestGrass4B, Grass_Dark, -30, 277, 0, 295, 0)
+
+	GrassCreator(CenterGrass, Grass_Dark, 0, 220, 20, 250, 0)
+
 	GrassCreator(EastGrass1A, Grass_Dark, 20, 220, 50, 269, 0)
 	GrassCreator(EastGrass1B, Grass_Dark, 20, 277, 50, 295, 0)
-	GrassCreator(EastGrass2A, Grass_Dark, 60, 220, 120, 269, 0)
+	GrassCreator(EastGrass2A, Grass_Dark, 60, 220, 80, 269, 0)
 	GrassCreator(EastGrass2B, Grass_Dark, 50, 277, 80, 295, 0)
-	GrassCreator(EastGrass3, Grass_Dark, 120, 220, %1%, 295, 0)
-	
+	GrassCreator(EastGrass3, Grass_Dark, 80, 220, 120, 259, 0)
+	GrassCreator(EastGrass4, Grass_Dark, 120, 220, %1%, 295, 0)
+
 	#Trees
 		#East trees
 		AddTree(Tree1, 130, 235, 13.5, 12, Floor(-1).Base)
@@ -439,7 +446,6 @@ Set InAceheart = true
 	AddFloor landscape, EntrDrive, Road, 0, %1% + 10, -%2%, %1% + 10 + 36, -%2% + 60, Floor(-1).Base, Floor(-1).Base, 0, 0
 	AddFloor landscape, ExitDrive, Road, 0, -%1% - 10 - 36, -%2%, -%1% - 10, -%2% + 60, Floor(-1).Base, Floor(-1).Base, 0, 0
 
-
 	#Access driveways from Denver Street
 	Cut Landscape, -%1% - 10 - 36, Floor(-1).Base - 1, %2% + 100, -%1% - 10, Floor(-1).Base + 1, %2% + 115, false, true
 	Cut Landscape, %1% + 10, Floor(-1).Base - 1, %2% + 100, %1% + 10 + 36, Floor(-1).Base + 1, %2% + 115, false, true
@@ -453,30 +459,29 @@ Set InAceheart = true
 	
 	#Mall entrances
 	TextureOverride SidewalkUnderside, Sidewalk, Blank, Blank, Blank, Blank
-	AddFloor landscape, MallEntSidewalk1, Sidewalk, 0.5, 0, %2% + 10, 120, %2% + 40 + 5, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, MallEntSidewalk1, Sidewalk, 0.5, 0, %2% + 10, 120, 220, Floor(0).Base, Floor(0).Base, 0, 0	
 	TextureOverride SidewalkUnderside, Sidewalk, Blank, Blank, Blank, Blank
-	AddFloor landscape, EntranceElevAreaFloor, Sidewalk, 0.5, 0, 240, 20, 250.66, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, EntranceElevAreaFloor, Sidewalk, 0.5, 0, 220, 20, 250.66, Floor(0).Base, Floor(0).Base, 0, 0	
 
-	AddFloor landscape, MallEntStairsLanding, Sidewalk, 0.5, 80, 240 + 10, 120, 240 + 19, Floor(-1).Base + (0.5 * 10), Floor(-1).Base + (0.5 * 10), 0, 0	
+	AddFloor landscape, MallEntStairsLanding, Sidewalk, 0.5, 80, 220 + 10, 120, 220 + 19, Floor(-1).Base + (0.5 * 10), Floor(-1).Base + (0.5 * 10), 0, 0	
 
 		#Mall entrance stairs
-		OP_OrthoStair(landscape, MallEnt_LowerStairs, Sidewalk, 80, 120, back, 240 + 10 + 9 + 10, 10, 1, 0.5, 0, 0.5)
-		OP_OrthoStair(landscape, MallEnt_UpperStairs, Sidewalk, 80, 120, back, 240 + 10, 10, 1, 0.5, 0 + 5, 0.5)
+		OP_OrthoStair(landscape, MallEnt_LowerStairs, Sidewalk, 80, 120, back, 220 + 10 + 9 + 10, 10, 1, 0.5, 0, 0.5)
+		OP_OrthoStair(landscape, MallEnt_UpperStairs, Sidewalk, 80, 120, back, 220 + 10, 10, 1, 0.5, 0 + 5, 0.5)
 
 	#Office entrances
 	DrawWalls = true, true, false, false, false, false
 	TextureOverride SidewalkUnderside, Sidewalk, Blank, Blank, Blank, Blank
-	AddFloor landscape, OfficeEntSidewalk, Sidewalk, 0.5, -100, %2% + 10, 0, %2% + 40 + 5, Floor(0).Base, Floor(0).Base, 0, 0	
-
-	AddFloor landscape, OfficeEntStairsLanding, Sidewalk, 0.5, -100, 240 + 10, -60, 240 + 19, Floor(-1).Base + (0.5 * 10), Floor(-1).Base + (0.5 * 10), 0, 0	
+	AddFloor landscape, OfficeEntSidewalk, Sidewalk, 0.5, -100, %2% + 10, 0, 220, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, OfficeEntStairsLanding, Sidewalk, 0.5, -100, 220 + 10, -60, 220 + 19, Floor(-1).Base + (0.5 * 10), Floor(-1).Base + (0.5 * 10), 0, 0	
 
 		#Office entrance stairs
-		OP_OrthoStair(landscape, OfficeEnt_LowerStairs, Sidewalk, -100, -60, back, 240 + 10 + 9 + 10, 10, 1, 0.5, 0, 0.5)
-		OP_OrthoStair(landscape, OfficeEnt_UpperStairs, Sidewalk, -100, -60, back, 240 + 10, 10, 1, 0.5, 0 + 5, 0.5)
+		OP_OrthoStair(landscape, OfficeEnt_LowerStairs, Sidewalk, -100, -60, back, 220 + 10 + 9 + 10, 10, 1, 0.5, 0, 0.5)
+		OP_OrthoStair(landscape, OfficeEnt_UpperStairs, Sidewalk, -100, -60, back, 220 + 10, 10, 1, 0.5, 0 + 5, 0.5)
 
 #Supports under sidewalks
 	#Mall side
-	CreateWallBox2 landscape, MallEntSWSupport2/1, BrickFences, 0 - 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, MallEntSWSupport2/1, BrickFences2, 0 - 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 	CreateWallBox2 landscape, MallEntSWSupport2/2, BrickFences2, 20 + 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 	CreateWallBox2 landscape, MallEntSWSupport2/3, BrickFences2, 40, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 	CreateWallBox2 landscape, MallEntSWSupport2/4, BrickFences2, 60, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
@@ -484,25 +489,12 @@ Set InAceheart = true
 	CreateWallBox2 landscape, MallEntSWSupport2/6, BrickFences2, 100, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 	CreateWallBox2 landscape, MallEntSWSupport2/7, BrickFences2, 120 - 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 
-	CreateWallBox2 landscape, MallEntSWSupport3/1, BrickFences, 0 - 1.25, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/2, BrickFences2, 20 + 1.25, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/3, BrickFences2, 40, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/4, BrickFences2, 60, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/5, BrickFences2, 80, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/6, BrickFences2, 100, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, MallEntSWSupport3/7, BrickFences2, 120, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-
 	#Office side
-	CreateWallBox2 landscape, OfficeEntSWSupport2/1, BrickFences, -100 + 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport2/2, BrickFences, -80, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport2/3, BrickFences, -60, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport2/4, BrickFences, -40, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport2/5, BrickFences, -20, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport3/1, BrickFences, -100 + 1.25, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport3/2, BrickFences, -80, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport3/3, BrickFences, -60, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport3/4, BrickFences, -40, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
-	CreateWallBox2 landscape, OfficeEntSWSupport3/5, BrickFences, -20, %2% + 43.75, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, OfficeEntSWSupport2/1, BrickFences2, -100 + 1.25, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, OfficeEntSWSupport2/2, BrickFences2, -80, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, OfficeEntSWSupport2/3, BrickFences2, -60, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, OfficeEntSWSupport2/4, BrickFences2, -40, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, OfficeEntSWSupport2/5, BrickFences2, -20, %2% + 22, 2, 2, 10, 0, 0, 0, false, true, false, false
 
 #Railings at entrances
 Set LL = Floor(-1).Base #Lower level
@@ -515,52 +507,52 @@ Set UL = Floor(0).Base #Upper level
 
 	#Mall entrances
 	WallOrientation = right
-	#AddWall landscape, MallEntSidewalkRail-Left, BrickFences2, %FenceThickness%, 80, %2% + 12, 80, 220, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-LeftA, BrickFences2, %FenceThickness%, 80, 240, 80, 240 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-LeftB, BrickFences2, %FenceThickness%, 80, 240 + 10, 80, 240 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-LeftC, BrickFences2, %FenceThickness%, 80, 240 + 19, 80, 240 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-LeftA, BrickFences2, %FenceThickness%, 80, 220, 80, 220 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-LeftB, BrickFences2, %FenceThickness%, 80, 220 + 10, 80, 220 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-LeftC, BrickFences2, %FenceThickness%, 80, 220 + 19, 80, 220 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
 
 	WallOrientation = left
-	AddWall landscape, MallEntSidewalkRail-Right, BrickFences2, %FenceThickness%, 120, %2% + 10, 120, 240, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-RightA, BrickFences2, %FenceThickness%, 120, 240, 120, 240 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-RightB, BrickFences2, %FenceThickness%, 120, 240 + 10, 120, 240 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, MallEntStairRail-RightC, BrickFences2, %FenceThickness%, 120, 240 + 19, 120, 240 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
+	AddWall landscape, MallEntSidewalkRail-Right, BrickFences2, %FenceThickness%, 120, %2% + 10, 120, 220, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-RightA, BrickFences2, %FenceThickness%, 120, 220, 120, 220 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-RightB, BrickFences2, %FenceThickness%, 120, 220 + 10, 120, 220 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, MallEntStairRail-RightC, BrickFences2, %FenceThickness%, 120, 220 + 19, 120, 220 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
 
 	### Change drawwalls ###
 	DrawWalls = true, true, true, true, true, false
 	WallOrientation = right
-	AddWall landscape, MallEntSidewalkRail-BackEX, BrickFences2, %FenceThickness%, 10 + 10, 240, 80, 240, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
-	AddWall landscape, OfficeEntSidewalkRail-BackEX, BrickFences, %FenceThickness%, -60, 240, 10 - 10, 240, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, MallEntSidewalkRail-BackEX, BrickFences2, %FenceThickness%, 10 + 10, 220, 80, 220, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, OfficeEntSidewalkRail-BackEX, BrickFences2, %FenceThickness%, -60, 220, 10 - 10, 220, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
 
-	AddWall landscape, EntranceElevAreaRail-Right, BrickFences2, %FenceThickness%, 20, 240 - %FenceThickness%, 20, 250, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, EntranceElevAreaRail-Right, BrickFences2, %FenceThickness%, 20, 220 - %FenceThickness%, 20, 250, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
 	WallOrientation = left
-	AddWall landscape, EntranceElevAreaRail-Left, BrickFences, %FenceThickness%, 0, 240 - %FenceThickness%, 0, 250, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, EntranceElevAreaRail-Left, BrickFences2, %FenceThickness%, 0, 220 - %FenceThickness%, 0, 250, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
 
 	### Reset drawwalls ###
 	DrawWalls = true, true, true, true, true, true
 
 	#Office entrances
 	WallOrientation = right
-	AddWall landscape, OfficeEntRail-Left, BrickFences, %FenceThickness%, -100, %2% + 10, -100, %2% + 40 + 5, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	AddWall landscape, OfficeEntRail-Left, BrickFences2, %FenceThickness%, -100, %2% + 10, -100, 220, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
 
-	AddWall landscape, OfficeEntStairRail-LeftA, BrickFences, %FenceThickness%, -100, 240, -100, 240 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, OfficeEntStairRail-LeftB, BrickFences, %FenceThickness%, -100, 240 + 10, -100, 240 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, OfficeEntStairRail-LeftC, BrickFences, %FenceThickness%, -100, 240 + 19, -100, 240 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-LeftA, BrickFences2, %FenceThickness%, -100, 220, -100, 220 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-LeftB, BrickFences2, %FenceThickness%, -100, 220 + 10, -100, 220 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-LeftC, BrickFences2, %FenceThickness%, -100, 220 + 19, -100, 220 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
 
 	WallOrientation = left
-	#AddWall landscape, OfficeEntRail-Right1, BrickFences, %FenceThickness%, -60, %2% + 10, -60, %2% + 20, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
-	#AddWall landscape, OfficeEntRail-Right2, BrickFences, %FenceThickness%, -60, %2% + 28, -60, %2% + 40 + 5, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	#AddWall landscape, OfficeEntRail-Right1, BrickFences2, %FenceThickness%, -60, %2% + 10, -60, %2% + 20, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
+	#AddWall landscape, OfficeEntRail-Right2, BrickFences2, %FenceThickness%, -60, %2% + 28, -60, %2% + 40 + 5, 3.5, 3.5, %UL% - 0.5, %UL% - 0.5, 0, 0
 
-	AddWall landscape, OfficeEntStairRail-RightA, BrickFences, %FenceThickness%, -60, 240, -60, 240 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, OfficeEntStairRail-RightB, BrickFences, %FenceThickness%, -60, 240 + 10, -60, 240 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
-	AddWall landscape, OfficeEntStairRail-RightC, BrickFences, %FenceThickness%, -60, 240 + 19, -60, 240 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-RightA, BrickFences2, %FenceThickness%, -60, 220, -60, 220 + 10, 3.5, 3.5, %UL% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-RightB, BrickFences2, %FenceThickness%, -60, 220 + 10, -60, 220 + 19, 3.5, 3.5, %ML% - 0.5, %ML% - 0.5, 0, 0
+	AddWall landscape, OfficeEntStairRail-RightC, BrickFences2, %FenceThickness%, -60, 220 + 19, -60, 220 + 29, 3.5, 3.5, %ML% - 0.5, %LL% - 0.5, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
 #Cut landscape for area in front of Entrance Elevators
-Cut Landscape, 0, -1, %2% + 10, 20, 1, 260 - 0.66, false, true
-Cut Landscape, 0 - 30, -1, 240, 0, 1, 250, false, true
-Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
+#Cut Landscape, 0, -1, %2% + 10, 20, 1, 260 - 0.66, false, true
+Cut Landscape, 0 - 30, -1, 240, 20 + 30, 1, 250, false, true
+#Cut Landscape, 0 - 30, -1, 240, 0, 1, 250, false, true
+#Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 
 	#New stairway to level G
 		FloorOrientation = top
@@ -580,14 +572,16 @@ Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 		OP_OrthoStair(landscape, LevelGEastStairs_U, LowerShopLinkFloor, 240.5, 249.5, left, 20 + 10 + 10, 10, 1, 0.5, %SO% + 5, 0.5)
 
 	#Railings at floor openings
-	WallOrientation = left
 	DrawWalls = true, true, true, true, true, false
-	TextureOverride LowerShopLinkWall, BrickFences3, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
-	AddWall landscape, EntElevAreaRail-Right, BrickFences3, %FenceThickness%, 20, %2% + 10, 20, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+	#WallOrientation = left
+	#TextureOverride LowerShopLinkWall, BrickFences3, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
+	#AddWall landscape, EntElevAreaRail-Right, BrickFences3, %FenceThickness%, 20, %2% + 10, 20, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 
 	WallOrientation = right
-	TextureOverride BrickFences3, LowerShopLinkWall, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
-	AddWall landscape, EntElevAreaRail-Left, BrickFences3, %FenceThickness%, 0, %2% + 10, 0, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+	#TextureOverride BrickFences3, LowerShopLinkWall, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
+	#AddWall landscape, EntElevAreaRail-Left, BrickFences3, %FenceThickness%, 0, %2% + 10, 0, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+	TextureOverride BrickFences3, LowerShopLinkWall, BrickFences3, BrickFences3, BrickFences3, LowerShopLinkWall
+	AddWall landscape, EntElevAreaRail-Front, BrickFences3, %FenceThickness%, 0, 240, 20, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 
 	#Railings at stairs openings
 		#East
@@ -597,7 +591,7 @@ Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 		AddWall landscape, EntAreaEastStairs-Back, BrickFences3, %FenceThickness%, 20, 250, 20 + 30, 250, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 		WallOrientation = right
 		TextureOverride BrickFences3, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, BrickFences3, LowerShopLinkWall
-		AddWall landscape, EntAreaEastStairs-Front, BrickFences3, %FenceThickness%, 20 + %FenceThickness%, 240, 20 + 30, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+		AddWall landscape, EntAreaEastStairs-Front, BrickFences3, %FenceThickness%, 20, 240, 20 + 30, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 
 		#West
 		WallOrientation = left
@@ -606,7 +600,7 @@ Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 		AddWall landscape, EntAreaEastStairs-Back, BrickFences3, %FenceThickness%, 0 - 30, 250, 0, 250, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 		WallOrientation = right
 		TextureOverride BrickFences3, LowerShopLinkWall, BrickFences3, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
-		AddWall landscape, EntAreaEastStairs-Front, BrickFences3, %FenceThickness%, 0 - 30, 240, 0 - %FenceThickness%, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+		AddWall landscape, EntAreaEastStairs-Front, BrickFences3, %FenceThickness%, 0 - 30, 240, 0, 240, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 
 
 	#Railings around stairs steps
@@ -714,6 +708,11 @@ Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 	AddFloor EntElevAreaFloor2, LowerShopLinkFloor, 0.5, 0 - 30, 240, 0, 250, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor EntElevAreaFloor3, LowerShopLinkFloor, 0.5, 20, 240, 20 + 30, 250, %interfloorheight%, %interfloorheight%, 0, 0, true
 
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor EntElevAreaCeiling, LowerShopCeiling, 0.5, 0, %2% + 10, 20, 240, %fullheight%, %fullheight%, 0, 0, true
+
 	#Walls
 	Set WallHeight = %height%
 	Set WallOffset = %interfloorheight%
@@ -800,37 +799,55 @@ Cut Landscape, 20, -1, 240, 20 + 30, 1, 250, false, true
 AddStdShaft(1, 2, 10, 255, 9.67, 4.67, -4, 1, ShaftIntWall, 0.5, 0.33, 0, 5, %fullheight%)
 ShowFullShaft 1 = true
 
-#External shaft walls
-<Floor -3>
-	CreateShaftWall(ParkingLobbyWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %height%, %interfloorheight%, true, false, false, false, false, false, true)
-<EndFloor>
+	#Landscape cut for shaft
+	Cut Landscape, 10 - 9.67, Floor(-1).Base - 1, 255 - 4.67 + 0.33, 10 + 9.67, Floor(-1).Base + 1, 255 + 4.67 - 0.33, false, true
 
-<Floor -2>
-	Set WH = %height% + Floor(-1).FullHeight + Floor(0).InterfloorHeight
+#External shaft walls
+<Floors -3 to -2>
+	#Set heights
+	Set WH = %height%
+	if[%floor% = -2] Set WH = %height% + Floor(-1).FullHeight + Floor(0).InterfloorHeight
+	
+	#Set texture prefix
+	Set 5 = ParkingLobby
+	if[%floor% = -2] Set 5 = LowerShopLink
 
 	Set ShowTop = false
-	CreateShaftWall(LowerShopLinkWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH%, %interfloorheight%, true, false, false, false, false, false, true)
-	#CreateShaftWall(LowerShopWall4, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH% - 4, %interfloorheight% + 4, true, false, false, false, false, false, true)
+	CreateShaftWall(%5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH%, %interfloorheight%, true, false, false, false, false, false, true)
+<EndFloors>
+
+<Floor -1>
+	#Set heights
+	Set WH = %height% + Floor(0).InterfloorHeight
+	Set WO = %interfloorheight%
+
+	#Lower walls
+	CreateShaftWall(EntranceElevShaftWall_Lower, EntranceElevShaftWall_Lower, EntranceElevShaftWall_Lower, EntranceElevShaftWall_Lower, EntranceElevShaftWall, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, 4, %WO%, false, true, true, true, false, false, true)
+
+	#Upper walls
+	CreateShaftWall(EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH% - 4, %WO% + 4, false, true, true, true, false, false, true)
 <EndFloor>
 
-<Floors -1 to 1>
+<Floors 0 to 1>
 	#Set heights
-	Set WH = %fullheight%
-	Set WO = 0
-	if[%floor% = -1] Set WH = %fullheight% + Floor(0).InterfloorHeight
-	if[%floor% = -1] Set WO = 0
 	if[%floor% = 0] Set WH = %height%
 	if[%floor% = 0] Set WO = %interfloorheight%
+	if[%floor% = 1] Set WH = %fullheight%
+	if[%floor% = 1] Set WO = 0
 
 	#Set sides to display
 	Set ShowFront = true
-	if[%floor% = -1] Set ShowFront = false
+	if[%floor% = 0] Set ShowFront = false
 	Set ShowTop = false
 	if[%floor% = 1] Set ShowTop = true
 
+	#Main walls
 	CreateShaftWall(EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH%, %WO%, %ShowFront%, true, true, true, %ShowTop%, false, true)
-<EndFloors>
 
+		#Front side for 1st floor
+		if[%floor% = 0] CreateShaftWall(EntranceElevShaftWall_Lower, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, 4, %WO%, true, false, false, false, false, false, true)
+		if[%floor% = 0] CreateShaftWall(EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, EntranceElevShaftWall, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH% - 4, %WO% + 4, true, false, false, false, false, false, true)
+<EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
@@ -1063,7 +1080,8 @@ ShowFullShaft 1 = true
 	#Deco dimensions
 		Set SideDecoH = 7.2
 		Set TopDecoH = 0.2
-		if[%floor% = -2] Set SideDecoH = %height% + Floor(1).FullHeight + Floor(0).InterfloorHeight
+		if[%floor% = -2] Set SideDecoH = %height% + Floor(1).FullHeight + Floor(0).InterfloorHeight - 0.5
+		#if[%floor% = -2] Set SideDecoH = 9.5
 		if[%floor% = -2] Set TopDecoH = %SideDecoH% - 7
 
 	#Call button panels
@@ -1145,6 +1163,7 @@ ShowFullShaft 1 = true
 	#Indicator sets
 	Set Offset = 8
 	if[%floor% = -3] Set Offset = 7.5
+	if[%floor% = -2] Set Offset = 7.75
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DVRInd_Button)
@@ -1215,6 +1234,7 @@ ShowFullShaft 1 = true
 	#Indicator sets
 	Set Offset = 8
 	if[%floor% = -3] Set Offset = 7.5
+	if[%floor% = -2] Set Offset = 7.75
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DVRInd_Button)
