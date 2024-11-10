@@ -103,6 +103,9 @@
 		Load data/stucco4.jpg, ParkingWall2, 0.25, 0.25 #Support columns and shaft/stairwell undersides
 		Load data/stucco2.jpg, ParkingWall3, 0.08, 0.08 #Rails around ramps
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
+		
+			#Link to Entrance Elevators
+			Load data/stucco1.jpg, ParkingLinkWall, 0.15, 0.15
 
 		#Entrance and service areas on level GA, as well as ramps from GA to G
 		#Load data/floor065.jpg, GAEntranceFloor, 0.25, 0.25
@@ -707,7 +710,7 @@ Set 2 = 195 #Main Complex Dimension Z
 	#Sidewalk
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, NorthSidewalkA, Sidewalk, 0, -%1%, %2%, 0, %2% + 10, Floor(-1).Base, Floor(-1).Base, false, true, 0, 0	
-	#AddFloor landscape, NorthSidewalkB, Sidewalk, 0, 0, %2% + 8, 20, %2% + 10, Floor(-1).Base, Floor(-1).Base, false, true, 0, 0	
+	AddFloor landscape, NorthSidewalkB, Sidewalk, 0, 0, %2%, 20, %2% + 8, Floor(-1).Base, Floor(-1).Base, false, true, 0, 0	
 	AddFloor landscape, NorthSidewalkC, Sidewalk, 0, 20, %2%, %1%, %2% + 10, Floor(-1).Base, Floor(-1).Base, false, true, 0, 0	
 	AddFloor landscape, SouthSidewalk, Sidewalk, 0, -%1%, -%2% - 8, %1%, -%2%, Floor(-1).Base, Floor(-1).Base, false, true, 0, 0	
 	AddFloor landscape, EastSidewalk, Sidewalk, 0, -%1% - 10, -%2% - 8, -%1%, %2% + 10, Floor(-1).Base, Floor(-1).Base, 0, 0	
@@ -793,8 +796,8 @@ Set UL = Floor(0).Base #Upper level
 	WallOrientation = right
 	TextureOverride BrickFences3, LowerShopLinkWall, LowerShopLinkWall, LowerShopLinkWall, BrickFences3, LowerShopLinkWall
 	AddWall landscape, EntElevAreaRail-Left, BrickFences3, %FenceThickness%, 0, %2% + 8, 0, %2% + 10, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
-	TextureOverride LowerShopLinkWall, BrickFences3, BrickFences3, BrickFences3, BrickFences3, LowerShopLinkWall
-	AddWall landscape, EntElevAreaRail-Front, BrickFences3, %FenceThickness%, 0 - %FenceThickness%, %2% + 8, 0 + %FenceThickness%, %2% + 8, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
+	TextureOverride BrickFences3, LowerShopLinkWall, BrickFences3, BrickFences3, BrickFences3, LowerShopLinkWall
+	AddWall landscape, EntElevAreaRail-Front, BrickFences3, %FenceThickness%, 0 - %FenceThickness%, %2% + 8, 20 + %FenceThickness%, %2% + 8, 3 + 1.5, 3 + 1.5, -1.5, -1.5, 0, 0
 
 	### Reset drawwalls ###
 	DrawWalls = true, true, true, true, true, true
@@ -1207,7 +1210,8 @@ AddFloorAutoArea -101, Floor(-3).Base, -166.5 - 25, 21, Floor(7).Base + 5, -166.
 			#North
 			AddFloor ParkingN1, ParkingSpaceZ, 0, 120 - (8.5 * 2), 164, 120 + (8.5 * 2), 164 + 18, %Offset%, %Offset%, 4, 1, true
 			AddFloor ParkingN2, ParkingSpaceZ, 0, 80 - (8.5 * 2), 164, 80 + (8.5 * 2), 164 + 18, %Offset%, %Offset%, 4, 1, true
-			AddFloor ParkingN3, ParkingSpaceZ, 0, 40 - (8.5 * 2), 164, 40 + (8.5 * 2), 164 + 18, %Offset%, %Offset%, 4, 1, true
+			#AddFloor ParkingN3, ParkingSpaceZ, 0, 40 - (8.5 * 2), 164, 40 + (8.5 * 2), 164 + 18, %Offset%, %Offset%, 4, 1, true
+			AddFloor ParkingN3, ParkingSpaceZ, 0, 40 - (8.5 * 1), 164, 40 + (8.5 * 2), 164 + 18, %Offset%, %Offset%, 3, 1, true
 			AddFloor ParkingN4A, ParkingSpaceZ, 0, 0 - (8.5 * 2), 164, 0 - (8.5 * 1), 164 + 18, %Offset%, %Offset%, 1, 1, true
 			AddFloor ParkingN4SP, NoParkingZ, 0, 0 - (8.5 * 1), 164, 19 - (8.5 * 2), 183, %Offset%, %Offset%, 1, 1, true
 			AddFloor ParkingN4B, ParkingSpaceZ, 0, 19 - (8.5 * 2), 164, 19, 164 + 18, %Offset%, %Offset%, 2, 1, true
@@ -2260,8 +2264,44 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 		if[%floor% = -1] AddFillerWalls ConnectionWall, 0.5, -79, 105.75, 3, 7, 0, false, 0, 0, false
 <EndFloors>
 
-#Cut interior walls on level G
-Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitude, 200 + 0.1, true, false #Back
+#Cut interior walls on levels B and G
+Cut external, 19, Floor(-3).Base, 194.5 - 0.1, 30 - 0.5, Floor(-2).Altitude, 195 + 0.1, true, false #Back
+Cut external, 20 + 0.5, Floor(-2).Base, 194.5 - 0.1, 40 - 0.5, Floor(-1).Altitude, 195 + 0.1, true, false #Back
+
+<Floor -3>
+	#Connection to Entrance Elevators
+	Set 1 = 140 #Building Dimension X
+	Set 2 = 195 #Building Dimension Z
+
+		#Floor
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		AddFloor EntElevAreaLink_Flr, ParkingFloor, 0.5, 0, %2%, 30, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Ceiling
+		FloorOrientation = bottom
+		DrawWalls = true, false, false, false, false, false
+		AddFloor EntElevAreaLink_Cei1, ParkingCeiling, 0.5, 0, %2% - 0.5, 30, %2% + 10, %fullheight%, %fullheight%, 0, 0, true
+
+		#Walls
+		Set WallHeight = %height%
+		Set WallOffset = %interfloorheight%
+
+			WallOrientation = left
+			DrawWalls = false, true, false, true, false, false
+			AddWall FrontLinkWall, ParkingLinkWall, 0.5, 0, %2%, 19, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+			WallOrientation = right
+			DrawWalls = false, true, false, false, false, false
+			AddWall LeftLinkWall, ParkingLinkWall, 0.5, 0, %2%, 0, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			#AddWall LeftLinkWall2, ParkingLinkWall, 0.5, 19, %2%, 19, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+			WallOrientation = right
+			DrawWalls = true, false, false, false, false, false
+			AddWall RightLinkWall, ParkingLinkWall, 0.5, 30, %2% - 0.5, 30, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			DrawWalls = true, false, true, false, false, false
+			AddWall BackLinkWall, ParkingLinkWall, 0.5, 20, %2% + 10, 30, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
 
 <Floor -2>
 	#Connection to Entrance Elevators
@@ -2272,12 +2312,12 @@ Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitud
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
 		AddFloor EntElevAreaLink_Flr, LowerShopLinkFloor, 0.5, 0, %2%, 20, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
-		AddFloor EntElevAreaLink_Flr, LowerShopFloor, 0.5, 20, %2%, 40, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor EntElevAreaLink_Flr, LowerShopFloor, 0.5, 20, %2%, 40, %2% + 8, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor EntElevAreaLink_Cei1, LowerShopCeiling, 0.5, 0, %2%, 40, %2% + 8, %fullheight%, %fullheight%, 0, 0, true
+		AddFloor EntElevAreaLink_Cei1, LowerShopCeiling, 0.5, 0, %2% - 0.5, 40, %2% + 8, %fullheight%, %fullheight%, 0, 0, true
 
 		#Walls
 		Set WallHeight = %height%
@@ -2289,16 +2329,17 @@ Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitud
 
 			WallOrientation = right
 			AddWall LeftLinkWall, LowerShopLinkWall, 0.5, 0, %2%, 0, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			DrawWalls = true, true, false, false, false, false
 			TextureOverride LowerShopLinkWall, LowerShopWall, Blank, Blank, Blank, Blank
-			AddWall LeftLinkWall2, LowerShopLinkWall, 0.5, 20, %2%, 20, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall LeftLinkWall2, LowerShopLinkWall, 0.5, 20 + 0.5, %2% - 0.5, 20 + 0.5, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 			WallOrientation = left
 			DrawWalls = true, false, false, false, false, false
-			AddWall RightLinkWallA, LowerShopLinkWall, 0.5, 20, %2% + 8 - 0.5, 20, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall RightLinkWallA, LowerShopLinkWall, 0.5, 20, %2% + 8, 20, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 			WallOrientation = right
-			AddWall RightLinkWallB, LowerShopLinkWall, 0.5, 40, %2%, 40, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-			AddWall BackLinkWall, LowerShopLinkWall, 0.5, 20, %2% + 8, 40, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall RightLinkWallB, LowerShopWall, 0.5, 40, %2% - 0.5, 40, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall BackLinkWall, LowerShopWall, 0.5, 20, %2% + 8, 40, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	########################################
 
@@ -2308,7 +2349,7 @@ Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitud
 	#Set DTex_Ext = BLKEntDoorExt
 	Set DSTex = BLKEntDoorSide
 
-		Set Door_MainX = 20 - 0.5
+		Set Door_MainX = 20
 		Set Door_MainZ = 199
 	
 		WallOrientation = left
@@ -2316,12 +2357,12 @@ Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitud
 		AddStdDoor DoorManager, %floorid%_MallEntrA_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddStdDoor DoorManager, %floorid%_MallEntrA_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls LowerShopWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls LowerShopWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 	
-		Add3DWindows(NewMallEntr_WinAbove, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, LowerShopLinkWall, 0.5, 1/4, 1)
+		Add3DWindows(NewMallEntr_WinAbove, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, LowerShopWall, 0.5, 1/4, 1)
 
 		#Exit sign
-		AddBoxSign(NewEntr_ExitSign, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, true, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7, true)
+		AddBoxSign(NewEntr_ExitSign, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, false, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7, true)
 
 	########################################
 
