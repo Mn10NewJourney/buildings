@@ -2260,6 +2260,9 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 		if[%floor% = -1] AddFillerWalls ConnectionWall, 0.5, -79, 105.75, 3, 7, 0, false, 0, 0, false
 <EndFloors>
 
+#Cut interior walls on level G
+Cut external, 20 + 0.5, Floor(-2).Base, 199.5 - 0.1, 40 - 0.5, Floor(-1).Altitude, 200 + 0.1, true, false #Back
+
 <Floor -2>
 	#Connection to Entrance Elevators
 	Set 1 = 140 #Building Dimension X
@@ -2268,8 +2271,8 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 		#Floor
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		AddFloor EntElevAreaLink_Flr, LowerShopLinkFloor, 0.5, 0, %2%, 40, %2% + 8, %interfloorheight%, %interfloorheight%, 0, 0, true
-		AddFloor EntElevAreaLink_Flr, LowerShopLinkFloor, 0.5, 0, %2% + 8, 20, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor EntElevAreaLink_Flr, LowerShopLinkFloor, 0.5, 0, %2%, 20, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor EntElevAreaLink_Flr, LowerShopFloor, 0.5, 20, %2%, 40, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Ceiling
 		FloorOrientation = bottom
@@ -2282,10 +2285,12 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 
 			WallOrientation = left
 			DrawWalls = false, true, false, false, false, false
-			AddWall FrontLinkWall, LowerShopLinkWall, 0.5, 0, %2%, 40, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall FrontLinkWall, LowerShopLinkWall, 0.5, 0, %2%, 20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 			WallOrientation = right
 			AddWall LeftLinkWall, LowerShopLinkWall, 0.5, 0, %2%, 0, %2% + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			TextureOverride LowerShopLinkWall, LowerShopWall, Blank, Blank, Blank, Blank
+			AddWall LeftLinkWall2, LowerShopLinkWall, 0.5, 20, %2%, 20, %2% + 8, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 			WallOrientation = left
 			DrawWalls = true, false, false, false, false, false
@@ -2303,21 +2308,20 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 	#Set DTex_Ext = BLKEntDoorExt
 	Set DSTex = BLKEntDoorSide
 
-		Set Door_MainX = 30
-		Set Door_MainZ = %2% + 0.5
+		Set Door_MainX = 20 - 0.5
+		Set Door_MainZ = 199
 	
-		WallOrientation = right
-		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddStdDoor DoorManager, %floorid%_MallEntrA_L, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddStdDoor DoorManager, %floorid%_MallEntrA_R, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls LowerShopWall, 1, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddStdDoor DoorManager, %floorid%_MallEntrA_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddStdDoor DoorManager, %floorid%_MallEntrA_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls LowerShopWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 	
-		Add3DWindows(NewMallEntr_WinSide1, %Door_MainX% - 3 - 2.375, %Door_MainZ%, back, 4.25, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, LowerShopWall, 0.5, 1/4, 1)
-		Add3DWindows(NewMallEntr_WinSide2, %Door_MainX% + 3 + 2.375, %Door_MainZ%, back, 4.25, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, LowerShopWall, 0.5, 1/4, 1)
+		Add3DWindows(NewMallEntr_WinAbove, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, LowerShopLinkWall, 0.5, 1/4, 1)
 
 		#Exit sign
-		AddBoxSign(NewEntr_ExitSign, ExitSignUp, StainlessSteel, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 1.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
+		AddBoxSign(NewEntr_ExitSign, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, true, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7, true)
 
 	########################################
 
