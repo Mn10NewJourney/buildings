@@ -94,6 +94,19 @@
 	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade_Inner, 0.075, 0.075, true #EG881
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.075, 0.075, true #EG881 #Shaft tops
 
+	#Bridge between Haneda and Narita Buildings
+	Load data/Carpet0021d_S.jpg, BridgeFloor, 0.2, 0.2
+	Load data/st_wall.jpg, BridgeWall, 0.1875, 0.1344
+	Load data/stucco4.jpg, BridgeCeiling, 0.25, 0.25
+	Load data/stone.jpg, BridgeSupport, 0.075, 0.075
+	
+		#Facade of NRT Bldg. for bridge
+		Load data/cutston.jpg, NRT_ExtFacade, 0.25, 0.25
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, NRT_MainWindows, true, 0.05, 1
+		Load data/windows11h_inside.gif, NRT_MainWindowsInt, 0.05, 1
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, NRT_MainWindowsB, true, 1, 1, false
+		Load data/windows11h_inside.gif, NRT_MainWindowsIntB, 1, 1, false
+
 	#Main textures
 		#Level B3
 		Load data/checker08.jpg, B3FFloor, 0.35, 0.35
@@ -687,16 +700,25 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 #All floors
 <Floors -3 to 17>
 	TexPrefix() #Set texture prefix/suffix
+	Set IsExternal = false
+	if[%floor% = 1] Set IsExternal = true
+
 
 	#Floors
+	Set FloorOffset = 0
+	if[%floor% = 1] Set FloorOffset = %interfloorheight%
+
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, 0, 0, 0, 0, false
+	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
 
 	#Ceilings
+	Set CeiOffset = %height%
+	if[%floor% = 1] Set CeiOffset = %fullheight%
+
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %height%, %height%, 0, 0, false
+	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2% - %ExtraSouth%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 <EndFloors>
 
 <Floors -3 to 6>
@@ -855,55 +877,55 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 
 	#Atrium railings
 	Set RailingHeight = %interfloorheight% + 3.5
-	Set RailingOffset = -%interfloorheight%
+	Set RailingOffset = 0
 
 		#Front rails
 		WallOrientation = right
 		DrawWalls = true, true, true, true, true, false
-		if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 0] AddWall AFrontRail, %5%Wall2, 0.5, -10 - %EC_Flr_X% - 0.5, -%2% - 40 + %EC_Flr%, 10 + 0.5, -%2% + %EC_Flr% - 40, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		#Left rails
 		DrawWalls = true, true, true, true, true, false
-		if[%floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -58, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%floor% = 0] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -58 + 8, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 0] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -58, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 0] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -58 + 8, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		DrawWalls = true, true, false, true, true, false
-		if[%Mod% = 1 & %floor% ! 1] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ALeftRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	
 		DrawWalls = true, true, false, true, true, false
-		if[%floor% = 6] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 6] AddWall ALeftRail2, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	
 		DrawWalls = true, true, false, true, true, false
-		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail3, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail3, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -%2% - 40 + %EC_Flr%, -10 - %EC_Flr_X%, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, true, false
-		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail4, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -30, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%Mod% = 0 & %floor% ! 0] AddWall ALeftRail5, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -14, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 0 & %floor% ! 6 & %floor% ! 0] AddWall ALeftRail4, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -30, -10 - %EC_Flr_X%, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%Mod% = 0 & %floor% ! 0] AddWall ALeftRail5, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -14, -10 - %EC_Flr_X%, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		#Right rails
 		WallOrientation = left
 		DrawWalls = true, true, false, true, true, false
-		if[%Mod% = 0] AddWall ARightRail1, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 0] AddWall ARightRail1, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	
 		DrawWalls = true, true, false, true, true, false
-		if[%floor% = 1] AddWall ARightRail2, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ARightRail2, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	
 		DrawWalls = true, true, false, true, true, false
-		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail3, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail3, %5%Wall2, 0.5, 10, -%2% - 40 + %EC_Flr%, 10, -38, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, true, false
-		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail4, %5%Wall2, 0.5, 10, -30, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%Mod% = 1] AddWall ARightRail5, %5%Wall2, 0.5, 10, -14, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%Mod% = 1 & %floor% ! 1] AddWall ARightRail4, %5%Wall2, 0.5, 10, -30, 10, -22, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%Mod% = 1] AddWall ARightRail5, %5%Wall2, 0.5, 10, -14, 10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		#Back rails
-		if[%floor% ! 1] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -5.5, -30, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -22, -5.5, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		#if[%floor% = 1] AddWall ABackRail2B, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% ! 1] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -5.5, -30, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -22, -5.5, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		#if[%floor% = 1] AddWall ABackRail2B, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		#Extra left rail (2nd floor, east of Elevators 6-8)
 		WallOrientation = right
 		DrawWalls = true, true, false, true, true, false
-		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -%2% - 40, -38, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -%2% - 40, -38, -5.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloors>
 
 #########################################################################
@@ -1808,6 +1830,68 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 <EndFloor>
+
+############################################################
+
+#Bridge between Haneda and Narita Buildings
+Set BHeight = 9.5 #Bridge's ceiling height
+Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height for upper walls above the bridge's ceiling
+
+	#Cut north windows for bridge's walls
+	Cut external, 10, Floor(1).Altitude, -45 - 40 - 0.5, 20, Floor(2).Base, -45 - 40 + 0.5, true, false
+
+	#Bridge creation
+	<Floor 1>
+		#External walls
+		WallOrientation = left
+		DrawWalls = true, false, false, false, false, false
+		AddWall BridgeNorth_Lower, NRT_ExtFacade, 0.5, 10, -%2% - 40, 20, -%2% - 40, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+		AddWall BridgeNorth_Upper, NRT_ExtFacade, 0.5, 10, -%2% - 40, 20, -%2% - 40, %BUHeight%, %BUHeight%, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+
+		DrawWalls = true, false, false, false, false, false
+		AddWall BridgeNorth_Main, BridgeWall, 0.5, 10, -%2% - 40, 20, -%2% - 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = false, true, true, false, false, false
+		AddWall BridgeNorth_Main_Int, LHWall, 0.5, 10, -%2% - 40, 20, -%2% - 40, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+
+		#Access doors
+		Set DTex = BLKEntDoorInt
+		Set DTex_Ext = BLKEntDoorInt
+		Set DSTex = BLKEntDoorSide
+
+		Set Door_MainX = 15
+		Set Door_MainZ = -%2% - 40 + 0.5
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls LHWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+			#Windows around doors
+			Add3DWindows(BAcc_WinTop, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %BHeight% - 7.5, 7.25, NRT_MainWindowsIntB, NRT_MainWindowsIntB, LHWall, 0.5, 1/4, 1)
+
+		#Bridge's interiors
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride NRT_ExtFacade, BridgeFloor, NRT_ExtFacade, NRT_ExtFacade, NRT_ExtFacade, NRT_ExtFacade
+		AddFloor BridgeFloor_HND2ndFloor, BridgeFloor, 1.5, 10, -%2% - 50, 20, -%2% - 40, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride BridgeCeiling, NRT_ExtFacade, NRT_ExtFacade, NRT_ExtFacade, NRT_ExtFacade, NRT_ExtFacade
+		AddFloor BridgeCeil_HND2ndFloor, BridgeCeiling, 1.5, 10, -%2% - 50, 20, -%2% - 40, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+
+		#Bridge's windows
+		#3. HND Bldg. Side
+		SetAutoSize = true, false
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride NRT_MainWindows, NRT_MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall HNDWindows_Left, MainWindows, 0, 10, -%2% - 50, 10, -%2% - 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride NRT_MainWindowsInt, NRT_MainWindows, Blank, Blank, Blank, Blank
+		AddWall HNDWindows_Right, MainWindows, 0, 20, -%2% - 50, 20, -%2% - 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
+	<EndFloor>
 
 #########################################################################
 

@@ -7,7 +7,12 @@
 #Include SROC (Credit to EG881)
 <Include SROC/Scripts/r1_script.txt> #EG881
 
-#Include my scripts
+#Include my new scripts
+<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
+#<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
+<Include buildings/Mn10_Scripts/Windows.txt>
+
+#Include my previous scripts
 <Include CustomObjects2018/Scripts/r1_script.txt>
 <Include AutomaticDoor2013/Scripts/r3_script.txt>
 <Include Deco2011/Scripts/r4_script.txt>
@@ -58,6 +63,12 @@
 	Load data/cutston.jpg, Concrete2, 0.25, 0.25
 	Load data/cinderblocks.jpg, Concrete3, 0.25, 0.25
 	Load data/cutston.jpg, ExternalFacade, 0.25, 0.25
+
+	#Bridge between Haneda and Narita Buildings
+	Load data/Carpet0021d_S.jpg, BridgeFloor, 0.2, 0.2
+	Load data/st_wall.jpg, BridgeWall, 0.1875, 0.1344
+	Load data/stucco4.jpg, BridgeCeiling, 0.25, 0.25
+	Load data/stone.jpg, BridgeSupport, 0.075, 0.075
 
 	#Windows
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, MainWindows, true, 0.05, 1
@@ -1175,44 +1186,54 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 	if[%floor% = 8] Set 7 = ORCeiling #Ceiling Texture
 	if[%floor% > 8] Set 7 = Ceiling2 #Ceiling Texture
 
+	Set IsExternal = false
+	if[%floor% = 2] Set IsExternal = true
+
 	#Floor
+	Set FloorOffset = 0
+	if[%floor% = 2] Set FloorOffset = %interfloorheight%
+
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor MainFloor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	AddFloor MainFloor, %5%, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
 
 	#Ceiling
+	Set CeiOffset = %height%
+	if[%floor% = 2] Set CeiOffset = %fullheight%
+
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor MainCeiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
+	AddFloor MainCeiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 
-	#External Windows
+	#Windows
 	SetAutoSize = true, false
-	DrawWalls = true, false, false, false, false, false
-	AddWall FrontWindows, MainWindows, 0, -%1%, -%2%, %1%, -%2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddWall LeftWindows1, MainWindows, 0, -%1%, -%2%, -%1%, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddWall LeftWindows2, MainWindows, 0, -%1%, 20, -%1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	DrawWalls = false, true, false, false, false, false
-	AddWall RightWindows1, MainWindows, 0, %1%, -%2%, %1%, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddWall RightWindows2, MainWindows, 0, %1%, 20, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddWall BackWindows1, MainWindows, 0, -%1%, %2%, -30, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	if[%floor% < 14] AddWall BackWindows2, MainWindows, 0, 0, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	if[%floor% > 13] AddWall BackWindows2_Upper, MainWindows, 0, -10, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	#if[%floor% < 14] AddWall BackWindows3, MainWindows, 0, 10, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddWall BackWindows4, MainWindows, 0, 30, %2%, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	DrawWalls = true, true, false, false, false, false
+		#Front
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall FrontWindows, MainWindows, 0, -%1%, -%2%, %1%, -%2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-	#Internal Windows
-	AddWall FrontWindows, MainWindowsInt, 0, -%1%, -%2%, %1%, -%2%, %height%, %height%, 0, 0, 0, 0, false
-	AddWall LeftWindows1, MainWindowsInt, 0, -%1%, -%2%, -%1%, 5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall LeftWindows2, MainWindowsInt, 0, -%1%, 20, -%1%, %2%, %height%, %height%, 0, 0, 0, 0, false
-	DrawWalls = true, false, false, false, false, false
-	AddWall RightWindows1, MainWindowsInt, 0, %1%, -%2%, %1%, 5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall RightWindows2, MainWindowsInt, 0, %1%, 20, %1%, %2%, %height%, %height%, 0, 0, 0, 0, false
-	AddWall BackWindows1, MainWindowsInt, 0, -%1%, %2%, -30, %2%, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < 14] AddWall BackWindows2, MainWindowsInt, 0, 0, %2%, 20, %2%, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% > 13] AddWall BackWindows2_Upper, MainWindowsInt, 0, -10, %2%, 20, %2%, %height%, %height%, 0, 0, 0, 0, false
-	#if[%floor% < 14] AddWall BackWindows3, MainWindowsInt, 0, 10, %2%, 20, %2%, %height%, %height%, 0, 0, 0, 0, false
-	AddWall BackWindows4, MainWindowsInt, 0, 30, %2%, %1%, %2%, %height%, %height%, 0, 0, 0, 0, false
-	SetAutoSize = true, true
+		#Left
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall LeftWindows1, MainWindows, 0, -%1%, -%2%, -%1%, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall LeftWindows2, MainWindows, 0, -%1%, 20, -%1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Right
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall RightWindows1, MainWindows, 0, %1%, -%2%, %1%, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall RightWindows2, MainWindows, 0, %1%, 20, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Back
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall BackWindows1, MainWindows, 0, -%1%, %2%, -30, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		if[%floor% < 14] AddWall BackWindows2, MainWindows, 0, 0, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		if[%floor% > 13] AddWall BackWindows2_Upper, MainWindows, 0, -10, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall BackWindows4, MainWindows, 0, 30, %2%, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
 
 	#External Interfloor Covers
 	WallOrientation = left
@@ -1379,6 +1400,71 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 	if[%floor% = 0] Interfloor1()
 	if[%floor% ! 0] Interfloor2()
 <EndFloors>
+
+############################################################
+
+#Bridge between Haneda and Narita Buildings
+Set BHeight = 9.5 #Bridge's ceiling height
+Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height for upper walls above the bridge's ceiling
+
+	#Cut north windows for bridge's walls
+	Cut external, 0, Floor(2).Altitude, 60 - 0.5, 10, Floor(3).Base, 60 + 0.5, true, false
+
+	#Bridge creation
+	<Floor 2>
+		#External walls
+		WallOrientation = right
+		DrawWalls = false, true, false, false, false, false
+		AddWall BridgeSouth_Lower, ExternalFacade, 0.5, 0, %2%, 10, %2%, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+		AddWall BridgeSouth_Upper, ExternalFacade, 0.5, 0, %2%, 10, %2%, %BUHeight%, %BUHeight%, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+
+		DrawWalls = false, true, false, false, false, false
+		AddWall BridgeSouth_Main, BridgeWall, 0.5, 0, %2%, 10, %2%, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = true, false, false, true, false, false
+		AddWall BridgeSouth_Main_Int1, LobbyWallLower, 0.5, 0, %2%, 10, %2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall BridgeSouth_Main_Int2, LobbyWallUpper, 0.5, 0, %2%, 10, %2%, %height% - 4, %height% - 4, %interfloorheight% + 4, %interfloorheight% + 4, 0, 0, true
+
+		#Access doors
+		Set DTex = Door88_Black
+		Set DTex_Ext = Door88_Black
+		Set DSTex = Door88_Black_Side
+
+		Set Door_MainX = 5
+		Set Door_MainZ = %2% - 0.5
+
+		WallOrientation = left
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+			#Windows around doors
+			Add3DWindows(BAcc_WinTop, %Door_MainX%, %Door_MainZ% + 0.5, back, 6, %BHeight% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, ConnectionWall, 0.5, 1/4, 1)
+
+		#Bridge's interiors
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ExternalFacade, BridgeFloor, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade
+		AddFloor BridgeFloor_NRT3rdFloor, BridgeFloor, 1.5, 0, %2%, 10, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride BridgeCeiling, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade
+		AddFloor BridgeCeil_NRT3rdFloor, BridgeCeiling, 1.5, 0, %2%, 10, %2% + 10, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+
+		#Bridge's windows
+		#1. NRT Bldg. Side
+		SetAutoSize = true, false
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall NRTWindows_Left, MainWindows, 0, 0, %2%, 0, %2% + 10, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall NRTWindows_Right, MainWindows, 0, 10, %2%, 10, %2% + 10, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
+	<EndFloor>
+	
+############################################################
 
 <Floors 1 to 7>
 	Set 6 = LobbyWallUpper #Wall Texture
@@ -2697,6 +2783,7 @@ AddFloorAutoArea -91, Floor(-1).Altitude, -57, 91, Floor(0).Altitude + 5, -31.25
 #Low zone elevators
 AddShaft 1, -4.5, 45, -1, 13
 ShaftCut 1, -4, -14.5, 4 - 0.5, 14.5, 0, 5
+ShowFullShaft 1 = true
 
 <Floors -1 to 13>
 	Set 8 = -4.5 #Center X
@@ -2736,10 +2823,10 @@ ShaftCut 1, -4, -14.5, 4 - 0.5, 14.5, 0, 5
 
 <Floors 0 to 7>
 	#Lower walls
-	CreateShaftWall(LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, 0.5, %8% - 0.5, %9%, 5, 15, 1, 4, 0, true, true, true, false, false, false, false)
+	CreateShaftWall(LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, 0.5, %8% - 0.5, %9%, 5, 15, 1, 4, %interfloorheight%, true, true, true, false, false, false, true)
 
 	#Upper walls
-	CreateShaftWall(LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, 0.5, %8% - 0.5, %9%, 5, 15, 1, %height% - 4, 4, true, true, true, false, false, false, false)
+	CreateShaftWall(LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, 0.5, %8% - 0.5, %9%, 5, 15, 1, %height% - 4, %interfloorheight% + 4, true, true, true, false, false, false, true)
 <EndFloors>
 
 <Floor 8>
@@ -2813,10 +2900,10 @@ ShaftCut 2, -4 + 0.5, -14.5, 4, 14.5, 0, 5
 
 <Floors 0 to 7>
 	#Lower walls
-	CreateShaftWall(LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, 0.5, %8%, %9%, 4.5, 15, 2, 4, 0, true, true, true, false, false, false, false)
+	CreateShaftWall(LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, LobbyWallLower, 0.5, %8%, %9%, 4.5, 15, 2, 4, %interfloorheight%, true, true, true, false, false, false, true)
 
 	#Upper walls
-	CreateShaftWall(LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, 0.5, %8%, %9%, 4.5, 15, 2, %height% - 4, 4, true, true, true, false, false, false, false)
+	CreateShaftWall(LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, LobbyWallUpper, 0.5, %8%, %9%, 4.5, 15, 2, %height% - 4, %interfloorheight% + 4, true, true, true, false, false, false, true)
 <EndFloors>
 
 <Floor 8>
@@ -3188,14 +3275,9 @@ ShaftCut 2, -4 + 0.5, -14.5, 4, 14.5, 0, 5
 
 <Floors 1 to 8>
 	#Decos
-	#Elevator 1
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0.1, 0.2, 0, 35, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1)
-
-	#Elevator 2
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0.1, 0.2, 0, 45, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1)
-
-	#Elevator 3
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0.1, 0.2, 0, 55, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1)
+	AddDecoObject(E1_Deco, StainlessSteel, StainlessSteel, right, true, false, 0.1, 0.2, 0, 35, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1, external)
+	AddDecoObject(E2_Deco, StainlessSteel, StainlessSteel, right, true, false, 0.1, 0.2, 0, 45, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1, external)
+	AddDecoObject(E3_Deco, StainlessSteel, StainlessSteel, right, true, false, 0.1, 0.2, 0, 55, 3.5, 7, %height%, %height% - 7, 0, true, StainlessSteel, 1, external)
 <EndFloors>
 
 <Floors 9 to 11>

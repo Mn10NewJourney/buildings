@@ -47,6 +47,20 @@
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 		#Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+
+	#Facade of NRT Bldg. for bridge
+	Load data/cutston.jpg, ExtFacade, 0.25, 0.25
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, MainWindows, true, 0.05, 1
+	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, MainWindowsB, true, 1, 1, false
+	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
+
+	#Bridge between Haneda and Narita Buildings
+	Load data/Carpet0021d_S.jpg, BridgeFloor, 0.2, 0.2
+	Load data/st_wall.jpg, BridgeWall, 0.1875, 0.1344
+	Load data/stucco4.jpg, BridgeCeiling, 0.25, 0.25
+	#Load data/stone.jpg, BridgeSupport, 0.075, 0.075
+	Load data/cutston2.jpg, BridgeSupport, 0.0625, 0.0625
 <EndTextures>
 
 #########################################################################
@@ -54,11 +68,19 @@
 #Floor assignments
 <Floor 0>
 	ID = 1
-	Name = Level 1
+	Name = Level %floorid%
 	Type = Lobby
-	Height = 9.5
-	InterfloorHeight = 2.5
-	Altitude = -2.5
+	Height = 22
+	InterfloorHeight = 1.5
+	Altitude = -1.5
+<EndFloor>
+
+<Floor 1>
+	ID = %floor% + 1
+	Name = Level %floorid%
+	Type = Hospital
+	Height = 10.5
+	InterfloorHeight = 2
 <EndFloor>
 
 #########################################################################
@@ -74,7 +96,7 @@ Set InSRH = true
 #Tranquility City Landscape
 <Include buildings/KW_Maps/Tranquility City.txt>
 
-Cut Landscape, -120 - 10, -1, -60 - 60, 120 + 30, 1, 60 + 230, false, true
+Cut Landscape, -120 - 10, -1, -60 - 60, 120 + 30, 1, 60 + 290, false, true
 Cut Landscape, -120 - 140, -1, -60, -120 - 6, 1, 60 + 290, false, true
 
 #Parking lot
@@ -161,3 +183,75 @@ Cut Landscape, 90, -1, -120 - 0.1, 120, 1, -120 + 0.1, true, false
 	AddTree(Tree2, 7.5 + 30, -87.5 - 20, 12, 16, 0)
 	AddTree(Tree2, 7.5 + 45, -87.5 - 20, 12, 16, 0)
 	AddTree(Tree2, 7.5 + 60, -87.5 - 20, 12, 16, 0)
+
+############################################################
+
+#Bridge between Haneda and Narita Buildings
+Set 1 = 120 #Dimension X (NRT Bldg.)
+Set 2 = 60 #Dimension Z (NRT Bldg.)
+
+Set BHeight = 9.5 #Bridge's ceiling height
+
+	#Bridge supporting pillars
+	Set BSH = Floor(0).Height + 0.5 #Bridge Support Height
+
+	CreateWallBox2 external, BridgeSP_NRTSide, BridgeSupport, 5, 75, 4, 4, %BSH%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 external, BridgeSP_Middle, BridgeSupport, 2.25, 110, 4, 4, %BSH%, 0, 0, 0, false, true, false, false
+	CreateWallBox2 external, BridgeSP_HNDSide, BridgeSupport, -5, 245 - 100, 4, 4, %BSH%, 0, 0, 0, false, true, false, false
+
+	#Bridge creation
+	<Floor 1>
+		WallTex() #Set wall texture
+
+		#Bridge's interiors
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ExtFacade, BridgeFloor, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddFloor BridgeFloor_NRT3rdFloor, BridgeFloor, 1.5, 0, %2% + 10, 10, %2% + 40, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride ExtFacade, BridgeFloor, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddFloor BridgeFloor_HND2ndFloor, BridgeFloor, 1.5, -10, 245 - 105, 0, 245 - 95, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride BridgeCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddFloor BridgeCeil_NRT3rdFloor, BridgeCeiling, 1.5, 0, %2% + 10, 10, %2% + 40, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+		TextureOverride BridgeCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddFloor BridgeCeil_HND2ndFloor, BridgeCeiling, 1.5, -10, 245 - 105, 0, 245 - 95, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+		
+			#Diagonal walls for use as the bridge's angled floor and ceiling
+			WallOrientation = left
+			DrawWalls = true, true, false, false, true, true
+			TextureOverride ExtFacade, ExtFacade, ExtFacade, ExtFacade, BridgeFloor, ExtFacade
+			AddWall BridgeFloor_NRTtoHND, BridgeFloor, 10, -10, 245 - 95 - 10, 0, %2% + 40, 1.5, 1.5, %interfloorheight% - 1.5, %interfloorheight% - 1.5, 0, 0, true
+
+			WallOrientation = left
+			DrawWalls = true, true, false, false, true, true
+			TextureOverride ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, BridgeCeiling
+			AddWall BridgeCeiling_NRTtoHND, BridgeCeiling, 10, -10, 245 - 95 - 10, 0, %2% + 40, 1.5, 1.5, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+
+		#Bridge's windows
+		#1. NRT Bldg. Side
+		SetAutoSize = true, false
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall NRTWindows_Left, MainWindows, 0, 0, %2% + 10, 0, %2% + 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall NRTWindows_Right, MainWindows, 0, 10, %2% + 10, 10, %2% + 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
+
+		#2. Diagonal windows between NRT and HND Bldgs.
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MainWindowsB, MainWindowsIntB, Blank, Blank, Blank, Blank
+		AddWall NRT-HNDWindows_Left, MainWindowsB, 0, -10, 245 - 105, 0, %2% + 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 2, 0, true
+		TextureOverride MainWindowsIntB, MainWindowsB, Blank, Blank, Blank, Blank
+		AddWall NRT-HNDWindows_Right, MainWindowsB, 0, 0, 245 - 105, 10, %2% + 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 2, 0, true
+
+		#3. HND Bldg. Side
+		SetAutoSize = true, false
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MainWindows, MainWindowsInt, Blank, Blank, Blank, Blank
+		AddWall HNDWindows_Left, MainWindows, 0, -10, 245 - 105, -10, 245 - 95, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
+		AddWall HNDWindows_Right, MainWindows, 0, 0, 245 - 105, 0, 245 - 95, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		SetAutoSize = true, true
+	<EndFloor>
