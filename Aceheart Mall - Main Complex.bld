@@ -431,7 +431,7 @@
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ElevDoorsB2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ElevDoorsB_Trim, 1, 1, false
 
-			Load data/Melvin/SRH/st_doors_blackedge.jpg, ElevDoorsC, 1, 1, false #Levels G-4
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, ElevDoorsC, 1, 1, false #1st-4th floors
 			Load data/Melvin/SRH/st_doors_blackedge.jpg, ElevDoorsC2, -1, 1, false
 			Load data/Melvin/st_panel.jpg, ElevDoorsC_Trim, 1, 1, false
 
@@ -1983,7 +1983,7 @@ AddTree(Tree1, 58, 187.5, 10, 11.25, Floor(8).Base + 1.01)
 		#Back (Mall entrances)
 		if[%floor% = 1] Add3DWindows(Mall_BackWin1, 110, %2%, back, 16, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsB, %6%, 0.5, 4/4, 1)
 		if[%floor% = 1] Add3DWindows(Mall_BackWin2, 90, %2%, back, 16, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsB, %6%, 0.5, 4/4, 1)
-		#if[%floor% < 2] Add3DWindows(Mall_BackWin3, 70, %2%, back, 16, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsB, %6%, 0.5, 4/4, 1)
+		if[%floor% = 1] Add3DWindows(Mall_BackWin3, 30, %2%, back, 16, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsB, %6%, 0.5, 4/4, 1)
 		#if[%floor% < 2] Add3DWindows(Mall_BackWin4, 50, %2%, back, 16, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsB, %6%, 0.5, 4/4, 1)
 <EndFloors>
 
@@ -2076,6 +2076,20 @@ Cut external, -%1% + 0.5, Floor(-1).Base, %2% - 0.5 - 0.1, -57 + 10, Floor(0).Al
 
 <Floor 0>
 	WallTex() #Set wall texture
+
+	#Center entrance doors (From entrance elevators
+	Set Door_MainX = 30
+	Set Door_MainZ = %2%
+
+	WallOrientation = right
+	TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+	AddStdDoor DoorManager, %floorid%_CenterEnt_D1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8.25, Floor(%floor%).Base, 0, 0, 0, 0
+	TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+	AddStdDoor DoorManager, %floorid%_CenterEnt_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8.25, Floor(%floor%).Base, 0, 0, 0, 0
+	AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 7, 8.25, %interfloorheight%, true, 0, 0, true
+
+	Add3DWindows(CenterEnt_WinSide1, %Door_MainX% - 3.5 - 2.375, %Door_MainZ%, back, 4.25, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsB, %6%, 0.5, 1/4, 1)
+	Add3DWindows(CenterEnt_WinSide2, %Door_MainX% + 3.5 + 2.375, %Door_MainZ%, back, 4.25, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsB, %6%, 0.5, 1/4, 1)
 
 	#Office lobby entrance doors (Level 1)
 	#Doors A
