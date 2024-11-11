@@ -1,6 +1,8 @@
 #Bell Nature Mall
 #Copyright (c) 2024-Present - Mn10
 
+#Updated November 11, 2024: Switched the freight elevators' fixtures to Signa4.
+
 #MILESTONES:
 #1. Project started on: 28 June 2024
 #2. Main structure finished: 3 July 2024
@@ -377,7 +379,13 @@
 		AddTextRange 1, 4, MAButtonLit, MAButtonLit%number%A, nimbus_sans_bold_condensed.ttf, 48, %number%A, 42, 63, 105, 163, center, center, 255, 255, 255, false
 		AddTextRange 0, 2, MAButtonLit, MAButtonLitB%number%, nimbus_sans_bold_condensed.ttf, 48, B%number%, 42, 63, 105, 163, center, center, 255, 255, 255, false
 
-	#Signa 4 fixtures (Basement elevators only)
+	#Floor indicators (All MAD BS elevators, both inside and outside)
+	Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, MAIndBack, 1, 1, false
+	AddTextRange 1, 6, MAIndBack, MAInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddTextRange 1, 4, MAIndBack, MAInd_Button%number%A, acme_led.ttf, 240, %number%A, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddTextRange 0, 2, MAIndBack, MAInd_ButtonB%number%, acme_led.ttf, 240, B%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+
+	#Signa 4 fixtures (Basement and Freight Elevators)
 		#Hall buttons
 		Load data/Other People's Fixtures/signa4/signa4callplate.png, ElevExtPanels-Signa4, 1, 1, false #Vector #Hall buttons
 		Load data/Other People's Fixtures/signa4/signa4callplate.png, ElevExtPanels-Signa4-2, 1, 1, false #Vector #Hall lanterns
@@ -388,7 +396,7 @@
 		Load data/Other People's Fixtures/signa4/signa4calllit.png, Signa4ButtonDownLit, 1, 1, false #Vector
 
 		#Lanterns
-		Load data/Other People's Fixtures/signa4/signa4car.png, ElevIntPanels-Signa4, 1, 1, false #Vector #Door jamb lanterns
+		Load data/Other People's Fixtures/signa4/signa4car.png, ElevIntPanels-Signa4, 1, 1, false #Vector #Door jamb lanterns (Elev. 12-13 only)
 		Load data/Other People's Fixtures/signa4/signa4arrowunlit.png, Signa4LanternUp, 1, 1, false #Vector
 		Load data/Other People's Fixtures/signa4/signa4arrowlit.png, Signa4LanternUpLit, 1, 1, false #Vector
 		Load data/Other People's Fixtures/signa4/signa4arrowdnunlit.png, Signa4LanternDown, 1, 1, false #Vector
@@ -405,56 +413,25 @@
 		Load data/Other People's Fixtures/signa4/signa4blankunlit.png, Signa4Button, 1, 1, false #Vector
 		Load data/Other People's Fixtures/signa4/signa4blanklit.png, Signa4ButtonLit, 1, 1, false #Vector
 
-		AddTextRange 1, 2, Signa4Button, Signa4ButtonB%number%, nimbus_sans_bold_condensed.ttf, 48, B%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
-		AddText Signa4Button, Signa4Button1, nimbus_sans_bold_condensed.ttf, 48, 1, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddText Signa4Button, Signa4ButtonDH, nimbus_sans_bold_condensed.ttf, 48, DH, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 1, 6, Signa4Button, Signa4Button%number%, nimbus_sans_bold_condensed.ttf, 48, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 1, 4, Signa4Button, Signa4Button%number%A, nimbus_sans_bold_condensed.ttf, 48, %number%A, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 0, 2, Signa4Button, Signa4ButtonB%number%, nimbus_sans_bold_condensed.ttf, 48, B%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
 
-		AddTextRange 1, 2, Signa4ButtonLit, Signa4ButtonLitB%number%, nimbus_sans_bold_condensed.ttf, 48, B%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
-		AddText Signa4ButtonLit, Signa4ButtonLit1, nimbus_sans_bold_condensed.ttf, 48, 1, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 1, 6, Signa4ButtonLit, Signa4ButtonLit%number%, nimbus_sans_bold_condensed.ttf, 48, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 1, 4, Signa4ButtonLit, Signa4ButtonLit%number%A, nimbus_sans_bold_condensed.ttf, 48, %number%A, 0, 0, 128, 128, center, center, 255, 255, 255, false
+		AddTextRange 0, 2, Signa4ButtonLit, Signa4ButtonLitB%number%, nimbus_sans_bold_condensed.ttf, 48, B%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
 
 		#Floor indicators
 		Load data/Other People's Fixtures/signa4/signa4ind.png, Signa4IntIndBack, 1, 1, false #Inside indicators
-		AddTextRange 1, 2, Signa4IntIndBack, Signa4IntInd_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 50, B%number%, 40, 75, 215, 163, center, center, 0, 212, 255 #Test Tower
-		AddText Signa4IntIndBack, Signa4IntInd_Button1, Mitsubishi-Modern-V2.ttf, 50, 1, 40, 75, 215, 163, center, center, 0, 212, 255 #Test Tower
+		AddTextRange 1, 6, Signa4IntIndBack, Signa4IntInd_Button%number%, Mitsubishi-Modern-V2.ttf, 50, %number%, 40, 75, 215, 163, center, center, 0, 212, 255 #Test Tower
+		AddTextRange 1, 4, Signa4IntIndBack, Signa4IntInd_Button%number%A, Mitsubishi-Modern-V2.ttf, 50, %number%A, 40, 75, 215, 163, center, center, 0, 212, 255 #Test Tower
+		AddTextRange 0, 2, Signa4IntIndBack, Signa4IntInd_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 50, B%number%, 40, 75, 215, 163, center, center, 0, 212, 255 #Test Tower
 
 		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, Signa4IndBack, 1, 1, false #Outside indicators
-		AddTextRange 1, 2, Signa4IndBack, Signa4Ind_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 135, B%number%, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
-		AddText Signa4IndBack, Signa4Ind_Button1, Mitsubishi-Modern-V2.ttf, 135, 1, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
-
-	#Dover VR fixtures (Freight elevators)
-		#Car buttons
-		Load data/Other People's Fixtures/Dover VR/dovervralarm.png, DVRButtonAlarm, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrphone.png, DVRButtonPhone, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrdopen.png, DVRButtonOpen, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrdclose.png, DVRButtonClose, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrblankunlit.png, DVRButton, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrblanklit.png, DVRButtonLit, 1, 1, false #Vector
-	
-		AddText DVRButton, DVRButtonDH, nimbus_sans_bold_condensed.ttf, 44, DH, 0, 72, 110, 183, center, center, 255, 255, 255, false
-		AddTextRange 1, 6, DVRButton, DVRButton%number%, nimbus_sans_bold_condensed.ttf, 44, %number%, 0, 72, 110, 183, center, center, 255, 255, 255, false
-		AddTextRange 1, 4, DVRButton, DVRButton%number%A, nimbus_sans_bold_condensed.ttf, 44, %number%A, 0, 72, 110, 183, center, center, 255, 255, 255, false
-		AddTextRange 0, 2, DVRButton, DVRButtonB%number%, nimbus_sans_bold_condensed.ttf, 44, B%number%, 0, 72, 110, 183, center, center, 255, 255, 255, false
-
-		AddTextRange 1, 6, DVRButtonLit, DVRButtonLit%number%, nimbus_sans_bold_condensed.ttf, 44, %number%, 0, 72, 110, 183, center, center, 255, 255, 255, false
-		AddTextRange 1, 4, DVRButtonLit, DVRButtonLit%number%A, nimbus_sans_bold_condensed.ttf, 44, %number%A, 0, 72, 110, 183, center, center, 255, 255, 255, false
-		AddTextRange 0, 2, DVRButtonLit, DVRButtonLitB%number%, nimbus_sans_bold_condensed.ttf, 44, B%number%, 0, 72, 110, 183, center, center, 255, 255, 255, false
-
-		#Hall buttons
-		Load data/Other People's Fixtures/Dover VR/dovervrcallunlit.png, DVRButtonUp, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrcalllit.png, DVRButtonUpLit, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrcallunlit.png, DVRButtonDown, 1, 1, false #Vector
-		Load data/Other People's Fixtures/Dover VR/dovervrcalllit.png, DVRButtonDownLit, 1, 1, false #Vector
-
-		#Lanterns
-		Load data/darrow_unlit.gif, DVRLanternUp, 1, 1, false
-		Load data/darrow_lit.gif, DVRLanternUpLit, 1, 1, false
-		Load data/darrow_unlit_red.gif, DVRLanternDown, 1, -1, false
-		Load data/darrow_lit_red.gif, DVRLanternDownLit, 1, -1, false
-
-	#Floor indicators (All elevators, both inside and outside)
-	Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, MAIndBack, 1, 1, false
-	AddTextRange 1, 6, MAIndBack, MAInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddTextRange 1, 4, MAIndBack, MAInd_Button%number%A, acme_led.ttf, 240, %number%A, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddTextRange 0, 2, MAIndBack, MAInd_ButtonB%number%, acme_led.ttf, 240, B%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+		AddTextRange 1, 6, Signa4IndBack, Signa4Ind_Button%number%, Mitsubishi-Modern-V2.ttf, 135, %number%, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
+		AddTextRange 1, 4, Signa4IndBack, Signa4Ind_Button%number%A, Mitsubishi-Modern-V2.ttf, 135, %number%A, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
+		AddTextRange 0, 2, Signa4IndBack, Signa4Ind_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 135, B%number%, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
 
 	#Miscellaneous
 		#Poster(s) above elevator doors
@@ -472,7 +449,13 @@
 		AddTextRange 9, 13, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
 		AddTextRange 14, 15, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#Floor signs
+		#Floor signs (Freight Elevators)
+		Load data/Melvin/ABH_Tex/NewFS256/FSBack_SapphireService.jpg, FlrSignBack, 1, 1, false
+		AddTextRange 1, 6, FlrSignBack, FlrSign%number%, nimbus_sans.ttf, 130, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
+		AddTextRange 1, 4, FlrSignBack, FlrSign%number%A, nimbus_sans.ttf, 130, %number%A, 0, 0, 256, 198, center, center, 0, 0, 0, false
+		AddTextRange 0, 2, FlrSignBack, FlrSignB%number%, nimbus_sans.ttf, 130, B%number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
+
+		#Blank floor signs
 		AddTextRange 1, 6, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 1, 4, Blank, BlankSign%number%A, nimbus_sans_bold.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 0, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -4342,7 +4325,8 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 #Button creation function (Freight Elevators)
 <Function BtnPanelFE1>
 	Set PanelNumber = %param1%
-	Set BtnPrefix = DVRButton
+	Set PanelNumber2 = %PanelNumber% + 1
+	Set BtnPrefix = Signa4Button
 
 	AddButton %PanelNumber%, , %BtnPrefix%6, %BtnPrefix%Lit6, 1, 2, 10, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%5, %BtnPrefix%Lit5, 1, 1, 9, 1, 1
@@ -4357,13 +4341,15 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%DH, %BtnPrefix%DH, 6, 2, hold, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 7, 1, open, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 7, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Phone, %BtnPrefix%Phone, 8, 1, off, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Blink, %BtnPrefix%Blink, 8, 1, off, 1, 1
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 8, 2, alarm, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber2%, , %BtnPrefix%Phone, %BtnPrefix%Phone, 9, 1, off, 2, 1
 <EndFunction>
 
 <Function BtnPanelFE2>
 	Set PanelNumber = %param1%
-	Set BtnPrefix = DVRButton
+	Set PanelNumber2 = %PanelNumber% + 1
+	Set BtnPrefix = Signa4Button
 
 	AddButton %PanelNumber%, , %BtnPrefix%6, %BtnPrefix%Lit6, 1, 2, 10, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%5, %BtnPrefix%Lit5, 1, 1, 9, 1, 1
@@ -4383,8 +4369,9 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%DH, %BtnPrefix%DH, 9, 2, hold, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 10, 1, open, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 10, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Phone, %BtnPrefix%Phone, 11, 1, off, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Blink, %BtnPrefix%Blink, 11, 1, off, 1, 1
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 11, 2, alarm, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber2%, , %BtnPrefix%Phone, %BtnPrefix%Phone, 12, 1, off, 2, 1
 <EndFunction>
 
 <Elevators 14 to 15>
@@ -4453,21 +4440,24 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 		#Panel back
 		CreateWallBox2 elevator, RightPB, ElevPanel, %Position% - 0.051 + 0.025, %PanelCenter%, 0.05, 0.75, 5, 2, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, LeftPB, ElevPanel, %Position2% + 0.051 - 0.025, %PanelCenter%, 0.05, 0.75, 5, 2, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, LeftPB, ElevPanel, %Position2% + 0.051 - 0.025, %PanelCenter%, 0.05, 0.75, 2.25, 2.5, 0, 0, false, true, true, true
 
 		#Panels
-		Set Rows = 8
-		if[%elevator% = 15] Set Rows = 11
-		CreatePanel , %Rows%, 2, right, %Position%, %PanelCenter%, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #Right panel
-		CreatePanel , %Rows%, 2, left, %Position2%, %PanelCenter%, 0.25, 0.25, 0.2, -0.3, 3.5, 0, 0 #Left panel
+		Set Rows = 9
+		if[%elevator% = 15] Set Rows = 12
+		CreatePanel , %Rows%, 2, right, %Position%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Right panel
+		CreatePanel , %Rows%, 1, right, %Position%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Right panel, phone button only
+
+		CreatePanel , %Rows%, 2, left, %Position2%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Left panel
+		CreatePanel , %Rows%, 1, left, %Position2%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Left panel, phone button only
 
 			#Buttons (Right panel)
 			if[%elevator% = 14] BtnPanelFE1(1)
 			if[%elevator% = 15] BtnPanelFE2(1)
 
 			#Buttons (Left panel)
-			if[%elevator% = 14] BtnPanelFE1(2)
-			if[%elevator% = 15] BtnPanelFE2(2)
+			if[%elevator% = 14] BtnPanelFE1(3)
+			if[%elevator% = 15] BtnPanelFE2(3)
 
 	#Proximity scanner
 	Set PSscanHeight = 0.45
@@ -4479,11 +4469,16 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Elevator number sign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position%, %PanelCenter% - 0.25, %Position%, %PanelCenter% + 0.25, 0.5, 0.5, 6.3, 6.3, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position%, %PanelCenter% - 0.25, %Position%, %PanelCenter% + 0.25, 0.5, 0.5, 6.5, 6.5, 0, 0
+	#AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 0 - 0.25, -4.44 + 0.001, 0 + 0.25, -4.44 + 0.001, 0.5, 0.5, 7.05, 7.05, 0, 0
 
+	#--------------------
 	#Indicator sets
-	AddFloorIndicator MAInd_Button, right, %Position% + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
-	AddFloorIndicator MAInd_Button, left, %Position2% - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	AddFloorIndicator Signa4IntInd_Button, right, %Position% + 0.001, %PanelCenter%, 0.5, 0.5, 6 + 0.25 - 0.25
+
+	#Fire service cabinet
+	DrawWalls = false, true, false, false, false, false
+	AddWall FireCab, Signa4FireCab, 0, %Position% + 0.001, %PanelCenter% - 0.25, %Position% + 0.001, %PanelCenter% + 0.25, 0.6, 0.6, 6 - 0.03 - 0.6, 6 - 0.03 - 0.6, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -5016,7 +5011,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 		#Signs
 		DrawWalls = false, true, false, false, false, false
 		AddWall E12-13HallSign, FireSign, 0, %Shaft1CX% - 0.25, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% + 0.25, %Shaft1CZ% + 5 + 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
-		AddWall E12-13FloorSign1A, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% + 5 + 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
+		AddWall E12-13FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% + 5 + 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% + 5 + 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
 
 	#****************************************#
 
@@ -5060,13 +5055,14 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 		Set TopDecoH = 0.2
 
 	#Call button panels
-	Set BPanelTexture = ElevExtPanels-Alt
-	Set ButtonPrefix = DVRButton
+	#Set BPanelTexture = ElevExtPanels-Alt
+	Set BPanelTexture = ElevExtPanels-Signa4
+	Set ButtonPrefix = Signa4Button
 
 	#Lantern panels
 	#Set LPanelTexture = %BPanelTexture%
-	Set LPanelTexture = ElevExtPanels
-	Set LanternPrefix = DVRLantern
+	Set LPanelTexture = ElevExtPanels-Signa4-2
+	Set LanternPrefix = Signa4Lantern
 
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
@@ -5105,19 +5101,19 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Call buttons
 	CallButtonElevators = 14
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 6.25 + 3.5 + 1.25, %Shaft1CZ% - 6 - 0.001, 3.5, front, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 6.25 + 3.5 + 1.25, %Shaft1CZ% - 6 - 0.001, 3.5 + 0.5 - 0.4, front, 0.4, 0.8, true, 0, 0
 
 		#Signs
 		DrawWalls = true, false, false, false, false, false
 		#AddWall E12FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 6.25 + 4.75 - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% - 6.25 + 4.75 + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
-		AddWall E12FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
+		AddWall E12FloorSign, FlrSign%floorid%, 0, %Shaft1CX% - 0.5, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.5, %Shaft1CZ% - 6 - 0.001, 1, 1, 5.5, 5.5, 0, 0, false
 
 	#Indicator sets
 	Set Offset = 7.5
 	if[%floor% > 8] Set Offset = 8
 
 		#Set textures
-		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
+		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Signa4Ind_Button)
 
 		#Indicator creation
 		ACMELobbyInds(front, 14, %Shaft1CX% - 6.25, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -2, 10)
@@ -5168,18 +5164,18 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Call buttons
 	CallButtonElevators = 15
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 6.25 - 3.5 - 1.25, %Shaft1CZ% - 6 - 0.001, 3.5, front, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 6.25 - 3.5 - 1.25, %Shaft1CZ% - 6 - 0.001, 3.5 + 0.5 - 0.4, front, 0.4, 0.8, true, 0, 0
 
 		#Signs
 		DrawWalls = true, false, false, false, false, false
-		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall E13FloorSign, BlankSign%floorid%, 0, %Shaft1CX% + 6.25 - 4.75 - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 6.25 - 4.75 + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
+		if[%floor% = 0 | %floor% = 2 | %floor% = 4 | %floor% = 6 | %floor% = 8] AddWall E13FloorSign, FlrSign%floorid%, 0, %Shaft1CX% + 6.25 - 4.75 - 0.5, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 6.25 - 4.75 + 0.5, %Shaft1CZ% - 6 - 0.001, 1, 1, 5.5, 5.5, 0, 0, false
 
 	#Indicator sets
 	Set Offset = 7.5
 	if[%floor% > 8] Set Offset = 8
 
 		#Set textures
-		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
+		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Signa4Ind_Button)
 
 		#Indicator creation
 		ACMELobbyInds(front, 15, %Shaft1CX% + 6.25, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -2, 10)
@@ -5279,8 +5275,9 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	RecallFloor = 1
 
 	#Notifications
-	UpChimeSound 1 = Other People's Fixtures/TK Traditional II/upchime.wav #Vector, gooper1, et al.
-	DownChimeSound 1 = Other People's Fixtures/TK Traditional II/dnchime.wav #Vector, gooper1, et al.
+	UpChimeSound 1 = Other People's Fixtures/signa4/tkup.wav #Vector, gooper1, et al.
+	DownChimeSound 1 = Other People's Fixtures/signa4/tkdn.wav #Vector, gooper1, et al.
+	BeepSound = Other People's Fixtures/signa4/tkbeep.wav #Vector, gooper1, et al.
 	NotifyEarly = 1
 	QueueResets = true
 
@@ -5294,7 +5291,6 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
 	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
 	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
-
 
 	#Elevator movement sounds
 	CarStartSound = EG881Sounds/slowelevstart.wav #EG881
