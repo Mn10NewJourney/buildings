@@ -1100,6 +1100,35 @@ ShowFullShaft 1 = true
 		if[%floor% = -2] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
+<Function E1-2FillerWalls>
+	Set ElevNo = %param1%
+	Set CenterX = %param2%
+	Set Direction = %param3%
+	
+	if[%Direction% = front | %Direction% = Front] Set WO = left #Wall Orientation
+	if[%Direction% = back | %Direction% = Back] Set WO = right
+	
+	if[%Direction% = front | %Direction% = Front] Set M = -1 #Multiplier for filler walls
+	if[%Direction% = back | %Direction% = Back] Set M = 1
+
+	#Manual wall cuts for external mesh
+	CutAll %CenterX% - 2.25, %interfloorheight%, %Shaft1CZ% + (%M% * 5) - 0.1, %CenterX% + 2.25, %interfloorheight% + 4, %Shaft1CZ% + (%M% * 5) + 0.1, true, false
+
+	#Upper filler walls
+	WallOrientation = %WO%
+	AddFillerWalls EntranceElevShaftWall, 0.66, %CenterX%, %Shaft1CZ% + (%M% * 5), 4.5, 7 - 4, 4 + %interfloorheight%, true, 0, 0, true
+
+		#Lower filler walls to match with shaft walls
+		if[%Direction% = front | %Direction% = Front] Set P1 = %Shaft1CZ% - 5
+		if[%Direction% = front | %Direction% = Front] Set P2 = %Shaft1CZ% - 5 + 0.66
+		if[%Direction% = back | %Direction% = Back] Set P1 = %Shaft1CZ% + 5 - 0.66
+		if[%Direction% = back | %Direction% = Back] Set P2 = %Shaft1CZ% + 5
+
+		DrawWalls = true, true, false, false, false, false
+		AddWall E%Elevator%Filler1, EntranceElevShaftWall_Lower, 0, %CenterX% - 2.25, %P1%, %CenterX% - 2.25, %P2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall E%Elevator%Filler2, EntranceElevShaftWall_Lower, 0, %CenterX% + 2.25, %P1%, %CenterX% + 2.25, %P2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
+<EndFunction>
+
 <Function E1-2HS_FrontDoors>
 	#Shaft Doors
 	ElevHallTex() #Set shaft door and panel textures
@@ -1142,11 +1171,18 @@ ShowFullShaft 1 = true
 
 		#1st shaft
 		WallOrientation = left
-		if[%floor% ! -3] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
-		if[%floor% ! -3] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		
+		#Level G only
+		if[%floor% = -2] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		if[%floor% = -2] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 
+		#Level B only
 		if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 1
 		if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 2
+
+		#All other floors
+		if[%floor% ! -2 & %floor% ! -3] E1-2FillerWalls(1, %Shaft1CX% - 4, front)
+		if[%floor% ! -2 & %floor% ! -3] E1-2FillerWalls(2, %Shaft1CX% + 4, front)
 
 	#****************************************#
 
@@ -1214,9 +1250,13 @@ ShowFullShaft 1 = true
 	Set Shaft1CZ = 255
 
 		#1st shaft
-		WallOrientation = left
-		AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% + 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
-		AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% + 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		#WallOrientation = left
+		#AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% + 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		#AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% + 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+		#All floors (Rear doors)
+		E1-2FillerWalls(1, %Shaft1CX% - 4, back)
+		E1-2FillerWalls(2, %Shaft1CX% + 4, back)
 
 	#****************************************#
 
