@@ -327,7 +327,12 @@
 		Load data/Melvin/DRH/bluegradient_DRH.jpg, ELFlrSignBack, 1, 1, false
 		AddTextRange 1, 8, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold_condensed.ttf, 130, %number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
 
-		#6. Elevator number signs (Inside)
+		#6a. Elevator number signs (Outside)
+		Load data/Melvin/transparent128.png, ElevNoBack_Blank, 1, 1, false
+		AddTextRange 1, 6, ElevNoBack_Blank, ElevNo%number%, nimbus_sans_bold.ttf, 65, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+		AddTextRange 1, 6, ElevNoBack_Blank, ElevNo%number%_Black, nimbus_sans_bold.ttf, 65, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#6b. Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 		AddTextRange 1, 6, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		#AddTextRange 4, 6, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
@@ -2335,6 +2340,19 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 		if[%floor% ! 0] ACMELobbyLanterns(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
 		if[%floor% ! 0] ACMELobbyLanterns(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
 		if[%floor% ! 0] ACMELobbyLanterns(left, 3, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
+
+	#****************************************#
+
+	#Elevator number signs
+	Set Offset = 9
+	if[%floor% ! 0] Set Offset = 8.375
+	Set Suffix =  
+	if[%floor% = 7] Set Suffix = _Black
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall E1Sign, ElevNo1%Suffix%, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 11) - 0.5, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 11) + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
+	AddWall E2Sign, ElevNo2%Suffix%, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 1) - 0.5, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 1) + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
+	AddWall E3Sign, ElevNo3%Suffix%, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 9) - 0.5, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 9) + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
 <EndFunction>
 
 <Floors 0 to 7>
@@ -2435,6 +2453,17 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 		if[%floor% ! 0] ACMELobbyLanterns(right, 4, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
 		if[%floor% ! 0] ACMELobbyLanterns(right, 5, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
 		if[%floor% ! 0] ACMELobbyLanterns(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
+
+	#****************************************#
+
+	#Elevator number signs
+	Set Suffix =  
+	if[%floor% = 7] Set Suffix = _Black
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall E4Sign, ElevNo4%Suffix%, 0, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 9) - 0.5, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 9) + 0.5, 1, 1, 8.375, 8.375, 0, 0, false
+	AddWall E5Sign, ElevNo5%Suffix%, 0, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 1) - 0.5, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 1) + 0.5, 1, 1, 8.375, 8.375, 0, 0, false
+	AddWall E6Sign, ElevNo6%Suffix%, 0, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 11) - 0.5, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 11) + 0.5, 1, 1, 8.375, 8.375, 0, 0, false
 <EndFloors>
 
 #Floor signs

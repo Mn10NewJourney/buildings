@@ -497,6 +497,10 @@
 	#Elevator number signs (Inside)
 	Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 	AddTextRange 1, 16, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+	#Elevator number signs (Outside)
+	Load data/Melvin/transparent128.png, ElevNoBack_Blank, 1, 1, false
+	AddTextRange 1, 15, ElevNoBack_Blank, ElevNo%number%, nimbus_sans_bold.ttf, 69, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 	#--------------------
 	#Main signs
 	Load data/signs_mod/Parking_Blue.png, ParkingSign, 1, 1, false
@@ -4154,6 +4158,25 @@ ElevCeilingLight
 	E1-5LanternSet()
 <EndFloors>
 
+<Floor 0>
+	#Elevator number signs
+	Set Shaft1CX = -25 #1st shaft for elevator bank
+	Set Shaft1CZ = -35
+	Set Shaft2CX = -5 #2nd shaft for elevator bank
+	Set Shaft2CZ = -40
+	Set ExtraLateralOffset = 0
+
+		#Elevators 1-5
+		DrawWalls = false, true, false, false, false, false
+		AddWall E1Sign, ElevNo1, 0, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 10) - 0.5, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 10) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E2Sign, ElevNo2, 0, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 0) - 0.5, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 0) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E3Sign, ElevNo3, 0, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 10) - 0.5, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 10) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+	
+		DrawWalls = true, false, false, false, false, false
+		AddWall E4Sign, ElevNo4, 0, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% - 5) - 0.5, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% - 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E5Sign, ElevNo5, 0, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% + 5) - 0.5, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% + 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+<EndFloor>
+
 #Floor signs
 <Elevators 1 to 3>
 	AddFloorSigns 1, true, Sign, back, 3.425 + 0.2 + 0.33, -2 + 0.001, 0.35, 0.35, 4.825
@@ -4510,6 +4533,24 @@ ElevCeilingLight
 	E6-9LanternSet()
 <EndFloors>
 
+<Floor 0>
+	#Elevator number signs
+	Set Shaft1CX = 5 #1st shaft for elevator bank
+	Set Shaft1CZ = -40
+	Set Shaft2CX = 25 #2nd shaft for elevator bank
+	Set Shaft2CZ = -40
+	Set ExtraLateralOffset = 0
+
+		#Elevators 6-9
+		DrawWalls = false, true, false, false, false, false
+		AddWall E6Sign, ElevNo6, 0, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 5) - 0.5, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E7Sign, ElevNo7, 0, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 5) - 0.5, %Shaft1CX% + 5 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% + 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+	
+		DrawWalls = true, false, false, false, false, false
+		AddWall E8Sign, ElevNo8, 0, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% - 5) - 0.5, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% - 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E9Sign, ElevNo9, 0, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% + 5) - 0.5, %Shaft2CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft2CZ% + 5) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+<EndFloor>
+
 #Floor signs
 <Elevators 6 to 7>
 	AddFloorSigns 1, true, Sign, back, 3.425 + 0.2 + 0.33, -2 + 0.001, 0.35, 0.35, 4.825
@@ -4763,11 +4804,13 @@ ElevCeilingLight
 
 	#Signs
 	Set SignCenterZ = -26
+	if[%floor% = 0] Set SignCenterZ = -26 + 2.05
 	Set SignOffset = 8.75
 	Set ExtraLatOff = 0
 	if[%floor% > 6 & %floor% < 9] Set ExtraLatOff = 0.01
 	if[%floor% > 9] Set SignCenterZ = -23.95 + 1.75
 	if[%floor% > 9] Set SignOffset = 6.5 - 0.75
+	if[%floor% = 0] Set SignOffset = 7.625
 
 	DrawWalls = false, true, false, false, false, false
 	AddWall E10Hall-Sign-Front, BedElevSign, 0, 10 + %ExtraLatOff% + 0.001, %SignCenterZ% - (2.25/2), 10 + %ExtraLatOff% + 0.001, %SignCenterZ% + (2.25/2), 0.75, 0.75, %SignOffset%, %SignOffset%, 0, 0, false
@@ -4852,11 +4895,13 @@ ElevCeilingLight
 
 	#Signs
 	Set SignCenterZ = -26
+	if[%floor% = 0] Set SignCenterZ = -26 + 2.05
 	Set SignOffset = 8.75
 	Set ExtraLatOff = 0
 	if[%floor% > 6 & %floor% < 9] Set ExtraLatOff = 0.01
 	if[%floor% > 9] Set SignCenterZ = -23.95 + 1.75
 	if[%floor% > 9] Set SignOffset = 6.5 - 0.75
+	if[%floor% = 0] Set SignOffset = 7.625
 
 	DrawWalls = true, false, false, false, false, false
 	AddWall E10Hall-Sign-Rear, BedElevSign, 0, -2 - %ExtraLatOff% - 0.001, %SignCenterZ% - (2.25/2), -2 - %ExtraLatOff% - 0.001, %SignCenterZ% + (2.25/2), 0.75, 0.75, %SignOffset%, %SignOffset%, 0, 0, false
@@ -4923,6 +4968,21 @@ ElevCeilingLight
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = BedElevDoor5B
 	if[%floor% < 14] E10ShaftDoors-Rear()
 <EndFloors>
+
+<Floor 0>
+	#Elevator number signs
+	Set Shaft1CX = 4 #1st shaft for elevator bank
+	Set Shaft1CZ = -25
+	Set ExtraLateralOffset = 0
+
+		#Elevator 10 (Front doors)
+		DrawWalls = false, true, false, false, false, false
+		AddWall E10Sign_Front, ElevNo10, 0, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 1) - 0.5, %Shaft1CX% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CZ% - 1) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+	
+		#Elevator 10 (Rear doors)
+		DrawWalls = true, false, false, false, false, false
+		AddWall E10Sign_Rear, ElevNo10, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 1) - 0.5, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 1) + 0.5, 1, 1, 8.75, 8.75, 0, 0, false
+<EndFloor>
 
 #Floor signs
 <Elevator 10>
@@ -5082,7 +5142,9 @@ ElevCeilingLight
 
 		#Additional sign above door
 		Set SignCenter = -116
+		if[%floor% = 0] Set SignCenter = -116 + 1.75
 		Set SignOffset = 8.75
+		if[%floor% = 0] Set SignOffset = 7.625
 		Set ExtraLatOff = 0
 		AddWall E11Hall-Sign, LFESign, 0, %SignCenter% - (1.5/2), 40 + %ExtraLatOff% + 0.001, %SignCenter% + (1.5/2), 40 + %ExtraLatOff% + 0.001, 0.75, 0.75, %SignOffset%, %SignOffset%, 0, 0, false
 
@@ -5718,6 +5780,32 @@ ElevCeilingLight
 	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 116, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 14
 	if[%floor% ! -1 & %floor% ! 9] AddDeco4(%DoorTexture%_Trim, %DoorTexture%_Trim, front, true, false, floor, 0, 0.2, 124, 78 - 0.01, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTexture%_Trim, 0.66 + 0.01) #Elevator 15
 <EndFloors>
+
+<Floor 0>
+	#Elevator number signs
+		#Elevator 11
+		Set Shaft1CX = -116 #1st shaft for elevator bank
+		Set Shaft1CZ = 34
+		Set ExtraLateralOffset = 0
+		DrawWalls = false, true, false, false, false, false
+		AddWall E11Sign, ElevNo11, 0, (%Shaft1CX% - 0) - 0.5, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% - 0) + 0.5, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 1, 1, 8.75, 8.75, 0, 0, false
+	
+		#Elevators 12-13
+		Set Shaft1CX = -120 #1st shaft for elevator bank
+		Set Shaft1CZ = 84
+	
+		DrawWalls = true, false, false, false, false, false
+		AddWall E12Sign, ElevNo12, 0, (%Shaft1CX% - 4) - 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% - 4) + 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E12Sign, ElevNo13, 0, (%Shaft1CX% + 4) - 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% + 4) + 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 1, 1, 8.75, 8.75, 0, 0, false
+	
+		#Elevators 14-15
+		Set Shaft1CX = 120 #1st shaft for elevator bank
+		Set Shaft1CZ = 84
+	
+		DrawWalls = true, false, false, false, false, false
+		AddWall E14Sign, ElevNo14, 0, (%Shaft1CX% - 4) - 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% - 4) + 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 1, 1, 8.75, 8.75, 0, 0, false
+		AddWall E15Sign, ElevNo15, 0, (%Shaft1CX% + 4) - 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% + 4) + 0.5, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 1, 1, 8.75, 8.75, 0, 0, false
+<EndFloor>
 
 #Floor signs
 <Elevators 12 to 15>
