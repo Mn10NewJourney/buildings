@@ -373,18 +373,21 @@
 
 		#2. Floor signs (Elevator lobby)
 		Load data/graygradient.jpg, ELFlrSignBack, 1, 1, false
-
 		AddText ELFlrSignBack, ELFlrSignB, nimbus_sans_bold.ttf, 130, B, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText ELFlrSignBack, ELFlrSignG, nimbus_sans_bold.ttf, 130, G, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText ELFlrSignBack, ELFlrSignM, nimbus_sans_bold.ttf, 130, M, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 2, 8, ELFlrSignBack, ELFlrSignP%number%, nimbus_sans_bold.ttf, 130, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#3. Elevator number signs (Inside)
+		#3. Elevator number signs (Outside)
+		Load data/bluegradient.jpg, ElevNoBack, 1, 1, false
+		AddTextRange 1, 8, ElevNoBack, ElevNo%number%, nimbus_sans_bold.ttf, 120, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#4. Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 		AddTextRange 1, 8, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		#AddTextRange 7, 8, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, P%number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
 
-		#4. Exit signs
+		#5. Exit signs
 		Load data/panel-back3.jpg, StainlessSteel, 1, 1, false
 		Load data/Melvin/ExitSignDown.png, ExitSign, 1, 1, false
 		Load data/Melvin/ExitSignUp.png, ExitSignUp, 1, 1, false
@@ -2089,6 +2092,14 @@ ShowFullShaft 3 = true
 		HitachiLobbyInds_Left(1, %Shaft1CX% - 5, %Shaft1CZ% + 10, %Offset%, -1, 8, true)
 		HitachiLobbyInds_Left(2, %Shaft1CX% - 5, %Shaft1CZ%, %Offset%, -1, 8, true)
 		HitachiLobbyInds_Left(3, %Shaft1CX% - 5, %Shaft1CZ% - 10, %Offset%, -1, 8, true)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = true, false, false, false, false, false
+	AddWall E1Sign, ElevNo1, 0, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 10 + 1.25) - 0.25, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 10 + 1.25) + 0.25, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E2Sign, ElevNo2, 0, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 0 + 1.25) - 0.25, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 0 + 1.25) + 0.25, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E3Sign, ElevNo3, 0, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 10 + 1.25) - 0.25, %Shaft1CX% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 10 + 1.25) + 0.25, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
 <EndFunction>
 
 <Floors -1 to 8>
@@ -2177,6 +2188,14 @@ ShowFullShaft 3 = true
 		HitachiLobbyInds_Back(4, %Shaft1CX% + 11, %Shaft1CZ% + 6, %Offset%, -1, 8, true)
 		HitachiLobbyInds_Back(5, %Shaft1CX% + 1, %Shaft1CZ% + 6, %Offset%, -1, 8, true)
 		HitachiLobbyInds_Back(6, %Shaft1CX% - 9, %Shaft1CZ% + 6, %Offset%, -1, 8, true)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = false, true, false, false, false, false
+	AddWall E4Sign, ElevNo4, 0, (%Shaft1CX% + 11 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% + 11 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E5Sign, ElevNo5, 0, (%Shaft1CX% + 1 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% + 1 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E6Sign, ElevNo6, 0, (%Shaft1CX% - 9 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% - 9 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
 <EndFloors>
 
 #Set textures for Elevators 7-8
@@ -2286,6 +2305,13 @@ ShowFullShaft 3 = true
 		#Indicator creation
 		ACMELobbyInds(front, 7, %Shaft1CX% - 5, %Shaft1CZ% - 5, %Offset%, -1, 8, true)
 		ACMELobbyInds(front, 8, %Shaft1CX% + 5, %Shaft1CZ% - 5, %Offset%, -1, 8, true)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = true, false, false, false, false, false
+	AddWall E7Sign, ElevNo7, 0, (%Shaft1CX% - 5 - 1.25) - 0.25, %Shaft1CZ% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% - 5 - 1.25) + 0.25, %Shaft1CZ% - 5 - %ExtraLateralOffset% - 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E8Sign, ElevNo8, 0, (%Shaft1CX% + 5 - 1.25) - 0.25, %Shaft1CZ% - 5 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% + 5 - 1.25) + 0.25, %Shaft1CZ% - 5 - %ExtraLateralOffset% - 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
