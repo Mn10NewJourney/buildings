@@ -105,8 +105,9 @@
 		Load data/stucco4b.jpg, ParkingWall, 0.25, 0.25 #Perimeter walls
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
 
-		Load data/Carpet0012_S.jpg, ParkingLobbyFloor, 0.2, 0.2
-		Load data/marb148.jpg, ParkingLobbyWall, 0.25, 0.25
+		Load data/Carpet0021d_S.jpg, ParkingLobbyFloor, 0.2, 0.2
+		Load data/marb148.jpg, ParkingLobbyWall_Lower, 0.25, 0.25
+		Load data/EG881/stucco22b_white.jpg, ParkingLobbyWall, 0.125, 0.125 #EG881
 		Load data/EG881/ceilingtile3x3.jpg, ParkingLobbyCeiling, 0.125, 0.125 #EG881
 
 			#Link to Entrance Elevators
@@ -174,10 +175,9 @@
 			Load data/EG881/lightaluminumdoor2.jpg, LevelGShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, LevelGShaftDoors_Trim, 1, 1, false
 
-			Load data/door1.jpg, LevelBShaftDoors, 1, 1, false #EG881
-			Load data/door1.jpg, LevelBShaftDoors2, -1, 1, false #EG881
-			Load data/elevpanelsilver.jpg, LevelBShaftDoors_Trim, 1, 1, false
-
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, LevelBShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, LevelBShaftDoors2, 1, 1, false #EG881
+			Load data/panel-back3.jpg, LevelBShaftDoors_Trim, 1, 1, false
 
 	#TK Signa4 VR fixtures
 		#Hall fixtures
@@ -663,15 +663,20 @@ Cut Landscape, 0 - 30, -1, 240, 20 + 30, 1, 250, false, true
 		WallOrientation = right
 		DrawWalls = false, true, false, false, false, false
 		AddWall LeftLinkWallA, ParkingLinkWall, 0.5, 0, %2% + 10, 0, 250 - 43, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall LeftLinkWallB, ParkingLobbyWall, 0.5, 0, 250 - 43, 0, 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall LeftLinkWallB, ParkingLobbyWall, 0.5, 0, 250 - 43, 0, 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall_CustomTex(LeftLinkWallB, 2, ParkingLobbyWall_Lower, ParkingLobbyWall, Blank, 0.5, 0, 250 - 43, 0, 260, 3.5, %WallHeight% - 3.5, 0, %WallOffset%, true)
 
 		WallOrientation = left
 		DrawWalls = true, false, false, false, false, false
 		AddWall RightLinkWallA, ParkingLinkWall, 0.5, 20, %2% + 10, 20, 250 - 43, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall RightLinkWallB, ParkingLobbyWall, 0.5, 20, 250 - 43, 20, 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		DrawWalls = true, true, false, false, false, false
-		TextureOverride ParkingLinkWall, ParkingLobbyWall, Blank, Blank, Blank, Blank
-		AddWall RightLinkWallB, ParkingLobbyWall, 0.5, 0, 250 - 43, 20, 250 - 43, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall RightLinkWallB, ParkingLobbyWall, 0.5, 20, 250 - 43, 20, 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall_CustomTex(RightLinkWallB, 2, ParkingLobbyWall_Lower, ParkingLobbyWall, Blank, 0.5, 20, 250 - 43, 20, 260, 3.5, %WallHeight% - 3.5, 0, %WallOffset%, true)
+
+		DrawWalls = true, false, false, false, false, false
+		#TextureOverride ParkingLinkWall, ParkingLobbyWall, Blank, Blank, Blank, Blank
+		AddWall FrontLinkWall_EX, ParkingLinkWall, 0.5, 0, 250 - 43, 20, 250 - 43, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = false, true, false, false, false, false
+		AddWall_CustomTex(FrontLinkWall_IN, 2, ParkingLobbyWall_Lower, ParkingLobbyWall, Blank, 0.5, 0, 250 - 43, 20, 250 - 43, 3.5, %WallHeight% - 3.5, 0, %WallOffset%, true)
 
 	#Windows on walls
 	Set WinHeight = %height% - 0.5
@@ -815,7 +820,13 @@ ShowFullShaft 1 = true
 	if[%floor% = -2] Set 5 = LowerShopLink
 
 	Set ShowTop = false
-	CreateShaftWall(%5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH%, %interfloorheight%, true, false, false, false, false, false, true)
+	
+		#Walls on level B
+		if[%floor% = -3] CreateShaftWall(%5%Wall_Lower, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, 3.5, %interfloorheight%, true, false, false, false, false, false, true)
+		if[%floor% = -3] CreateShaftWall(%5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH% - 3.5, %interfloorheight% + 3.5, true, false, false, false, false, false, true)
+
+		#Walls on level G
+		if[%floor% = -2] CreateShaftWall(%5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 10, 255, 10, 5, Shaft1_%floorid%, %WH%, %interfloorheight%, true, false, false, false, false, false, true)
 <EndFloors>
 
 <Floor -1>
@@ -1104,6 +1115,11 @@ ShowFullShaft 1 = true
 	Set ElevNo = %param1%
 	Set CenterX = %param2%
 	Set Direction = %param3%
+	Set TexPrefix = EntranceElevShaft
+	if[%floor% = -3] Set TexPrefix = ParkingLobby
+	
+	Set LWH = 4 #Lower wall height
+	if[%floor% = -3] Set LWH = 3.5
 	
 	if[%Direction% = front | %Direction% = Front] Set WO = left #Wall Orientation
 	if[%Direction% = back | %Direction% = Back] Set WO = right
@@ -1116,7 +1132,7 @@ ShowFullShaft 1 = true
 
 	#Upper filler walls
 	WallOrientation = %WO%
-	AddFillerWalls EntranceElevShaftWall, 0.66, %CenterX%, %Shaft1CZ% + (%M% * 5), 4.5, 7 - 4, 4 + %interfloorheight%, true, 0, 0, true
+	AddFillerWalls %TexPrefix%Wall, 0.66, %CenterX%, %Shaft1CZ% + (%M% * 5), 4.5, 7 - %LWH%, %LWH% + %interfloorheight%, true, 0, 0, true
 
 		#Lower filler walls to match with shaft walls
 		if[%Direction% = front | %Direction% = Front] Set P1 = %Shaft1CZ% - 5
@@ -1125,8 +1141,8 @@ ShowFullShaft 1 = true
 		if[%Direction% = back | %Direction% = Back] Set P2 = %Shaft1CZ% + 5
 
 		DrawWalls = true, true, false, false, false, false
-		AddWall E%Elevator%Filler1, EntranceElevShaftWall_Lower, 0, %CenterX% - 2.25, %P1%, %CenterX% - 2.25, %P2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
-		AddWall E%Elevator%Filler2, EntranceElevShaftWall_Lower, 0, %CenterX% + 2.25, %P1%, %CenterX% + 2.25, %P2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall E%Elevator%Filler1, %TexPrefix%Wall_Lower, 0, %CenterX% - 2.25, %P1%, %CenterX% - 2.25, %P2%, %LWH%, %LWH%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall E%Elevator%Filler2, %TexPrefix%Wall_Lower, 0, %CenterX% + 2.25, %P1%, %CenterX% + 2.25, %P2%, %LWH%, %LWH%, %interfloorheight%, %interfloorheight%, 0, 0, true
 <EndFunction>
 
 <Function E1-2HS_FrontDoors>
@@ -1176,13 +1192,13 @@ ShowFullShaft 1 = true
 		if[%floor% = -2] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		if[%floor% = -2] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 
-		#Level B only
-		if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 1
-		if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 2
+		#Former walls on level B (NO LONGER USED)
+		#if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 1
+		#if[%floor% = -3] AddFillerWalls ParkingLobbyWall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 5, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 2
 
 		#All other floors
-		if[%floor% ! -2 & %floor% ! -3] E1-2FillerWalls(1, %Shaft1CX% - 4, front)
-		if[%floor% ! -2 & %floor% ! -3] E1-2FillerWalls(2, %Shaft1CX% + 4, front)
+		if[%floor% ! -2] E1-2FillerWalls(1, %Shaft1CX% - 4, front)
+		if[%floor% ! -2] E1-2FillerWalls(2, %Shaft1CX% + 4, front)
 
 	#****************************************#
 
