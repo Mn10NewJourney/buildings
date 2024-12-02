@@ -622,6 +622,10 @@
 	Group = -3 - 6
 <EndFloors>
 
+<Floors 7 to 8>
+	Group = 7 - 8
+<EndFloors>
+
 ##--------------------------------------------------------------------------------##
 
 #Common values
@@ -789,6 +793,32 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 <EndFloors>
 
 #########################################################################
+
+#RELAXATION ZONE ATRIUM
+<Floors 7 to 8>
+	#Atrium cuts
+	if[%floor% > 7] CutAll -40, %interfloorheight% - 1, -%2%, 40, %interfloorheight% + 1, -5.5, false, true
+	if[%floor% < 8] CutAll -40, %fullheight% - 1, -%2%, 40, %fullheight% + 1, -5.5, false, true
+<EndFloors>
+
+<Floor 8>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Atrium railings
+	Set RailingHeight = %interfloorheight% + 3.5
+	Set RailingOffset = -%interfloorheight%
+
+	WallOrientation = right
+	DrawWalls = true, true, false, true, true, false
+	AddWall RelaxATRLeftRail, %5%Wall2, 0.5, -40, -%2%, -40, -5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	WallOrientation = left
+	AddWall RelaxATRRightRail, %5%Wall2, 0.5, 40, -%2%, 40, -5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	DrawWalls = true, true, true, true, true, false
+	AddWall RelaxATRBackRail, %5%Wall2, 0.5, -40, -5.5, 40, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+<EndFloor>
+
+#########################################################################
+
 
 #OPD ATRIUM
 <Function ATR_ExtraCuts>
