@@ -17,14 +17,17 @@
 
 #Buildings
 <Buildings>
-	Load WMC - Parking Garage.bld, 303, 0, -15, 0, -115 - 48, 0, -155, 115, 0, 155
+	#Disable landscape cutting
+	CutLandscapes = false
+
+	Load WMC - Parking Garage.bld, 428, 0, -15, 0, -115, 0, -220, 130, 0, 250
 <EndBuildings>
 
 #Globals
 <Globals>
 	Name = World Management Center
 	Designer = Mn10
-	Location = Melvin City
+	Location = 1210 Finland Street, Tranquility City
 	Version = 2a
 	Description = A 113-story skyscraper with many offices and an observation deck.
 	CameraFloor = 0
@@ -36,9 +39,11 @@
 <Textures>
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
-	#Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+
+		#Plants
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 
 	#Concrete
 	Load data/EG881/cem_tr2b.jpg, Concrete1, 0.075225, 0.0625 #EG881
@@ -517,7 +522,7 @@
 	Type = Basement
 	Height = 8
 	InterfloorHeight = 2
-	Altitude = -12
+	Altitude = -4
 <EndFloor>
 
 <Floor 0>
@@ -527,7 +532,7 @@
 	Type = Lobby
 	Height = 10
 	InterfloorHeight = 2
-	Altitude = -2
+	Altitude = 6
 	Group = 1
 <EndFloor>
 
@@ -650,16 +655,59 @@
 	InterfloorHeight = 4
 <EndFloor>
 
+##--------------------------------------------------------------------------------##
+
+#Floor creation function
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+	
+	#Cut ground for floors
+	Cut Landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
 #Landscape
-AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
-Cut Landscape, -125 - 15, -1, -125 - 15 - 30, 125 + 15, 1, 125 + 15, false, true
+#Coordinate Set
+Set MainX = 1096
+Set MainZ = -18808
+Set InWMC = true
+
+#Tranquility City Landscape
+<Include buildings/KW_Maps/Tranquility City.txt>
+
+#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
+
+#Cut landscape for buildings
+Cut Landscape, 428 - 115, Floor(0).Base - 1, -15 - 220, 428 + 128, Floor(0).Base + 1, -15 + 250, false, true #Parking Garage
+Cut Landscape, -125, Floor(0).Base - 1, -125, 125, Floor(0).Base + 1, 125, false, true #Main Tower
+
+#PG Entrance Driveway
+Set FO = Floor(0).Base #Floor Offset
+LSFloorCreator(Driveway1, Road, 428 - 130, -15 + 61, 428 - 115, -15 + 99, %FO%, false, false)
+LSFloorCreator(Driveway2, Road, 428 - 130, -15 - 99, 428 - 115, -15 - 61, %FO%, false, false)
 
 #Sidewalks
-AddFloor Landscape, FrontSidewalk, Sidewalk, 0, -125, -125 - 15, 125, -125, 0, 0, 0, 0
-AddFloor Landscape, FrontSidewalk2, SidewalkDarker, 0, -125 - 15, -170, 125 + 15, -140, 0, 0, 0, 0
-AddFloor Landscape, LeftSidewalk, Sidewalk, 0, -125 - 15, -125 - 15, -125, 125 + 15, 0, 0, 0, 0
-AddFloor Landscape, RightSidewalk, Sidewalk, 0, 125, -125 - 15, 125 + 15, 125 + 15, 0, 0, 0, 0
-AddFloor Landscape, BackSidewalk, Sidewalk, 0, -125, 125, 125, 125 + 15, 0, 0, 0, 0
+Set FO = Floor(0).Base #Floor Offset
+LSFloorCreator(NorthPath, Sidewalk, -10, 125, 10, 235, %FO%, false, false)
+LSFloorCreator(SouthPath, Sidewalk, -25, -235, 25, -125, %FO%, false, false)
+LSFloorCreator(WestPath1, Sidewalk, -235, -25, -125, 0, %FO%, false, true)
+LSFloorCreator(WestPath2, Sidewalk, -235, 75, -125, 100, %FO%, false, true)
+LSFloorCreator(EastPath, Sidewalk, 125, -25, 235, 0, %FO%, false, true)
+
+##--------------------------------------------------------------------------------##
 
 #--- Functions, Group 1 ---#
 #Shaft function (Elevator shafts)

@@ -24,7 +24,7 @@
 <Globals>
 	Name = World Management Center - Parking Garage
 	Designer = Mn10
-	Location = Melvin City
+	Location = 1210 Finland Street, Tranquility City
 	Version = 1
 	CameraFloor = 0
 	CameraPosition = 48, -90
@@ -41,12 +41,13 @@
 
 		#Plants
 		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		#Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		#Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
-		Load data/Melvin/Roads/4lane-twoway1-90de.png, PGAccRoad, 0.020833, 0.05
+		#Load data/Melvin/Roads/4lane-twoway1-90de.png, PGAccRoad, 0.020833, 0.05
 
 		#Road markings
 		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
@@ -61,7 +62,8 @@
 	#Concrete
 	Load data/cutston.jpg, ExtFacade, 0.0625, 0.0625
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.0625, 0.0625 #EG881
-	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade_Stairs, 0.0625, 0.0625 #EG881 #Used for Stairwells 1-2
+	Load data/cutston.jpg, ExtFacade_Stairs, 0.0625, 0.0625 #Used for Stairwells 1-2
+	#Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade_Stairs, 0.0625, 0.0625 #EG881 #Used for Stairwells 1-2
 	Load data/stucco1.jpg, ExtFacade_Shaft, 0.1, 0.1 #EG881 #Used for Shaft 3
 
 	#Windows
@@ -283,7 +285,7 @@
 	Type = Basement
 	Height = 8.5
 	InterfloorHeight = 1.5
-	Altitude = -11.5
+	Altitude = -3.5
 <EndFloor>
 
 <Floor 0>
@@ -292,7 +294,7 @@
 	Type = Lobby
 	Height = 8.5
 	InterfloorHeight = 1.5
-	Altitude = -1.5
+	Altitude = 6.5
 <EndFloor>
 
 <Floors 1 to 8>
@@ -325,20 +327,24 @@
 Set 1 = 100 #Building Dimension X
 Set 2 = 140 #Building Dimension Z
 
-	#Downtown ground
-	AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
-	Cut Landscape, -%1% - 15 - 48, -1, -%2% - 15, %1% + 15, 1, %2% + 15, false, true
-
-	#Access road
+	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, AccessRoad, PGAccRoad, 0, -%1% - 15 - 48, -%2% - 15, -%1% - 15, 61, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, AccessRoad, Road, 0, -%1% - 15 - 48, 61, -%1% - 15, 99, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, SouthFloor1, Grass_Dark, 0, -%1% - 15, -%2% - 80, 12, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthFloor2, Sidewalk, 0, 12, -%2% - 80, 26.5, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthFloor3, Grass_Dark, 0, 26.5, -%2% - 80, %1% + 15, -%2%, Floor(0).Base, Floor(0).Base, 0, 0
 
-	#Sidewalk
-	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, NorthEndSidewalk, Sidewalk, 0, -%1% - 15 - 48, 99, -%1% - 15, %2% + 15, Floor(0).Base, Floor(0).Base, 0, 0	
-	AddFloor landscape, PerimeterSidewalk, Sidewalk, 0, -%1% - 15, -%2% - 15, %1% + 15, %2% + 15, Floor(0).Base, Floor(0).Base, 0, 0	
-	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
+	AddFloor landscape, WestFloor1, Grass_Dark, 0, -%1% - 15, -%2%, -%1%, -15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestFloor2, Sidewalk, 0, -%1% - 15, -15, -%1%, 15, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, WestFloor3, Grass_Dark, 0, -%1% - 15, 15, -%1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, EastFloor1, Grass_Dark, 0, %1%, -%2%, %1% + 15, -123, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastFloor2, Sidewalk, 0, %1%, -123, %1% + 15, -101, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastFloor3, Grass_Dark, 0, %1%, -101, %1% + 15, 101, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastFloor4, Sidewalk, 0, %1%, 101, %1% + 15, 123, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastFloor5, Grass_Dark, 0, %1%, 123, %1% + 15, %2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastFloor6, Sidewalk, 0, %1% + 15, -%2% - 80, %1% + 28, %2% + 110, Floor(0).Base, Floor(0).Base, 0, 0
+
+	AddFloor landscape, NorthFloor, Grass_Dark, 0, -%1% - 15, %2%, %1% + 15, %2% + 110, Floor(0).Base, Floor(0).Base, 0, 0
 
 	#Entrance/Exit Driveways
 	Cut Landscape, -%1% - 15, Floor(0).Base - 1, -99, -%1%, Floor(0).Base + 1, -61, false, true
@@ -348,7 +354,7 @@ Set 2 = 140 #Building Dimension Z
 	AddFloor landscape, DrivewayN, Road, 0, -%1% - 15, 61, -%1%, 99, Floor(0).Base, Floor(0).Base, 0, 0	
 
 #Landscape cut for elevator lobby
-Cut landscape, -107, -1, -15, -100, 1, 15, false, true
+Cut landscape, -107, 8 - 1, -15, -100, 8 + 1, 15, false, true
 
 ##--------------------------------------------------------------------------------##
 
@@ -745,7 +751,7 @@ ShowFullShaft 2 = true
 
 #Auxiliary elevators
 AddStdShaft(3, 2, 40, -140, 13.17, 4.17, -1, 10, GLEShaftWall2, 0.5, 0.33, 0, 5, %fullheight%)
-Cut landscape, 40 - 13.5, -1, -140 - 4.5, 40 + 13.5, 1, -140, false, true #Cut landscape for shaft
+Cut landscape, 40 - 13.5, 8 - 1, -140 - 4.5, 40 + 13.5, 8 + 1, -140, false, true #Cut landscape for shaft
 ShaftShowOutside 3 = 0 - 9
 ShowFullShaft 3 = true
 
@@ -1427,7 +1433,7 @@ CutStairwell 1, -4.5, -10.5, 4.5, 10.5, 0, 5
 ShowFullStairs 1 = always
 
 #Landscape cut for stairwell
-Cut landscape, 104.5 - 4.5, -1, -112 - 10.5, 104.5 + 4.5, 1, -112 + 10.5, false, true
+Cut landscape, 104.5 - 4.5, 8 - 1, -112 - 10.5, 104.5 + 4.5, 8 + 1, -112 + 10.5, false, true
 
 <Floors 0 to 9>
 	StairwellSets() #Determine stairs' size
@@ -1520,7 +1526,7 @@ CutStairwell 2, -4.5, -10.5, 4.5, 10.5, 0, 5
 ShowFullStairs 2 = always
 
 #Landscape cut for stairwell
-Cut landscape, 104.5 - 4.5, -1, 112 - 10.5, 104.5 + 4.5, 1, 112 + 10.5, false, true
+Cut landscape, 104.5 - 4.5, 8 - 1, 112 - 10.5, 104.5 + 4.5, 8 + 1, 112 + 10.5, false, true
 
 <Floors 0 to 9>
 	StairwellSets() #Determine stairs' size

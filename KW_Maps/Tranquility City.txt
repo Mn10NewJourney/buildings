@@ -24,7 +24,7 @@
 #3. After copying the above lines, remove all # in front of all lines except the ones saying "Coordinate Set" and "Tranquility City Landscape".
 #4. Move the landscape cutting code to after the above lines.
 #5. Before loading the building to see the appearance, the "MainX" and "MainZ" values MUST be changed to re-position the landscape.
-#(Unless the building is positioned at the center of Block D6.)
+#(Unless the building is positioned at the center of Block D6 in the main city area.)
 
 #Textures
 <Textures>
@@ -233,6 +233,11 @@ AddGround Ground, TC_Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 Cut Landscape, -2505 + %MainX%, -1, -3577 + %MainZ%, 2505 + %MainX%, 1, 3577 + %MainZ%, false, true #Original city area since late 2015.
 Cut Landscape, -2505 - 4000 + %MainX%, -1, -3577 + %MainZ%, -2505 + %MainX%, 1, 3577 + %MainZ%, false, true #West expansion on 24 September 2024.
 Cut Landscape, 2505 + %MainX%, -1, -3577 + %MainZ%, 2505 + 20000 + %MainX%, 1, 3577 + %MainZ%, false, true #East expansion on 27 September 2024.
+
+################################################################################
+
+#NORTH EXPANSION (10 DECEMBER 2024)
+<Include buildings/KW_Maps/Tranquility City - North Expansion.txt>
 
 ################################################################################
 #EAST EXPANSION (27 SEPTEMBER 2024)
@@ -746,7 +751,7 @@ FloorOrientation = top
 DrawWalls = true, true, false, false, false, false
 AddFloor landscape, SWGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, -3577 + %MainZ%, -2505 + %MainX%, -3577 + 485 + %MainZ%, 0, 0, 0, 0
 AddFloor landscape, MidWestGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, -3577 + 602 + %MainZ%, -2505 + %MainX%, 3577 - 602 + %MainZ%, 0, 0, 0, 0
-AddFloor landscape, NWGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, 3577 - 485 + %MainZ%, -2505 + %MainX%, 3577 + %MainZ%, 0, 0, 0, 0
+AddFloor landscape, NWGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, 3577 - 485 + %MainZ%, -2005 - 15 + %MainX%, 3577 + %MainZ%, 0, 0, 0, 0
 
 #Roads
 	#1. Denver Street (West of Northcity Street)
@@ -759,12 +764,20 @@ AddFloor landscape, NWGrass, TCity_Grass2, 0, -2505 - 4000 + %MainX%, 3577 - 485
 
     AddFloor landscape, (%StreetName6%)Street_SouthSW_(%BlockName%), TCity_Sidewalk, 0, -2505 - 4000 + %MainX%, 2740 + 250 - 15 + %MainZ%, -2505 + %MainX%, 2740 + 250 + %MainZ%, 0, 0, 0, 0
     AddFloor landscape, (%StreetName6%)Street_Island_(%BlockName%), TCity_Sidewalk, 0, -2505 - 4000 + %MainX%, 2740 + 250 + 36 + %MainZ%, -2505 + %MainX%, 2740 + 250 + 51 + %MainZ%, 0, 0, 0, 0
-    AddFloor landscape, (%StreetName6%)Street_NorthSW_(%BlockName%), TCity_Sidewalk, 0, -2505 - 4000 + %MainX%, 2740 + 250 + 87 + %MainZ%, -2505 + %MainX%, 2740 + 250 + 102 + %MainZ%, 0, 0, 0, 0
+    AddFloor landscape, (%StreetName6%)Street_NorthSW1_(%BlockName%), TCity_Sidewalk, 0, -2505 - 4000 + %MainX%, 2740 + 250 + 87 + %MainZ%, -2505 + %MainX%, 2740 + 250 + 102 + %MainZ%, 0, 0, 0, 0
+
+	FloorOrientation = top
+	DrawWalls = true, true, true, true, true, true
+    AddFloor landscape, (%StreetName6%)Street_NorthSW2_(%BlockName%), TCity_Sidewalk, 0.5, -2505 + %MainX%, 2740 + 250 + 87 + %MainZ%, -2005 - 15 + %MainX%, 2740 + 250 + 102 + %MainZ%, 0, 0, 0, 0
+  
+		#Extra sidewalk for Pleasure Street
+		AddFloor landscape, (%StreetName6%)Street_NorthSW2_(%BlockName%), TCity_Sidewalk, 0.5, -2005 - 15 + %MainX%, 2740 + 250 + 87 + %MainZ%, -2005 + %MainX%, 3577 + %MainZ%, 0, 0, 0, 0
 
 	#2. Moonlight Street (West of 1st Street)
 	Set StreetName6 = Moonlight
 	Set BlockName = FarWest
 	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
 	AddFloor landscape, (%StreetName6%)Street_South_(%BlockName%), TCity_3LaneX, 0, -2505 - 4000 + %MainX%, -2740 - 250 - 36 + %MainZ%, -2505 + %MainX%, -2740 - 250 + %MainZ%, 0, 0, 0, 0
 	AddFloor landscape, (%StreetName6%)Street_North_(%BlockName%), TCity_3LaneX, 0, -2505 - 4000 + %MainX%, -2740 - 250 - 51 - 36 + %MainZ%, -2505 + %MainX%, -2740 - 250 - 51 + %MainZ%, 0, 0, 0, 0
 	SetAutoSize = true, true
@@ -1022,11 +1035,11 @@ if[%InBCH% ! true] BCH()
     Set LengthZ2 = (%param5% / 2) - 15
 	Set GrassTex = %param6%
 
-    AddFloor landscape, %Name%_Center, %GrassTex%, 0, %PositionX% - %WidthX%, %PositionZ% - %LengthZ2%, %PositionX% + %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
+    AddFloor landscape, %Name%_Center, %GrassTex%, 0, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ2%, %PositionX% + %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
     FloorOrientation = top
     DrawWalls = true, true, true, true, true, true
-    AddFloor landscape, %Name%_Front, TCity_Sidewalk, 0.5, %PositionX% - %WidthX%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
-    #AddFloor landscape, %Name%_Left, TCity_Sidewalk, 0.5, %PositionX% - %WidthX%, %PositionZ% - %LengthZ%, %PositionX% - %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
+    AddFloor landscape, %Name%_Front, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+    AddFloor landscape, %Name%_Left, TCity_Sidewalk, 0.5, %PositionX% - %WidthX%, %PositionZ% - %LengthZ%, %PositionX% - %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
     AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
     #AddFloor landscape, %Name%_Back, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% + %LengthZ2%, %PositionX% + %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
 <EndFunction>
@@ -1123,7 +1136,8 @@ CityBlock(CityBlockG11, 1644 + %MainX%, -2740 + %MainZ%, 500, 500)
 CityBlockWest(CityBlockWest, -2255 + %MainX%, 0 + %MainZ%, 500, 5980, TCity_Grass2)
 CityBlockEast(CityBlockEast, 2255 + %MainX%, 293.5 + %MainZ%, 500, 6567, TCity_Grass2)
 CityBlockSouth(CityBlockSouth, 0 + %MainX%, -3327 + %MainZ%, 5010, 500, TCity_Grass2)
-CityBlockNorth(CityBlockNorth, -305.5 + %MainX%, 3327 + %MainZ%, 4399, 500, TCity_Grass2)
+#CityBlockNorth(CityBlockNorth, -305.5 + %MainX%, 3327 + %MainZ%, 4399, 500, TCity_Grass2)
+CityBlockNorth(CityBlockNorth, 0 + %MainX%, 3327 + %MainZ%, 3788, 500, TCity_Grass2)
 
 #North-South Streets Function
 <Function NorthSouthStreets>
@@ -1292,6 +1306,7 @@ NorthSouthPerimeterStreet(1894 + %MainX%, -1644 + %MainZ%, 9, Eastcity, 4th)
 NorthSouthPerimeterStreet(1894 + %MainX%, -2192 + %MainZ%, 10, Eastcity, 3rd)
 NorthSouthPerimeterStreet(1894 + %MainX%, -2740 + %MainZ%, 11, Eastcity, 2nd, 1st)
 
+NorthSouthPerimeterStreet(-1894 - 111 + %MainX%, 3327 + %MainZ%, North, Pleasure)
 NorthSouthPerimeterStreet(-1894 - 111 + %MainX%, 2740 + %MainZ%, 1, Pleasure, Northcity)
 NorthSouthPerimeterStreet(-1894 - 111 + %MainX%, 2192 + %MainZ%, 2, Pleasure, 11th)
 NorthSouthPerimeterStreet(-1894 - 111 + %MainX%, 1644 + %MainZ%, 3, Pleasure, 10th)
