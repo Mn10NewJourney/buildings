@@ -49,6 +49,7 @@
 
 		#Plants
 		Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
@@ -64,6 +65,12 @@
 
 		Load data/EG881Mod/WhiteIslandX.png, WhiteIslandX, 1, 1, false #EG881
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
+
+	#Mezzanine deck
+	Load data/marb047.jpg, MLDeck, 0.134, 0.134
+	Load data/stucco3.jpg, MLDeckUnderside, 0.2, 0.2
+	Load data/graniteTexture_0001b.jpg, MLDeckRailing, 0.25, 0.25 #EG881
+	Load data/rose_marble.jpg, MLElevShaftWall, 0.075, 0.075
 
 	#Concrete
 	Load data/EG881/brick021_red.jpg, ExtFacade, 0.125, 0.125, true #EG881
@@ -359,6 +366,28 @@
 
 ##--------------------------------------------------------------------------------##
 
+#Floor creation function
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+	
+	#Cut ground for floors
+	Cut Landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
 #Landscape
 	#Coordinate Set
 	Set MainX = 1644 - 95
@@ -379,10 +408,26 @@
 	AddFloor landscape, NorthParkingLot, Road, 0, -%1% - 10 - 140, %2% + 10, %1% + 20, %2% + 10 + 230, Floor(0).Base, Floor(0).Base, 0, 0	
 
 	#Sidewalk
-	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, PerimeterSidewalk, SidewalkDarker, 0, -%1% - 10, -%2% - 20, %1% + 20, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
-	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
+	#DrawWalls = false, true, false, false, false, false
+	#AddFloor landscape, PerimeterSidewalk, SidewalkDarker, 0, -%1% - 10, -%2% - 20, %1% + 20, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	#Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
 
+	#Perimeter floors
+	Set FO = Floor(0).Base #Floor Offset
+	LSFloorCreator(SouthFloor1, Sidewalk, -40, -%2% - 20, 40, -%2%, %FO%, false, true)
+	LSFloorCreator(SouthFloor2, Grass, -%1% - 10, -%2% - 20, -40, -%2%, %FO%, false, false)
+	LSFloorCreator(SouthFloor3, Grass, 40, -%2% - 20, %1% + 20, -%2%, %FO%, false, false)
+
+	LSFloorCreator(NorthFloor1, Sidewalk, -%1% - 10, %2%, 40 - 15, %2% + 10, %FO%, false, true)
+	#LSFloorCreator(NorthFloor2, Grass, -%1% - 10, %2%, -40, %2% + 10, %FO%, false, false)
+	LSFloorCreator(NorthFloor3, Sidewalk, 40 - 15, %2%, %1% + 20, %2% + 20, %FO%, false, true)
+
+	LSFloorCreator(EastFloor1, Sidewalk, %1%, -20, %1% + 20, 20, %FO%, false, true)
+	LSFloorCreator(EastFloor2, Grass, %1%, -%2%, %1% + 20, -20, %FO%, false, false)
+	LSFloorCreator(EastFloor3, Grass, %1%, 20, %1% + 20, %2%, %FO%, false, false)
+
+	LSFloorCreator(WestFloor1, Sidewalk, -%1% - 10, -20, -%1%, %2%, %FO%, false, false)
+	LSFloorCreator(WestFloor2, Grass, -%1% - 10, -%2%, -%1%, -20, %FO%, false, false)
 
 ###************###
 
@@ -399,6 +444,59 @@ AddFloor landscape, 2ndStreetDriveway, Road, 0, -205 - 15, -95, -205 + 15, -80, 
 	AddWall landscape, 2ndStreetDW_SWF1, Sidewalk, 0, -205 - 15, -95, -205 - 15, -80, 0.5, 0.5, -0.5, -0.5, 0, 0
 	DrawWalls = true, false, false, false, false, false
 	AddWall landscape, 2ndStreetDW_SWF2, Sidewalk, 0, -205 + 15, -95, -205 + 15, -80, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+
+####================================####
+
+#Mezzanine deck
+Set DeckBase = Floor(1).Base
+
+FloorOrientation = top
+DrawWalls = true, true, false, false, false, false
+TextureOverride MLDeckUnderside, MLDeck, Blank, Blank, Blank, Blank
+AddFloor landscape, MLDeck, MLDeck, 1.5, 40 - 15, %2%, 40 + 5, %2% + 20, %DeckBase%, %DeckBase%, 0, 0
+AddFloor landscape, MLDeck2, MLDeck, 1.5, 45, %2%, 45.66, %2% + 10, %DeckBase%, %DeckBase%, 0, 0 #Floor in front of shaft doors
+AddFloor landscape, MLDeck_StairsLanding, MLDeck, 1.5, 45 + 12, %2% + 12 + 0.25, 45 + 20, %2% + 20 - 0.25, %DeckBase% / 2, %DeckBase% / 2, 0, 0
+
+	####================================####
+
+	#Railings
+	Set FenceThickness = 0.25
+	DrawWalls = true, true, true, true, true, false
+
+	WallOrientation = left
+	AddWall landscape, MLDRail_Left, MLDeckRailing, %FenceThickness%, 40 - 15, %2%, 40 - 15, %2% + 20, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0
+	WallOrientation = right
+	#DrawWalls = true, true, true, true, true, false
+	AddWall landscape, MLDRail_Right, MLDeckRailing, %FenceThickness%, 40 + 5, %2% + 10, 40 + 5, %2% + 12, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0
+	#DrawWalls = true, true, true, true, true, true
+	AddWall landscape, MLDRail_Back, MLDeckRailing, %FenceThickness%, 40 - 15 + %FenceThickness%, %2% + 20, 40 + 5, %2% + 20, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, %DeckBase% - 1.5, 0, 0
+
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	AddWall landscape, MLDStairsRail_Back1, MLDeckRailing, %FenceThickness%, 45, %2% + 20, 45 + 12, %2% + 20, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, (%DeckBase% / 2) - 1.5, 0, 0
+	AddWall landscape, MLDStairsRail_Back2, MLDeckRailing, %FenceThickness%, 45 + 12, %2% + 20, 45 + 20, %2% + 20, 3.5 + 1.5, 3.5 + 1.5, (%DeckBase% / 2) - 1.5, (%DeckBase% / 2) - 1.5, 0, 0
+	AddWall landscape, MLDStairsRail_Back3, MLDeckRailing, %FenceThickness%, 45 + 20, %2% + 20, 45 + 32, %2% + 20, 3.5 + 1.5, 3.5 + 1.5, (%DeckBase% / 2) - 1.5, 0 - 1.5, 0, 0
+
+	WallOrientation = left
+	AddWall landscape, MLDStairsRail_Front1, MLDeckRailing, %FenceThickness%, 45, %2% + 12, 45 + 12, %2% + 12, 3.5 + 1.5, 3.5 + 1.5, %DeckBase% - 1.5, (%DeckBase% / 2) - 1.5, 0, 0
+	AddWall landscape, MLDStairsRail_Front2, MLDeckRailing, %FenceThickness%, 45 + 12, %2% + 12, 45 + 20, %2% + 12, 3.5 + 1.5, 3.5 + 1.5, (%DeckBase% / 2) - 1.5, (%DeckBase% / 2) - 1.5, 0, 0
+	AddWall landscape, MLDStairsRail_Front3, MLDeckRailing, %FenceThickness%, 45 + 20, %2% + 12, 45 + 32, %2% + 12, 3.5 + 1.5, 3.5 + 1.5, (%DeckBase% / 2) - 1.5, 0 - 1.5, 0, 0
+
+	####================================####
+
+	#Entrance stairs
+	AddFloorAutoArea 45, Floor(0).Base, %2% + 12, 45 + 32 + 10, Floor(1).Base + 7, %2% + 20 #Auto areas around stairs
+	OP_OrthoStair(landscape, MLDStairs_Lower, MLDeck, 72.25, 79.75, right, 45 + 32, 12, 1, 0.5, 0, 1.5)
+	OP_OrthoStair(landscape, MLDStairs_Upper, MLDeck, 72.25, 79.75, right, 45 + 12, 12, 1, 0.5, 0.5 * 12, 1.5)
+
+	####================================####
+
+	#Supports under elevated floor
+	CreateWallBox2 landscape, MLDSupport1/1, MLDeckRailing, 40 - 15 + 1.25, %2% + 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, MLDSupport1/2, MLDeckRailing, 45 - 1.25, %2% + 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, MLDSupport2/1, MLDeckRailing, 40 - 15 + 1.25, %2% + 20 - 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
+	CreateWallBox2 landscape, MLDSupport2/2, MLDeckRailing, 45 - 1.25, %2% + 20 - 1.25, 2, 2, Floor(0).Height, 0, 0, 0, false, true, false, false
 
 ##--------------------------------------------------------------------------------##
 
@@ -515,6 +613,9 @@ AddFloor landscape, 2ndStreetDriveway, Road, 0, -205 - 15, -95, -205 + 15, -80, 
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %6%, ExtFacade, %6%, %6%, %6%, %6%
 		AddWall BackPerimeter2, %6%, 0.5, 40, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, false, true, true, false, false
+		if[%floor% = 1] AddWall FrontWallCover, %6%, 0.5, 40 - 15 - 0.5, %2%, 40 - 15 + 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #--------------------
@@ -629,6 +730,25 @@ AddFloor landscape, 2ndStreetDriveway, Road, 0, -205 - 15, -95, -205 + 15, -80, 
 		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 		TextureOverride %DTex_Ext%_Key, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
 		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+<EndFloor>
+
+<Floor 1>
+	#Entrance doors
+		Set DTex = WHTEntDoorInt
+		Set DTex_Ext = WHTEntDoorExt
+		#Set DSTex = %DTex%Side
+		Set DSTex = WHTEntDoorSide
+
+		#3. North doors
+		#Access point N3
+		Set Door_MainX = 35
+		Set Door_MainZ = %2%
+		
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex_Ext%_Key, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex_Ext%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 <EndFloor>
 
 #--------------------
