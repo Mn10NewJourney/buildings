@@ -15,6 +15,9 @@
 <Include Shaft Wall Creator/Scripts/r1_script.txt>
 <Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
+#Include SROC (credit to EG881)
+<Include SROC/Scripts/r1_script.txt> #EG881
+
 #Buildings
 <Buildings>
 	#Disable landscape cutting
@@ -40,10 +43,15 @@
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
 	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
-	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+
+		#Walkways
+		Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+		Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDK, 0.03125, 0.03125
 
 		#Plants
 		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
 	#Concrete
 	Load data/EG881/cem_tr2b.jpg, Concrete1, 0.075225, 0.0625 #EG881
@@ -703,22 +711,104 @@ LSFloorCreator(Driveway2, Road, 428 - 130, -15 - 99, 428 - 115, -15 - 61, %FO%, 
 Set FO = Floor(0).Base #Floor Offset
 
 	#Sidewalks
-	LSFloorCreator(NorthPath, Sidewalk, -10, 125, 10, 235 - 36, %FO%, false, false)
-	LSFloorCreator(SouthPath, Sidewalk, -25, -235, 25, -125, %FO%, false, false)
+	LSFloorCreator(NorthPath1, Sidewalk, -12.5, 125, 12.5, 235 - 36, %FO%, false, false)
+	LSFloorCreator(NorthPath2, Sidewalk, 112.5 - 12.5, 125, 112.5 + 12.5, 235 - 36, %FO%, false, false)		
+
+	LSFloorCreator(SouthPathA, Sidewalk, -25, -235, -12.5, -125, %FO%, false, false)
+	LSFloorCreator(SouthPathB, SidewalkDK, -12.5, -235, 12.5, -125, %FO%, false, false)
+	LSFloorCreator(SouthPathC, Sidewalk, 12.5, -235, 25, -125, %FO%, false, false)
+
 	LSFloorCreator(WestPath1, Sidewalk, -235, -25, -125, 0, %FO%, false, true)
-	LSFloorCreator(WestPath2, Sidewalk, -235, 75, -125, 100, %FO%, false, true)
+	LSFloorCreator(WestPath2, Sidewalk, -180 + 7.5, 75, -125, 100, %FO%, false, true)
 	LSFloorCreator(EastPath, Sidewalk, 125, -25, 235 - 36, 0, %FO%, false, true)
 
 	LSFloorCreator(EastSidewalkA, Sidewalk, 235 - 36, -125, 235 - 30, 235 - 30, %FO%, false, false)
 	LSFloorCreator(EastSidewalkB, Sidewalk, 235 - 30, -125, 235, -115, %FO%, false, true)
 	LSFloorCreator(NorthSidewalkA, Sidewalk, -125, 235 - 36, 235 - 36, 235 - 30, %FO%, false, true)
 	LSFloorCreator(NorthSidewalkB, Sidewalk, -125, 235 - 30, -115, 235, %FO%, false, false)
+	
+		#Extra paths
+		LSFloorCreator(NWLinkPath1, Sidewalk, -235, 165 - 7.5, -12.5, 165 + 7.5, %FO%, false, true)
+		LSFloorCreator(NWLinkPath2, Sidewalk, 12.5, 165 - 7.5, 112.5 - 12.5, 165 + 7.5, %FO%, false, true)
+		LSFloorCreator(NELinkPath, Sidewalk, 112.5 + 12.5, 165 - 7.5, 235, 165 + 7.5, %FO%, false, true)
+		LSFloorCreator(EastLinkPath1, Sidewalk, 165 - 7.5, 0, 165 + 7.5, 165 - 10, %FO%, false, false)
+		LSFloorCreator(EastLinkPath2, Sidewalk, 165 - 7.5, -235, 165 + 7.5, -25, %FO%, false, false)
+
+		LSFloorCreator(WestLinkPath1, Sidewalk, -180 - 7.5, 165 + 7.5, -180 + 7.5, 235, %FO%, false, false)
+		LSFloorCreator(WestLinkPath2, Sidewalk, -180 - 7.5, 0, -180 + 7.5, 165 - 7.5, %FO%, false, false)
+		#LSFloorCreator(WestLinkPath3, Sidewalk, -180 - 7.5, 0, -180 + 7.5, 75, %FO%, false, false)
+		LSFloorCreator(WestLinkPath4, Sidewalk, -180 - 7.5, -235, -180 + 7.5, -25, %FO%, false, false)
+
+		LSFloorCreator(SouthLinkPath1, Sidewalk, -235, -180 - 10, -180 - 7.5, -180 + 10, %FO%, false, true)
+		LSFloorCreator(SouthLinkPath2, Sidewalk, -180 + 7.5, -180 - 10, -25, -180 + 10, %FO%, false, true)
+		LSFloorCreator(SouthLinkPath3, Sidewalk, 25, -180 - 10, 165 - 7.5, -180 + 10, %FO%, false, true)
+		LSFloorCreator(SouthLinkPath4, Sidewalk, 165 + 7.5, -180 - 10, 235, -180 + 10, %FO%, false, true)
 
 	#Roads
 	LSFloorCreator(EastRoad1, Road, 235 - 30, -115, 235 + 15, -115 + 30, %FO%, false, false)
 	LSFloorCreator(EastRoad2, Road, 235 - 30, -115 + 30, 235, 235, %FO%, false, false)
 	LSFloorCreator(NorthRoad1, Road, -115 + 30, 235 - 30, 235, 235, %FO%, false, false)
 	LSFloorCreator(NorthRoad2, Road, -115, 235 - 30, -115 + 30, 235 + 15, %FO%, false, false)
+
+#Trees
+	#North trees
+	AddTree(Tree1, -112.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 15, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 30, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 45, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 60, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 75, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 90, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 135 - 2.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 150 - 2.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 165 - 2.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 180 - 2.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 195 - 2.5, 140, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 210 - 2.5, 140, 13.5, 12, Floor(0).Base)
+
+	#South trees
+	AddTree(Tree1, -112.5, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 15, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 30, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 45, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 60, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 75, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 150, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 165, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 180, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 195, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 210, -145, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -112.5 + 225, -145, 13.5, 12, Floor(0).Base)
+
+	#East trees
+	AddTree(Tree1, 140, 112.5, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 15, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 30, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 45, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 60, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 75, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 90, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 105, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 150, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 165, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 180, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 195, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 210, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, 140, 112.5 - 225, 13.5, 12, Floor(0).Base)
+
+	#West trees
+	AddTree(Tree1, -145, 112.5, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 45, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 60, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 75, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 90, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 105, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 150, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 165, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 180, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 195, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 210, 13.5, 12, Floor(0).Base)
+	AddTree(Tree1, -145, 112.5 - 225, 13.5, 12, Floor(0).Base)
 
 ##--------------------------------------------------------------------------------##
 
@@ -1294,6 +1384,20 @@ Set FO = Floor(0).Base #Floor Offset
 	AddExternalDoor , , false, Door88_Black, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
 
 	Set MainX = 6.25
+	WallOrientation = right
+	TextureOverride Door88_Black, Door88_Black_Outside, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+	AddExternalDoor , , false, Door88_Black, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride Door88_Black, Door88_Black_Outside, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+	AddExternalDoor , , false, Door88_Black, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+
+	Set MainX = 112.5 - 6.25
+	WallOrientation = right
+	TextureOverride Door88_Black, Door88_Black_Outside, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+	AddExternalDoor , , false, Door88_Black, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride Door88_Black, Door88_Black_Outside, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
+	AddExternalDoor , , false, Door88_Black, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
+
+	Set MainX = 112.5 + 6.25
 	WallOrientation = right
 	TextureOverride Door88_Black, Door88_Black_Outside, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side, Door88_Black_Side
 	AddExternalDoor , , false, Door88_Black, 0.2, 7, 75, %MainX% - 1.75, %2%, 3.5, 8, %interfloorheight%, 0, 0
