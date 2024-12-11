@@ -13,7 +13,7 @@
 #Include my other scripts
 <Include CustomObjects2018/Scripts/r1_script.txt>
 <Include Shaft Wall Creator/Scripts/r1_script.txt>
-<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
 #Include SROC (credit to EG881)
 <Include SROC/Scripts/r1_script.txt> #EG881
@@ -423,24 +423,34 @@
 		AddTextRange 100, 113, ButtonLit, ButtonLit%number%, nimbus_sans_bold_condensed.ttf, 45, %number%, 0, 0, 112, 128, center, center, 255, 255, 255, false
 
 	#Lanterns
-	Load data/Melvin/MT Lanterns/LanternUnlit.gif, LanternUp, 1, 1, false
-	Load data/Melvin/MT Lanterns/LanternBlue.gif, LanternUpLit, 1, 1, false
-	Load data/Melvin/MT Lanterns/LanternUnlit.gif, LanternDown, 1, -1, false
-	Load data/Melvin/MT Lanterns/LanternRed.gif, LanternDownLit, 1, -1, false
+	#Load data/Melvin/MT Lanterns/LanternUnlit.gif, LanternUp, 1, 1, false
+	#Load data/Melvin/MT Lanterns/LanternBlue.gif, LanternUpLit, 1, 1, false
+	#Load data/Melvin/MT Lanterns/LanternUnlit.gif, LanternDown, 1, -1, false
+	#Load data/Melvin/MT Lanterns/LanternRed.gif, LanternDownLit, 1, -1, false
 
-	#Floor indicators (Inside)
+		#Unlit lantern for all floors
+		Load data/darrow_single.jpg, LanternUnlit, 1, 1, false
+		
+		#Lobby indicators for passenger elevators (Used on all floors for service cars)
+		Load data/darrow_double_otis_upgreen2.jpg, MainLanternUpLit, 1, 1, false
+		Load data/darrow_double_otis_downred2.jpg, MainLanternDownLit, 1, 1, false
+		Load data/darrow_double_otis_upgreen.jpg, LobbyLanternUpLit, 1, 1, false
+		Load data/darrow_double_otis_downred.jpg, LobbyLanternDownLit, 1, 1, false
+		Load data/darrow_double_otis_upgreen.jpg, LowestLanternUpLit, 1, 1, false
+		Load data/darrow_single.jpg, LowestLanternDownLit, 1, 1, false
+		Load data/darrow_single.jpg, HighestLanternUpLit, 1, 1, false
+		Load data/darrow_double_otis_downred.jpg, HighestLanternDownLit, 1, 1, false
+
+		#Indicators on other floors for passenger elevators
+		Load data/darrow_single_otis_upgreen.jpg, OtherLanternUpLit, 1, 1, false
+		Load data/darrow_single_otis_downred.jpg, OtherLanternDownLit, 1, 1, false
+
+	#Floor indicators
 	Load data/black.jpg, Ind_ButtonBack, 1, 1, false
 	AddText Ind_ButtonBack, Ind_ButtonEZ, acme_led.ttf, 64, _EZ, -1, -1, -1, -1, center, center, 0, 255, 0, false
 	AddTextRange 1, 9, Ind_ButtonBack, Ind_Button%number%, acme_led.ttf, 64, __%number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
 	AddTextRange 10, 99, Ind_ButtonBack, Ind_Button%number%, acme_led.ttf, 64, _%number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
 	AddTextRange 100, 113, Ind_ButtonBack, Ind_Button%number%, acme_led.ttf, 64, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
-
-	#Floor indicators (Outside, for conventional elevators only)
-	Load data/ACME Floor Indicator/Resized/ACME Floor Indicator 2.jpg, IndBack, 1, 1, false
-	AddText IndBack, OInd_ButtonEZ, acme_led.ttf, 240, _EZ, -1, -1, -1, -1, center, center, 0, 255, 0, false
-	AddTextRange 1, 9, IndBack, OInd_Button%number%, acme_led.ttf, 240, __%number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
-	AddTextRange 10, 99, IndBack, OInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
-	AddTextRange 100, 113, IndBack, OInd_Button%number%, acme_led.ttf, 240, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
 
 	########################################
 
@@ -516,7 +526,7 @@
 	Load data/signs_mod/Sign_Restroom_3.png, Sign_RestroomM_Gray, 1, 1, false
 
 	#Proximity scanners
-	Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
+	#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
 	Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
 	Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
 <EndTextures>
@@ -6184,6 +6194,12 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 <Function Z2ExpressElevLby>
 	ElevHallTex() #Set shaft door and panel textures
 
+		#Prefixes for Long Otis External Indicators
+		Set IndPrefix = MainLantern
+		if[%floor% = 0] Set IndPrefix = LobbyLantern
+		#if[%floor% = 0] Set IndPrefix = LowestLantern
+		if[%floor% = 43] Set IndPrefix = HighestLantern
+
 	#Shaft doors
 	ShaftDoors_Right(18, %DoorTexture%, %AutoFiller%, 3)
 	ShaftDoors_Left(21, %DoorTexture%, %AutoFiller%, 3)
@@ -6228,21 +6244,31 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, OInd_Button)
-	if[%floor% = 0] ACMELobbyInds(right, 18, -7.5 + %ExtraLateralOffset%, -60, %Offset%, 0, 43)
-	if[%floor% = 0] ACMELobbyInds(right, 19, -7.5 + %ExtraLateralOffset%, -50, %Offset%, 0, 43)
-	if[%floor% = 0] ACMELobbyInds(right, 20, -7.5 + %ExtraLateralOffset%, -40, %Offset%, 0, 43)
-	if[%floor% = 0] ACMELobbyInds(left, 21, 7.5 - %ExtraLateralOffset%, -60, %Offset%, 0, 43)
-	if[%floor% = 0] ACMELobbyInds(left, 22, 7.5 - %ExtraLateralOffset%, -50, %Offset%, 0, 43)
-	if[%floor% = 0] ACMELobbyInds(left, 23, 7.5 - %ExtraLateralOffset%, -40, %Offset%, 0, 43)
+	Set Offset = 7.5
+	if[%floor% = 0] Set Offset = 7.75
 
-	if[%floor% ! 0] ACMELobbyLanterns(right, 18, -7.5 + %ExtraLateralOffset%, -60, %Offset%, 0, 43)
-	if[%floor% ! 0] ACMELobbyLanterns(right, 19, -7.5 + %ExtraLateralOffset%, -50, %Offset%, 0, 43)
-	if[%floor% ! 0] ACMELobbyLanterns(right, 20, -7.5 + %ExtraLateralOffset%, -40, %Offset%, 0, 43)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 21, 7.5 - %ExtraLateralOffset%, -60, %Offset%, 0, 43)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 22, 7.5 - %ExtraLateralOffset%, -50, %Offset%, 0, 43)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 23, 7.5 - %ExtraLateralOffset%, -40, %Offset%, 0, 43)
+	if[%floor% = 0] AddDirectionalIndicator 18, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 19, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 20, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 21, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 22, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 23, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+
+	if[%floor% ! 0] AddDirectionalIndicator 18, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 19, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 20, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 21, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 22, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 23, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+
+		#Floor Indicator
+		if[%floor% = 0] AddFloorIndicator 18, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 19, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 20, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 21, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 22, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 23, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+
 <EndFunction>
 
 #Zone 2 Locals
@@ -6478,6 +6504,12 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 <Function Z3ExpressElevLby>
 	ElevHallTex() #Set shaft door and panel textures
 
+		#Prefixes for Long Otis External Indicators
+		Set IndPrefix = MainLantern
+		if[%floor% = 0] Set IndPrefix = LobbyLantern
+		#if[%floor% = 0] Set IndPrefix = LowestLantern
+		if[%floor% = 85] Set IndPrefix = HighestLantern
+
 	#Shaft doors
 	ShaftDoors_Right(42, %DoorTexture%, %AutoFiller%, 3)
 	ShaftDoors_Left(45, %DoorTexture%, %AutoFiller%, 2)
@@ -6519,19 +6551,27 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, OInd_Button)
-	if[%floor% = 0] ACMELobbyInds(right, 42, -7.5 + %ExtraLateralOffset%, 40, %Offset%, 0, 85)
-	if[%floor% = 0] ACMELobbyInds(right, 43, -7.5 + %ExtraLateralOffset%, 50, %Offset%, 0, 85)
-	if[%floor% = 0] ACMELobbyInds(right, 44, -7.5 + %ExtraLateralOffset%, 60, %Offset%, 0, 85)
-	if[%floor% = 0] ACMELobbyInds(left, 45, 7.5 - %ExtraLateralOffset%, 50, %Offset%, 0, 85)
-	if[%floor% = 0] ACMELobbyInds(left, 46, 7.5 - %ExtraLateralOffset%, 60, %Offset%, 0, 85)
+	Set Offset = 7.5
+	if[%floor% = 0] Set Offset = 7.75
 
-	if[%floor% ! 0] ACMELobbyLanterns(right, 42, -7.5 + %ExtraLateralOffset%, 40, %Offset%, 0, 85)
-	if[%floor% ! 0] ACMELobbyLanterns(right, 43, -7.5 + %ExtraLateralOffset%, 50, %Offset%, 0, 85)
-	if[%floor% ! 0] ACMELobbyLanterns(right, 44, -7.5 + %ExtraLateralOffset%, 60, %Offset%, 0, 85)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 45, 7.5 - %ExtraLateralOffset%, 50, %Offset%, 0, 85)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 46, 7.5 - %ExtraLateralOffset%, 60, %Offset%, 0, 85)
+	if[%floor% = 0] AddDirectionalIndicator 42, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 43, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 44, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 45, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 46, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+
+	if[%floor% ! 0] AddDirectionalIndicator 42, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 43, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 44, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, 4.285 + 0.001 + %ExtraLateralOffset%, 0, %Offset%, right, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 45, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 46, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+
+		#Floor Indicator
+		if[%floor% = 0] AddFloorIndicator 42, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 43, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 44, true, Ind_Button, right, 4.285 + 0.012 + %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 45, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 46, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
 <EndFunction>
 
 #Zone 3 Locals
@@ -6693,6 +6733,12 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 <Function ODExpressElevLby>
 	ElevHallTex() #Set shaft door and panel textures
 
+	#Prefixes for Long Otis External Indicators
+	Set IndPrefix = MainLantern
+	if[%floor% = 0] Set IndPrefix = LobbyLantern
+	#if[%floor% = 0] Set IndPrefix = LowestLantern
+	if[%floor% = 110] Set IndPrefix = HighestLantern
+
 	#Shaft doors
 	ShaftDoors_Left(59, %ODDoorTexture%, %AutoFiller%, 2)
 
@@ -6725,12 +6771,17 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 		#if[%floor% = 0] AddWall E59-60HallSign, ElevHallSign, 0, -27.5 - 0.001, 55 - 0.375, -27.5 - 0.001, 55 + 0.375, 1, 1, 2.4, 2.4, 0, 0, false
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %LPanelTexture%, OInd_Button)
-	if[%floor% = 0] ACMELobbyInds(left, 59, -27.5 - %ExtraLateralOffset%, 50, %Offset%, 0, 110)
-	if[%floor% = 0] ACMELobbyInds(left, 60, -27.5 - %ExtraLateralOffset%, 60, %Offset%, 0, 110)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 59, -27.5 - %ExtraLateralOffset%, 50, %Offset%, 0, 110)
-	if[%floor% ! 0] ACMELobbyLanterns(left, 60, -27.5 - %ExtraLateralOffset%, 60, %Offset%, 0, 110)
+	Set Offset = 7.5
+	if[%floor% = 0] Set Offset = 7.75
+
+	if[%floor% = 0] AddDirectionalIndicator 59, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+	if[%floor% = 0] AddDirectionalIndicator 60, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 59, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+	if[%floor% ! 0] AddDirectionalIndicator 60, true, false, true, false, %LPanelTexture%, LanternUnlit, OtherLanternUpLit, LanternUnlit, OtherLanternDownLit, -4.285 - 0.001 - %ExtraLateralOffset%, 0, %Offset%, left, 0.8, 0.7, false, 0, 0
+
+		#Floor Indicator
+		if[%floor% = 0] AddFloorIndicator 59, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
+		if[%floor% = 0] AddFloorIndicator 60, true, Ind_Button, left, -4.285 - 0.012 - %ExtraLateralOffset%, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
 <EndFunction>
 
 #--- Elevator hall station creations ---#
@@ -6828,8 +6879,33 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 	Set SLPanelTexture = ElevExtPanels
 <EndFunction>
 
+<Function E61_LanternPrefix>
+	#Prefixes for Long Otis External Indicators
+	Set IndPrefix = MainLantern
+	if[%floor% = 0] Set IndPrefix = LobbyLantern
+	#if[%floor% = 0] Set IndPrefix = LowestLantern
+	if[%floor% = 39] Set IndPrefix = HighestLantern
+<EndFunction>
+
+<Function E62_LanternPrefix>
+	#Prefixes for Long Otis External Indicators
+	Set IndPrefix = MainLantern
+	if[%floor% = 0] Set IndPrefix = LobbyLantern
+	#if[%floor% = 0] Set IndPrefix = LowestLantern
+	if[%floor% = 82] Set IndPrefix = HighestLantern
+<EndFunction>
+
+<Function E63_LanternPrefix>
+	#Prefixes for Long Otis External Indicators
+	Set IndPrefix = MainLantern
+	if[%floor% = 0] Set IndPrefix = LobbyLantern
+	#if[%floor% = 0] Set IndPrefix = LowestLantern
+	if[%floor% = 113] Set IndPrefix = HighestLantern
+<EndFunction>
+
 <Function Zone1ServiceLobby>
 	SE_HallTx() #Set shaft door and panel textures
+	E61_LanternPrefix()
 
 	WallOrientation = left
 	AddShaftDoorComponent 61, 1, Left, %SDoorTexture%, %SDoorTexture%, 0.2, left, 0.6, 3.425, -2, 3.425, 0, 7, 0, 0, 0, 0, 0
@@ -6865,13 +6941,16 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 		#if[%floor% = 0 | %floor% = 39] AddWall E61HallSign, ElevHallSign, 0, 15 + 0.001, %CBPosition% - 0.375, 15 + 0.001, %CBPosition% + 0.375, 1, 1, 2.4, 2.4, 0, 0, false
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %SLPanelTexture%, OInd_Button)
-	ACMELobbyInds(right, 61, 15, 10, %Offset%, 0, 39)
+	Set Offset = 7.5
+	AddDirectionalIndicator 61, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+
+		#Floor Indicator
+		AddFloorIndicator 61, true, Ind_Button, right, 4.285 + 0.012, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
 <EndFunction>
 
 <Function Zone2ServiceLobby>
 	SE_HallTx() #Set shaft door and panel textures
+	E62_LanternPrefix()
 
 	WallOrientation = left
 	AddShaftDoorComponent 62, 1, Left, %SDoorTexture%, %SDoorTexture%, 0.2, left, 0.6, 3.425, -2, 3.425, 0, 7, 0, 0, 0, 0, 0
@@ -6907,13 +6986,16 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 		#if[%floor% = 0 | %floor% = 39 | %floor% = 82] AddWall E62HallSign, ElevHallSign, 0, 17.5 + 0.001, %CBPosition% - 0.375, 17.5 + 0.001, %CBPosition% + 0.375, 1, 1, 2.4, 2.4, 0, 0, false
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %SLPanelTexture%, OInd_Button)
-	ACMELobbyInds(right, 62, 17.5, 40, %Offset%, 0, 82)
+	Set Offset = 7.5
+	AddDirectionalIndicator 62, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, 4.285 + 0.001, 0, %Offset%, right, 5.5, 0.7, false, 0, 0
+
+		#Floor Indicator
+		AddFloorIndicator 62, true, Ind_Button, right, 4.285 + 0.012, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
 <EndFunction>
 
 <Function Zone3ServiceLobby>
 	SE_HallTx() #Set shaft door and panel textures
+	E63_LanternPrefix()
 
 	WallOrientation = right
 	AddShaftDoorComponent 63, 1, Left, %SDoorTexture%, %SDoorTexture%, 0.2, right, 0.6, -3.425, 0, -3.425, 2, 7, 0, 0, 0, 0, 0
@@ -6949,9 +7031,11 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 		#if[%floor% = 0 | %floor% = 82] AddWall E62HallSign, ElevHallSign, 0, 27 - 0.001, %CBPosition% - 0.375, 27 - 0.001, %CBPosition% + 0.375, 1, 1, 2.4, 2.4, 0, 0, false
 
 	#Indicator sets
-	Set Offset = 8
-	ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %SLPanelTexture%, OInd_Button)
-	ACMELobbyInds(left, 63, 27, 40, %Offset%, 0, 113)
+	Set Offset = 7.5
+	AddDirectionalIndicator 63, true, false, true, false, %LPanelTexture%, LanternUnlit, %IndPrefix%UpLit, LanternUnlit, %IndPrefix%DownLit, -4.285 - 0.001, 0, %Offset%, left, 5.5, 0.7, false, 0, 0
+
+		#Floor Indicator
+		AddFloorIndicator 63, true, Ind_Button, left, -4.285 - 0.012, 0, 0.45, 0.45, %Offset% + 0.35 - 0.225
 <EndFunction>
 
 <Floor 0>
