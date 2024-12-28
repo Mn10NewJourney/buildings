@@ -82,9 +82,14 @@
 	Load data/EG881/ceilingtile2.jpg, LobbyCeiling, 0.125, 0.125 #EG881
 
 		#Shaft doors
-		Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors, 1, 1, false
-		Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false
-		Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
+		Load data/Melvin/SRH/st_doors_blackedge.jpg, LobbyShaftDoors, 1, 1, false
+		Load data/Melvin/SRH/st_doors_blackedge.jpg, LobbyShaftDoors2, -1, 1, false
+		Load data/Melvin/st_panel.jpg, LobbyShaftDoors_Trim, 1, 1, false
+		Load data/EG881/lopacwall2stripe.jpg, LobbyShaftDoors_Deco, 0.2, 0.4, true #EG881
+
+		#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors, 1, 1, false
+		#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false
+		#Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
 
 	#Hotel levels (2-6)
 	Load data/Carpet0006_S.jpg, HotelFloor, 0.2, 0.2 #Hallways
@@ -316,7 +321,8 @@ Set 2 = 60 #Building Dimension Z
 
 	Set FO = Floor(0).Base #Floor Offset
 	LSFloorCreator(NorthFloor, Grass, -%1% - 10, %2%, %1% + 20, %2% + 5, %FO%, false, false)
-	LSFloorCreator(SouthFloor, Sidewalk, -%1% - 10, -%2% - 10, %1% + 20, -%2%, %FO%, false, true)
+	LSFloorCreator(SouthFloor1, Grass_Dark, -%1% - 10, -%2% - 10, -5, -%2%, %FO%, false, false)
+	LSFloorCreator(SouthFloor2, Sidewalk, -5, -%2% - 10, %1% + 20, -%2%, %FO%, false, true)
 	LSFloorCreator(EastFloor, Grass_Dark, %1%, -%2%, %1% + 20, %2%, %FO%, false, false)
 	LSFloorCreator(EastFloor_Main, Sidewalk, %1%, -10, %1% + 20, 10, %FO%, false, false)
 	LSFloorCreator(WestFloor, Grass_Dark, -%1% - 10, -%2%, -%1%, %2%, %FO%, false, false)
@@ -402,7 +408,7 @@ Set 2 = 60 #Building Dimension Z
 		#TextureOverride ExtFacade, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall FrontWallB, ExtFacade, 0.5, -15, -%2%, -5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		TextureOverride ExtFacade, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
+		TextureOverride ExtFacade, %5%%CS%, %5%%HHS%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall FrontWallC, ExtFacade, 0.5, 5, -%2%, 15, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, true, false, false, false
@@ -584,8 +590,9 @@ Set 2 = 60 #Building Dimension Z
 
 	WallOrientation = Right
 	AddWall RightRail, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall BackRail_01, ExtFacade, 0.5, -%1% + 0.5, %2%, 5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall BackRail_02, ExtFacade, 0.5, 15, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall BackRail_01, ExtFacade, 0.5, -%1% + 0.5, %2%, -15, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall BackRail_02, ExtFacade, 0.5, -5, %2%, 5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall BackRail_03, ExtFacade, 0.5, 15, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
 #########################################################################
@@ -628,6 +635,80 @@ Set 2 = 60 #Building Dimension Z
 CreateStairwell 1, 10, 47.5, 0, 6
 CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
 ShowFullStairs 1 = always
+
+<Floors 0 to 6>
+	StairwellSets() #Determine stairs' size
+
+	Set 21 = 10 #Center X
+	Set 22 = 47.5 #Center Z
+	Set 23 = 4.5 #Cut X
+	Set 24 = 12 #Cut Z
+	Set 25 = 1 #Stairwell Number
+	Set 26 = 0.5 #Riser Size
+
+	#Walls
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddStairsWall %25%, Stair%25%Front, StairsWall, 0.5, -%23%, -%24%, %23%, -%24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Left, StairsWall, 0.5, -%23%, -%24%, -%23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddStairsWall %25%, Stair%25%Right, StairsWall, 0.5, %23%, -%24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	AddStairsWall %25%, Stair%25%Back, StairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	WallOrientation = center
+	DrawWalls = true, true, true, true, false, true
+	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, %24% - 5 - %NumSteps%, 0, %24% - 5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+	#Railing
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, true
+	if[%floor% = 6] AddStairsWall %25%, Stair%25%Rail, StairsWall2, 0.5, %23% - 4, %24% - 5 - %NumSteps%, %23%, %24% - 5 - %NumSteps%, 0.5 + 3.5, 0.5 + 3.5, -0.5, -0.5, 0, 0
+
+	#Ceiling
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 6] AddStairsFloor %25%, Stairs%25%Ceiling, StairsCeiling, 0.5, -%23%, -%24%, %23%, %24%, %height%, %height%, false, false, 0, 0
+
+	#Stairs
+	OP_Draw(true, true, true, true, true, true)
+	if[%floor% < 6] OP_OrthoStair(%25%, ST%25%_LowerStairs, Stairs, %23% - 4, %23%, front, %24% - 5 - %NumSteps%, %NumSteps%, 1, %26%, 0, 0.5)
+	if[%floor% < 6] OP_OrthoStair(%25%, ST%25%_UpperStairs, Stairs, -%23%, -%23% + 4, back, %24% - 5, %NumSteps%, 1, %26%, %26% * %NumSteps%, 0.5)
+
+	#Landings
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% > 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps%, 0, 0, false, false, 0, 0
+	if[%floor% < 6] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5,-%23%, %24% - 5, %23%, %24%, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
+
+	#Floor Signs
+	Set Suffix = %floorid%
+	Set SignCenterPoint = 1
+
+	DrawWalls = false, true, false, false, false, false
+	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 1, -%24% + 0.001, %SignCenterPoint% + 1, -%24% + 0.001, 2, 2, 4 - 0.5, 4 - 0.5, 0, 0
+
+	#Doors
+	WallOrientation = right
+	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 2, 75, -%23%, -%24% + 2, 3, 7, 0, 0, 0
+	WallOrientation = left
+	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, -%23% - 0.5, -%24% + 2, 3, 7, 0, 0, 0
+
+		#Manual door fillers (Roof level)
+		WallOrientation = right
+		if[%floor% = 6] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
+
+	#Exit Signs
+	Set SignTex = ExitSign
+	if[%floor% < 0] Set SignTex = ExitSignUp
+
+	if[%floor% ! 0 & %floor% ! 6] AddBoxSign(Stair%25%_Hallway, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, true, true, true, 0, %22% - %24% + 2, 1.8, 0.9, %height% - 0.9, false)
+	if[%floor% ! 0] AddBoxSign(Stair%25%_MainExits, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% - %23% - 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SLExit, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+<EndFloors>
 
 #South Stairwell
 CreateStairwell 2, -10, -47.5, 0, 5
@@ -692,11 +773,7 @@ CutStairwell 2, -4.5, -12, 4.5, 12, 0, 5
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, %23%, %24% - 2, 3, 7, 0, 0, 0
 	WallOrientation = right
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 2, 75, %23% + 0.5, %24% - 2, 3, 7, 0, 0, 0
-
-		#Filler walls
-		#WallOrientation = right
-		#AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% + 0.5, %22% + %24% - 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
+	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 3, 75, %23% + 0.5, %24% - 2, 3, 7, 0, 0, 0
 
 	#Exit Signs
 	Set SignTex = ExitSign
@@ -901,11 +978,13 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 <Function E1-2FillerWalls>
 	Set ElevNo = %param1%
 	Set CenterZ = %param2%
-	
+	Set Suffix = Wall
+	if[%floor% > 0] Set Suffix = LobbyWall
+
 	#1. Outer trims
 	#Main filler walls
 	WallOrientation = right
-	AddFillerWalls %5%LobbyWall, 0.66 - 0.15, %Shaft1CX% + 5, %CenterZ%, 4, 7, 0, false, 0, 0, false
+	AddFillerWalls %5%%Suffix%, 0.66 - 0.15, %Shaft1CX% + 5, %CenterZ%, 4, 7, 0, false, 0, 0, false
 
 	#2. Inner trims
 	WallOrientation = right
@@ -939,13 +1018,16 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	Set Shaft1CX = -10 #1st shaft for elevator bank
 	Set Shaft1CZ = 50
 
-		#1st floor
-		if[%floor% = 0] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
-		if[%floor% = 0] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
+		#1st floor only
+		if[%floor% = 0] CreateWallBox2 floor, E1Deco, %DoorTexture%_Deco, %Shaft1CX% + 5.025, %Shaft1CZ% - 5, 0.05, 3.75, 0.9, 7.5 + 0.25 - 0.45, 0, 0, false, true, true, true 
+		if[%floor% = 0] CreateWallBox2 floor, E2Deco, %DoorTexture%_Deco, %Shaft1CX% + 5.025, %Shaft1CZ% + 5, 0.05, 3.75, 0.9, 7.5 + 0.25 - 0.45, 0, 0, false, true, true, true 
 
-		#2nd-6th floors
-		if[%floor% ! 0] E1-2FillerWalls(1, %Shaft1CZ% - 5)
-		if[%floor% ! 0] E1-2FillerWalls(2, %Shaft1CZ% + 5)
+		#if[%floor% = 0] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
+		#if[%floor% = 0] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
+
+		#All floors
+		E1-2FillerWalls(1, %Shaft1CZ% - 5)
+		E1-2FillerWalls(2, %Shaft1CZ% + 5)
 
 	#****************************************#
 
@@ -965,6 +1047,7 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 
 	#Indicator sets
 	Set Offset = 7.5
+	#if[%floor% = 0] Set Offset = 7.75
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button)
