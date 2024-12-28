@@ -107,9 +107,15 @@
 		Load data/EG881/cem_tr3.jpg, Sentai_Roof2, 0.075225, 0.0625 #EG881 #10th floor
 
 		#Amanda Plaza
-		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3c.jpg, Amanda_MainWindows, true, 0.05, 1
-		Load data/EG881/brick021_red.jpg, Amanda_Facade, 0.125, 0.125, true #EG881
-		Load data/EG881/cem_tr2b.jpg, Amanda_Roof, 0.075225, 0.0625, true #EG881
+			#Plaza
+			LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3c.jpg, Amanda_MainWindows, true, 0.05, 1
+			Load data/EG881/brick021_red.jpg, Amanda_Facade, 0.125, 0.125, true #EG881
+			Load data/EG881/cem_tr2b.jpg, Amanda_Roof, 0.075225, 0.0625, true #EG881
+
+			#Grand Mountain Hotel
+			LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, GMH_Windows, true, 0.05, 1 #EG881
+			Load data/granite_0008b.jpg, GMH_ExtFacade, 0.075, 0.075, true
+			Load data/EG881/cem_tr2b.jpg, GMH_Roof, 0.075225, 0.0625, true #EG881
 
 		#Eastcity Medical Center
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, EMC_Windows, true, 0.05, 1 #EG881
@@ -1438,33 +1444,67 @@ if[%InEMC% ! true] EMC()
 	Set 3 = 120 #Building Dimension X
 	Set 4 = 60 #Building Dimension Z
 
-	#Amanda Plaza's land area
+	#1. Amanda Plaza's land area
 	Cut Landscape, %0% - %3% - 10 - 140, -1, %1% - %4% - 20, %0% + %3% + 20, 1, %1% + %4% + 10 + 230, false, true
 
 	DrawWalls = true, true, false, false, false, false
 	AddFloor landscape, AmandaPlaza_Ground, TCity_Road, 0, %0% - %3% - 10 - 140, %1% - %4% - 20, %0% + %3% + 20, %1% + %4% + 10 + 230, 0, 0, 0, 0
 
-	#Building area
+	###************###
+
+	#2. Plaza
 	SetAutoSize = true, false
 	DrawWalls = true, true, false, false, false, false
 	AddWall buildings, AmandaPlaza_Front1, Amanda_Facade, 0, %0% - %3%, %1% - %4%, %0% - 40, %1% - %4%, 52, 52, 0, 0, 0, 0
 	AddWall buildings, AmandaPlaza_Front2, Amanda_MainWindows, 0, %0% - 40, %1% - %4%, %0% + 40, %1% - %4%, 52, 52, 0, 0, 0, 4
 	AddWall buildings, AmandaPlaza_Front3, Amanda_Facade, 0, %0% + 40, %1% - %4%, %0% + %3%, %1% - %4%, 52, 52, 0, 0, 0, 0
-
+	
 	AddWall buildings, AmandaPlaza_Left1, Amanda_Facade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - 20, 52, 52, 0, 0, 0, 0
 	AddWall buildings, AmandaPlaza_Left2, Amanda_MainWindows, 0, %0% - %3%, %1% - 20, %0% - %3%, %1% + 20, 52, 52, 0, 0, 0, 4
 	AddWall buildings, AmandaPlaza_Left3, Amanda_Facade, 0, %0% - %3%, %1% + 20, %0% - %3%, %1% + %4%, 52, 52, 0, 0, 0, 0
-
+	
 	AddWall buildings, AmandaPlaza_Right1, Amanda_Facade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - 20, 52, 52, 0, 0, 0, 0
 	AddWall buildings, AmandaPlaza_Right2, Amanda_MainWindows, 0, %0% + %3%, %1% - 20, %0% + %3%, %1% + 20, 52, 52, 0, 0, 0, 4
 	AddWall buildings, AmandaPlaza_Right3, Amanda_Facade, 0, %0% + %3%, %1% + 20, %0% + %3%, %1% + %4%, 52, 52, 0, 0, 0, 0
-
+	
 	AddWall buildings, AmandaPlaza_Back1, Amanda_Facade, 0, %0% - %3%, %1% + %4%, %0% - 40, %1% + %4%, 52, 52, 0, 0, 0, 0
 	AddWall buildings, AmandaPlaza_Back2, Amanda_MainWindows, 0, %0% - 40, %1% + %4%, %0% + 40, %1% + %4%, 52, 52, 0, 0, 0, 4
 	AddWall buildings, AmandaPlaza_Back3, Amanda_Facade, 0, %0% + 40, %1% + %4%, %0% + %3%, %1% + %4%, 52, 52, 0, 0, 0, 0
 	SetAutoSize = true, true
-
+	
 	AddFloor buildings, AmandaPlaza_Roof, Amanda_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 52, 52, 0, 0
+	
+	###************###
+
+	#3. Grand Mountain Hotel
+	Set 0 = -1644 + 95 + 80 + %MainX% #Building Center X
+	Set 1 = -2192 - 155 + 240 + %MainZ% #Building Center Z
+	Set 3 = 40 #Building Dimension X
+	Set 4 = 60 #Building Dimension Z
+	
+	SetAutoSize = true, false
+	DrawWalls = true, true, false, false, false, false
+	
+		#1st-6th floors
+		AddWall buildings, GMH_Front1, GMH_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3% + 5, %1% - %4%, 66, 66, 0, 0, 0, 0
+		AddWall buildings, GMH_Front2, GMH_Windows, 0, %0% - %3% + 5, %1% - %4%, %0% + %3% - 5, %1% - %4%, 66, 66, 0, 0, 0, 6
+		AddWall buildings, GMH_Front3, GMH_ExtFacade, 0, %0% + %3% - 5, %1% - %4%, %0% + %3%, %1% - %4%, 66, 66, 0, 0, 0, 0
+
+		AddWall buildings, GMH_Left1, GMH_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - %4% + 5, 66, 66, 0, 0, 0, 0
+		AddWall buildings, GMH_Left2, GMH_Windows, 0, %0% - %3%, %1% - %4% + 5, %0% - %3%, %1% + %4% - 5, 66, 66, 0, 0, 0, 6
+		AddWall buildings, GMH_Left3, GMH_ExtFacade, 0, %0% - %3%, %1% + %4% - 5, %0% - %3%, %1% + %4%, 66, 66, 0, 0, 0, 0
+
+		AddWall buildings, GMH_Right1, GMH_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - %4% + 5, 66, 66, 0, 0, 0, 0
+		AddWall buildings, GMH_Right2, GMH_Windows, 0, %0% + %3%, %1% - %4% + 5, %0% + %3%, %1% + %4% - 5, 66, 66, 0, 0, 0, 6
+		AddWall buildings, GMH_Right3, GMH_ExtFacade, 0, %0% + %3%, %1% + %4% - 5, %0% + %3%, %1% + %4%, 66, 66, 0, 0, 0, 0
+
+		AddWall buildings, GMH_Back1, GMH_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% - %3% + 5, %1% + %4%, 66, 66, 0, 0, 0, 0
+		AddWall buildings, GMH_Back2, GMH_Windows, 0, %0% - %3% + 5, %1% + %4%, %0% + %3% - 5, %1% + %4%, 66, 66, 0, 0, 0, 6
+		AddWall buildings, GMH_Back3, GMH_ExtFacade, 0, %0% + %3% - 5, %1% + %4%, %0% + %3%, %1% + %4%, 66, 66, 0, 0, 0, 0
+	SetAutoSize = true, true
+
+		#Roof
+		AddFloor buildings, GMH_Roof, GMH_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 66, 66, 0, 0
 <EndFunction>
 
 if[%InAmandaPlaza% ! true] AmandaPlaza()
