@@ -59,7 +59,7 @@
 
 	#External facade
 	Load data/granite_0008b.jpg, ExtFacade, 0.075, 0.075, true
-	#Load data/graniteTexture_0005b.jpg, ExtFacade, 0.0625, 0.0625, true
+	Load data/graniteTexture_0005b.jpg, ExtFacade2, 0.0625, 0.0625, true
 	#Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.0625, 0.0625, true #EG881
 	Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 
@@ -374,10 +374,14 @@ Set 2 = 60 #Building Dimension Z
 	Set WinPrefix = Main
 
 	SetAutoSize = true, false
-	AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + 5, -%2%, %1% - 5, -%2%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(FrontWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + 5, -%2%, -15, -%2%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+	if[%floor% > 0] AddCustomWindows(FrontWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -5, -%2%, 5, -%2%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(FrontWin3, %WinPrefix%Windows, %WinPrefix%WindowsInt, 15, -%2%, %1% - 5, -%2%, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 	AddCustomWindows(LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + 5, -%1%, %2% - 5, %height%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 	AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% + 5, %1%, %2% - 5, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
-	AddCustomWindows(BackWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% + 5, %2%, %1% - 5, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% + 5, %2%, -15, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin2, %WinPrefix%WindowsInt, %WinPrefix%Windows, -5, %2%, 5, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(BackWin3, %WinPrefix%WindowsInt, %WinPrefix%Windows, 15, %2%, %1% - 5, %2%, %height%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 	SetAutoSize = true, true
 
 	#Perimeter walls
@@ -392,9 +396,16 @@ Set 2 = 60 #Building Dimension Z
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride ExtFacade, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall FrontWallA, ExtFacade, 0.5, -%1%, -%2%, -%1% + 5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ExtFacade2, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
+		AddWall FrontWallB, ExtFacade, 0.5, -15, -%2%, -5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade2, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
+		AddWall FrontWallC, ExtFacade, 0.5, 5, -%2%, 15, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride ExtFacade, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
-		AddWall FrontWallB, ExtFacade, 0.5, %1% - 5, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWallD, ExtFacade, 0.5, %1% - 5, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Left walls
 		WallOrientation = left
@@ -419,9 +430,16 @@ Set 2 = 60 #Building Dimension Z
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride %5%%CS%, ExtFacade, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall BackWallA, ExtFacade, 0.5, -%1%, %2%, -%1% + 5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride %5%%CS%, ExtFacade2, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
+		AddWall BackWallB, ExtFacade, 0.5, -15, %2%, -5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5%%CS%, ExtFacade2, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
+		AddWall BackWallC, ExtFacade, 0.5, 5, %2%, 15, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%%CS%, ExtFacade, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
-		AddWall BackWallB, ExtFacade, 0.5, %1% - 5, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWallD, ExtFacade, 0.5, %1% - 5, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #Cut windows for "Lobby windows"
@@ -430,7 +448,7 @@ Set 2 = 60 #Building Dimension Z
 	Cut external, %1% - 0.1, Floor(0).Base, -10, %1% + 0.1, Floor(1).Altitude, 10, true, false #East
 
 	#South side
-	Cut external, -10, Floor(0).Base, -%2% - 0.1, 10, Floor(1).Altitude, -%2% + 0.1, true, false
+	#Cut external, -5, Floor(0).Base, -%2% - 0.1, 5, Floor(1).Altitude, -%2% + 0.1, true, false
 
 <Floor 0>
 	TexPrefix() #Set wall textures
@@ -440,7 +458,7 @@ Set 2 = 60 #Building Dimension Z
 	Set winheight = %height%
 
 		SetAutoSize = true, false
-		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -10, -%2%, 10, -%2%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
+		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -5, -%2%, 5, -%2%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(LeftLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -10, -%1%, 10, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(RightLobbyWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -10, %1%, 10, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		SetAutoSize = true, true
@@ -473,16 +491,7 @@ Set 2 = 60 #Building Dimension Z
 		####################################
 
 		#2. South doors
-		Set Door_MainX = -5
-		Set Door_MainZ = -%2%
-
-		WallOrientation = left
-		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
-		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
-
-		Set Door_MainX = 5
+		Set Door_MainX = 0
 		Set Door_MainZ = -%2%
 
 		WallOrientation = left
@@ -519,7 +528,7 @@ Set 2 = 60 #Building Dimension Z
 <Floors 0 to 5>
 	#Set Values
 	TexPrefix() #Set wall texture
-	Set DistanceX = 40 #Distance between supports X
+	Set DistanceX = 15 #Distance between supports X
 	Set DistanceZ = 40 #Distance between supports Z
 	Set SupportHeight = %fullheight%
 	Set SupportOffset = -%interfloorheight%
@@ -531,13 +540,13 @@ Set 2 = 60 #Building Dimension Z
 	CreateWallBox2 External, SupportSE, %5%Wall, %1% - 1.25, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#North Supports
-	CreateWallBox2 External, SupportN1, %5%Wall, -%1% + (%DistanceX% * 1), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 External, SupportN2, %5%Wall, -%1% + (%DistanceX% * 2), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportN1, %5%Wall, 0 - (%DistanceX% * 1), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportN2, %5%Wall, 0 + (%DistanceX% * 1), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	#CreateWallBox2 External, SupportN3, %5%Wall, -%1% + (%DistanceX% * 3), %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#South Supports
-	CreateWallBox2 External, SupportS1, %5%Wall, -%1% + (%DistanceX% * 1), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 External, SupportS2, %5%Wall, -%1% + (%DistanceX% * 2), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS1, %5%Wall, 0 - (%DistanceX% * 1), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportS2, %5%Wall, 0 + (%DistanceX% * 1), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	#CreateWallBox2 External, SupportS3, %5%Wall, -%1% + (%DistanceX% * 3), -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#West Supports
