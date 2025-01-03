@@ -105,9 +105,10 @@
 	Load data/EG881/ceilingtile2b.jpg, 2FCeiling, 0.125, 0.125 #EG881
 
 		#Shaft doors
-		Load data/EG881/elevdoorright_black.jpg, 2FShaftDoors, -1, 1, false #EG881
-		Load data/EG881/elevdoorleft_black.jpg, 2FShaftDoors2, -1, 1, false #EG881
-		Load data/EG881/elevdoortrim_black.jpg, 2FShaftDoors_Trim, 1, 1, false #EG881
+		Load data/EG881/elevdoorright_tan.jpg, 2FShaftDoors, -1, 1, false #EG881
+		Load data/EG881/elevdoorleft_tan.jpg, 2FShaftDoors2, -1, 1, false #EG881
+		Load data/EG881/elevdoortrim_tan.jpg, 2FShaftDoors_Trim, 1, 1, false #EG881
+		Load data/MT/treatment02.jpg, 2FShaftDoors_Deco, 0.08, 0.08, true
 
 	#2. 3rd-5th floors
 	Load data/Carpet0006_S.jpg, HotelFloor, 0.2, 0.2 #Hallways
@@ -217,7 +218,7 @@
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, HotelElevCeilingDL, 1, 1, false #DL = Downlight
 
 		Load data/marble4.jpg, HotelElevWall, 0.2, 0.2
-		Load data/checker06.jpg, HotelElevWallPanel, 0.5, 0.5
+		Load data/marb148.jpg, HotelElevWallPanel, 0.2, 0.2
 
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HotelElevPanelMain, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, HotelElevPanelTop, 1, 0.0667, false
@@ -752,8 +753,8 @@ Set 2 = 60 #Building Dimension Z
 
 #Set door textures for restrooms
 <Function RR_DTex>
-	#Set DTex = Door8
-	Set DTex = Door6
+	Set DTex = Door8
+	#Set DTex = Door6
 	Set DSTex = %DTex%Side
 <EndFunction>
 
@@ -1259,8 +1260,8 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Deco dimensions
 		Set SideDecoH = 7.2
 		Set TopDecoH = 0.2
-		if[%floor% = 0] Set SideDecoH = %height%
-		if[%floor% = 0] Set TopDecoH = %height% - 7
+		if[%floor% = 5] Set SideDecoH = %height%
+		if[%floor% = 5] Set TopDecoH = %height% - 7
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -1274,6 +1275,8 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
 		#if[%floor% = 0] Set ExtraLateralOffset = 0.05
+		if[%floor% = 1] Set ExtraLateralOffset = 0.01
+		if[%floor% = 5] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
 <Function E1-2FillerWalls>
@@ -1326,6 +1329,10 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 		#All other floors
 		if[%floor% ! 1 & %floor% ! 5] E1-2FillerWalls(1, %Shaft1CZ% - 5)
 		if[%floor% ! 1 & %floor% ! 5] E1-2FillerWalls(2, %Shaft1CZ% + 5)
+
+		#Extra decos on certain floors
+		if[%floor% = 1] AddDecoObject(Elev1_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
+		if[%floor% = 1] AddDecoObject(Elev2_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
 
 	#****************************************#
 
