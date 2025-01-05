@@ -544,15 +544,10 @@
 		#4th floor
 		AddText Sign_LB_Long, Sign_OR, nimbus_sans_bold_condensed.ttf, 95, Operating Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#5th floor - These names are just placeholders.
-		AddText Sign_LB_Long, Sign_Room501, nimbus_sans_bold.ttf, 90, Clinic 5/1, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Room502A, nimbus_sans_bold.ttf, 90, Clinic 5/2, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Room503, nimbus_sans_bold.ttf, 90, Clinic 5/3, -1, -1, -1, -1, center, center, 0, 0, 0, false
-
-		#6th floor
-		AddText Sign_LB_Long, Sign_Room601, nimbus_sans_bold_condensed.ttf, 90, Medical Records, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Room602A, nimbus_sans_bold_condensed.ttf, 90, Stem Cell Bank, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Room603, nimbus_sans_bold_condensed.ttf, 90, Stem Cell Lab, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#5th floor
+		AddText Sign_LB_Long, Sign_Room501, nimbus_sans_bold_condensed.ttf, 90, Medical Records, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Sign_LB_Long, Sign_Room502A, nimbus_sans_bold_condensed.ttf, 90, Stem Cell Lab, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		Load data/Melvin/DRH/NewDir_202501/SignGI.png, Sign_Room503, 1, 1, false
 
 		#7th floor
 		AddText Sign_LB_Long, Sign_Room701_Temp, nimbus_sans_bold.ttf, 75, Rehabilitation, 0, 30, 1024, 128, center, center, 0, 0, 0, false
@@ -2431,7 +2426,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	AddBoxSign(OR_SdEnt_Sign, Sign_OR, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 2.5, 19.5, 6, 1.5, 5.5, false)
 <EndFloor>
 
-<Floors 4 to 9>
+<Function 5F-10FInterior>
 	WallTex() #Set wall texture
 	DrawWalls = true, true, false, false, false, false
 	WallOrientation = left
@@ -2456,9 +2451,9 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	if[%floor% = 6] AddWall CenterHallwayWall2, %6%, 1, 0, 50, 0, %2%, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
 	TextureOverride %6Int%, %6%, Blank, Blank, Blank, Blank
-	if[%floor% > 5] AddWall WestHallwayWall3, %6%, 0.5, -%1%, 40, -20, 40, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < 6] AddWall WestHallwayWall3-1, %6%, 0.5, -%1%, 40, -122, 40, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < 6] AddWall WestHallwayWall3-2, %6%, 0.5, -110, 40, -20, 40, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% > 4] AddWall WestHallwayWall3, %6%, 0.5, -%1%, 40, -20, 40, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < 5] AddWall WestHallwayWall3-1, %6%, 0.5, -%1%, 40, -122, 40, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < 5] AddWall WestHallwayWall3-2, %6%, 0.5, -110, 40, -20, 40, %height%, %height%, 0, 0, 0, 0, false
 
 	WallOrientation = left
 	AddWall EastHallwayWall1-1A, %6%, 0.5, 20, -6, 20, -1.25, %height%, %height%, 0, 0, 0, 0, false
@@ -2475,9 +2470,39 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = right
 	TextureOverride %6Int%, %6%, Blank, Blank, Blank, Blank
 	AddWall EastHallwayWall3, %6%, 0.5, 20, 40, %1%, 40, %height%, %height%, 0, 0, 0, 0, false
+<EndFunction>
+
+<Floors 4 to 9>
+	if[%floor% ! 5] 5F-10FInterior()
 <EndFloors>
 
-<Floors 4 to 6>
+#5th floor - Stem Cell & Gastrointestinal Centers
+<Floor 4>
+	#Doors
+	AddDoors-LowerLevels(Room, Door88, BlackTrim)
+
+	#Signs
+	WallOrientation = left
+	DrawWalls = false, true, true, true, true, true
+	AddBoxSign(Room%floorid%01_Sign, Sign_LB_Long, Sign_Room%floorid%01, Sign_LB_Long, 0.1, false, false, false, -20, 20, 3, 0.75, 7.5, false)
+	WallOrientation = right
+	DrawWalls = true, false, true, true, true, true
+	AddBoxSign(Room%floorid%02A_Sign2, Sign_Room%floorid%02A, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, -105, 50, 3, 0.75, 7.5, false)
+	AddBoxSign(Room%floorid%02A_Sign1, Sign_Room%floorid%02A, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, -15, 50, 3, 0.75, 7.5, false)
+
+	Set Suffix = 02A
+	if[%floor% = 6] Set Suffix = 02B
+	AddBoxSign(Room%floorid%02B_Sign2, Sign_Room%floorid%%Suffix%, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 105, 50, 3, 0.75, 7.5, false)
+	#AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, false, false, 20, 20, 3, 0.75, 7.5, false)
+
+		#Sign for "Gastrointestinal Center"
+		Set SignHeight = 3
+		Set SignOffset = 4.75
+		AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, 20 - 0.05, 20 - 8, 6, %SignHeight%, %SignOffset%, false)
+<EndFloor>
+
+#7th floor - Lab & Rehab
+<Floor 6>
 	#Doors
 	AddDoors-LowerLevels(Room, Door88, BlackTrim)
 
@@ -3386,7 +3411,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 	#External shaft walls
 	#Freight elevators
-	if[%floor% < 6] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -116, 39 - 5, 6, 6, 6, %height%, 0, true, true, true, true, false, false, false)
+	if[%floor% < 5] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -116, 39 - 5, 6, 6, 6, %height%, 0, true, true, true, true, false, false, false)
 	CreateShaftWall(%6%, %6%, %6Int%, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, 7, %height% + %EH%, 0, true, false, true, false, false, false, false)
 
 	#Patient transport elevators
@@ -3623,11 +3648,11 @@ CreateShaft(5, 25, -40, 4.67, 9.67, -1, 28, %interfloorheight%)
 <EndFloor>
 #--------------------
 #Lower Freight Elevator
-CreateShaft(6, -116, 39 - 5, 5.67, 5.67, -2, 5, %interfloorheight%)
+CreateShaft(6, -116, 39 - 5, 5.67, 5.67, -2, 4, %interfloorheight%)
 
 #Elevator machine room doors
-<Floor 5>
-	Set Texture = ServiceDoor3
+<Floor 4>
+	Set Texture = ServiceDoor2
 	WallOrientation = right
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 6, 75, -116 + 1.5, 45 - 5, 3, 7, 0, 0, 0
@@ -4983,7 +5008,7 @@ ElevCeilingLight
 	Speed = 4
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -1 - 3
+	ServicedFloors = -1 - 2
 	AssignedShaft = 6
 	CreateElevator false, -116, 39 - 5, 0
 <EndElevator>
@@ -4991,16 +5016,15 @@ ElevCeilingLight
 <Function BtnPanelE11>
 	Set PanelNumber = %param1%
 	Set PanelNumber2 = %PanelNumber% + 1
-	AddButton %PanelNumber2%, , RTButton4, RTButtonLit4, 1, 1, 3, 1, 1
-	AddButton %PanelNumber2%, , RTButton3, RTButtonLit3, 2, 1, 2, 1, 1
-	AddButton %PanelNumber2%, , RTButton2, RTButtonLit2, 3, 1, 1, 1, 1
-	AddButton %PanelNumber2%, , RTButton1, RTButtonLit1, 4, 1, 0, 1, 1
-	AddButton %PanelNumber2%, , RTButtonB, RTButtonLitB, 5, 1, -1, 1, 1
+	AddButton %PanelNumber2%, , RTButton3, RTButtonLit3, 1, 1, 2, 1, 1
+	AddButton %PanelNumber2%, , RTButton2, RTButtonLit2, 2, 1, 1, 1, 1
+	AddButton %PanelNumber2%, , RTButton1, RTButtonLit1, 3, 1, 0, 1, 1
+	AddButton %PanelNumber2%, , RTButtonB, RTButtonLitB, 4, 1, -1, 1, 1
 
-	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 7, 1, open, 1, 1
-	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 7, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 8, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 8, 2, alarm, 1, 1
+	AddButton %PanelNumber%, , RTButtonOpen, RTButtonOpen, 6, 1, open, 1, 1
+	AddButton %PanelNumber%, , RTButtonClose, RTButtonClose, 6, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 7, 1, 1, 1, 0, 0, 1, run, stop, RTButtonStop, RTButtonStop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , RTButtonAlarm, RTButtonAlarm, 7, 2, alarm, 1, 1
 <EndFunction>
 
 <Elevator 11>
@@ -5047,8 +5071,8 @@ ElevCeilingLight
 	#Button panels & floor indicators
 	#Buttons
 	Set PanelCenter = 2.9
-	CreatePanel Blank, 8, 2, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
-	CreatePanel Blank, 8, 1, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0 #Floor buttons
+	CreatePanel Blank, 7, 2, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0
+	CreatePanel Blank, 7, 1, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.26, 0.13, 0.1, 0.15, 3.65, 0, 0 #Floor buttons
 	BtnPanelE11(1)
 
 	#Indicator
@@ -5073,7 +5097,7 @@ ElevCeilingLight
 	#AddRails ElevRail, ElevRailSide, -3.5 - 0.8, 0, true, 1 + 0.06, 0.1
 <EndElevator>
 
-<Floors -1 to 3>
+<Floors -1 to 2>
 	ElevHallTex() #Enable or disable auto fillers
 
 	#Shaft Doors
@@ -5141,7 +5165,7 @@ ElevCeilingLight
 		ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button) #Reset values for freight elevator
 
 		#Indicator creation
-		ACMELobbyInds(back, 11, -116, 40, %IndOffset%, -1, 3)
+		ACMELobbyInds(back, 11, -116, 40, %IndOffset%, -1, 2)
 
 	########################################
 
