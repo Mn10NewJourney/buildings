@@ -1166,13 +1166,7 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	Set DirTex = MainDir
 
 	DrawWalls = true, false, false, false, false, false
-	AddWall SF_MainDirA, %DirTex%, 0, 0 - (%DirWidth% / 2), -50 - 0.001, 0 + (%DirWidth% / 2), -50 - 0.001, %DirHeight%, %DirHeight%, 3.5, 3.5, 0, 0, false
-
-	Set DirHeight = 6
-	Set DirWidth = %DirHeight% * 1.5
-
-	DrawWalls = false, true, false, false, false, false
-	AddWall SF_MainDirB, %DirTex%, 0, 4 - (%DirWidth% / 2), -20 + 0.001, 4 + (%DirWidth% / 2), -20 + 0.001, %DirHeight%, %DirHeight%, 4.25, 4.25, 0, 0, false
+	AddWall SF_MainDir, %DirTex%, 0, 20 - 0.001, -20 - (%DirWidth% / 2), 20 - 0.001, -20 + (%DirWidth% / 2), %DirHeight%, %DirHeight%, 2.5, 2.5, 0, 0, false
 <EndFloor>
 #--------------------
 #Entrance doors
@@ -2245,12 +2239,15 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	AddDoors-LowerLevels(Clinic, ClinicDoor, BlackTrim)
 
 	#Clinic Signs
+	Set EXP = 0 #EXP = EXtra Position
+	if[%floor% = 2] Set EXP = 16
+
 	WallOrientation = left
 	DrawWalls = false, true, true, true, true, true
 	AddBoxSign(Clinic%floorid%01_Sign, Sign_LB_Long, Sign_Clinic%floorid%01, Sign_LB_Long, 0.1, false, false, false, -29.5, 28, 6, 1.5, 5.5 + %interfloorheight%, true)
 	WallOrientation = right
 	DrawWalls = true, false, true, true, true, true
-	AddBoxSign(Clinic%floorid%02A_Sign, Sign_Clinic%floorid%02A, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, -28, 55, 6, 1.5, 5.5 + %interfloorheight%, true)
+	AddBoxSign(Clinic%floorid%02A_Sign, Sign_Clinic%floorid%02A, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, -28 + %EXP%, 55, 6, 1.5, 5.5 + %interfloorheight%, true)
 	if[%floor% ! 2] AddBoxSign(Clinic%floorid%02B_Sign, Sign_Clinic%floorid%02B, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 28, 55, 6, 1.5, 5.5 + %interfloorheight%, true)
 	AddBoxSign(Clinic%floorid%03_Sign, Sign_Clinic%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, false, false, 29.5, 28, 6, 1.5, 5.5 + %interfloorheight%, true)
 <EndFloors>
