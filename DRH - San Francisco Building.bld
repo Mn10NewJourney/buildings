@@ -3312,6 +3312,12 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		#Door fillers
 		AddFillerWalls %6%, 0.5, %DoorPositionX%, 66, 6, 7, 0, true, 0, 0, false
 
+	#Windows around doors
+	Set NamePrefix = East
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
+
 		#Sign above doors
 		Set Offset = 7.2
 		if[%floor% = 1 | %floor% = 2] Set Offset = 7
@@ -3319,12 +3325,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		WallOrientation = right
 		DrawWalls = true, false, true, true, true, true
 		if[%floor% = 1 | %floor% = 2 | %floor% = 5] AddBoxSign(WestSEL_Sign, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, true, %DoorPositionX%, 66, 3, 0.75, %Offset%, false)
-
-	#Windows around doors
-	Set NamePrefix = East
-	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
 <EndFunction>
 
 <Floors 1 to 2>
