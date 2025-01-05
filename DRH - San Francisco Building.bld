@@ -2569,7 +2569,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 			Set Door_MainX = 45
 			Set Door_MainZ = 15
 	
-			WallOrientation = left
+			WallOrientation = right
 			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D3, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D4, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
 			AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
@@ -2583,7 +2583,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 			WallOrientation = left
 			AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-			AddFillerWalls %6%, 1, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+			AddFillerWalls ConnectionWall, 1, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 
 			AddBoxSign(ICU-CCULink_SignWest, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% - 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
 			AddBoxSign(ICU-CCULink_SignEast, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% + 1 + 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
@@ -2591,8 +2591,8 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Signs at Entrances from Service Elevators
 	Set SignTex = ICUAuthSign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ICUWestServiceSign, %SignTex%, 0, -120 + 5 - 3, 66.5 + 0.001, -120 + 5 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
-	AddWall ICUEastServiceSign, %SignTex%, 0, 120 + 5 - 3, 66.5 + 0.001, 120 + 5 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
+	AddWall ICUWestServiceSign, %SignTex%, 0, -120 + 7 - 3, 66.5 + 0.001, -120 + 7 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
+	AddWall ICUEastServiceSign, %SignTex%, 0, 120 + 7 - 3, 66.5 + 0.001, 120 + 7 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
 <EndFloor>
 
 #7th floor - Lab & Rehab
@@ -3568,7 +3568,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	if[%floor% = 3] Set SignPositionX = 10
 	Set SignPositionZ = 50
 	if[%floor% = -1 | %floor% > 3] Set SignPositionZ = 45
-	if[%floor% ! 0] AddBoxSign(CenterHallway_Exit, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, false, true, true, %SignPositionX%, %SignPositionZ%, 1.8, 0.9, %fullheight% - 0.9 + %ESO%, true)
+	if[%floor% ! 0 & %floor% ! 5] AddBoxSign(CenterHallway_Exit, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, false, true, true, %SignPositionX%, %SignPositionZ%, 1.8, 0.9, %fullheight% - 0.9 + %ESO%, true)
 <EndFloors>
 
 #External Shaft Walls - Roof Elevator
