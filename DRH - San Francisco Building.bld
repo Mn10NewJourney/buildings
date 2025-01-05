@@ -1,14 +1,6 @@
 #Denver Remston Hospital - San Francisco Building
 #Copyright (c) 2020-Present - Mn10
-
 #Originally started on: ~12 April - 5 May 2020
-#Updated 27 October 2024:
-#1. Added a sign above Elevator 11's shaft doors to remind its serviced floors.
-#2. Increased the 1st floor's height to 22 ft. and 2nd floor's interfloor height to 2 ft. (24 ft. total height).
-#3. Added more stairs and escalator steps according to the height changes.
-#4. Because of the above height changes, the skybridge is now accessed on the 2nd floor
-### instead of the 3rd. I updated the floor directories according to this scheme.
-#5. Modified the 2nd floor's external railings to also have white interior walls, like on the 30th floor roof.
 
 #Include my new scripts
 <Include buildings/Mn10_Scripts/Deco2023_R1.txt>
@@ -117,7 +109,7 @@
 
 		#Rooms on 8th floor
 		Load data/EG881/Carpet/eg881_Carpet4.jpg, MKTFloor, 0.2, 0.2 #EG881
-		Load data/EG881/Carpet/eg881_Carpet4.jpg, NursingFloor, 0.2, 0.2 #EG881
+		Load data/Carpet0021b_S.jpg, NursingFloor, 0.2, 0.2 #EG881
 		Load data/Carpet0006_S.jpg, Meeting1Floor, 0.2, 0.2
 		Load data/EG881/Carpet/eg881_Carpet2.jpg, Meeting2Floor, 0.2, 0.2 #EG881
 
@@ -548,6 +540,11 @@
 		AddText Sign_LB_Long, Sign_Room501, nimbus_sans_bold_condensed.ttf, 90, Medical Records, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Room502A, nimbus_sans_bold_condensed.ttf, 90, Stem Cell Lab, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		Load data/Melvin/DRH/NewDir_202501/SignGI.png, Sign_Room503, 1, 1, false
+
+		#6th floor
+		AddText Sign_LB_Long, Sign_Room601, nimbus_sans_bold.ttf, 90, ICU Entrance, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Sign_LB_Long, Sign_Room602, nimbus_sans_bold.ttf, 90, CCU Entrance, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		Load data/Melvin/DRH/NewDir_202501/ICUAuthSign.png, ICUAuthSign, 1, 1, false
 
 		#7th floor
 		AddText Sign_LB_Long, Sign_Room701_Temp, nimbus_sans_bold.ttf, 75, Rehabilitation, 0, 30, 1024, 128, center, center, 0, 0, 0, false
@@ -2497,8 +2494,105 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 		#Sign for "Gastrointestinal Center"
 		Set SignHeight = 3
-		Set SignOffset = 4.75
+		#Set SignOffset = 4.75
+		Set SignOffset = 7 - %SignHeight%
 		AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, 20 - 0.05, 20 - 8, 6, %SignHeight%, %SignOffset%, false)
+<EndFloor>
+
+#6th floor - ICU and CCU
+<Floor 5>
+	WallTex() #Set wall texture
+	DrawWalls = true, true, false, false, false, false
+
+	#WALLS
+		#Storage/Restroom Cover Walls
+		WallOrientation = left
+		AddWall StorageCoverWall, %6%, 0.5, 20, -6, 20, -1.25, %height%, %height%, 0, 0, 0, 0, false
+	
+		WallOrientation = right
+		TextureOverride %6%, %6Int%, Blank, Blank, Blank, Blank
+		AddWall RestroomCoverWall, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
+		
+		#Interior divider walls
+		WallOrientation = center
+		AddWall ICU-CCUDivider, %6%, 1, 0, 20, 0, %2%, %height%, %height%, 0, 0, 0, 0, false
+		
+		#Entrance walls
+		WallOrientation = left
+		AddWall ICUEntrance_Left, %6%, 0.5, -45, -1.25, -45, 20, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = right
+		AddWall ICUEntrance_Mid, %6%, 0.5, -45, 20, 45, 20, %height%, %height%, 0, 0, 0, 0, false
+		AddWall ICUEntrance_Right, %6%, 0.5, 45, -1.25, 45, 20, %height%, %height%, 0, 0, 0, 0, false
+
+		#Waiting room divider walls
+		WallOrientation = right
+		AddWall ICUWaitingRoomWall, %6%, 0.5, -20, 0, -20, 20, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = left
+		AddWall CCUWaitingRoomWall, %6%, 0.5, 20, -1.25, 20, 20, %height%, %height%, 0, 0, 0, 0, false
+		
+	#DOORS
+	Set DTex = Door88
+	Set DSTex = %DTex%Side
+
+		#1. ICU Access Doors
+			#Elevator Lobby to Waiting Room
+			Set Door_MainX = -20 - 0.5
+			Set Door_MainZ = 15
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%F_ICUAccess_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_ICUAccess_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+			AddBoxSign(SignICUEntrance, Sign_Room%floorid%01, Sign_Room%floorid%01, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 3, 0.75, 7.5, false)
+
+			#Waiting Room to ICU
+			Set Door_MainX = -45
+			Set Door_MainZ = 15
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%F_ICUAccess_D3, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_ICUAccess_D4, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+		#2. CCU Access Doors
+			#Elevator Lobby to Waiting Room
+			Set Door_MainX = 20 + 0.5
+			Set Door_MainZ = 15
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+			AddBoxSign(SignCCUEntrance, Sign_Room%floorid%02, Sign_Room%floorid%02, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 3, 0.75, 7.5, false)
+
+			#Waiting Room to CCU
+			Set Door_MainX = 45
+			Set Door_MainZ = 15
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D3, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_CCUAccess_D4, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %6%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+		#3. ICU-CCU Connector Doors
+			Set Door_MainX = 0 - 0.5
+			Set Door_MainZ = 45
+			Set DTex = Door1
+			Set DSTex = %DTex%Side
+
+			WallOrientation = left
+			AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls %6%, 1, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			AddBoxSign(ICU-CCULink_SignWest, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% - 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
+			AddBoxSign(ICU-CCULink_SignEast, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% + 1 + 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
+
+	#Signs at Entrances from Service Elevators
+	Set SignTex = ICUAuthSign
+	DrawWalls = false, true, false, false, false, false
+	AddWall ICUWestServiceSign, %SignTex%, 0, -120 + 5 - 3, 66.5 + 0.001, -120 + 5 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
+	AddWall ICUEastServiceSign, %SignTex%, 0, 120 + 5 - 3, 66.5 + 0.001, 120 + 5 + 3, 66.5 + 0.001, 4, 4, 3, 3, 0, 0, false
 <EndFloor>
 
 #7th floor - Lab & Rehab
@@ -3145,10 +3239,15 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = left
 	DrawWalls = true, true, false, false, false, false
 	AddWall WestLobbyWall, %6%, 0.5, -130, 66, -110, 66, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = right
+	if[%floor% = 5] AddWall WestLobbyWall2, %6%, 0.5, -110, 66, -110, 78, %height%, %height%, 0, 0, 0, 0, false
 	#--------------------
 	#Doors (West Lobby)
 	Set Texture = Door88
 	Set Texture2 = Door88
+
+	if[%floor% = 5] Set Texture = ServiceDoor1
+	if[%floor% = 5] Set Texture2 = %Texture%
 
 	WallOrientation = left
 	Set DoorPositionX = -120
@@ -3160,11 +3259,19 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		#Door fillers
 		AddFillerWalls %6%, 0.5, %DoorPositionX%, 66, 6, 7, 0, true, 0, 0, false
 
+		#Sign above doors
+		Set Offset = 7.2
+		if[%floor% = 1 | %floor% = 2] Set Offset = 7
+
+		WallOrientation = right
+		DrawWalls = true, false, true, true, true, true
+		if[%floor% = 5] AddBoxSign(WestSEL_Sign, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, false, %DoorPositionX%, 66, 3, 0.75, %Offset%, false)
+
 	#Windows around doors
 	Set NamePrefix = West
-	WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
 <EndFunction>
 
 <Function ServLobby_East>
@@ -3174,10 +3281,14 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = left
 	DrawWalls = true, true, false, false, false, false
 	AddWall EastLobbyWall, %6%, 0.5, 110, 66, 130, 66, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% = 5] AddWall EastLobbyWall2, %6%, 0.5, 110, 66, 110, 78, %height%, %height%, 0, 0, 0, 0, false
 	#--------------------
 	#Doors (East Lobby)
 	Set Texture = Door88
 	Set Texture2 = Door88
+
+	if[%floor% = 5] Set Texture = ServiceDoor1
+	if[%floor% = 5] Set Texture2 = %Texture%
 
 	WallOrientation = left
 	Set DoorPositionX = 120
@@ -3189,16 +3300,29 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		#Door fillers
 		AddFillerWalls %6%, 0.5, %DoorPositionX%, 66, 6, 7, 0, true, 0, 0, false
 
+		#Sign above doors
+		Set Offset = 7.2
+		if[%floor% = 1 | %floor% = 2] Set Offset = 7
+
+		WallOrientation = right
+		DrawWalls = true, false, true, true, true, true
+		if[%floor% = 1 | %floor% = 2 | %floor% = 5] AddBoxSign(WestSEL_Sign, Sign_StaffOnly, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, true, %DoorPositionX%, 66, 3, 0.75, %Offset%, false)
+
 	#Windows around doors
 	Set NamePrefix = East
-	WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
-	WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows1, %DoorPositionX% - 6.75 + 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows2, %DoorPositionX% + 6.75 - 1.7, 66, front, 3.4, 6.5, 0.5, MainWindowsIntB, MainWindowsIntB, %6%, 1/3, 1)
+	if[%floor% ! 5] WindowsZ2(%NamePrefix%ServLby_Windows3, %DoorPositionX%, 66, front, 13.5, %height% - 7.5 - 0.25, 7.5, MainWindowsIntB, MainWindowsIntB, %6%, 4/3, 1)
 <EndFunction>
 
 <Floors 1 to 2>
 	ServLobby_East()
 <EndFloors>
+
+<Floor 5>
+	ServLobby_West()
+	ServLobby_East()
+<EndFloor>
 
 <Floors 7 to 9>
 	ServLobby_West()
