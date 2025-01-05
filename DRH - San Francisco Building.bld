@@ -117,7 +117,7 @@
 
 		#Rooms on 8th floor
 		Load data/EG881/Carpet/eg881_Carpet4.jpg, MKTFloor, 0.2, 0.2 #EG881
-		Load data/EG881/Carpet/eg881_Carpet4.jpg, PRFloor, 0.2, 0.2 #EG881
+		Load data/EG881/Carpet/eg881_Carpet4.jpg, NursingFloor, 0.2, 0.2 #EG881
 		Load data/Carpet0006_S.jpg, Meeting1Floor, 0.2, 0.2
 		Load data/EG881/Carpet/eg881_Carpet2.jpg, Meeting2Floor, 0.2, 0.2 #EG881
 
@@ -568,7 +568,7 @@
 		AddText Sign_LB_Long, Sign_Office801, nimbus_sans_bold_condensed.ttf, 90, Marketing Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Office805, nimbus_sans_bold_condensed.ttf, 90, Meeting Room 1, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Office806, nimbus_sans_bold_condensed.ttf, 90, Meeting Room 2, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Office810, nimbus_sans_bold_condensed.ttf, 90, Public Relations, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Sign_LB_Long, Sign_Office810, nimbus_sans_bold.ttf, 90, Nursing Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#9th floor
 		AddText Sign_LB_Long, Sign_Office901, nimbus_sans_bold.ttf, 90, Finance Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -728,15 +728,12 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 
 <Floors 7 to 9>
 	ID = %floor% + 1
-	#Name = Office Level %floorid%
-	if[%floor% = 7] Name = Marketing Dept.
-	if[%floor% = 8] Name = Financial Offices
-	if[%floor% = 9] Name = Purchasing Dept.
+	Name = Office Level %floorid%
 	Type = Office
 	Height = 10.5
 	InterfloorHeight = 1.5
 	
-	if[%floor% = 7] Description = Marketing and public relations.
+	if[%floor% = 7] Description = Marketing, public relations, and nursing department.
 	if[%floor% = 8] Description = Finance and accounting offices.
 	if[%floor% = 9] Description = Purchasing department & building management.
 <EndFloors>
@@ -2518,22 +2515,22 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 #Floorings on 8th floor
 <Floor 7>
-	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Marketing
-	CutAll 20 + 0.3, %interfloorheight% - 0.1, -1.25, %1%, %interfloorheight% + 0.1, 40 - 0.3, false, true #Public Relations
+	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Marketing & Public Relations
+	CutAll 20 + 0.3, %interfloorheight% - 0.1, -1.25, %1%, %interfloorheight% + 0.1, 40 - 0.3, false, true #Nursing Dept.
 	CutAll -110, %interfloorheight% - 0.1, 50.5 - 0.2, 110, %interfloorheight% + 0.1, %2%, false, true #Meeting Rooms
 
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 
-	#Marketing Dept. (Southwest)
+	#Marketing & Publlic Relations (Southwest)
 	AddFloor MKTFloorTR_Right, BlackTrim, 0.5, -20 - 0.5, -1.25, -20 - 0.3, 40, 0, 0, 0, 0, false
 	AddFloor MKTFloorTR_Back, BlackTrim, 0.5, -%1%, 40 - 0.5, -20 - 0.5, 40 - 0.3, 0, 0, 0, 0, false
 	AddFloor MKTFloor, MKTFloor, 0.5, -%1%, -1.25, -20 - 0.5, 39.5, 0, 0, 0, 0, false
 
-	#Public Relations Dept. (Southeast)
-	AddFloor PRFloorTR_Left, BlackTrim, 0.5, 20 + 0.3, -1.25, 20 + 0.5, 40, 0, 0, 0, 0, false
-	AddFloor PRFloorTR_Back, BlackTrim, 0.5, 20 + 0.5, 40 - 0.5, %1%, 40 - 0.3, 0, 0, 0, 0, false
-	AddFloor PRFloor, PRFloor, 0.5, 20 + 0.5, -1.25, %1%, 39.5, 0, 0, 0, 0, false
+	#Nursing Dept. (Southeast)
+	AddFloor NursingFloorTR_Left, BlackTrim, 0.5, 20 + 0.3, -1.25, 20 + 0.5, 40, 0, 0, 0, 0, false
+	AddFloor NursingFloorTR_Back, BlackTrim, 0.5, 20 + 0.5, 40 - 0.5, %1%, 40 - 0.3, 0, 0, 0, 0, false
+	AddFloor NursingFloor, NursingFloor, 0.5, 20 + 0.5, -1.25, %1%, 39.5, 0, 0, 0, 0, false
 	
 	#Meeting Rooms (North)
 	AddFloor MeetingFloorTR_Front, BlackTrim, 0.5, -110, 50.5 - 0.2, 110, 50.5, 0, 0, 0, 0, false
