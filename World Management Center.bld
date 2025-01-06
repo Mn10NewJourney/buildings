@@ -241,9 +241,10 @@
 		Load data/EG881/lightaluminumdoor2.jpg, Skylobby2ElevDoors, 1, 1, false #EG881 #43rd floor
 		Load data/EG881/lightaluminumdoor2.jpg, Skylobby2ElevDoors2, -1, 1, false #EG881
 		Load data/panel-back3.jpg, Skylobby2ElevDoors_Trim, 1, 1, false
-		Load data/EG881_Otis/Doors/otisbrassdoorleft.jpg, Skylobby3ElevDoors, 1, 1, false #EG881 #85th floor
-		Load data/EG881_Otis/Doors/otisbrassdoorright.jpg, Skylobby3ElevDoors2, 1, 1, false #EG881
-		Load data/panel-back4.jpg, Skylobby3ElevDoors_Trim, 1, 1, false
+		Load data/EG881/stainlesssteeldoor.jpg, Skylobby3ElevDoors, 1, 1, false #EG881
+		Load data/EG881/stainlesssteeldoor.jpg, Skylobby3ElevDoors2, -1, 1, false #EG881
+		Load data/EG881/stainlesssteel.jpg, Skylobby3ElevDoors_Trim, 1, 1, false #EG881
+		Load data/EG881/stainlesssteel2.jpg, Skylobby3ElevDoors_TrimTop, 1, 1, false #EG881
 
 		#Observation deck lobby
 		Load data/EG881/stainlesssteeldoor.jpg, ODLElevDoors, 1, 1, false #EG881
@@ -469,7 +470,7 @@
 	#Elevator number/name signs (Outside, gray)
 	Load data/graygradient.jpg, ElevNoBack_Gray, 1, 1, false
 	Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack_Monica.png, ElevNoBack_Gold, 1, 1, false
-	#Load data/Melvin/transparent128.png, ElevNoBack_Blank, 1, 1, false #Blank signs for the 85th floor
+	Load data/Melvin/transparent128.png, ElevNoBack_Blank, 1, 1, false #Blank signs for the 85th floor
 	AddTextRange 1, 6, ElevNoBack_Gray, ElevNoA%number%_Gray, nimbus_sans_bold_condensed.ttf, 130, A%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 1, 6, ElevNoBack_Gray, ElevNoB%number%_Gray, nimbus_sans_bold_condensed.ttf, 130, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 1, 5, ElevNoBack_Gray, ElevNoC%number%_Gray, nimbus_sans_bold_condensed.ttf, 130, C%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -481,8 +482,8 @@
 	AddTextRange 1, 6, ElevNoBack_Gray, ElevNoH%number%_Gray, nimbus_sans_bold_condensed.ttf, 130, H%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 1, 6, ElevNoBack_Gold, ElevNoG%number%_Gold, nimbus_sans_condensed.ttf, 130, G%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 1, 6, ElevNoBack_Gold, ElevNoH%number%_Gold, nimbus_sans_condensed.ttf, 130, H%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-	#AddTextRange 1, 6, ElevNoBack_Blank, ElevNoG%number%_Blank, nimbus_sans_bold.ttf, 75, G%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-	#AddTextRange 1, 6, ElevNoBack_Blank, ElevNoH%number%_Blank, nimbus_sans_bold.ttf, 75, H%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddTextRange 1, 6, ElevNoBack_Blank, ElevNoG%number%_Blank, nimbus_sans_bold.ttf, 75, G%number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+	AddTextRange 1, 6, ElevNoBack_Blank, ElevNoH%number%_Blank, nimbus_sans_bold.ttf, 75, H%number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 
 	#Elevator number signs (Inside)
 	Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
@@ -5894,7 +5895,7 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 
 		#Top
 		Set DoorTrimTexture_Top = %DoorTrimTexture%
-		if[%floor% = 110] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
+		if[%floor% = 85 | %floor% = 110] Set DoorTrimTexture_Top = %DoorTexture%_TrimTop
 
 		#Observation deck elevators
 		Set ODDoorTrimTexture = %DoorTrimTexture%
@@ -5912,9 +5913,11 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
-	if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set BPanelTexture = ElevExtPanels2
+	#if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set BPanelTexture = ElevExtPanels2
+	if[(%floor% > 85 & %floor% < 108) | %floor% = 110] Set BPanelTexture = ElevExtPanels2
 	Set ButtonPrefix = Button
-	if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set ButtonPrefix = GoldButton
+	#if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set ButtonPrefix = GoldButton
+	if[(%floor% > 85 & %floor% < 108) | %floor% = 110] Set ButtonPrefix = GoldButton
 
 		#Call button panel for Observation Deck Express Elevators
 		Set SMExpressPanelTex = %BPanelTexture%
@@ -5942,7 +5945,8 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 
 	#Keypad's buttons
 	Set DDPrefix = DSButton #DS = Destination Silver
-	if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set DDPrefix = DGButton #DG = Destination Gold
+	#if[%floor% = 85 | (%floor% > 85 & %floor% < 108) | %floor% = 110] Set DDPrefix = DGButton #DG = Destination Gold
+	if[(%floor% > 85 & %floor% < 108) | %floor% = 110] Set DDPrefix = DGButton #DG = Destination Gold
 	
 	CreatePanel %KeypadTexture%, 8, 3, %Direction%, 0.15, 0.15, 0.2, 0.2, 0, 0
 	AddControl switch.wav, 4, 1, 0, 0, 0, 0, 1, Input1, %DDPrefix%1
@@ -6643,7 +6647,7 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 	Set Prefix = G
 	#Set Suffix = _Gray
 	Set Suffix = _Gold
-	#if[%floor% = 85] Set Suffix = _Blank
+	if[%floor% = 85] Set Suffix = _Blank
 
 	DrawWalls = false, true, false, false, false, false
 	AddWall Elev%Prefix%1Sign, ElevNo%Prefix%1%Suffix%, 0, 25 + %ELO%, -10 - 0.5, 25 + %ELO%, -10 + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
@@ -6721,7 +6725,7 @@ CreateShaft2A(25, -20, -12, 4.67, 2.67, 0, 109)
 	Set Prefix = H
 	#Set Suffix = _Gray
 	Set Suffix = _Gold
-	#if[%floor% = 85] Set Suffix = _Blank
+	if[%floor% = 85] Set Suffix = _Blank
 
 	DrawWalls = false, true, false, false, false, false
 	AddWall Elev%Prefix%1Sign, ElevNo%Prefix%1%Suffix%, 0, -5 + %ELO%, -10 - 0.5, -5 + %ELO%, -10 + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
