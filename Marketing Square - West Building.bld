@@ -79,10 +79,11 @@
 
 	Load data/Carpet0012_S.jpg, OfficeFloor, 0.2, 0.2
 	Load data/stucco22b.jpg, OfficeWall, 0.25, 0.25
-	Load data/MarbleWhite0047b_S.jpg, OfficeLobbyFloor, 0.15, 0.3
-	Load data/granite_0008b.jpg, OfficeLobbyWallLower, 0.25, 0.25
-	Load data/wall5.jpg, OfficeLobbyWallUpper, 0.25, 0.25
-	Load data/brick021.jpg, OfficeLobbyWall2, 0.25, 0.25
+	Load data/MarbleWhite0047b_S.jpg, OfficeLobbyFloor, 0.3, 0.15
+	Rotate OfficeLobbyFloor, 90
+	Load data/granite_0008b.jpg, OfficeLobbyWallLower, 0.25, 0.25 #2-12
+	Load data/wall5.jpg, OfficeLobbyWallUpper, 0.25, 0.25 #2-12
+	Load data/brick021.jpg, OfficeLobbyWall2, 0.25, 0.25 #13-23
 
 	Load data/floor111.jpg, RestaurantFloor, 0.25, 0.25
 	Load data/black_granite.jpg, RestaurantWall, 0.1, 0.1
@@ -162,8 +163,8 @@
 		Load data/otis4_weaveceiling_3x3.jpg, LRElevCeiling, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LRElevPanelMain, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LRElevPanelTop, 1, 0.125, false
-		Load data/aluminumdoor_b.jpg, LRElevDoors, 1, 1, false
-		Load data/aluminumdoor_b.jpg, LRElevDoors2, -1, 1, false
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, LRElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, LRElevDoors2, 1, 1, false #EG881
 
 		#High-rise elevators
 		Load data/EG881/eg881_Carpet1.jpg, HRElevFloor, 0.25, 0.25 #EG881
@@ -190,14 +191,14 @@
 
 	#Elevator shaft doors
 		#Passenger elevators
-		Load data/aluminumdoor_b.jpg, ElevDoorsA, 1, 1, false #2nd-12th floors
-		Load data/aluminumdoor_b.jpg, ElevDoorsA2, -1, 1, false
+		Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg,  ElevDoorsA, 1, 1, false #EG881 #2nd-12th floors
+		Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, ElevDoorsA2, 1, 1, false #EG881
 		Load data/EG881/lightaluminumdoor2.jpg, ElevDoorsB, 1, 1, false #EG881 #1st floor lobby
 		Load data/EG881/lightaluminumdoor2.jpg, ElevDoorsB2, -1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ElevDoorsD, 1, 1, false #EG881 #24th floor
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ElevDoorsD2, 1, 1, false #EG881
-		Load data/door1c.jpg, ElevDoorsM, 1, 1, false #13th-23rd floors
-		Load data/door1c.jpg, ElevDoorsM2, -1, 1, false
+		Load data/EG881/elevdoorright_black.jpg, ElevDoorsD, -1, 1, false #EG881 #24th floor
+		Load data/EG881/elevdoorleft_black.jpg, ElevDoorsD2, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ElevDoorsM, 1, 1, false #EG881 #13th-23rd floors
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ElevDoorsM2, 1, 1, false #EG881
 
 		#Service elevators
 		Load data/door1.jpg, ElevDoorsC, 1, 1, false #1st-24th floors
@@ -2055,6 +2056,30 @@ ShaftCut 5, -5.67 + 0.33, -5.67, 5.67, 5.67, 0, 5
 	AddWall Sign, BlankSign%floorid%, 0, -26 - 0.001, 6 - 1, -26 - 0.001, 6 + 1, 2, 2, 5, 5, 0, 0, false
 <EndFloor>
 
+<Function E1-6FillerWalls>
+	Set CenterX = %param1%
+	Set CenterZ = %param2%
+	Set ElevNo = %param3%
+	Set Dir = %param4%
+
+	if[%Dir% = right | %Dir% = Right] Set M = -1 #Multiplier for filler walls
+	if[%Dir% = left | %Dir% = Left] Set M = 1
+
+	#Upper filler wals
+	WallOrientation = %Dir%
+	AddFillerWalls OfficeLobbyWallUpper, 0.66, %CenterX%, %CenterZ%, 4.5, 7 - 4, 4, false, 0, 0, false
+
+		#Extra filler walls to match with shaft walls
+		if[%Dir% = right | %Dir% = Right] Set P1 = %CenterX% + (%M% * 0.66)
+		if[%Dir% = right | %Dir% = Right] Set P2 = %CenterX%
+		if[%Dir% = left | %Dir% = Left] Set P1 = %CenterX%
+		if[%Dir% = left | %Dir% = Left] Set P2 = %CenterX% + (%M% * 0.66)
+
+		DrawWalls = true, true, false, false, false, false
+		AddWall E%ElevNo%Filler1, OfficeLobbyWallLower, 0, %P1%, %CenterZ% - 2.25, %P2%, %CenterZ% - 2.25, 4, 4, 0, 0, 0, 0, false
+		AddWall E%ElevNo%Filler2, OfficeLobbyWallLower, 0, %P1%, %CenterZ% + 2.25, %P2%, %CenterZ% + 2.25, 4, 4, 0, 0, 0, 0, false
+<EndFunction>
+
 <Floors 2 to 12>
 	#Shaft Doors
 	ShaftDoors_Right(1, ElevDoorsA)
@@ -2069,12 +2094,15 @@ ShaftCut 5, -5.67 + 0.33, -5.67, 5.67, 5.67, 0, 5
 	DoorTrack(6, -21.34, 12, -4, -3.8, -2.25, 2.25, ElevDoorTrackX)
 
 	#Decos
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0, 0.2, -36 + 0.01, -12, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 1
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0, 0.2, -36 + 0.01, 0, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 2
-	AddDeco4(StainlessSteel, StainlessSteel, right, true, false, floor, 0, 0.2, -36 + 0.01, 12, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 3
-	AddDeco4(StainlessSteel, StainlessSteel, left, true, false, floor, 0, 0.2, -26 - 0.01, -12, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 4
-	AddDeco4(StainlessSteel, StainlessSteel, left, true, false, floor, 0, 0.2, -26 - 0.01, 0, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 5
-	AddDeco4(StainlessSteel, StainlessSteel, left, true, false, floor, 0, 0.2, -26 - 0.01, 12, 4.5, 7, 7.2, 0.2, 0, true, StainlessSteel, 0.66 + 0.01) #Elevator 6
+		#Elevators 1-3
+		E1-6FillerWalls(-36, -12, 1, right)
+		E1-6FillerWalls(-36, 0, 2, right)
+		E1-6FillerWalls(-36, 12, 3, right)
+
+		#Elevators 4-6
+		E1-6FillerWalls(-26, -12, 4, left)
+		E1-6FillerWalls(-26, 0, 5, left)
+		E1-6FillerWalls(-26, 12, 6, left)
 
 	#Call buttons
 	CallButtonElevators = 1, 2, 3, 4, 5, 6
