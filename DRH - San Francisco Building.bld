@@ -4149,8 +4149,10 @@ ElevCeilingLight
 	#Deco dimensions
 	Set SideDecoH = 7.2
 	Set TopDecoH = 0.2
-	if[%floor% > 6 & %floor% < 27] Set SideDecoH = %height%
-	if[%floor% > 6 & %floor% < 27] Set TopDecoH = %height% - 7
+	if[%floor% > 6 & %floor% < 9] Set SideDecoH = 9.5
+	if[%floor% > 6 & %floor% < 9] Set TopDecoH = %SideDecoH% - 7
+	if[%floor% > 8 & %floor% < 27] Set SideDecoH = %height%
+	if[%floor% > 8 & %floor% < 27] Set TopDecoH = %height% - 7
 
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
@@ -6648,13 +6650,17 @@ ShowFullStairs 2 = always
 
 	#Doors
 	WallOrientation = left
-	SetLock 1, 0
+	SetLock 1, 0 #Emergency Exit Door
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% = 0] AddExternalDoor , , false, ServiceDoor2, 0.2, 1, 75, %21% - %23% - 0.5, %22% - %24% + 1.8, 3, 7, %interfloorheight%, 0, 0
 	SetLock 0, 0
+
 	WallOrientation = right
+	if[%floor% ! 5] SetLock 0, 0
+	if[%floor% = 5] SetLock 2, 0
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 6, 75, %23% - 1.8, -%24%, 3, 7, 0, 0, 0
+	SetLock 0, 0
 
 	#Manual fillers for Emergency Exit Door
 	WallOrientation = left
@@ -6795,12 +6801,16 @@ ShowFullStairs 3 = always
 
 	#Doors
 	WallOrientation = right
-	SetLock 2, 0
+	SetLock 2, 0 #Emergency Exit Door
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% = 0] AddExternalDoor , , false, ServiceDoor2, 0.2, 2, 75, %21% + %23% + 0.5, %22% - %24% + 1.8, 3, 7, %interfloorheight%, 0, 0
 	SetLock 0, 0
+
+	if[%floor% ! 5] SetLock 0, 0
+	if[%floor% = 5] SetLock 2, 0
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, -%23% + 1.8, -%24%, 3, 7, 0, 0, 0
+	SetLock 0, 0
 
 	#Manual fillers for Emergency Exit Door
 	WallOrientation = right
