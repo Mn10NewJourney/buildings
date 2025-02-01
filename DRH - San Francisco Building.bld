@@ -6,7 +6,7 @@
 	#Reconfigured floor assignments to make the patient rooms begin on the 10th floor.
 	#(ICU and CCU are still on the 6th floor as before.)
 
-#New building height: 320 ft.
+	#New building height: 320 ft.
 
 #Include my new scripts
 <Include buildings/Mn10_Scripts/Deco2023_R1.txt>
@@ -145,12 +145,7 @@
 		Load data/checker08.jpg, PayrollFloor, 0.4, 0.4
 		Load data/EG881/Carpet/eg881_Carpet2.jpg, HospMGTFloor, 0.2, 0.2 #EG881
 		Load data/Carpet0006_S.jpg, AuditingFloor, 0.2, 0.2 #EG881
-		Load data/EG881/Carpet/eg881_Carpet2.jpg, PurchasingFloor, 0.2, 0.2 #EG881
-
-		#Rooms on 10th floor
-		#Load data/EG881/Carpet/eg881_Carpet4.jpg, PurchasingMgrFloor, 0.2, 0.2 #EG881
-		#Load data/checker03.jpg, PurchasingExecFloor, 0.4, 0.4
-		#Load data/checker12.jpg, BldDeptFloor, 0.4, 0.4 #EG881
+		Load data/Carpet0021b_S.jpg, PurchasingFloor, 0.2, 0.2 #EG881
 
 	#10th-27th floors
 	Load data/Carpet0006_S.jpg, WardLobbyFloor, 0.2, 0.2 #Levels 11-22 #Hallways in front of Elevators 1-10
@@ -3038,7 +3033,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Office 10
 	WallOrientation = left
 	Set CenterX = 40
-	if[%floor% = 8] Set CenterX = 50
+	if[%floor% = 8] Set CenterX = 40
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 5, 75, %CenterX% + 1.5, 40 - 0.5, 3, 7, 0, 0, 0
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -3077,7 +3072,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Southeastern side
 	WallOrientation = left
 	DrawWalls = false, true, true, true, true, true
-	if[%floor% = 8] AddBoxSign(Office%floorid%09_Sign, Sign_LB_Long, Sign_Office%floorid%09, Sign_LB_Long, 0.1, true, false, false, 40, 40, 3, 0.75, 7.5, false)
+	if[%floor% = 8] AddBoxSign(Office%floorid%09_Sign, Sign_LB_Long, Sign_Office%floorid%09, Sign_LB_Long, 0.1, true, false, false, 120, 40, 3, 0.75, 7.5, false)
 	AddBoxSign(Office%floorid%10_Sign, Sign_LB_Long, Sign_Office%floorid%10, Sign_LB_Long, 0.1, true, false, false, 40, 40, 3, 0.75, 7.5, false)
 	WallOrientation = right
 	DrawWalls = true, false, true, true, true, true
@@ -4388,11 +4383,11 @@ ElevCeilingLight
 
 	#Signs
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 9] AddWall E1-5Hall-FireSign1, FireSign, 0, -20 + 0.001, (-40 + 0.3 + 0.4) - 0.25, -20 + 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
+	if[%floor% = 7 | %floor% = 8] AddWall E1-5Hall-FireSign1, FireSign, 0, -20 + 0.001, (-40 + 0.3 + 0.4) - 0.25, -20 + 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
 	AddWall E1-5Hall-FloorSign1, ELFlrSign%floorid%, 0, -20 + 0.001, -40 - 0.5, -20 + 0.001, -40 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 	AddWall E1-5Hall-FloorSign2, ELFlrSign%floorid%, 0, -20 + 0.001, -30 - 0.5, -20 + 0.001, -30 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 9] AddWall E1-5Hall-FireSign2, FireSign, 0, -10 - 0.001, (-40 + 0.3 + 0.4) - 0.25, -10 - 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
+	if[%floor% = 7 | %floor% = 8] AddWall E1-5Hall-FireSign2, FireSign, 0, -10 - 0.001, (-40 + 0.3 + 0.4) - 0.25, -10 - 0.001, (-40 + 0.3 + 0.4) + 0.25, 0.75, 0.75, 4 - 0.375, 4 - 0.375, 0, 0, false
 	AddWall E1-5Hall-FloorSign3, ELFlrSign%floorid%, 0, -10 - 0.001, -40 - 0.5, -10 - 0.001, -40 + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 <EndFloors>
 
