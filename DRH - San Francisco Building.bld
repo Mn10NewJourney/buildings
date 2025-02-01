@@ -139,9 +139,9 @@
 		Load data/checker08.jpg, PayrollFloor, 0.4, 0.4
 		Load data/EG881/Carpet/eg881_Carpet2.jpg, HospMGTFloor, 0.2, 0.2 #EG881
 		Load data/Carpet0006_S.jpg, AuditingFloor, 0.2, 0.2 #EG881
+		Load data/EG881/Carpet/eg881_Carpet2.jpg, PurchasingFloor, 0.2, 0.2 #EG881
 
 		#Rooms on 10th floor
-		#Load data/EG881/Carpet/eg881_Carpet2.jpg, PurchasingFloor, 0.2, 0.2 #EG881
 		#Load data/EG881/Carpet/eg881_Carpet4.jpg, PurchasingMgrFloor, 0.2, 0.2 #EG881
 		#Load data/checker03.jpg, PurchasingExecFloor, 0.4, 0.4
 		#Load data/checker12.jpg, BldDeptFloor, 0.4, 0.4 #EG881
@@ -569,11 +569,11 @@
 		#9th floor
 		AddText Sign_LB_Long, Sign_Office901, nimbus_sans_bold.ttf, 90, Finance Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Office904, nimbus_sans_bold.ttf, 90, Payroll Office, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Sign_LB_Long, Sign_Office905, nimbus_sans_bold_condensed.ttf, 80, Hospital Management, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Sign_LB_Long, Sign_Office905, nimbus_sans_bold.ttf, 90, Hospital Mgt., -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Office907, nimbus_sans_bold.ttf, 90, Auditing Office, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Sign_LB_Long, Sign_Office909, nimbus_sans_bold_condensed.ttf, 90, Purchasing Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_Office910, nimbus_sans_bold_condensed.ttf, 90, Accounting Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 	
-		#AddText Sign_LB_Long, Sign_Office1001, nimbus_sans_bold_condensed.ttf, 90, Purchasing Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 		#--------------------
 		#10th-27th floors
 		AddTextRange 10, 22, Sign_LightBlue, Sign_PtRoom%number%01, nimbus_sans_bold.ttf, 105, %number%01, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -714,7 +714,7 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	Group = 0 - 2
 <EndFloors>
 
-<Floors 7 to 9>
+<Floors 7 to 8>
 	ID = %floor% + 1
 	Name = Office Level %floorid%
 	Type = Office
@@ -722,8 +722,7 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	InterfloorHeight = 1.5
 	
 	if[%floor% = 7] Description = Marketing, public relations, and nursing department.
-	if[%floor% = 8] Description = Finance and accounting offices.
-	if[%floor% = 9] Description = Purchasing department & building management.
+	if[%floor% = 8] Description = Finance, accounting, and hospital management.
 <EndFloors>
 
 <Floors 10 to 26>
@@ -2834,10 +2833,11 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	AddFloor FINFloorTR_Back, BlackTrim, 0.5, -%1%, 40 - 0.5, -20 - 0.5, 40 - 0.3, 0, 0, 0, 0, false
 	AddFloor FINFloor, FINFloor, 0.5, -%1%, -1.25, -20 - 0.5, 39.5, 0, 0, 0, 0, false
 
-	#Accounting Dept. (Southeast)
+	#Accounting & Purchasing Dept. (Southeast)
 	AddFloor ACTFloorTR_Left, BlackTrim, 0.5, 20 + 0.3, -1.25, 20 + 0.5, 40, 0, 0, 0, 0, false
 	AddFloor ACTFloorTR_Back, BlackTrim, 0.5, 20 + 0.5, 40 - 0.5, %1%, 40 - 0.3, 0, 0, 0, 0, false
-	AddFloor ACTFloor, ACTFloor, 0.5, 20 + 0.5, -1.25, %1%, 39.5, 0, 0, 0, 0, false
+	AddFloor ACTFloor, ACTFloor, 0.5, 20 + 0.5, -1.25, 80, 39.5, 0, 0, 0, 0, false
+	AddFloor PurchasingFloor, PurchasingFloor, 0.5, 80, -1.25, %1%, 39.5, 0, 0, 0, 0, false
 	
 	#North side offices
 	AddFloor NorthRoomTR_Front, BlackTrim, 0.5, -110, 50.5 - 0.2, 110, 50.5, 0, 0, 0, 0, false
@@ -2888,8 +2888,8 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	DrawWalls = true, true, false, false, false, false
 	#Set MainX = -60
 	#if[%floor% = 7] AddWall SouthOfficeDivider1, %6%, 1, %MainX%, -1.25, %MainX%, 40, %height%, %height%, 0, 0, 0, 0, false
-	#Set MainX = 60
-	#if[%floor% = 7] AddWall SouthOfficeDivider2, %6%, 1, %MainX%, -1.25, %MainX%, 40, %height%, %height%, 0, 0, 0, 0, false
+	Set MainX = 80
+	if[%floor% = 8] AddWall SouthOfficeDivider2, %6Int%, 1, %MainX%, -1.25, %MainX%, 40, %height%, %height%, 0, 0, 0, 0, false
 
 	#Set MainX = -70
 	#if[%floor% = 7] AddWall NorthOfficeDivider1, %6%, 1, %MainX%, 50, %MainX%, %2%, %height%, %height%, 0, 0, 0, 0, false
@@ -2899,8 +2899,8 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	if[%floor% ! 8] AddWall NorthOfficeDivider3, %6Int%, 1, %MainX%, 50, %MainX%, %2%, %height%, %height%, 0, 0, 0, 0, false
 	Set MainX = 30
 	if[%floor% ! 7] AddWall NorthOfficeDivider4, %6Int%, 1, %MainX%, 50, %MainX%, %2%, %height%, %height%, 0, 0, 0, 0, false
-	Set MainX = 70
-	if[%floor% = 9] AddWall NorthOfficeDivider5, %6Int%, 1, %MainX%, 50, %MainX%, %2%, %height%, %height%, 0, 0, 0, 0, false
+	#Set MainX = 70
+	#if[%floor% = 9] AddWall NorthOfficeDivider5, %6Int%, 1, %MainX%, 50, %MainX%, %2%, %height%, %height%, 0, 0, 0, 0, false
 	#--------------------
 	#Office doors (Southwestern side)
 	#Office 1
@@ -2969,7 +2969,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = right
 	Set CenterX = -15
 	Set Texture = Door6
-	if[%floor% = 7 | %floor% = 9] Set Texture = Door9b
+	if[%floor% = 8] Set Texture = Door88
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 6, 75, %CenterX% + 1.5, 50 + 0.5, 3, 7, 0, 0, 0
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -2980,7 +2980,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = right
 	Set CenterX = 15
 	Set Texture = Door6
-	if[%floor% = 7 | %floor% = 9] Set Texture = Door9b
+	if[%floor% = 8] Set Texture = Door88
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 6, 75, %CenterX% + 1.5, 50 + 0.5, 3, 7, 0, 0, 0
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -3022,6 +3022,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 	WallOrientation = left
 	Set CenterX = 80
+	if[%floor% = 8] Set CenterX = 90
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 5, 75, %CenterX% + 1.5, 40 - 0.5, 3, 7, 0, 0, 0
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -3031,6 +3032,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Office 10
 	WallOrientation = left
 	Set CenterX = 40
+	if[%floor% = 8] Set CenterX = 50
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddDoor , , false, %Texture%, 0.2, 5, 75, %CenterX% + 1.5, 40 - 0.5, 3, 7, 0, 0, 0
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -3069,6 +3071,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Southeastern side
 	WallOrientation = left
 	DrawWalls = false, true, true, true, true, true
+	if[%floor% = 8] AddBoxSign(Office%floorid%09_Sign, Sign_LB_Long, Sign_Office%floorid%09, Sign_LB_Long, 0.1, true, false, false, 40, 40, 3, 0.75, 7.5, false)
 	AddBoxSign(Office%floorid%10_Sign, Sign_LB_Long, Sign_Office%floorid%10, Sign_LB_Long, 0.1, true, false, false, 40, 40, 3, 0.75, 7.5, false)
 	WallOrientation = right
 	DrawWalls = true, false, true, true, true, true
@@ -3476,7 +3479,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	ServLobby_East()
 <EndFloor>
 
-<Floors 7 to 9>
+<Floors 7 to 8>
 	ServLobby_West()
 	ServLobby_East()
 <EndFloors>
@@ -4427,7 +4430,7 @@ ElevCeilingLight
 	if[%floor% = -1] Set DoorTexture = ElevDoorsE
 	if[%floor% > -1 & %floor% < 7] Set DoorTexture = ElevDoorsD
 	if[%floor% > 6 & %floor% < 9] Set DoorTexture = ElevDoorsDD
-	if[%floor% > 9 & %floor% < 22] Set DoorTexture = ElevDoorsB
+	if[%floor% > 8 & %floor% < 22] Set DoorTexture = ElevDoorsB
 	if[%floor% > 21 & %floor% < 27] Set DoorTexture = UpperWardsShaftDoors
 
 	Set SkipDeco = false
