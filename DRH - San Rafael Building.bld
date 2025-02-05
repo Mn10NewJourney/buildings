@@ -561,6 +561,24 @@ AddTree(Tree1, 67.5, -65, 13.5, 12, 0)
 		if[%floor% = 3] Set 5RH = %floorid%F
 		if[%floor% = 4 | %floor% = 5 | %floor% = 6] Set 5RH = 5F
 		if[%floor% = 6 | %floor% = 7] Set 5RH = 8F
+		
+		#Special sets for walls inside hallways on the 1st-3rd floors, but inside clinics on the 4th floor and up
+		Set 5E = %5%
+		if[%floor% = 3 | %floor% = 4 | %floor% = 5] Set 5E = %floorid%FClinic
+		if[%floor% = 6] Set 5E = Vaccine
+		if[%floor% = 7] Set 5E = Skin
+
+		Set 5E2 = %5%
+		if[%floor% = 2] Set 5E2 = BL #Blood Lab
+		if[%floor% = 3 | %floor% = 4 | %floor% = 5] Set 5E2 = %floorid%FClinic
+		if[%floor% = 6] Set 5E2 = Vaccine
+		if[%floor% = 7] Set 5E2 = Skin
+
+		Set 5E3 = %5%
+		if[%floor% = 2] Set 5E3 = BDC #Blood Donation Center
+		if[%floor% = 3 | %floor% = 4 | %floor% = 5] Set 5E3 = %floorid%FClinic
+		if[%floor% = 6] Set 5E3 = Vaccine
+		if[%floor% = 7] Set 5E3 = Skin
 <EndFunction>
 
 ##--------------------------------------------------------------------------------##
@@ -593,10 +611,12 @@ AddTree(Tree1, 67.5, -65, 13.5, 12, 0)
 		if[%floor% > 2] CutAll -13, %interfloorheight% - 0.1, -%2%, 33, %interfloorheight% + 0.1, %2%, false, true
 		if[%floor% > 2] CutAll -33, %interfloorheight% - 0.1, -%2%, -13, %interfloorheight% + 0.1, -30, false, true
 		if[%floor% > 2] CutAll -33, %interfloorheight% - 0.1, -5 - 0.3, -13, %interfloorheight% + 0.1, %2%, false, true
+		if[%floor% > 2] CutAll 33, %interfloorheight% - 0.1, -15, %1%, %interfloorheight% + 0.1, %2%, false, true
 
-		if[%floor% > 2] AddFloor %floorid%F_%5A%Floor1, %5A%Floor, 0.5, -13, -%2%, 33, %2%, 0, 0, 0, 0, false
-		if[%floor% > 2] AddFloor %floorid%F_%5A%Floor1A, %5A%Floor, 0.5, -33, -%2%, -13, -30, 0, 0, 0, 0, false
-		if[%floor% > 2] AddFloor %floorid%F_%5A%Floor2, %5A%Floor, 0.5, -33, -5 - 0.3, -13, %2%, 0, 0, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_%5A%_CenterFloor1, %5A%Floor, 0.5, -13, -%2%, 33, %2%, 0, 0, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_%5A%_CenterFloor1A, %5A%Floor, 0.5, -33, -%2%, -13, -30, 0, 0, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_%5A%_CenterFloor2, %5A%Floor, 0.5, -33, -5 - 0.3, -13, %2%, 0, 0, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_%5A%_EastFloor, %5A%Floor, 0.5, 33, -15, %1%, %2%, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -612,10 +632,12 @@ AddTree(Tree1, 67.5, -65, 13.5, 12, 0)
 		if[%floor% > 2] CutAll -13, %fullheight% - 0.1, -%2%, 33, %fullheight% + 0.1, %2%, false, true
 		if[%floor% > 2] CutAll -33, %fullheight% - 0.1, -%2%, -13, %fullheight% + 0.1, -30, false, true
 		if[%floor% > 2] CutAll -33, %fullheight% - 0.1, -5, -13, %fullheight% + 0.1, %2%, false, true
+		if[%floor% > 2] CutAll 33, %fullheight% - 0.1, -15, %1%, %fullheight% + 0.1, %2%, false, true
 
-		if[%floor% > 2] AddFloor %floorid%FCeiling1, %5B%Ceiling, 0.5, -13, -%2%, 33, %2%, %height%, %height%, 0, 0, false
-		if[%floor% > 2] AddFloor %floorid%FCeiling1A, %5B%Ceiling, 0.5, -33, -%2%, -13, -30, %height%, %height%, 0, 0, false
-		if[%floor% > 2] AddFloor %floorid%FCeiling2, %5B%Ceiling, 0.5, -33, -5, -13, %2%, %height%, %height%, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_CenterCeiling1, %5B%Ceiling, 0.5, -13, -%2%, 33, %2%, %height%, %height%, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_CenterCeiling1A, %5B%Ceiling, 0.5, -33, -%2%, -13, -30, %height%, %height%, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_CenterCeiling2, %5B%Ceiling, 0.5, -33, -5, -13, %2%, %height%, %height%, 0, 0, false
+		if[%floor% > 2] AddFloor %floorid%F_EastCeiling, %5B%Ceiling, 0.5, 33, -15, %1%, %2%, %height%, %height%, 0, 0, false
 
 	#Railings on 2nd floor
 	Set WallHeight = %interfloorheight% + 3.5
@@ -961,7 +983,6 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 		SetAutoSize = true, true
 	<EndFloor>
 
-
 ################################################################################
 
 #Hallway walls on 3rd floor
@@ -999,10 +1020,10 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 	AddWall WestWall_%floorid%F, %5%Wall, 0.5, -33, -5, -33, 20, %height%, %height%, 0, 0, 0, 0, false
 
 	#East walls
-	WallOrientation = left
+	WallOrientation = right
 	DrawWalls = true, true, false, false, false, false
-	TextureOverride %5B%Wall, %5%Wall, Blank, Blank, Blank, Blank
-	AddWall EastWall_%floorid%F, %5%Wall, 0.5, 33, -15, 33, 20, %height%, %height%, 0, 0, 0, 0, false
+	TextureOverride %5%Wall, %5B%Wall, Blank, Blank, Blank, Blank
+	AddWall EastWall_%floorid%F, %5%Wall, 0.5, 45, -15, %1%, -15, %height%, %height%, 0, 0, 0, 0, false
 
 	#Manager's room (7th-8th floor only)
 	WallOrientation = right
@@ -1048,27 +1069,27 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 			AddBoxSign(Clinic%floorid%01_SignWest, Sign_Clinic%floorid%01, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, -33.5 - 0.05, -9, 6, %SignHeight%, %SignOffset%, false)
 
 		#East
-		Set Door_MainX = 33
-		Set Door_MainZ = 7.5
+		Set Door_MainX = 60
+		Set Door_MainZ = -15
 		Set DTex = Door88
 		Set DSTex = %DTex%Side
 
-		WallOrientation = left
-		AddStdDoor Floor %floor%, %floorid%F_DoorE1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, %floorid%F_DoorE2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls %5B%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%F_DoorE1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%F_DoorE2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5B%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 
 			#Windows around doors
-			Add3DWindows(%floorid%F_ClinicN_WinTop, %Door_MainX% + 0.5, %Door_MainZ%, right, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 1/3, 1)
-			Add3DWindows(%floorid%F_ClinicN_WinSide1, %Door_MainX% + 0.5, %Door_MainZ% - 3 - 4.75, right, 9, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 3/3, 1)
-			Add3DWindows(%floorid%F_ClinicN_WinSide2, %Door_MainX% + 0.5, %Door_MainZ% + 3 + 4.75, right, 9, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 3/3, 1)
+			Add3DWindows(%floorid%F_ClinicN_WinTop, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 1/3, 1)
+			Add3DWindows(%floorid%F_ClinicN_WinSide1, %Door_MainX% - 3 - 3.25, %Door_MainZ% - 0.5, front, 6, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 3/3, 1)
+			Add3DWindows(%floorid%F_ClinicN_WinSide2, %Door_MainX% + 3 + 3.25, %Door_MainZ% - 0.5, front, 6, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 3/3, 1)
 
 			#Signs
 			Set SignHeight = 1.5
 			if[%floor% ! 6 & %floor% ! 7] Set SignHeight = 3
 			Set SignOffset = 5.5
 			if[%floor% ! 6 & %floor% ! 7] Set SignOffset = 4.75
-			AddBoxSign(Clinic%floorid%01_SignEast, Sign_LB_Long, Sign_Clinic%floorid%01, Sign_LB_Long, 0.1, false, true, true, 33.5 + 0.05, -9, 6, %SignHeight%, %SignOffset%, false)
+			AddBoxSign(Clinic%floorid%01_SignEast, Sign_Clinic%floorid%01, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, %Door_MainX% - 13.5, %Door_MainZ% - 0.5 - 0.05, 6, %SignHeight%, %SignOffset%, false)
 <EndFloors>
 
 <Floor 2>
@@ -1337,8 +1358,8 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 	CreateWallBox2 External, SupportW2, %5%Wall, -%1% + 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#East Supports
-	CreateWallBox2 External, SupportE1, %5%Wall, %1% - 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 External, SupportE2, %5%Wall, %1% - 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportE1, %5E%Wall, %1% - 1.25, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 External, SupportE2, %5E%Wall, %1% - 1.25, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFloors>
 
 #Roof
@@ -1415,13 +1436,13 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 	CreateShaftWall(%5%Wall, %5RH%Wall, %5D%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -39, -30, 6, 15, WestElev, %WH%, %WO%, false, true, true, true, false, false, true)
 
 	#East Elevators
-	CreateShaftWall(%5%Wall, %5D%Wall, %5RH%Wall, %5ABO%Wall, %5%Wall, %5%Wall, 0.33, 39, -30, 6, 15, EastElev, %WH%, %WO%, false, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5E2%Wall, %5RH%Wall, %5E%Wall, %5%Wall, %5%Wall, 0.33, 39, -30, 6, 15, EastElev, %WH%, %WO%, false, true, true, true, false, false, true)
 
 	#West Stairwell
 	CreateShaftWall(%5RH%Wall, %5%Wall, %5B%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -39, 32.5, 6, 12.5, WestST, %WH%, %WO%, true, true, true, false, false, false, true)
 
 	#East Stairwell
-	CreateShaftWall(%5RH%Wall, %5B%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 39, 32.5, 6, 12.5, EastST, %WH%, %WO%, true, true, true, false, false, false, true)
+	CreateShaftWall(%5E%Wall, %5E3%Wall, %5E%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 39, 32.5, 6, 12.5, EastST, %WH%, %WO%, true, true, true, false, false, false, true)
 <EndFloors>
 
 <Floor 8>
@@ -2206,7 +2227,7 @@ ShowFullStairs 1 = always
 	#Exit Signs
 	Set SignTex = ExitSign
 	Set SignPos = 0 #For signs at the hallway
-	if[%floor% = 4 | %floor% = 5 | %floor% = 6] Set SignPos = 7.5 #For signs at the hallway
+	if[%floor% > 2] Set SignPos = 7.5 #For signs at the hallway
 
 	if[%floor% > 0] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% - %24% - 0.55, 1.8, 0.9, 7.2, false)
 	if[%floor% > 0] AddBoxSign(Stair%25%_SignHallway, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, %21% + %23% - 2, %SignPos%, 1.8, 0.9, %height% - 0.9, false)
@@ -2287,7 +2308,7 @@ ShowFullStairs 2 = always
 	#Exit Signs
 	Set SignTex = ExitSign
 	Set SignPos = 0 #For signs at the hallway
-	if[%floor% = 4 | %floor% = 5 | %floor% = 6] Set SignPos = 7.5 #For signs at the hallway
+	if[%floor% > 2] Set SignPos = 7.5 #For signs at the hallway
 
 	if[%floor% > 0 & %floor% < 8] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% - 0.55, 1.8, 0.9, 7.2, false)
 	if[%floor% = 8] AddBoxSign(Stair%25%_SignRoof, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% - 0.55, 1.8, 0.9, %interfloorheight% + 7.2, true)
