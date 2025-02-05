@@ -125,10 +125,10 @@
 
 			#Clinics on 5th-6th floors
 			Load data/checker08.jpg, 5FClinicFloor, 0.35, 0.35
-			Load data/EG881/stucco22b_white.jpg, 5FClinicWall, 0.25, 0.25 #EG881
+			Load data/EG881/stucco22b_white.jpg, 5FClinicWall, 0.125, 0.125 #EG881
 			Load data/EG881/ceilingtile3x3.jpg, 5FClinicCeiling, 0.125, 0.125 #EG881
 			Load data/checker03.jpg, 6FClinicFloor, 0.35, 0.35
-			Load data/stucco22.jpg, 6FClinicWall, 0.125, 0.125
+			Load data/stucco22b.jpg, 6FClinicWall, 0.125, 0.125
 			Load data/EG881/ceilingtile3x3.jpg, 6FClinicCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
@@ -1169,7 +1169,7 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 	TexPrefix() #Set texture prefixes
 	RR_DTex() #Set door textures
 	Set RRHeight = %height%
-	Set RRCeiHeight = 8.5
+	Set RRCeiHeight = 8.5 + %interfloorheight%
 
 		#Restrooms' floors
 		CutAll -33, %interfloorheight% - 0.1, -35, -13, %interfloorheight% + 1, -15.5 + 0.2, false, true
@@ -1182,21 +1182,21 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 		#Restrooms' dropped ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor RR_DropCeiling, DropCeiling, 0.5, -33, -35, -13, -15, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+		AddFloor RR_DropCeiling, DropCeiling, 0.5, -33, -35, -13, -15, %RRCeiHeight%, %RRCeiHeight%, 0, 0, true
 	
 		#Restroom walls
 		WallOrientation = left
 		DrawWalls = false, true, false, false, false, false
-		AddWall RR_Left, RRWall, 0.5, -33, -35, -33, -15, %RRHeight%, %RRHeight%, 0, 0, 0, 0, false
+		AddWall RR_Left, RRWall, 0.5, -33, -35, -33, -15, %RRHeight%, %RRHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride %5E2%Wall, RRWall, Blank, Blank, Blank, Blank
-		AddWall RR_Front, RRWall, 0.5, -33, -35, -13, -35, %RRHeight%, %RRHeight%, 0, 0, 0, 0, false
+		AddWall RR_Front, RRWall, 0.5, -33, -35, -13, -35, %RRHeight%, %RRHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		WallOrientation = right
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride RRWall, %5E2%Wall, Blank, Blank, Blank, Blank
-		AddWall RR_Right, RRWall, 0.5, -13, -35, -13, -15, %RRHeight%, %RRHeight%, 0, 0, 0, 0, false
+		AddWall RR_Right, RRWall, 0.5, -13, -35, -13, -15, %RRHeight%, %RRHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		TextureOverride RRWall, %5A%Wall, Blank, Blank, Blank, Blank
-		AddWall RR_Back, RRWall, 0.5, -33, -15, -13, -15, %RRHeight%, %RRHeight%, 0, 0, 0, 0, false
+		AddWall RR_Back, RRWall, 0.5, -33, -15, -13, -15, %RRHeight%, %RRHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		WallOrientation = center
 		DrawWalls = true, true, false, false, false, false
@@ -1204,10 +1204,10 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 
 		#Restroom doors
 		WallOrientation = left
-		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, -23 + 2.5, -15.5, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, -23 - 2.5, -15.5, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, -23 + 2.5, -15.5, 3, 7, 0, true, 0, 0, false
-		AddFillerWalls ConnectionWall, 0.5, -23 - 2.5, -15.5, 3, 7, 0, true, 0, 0, false
+		AddStdDoor DoorManager, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, -23 + 2.5, -15.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, -23 - 2.5, -15.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, -23 + 2.5, -15.5, 3, 7, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls ConnectionWall, 0.5, -23 - 2.5, -15.5, 3, 7, %interfloorheight%, true, 0, 0, true
 	
 		#Restroom signs
 		Set BoxTex = BlackTrim
