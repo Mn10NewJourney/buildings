@@ -1025,6 +1025,9 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 	TextureOverride %5%Wall, %5B%Wall, Blank, Blank, Blank, Blank
 	AddWall EastWall_%floorid%F, %5%Wall, 0.5, 45, -15, %1%, -15, %height%, %height%, 0, 0, 0, 0, false
 
+	DrawWalls = true, false, true, false, false, false
+	AddWall EastDecoWall_%floorid%F, %5%Wall, 1.25, 72.5, -15, %1%, -15, %height%, %height%, 0, 0, 0, 0, false
+
 	#Manager's room (7th-8th floor only)
 	WallOrientation = right
 	DrawWalls = true, true, false, false, false, false
@@ -1085,12 +1088,14 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 			Add3DWindows(%floorid%F_ClinicN_WinSide2, %Door_MainX% + 3 + 4.75, %Door_MainZ% - 0.5, front, 9, 7 - 0.25, 0.25, MainWindowsIntB, MainWindowsIntB, %5B%Wall, 0.5, 3/3, 1)
 
 			#Signs
-			Set SignHeight = 1.125
-			if[%floor% ! 6 & %floor% ! 7] Set SignHeight = 2.25
+			Set SignWidth = 6
+			if[%floor% ! 6 & %floor% ! 7] Set SignWidth = 5
+			Set SignHeight = 1.5
+			if[%floor% ! 6 & %floor% ! 7] Set SignHeight = 2.5
 			Set SignOffset = 7.25
-			#if[%floor% ! 6 & %floor% ! 7] Set SignOffset = 4.75
+			if[%floor% ! 6 & %floor% ! 7] Set SignOffset = 7
 
-			AddBoxSign(Clinic%floorid%01_SignEast, Sign_Clinic%floorid%01, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, %Door_MainX% - 13.5, %Door_MainZ% - 0.5 - 0.05, 4.5, %SignHeight%, %SignOffset%, false)
+			AddBoxSign(Clinic%floorid%01_SignEast, Sign_Clinic%floorid%01, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.5 - 0.05, %SignWidth%, %SignHeight%, %SignOffset%, false)
 <EndFloors>
 
 <Floor 2>
