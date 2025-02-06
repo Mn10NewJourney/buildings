@@ -267,7 +267,6 @@
 		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ElevPanel, 1, 1, false
-		Load data/MT/panel-back2.gif, ElevPanel2, 1, 1, false
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
 		Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
 
@@ -435,6 +434,9 @@
 		AddTextRange 0, 2, Signa4IndBack, Signa4Ind_ButtonB%number%, Mitsubishi-Modern-V2.ttf, 135, B%number%, -1, -1, -1, -1, center, center, 0, 212, 255 #Test Tower
 
 	#Miscellaneous
+		#Main Floor Star
+		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
+
 		#Poster(s) above elevator doors
 		Load data/Melvin/SentaiTower/Poster7A.png, PosterB1A, 1, 1, false #Elevators 5-8
 
@@ -447,8 +449,8 @@
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 		AddTextRange 1, 4, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 5, 8, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
-		AddTextRange 9, 13, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
-		AddTextRange 14, 15, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 9, 11, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 0, false
+		AddTextRange 12, 15, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Floor signs (Freight Elevators)
 		Load data/Melvin/ABH_Tex/NewFS256/FSBack_SapphireService.jpg, FlrSignBack, 1, 1, false
@@ -3616,6 +3618,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, %FirstRow%, 1, 3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, %FirstRow% + 1, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, %FirstRow% + 1, 1, off, 0.45, 0.45, -0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, %FirstRow% + 2, 1, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, %FirstRow% + 3, 1, -2, 1, 1
 
@@ -3769,6 +3772,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 1, 1, 3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 2, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 2, 1, off, 0.45, 0.45, -0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B0, %BtnPrefix%LitB0, 3, 1, 0, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 4, 1, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 5, 1, -2, 1, 1
@@ -3989,9 +3993,13 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set Position = -2.65 #Right (Main) panel
 	Set Position2 = 2.65 #Left (Secondary) panel
 
+		#Panel back
+		CreateWallBox2 elevator, PB1, ElevPanel, %Position%, -3.05 + 0.025, 0.7, 0.05, 4.25, 2.5, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, PB2, ElevPanel, %Position2%, -3.05 + 0.025, 0.7, 0.05, 4.25, 2.5, 0, 0, false, true, true, true
+
 		#Panels
-		CreatePanel ElevPanel2, 9, 2, back, %Position%, -3.05 + 0.001, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
-		CreatePanel ElevPanel2, 9, 2, back, %Position2%, -3.05 + 0.001, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 2, back, %Position%, -3.05 + 0.051, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 9, 2, back, %Position2%, -3.05 + 0.051, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
 
 			#Buttons
 			BtnPanelE1-2and5-8(1)
@@ -4002,19 +4010,19 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 0 - 0.25, -3.05 + 0.001, 0 + 0.25, -3.05 + 0.001, 0.5, 0.5, 7.05, 7.05, 0, 0
 	#--------------------
 	#Indicator sets
-	AddFloorIndicator MAInd_Button, back, %Position%, -3.05 + 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
-	AddFloorIndicator MAInd_Button, back, %Position2%, -3.05 + 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	AddFloorIndicator MAInd_Button, back, %Position%, -3.05 + 0.051, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	AddFloorIndicator MAInd_Button, back, %Position2%, -3.05 + 0.051, 0.5, 0.286, 5.75 + 0.25 - 0.143
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
 		#Ropes
 		RopePosition = 0, 8 + 0.2, 0
 		RopeTexture = Ropes
-	
+
 		#Counterweight
 		Set Position = 3.25 + 0.75
 		CreateCounterweight CWeight_Frame, CWeight, 0, %Position%, 2, 6, 0.5, 0.5
-	
+
 		#Rails
 		#AddRails ElevRail, ElevRailSide, 0, 0, false, 3.5 + 0.06, 0.1
 		#AddRails ElevRail, ElevRailSide, 0, %Position%, false, 1 + 0.06, 0.1
@@ -4067,6 +4075,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 3, 1, 3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1A, %BtnPrefix%Lit1A, 4, 1, 2, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 5, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 5, 1, off, 0.45, 0.45, -0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 6, 1, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 7, 1, -2, 1, 1
 
@@ -4133,9 +4142,13 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set Position = 2.65 #Right (Main) panel
 	Set Position2 = -2.65 #Left (Secondary) panel
 
+		#Panel back
+		CreateWallBox2 elevator, PB1, ElevPanel, %Position%, 3.05 - 0.025, 0.7, 0.05, 4.25, 2.5, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, PB2, ElevPanel, %Position2%, 3.05 - 0.025, 0.7, 0.05, 4.25, 2.5, 0, 0, false, true, true, true
+
 		#Panels
-		CreatePanel ElevPanel2, 11, 2, front, %Position%, 3.05 - 0.001, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
-		CreatePanel ElevPanel2, 11, 2, front, %Position2%, 3.05 - 0.001, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 11, 2, front, %Position%, 3.05 - 0.051, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
+		CreatePanel , 11, 2, front, %Position2%, 3.05 - 0.051, 0.2, 0.2, 0.2, -0.3, 3.5, 0, 0
 
 			#Buttons
 			BtnPanelE9-11(1)
@@ -4146,8 +4159,8 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 0 - 0.25, 3.05 - 0.001, 0 + 0.25, 3.05 - 0.001, 0.5, 0.5, 7.05, 7.05, 0, 0
 	#--------------------
 	#Indicator sets
-	AddFloorIndicator MAInd_Button, front, %Position%, 3.05 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
-	AddFloorIndicator MAInd_Button, front, %Position2%, 3.05 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	AddFloorIndicator MAInd_Button, front, %Position%, 3.05 - 0.051, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	AddFloorIndicator MAInd_Button, front, %Position2%, 3.05 - 0.051, 0.5, 0.286, 5.75 + 0.25 - 0.143
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -4194,6 +4207,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set PanelNumber2 = %PanelNumber% + 1
 	Set BtnPrefix = Signa4Button
 
+	AddButton %PanelNumber2%, , MainFloorStar, MainFloorStar, 1, 1, off, 0.4, 0.8, -0.75, 0
 	AddButton %PanelNumber2%, , %BtnPrefix%1, %BtnPrefix%Lit1, 1, 1, 1, 1, 1
 	AddButton %PanelNumber2%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 2, 1, -1, 1, 1
 	AddButton %PanelNumber2%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 3, 1, -2, 1, 1
@@ -4257,30 +4271,34 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set Position = 2.65 #Right (Main) panel
 	Set Position2 = -2.65 #Left (Secondary) panel
 
+		#Panel back
+		CreateWallBox2 elevator, PB1, ElevPanel, %Position%, 2.85 - 0.025, 0.75, 0.05, 5, 2, 0, 0, false, true, true, true
+
 		#Panels
-		CreatePanel , 7, 2, front, %Position%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 1: Control buttons (Right)
-		CreatePanel , 7, 1, front, %Position%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 2: Floor & phone buttons (Right)
-		CreatePanel , 7, 2, front, %Position2%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 3: Control buttons (Left)
-		CreatePanel , 7, 1, front, %Position2%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 4: Floor buttons (Left)
+		CreatePanel , 7, 2, front, %Position%, 2.85 - 0.051, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 1: Control buttons (Right)
+		CreatePanel , 7, 1, front, %Position%, 2.85 - 0.051, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 2: Floor & phone buttons (Right)
+		#CreatePanel , 7, 2, front, %Position2%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 3: Control buttons (Left)
+		#CreatePanel , 7, 1, front, %Position2%, 2.85 - 0.001, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Panel 4: Floor buttons (Left)
 
 			#Buttons
 			BtnPanelE12-13(1)
-			BtnPanelE12-13(3)
+			#BtnPanelE12-13(3)
 	#--------------------
 	#Elevator number sign
 	DrawWalls = true, false, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 0 - 0.25, 2.85 - 0.001, 0 + 0.25, 2.85 - 0.001, 0.5, 0.5, 7.05, 7.05, 0, 0
+	#AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 0 - 0.25, 2.85 - 0.001, 0 + 0.25, 2.85 - 0.001, 0.5, 0.5, 7.05, 7.05, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position% - 0.25, 2.85 - 0.051, %Position% + 0.25, 2.85 - 0.051, 0.5, 0.5, 6.5, 6.5, 0, 0
 
 	#Door jamb lanterns
 	AddDirectionalIndicator false, false, true, ElevIntPanels-Signa4, Signa4LanternUp, Signa4LanternUpLit, Signa4LanternDown, Signa4LanternDownLit, 2 - 0.001, 3.25 - 0.2, 5.5, left, 0.35, 0.7, true, 0, 0
-	AddDirectionalIndicator false, false, true, ElevIntPanels-Signa4, Signa4LanternUp, Signa4LanternUpLit, Signa4LanternDown, Signa4LanternDownLit, -2 + 0.001, 3.25 - 0.2, 5.5, right, 0.35, 0.7, true, 0, 0
+	#AddDirectionalIndicator false, false, true, ElevIntPanels-Signa4, Signa4LanternUp, Signa4LanternUpLit, Signa4LanternDown, Signa4LanternDownLit, -2 + 0.001, 3.25 - 0.2, 5.5, right, 0.35, 0.7, true, 0, 0
 	#--------------------
 	#Indicator sets
-	AddFloorIndicator Signa4IntInd_Button, front, %Position%, 2.85 - 0.001, 0.5, 0.5, 6 + 0.25 - 0.25
+	AddFloorIndicator Signa4IntInd_Button, front, %Position%, 2.85 - 0.051, 0.5, 0.5, 6 + 0.25 - 0.25
 
 	#Fire service cabinet
 	DrawWalls = true, false, false, false, false, false
-	AddWall FireCab, Signa4FireCab, 0, %Position% - 0.25, 2.85 - 0.001, %Position% + 0.25, 2.85 - 0.001, 0.6, 0.6, 6 - 0.03 - 0.6, 6 - 0.03 - 0.6, 0, 0
+	AddWall FireCab, Signa4FireCab, 0, %Position% - 0.25, 2.85 - 0.051, %Position% + 0.25, 2.85 - 0.051, 0.6, 0.6, 6 - 0.03 - 0.6, 6 - 0.03 - 0.6, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -4336,6 +4354,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 3, 2, 3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 3, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 3, 1, off, 0.4, 0.8, -0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 4, 2, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 4, 1, -2, 1, 1
 
@@ -4363,6 +4382,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 4, 1, 3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1A, %BtnPrefix%Lit1A, 5, 2, 2, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 5, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 5, 1, off, 0.4, 0.8, -0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B0, %BtnPrefix%LitB0, 6, 2, 0, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 6, 1, -1, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 7, 2, -2, 1, 1
@@ -4440,8 +4460,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set PanelCenter = -4.44 + 0.75
 
 		#Panel back
-		CreateWallBox2 elevator, RightPB, ElevPanel, %Position% - 0.051 + 0.025, %PanelCenter%, 0.05, 0.75, 5, 2, 0, 0, false, true, true, true
-		#CreateWallBox2 elevator, LeftPB, ElevPanel, %Position2% + 0.051 - 0.025, %PanelCenter%, 0.05, 0.75, 2.25, 2.5, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, RightPB, ElevPanel, %Position% - 0.051 + 0.025, %PanelCenter%, 0.05, 0.8, 5, 2, 0, 0, false, true, true, true
 
 		#Panels
 		Set Rows = 8
@@ -4449,16 +4468,9 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 		CreatePanel , %Rows%, 2, right, %Position%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Right panel
 		CreatePanel , %Rows%, 1, right, %Position%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Right panel, phone button only
 
-		#CreatePanel , %Rows%, 2, left, %Position2%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Left panel
-		#CreatePanel , %Rows%, 1, left, %Position2%, %PanelCenter%, 0.25, 0.125, 0.2, 0.2, 3.5, 0, 0 #Left panel, phone button only
-
 			#Buttons (Right panel)
 			if[%elevator% = 14] BtnPanelFE1(1)
 			if[%elevator% = 15] BtnPanelFE2(1)
-
-			#Buttons (Left panel)
-			#if[%elevator% = 14] BtnPanelFE1(3)
-			#if[%elevator% = 15] BtnPanelFE2(3)
 	#--------------------
 	#Proximity scanner
 	Set PSscanHeight = 0.45
