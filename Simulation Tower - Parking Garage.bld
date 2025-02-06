@@ -92,26 +92,20 @@
 	Load data/Mitsubishi_DiamondTrac/Classic/alarm.png, ButtonAlarm, 1, 1, false
 	Load data/Mitsubishi_DiamondTrac/Classic/phone.png, ButtonPhone, 1, 1, false
 
-	AddTextRange 1, 9, Button, ButtonP%number%, nimbus_sans.ttf, 40, P%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
-	AddText Button, ButtonR, nimbus_sans.ttf, 40, R, 0, 0, 128, 128, center, center, 255, 255, 255, false
-
-	AddTextRange 1, 9, ButtonLit, ButtonLitP%number%, nimbus_sans.ttf, 40, P%number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
-	AddText ButtonLit, ButtonLitR, nimbus_sans.ttf, 40, R, 0, 0, 128, 128, center, center, 255, 255, 255, false
+	AddTextRange 1, 10, Button, Button%number%, nimbus_sans.ttf, 40, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
+	AddTextRange 1, 10, ButtonLit, ButtonLit%number%, nimbus_sans.ttf, 40, %number%, 0, 0, 128, 128, center, center, 255, 255, 255, false
 
 	#Directional & Floor Indicators
 	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrow2.jpg, ArrowUnlit, 1, 1, false #Test Tower
 	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrowUp2.jpg, ArrowUpLit, 1, 1, false #Test Tower
 	Load data/Mitsubishi_Modern/Indicator_Set/FloorArrowDown2.jpg, ArrowDownLit, 1, 1, false #Test Tower
-	AddTextRange 1, 9, Black, Ind_ButtonP%number%, Mitsubishi-Modern-V2.ttf, 60, P%number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
-	AddText Black, Ind_ButtonR, Mitsubishi-Modern-V2.ttf, 60, R, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
+	AddTextRange 1, 10, Black, Ind_Button%number%, Mitsubishi-Modern-V2.ttf, 60, %number%, -1, -1, -1, -1, center, center, 255, 97, 0, false #Test Tower
 
 	#Floor Signs (Blank)
-	AddTextRange 1, 9, Blank, BlankSignP%number%, nimbus_sans_bold.ttf, 72, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-	AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddTextRange 1, 10, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	#Floor Signs (Black)
-	AddTextRange 1, 9, BlackTrim, SignP%number%, nimbus_sans_bold.ttf, 96, P%number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
-	AddText BlackTrim, SignR, nimbus_sans_bold.ttf, 96, R, -1, -1, -1, -1, center, center, 255, 255, 255, false
+	AddTextRange 1, 10, BlackTrim, Sign%number%, nimbus_sans_bold.ttf, 96, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 
 	#Elevator number signs (Inside)
 	Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
@@ -126,6 +120,7 @@
 
 	#Miscellaneous
 	Load data/signs_mod/Parking_BldgAccess.png, ParkingSign, 1, 1, false
+	Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 <EndTextures>
 
 #########################################################################
@@ -140,9 +135,9 @@
 	Altitude = -11.5
 <EndFloor>
 
-<Floors 0 to 8>
-	ID = P(%floor% + 1)
-	Name = Parking Level (%floor% + 1)
+<Floors 0 to 9>
+	ID = %floor% + 1
+	Name = Parking Level %floorid%
 	Type = Recreation
 	Height = 8.5
 	InterfloorHeight = 1.5
@@ -150,8 +145,8 @@
 <EndFloors>
 
 <Floor 9>
-	ID = R
-	Name = Roof
+	ID = %floor% + 1
+	Name = Parking Level %floorid%
 	Type = Roof
 	Height = 8.5
 	InterfloorHeight = 1.5
@@ -450,17 +445,18 @@ ShowFullShaft 1 = true
 <Function BtnPanelE1-3>
 	Set PanelNumber = %param1%
 
-	AddButton %PanelNumber%, , ButtonR, ButtonLitR, 1, 2, 9, 1, 1
-	AddButton %PanelNumber%, , ButtonP9, ButtonLitP9, 1, 1, 8, 1, 1
-	AddButton %PanelNumber%, , ButtonP8, ButtonLitP8, 2, 2, 7, 1, 1
-	AddButton %PanelNumber%, , ButtonP7, ButtonLitP7, 2, 1, 6, 1, 1
-	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 2, 1, off, 0.5, 1, -0.75, 0
-	AddButton %PanelNumber%, , ButtonP6, ButtonLitP6, 3, 2, 5, 1, 1
-	AddButton %PanelNumber%, , ButtonP5, ButtonLitP5, 3, 1, 4, 1, 1
-	AddButton %PanelNumber%, , ButtonP4, ButtonLitP4, 4, 2, 3, 1, 1
-	AddButton %PanelNumber%, , ButtonP3, ButtonLitP3, 4, 1, 2, 1, 1
-	AddButton %PanelNumber%, , ButtonP2, ButtonLitP2, 5, 2, 1, 1, 1
-	AddButton %PanelNumber%, , ButtonP1, ButtonLitP1, 5, 1, 0, 1, 1
+	AddButton %PanelNumber%, , Button10, ButtonLit10, 1, 2, 9, 1, 1
+	AddButton %PanelNumber%, , Button9, ButtonLit9, 1, 1, 8, 1, 1
+	AddButton %PanelNumber%, , Button8, ButtonLit8, 2, 2, 7, 1, 1
+	AddButton %PanelNumber%, , Button7, ButtonLit7, 2, 1, 6, 1, 1
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 2, 1, off, 0.4, 0.8, -0.75, 0
+	AddButton %PanelNumber%, , Button6, ButtonLit6, 3, 2, 5, 1, 1
+	AddButton %PanelNumber%, , Button5, ButtonLit5, 3, 1, 4, 1, 1
+	AddButton %PanelNumber%, , Button4, ButtonLit4, 4, 2, 3, 1, 1
+	AddButton %PanelNumber%, , Button3, ButtonLit3, 4, 1, 2, 1, 1
+	AddButton %PanelNumber%, , Button2, ButtonLit2, 5, 2, 1, 1, 1
+	AddButton %PanelNumber%, , Button1, ButtonLit1, 5, 1, 0, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 5, 1, off, 0.4, 0.8, -0.75, 0
 	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 7, 1, open, 1, 1
 	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 7, 2, close, 1, 1
 	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 8, 1, alarm, 1, 1
@@ -662,9 +658,8 @@ ShowFullStairs 1 = always
 
 	#Floor Signs
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% < 9] AddStairsWall %25%, FloorSign, BlankSignP(%floor% + 1), 0, 0 - 1, %24% - 0.001, 0 + 1, %24% - 0.001, 2, 2, 4, 4, 0, 0
-	if[%floor% = 9] AddStairsWall %25%, FloorSign, BlankSignR, 0, 0 - 1, %24% - 0.001, 0 + 1, %24% - 0.001, 2, 2, 4, 4, 0, 0
-	
+	AddStairsWall %25%, FloorSign, BlankSign%floorid%, 0, 0 - 1, %24% - 0.001, 0 + 1, %24% - 0.001, 2, 2, 4, 4, 0, 0
+
 	#Exit Sign
 	if[%floor% = 0] ExitSign(Stair6_Sign, ExitSign, ExitSign, StainlessSteel, false, true, false, 190.05 - 200, 59.67 - 2, %interfloorheight% + 7.2, true)
 <EndFloors>
@@ -743,8 +738,7 @@ ShowFullStairs 2 = always
 
 	#Floor Signs
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% < 9] AddStairsWall %25%, FloorSign, BlankSignP(%floor% + 1), 0, 0 - 1, -%24% + 0.001, 0 + 1, -%24% + 0.001, 2, 2, 4, 4, 0, 0
-	if[%floor% = 9] AddStairsWall %25%, FloorSign, BlankSignR, 0, 0 - 1, -%24% + 0.001, 0 + 1, -%24% + 0.001, 2, 2, 4, 4, 0, 0
+	AddStairsWall %25%, FloorSign, BlankSign%floorid%, 0, 0 - 1, -%24% + 0.001, 0 + 1, -%24% + 0.001, 2, 2, 4, 4, 0, 0
 
 	#Exit Sign
 	if[%floor% = 0] ExitSign(Stair7_Sign, ExitSign, ExitSign, StainlessSteel, false, true, false, 190.05 - 200, -59.67 + 2, %interfloorheight% + 7.2, true)	

@@ -395,14 +395,6 @@
 	InterfloorHeight = 1.5
 <EndFloor>
 
-<Floor 10>
-	ID = PR
-	Name = Penthouse Roof
-	Type = Roof
-	Height = 9.5
-	InterfloorHeight = 1.5
-<EndFloor>
-
 ##--------------------------------------------------------------------------------##
 
 #Landscape
@@ -1141,30 +1133,14 @@ Set 2 = 28 #Building Dimension Z
 <EndFloor>
 
 #Mechanical penthouse roof
-<Floor 10>
+<Floor 9>
 	Set 1 = 90 #Building Dimension X
 	Set 2 = 28 #Building Dimension Z
-	FloorTex() #Floor Texture
-	WallTex() #Set wall texture
 
 	#Mechanical penthouse cover
-	FloorOrientation = top
-	DrawWalls = false, true, false, false, false, false
-	AddFloor MechanicalPHTopCover, ExtFacade, 0.5, -%1%, %2% - 20, -%1% + 30, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-
-	#Mechanical penthouse walls (exterior)
-	Set WallHeight = %interfloorheight%
-	Set WallOffset = 0
-
-	WallOrientation = left
-	DrawWalls = true, false, false, false, false, false
-	AddWall FrontMechPH-Ext, ExtFacade, 0.5, -%1%, %2% - 20, -%1% + 30, %2% - 20, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall LeftMechPH-Ext, ExtFacade, 0.5, -%1%, %2% - 20, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
-	WallOrientation = right
-	DrawWalls = false, true, false, false, false, false
-	AddWall RightMechPH-Ext, ExtFacade, 0.5, -%1% + 30, %2% - 20, -%1% + 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall BackMechPH-Ext, ExtFacade, 0.5, -%1%, %2%, -%1% + 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	FloorOrientation = bottom
+	DrawWalls = false, true, true, true, true, true
+	AddFloor MechanicalPHTopCover, ExtFacade, 1.5, -%1%, %2% - 20, -%1% + 30, %2%, %fullheight%, %fullheight%, 0, 0, true
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -1740,21 +1716,16 @@ ShowFullStairs 1 = always
 	#Doors
 	WallOrientation = left
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% < 9] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, %23% - 2, %24%, 3, 7, 0, 0, 0
+	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, %23% - 2, %24%, 3, 7, 0, 0, 0
 
-	WallOrientation = right
-	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = 9] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, %23% - 2, %24% + 0.5, 3, 7, 0, 0, 0
-
-	SetLock 1, 0
-	WallOrientation = left
-	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, -%23% - 0.5, %24% - 2, 3, 7, 0, 0, 0
-	SetLock 0, 0
+		#Emergency Exit Door
+		SetLock 1, 0
+		WallOrientation = left
+		TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, -%23% - 0.5, %24% - 2, 3, 7, 0, 0, 0
+		SetLock 0, 0
 
 		#Filler walls
-		#WallOrientation = left
-		#if[%floor% < 9] AddFillerWalls ConnectionWall, 0.5, %21% + %23% - 2, %22% + %24%, 3, 7 - 0.001, 0, true, 0, 0, false
 		WallOrientation = right
 		if[%floor% = 9] AddFillerWalls ConnectionWall, 0.5, %21% + %23% - 2, %22% + %24% + 0.5, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
 		WallOrientation = left
@@ -1763,7 +1734,7 @@ ShowFullStairs 1 = always
 	#Exit Signs
 	Set SignOffset = 8
 	if[%floor% < 9] AddBoxSign(Stair%25%_SignA, StainlessSteel, ExitSignLeft, StainlessSteel, 0.1, false, true, true, %21% + %23% - 2, -4 + 0.9, 1.8, 0.9, %SignOffset%, false)
-	if[%floor% = 9] AddBoxSign(Stair%25%_SignB, ExitSignUp, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% + %24% - 0.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 9] AddBoxSign(Stair%25%_SignB, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% + %24% + 0.55, 1.8, 0.9, %interfloorheight% + 7.2, true)
 	if[%floor% = 0] AddBoxSign(Stair%25%_SignC, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% + %24% - 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
 
