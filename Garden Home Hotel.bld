@@ -194,8 +194,8 @@
 
 		AddTextRange 1, 4, Button, ButtonP%number%, nimbus_sans.ttf, 40, P%number%, 5, 0, 128, 128, center, center, 255, 255, 255
 		AddTextRange 1, 4, ButtonLit, ButtonLitP%number%, nimbus_sans.ttf, 40, P%number%, 5, 0, 128, 128, center, center, 255, 255, 255
-		AddText Button, ButtonL, nimbus_sans.ttf, 40, L, 5, 0, 128, 128, center, center, 255, 255, 255
-		AddText ButtonLit, ButtonLitL, nimbus_sans.ttf, 40, L, 5, 0, 128, 128, center, center, 255, 255, 255
+		AddText Button, Button1, nimbus_sans.ttf, 40, 1, 5, 0, 128, 128, center, center, 255, 255, 255
+		AddText ButtonLit, ButtonLit1, nimbus_sans.ttf, 40, 1, 5, 0, 128, 128, center, center, 255, 255, 255
 
 		#Directional and floor indicators
 			#Lanterns
@@ -207,7 +207,7 @@
 			#Floor indicators (Both outside and inside)
 			Load data/ACME Floor Indicator/Resized/ACME Floor Indicator 2.jpg, IndBack, 1, 1, false
 			AddTextRange 1, 4, IndBack, Ind_ButtonP%number%, acme_led.ttf, 240, P%number%, -1, -1, -1, -1, center, center, 255, 0, 0
-			AddText IndBack, Ind_ButtonL, acme_led.ttf, 240, _L, -1, -1, -1, -1, center, center, 255, 0, 0
+			AddText IndBack, Ind_Button1, acme_led.ttf, 240, _1, -1, -1, -1, -1, center, center, 255, 0, 0
 
 	#Elevator number/name signs
 		#Elevator number signs (Inside)
@@ -218,11 +218,7 @@
 		#Floor signs (Elevator lobby)
 		Load data/Melvin/ABH_Tex/NewFS256/FSBack_SapphireService.jpg, FlrSignBack, 1, 1, false #Passenger
 		AddTextRange 1, 4, FlrSignBack, FlrSignP%number%, nimbus_sans.ttf, 120, P%number%, 0, 0, 256, 198, center, center, 0, 0, 0, false
-		AddText FlrSignBack, FlrSignL, nimbus_sans.ttf, 120, L, 0, 0, 256, 198, center, center, 0, 0, 0, false
-
-		#Load data/graygradient.jpg, FlrSignBack, 1, 1, false
-		#AddTextRange 1, 4, FlrSignBack, FlrSignP%number%, nimbus_sans_bold.ttf, 128, P%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddText FlrSignBack, FlrSignL, nimbus_sans_bold.ttf, 128, L, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText FlrSignBack, FlrSign1, nimbus_sans.ttf, 120, 1, 0, 0, 256, 198, center, center, 0, 0, 0, false
 
 	#Other signs and objects
 		#Exit signs
@@ -235,6 +231,7 @@
 
 		#Miscellaneous
 		Load data/signs_mod/elevhallsign1.png, FireSign, 1, 1, false
+		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -258,8 +255,8 @@
 <EndFloor>
 
 <Floor 0>
-	ID = L
-	Name = Lobby
+	ID = 1
+	Name = Level 1
 	Type = Lobby
 	Height = 15
 	InterfloorHeight = 1.5
@@ -621,16 +618,17 @@ ShowFullShaft 1 = true
 	Set PanelNumber = %param1%
 	Set PanelNumber2 = %PanelNumber% + 1
 
-	AddButton %PanelNumber2%, , ButtonL, ButtonLitL, 1, 1, 0, 1, 1
-	AddButton %PanelNumber2%, , ButtonP1, ButtonLitP1, 2, 1, -1, 1, 1
-	AddButton %PanelNumber2%, , ButtonP2, ButtonLitP2, 3, 1, -2, 1, 1
-	AddButton %PanelNumber2%, , ButtonP3, ButtonLitP3, 4, 1, -3, 1, 1
-	AddButton %PanelNumber2%, , ButtonP4, ButtonLitP4, 5, 1, -4, 1, 1
+	AddButton %PanelNumber2%, , MainFloorStar, MainFloorStar, 1, 1, off, 0.4, 0.8, -0.76, 0
+	AddButton %PanelNumber2%, , Button1, ButtonLit1, 1, 1, 0, 1, 1
+	AddButton %PanelNumber%, , ButtonP1, ButtonLitP1, 2, 2, -1, 1, 1
+	AddButton %PanelNumber%, , ButtonP2, ButtonLitP2, 2, 1, -2, 1, 1
+	AddButton %PanelNumber%, , ButtonP3, ButtonLitP3, 3, 2, -3, 1, 1
+	AddButton %PanelNumber%, , ButtonP4, ButtonLitP4, 3, 1, -4, 1, 1
 
-	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 7, 1, open, 1, 1
-	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 7, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 8, 1, 1, 1, 0, 0, 1, run, stop, ButtonStop, ButtonStop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 8, 2, alarm, 1, 1
+	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 5, 1, open, 1, 1
+	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 5, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 6, 1, 1, 1, 0, 0, 1, run, stop, ButtonStop, ButtonStop
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 6, 2, alarm, 1, 1
 <EndFunction>
 
 <Elevators 1 to 2>
@@ -694,8 +692,8 @@ ShowFullShaft 1 = true
 
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% - 0.001 + 0.025, %P1_PositionZ%, 0.05, 0.8, 4.75, 2.25, 0, 0, false, true, true, true
-		CreatePanel , 8, 2, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0
-		CreatePanel , 8, 1, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0 #Floor buttons
+		CreatePanel , 6, 2, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0
+		CreatePanel , 6, 1, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0 #1st floor button only
 		BtnPanelE1-2(1)
 	#--------------------
 	#Left Panel
@@ -704,8 +702,8 @@ ShowFullShaft 1 = true
 
 		#Floor buttons
 		CreateWallBox2 elevator, LeftPB, ElevPanel, %P2_PositionX% - 0.001 + 0.025, %P2_PositionZ%, 0.05, 0.8, 4.75, 2.25, 0, 0, false, true, true, true
-		CreatePanel , 8, 2, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0
-		CreatePanel , 8, 1, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0 #Floor buttons
+		CreatePanel , 6, 2, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0
+		CreatePanel , 6, 1, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.26, 0.13, 0.15, 0.2, 3.75, 0, 0 #1st floor button only
 		BtnPanelE1-2(3)
 	#--------------------
 
@@ -734,7 +732,6 @@ ShowFullShaft 1 = true
 		AddRails ElevRail, ElevRailSide, 0, 0, true, 3.25 + 0.06, 0.1
 		AddRails ElevRail, ElevRailSide, 0, %Position%, false, 1 + 0.06, 0.1
 <EndElevators>
-
 
 ##--------------------------------------------------------------------------------##
 
