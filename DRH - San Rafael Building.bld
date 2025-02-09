@@ -152,9 +152,9 @@
 			Load data/EG881/stainlesssteel2.jpg, 8FShaftDoors_TrimTop, 1, 1, false #EG881
 
 			#Hemodialysis Center (7th floor)
-			Load data/Carpet0013b_S.jpg, HMFloor, 0.2, 0.2
+			Load data/granite_0007e.jpg, HMFloor, 0.15, 0.15
 			Load data/Carpet0021b_S.jpg, HMFloor2, 0.2, 0.2
-			Load data/EG881/stucco22b_white.jpg, HMWall, 0.1, 0.1 #EG881
+			Load data/EG881/stucco2f_white2.jpg, HMWall, 0.08, 0.08 #EG881
 			Load data/EG881/ceilingtile2b.jpg, HMCeiling, 0.125, 0.125 #EG881
 
 			#Skin Center (8th floor)
@@ -608,7 +608,7 @@ AddTree(Tree1, 67.5, -65, 13.5, 12, 0)
 		if[%floor% > 2] AddFloor %floorid%F_WestFloor, %5A%Floor, 0.5, -%1%, -15, -33, %2%, 0, 0, 0, 0, false
 
 		#Extra carpeting on the 4th and 7th floors
-		if[%floor% = 3 | %floor% = 6] AddFloor %5A%Carpet, %5A%Floor2, 0.5, -%1% + 7, -15 + 5, %1% - 7, 20 - 5, 0.001, 0.001, 0, 0, false
+		if[%floor% = 3 | %floor% = 6] AddFloor %5A%Carpet, %5A%Floor2, 0.5, -%1% + 7, -15 + 7.5, %1% - 7, 20 - 7.5, 0.001, 0.001, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -1130,8 +1130,8 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 
 #Set door textures for restrooms
 <Function RR_DTex>
-	Set DTex = Door8
-	if[%floor% > 2 & %floor% < 7] Set DTex = Door9b
+	Set DTex = Door9b
+	if[%floor% = 7] Set DTex = Door8
 	Set DSTex = %DTex%Side
 <EndFunction>
 
@@ -1204,8 +1204,8 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 		Set Door_MainX = -13.5 #Storage 1 (West)
 		Set Door_MainZ = -37
 		Set DTex = Door9b
-		if[%floor% > 1 & %floor% ! 3 & %floor% ! 7] Set DTex = ServiceDoor1
-		if[%floor% = 3 | %floor% = 7] Set DTex = ServiceDoor3
+		if[%floor% > 1 & %floor% ! 3 & & %floor% ! 6 & %floor% ! 7] Set DTex = ServiceDoor1
+		if[%floor% = 3 | %floor% = 6 | %floor% = 7] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 
 		WallOrientation = left
