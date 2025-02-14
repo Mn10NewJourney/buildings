@@ -1477,7 +1477,11 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	WallOrientation = right
 	DrawWalls = false, true, false, false, false, false
 	AddWall RightElevLbyWall, ExtFacade, 0.5, 30, -50, 30, 0 - 1.25, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+	
+	Set SPTex = %6Int% #Side positive texture
+	if[%floor% > 8] Set SPTex = %6%
 	DrawWalls = true, false, false, true, false, false
+	TextureOverride %6%, Blank, Blank, %SPTex%, Blank, Blank
 	AddWall RightElevLbyWall, %6%, 0.5, 30, -6, 30, 0 - 1.25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	########################################
@@ -2363,11 +2367,11 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			AddFloor HeartFloor3, HeartFloor, 0.5, -110, -1.25, -29.5, 45, 0, 0, 0, 0, false
 
 		#Ceilings
-		#CutAll -%1%, %fullheight% - 0.1, -1.25, -110, %fullheight% + 0.1, 40, false, true
-		#CutAll -110, %fullheight% - 0.1, -1.25, -29.5, %fullheight% + 0.1, 45, false, true
+		CutAll -%1%, %fullheight% - 0.1, -1.25, -110, %fullheight% + 0.1, 40, false, true
+		CutAll -110, %fullheight% - 0.1, -1.25, -29.5, %fullheight% + 0.1, 45, false, true
 
 			#Ceiling creation
-			Set HeartHeight = 9.5
+			Set HeartHeight = %height%
 			FloorOrientation = bottom
 			DrawWalls = true, false, false, false, false, false
 			AddFloor HeartCeiling1, HeartCeiling, 0.5, -%1%, -1.25, -110, 40, %HeartHeight%, %HeartHeight%, 0, 0, false
@@ -2389,12 +2393,12 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			AddFloor ENTFloor3, ENTFloor, 0.5, 70, 75, 110, %2%, 0, 0, 0, 0, false
 
 		#Ceilings
-		#CutAll -110, %fullheight% - 0.1, 70, -90, %fullheight% + 0.1, %2%, false, true
-		#CutAll -90, %fullheight% - 0.1, 55, 70, %fullheight% + 0.1, %2%, false, true
-		#CutAll 70, %fullheight% - 0.1, 75, 110, %fullheight% + 0.1, %2%, false, true
+		CutAll -110, %fullheight% - 0.1, 70, -90, %fullheight% + 0.1, %2%, false, true
+		CutAll -90, %fullheight% - 0.1, 55, 70, %fullheight% + 0.1, %2%, false, true
+		CutAll 70, %fullheight% - 0.1, 75, 110, %fullheight% + 0.1, %2%, false, true
 
 			#Ceiling creation
-			Set ENTHeight = 9.5
+			Set ENTHeight = %height%
 			FloorOrientation = bottom
 			DrawWalls = true, false, false, false, false, false
 			AddFloor ENTCeiling1, ENTCeiling, 0.5, -110, 70, -90, %2%, %ENTHeight%, %ENTHeight%, 0, 0, false
@@ -2413,10 +2417,10 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			AddFloor EyeFloor, EyeFloor, 0.5, 29.5, -1.25, %1%, 45, 0, 0, 0, 0, false
 
 		#Ceilings
-		#CutAll 29.5, %fullheight% - 0.1, -1.25, %1%, %fullheight% + 0.1, 45, false, true
+		CutAll 29.5, %fullheight% - 0.1, -1.25, %1%, %fullheight% + 0.1, 45, false, true
 
 			#Ceiling creation
-			Set EyeHeight = 9.5
+			Set EyeHeight = %height%
 			FloorOrientation = bottom
 			DrawWalls = true, false, false, false, false, false
 			AddFloor EyeCeiling, EyeCeiling, 0.5, 29.5, -1.25, %1%, 45, %EyeHeight%, %EyeHeight%, 0, 0, false
@@ -2425,9 +2429,9 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 ################################################################################
 
 
-#Bridge to San Rafael Building and Parking Garage
+#2nd floor - Bridge to San Rafael Building and Parking Garage
 Set BHeight = 9.5 #Bridge's ceiling height
-Set BLOffset = -2 #Bridge's lower offset 1(To match with San Rafael Building's 3rd floor)
+Set BLOffset = -2 #Bridge's lower offset 1 (To match with San Rafael Building's 3rd floor)
 Set BLOffset2 = -4 #Bridge's lower offset 2 (To match with parking garage's 3rd floor)
 Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height for upper walls above the bridge's ceiling
 
@@ -2500,6 +2504,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 ################################################################################
 
+#4th floor - Operating Room
 <Floor 3>
 	#Operating Room Area
 	WallTex() #Set wall texture
@@ -2675,16 +2680,13 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#WALLS
 		#Storage/Restroom Cover Walls
 		WallOrientation = left
-		AddWall StorageCoverWall, %6%, 0.5, 20, -6, 20, -1.25, %height%, %height%, 0, 0, 0, 0, false
-	
+		AddWall ICU-STRCoverWall, %6%, 0.5, 20, -6, 20, -1.25, %height%, %height%, 0, 0, 0, 0, false
+
+		WallOrientation = left
+		AddWall ICU-RestroomCoverWallA, %6%, 0.5, -30, -1.25, -30, 0, %height%, %height%, 0, 0, 0, 0, false
 		WallOrientation = right
-		#TextureOverride %6%, %6Int%, Blank, Blank, Blank, Blank
-		AddWall RestroomCoverWall, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
-		
-		#Interior divider walls
-		#WallOrientation = center
-		#AddWall ICU-CCUDivider, %6%, 1, 0, 20, 0, %2%, %height%, %height%, 0, 0, 0, 0, false
-		
+		AddWall ICU-RestroomCoverWallB, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
+
 		#Entrance walls
 		WallOrientation = left
 		AddWall ICUEntrance_Left, %6%, 0.5, -45, -1.25, -45, 20, %height%, %height%, 0, 0, 0, 0, false
@@ -2754,20 +2756,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 				#Exit sign
 				AddBoxSign(CCUEnt_ExitSign2, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %Door_MainX% + 0.05, %Door_MainZ%, 1.8, 0.9, 7.2, false)
 
-		#3. ICU-CCU Connector Doors
-			#Set Door_MainX = 0 - 0.5
-			#Set Door_MainZ = 45
-			#Set DTex = Door1
-			#Set DSTex = %DTex%Side
-
-			#WallOrientation = left
-			#AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
-			#AddStdDoor Floor %floor%, %floorid%F_ICU-CCULink_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-			#AddFillerWalls ConnectionWall, 1, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
-
-			#AddBoxSign(ICU-CCULink_SignWest, Sign_StaffOnly, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% - 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
-			#AddBoxSign(ICU-CCULink_SignEast, Sign_LB_Long, Sign_StaffOnly, Sign_LB_Long, 0.1, false, true, true, %Door_MainX% + 1 + 0.05, %Door_MainZ%, 3, 0.75, 7.5, false)
-
 	#Signs at Entrances from Service Elevators
 	Set SignTex = ICUAuthSign
 	DrawWalls = false, true, false, false, false, false
@@ -2798,7 +2786,9 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 #Floorings on 8th floor
 <Floor 7>
-	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Marketing & Public Relations
+	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -30, %interfloorheight% + 0.1, 40 - 0.3, false, true #Marketing & Public Relations
+	CutAll -30, %interfloorheight% - 0.1, 0, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Marketing & Public Relations
+
 	CutAll 20 + 0.3, %interfloorheight% - 0.1, -1.25, %1%, %interfloorheight% + 0.1, 40 - 0.3, false, true #Nursing Dept.
 	CutAll -110, %interfloorheight% - 0.1, 50.5 - 0.2, 110, %interfloorheight% + 0.1, %2%, false, true #Meeting Rooms
 
@@ -2806,9 +2796,10 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	DrawWalls = false, true, false, false, false, false
 
 	#Marketing & Publlic Relations (Southwest)
-	AddFloor MKTFloorTR_Right, BlackTrim, 0.5, -20 - 0.5, -1.25, -20 - 0.3, 40, 0, 0, 0, 0, false
+	AddFloor MKTFloorTR_Right, BlackTrim, 0.5, -20 - 0.5, 0, -20 - 0.3, 40, 0, 0, 0, 0, false
 	AddFloor MKTFloorTR_Back, BlackTrim, 0.5, -%1%, 40 - 0.5, -20 - 0.5, 40 - 0.3, 0, 0, 0, 0, false
-	AddFloor MKTFloor, MKTFloor, 0.5, -%1%, -1.25, -20 - 0.5, 39.5, 0, 0, 0, 0, false
+	AddFloor MKTFloor1, MKTFloor, 0.5, -%1%, -1.25, -30, 39.5, 0, 0, 0, 0, false
+	AddFloor MKTFloor2, MKTFloor, 0.5, -30, 0, -20 - 0.5, 39.5, 0, 0, 0, 0, false
 
 	#Nursing Dept. (Southeast)
 	AddFloor NursingFloorTR_Left, BlackTrim, 0.5, 20 + 0.3, -1.25, 20 + 0.5, 40, 0, 0, 0, 0, false
@@ -2823,7 +2814,9 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 #Floorings on 9th floor
 <Floor 8>
-	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Finance
+	CutAll -%1%, %interfloorheight% - 0.1, -1.25, -30, %interfloorheight% + 0.1, 40 - 0.3, false, true #Finance
+	CutAll -30, %interfloorheight% - 0.1, 0, -20 - 0.3, %interfloorheight% + 0.1, 40 - 0.3, false, true #Finance
+
 	CutAll 20 + 0.3, %interfloorheight% - 0.1, -1.25, %1%, %interfloorheight% + 0.1, 40 - 0.3, false, true #Accounting
 	CutAll -110, %interfloorheight% - 0.1, 50.5 - 0.2, 110, %interfloorheight% + 0.1, %2%, false, true #North side offices
 
@@ -2831,9 +2824,10 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	DrawWalls = false, true, false, false, false, false
 
 	#Finance Dept. (Southwest)
-	AddFloor FINFloorTR_Right, BlackTrim, 0.5, -20 - 0.5, -1.25, -20 - 0.3, 40, 0, 0, 0, 0, false
+	AddFloor FINFloorTR_Right, BlackTrim, 0.5, -20 - 0.5, 0, -20 - 0.3, 40, 0, 0, 0, 0, false
 	AddFloor FINFloorTR_Back, BlackTrim, 0.5, -%1%, 40 - 0.5, -20 - 0.5, 40 - 0.3, 0, 0, 0, 0, false
-	AddFloor FINFloor, FINFloor, 0.5, -%1%, -1.25, -20 - 0.5, 39.5, 0, 0, 0, 0, false
+	AddFloor FINFloor1, FINFloor, 0.5, -%1%, -1.25, -30, 39.5, 0, 0, 0, 0, false
+	AddFloor FINFloor2, FINFloor, 0.5, -30, 0, -20 - 0.5, 39.5, 0, 0, 0, 0, false
 
 	#Accounting & Purchasing Dept. (Southeast)
 	AddFloor ACTFloorTR_Left, BlackTrim, 0.5, 20 + 0.3, -1.25, 20 + 0.5, 40, 0, 0, 0, 0, false
@@ -3114,7 +3108,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	AddWall WestWardWall1-1A, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
 
 	TextureOverride %6Int%, %6%, Blank, Blank, Blank, Blank
-	AddWall WestWardWall1-1B, %6%, 0.5, -30, 0, -30, 40, %height%, %height%, 0, 0, 0, 0, false
+	AddWall WestWardWall1-1B, %6%, 0.5, -30, -1.25, -30, 40, %height%, %height%, 0, 0, 0, 0, false
 	TextureOverride %6Int%, %6%, Blank, Blank, Blank, Blank
 	AddWall WestWardWall1-2, %6%, 0.5, -30, 50, -30, %2%, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = left
