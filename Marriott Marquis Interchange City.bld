@@ -91,6 +91,15 @@
 	Load data/Other People's Textures/marb045.png, SummitWall, 0.125, 0.125
 	Load data/MT/Floor.jpg, SummitFloor, 0.25, 0.25
 	Load data/EG881/ceilingtile3x3.jpg, SummitCeiling, 0.125, 0.125 #EG881
+	
+		#Mechanical Floor New Textures
+		Load data/brick1.jpg, MechBaseFloor, 0.25, 0.25
+		Load data/stucco1.jpg, MechPWall, 0.125, 0.125
+	
+		#Mechanical Mezzanine
+		Load data/EG881/cem_tr2c.jpg, MMEFloor, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr2c.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
+		Load data/stucco4b.jpg, MMEWall, 0.25, 0.25
 
 	#Ceilings
 	Load data/EG881/ceilingtile3x3.jpg, Ceiling1, 0.125, 0.125 #EG881
@@ -435,6 +444,8 @@
 	Type = Mechanical
 	Height = 10.5
 	InterfloorHeight = 1.5
+	if[%floor% = 40] Group = 41
+	if[%floor% = 41] Group = 40
 <EndFloors>
 
 <Floor 42>
@@ -2004,25 +2015,56 @@ Cut Landscape, -180, -1, -120, 180, 1, 120, false, true
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor Floor, %5%, 0.5, -100, -40, 100, %2%, 0, 0, 0, 0, false
+	if[%floor% = 40] AddFloor Floor, MechBaseFloor, 0.5, -100, -40, 100, %2%, 0, 0, 0, 0, false
+
+		#Mechanical Mezzanine
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 41] AddFloor MME_Center1, MMEFloor, %interfloorheight%, -100, 38.5 - 23.5, 42.5, 38.5 + 23.5, 0, 0, 0, 0, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 41] AddFloor MME_Center2, MMEFloor, %interfloorheight%, 42.5, 52 - 0.5, 100, 38.5 + 23.5, 0, 0, 0, 0, false
+
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 41] AddFloor MME_South, MMEFloor, %interfloorheight%, -9, -40, 9, 38.5 - 23.5, 0, 0, 0, 0, false
+
+		#Mechanical Mezzanine Railings
+		Set WallHeight = %interfloorheight% + 3.5
+		Set WallOffset = -%interfloorheight%
+
+		WallOrientation = left
+		DrawWalls = true, true, false, false, true, false
+		if[%floor% ! 40] AddWall MME_FrontRailA, MMEWall, 0.5, -100 + 0.5, 38.5 - 23.5, -9, 38.5 - 23.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% ! 40] AddWall MME_FrontRailB, MMEWall, 0.5, 9, 38.5 - 23.5, 42.5 - 0.5, 38.5 - 23.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+		DrawWalls = true, true, false, true, true, false
+		if[%floor% ! 40] AddWall MME_LeftRail, MMEWall, 0.5, -9, -40 + 5, -9, 38.5 - 23, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		WallOrientation = right
+		if[%floor% ! 40] AddWall MME_RightRailA, MMEWall, 0.5, 9, -40 + 5, 9, 38.5 - 23, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		DrawWalls = true, true, true, false, true, false
+		if[%floor% ! 40] AddWall MME_RightRailB, MMEWall, 0.5, 42.5, 38.5 - 23.5, 42.5, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+		DrawWalls = true, true, false, false, true, false
+		if[%floor% ! 40] AddWall MME_BackRailA, MMEWall, 0.5, -100 + 0.5, 38.5 + 23.5, 100 - 0.5, 38.5 + 23.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% ! 40] AddWall MME_BackRailB, MMEWall, 0.5, 42.5, 52, 72.5, 52, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Ceiling
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor Ceiling, %7%, 0.5, -100, -40, 100, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 41] AddFloor Ceiling, %7%, 0.5, -100, -40, 100, %2%, %height%, %height%, 0, 0, false
 
 	#Internal walls
 	WallOrientation = left
 	DrawWalls = false, true, false, false, false, false
-	AddWall Front1, %6%, 0.5, -%1%, -40, -9, -40, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Front2, %6%, 0.5, 9, -40, %1%, -40, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Left1, %6%, 0.5, -%1%, -40, -%1%, 25, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Left2, %6%, 0.5, -%1%, 47, -%1%, %2%, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Front1, MechPWall, 0.5, -%1%, -40, -9, -40, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	AddWall Front2, MechPWall, 0.5, 9, -40, %1%, -40, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	AddWall Left1, MechPWall, 0.5, -%1%, -40, -%1%, 25, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	AddWall Left2, MechPWall, 0.5, -%1%, 47, -%1%, %2%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	WallOrientation = right
 	DrawWalls = true, false, false, false, false, false
-	AddWall Right1, %6%, 0.5, %1%, -40, %1%, 30, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Right2, %6%, 0.5, %1%, 52, %1%, %2%, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Back, %6%, 0.5, -%1%, %2%, %1%, %2%, %height%, %height%, 0, 0, 0, 0, false
+	AddWall Right1, MechPWall, 0.5, %1%, -40, %1%, 30, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	AddWall Right2, MechPWall, 0.5, %1%, 52, %1%, %2%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
+	AddWall Back, MechPWall, 0.5, -%1%, %2%, %1%, %2%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 <EndFloors>
 
 #Roof level
@@ -2453,11 +2495,12 @@ ShaftCut 4, -4.67 + 0.33, -13.17, 4.67, 13.17, 0, 5
 
 	Set WHeight = %height%
 	Set WOffset = 0
-	if[%floor% = 1 | %floor% = 2] Set WHeight = %fullheight%
-	if[%floor% = 1 | %floor% = 2] Set WOffset = -%interfloorheight%
+	if[%floor% = 1 | %floor% = 2 | %floor% = 41] Set WHeight = %fullheight%
+	if[%floor% = 1 | %floor% = 2 | %floor% = 41] Set WOffset = -%interfloorheight%
 
 	if[%floor% < 11 | (%floor% > 37 & %floor% < 40)] Set ShowRight = false
 	if[(%floor% > 10 & %floor% < 38) | %floor% > 39] Set ShowRight = true
+	
 	if[%floor% > -1] CreateShaftWall(%6%, %6A%, %6%, %6A%, %6%, %6%, 0.33, %8%, %9%, 5, 13.5, 4, %WHeight%, %WOffset%, true, true, %ShowRight%, true, false, false, false)
 
 	WallOrientation = right
@@ -2565,12 +2608,11 @@ ShowFullShaft 5 = true
 	if[%floor% > 10 & %floor% < 38] Set 6 = MainWall #Wall Texture
 	if[%floor% = 38 | %floor% = 39] Set 6 = SummitWall #Wall Texture
 	if[%floor% > 39] Set 6 = ServiceWall #Wall Texture
-	if[%floor% > -1 & %floor% < 40] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, %8%, %9% + 2.5, 9, 2.5, 5, %height%, 0, false, true, true, true, false, false, false)
-	
-	Set ShowTop = false
-	if[%floor% = 41] Set ShowTop = true
-	if[%floor% > 39] CreateShaftWall(ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, 0.33, %8%, %9% - 2.5, 9, 2.5, 5, %fullheight%, 0, true, true, true, false, %ShowTop%, false, true)
-	if[%floor% > 39] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, %8%, %9% + 2.5, 9, 2.5, 5, %height%, 0, false, true, true, true, false, false, false)
+
+	if[%floor% > -1 & %floor% < 40] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, %8%, %9% + 2.5, 9, 2.5, SH5_Main, %height%, 0, false, true, true, true, false, false, false)
+
+	if[%floor% > 39] CreateShaftWall(ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, ExternalFacade, 0.33, %8%, %9% - 2.5, 9, 2.5, SH5_Top_Ext, %fullheight%, 0, true, true, true, false, %ShowTop%, false, true)
+	if[%floor% > 39] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, %8%, %9% + 2.5, 9, 2.5, SH5_Top_Int, %fullheight%, -%interfloorheight%, false, true, true, true, false, false, false)
 <EndFloors>
 
 <Floor 41>
@@ -2664,7 +2706,10 @@ ShaftCut 6, -7.17 + 0.33, -10.67, 7.17, 10.67, 0, 5
 	Set ShowFront = true
 	Set ShowBack = true
 
-	if[%floor% > -1 & %floor% < 42] CreateShaftWall(%6A%, %6B%, %6%, %6C%, %6%, %6%, 0.33, %8%, %9%, 7.5, 11, 6, %height%, 0, %ShowFront%, true, false, %ShowBack%, false, false, false)
+	Set EO = 0 #Extra offset
+	if[%floor% = 40] Set EO = Floor(41).InterfloorHeight
+
+	if[%floor% > -1 & %floor% < 42] CreateShaftWall(%6A%, %6B%, %6%, %6C%, %6%, %6%, 0.33, %8%, %9%, 7.5, 11, 6, %height% + %EO%, 0, %ShowFront%, true, false, %ShowBack%, false, false, false)
 	if[%floor% = 42] CreateShaftWall(%6A%, %6B%, %6%, %6C%, %6%, %6%, 0.33, %8%, %9%, 7.5, 11, 6, %height%, %interfloorheight%, true, true, true, true, true, false, true)
 <EndFloors>
 
@@ -5544,8 +5589,10 @@ ShowFullStairs 5 = true
 
 	Set ShowFront = true
 	Set ShowBack = true
+	Set EO = 0 #Extra offset
+	if[%floor% = 40] Set EO = Floor(41).InterfloorHeight
 
-	CreateShaftWall(%6A%, %6%, %6C%, %6B%, %6%, %6%, 0.5, %21%, %22%, 6.25, 11, 5, %height%, 0, %ShowFront%, false, %ShowRight%, %ShowBack%, false, false, false)
+	CreateShaftWall(%6A%, %6%, %6C%, %6B%, %6%, %6%, 0.5, %21%, %22%, 6.25, 11, 5, %height% + %EO%, 0, %ShowFront%, false, %ShowRight%, %ShowBack%, false, false, false)
 <EndFloors>
 
 <Floors 0 to 41>
