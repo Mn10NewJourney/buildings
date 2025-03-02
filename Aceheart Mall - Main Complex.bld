@@ -2,6 +2,9 @@
 #Copyright (c) 2023-Present - Mn10
 #Originally started on: ~26 August 2023
 
+#Updated 2 March 2025:
+	#Added a double-height mechanical space and renamed the 25th floor to "Level 24A."
+
 #SCRIPTS TO BE INCLUDED
 	#1. My new scripts
 	<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
@@ -189,10 +192,15 @@
 		Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
 
 		#Service and mechanical levels
-		Load data/EG881/cem_tr2b.jpg, ServiceFloor, 0.075225, 0.0625 #EG881
+		Load data/brick1.jpg, ServiceFloor, 0.25, 0.25 #EG881
 		Load data/stucco4.jpg, ServiceWall, 0.25, 0.25
 		Load data/stucco4b.jpg, ServiceWall2, 0.25, 0.25
 		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+
+			#Mechanical Mezzanine
+			Load data/cem_tr_b.jpg, MMEFloor, 0.0875, 0.0875
+			Load data/EG881/cem_tr3.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
+			Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
 		#Roofs
 		Load data/EG881/cem_tr2d.jpg, RoofFloor, 0.075225, 0.0625 #EG881
@@ -517,8 +525,9 @@
 		#Floor signs (Stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSignLL, nimbus_sans_bold.ttf, 65, LL, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddTextRange 1, 25, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 24, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 1, 4, Blank, BlankSign%number%A, nimbus_sans_bold.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText Blank, BlankSign24A, nimbus_sans_bold_condensed.ttf, 65, 24A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
@@ -679,11 +688,14 @@
 <EndFloors>
 
 <Floors 28 to 29>
-	ID = %floor% - 4
+	if[%floor% = 28] ID = %floor% - 4
+	if[%floor% = 28] ID = 24A
 	Name = Mechanical Level %floorid%
 	Type = Service
 	Height = 10.5
 	InterfloorHeight = 1.5
+	if[%floor% = 28] Group = 29
+	if[%floor% = 29] Group = 28
 <EndFloors>
 
 <Floor 30>
@@ -837,8 +849,8 @@ Set UL = Floor(0).Base #Upper level
 	if[%floor% = -2 | %floor% = 8] Set SOffset = 0
 	if[%floor% = -3] Set SHeight = %height% + Floor(-2).InterfloorHeight - 0.5
 	if[%floor% = -3] Set SOffset = 0
-	if[%floor% > 9] Set SHeight = %height%
-	if[%floor% > 9] Set SOffset = 0
+	if[%floor% > 9 & %floor% < 29] Set SHeight = %height%
+	if[%floor% > 9 & %floor% < 29] Set SOffset = 0
 	
 		#Special heights for lower/upper walls on the 5th floors
 		if[%floor% ! 8] Set SHeightL = %SHeight%
@@ -2458,12 +2470,30 @@ Cut external, 20 + 0.5, Floor(-2).Base, 194.5 - 0.1, 40 - 0.5, Floor(-1).Altitud
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor MechFloor, %5%, 0.5, -%1%, %Office_South%, %Office_East%, %2%, 0, 0, 0, 0, false
+	if[%floor% = 28] AddFloor MechFloor, %5%, 0.5, -%1%, %Office_South%, %Office_East%, %2%, 0, 0, 0, 0, false
+
+		#Mechanical Mezzanine
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 29] AddFloor MechFloor, MMEFloor, %interfloorheight%, -111, 107.5, -57, 137.5, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor MechCeiling, %7%, 0.5, -%1%, %Office_South%, %Office_East%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 29] AddFloor MechCeiling, %7%, 0.5, -%1%, %Office_South%, %Office_East%, %2%, %height%, %height%, 0, 0, false
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallOffset = -%interfloorheight%
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% = 29] AddWall MMERail_Front, MMEWall, 0.5, -89, 107.5, -79, 107.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 29] AddWall MMERail_Left, MMEWall, 0.5, -111, 127.5, -111, 137.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	WallOrientation = right
+	if[%floor% = 29] AddWall MMERail_Right, MMEWall, 0.5, -57, 127.5, -57, 137.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 29] AddWall MMERail_Back, MMEWall, 0.5, -111 + 0.5, 137.5, -57 - 0.5, 137.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Perimeter walls
 		WallTex() #Set wall texture
