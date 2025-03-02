@@ -1,6 +1,8 @@
 #Rabbit Tower
 #Copyright (c) 2023-Present - Mn10
-#Elevator fixtures originally created by Vector and Windows446.
+
+#Updated 2 March 2025:
+	#Modified the "Mechanical Mezzanine" area on level 46A (formerly the 47th floor).
 
 #Include ObjectPlus and SROC (credit to EG881)
 <Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
@@ -17,7 +19,7 @@
 #Globals
 <Globals>
 	Name = Rabbit Tower
-	Designer = Mn10 (Fixtures made by Vector and Windows446)
+	Designer = Mn10 (Fixtures originally created by Vector and Windows446)
 	Location = 623 Apex Street, Tranquility City
 	Description = An office building with 632 parking spaces (600 standard and 32 executive) on its lower levels.
 	Version = 1
@@ -126,9 +128,15 @@
 
 		#Service levels & roof
 		Load data/EG881/cem_tr2c.jpg, ServiceFloor, 0.075225, 0.0625 #EG881
+		Load data/brick040+.jpg, TopsideMechFloor, 0.15, 0.15
 		Load data/stucco2.jpg, ServiceWall, 0.1, 0.1
 		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
 		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
+	
+			#Mechanical Mezzanine
+			Load data/EG881/cem_tr2b.jpg, MMEFloor, 0.075225, 0.0625 #EG881
+			Load data/EG881/cem_tr3.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
+			Load data/stucco1.jpg, MMEWall, 0.2, 0.2
 
 	#Automatic Doors
 		#Doors
@@ -2264,13 +2272,23 @@ Cut external, -%1% - 0.5, Floor(10).Altitude, 45, -%1% + 0.5, Floor(11).Base, 75
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 45] AddFloor MechFloor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% = 46] AddFloor MechFloor, %5%, 0.5, -30, -%2%, 30, %2%, 0, 0, 0, 0, false
+	if[%floor% = 45] AddFloor MechBaseFloor, TopsideMechFloor, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	#if[%floor% = 46] AddFloor MechFloor, %5%, 0.5, -30, -%2%, 30, %2%, 0, 0, 0, 0, false
+
+		#Mechanical mezzanine
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 46] AddFloor MechFloor1, MMEFloor, %interfloorheight%, -25, -%2%, 25, -15, 0, 0, 0, 0, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 46] AddFloor MechFloor2, MMEFloor, %interfloorheight%, 14.5, -15, 25, 85, 0, 0, 0, 0, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		if[%floor% = 46] AddFloor MechFloor3, MMEFloor, %interfloorheight%, -15, 85, 25, %2%, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 45] AddFloor MechCeiling, %7%, 0.5, -30, -%2%, 30, %2%, %height%, %height%, 0, 0, false
+	#if[%floor% = 45] AddFloor MechCeiling, %7%, 0.5, -30, -%2%, 30, %2%, %height%, %height%, 0, 0, false
 	if[%floor% = 46] AddFloor MechCeiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
 
 	#Railings
@@ -2278,10 +2296,19 @@ Cut external, -%1% - 0.5, Floor(10).Altitude, 45, -%1% + 0.5, Floor(11).Base, 75
 	Set WallOffset = -%interfloorheight%
 
 	WallOrientation = left
-	DrawWalls = true, true, false, false, true, false
-	if[%floor% = 46] AddWall LeftRail, %6%, 0.5, -30, -%2%, -30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	DrawWalls = true, true, false, true, true, false
+	if[%floor% = 46] AddWall LeftRailA, MMEWall, 0.5, -25, -%2%, -25, -15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	DrawWalls = true, true, true, false, true, false
+	if[%floor% = 46] AddWall LeftRailB, MMEWall, 0.5, -15, 85, -15, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	WallOrientation = right
-	if[%floor% = 46] AddWall RightRail, %6%, 0.5, 30, -%2%, 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% = 46] AddWall RightRail, MMEWall, 0.5, 25, -%2%, 25, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+		#Inner railings
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, false
+		if[%floor% = 46] AddWall WestInnerRail, MMEWall, 0.5, -24.5, -15, -15, -15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = 46] AddWall EastInnerRailA, MMEWall, 0.5, 15, -15, 15, 15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		if[%floor% = 46] AddWall EastInnerRailB, MMEWall, 0.5, 15, 27, 15, 75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Perimeter walls
 	Set WallHeight = %fullheight%
@@ -2609,8 +2636,8 @@ CreateShaft2(10, -12.5, -80, 2.17, 4.67, -3, 46, ShaftIntWall) #South
 
 		WallOrientation = right
 		TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		if[%floor% ! 47] AddDoor , , false, %Texture%, 0.2, 6, 75, -5.66 - 2, 27, 3, 7, 0, 0, 0
-		if[%floor% ! 47] AddFillerWalls ConnectionWall, 0.66, -5.66 - 2, 27, 3, 7, 0, true, 0, 0, false
+		if[%floor% ! 46 & %floor% ! 47] AddDoor , , false, %Texture%, 0.2, 6, 75, -5.66 - 2, 27, 3, 7, 0, 0, 0
+		if[%floor% ! 46 & %floor% ! 47] AddFillerWalls ConnectionWall, 0.66, -5.66 - 2, 27, 3, 7, 0, true, 0, 0, false
 		TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		if[%floor% = 47] AddExternalDoor , , false, %Texture%, 0.2, 6, 75, -5.66 - 2, 27, 3, 7, %interfloorheight%, 0, 0
 		if[%floor% = 47] AddFillerWalls ConnectionWall, 0.66, -5.66 - 2, 27, 3, 7, %interfloorheight%, true, 0, 0, true
