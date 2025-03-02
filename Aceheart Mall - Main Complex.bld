@@ -4,6 +4,7 @@
 
 #Updated 2 March 2025:
 	#Added a double-height mechanical space and renamed the 25th floor to "Level 24A."
+	#(For other details, please refer to the "Aceheart Mall (924 Denver Street).bld" file.)
 
 #SCRIPTS TO BE INCLUDED
 	#1. My new scripts
@@ -49,10 +50,7 @@
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
 
 		#Plants
-		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
-		#Load data/ogrebullet/materials/textures/grass_1024.jpg, Grass_Light, 0.005, 0.005
 		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
-
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 		Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
@@ -242,8 +240,10 @@
 		#Parking garage stairs (Next to elevators 8-11)
 		Load data/floor065b.jpg, PGStairs, 0.25, 0.25
 		Load data/floor065b.jpg, PGStairsFloor, 0.25, 0.25
+		Load data/stucco4.jpg, PGStairsUDS, 0.125, 0.125 #UDS = Underside
 		Load data/stucco2f.jpg, PGStairsWall, 0.08, 0.08
 		Load data/stucco22c.jpg, PGStairsWall2, 0.2, 0.2
+		Load data/stucco22b.jpg, PGStairsWall3, 0.2, 0.2
 		Load data/stucco1b.jpg, PGStairsCeiling, 0.25, 0.25
 
 		#Basement stairs
@@ -516,6 +516,13 @@
 		AddText Blank, BlankSign24A, nimbus_sans_bold_condensed.ttf, 65, 24A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
+		#Floor signs (Stairwell 4, levels B2-4A)
+		Load data/graygradient.jpg, PGStairsSignBack, 1, 1, false
+		AddTextRange 1, 2, PGStairsSignBack, PGStairsSignB%number%, nimbus_sans_bold.ttf, 128, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddText PGStairsSignBack, PGStairsSignLL, nimbus_sans_bold.ttf, 128, LL, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 4, PGStairsSignBack, PGStairsSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 4, PGStairsSignBack, PGStairsSign%number%A, nimbus_sans_bold.ttf, 128, %number%A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
 		#Restrooms
 		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
 		Load data/signs_mod/Restroom1.png, Sign_Restroom_Gray, 1, 1, false
@@ -540,7 +547,7 @@
 		Load data/Melvin/ExitSignUp.png, ExitSignUp, 1, 1, false
 		Load data/Melvin/ExitSignLeft.png, ExitSignLeft, 1, 1, false
 		Load data/Melvin/ExitSignRight.png, ExitSignRight, 1, 1, false
-		#Load data/Melvin/ExitSignBoth.png, ExitSignBoth, 1, 1, false
+		Load data/Melvin/ExitSignBoth.png, ExitSignBoth, 1, 1, false
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -702,10 +709,12 @@ Set 2 = 195 #Main Complex Dimension Z
 	DrawWalls = false, true, false, false, false, false
 		#North
 		AddFloor landscape, NorthGrassA, Grass_Dark, 0, -%1%, %2%, -100, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
-		AddFloor landscape, NorthGrassB, Grass_Dark, 0, -60, %2%, 20, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, NorthGrassB1, Grass_Dark, 0, -60, %2%, -5, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, NorthGrassB2, Grass_Dark, 0, -5, %2% + 7, 20, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 		AddFloor landscape, NorthGrassC, Grass_Dark, 0, 40, %2%, 80, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 		AddFloor landscape, NorthGrassD, Grass_Dark, 0, 120, %2%, %1%, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 		AddFloor landscape, NorthSidewalk1, Sidewalk, 0, -100, %2%, -60, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, NorthSidewalk1A, Sidewalk, 0, -5, %2%, 20, %2% + 7, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 		AddFloor landscape, NorthSidewalk2, Sidewalk, 0, 20, %2%, 40, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 		AddFloor landscape, NorthSidewalk3, Sidewalk, 0, 80, %2%, 120, %2% + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
 
@@ -6040,7 +6049,7 @@ ShowFullStairs 3 = always
 
 #South-Central Mall Stairwell (Linked to Parking Garage)
 CreateStairwell 4, 11, 10, -3, 10
-CutStairwell 4, -10.5, -5.5, 10.5, 5.5 + 0.5, 0, 5
+CutStairwell 4, -10.5 - 0.2, -5.5, 10.5, 5.5 + 0.5, 0, 5
 ShowFullStairs 4 = always
 
 <Floors -3 to 10>
@@ -6054,14 +6063,32 @@ ShowFullStairs 4 = always
 	Set 26 = 0.5 #Riser Size
 
 	#Walls
+	Set DispSN = false #SN = Side Negative
+	if[%floor% < 8] Set DispSN = true #SN = Side Negative
+	
+	Set EXO = 0 #Extra offset
+	if[%floor% < 8] Set EXO = 0.5 #Extra offset
+	
 	WallOrientation = right
+	DrawWalls = false, true, %DispSN%, false, false, false
+	TextureOverride PGStairsWall, PGStairsWall, ParkingLobbyWall, ParkingLobbyWall, ParkingLobbyWall, ParkingLobbyWall
+	AddStairsWall %25%, Stair%25%Front, PGStairsWall, 0.5, -%23% - %EXO%, -%24%, %23%, -%24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 	DrawWalls = false, true, false, false, false, false
-	AddStairsWall %25%, Stair%25%Front, PGStairsWall, 0.5, -%23%, -%24%, %23%, -%24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
-	if[%floor% < 8] AddStairsWall %25%, Stair%25%Left, PGStairsWall, 0.5, -%23%, -%24%, -%23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	if[%floor% > 7] AddStairsWall %25%, Stair%25%Left, PGStairsWall, 0.5, -%23%, -%24%, -%23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
 	AddStairsWall %25%, Stair%25%Right, PGStairsWall, 0.5, %23%, -%24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
-	AddStairsWall %25%, Stair%25%Back, PGStairsWall, 0.5, -%23%, %24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	DrawWalls = true, false, %DispSN%, false, false, false
+	TextureOverride PGStairsWall, PGStairsWall, ParkingLobbyWall, ParkingLobbyWall, ParkingLobbyWall, ParkingLobbyWall
+	AddStairsWall %25%, Stair%25%Back, PGStairsWall, 0.5, -%23% - %EXO%, %24%, %23%, %24%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+
+		#Interfloor covers
+		WallOrientation = right
+		DrawWalls = false, false, false, false, false, true
+		if[%floor% = 8] AddStairsWall %25%, Stair%25%LeftA, PGStairsWall, 0.2, -%23%, -%24%, -%23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+		DrawWalls = false, true, false, false, false, true
+		#TextureOverride PGStairsWall3, PGStairsWall3, PGStairsWall, PGStairsWall, PGStairsCeiling, PGStairsCeiling
+		if[%floor% > -3 & %floor% < 8] AddStairsWall %25%, Stair%25%LeftB, PGStairsWall3, 0.2, -%23%, -%24%, -%23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 
 	#Railings
 	Set RailHeight = 3.5 + 0.5
@@ -6092,8 +6119,14 @@ ShowFullStairs 4 = always
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	if[%floor% = -3] AddStairsFloor %25%, Stairs%25%LandingLower, PGStairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% = -3] AddStairsFloor %25%, Stairs%25%LandingLowerTR, BlackTrim, 0.5, -%23% - 0.2, -%24%, -%23%, %24%, 0, 0, false, false, 0, 0
+	TextureOverride PGStairsUDS, PGStairsFloor, Blank, Blank, Blank, Blank
 	if[%floor% > -3] AddStairsFloor %25%, Stairs%25%LandingLower, PGStairsFloor, 0.5, -%23%, -%24%, %23% - 5 - %NumSteps%, %24%, 0, 0, false, false, 0, 0
+	TextureOverride PGStairsUDS, BlackTrim, Blank, Blank, Blank, Blank
+	if[%floor% > -3] AddStairsFloor %25%, Stairs%25%LandingLowerTR, BlackTrim, 0.5, -%23% - 0.2, -%24%, -%23%, %24%, 0, 0, false, false, 0, 0
+	TextureOverride PGStairsUDS, PGStairsFloor, Blank, Blank, Blank, Blank
 	if[%floor% = 10] AddStairsFloor %25%, Stairs%25%Transition1, PGStairsFloor, 0.5, %23% - 5 - %NumSteps%, -%24%, %23% - 5 - %NumStepsAlt%, -%24% + 5, 0, 0, false, false, 0, 0
+	TextureOverride PGStairsUDS, PGStairsFloor, Blank, Blank, Blank, Blank
 	if[%floor% < 10] AddStairsFloor %25%, Stairs%25%LandingUpper, PGStairsFloor, 0.5, %23% - 5, -%24%, %23%, %24%, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
 
 	#Floor Signs
@@ -6101,19 +6134,23 @@ ShowFullStairs 4 = always
 	Set SignCenterPoint = 0
 
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% ! 9] AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, -%23% + 0.001, %SignCenterPoint% - 1, -%23% + 0.001, %SignCenterPoint% + 1, 2, 2, 4, 4, 0, 0
+	if[%floor% > 7 & %floor% ! 9] AddStairsWall %25%, ST%25%FloorSignLeft, BlankSign%Suffix%, 0, -%23% + 0.001, %SignCenterPoint% - 1, -%23% + 0.001, %SignCenterPoint% + 1, 2, 2, 4, 4, 0, 0
+	if[%floor% < 8] AddStairsWall %25%, ST%25%FloorSignLeft, PGStairsSign%Suffix%, 0, -%23% + 0.001, %SignCenterPoint% - 0.5, -%23% + 0.001, %SignCenterPoint% + 0.5, 1, 1, %height%, %height%, 0, 0
 
 	#External walls
 	WallTex()
 	if[%floor% > -3 & %floor% < 8] Set 6 = PGExtFacade2 #Override
 	if[%floor% = 10] Set 6 = ExtFacade #Override for roof
+	
+	Set ShowLeft = true
+	if[%floor% < 8] Set ShowLeft = false
 
-	if[%floor% = -3] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%_%floorid%, 9.5, %interfloorheight%, true, true, true, true, false, false, true)
-	if[%floor% = -2] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%_%floorid%, %height%, %interfloorheight%, true, true, true, false, false, false, true)
-	if[%floor% > -2 & %floor% < 7] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%, %fullheight%, 0, true, true, true, false, false, false, true)
+	if[%floor% = -3] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%_%floorid%, 9.5, %interfloorheight%, true, %ShowLeft%, true, true, false, false, true)
+	if[%floor% = -2] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%_%floorid%, %height%, %interfloorheight%, true,  %ShowLeft%, true, false, false, false, true)
+	if[%floor% > -2 & %floor% < 7] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%, %fullheight%, 0, true,  %ShowLeft%, true, false, false, false, true)
 
 	Set F4A_WH = %fullheight% + Floor(8).InterfloorHeight - 0.5
-	if[%floor% = 7] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%, %F4A_WH%, 0, true, true, true, false, false, false, true)
+	if[%floor% = 7] CreateShaftWall(%6%, %6PL%, %6%, %6%, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%, %F4A_WH%, 0, true, %ShowLeft%, true, false, false, false, true)
 
 	Set F5_WH = %height% + Floor(9).FullHeight
 	if[%floor% = 8] CreateShaftWall(%6%_Lower, %6%_Lower, %6%_Lower, %6%_Lower, %6%, %6%, 0.5, %21%, %22%, %23% + 0.5, %24% + 0.5, ST%25%_5F_Lower, 4, 0, true, true, true, true, false, false, false)
@@ -6142,6 +6179,7 @@ ShowFullStairs 4 = always
 	if[%floor% ! 0 & %floor% < 8] AddBoxSign(Stair%25%_SignHall, ExitSignRight, ExitSignLeft, StainlessSteel, 0.1, true, true, true, -4.5, %SignPos%, 1.8, 0.9, %fullheight% - 0.9, true)
 	if[%floor% = 8 | %floor% = 10] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% - %23% - 0.55, %SignPos%, 1.8, 0.9, %interfloorheight% + 7.2, true)
 	#if[%floor% = 0] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignMain, StainlessSteel, ExitSignBoth, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22%, 1.8, 0.9, %fullheight%, true)
 <EndFloors>
 
 #Southwest Mall Stairwell
