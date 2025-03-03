@@ -185,9 +185,10 @@
 		Load data/EG881/ceilingtile3x3.jpg, UpperShopCeiling, 0.125, 0.125 #EG881
 
 			#Interior walls
-			Load data/graniteTexture_0001b.jpg, UpperShopWall, 0.25, 0.25 #Main walls
+			Load data/graniteTexture_0001b.jpg, UpperShopWall, 0.0875, 0.0875 #Main walls
 			Load data/marb123.jpg, UpperShopWall2, 0.1, 0.1 #Railings
-			Load data/graniteTexture_0001b.jpg, UpperShopWall3, 0.5, 0.5 #External shaft walls (Shafts 1-4)
+			Load data/graniteTexture_0002b.jpg, UpperShopWall3L, 0.2, 0.2 #External shaft walls (Shafts 1-4) - Lower walls
+			Load data/wall3.jpg, UpperShopWall3, 0.125, 0.125 #External shaft walls (Shafts 1-4) - Uper walls
 
 			#Escalator outside walls
 			Load data/marble22.jpg, NortheastEscWall, 0.1, 0.1 #Northeast Escalators 5-6
@@ -461,6 +462,8 @@
 
 		#Poster(s) above elevator doors
 		Load data/Melvin/SentaiTower/Poster7A.png, PosterB1A, 1, 1, false #Elevators 5-8
+		Load data/Melvin/SentaiTower/Poster3B.png, Poster5A, 1, 1, false
+		Load data/Melvin/SentaiTower/Poster7B.png, Poster6A, 1, 1, false
 
 		#Elevator lobbies
 		Load data/signs_mod/Elev3.png, Sign_Elev, 1, 1, false
@@ -2719,7 +2722,8 @@ Cut external, 40, Floor(-1).Altitude, -40.5 - 0.1, 80, Floor(9).Base, -40.5 + 0.
 	Set WH = %height%
 	Set WO = 0
 
-	CreateShaftWall(%5%Wall3, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft, %WH%, %WO%, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Lower, 4, %WO%, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Upper, %WH% - 4, %WO% + 4, true, true, true, true, false, false, false)
 <EndFloors>
 
 <Floor 11>
@@ -2778,10 +2782,14 @@ Cut external, 40, Floor(-1).Altitude, -40.5 - 0.1, 80, Floor(9).Base, -40.5 + 0.
 
 	#Parking Stairwell
 	#CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 17.5, 75, 12.5, 5, PK_Stairs, %WH%, %WO% + %interfloorheight%, true, true, true, true, false, false, true)
-	CreateShaftWall(%5%Wall3, %5%Wall, %5%Wall, ServiceLobbyWall, %5%Wall, %5%Wall, 0.5, 17.5, 75, 12.5, 5, PK_Stairs, %WH%, %WO% + %interfloorheight%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall3, %5%Wall, %5%Wall, ServiceLobbyWall, %5%Wall, %5%Wall, 0.5, 17.5, 75, 12.5, 5, PK_Stairs, %WH%, %WO% + %interfloorheight%, false, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall3L, %5%Wall, %5%Wall, ServiceLobbyWall, %5%Wall, %5%Wall, 0.5, 17.5, 75, 12.5, 5, PK_Stairs_F1, 4, %interfloorheight%, true, false, false, false, false, false, true)
+	CreateShaftWall(%5%Wall3, %5%Wall, %5%Wall, ServiceLobbyWall, %5%Wall, %5%Wall, 0.5, 17.5, 75, 12.5, 5, PK_Stairs_F2, %height% - 4, 4 + %interfloorheight%, true, false, false, false, false, false, true)
 
 	#Parking Elevators
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall3, %5%Wall, %5%Wall, 0.5, 15, 45, 15, 5, PKElevShaft, %WH%, %WO%, true, true, true, true, false, false, false)
+	#CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall3, %5%Wall, %5%Wall, 0.5, 15, 45, 15, 5, PKElevShaft, %WH%, %WO%, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall3L, %5%Wall, %5%Wall, 0.5, 15, 45, 15, 5, PKElevShaft, 4, %interfloorheight%, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall3, %5%Wall, %5%Wall, 0.5, 15, 45, 15, 5, PKElevShaft, %height% - 4, 4 + %interfloorheight%, true, true, true, true, false, false, false)
 
 	#Freight Elevators
 	CreateShaftWall(ServiceLobbyWall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 17.5, 96, 12.5, 6, FreightElevShaft, %WH%, %WO%, true, true, true, true, false, false, false)
@@ -3332,7 +3340,8 @@ ShaftShowOutside 1 = -2 - 10
 	Set WO = -%interfloorheight%
 
 	#Shaft 1
-	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.33, -80, -120 - 2.5, 10, 2.5, SH1_Mall, %WH%, %WO%, true, true, true, false, false, false, false)
+	CreateShaftWall(%5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall, %5%Wall, 0.33, -80, -120 - 2.5, 10, 2.5, SH1_Mall_L, %interfloorheight% + 4, %WO%, true, true, true, false, false, false, false)
+	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.33, -80, -120 - 2.5, 10, 2.5, SH1_Mall_U, %height% - 4, 4, true, true, true, false, false, false, false)
 <EndFloors>
 
 #Roof
@@ -3519,7 +3528,8 @@ ShaftShowOutside 2 = -2 - 10
 	Set WO = -%interfloorheight%
 
 	#Shaft 2
-	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.33, -80, 120 + 2.5, 10, 2.5, SH2_Mall, %WH%, %WO%, false, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall, %5%Wall, 0.33, -80, 120 + 2.5, 10, 2.5, SH2_Mall_L, %interfloorheight% + 4, %WO%, false, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.33, -80, 120 + 2.5, 10, 2.5, SH2_Mall_U, %height% - 4, 4, false, true, true, true, false, false, false)
 <EndFloors>
 
 #Roof
@@ -4836,7 +4846,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Poster above doors
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = -1] AddWall E5-8Poster, Poster%floorid%A, 0, %Shaft1CX% - 16, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 16, %Shaft1CZ% - 5 - 0.001, 4, 4, %interfloorheight% + 11, %interfloorheight% + 11, 0, 0, true
+	if[%floor% = -1 | %floor% = 9 | %floor% = 10] AddWall E5-8Poster, Poster%floorid%A, 0, %Shaft1CX% - 16, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 16, %Shaft1CZ% - 5 - 0.001, 4, 4, %interfloorheight% + 11, %interfloorheight% + 11, 0, 0, true
 
 	#****************************************#
 
