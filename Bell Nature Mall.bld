@@ -40,7 +40,7 @@
 	Load data/Melvin/transparent128.png, Blank, 1, 1, false
 	Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
 	Load data/stucco4.jpg, ColumnTex, 0.25, 0.25 #Support columns, B2-4A
-	Load data/marble4.jpg, ColumnTex2, 0.15, 0.15, true #Support columns, 5-6
+	Load data/granite_0008b.jpg, ColumnTex2, 0.2, 0.2  #Support columns, 5-6
 	Load data/text16.jpg, WoodSign2, 1, 1, false
 	Load data/signs_mod/elevhallsign1a.png, FireSign, 1, 1, false #EG881
 
@@ -181,28 +181,28 @@
 			Load data/panel-back3.jpg, GlassShaftDoors_Trim, 1, 1, false
 
 		#Levels 5-6
-		Load data/stonec.jpg, UpperShopFloor, 0.125, 0.125
+		Load data/stonec.jpg, UpperShopFloor, 0.1, 0.1
 		Load data/EG881/ceilingtile3x3.jpg, UpperShopCeiling, 0.125, 0.125 #EG881
 
 			#Interior walls
-			Load data/EG881/lopacwall2stripe.jpg, UpperShopWall, 0.15, 0.3 #EG881
-			Load data/marb123.jpg, UpperShopWall2, 0.15, 0.15 #Railings
-			Load data/EG881/lopacwall2stripe.jpg, UpperShopWall3, 0.15, 0.3 #EG881 #External shaft walls (Shafts 1-4)
+			Load data/graniteTexture_0002b.jpg, UpperShopWall, 0.0875, 0.0875 #Main walls
+			Load data/marb123.jpg, UpperShopWall2, 0.1, 0.1 #Railings
+			Load data/graniteTexture_0001b.jpg, UpperShopWall3, 0.2, 0.2 #External shaft walls (Shafts 1-4)
 
 			#Escalator outside walls
 			Load data/marble22.jpg, NortheastEscWall, 0.1, 0.1 #Northeast Escalators 5-6
 
 			#Shaft doors for interior elevators
-			Load data/EG881/elevdoorright_black.jpg, UpperShopShaftDoors, -1, 1, false #EG881
-			Load data/EG881/elevdoorleft_black.jpg, UpperShopShaftDoors2, -1, 1, false #EG881
-			Load data/EG881/elevdoortrim_black.jpg, UpperShopShaftDoors_Trim, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, UpperShopShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, UpperShopShaftDoors2, 1, 1, false #EG881
+			Load data/panel-back3.jpg, UpperShopShaftDoors_Trim, 1, 1, false
 
 			#Glass shaft doors for glass elevators
-			Load data/Melvin/Aceheart/glassdoor_trans_darker.png, UpperGlassShaftDoors, 1, 1, false
-			Load data/Melvin/Aceheart/glassdoor_trans_darker.png, UpperGlassShaftDoors2, -1, 1, false
-			Load data/Melvin/Aceheart/glassdoor_trans_darker_side.png, UpperGlassShaftDoorsSide, 1, 1, false
-			Load data/Melvin/Aceheart/glassdoor_trans_darker_side.png, UpperGlassShaftDoors2Side, -1, 1, false
-			Load data/EG881/elevdoortrim_black.jpg, UpperGlassShaftDoors_Trim, 1, 1, false #EG881
+			Load data/glassdoor_trans.gif, UpperGlassShaftDoors, 1, 1, false
+			Load data/glassdoor_trans.gif, UpperGlassShaftDoors2, -1, 1, false
+			LoadCropped data/glassdoor_trans.gif, UpperGlassShaftDoorsSide, 236, 0, 20, 512, 1, 1, false
+			LoadCropped data/glassdoor_trans.gif, UpperGlassShaftDoors2Side, 236, 0, 20, 512, -1, 1, false
+			Load data/panel-back3.jpg, UpperGlassShaftDoors_Trim, 1, 1, false\
 
 		#Service/freight elevator lobby
 		Load data/brick040+.jpg, ServiceLobbyFloor, 0.2, 0.2
@@ -2546,7 +2546,7 @@ Cut External, 40, Floor(-2).Base + 1, -40, 120, Floor(8).Base + 1, -40 + 18, fal
 	#Doors creation
 		#WEST (LEFT) DOORS
 		Set DTex = ServiceDoor1
-		if[%floor% > 0] Set DTex = ServiceDoor3
+		if[%floor% > 0 & %floor% < 9] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 	
 		Set Door_MainX = %WestEnd% #West doors
@@ -2559,7 +2559,7 @@ Cut External, 40, Floor(-2).Base + 1, -40, 120, Floor(8).Base + 1, -40 + 18, fal
 
 		#EAST (RIGHT) DOORS
 		Set DTex = ServiceDoor1
-		if[%floor% > 8] Set DTex = ServiceDoor3
+		#if[%floor% > 8] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 
 		Set Door_MainX = 30 #East doors
@@ -4650,8 +4650,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 7.75
-	if[%floor% < -1] Set Offset = 7.5
+	Set Offset = 7.5
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
@@ -4712,8 +4711,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 7.75
-	if[%floor% < 1] Set Offset = 7.5
+	Set Offset = 7.5
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
@@ -4843,9 +4841,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 8
-	if[%floor% = -1] Set Offset = 7.75
-	if[%floor% < -1] Set Offset = 7.5
+	Set Offset = 7.5
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
@@ -4888,7 +4884,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 		Set SideDecoH = 7.2
 		Set TopDecoH = 0.2
 		if[%floor% > 8] Set SideDecoH = 9.5
-		if[%floor% > 8] Set TopDecoH = %height% - 7
+		if[%floor% > 8] Set TopDecoH = %SideDecoH% - 7
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -4964,9 +4960,6 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Indicator sets
 	Set Offset = 7.5
-	#if[%floor% = -1] Set Offset = 7.75
-	if[%floor% = -1] Set Offset = 8
-	if[%floor% > 8] Set Offset = 8
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, MAInd_Button)
@@ -5068,9 +5061,7 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	#****************************************#
 
 	#Indicator sets
-	Set Offset = 8
-	if[%floor% = -1] Set Offset = 7.75
-	if[%floor% < -1] Set Offset = 7.5
+	Set Offset = 7.5
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Signa4Ind_Button)
@@ -5161,7 +5152,6 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Indicator sets
 	Set Offset = 7.5
-	if[%floor% > 8] Set Offset = 8
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Signa4Ind_Button)
@@ -5223,7 +5213,6 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 
 	#Indicator sets
 	Set Offset = 7.5
-	if[%floor% > 8] Set Offset = 8
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Signa4Ind_Button)
