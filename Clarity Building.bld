@@ -111,11 +111,13 @@
 
 		#Lobby (1st floor)
 		Load data/floor065.jpg, LobbyFloor, 0.25, 0.25
+		Load data/marble5c.jpg, LobbyFloor2, 0.111, 0.111
 		Load data/Carpet0006_S.jpg, LobbyCarpet1, 0.2, 0.2
 		Load data/Carpet0013b_S.jpg, LobbyCarpet2, 0.2, 0.2
 		Load data/black_granite.jpg, LobbyWall, 0.1, 0.1
 		Load data/EG881/granite_0007e_black.jpg, LobbyWall2, 0.075, 0.075 #EG881 #Atrium railings
 		Load data/EG881/ceilingtile3x3.jpg, LobbyCeiling, 0.125, 0.125 #EG881
+		Load data/cutston.jpg, LobbyCeiling2, 0.25, 0.25
 
 			#Shaft doors
 			Load data/dark muntz door.jpg, LobbyShaftDoors, 1, 1, false #EG881
@@ -510,6 +512,8 @@ Set InCLB = true
 #Cut landscape for building
 Cut Landscape, -%1% - %ExtraWP%, -1, -%2%, %1%, 1, %2%, false, true
 
+####================================####
+
 #Sidewalks and roads
 Set FO = Floor(1).Base #Floor Offset
 
@@ -518,9 +522,69 @@ Set FO = Floor(1).Base #Floor Offset
 	LSFloorCreator(7thStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35, %2% + 35, %1% - 60, %2% + 35 + 30, %FO%, false, false)
 
 	LSFloorCreator(MarketStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35 - 30, -%2% - 35 - 30, -%1% - %ExtraWP% - 35, %2% + 35 + 30, %FO%, false, false)
+	LSFloorCreator(MarketStreet_BuildingAccess, Road, -235, -30, -%1% - %ExtraWP% - 65, 30, %FO%, false, false)
 
 	LSFloorCreator(6thStreet_ParkingAccess, Road, %1% - 60, -235, %1%, -%2%, %FO%, false, false)
 	LSFloorCreator(6thStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35, -%2% - 35 - 30, %1% - 60, -%2% - 35, %FO%, false, false)
+	
+	#Sidewalks
+	LSFloorCreator(EastSW_1, Sidewalk, %1%, -235, %1% + 5, 235, %FO%, false, false)
+	LSFloorCreator(EastSW_2, Sidewalk, %1% - 65, -235, %1% - 60, -%2% - 65, %FO%, false, false)
+	LSFloorCreator(EastSW_3, Sidewalk, %1% - 65, -%2% - 35, %1% - 60, -%2%, %FO%, false, false)
+	LSFloorCreator(EastSW_4, Sidewalk, %1% - 65, %2%, %1% - 60, %2% + 35, %FO%, false, false)
+	LSFloorCreator(EastSW_5, Sidewalk, %1% - 65, %2% + 65, %1% - 60, 235, %FO%, false, false)
+
+	LSFloorCreator(SouthSW_1, Sidewalk, -%1% - %ExtraWP% - 65, -%2% - 70, %1% - 65, -%2% - 65, %FO%, false, true)
+	LSFloorCreator(SouthSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 35, %1% - 65, -%2% - 30, %FO%, false, true)
+	LSFloorCreator(NorthSW_1, Sidewalk, -%1% - %ExtraWP% - 35, %2% + 30, %1% - 65, %2% + 35, %FO%, false, true)
+	LSFloorCreator(NorthSW_2, Sidewalk, -%1% - %ExtraWP% - 65, %2% + 65, %1% - 65, %2% + 70, %FO%, false, true)
+
+	#LSFloorCreator(WestSW_1, Sidewalk, -%1% - %ExtraWP% - 70, -%2% - 70, -%1% - %ExtraWP% - 65, %2% + 70, %FO%, false, false)
+	LSFloorCreator(WestSW_1A, Sidewalk, -%1% - %ExtraWP% - 70, -%2% - 70, -%1% - %ExtraWP% - 65, -30, %FO%, false, false)
+	LSFloorCreator(WestSW_1B, Sidewalk, -%1% - %ExtraWP% - 70, 30, -%1% - %ExtraWP% - 65, %2% + 70, %FO%, false, false)
+	LSFloorCreator(WestSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 30, -%1% - %ExtraWP% - 30, %2% + 30, %FO%, false, false)
+	LSFloorCreator(WestSW_3, Sidewalk, -235, 30, -%1% - %ExtraWP% - 70, 35, %FO%, false, true)
+	LSFloorCreator(WestSW_4, Sidewalk, -235, -35, -%1% - %ExtraWP% - 70, -30, %FO%, false, true)
+
+####================================####
+
+#South Driveway (6th Street)
+Cut Landscape, %1% - 60, -1, -250, %1%, 1, -235, false, true
+Cut Landscape, %1% - 60, -1, -250 - 0.1, %1%, 1, -250 + 0.1, true, false #Sidewalk cuts
+Cut Landscape, %1% - 60, -1, -235 - 0.1, %1%, 1, -235 + 0.1, true, false #Sidewalk cuts
+
+	AddFloor landscape, 6thStreetDriveway, Road, 0, %1% - 60, -250, %1%, -235, -0.5, 0, false, false, 0, 0	
+
+####================================####
+
+#North Driveway (7th Street)
+Cut Landscape, %1% - 60, -1, 235, %1%, 1, 250, false, true
+Cut Landscape, %1% - 60, -1, 235 - 0.1, %1%, 1, 235 + 0.1, true, false #Sidewalk cuts
+Cut Landscape, %1% - 60, -1, 235 - 0.1, %1%, 1, 250 + 0.1, true, false #Sidewalk cuts
+
+	AddFloor landscape, 7thStreetDriveway, Road, 0, %1% - 60, 235, %1%, 250, 0, -0.5, false, false, 0, 0	
+
+####================================####
+
+#West Driveway (Market Street)
+Cut Landscape, -250, -1, -30, -235, 1, 30, false, true
+Cut Landscape, -250 - 0.1, -1, -30, -250 + 0.1, 1, 30, true, false #Sidewalk cuts
+Cut Landscape, -235 - 0.1, -1, -30, -235 + 0.1, 1, 30, true, false #Sidewalk cuts
+
+	AddFloor landscape, 7thStreetDriveway, Road, 0, -250, -30, -235, 30, -0.5, 0, true, false, 0, 0	
+
+####================================####
+
+#Sidewalk fillers
+DrawWalls = true, true, false, false, false, false
+AddWall landscape, 6thSt_SWF1, Sidewalk, 0, %1% - 60, -250, %1% - 60, -235, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, 6thSt_SWF2, Sidewalk, 0, %1%, -250, %1%, -235, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+AddWall landscape, 7thSt_SWF1, Sidewalk, 0, %1% - 60, 235, %1% - 60, 250, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, 7thSt_SWF2, Sidewalk, 0, %1%, 235, %1%, 250, 0.5, 0.5, -0.5, -0.5, 0, 0
+
+AddWall landscape, MarketStreet_SWF1, Sidewalk, 0, -250, -30, -235, -30, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5, -0.5, -0.5, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -623,6 +687,10 @@ Set FO = Floor(1).Base #Floor Offset
 	DrawWalls = true, true, false, false, false, false #Doubles as both floor and ceiling
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor Level%floorid%A_Floor, Road, 0.5, %1% - 61, -%2%, %1%, %2%, %HalfParkingHeight%, %HalfParkingHeight%, 0, 0, true
+	
+		#Extra floor east of office elevators
+		TextureOverride %5%Ceiling2, %5%Floor2, Blank, Blank, Blank, Blank
+		AddFloor ExtraLobbyFloor, %5%Floor, 1.5, 0, -35, %1% - 61, 35, 10, 10, 0, 0, false
 
 	#----------------------------------------#
 
@@ -647,7 +715,7 @@ Set FO = Floor(1).Base #Floor Offset
 	AddCustomWindows(Lobby_FrontWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% - %ExtraWP%, -%2%, %1% - 70, -%2%, %WinHeight%, 0, 0, %IFloorType%, ExtFacade, %5%Wall)
 	AddCustomWindows(Lobby_FrontWin2, %WinPrefix%WindowsB, %WinPrefix%WindowsIntB, %1% - 70, -%2%, %1% - 61, -%2%, %WinHeight%, 1/4, 0, %IFloorType%, ExtFacade, %5%Wall)
 	AddCustomWindows(Lobby_LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% - %ExtraWP%, -%2%, -%1% - %ExtraWP%, %2%, %WinHeight%, 0, 0, %IFloorType%, ExtFacade, %5%Wall)
-	AddCustomWindows(Lobby_BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1%, %2%, %1% - 70, %2%, %WinHeight%, 0, 0, %IFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(Lobby_BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% - %ExtraWP%, %2%, %1% - 70, %2%, %WinHeight%, 0, 0, %IFloorType%, %5%Wall, ExtFacade)
 	AddCustomWindows(Lobby_BackWin2, %WinPrefix%WindowsIntB, %WinPrefix%WindowsB, %1% - 70, %2%, %1% - 61, %2%, %WinHeight%, 1/4, 0, %IFloorType%, %5%Wall, ExtFacade)
 	SetAutoSize = true, true
 
@@ -849,7 +917,7 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 
 		#Railings on the highest parking level
 		WallOrientation = left
-		DrawWalls = true, true, true, true, true, false
+		DrawWalls = true, true, true, true, true, true
 		if[%floor% = 8] AddWall RampRail_Back, ParkingWall3, 0.5, %1% - 15.5, 50, %1% - 0.5, 50, %WallHeight2%, %WallHeight2%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
@@ -988,22 +1056,22 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	Set Prefix = A
 	Set SupportX = %1% - 1.25
 	CreateWallBox2 external, Support%Prefix%1, %ColPrefix%Wall, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	CreateWallBox2 external, Support%Prefix%2, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Support%Prefix%2, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 1) + 10, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%3, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%4, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%5, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	CreateWallBox2 external, Support%Prefix%6, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Support%Prefix%6, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 5) - 10, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%7, %ColPrefix%Wall, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 
 	#Row B
 	Set Prefix = B
 	Set SupportX = %1% - (%DistanceX% * 1)
 	CreateWallBox2 external, Support%Prefix%1, %ColPrefix%Wall, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%2, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%2, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 1) + 10, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%3, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%4, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%5, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%6, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%6, %ColPrefix%Wall, %SupportX%, -%2% + (%DistanceZ% * 5) - 10, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%7, %ColPrefix%Wall, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 
 	#Row C
@@ -1033,9 +1101,9 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	Set SupportX = %1% - (%DistanceX% * 4)
 	CreateWallBox2 external, Support%Prefix%1, %5%Wall, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%2, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%3, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%5, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	#if[%floor% < 9] CreateWallBox2 external, Support%Prefix%3, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	#if[%floor% < 9] CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	#if[%floor% < 9] CreateWallBox2 external, Support%Prefix%5, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	if[%floor% < 9] CreateWallBox2 external, Support%Prefix%6, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%7, %5%Wall, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 
@@ -1129,13 +1197,205 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 
 #SHAFTS
 #Office low-zone elevators (1, 9-15)
-AddStdShaft(1, 1, 4, -20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
-AddStdShaft(2, 1, 24, -20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
+AddStdShaft(1, 1, -25, -20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
+AddStdShaft(2, 1, -5, -20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
 
 #Office high-zone elevators (1, 16-22)
-AddStdShaft(3, 1, 4, 20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
-AddStdShaft(4, 1, 24, 20, 4.67, 14.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
+AddStdShaft(3, 1, -25, 20, 4.67, 14.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 12)
+AddStdShaft(4, 1, -5, 20, 4.67, 14.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 12)
 
+#Parking elevators
+AddStdShaft(5, 1, 5, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
+
+#External shaft walls
+<Floors -1 to 22>
+	TexPrefix() #Set textures
+	
+	Set DispLobby_LZ = true
+	if[%floor% > 8 & %floor% < 16] Set DispLobby_LZ = false
+	Set DispLobby_HZ = true
+	if[%floor% > 15 & %floor% < 23] Set DispLobby_HZ = false
+
+	#Low-Zone Elevators
+	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -25, -20, 5, 15, SH1, %SHeight%, %SOffset%, true, true, %DispLobby_LZ%, true, false, false, %S_ISE%)
+	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -5, -20, 5, 15, SH2, %SHeight%, %SOffset%, true, %DispLobby_LZ%, true, true, false, false, %S_ISE%)
+
+	#High-Zone Elevators
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -25, 20, 5, 15, SH3, %SHeight%, %SOffset%, true, true, %DispLobby_HZ%, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -5, 20, 5, 15, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
+<EndFloors>
+
+<Flors -2 to 10>
+	TexPrefix() #Set textures
+
+	#Parking Elevators
+	Set DispLobby_PK = true
+	if[%floor% > 1 & %floor% < 9] Set DispLobby_PK = false
+
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 5, -20, 5, 15, SH5, %SHeight%, %SOffset%, true, true, %DispLobby_PK%, true, false, false, %S_ISE%)
+<EndFloors>
+
+
+##--------------------------------------------------------------------------------##
+
+#ELEVATORS
+#Set idle sounds
+<Elevators 1 to 15>
+	CarIdleSound = EG881Sounds/MTelevidle.wav #EG881
+<EndElevators>
+
+#Low-Rise Elevators
+<Elevator 1>
+	Name = Office Elevator 1/1
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 1
+	CreateElevator true, 0.59, -10, 1
+<EndElevator>
+
+<Elevator 2>
+	Name = Office Elevator 1/2
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 1
+	CreateElevator true, 0.59, 0, 1
+<EndElevator>
+
+<Elevator 3>
+	Name = Office Elevator 1/3
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 1
+	CreateElevator true, 0.59, 10, 1
+<EndElevator>
+
+<Elevator 4>
+	Name = Office Elevator 1/4
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 2
+	CreateElevator true, -0.59, -10, 1
+<EndElevator>
+
+<Elevator 5>
+	Name = Office Elevator 1/5
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 2
+	CreateElevator true, -0.59, 0, 1
+<EndElevator>
+
+<Elevator 6>
+	Name = Office Elevator 1/6
+	Speed = 12
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 9-15
+	AssignedShaft = 2
+	CreateElevator true, -0.59, 10, 1
+<EndElevator>
+
+#High-Rise Elevators
+<Elevator 7>
+	Name = Office Elevator 2/1
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 3
+	CreateElevator true, 0.59, -10, 1
+<EndElevator>
+
+<Elevator 8>
+	Name = Office Elevator 2/2
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 3
+	CreateElevator true, 0.59, 0, 1
+<EndElevator>
+
+<Elevator 9>
+	Name = Office Elevator 2/3
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 3
+	CreateElevator true, 0.59, 10, 1
+<EndElevator>
+
+<Elevator 10>
+	Name = Office Elevator 2/4
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 4
+	CreateElevator true, -0.59, -10, 1
+<EndElevator>
+
+<Elevator 11>
+	Name = Office Elevator 2/5
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 4
+	CreateElevator true, -0.59, 0, 1
+<EndElevator>
+
+<Elevator 12>
+	Name = Office Elevator 2/6
+	Speed = 18
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = 1, 16-22
+	AssignedShaft = 4
+	CreateElevator true, -0.59, 10, 1
+<EndElevator>
+
+#Parking Elevators
+<Elevator 13>
+	Name = Parking Elevator 1
+	Speed = 5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - -1, 1 - 8
+	AssignedShaft = 5
+	CreateElevator true, 0.59, -10, 1
+<EndElevator>
+
+<Elevator 14>
+	Name = Parking Elevator 2
+	Speed = 5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - -1, 1 - 8
+	AssignedShaft = 5
+	CreateElevator true, 0.59, 0, 1
+<EndElevator>
+
+<Elevator 15>
+	Name = Parking Elevator 3
+	Speed = 5
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - -1, 1 - 8
+	AssignedShaft = 5
+	CreateElevator true, 0.59, 10, 1
+<EndElevator>
 
 ##--------------------------------------------------------------------------------##
 
