@@ -220,10 +220,12 @@
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
 
 		#Low zone elevators
-		Load data/Carpet0013b_S.jpg, LZElevFloor, 0.2, 0.2
+		Load data/Carpet0021b_S.jpg, LZElevFloor, 0.2, 0.2
+		Load data/Carpet0006_S.jpg, LZElevFloor2, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LZElevCeiling, 1, -1, false
 		Load data/EG881/light1x.jpg, LZElevCeilingLight, 1, 1, false #EG881
 		Load data/panel-back3.jpg, LZElevCeilingTrim, 1, 1, false
+		Rotate LZElevCeilingTrim, 90
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, LZElevCeilingDL, 1, 1, false #DL = Downlight
 
 		Load data/EG881/stucco2f_white2.jpg, LZElevWall, 0.15, 0.15, true #EG881
@@ -1225,7 +1227,7 @@ AddStdShaft(5, 1, 5, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -5, 20, 5, 15, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
 <EndFloors>
 
-<Flors -2 to 10>
+<Floors -2 to 10>
 	TexPrefix() #Set textures
 
 	#Parking Elevators
@@ -1235,6 +1237,31 @@ AddStdShaft(5, 1, 5, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 5, -20, 5, 15, SH5, %SHeight%, %SOffset%, true, true, %DispLobby_PK%, true, false, false, %S_ISE%)
 <EndFloors>
 
+<Floors 9 to 15>
+	TexPrefix() #Set textures
+	Set LobbyCZ = -20
+
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddWall_CustomTex(LRLobby_Left, 2, %5%LobbyWall_L, %5%LobbyWall, Blank, 0.5, -20, %LobbyCZ% - 15, -20, %LobbyCZ% + 15, 4, %height% - 4, 0, 0, false)
+
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddWall_CustomTex(LRLobby_Right, 2, %5%LobbyWall_L, %5%LobbyWall, Blank, 0.5, -10, %LobbyCZ% - 15, -10, %LobbyCZ% + 15, 4, %height% - 4, 0, 0, false)
+<EndFloors>
+
+<Floors 16 to 22>
+	TexPrefix() #Set textures
+	Set LobbyCZ = 20
+
+	WallOrientation = right
+	DrawWalls = false, true, false, false, false, false
+	AddWall_CustomTex(HRLobby_Left, 2, %5%LobbyWall_L, %5%LobbyWall, Blank, 0.5, -20, %LobbyCZ% - 15, -20, %LobbyCZ% + 15, 4, %height% - 4, 0, 0, false)
+
+	WallOrientation = left
+	DrawWalls = true, false, false, false, false, false
+	AddWall_CustomTex(HRLobby_Right, 2, %5%LobbyWall_L, %5%LobbyWall, Blank, 0.5, -10, %LobbyCZ% - 15, -10, %LobbyCZ% + 15, 4, %height% - 4, 0, 0, false)
+<EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
@@ -1275,6 +1302,92 @@ AddStdShaft(5, 1, 5, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	CreateElevator true, 0.59, 10, 1
 <EndElevator>
 
+<Function BtnPanelE1-6>
+	Set PanelNumber = %param1%
+	Set BtnPrefix = MTButton
+
+	AddButton %PanelNumber%, , %BtnPrefix%15, %BtnPrefix%Lit15, 1, 2, 15, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%14, %BtnPrefix%Lit14, 1, 1, 14, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%13, %BtnPrefix%Lit13, 2, 2, 13, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%12, %BtnPrefix%Lit12, 2, 1, 12, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%11, %BtnPrefix%Lit11, 3, 2, 11, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%10, %BtnPrefix%Lit10, 3, 1, 10, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%9, %BtnPrefix%Lit9, 4, 2, 9, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 4, 1, 1, 1, 1
+	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 4, 1, off, 0.5, 0.5, -0.785, 0
+
+	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 6, 1, open, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 6, 2, close, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Stop, %BtnPrefix%Stop, 7, 1, alarm, 1, 1
+	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 7, 2, alarm, 1, 1
+<EndFunction>
+
+<Elevators 1 to 3>
+	Set Prefix = LZ
+
+	#Set textures and dimensions
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(6.5, 7, 8, 0.2, 0.2, true, true, false, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.5, 1.5, 1, 0.2, false, false, true, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	#--------------------
+	#Car Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = 3.25
+
+	WallOrientation = left
+	AddDoorComponent 1, Left, %ElevDoorTex%, %ElevDoorTex%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, %ElevDoorTex%2, %ElevDoorTex%2, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP%, -2 - (2 * 1), %IDP% + 0.2, 2 + (2 * 1), 0, 0, 0, 0
+	#--------------------
+	#Button Panels
+	Set Position = -2.65 #Right panel
+	Set Position2 = 2.65 #Left panel
+
+		#Panel back
+		CreateWallBox2 elevator, MainPB, ElevPanel, 3.05 - 0.025, %Position%, 0.05, 0.7, 4.75, 2.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, SecondaryPB, ElevPanel, 3.05 - 0.025, %Position2%, 0.05, 0.7, 4.75, 2.25, 0, 0, false, true, true, true
+
+		#Panels
+		CreatePanel , 7, 2, left, 3.05 - 0.051, %Position%, 0.2, 0.2, 0.3, -0.1, 3.55, 0, 0
+		CreatePanel , 7, 2, left, 3.05 - 0.051, %Position2%, 0.2, 0.2, 0.3, -0.1, 3.55, 0, 0
+
+			#Buttons
+			BtnPanelE1-6(1)
+			BtnPanelE1-6(2)
+
+	#Elevator number sign
+	DrawWalls = true, false, false, false, false, false
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 3.05 - 0.001, 0 - 0.25, 3.05 - 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+
+	#Indicator sets
+	AddFloorIndicator Ind_Button, left, 3.05 - 0.051, %Position%, 0.35, 0.35, 5.75
+	AddFloorIndicator Ind_Button, left, 3.05 - 0.051, %Position2%, 0.35, 0.35, 5.75
+	#--------------------
+	#Shaft components
+	DrawWalls = true, true, true, true, true, true
+		#Ropes
+		RopePosition = 0, 8 + 0.2, 0
+		RopeTexture = Ropes
+	
+		#Counterweight
+		Set Position = -3.25 - 0.75
+
+		CreateCounterweight CWeight_Frame, CWeight, %Position%, 0, 0.5, 6, 2, 0.5
+	
+		#Rails
+		#AddRails ElevRail, ElevRailSide, 0, 0, true, 3.5 + 0.06, 0.1
+		#AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
+<EndElevators>
+
 <Elevator 4>
 	Name = Office Elevator 1/4
 	Speed = 12
@@ -1304,6 +1417,109 @@ AddStdShaft(5, 1, 5, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	AssignedShaft = 2
 	CreateElevator true, -0.59, 10, 1
 <EndElevator>
+
+<Elevators 4 to 6>
+	Set Prefix = LZ
+
+	#Set textures and dimensions
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor2, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(6.5, 7, 8, 0.2, 0.2, true, false, true, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.5, 1.5, 1, 0.2, false, true, false, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	#--------------------
+	#Car Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -3.25
+
+	WallOrientation = right
+	AddDoorComponent 1, Left, %ElevDoorTex%, %ElevDoorTex%, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	AddDoorComponent 1, Right, %ElevDoorTex%2, %ElevDoorTex%2, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackX, ElevExt, ElevExt, ElevExt, ElevExt
+		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP% - 0.2, -2 - (2 * 1), %IDP%, 2 + (2 * 1), 0, 0, 0, 0
+	#--------------------
+	#Button Panels
+	Set Position = 2.65 #Right panel
+	Set Position2 = -2.65 #Left panel
+
+		#Panel back
+		CreateWallBox2 elevator, MainPB, ElevPanel, -3.05 + 0.025, %Position%, 0.05, 0.7, 4.25, 2.5, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, SecondaryPB, ElevPanel, -3.05 + 0.025, %Position2%, 0.05, 0.7, 4.25, 2.5, 0, 0, false, true, true, true
+
+		#Panels
+		CreatePanel , 7, 2, right, -3.05 + 0.051, %Position%, 0.2, 0.2, 0.3, -0.1, 3.55, 0, 0
+		CreatePanel , 7, 2, right, -3.05 + 0.051, %Position2%, 0.2, 0.2, 0.3, -0.1, 3.55, 0, 0
+
+			#Buttons
+			BtnPanelE1-6(1)
+			BtnPanelE1-6(2)
+
+	#Elevator number sign
+	DrawWalls = false, true, false, false, false, false
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, -3.05 + 0.001, 0 - 0.25, -3.05 + 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+
+	#Indicator sets
+	AddFloorIndicator Ind_Button, right, -3.05 + 0.051, %Position%, 0.35, 0.35, 5.75
+	AddFloorIndicator Ind_Button, right, -3.05 + 0.051, %Position2%, 0.35, 0.35, 5.75
+	#--------------------
+	#Shaft components
+	DrawWalls = true, true, true, true, true, true
+		#Ropes
+		RopePosition = 0, 8 + 0.2, 0
+		RopeTexture = Ropes
+	
+		#Counterweight
+		Set Position = 3.25 + 0.75
+
+		CreateCounterweight CWeight_Frame, CWeight, %Position%, 0, 0.5, 6, 2, 0.5
+	
+		#Rails
+		#AddRails ElevRail, ElevRailSide, 0, 0, true, 3.5 + 0.06, 0.1
+		#AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
+<EndElevators>
+
+<Elevators 1 to 6>
+	#DETAILED INTERIORS
+	#1. Lights
+	CreateWallBox2 elevator, E%elevator%_Main, %Prefix%ElevCeilingLight, 0, 0, 6.1, 3, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+
+		#1a. Ceiling trims
+		CreateWallBox2 elevator, E%elevator%_TrimInner_Left, %Prefix%ElevCeilingTrim, 0, -1.5 - 0.1, 6.1, 0.2, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%_TrimInner_Right, %Prefix%ElevCeilingTrim, 0, 1.5 + 0.1, 6.1, 0.2, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+
+	#2. Downlights
+	Set DLOffset = 8 - 0.001
+	FloorOrientation = top
+	DrawWalls = true, false, false, false, true, true
+	AddFloor Downlight1A, %Prefix%ElevCeilingDL, 0, -1.75 - 0.11, 2.60 - 0.11, -1.75 + 0.11, 2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1B, %Prefix%ElevCeilingDL, 0, 0 - 0.11, 2.60 - 0.11, 0 + 0.11, 2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1C, %Prefix%ElevCeilingDL, 0, 1.75 - 0.11, 2.60 - 0.11, 1.75 + 0.11, 2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2A, %Prefix%ElevCeilingDL, 0, -1.75 - 0.11, -2.60 - 0.11, -1.75 + 0.11, -2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2B, %Prefix%ElevCeilingDL, 0, 0 - 0.11, -2.60 - 0.11, 0 + 0.11, -2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2C, %Prefix%ElevCeilingDL, 0, 1.75 - 0.11, -2.60 - 0.11, 1.75 + 0.11, -2.60 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+
+	#3. Panels on walls
+	Set WPTex = %Prefix%ElevWallPanel
+	Set WPanelHeight = 8
+
+		#Front panels
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0, -3.3 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+		#Back panels
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0, 3.3 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+		#Left panels
+		if[%elevator% < 4] CreateWallBox2 elevator, Panel_L1, %WPTex%, -3.05 + 0.01, 0, 0.02, 3, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+		#Right panels
+		if[%elevator% > 3] CreateWallBox2 elevator, Panel_R1, %WPTex%, 3.05 - 0.01, 0, 0.02, 3, %WPanelHeight%, 0, 0, 0, false, true, true, true
+<EndElevators>
 
 #High-Rise Elevators
 <Elevator 7>
