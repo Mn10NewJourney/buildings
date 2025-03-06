@@ -950,7 +950,12 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 
 	#Walls around ramps
 	WallOrientation = left
-	Set WallHeight = %fullheight%
+		
+		#Extra heights for 8th floor
+		Set EXH = 0
+		if[%floor% = 8] Set EXH = Floor(9).InterfloorHeight - 0.5
+
+	Set WallHeight = %fullheight% + %EXH%
 	Set WallHeight2 = %interfloorheight% + 4
 	Set WallOffset = 0
 
