@@ -729,16 +729,19 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor LobbyFloor, %5%Floor, 0.5, -%1% - %ExtraWP%, -%2%, %1% - 61, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
-	AddFloor ParkingFloor, Road, 0.5, %1% - 61, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LobbyFloor, %5%Floor, 0.5, -%1% - %ExtraWP%, -%2%, %1% - 65, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
+	AddFloor ParkingFloor1, ParkingFloor, 0.5, %1% - 65, -%2%, %1% - 60, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor ParkingFloor2, Road, 0.5, %1% - 60, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	DrawWalls = true, true, false, false, false, false #Doubles as both floor and ceiling
+	TextureOverride ParkingCeiling, ParkingFloor, Blank, Blank, Blank, Blank
+	AddFloor Level%floorid%A_Floor1, Road, 0.5, %1% - 65, -%2%, %1% - 60, %2%, %HalfParkingHeight%, %HalfParkingHeight%, 0, 0, true
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-	AddFloor Level%floorid%A_Floor, Road, 0.5, %1% - 61, -%2%, %1%, %2%, %HalfParkingHeight%, %HalfParkingHeight%, 0, 0, true
-	
+	AddFloor Level%floorid%A_Floor2, Road, 0.5, %1% - 60, -%2%, %1%, %2%, %HalfParkingHeight%, %HalfParkingHeight%, 0, 0, true
+
 		#Extra floor east of office elevators
 		TextureOverride %5%Ceiling2, %5%Floor2, Blank, Blank, Blank, Blank
-		AddFloor ExtraLobbyFloor, %5%Floor, 1.5, 15 - 0.5, -25, %1% - 61, 30, 10, 10, 0, 0, false
+		AddFloor ExtraLobbyFloor, %5%Floor, 1.5, 15, -25, %1% - 65, 30, 10, 10, 0, 0, false
 
 	#----------------------------------------#
 
@@ -748,8 +751,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor LobbyCeiling, %5%Ceiling, 0.5, -%1% - %ExtraWP%, -%2%, %1% - 61, %2%, %CeiOffset%, %CeiOffset%, 0, 0, false
-	AddFloor ParkingCeiling, ParkingCeiling, 0.5, %1% - 61, -%2%, %1%, %2%, %ParkingOffset%, %ParkingOffset%, 0, 0, true
+	AddFloor LobbyCeiling, %5%Ceiling, 0.5, -%1% - %ExtraWP%, -%2%, %1% - 65, %2%, %CeiOffset%, %CeiOffset%, 0, 0, false
+	AddFloor ParkingCeiling, ParkingCeiling, 0.5, %1% - 65, -%2%, %1%, %2%, %ParkingOffset%, %ParkingOffset%, 0, 0, true
 
 	#----------------------------------------#
 
@@ -760,12 +763,23 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	Set WinPrefix = Lobby
 
 	SetAutoSize = true, false
-	AddCustomWindows(Lobby_FrontWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% - %ExtraWP%, -%2%, %1% - 70, -%2%, %WinHeight%, 0, 0, %IFloorType%, ExtFacade, %5%Wall)
-	AddCustomWindows(Lobby_FrontWin2, %WinPrefix%WindowsB, %WinPrefix%WindowsIntB, %1% - 70, -%2%, %1% - 61, -%2%, %WinHeight%, 1/4, 0, %IFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(Lobby_FrontWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% - %ExtraWP%, -%2%, %1% - 80, -%2%, %WinHeight%, 0, 0, %IFloorType%, ExtFacade, %5%Wall)
+	AddCustomWindows(Lobby_FrontWin2, %WinPrefix%WindowsB, %WinPrefix%WindowsIntB, %1% - 80, -%2%, %1% - 65, -%2%, %WinHeight%, 2/4, 0, %IFloorType%, ExtFacade, %5%Wall)
 	AddCustomWindows(Lobby_LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% - %ExtraWP%, -%2%, -%1% - %ExtraWP%, %2%, %WinHeight%, 0, 0, %IFloorType%, ExtFacade, %5%Wall)
-	AddCustomWindows(Lobby_BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% - %ExtraWP%, %2%, %1% - 70, %2%, %WinHeight%, 0, 0, %IFloorType%, %5%Wall, ExtFacade)
-	AddCustomWindows(Lobby_BackWin2, %WinPrefix%WindowsIntB, %WinPrefix%WindowsB, %1% - 70, %2%, %1% - 61, %2%, %WinHeight%, 1/4, 0, %IFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(Lobby_BackWin1, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% - %ExtraWP%, %2%, %1% - 80, %2%, %WinHeight%, 0, 0, %IFloorType%, %5%Wall, ExtFacade)
+	AddCustomWindows(Lobby_BackWin2, %WinPrefix%WindowsIntB, %WinPrefix%WindowsB, %1% - 80, %2%, %1% - 65, %2%, %WinHeight%, 2/4, 0, %IFloorType%, %5%Wall, ExtFacade)
 	SetAutoSize = true, true
+
+	#----------------------------------------#
+	
+	#Lobby/parking divider walls
+	Set WallHeight = %height% + Floor(2).InterfloorHeight - 0.5
+	Set WallOffset = %interfloorheight%
+
+		WallOrientation = left
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride %5%Wall, ParkingWall, ExtFacade, ExtFacade, Blank, Blank
+		AddWall LobbyParkingDivider, %5%Wall2, 0.5, %1% - 65, -%2%, %1% - 65, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#----------------------------------------#
 
@@ -799,7 +813,7 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 		WallOrientation = left
 		TextureOverride ExtFacade, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2
-		AddWall UpperFrontWallC1, %5%Wall2, 0.5, %1% - 61, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall UpperFrontWallC1, %5%Wall2, 0.5, %1% - 65 + 0.5, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
 		TextureOverride %5%Wall2, ExtFacade, ExtFacade, %5%Wall2, %5%Wall2, %5%Wall2
@@ -808,7 +822,7 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 		AddWall UpperRightWallC, %5%Wall2, 0.5, %1%, 50, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		TextureOverride %5%Wall2, ExtFacade, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2
-		AddWall UpperBackWallC1, %5%Wall2, 0.5, %1% - 61, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall UpperBackWallC1, %5%Wall2, 0.5, %1% - 65 + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#Wall covers for 2nd floor's walls
 	Set 5 = Parking #Override for these walls
@@ -822,10 +836,10 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 		WallOrientation = left
 		TextureOverride ExtFacade, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2
-		AddWall UpperFrontWallC2, %5%Wall2, 0.5, %1% - 61, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall UpperFrontWallC2, %5%Wall2, 0.5, %1% - 65 + 0.5, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		TextureOverride %5%Wall2, ExtFacade, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2
-		AddWall UpperBackWallC2, %5%Wall2, 0.5, %1% - 61, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall UpperBackWallC2, %5%Wall2, 0.5, %1% - 65 + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
 #2nd-8th floor parking areas
@@ -2161,6 +2175,10 @@ AddStdShaft(5, 1, -55, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	Set NumSteps2 = %NumSteps%
 	if[%floor% = 1] Set NumSteps2 = 12
 	if[%floor% = 9] Set NumSteps2 = 10
+	
+		#Special vslues for landings
+		#Set NumSteps3 = %NumSteps2%
+		#if[%floor% = 9] Set NumSteps3 = 12
 
 	#Floors with double stairs (40/48 steps instead of the usual 20/24)
 	Set DblStairs = false
@@ -2178,6 +2196,7 @@ AddStdShaft(5, 1, -55, -20, 4.67, 14.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 5, 
 #East Core Stairwell
 CreateStairwell 1, 20, 17.5, -2, 24
 CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
+ShowFullStairs 1 = always
 
 <Floors -2 to 24>
 	StairwellSets() #Determine stairs' size
@@ -2202,6 +2221,8 @@ CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
 	WallOrientation = center
 	DrawWalls = true, true, true, true, false, true
 	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, %24% - 5 - %NumSteps%, 0, %24% - 5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
+	DrawWalls = true, true, true, true, true, false
+	if[%floor% = 1] AddStairsWall %25%, Stair%25%TranWall, StairsWall2, 1, 0, %24% - 5 - %NumSteps2%, 0, %24% - 5 - %NumSteps%, %interfloorheight% + 3, %interfloorheight% + 3, -%interfloorheight%, -%interfloorheight%, 0, 0
 
 	#Railing
 	WallOrientation = left
@@ -2227,11 +2248,12 @@ CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	if[%floor% = -2] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
-	if[%floor% > -2 & %floor% ! 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps2%, 0, 0, false, false, 0, 0
+	if[%floor% > -2 & %floor% ! 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps%, 0, 0, false, false, 0, 0
 	if[%floor% < 24 & %floor% ! 0] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5, -%23%, %24% - 5, %23%, %24%, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
 
 		#Transition areas
 		if[%floor% = 9] AddStairsFloor %25%, Stairs%25%Tran1, StairsFloor, 0.5, %23% - 4, %24% - 5 - %NumSteps%, %23%, %24% - 5 - %NumSteps2%, 0, 0, false, false, 0, 0
+		if[%floor% = 1] AddStairsFloor %25%, Stairs%25%Tran2, StairsFloor, 0.5, -%23%, %24% - 5 - %NumSteps2%, -%23% + 4, %24% - 5 - %NumSteps%, 0, 0, false, false, 0, 0
 
 	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingLowerEX, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps%, %26% * %NumStepsU2%, %26% * %NumStepsU2%, false, false, 0, 0
 	if[%DblStairs% = true] AddStairsFloor %25%, Stairs%25%LandingUpperEX, StairsFloor, 0.5, -%23%, %24% - 5, %23%, %24%, %26% * %NumStepsU3%, %26% * %NumStepsU3%, false, false, 0, 0
@@ -2256,9 +2278,9 @@ CutStairwell 1, -4.5, -12, 4.5, 12, 0, 5
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% = 1] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 8, 75, -%23% + 2, -%24% - 0.5, 3, 7, 0, 0, 0
 
-		#Manual filler walls for external mesh
+		#Manual filler walls for some areas
 		WallOrientation = right
-		if[(%floor% > 1 & %floor% < 9) | %floor% = 24] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+		if[(%floor% > 0 & %floor% < 9) | %floor% = 24] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
