@@ -107,7 +107,7 @@
 
 			Load data/door1.jpg, LevelB1ShaftDoors, 1, 1, false
 			Load data/door1.jpg, LevelB1ShaftDoors2, -1, 1, false
-			#Load data/elevpanelsilver.jpg, B1ShaftDoors_Trim, 1, 1, false
+			Load data/elevpanelsilver.jpg, LevelB1ShaftDoors_Trim, 1, 1, false
 
 		#Lobby (1st floor)
 		Load data/floor065.jpg, LobbyFloor, 0.25, 0.25
@@ -148,11 +148,11 @@
 			Load data/EG881/stainlesssteel2.jpg, ParkingShaftDoors_TrimTop, 1, 1, false #EG881
 
 		#Lower office levels (9-15)
-		Load data/Carpet0013b_S.jpg, LowerOfficeFloor, 0.2, 0.2
+		Load data/EG881/Carpet/eg881_Carpet4.jpg, LowerOfficeFloor, 0.2, 0.2 #EG881
 		Load data/checker08.jpg, LowerOfficeLobbyFloor, 0.35, 0.35
-		Load data/stucco22b.jpg, LowerOfficeWall, 0.125, 0.125 #EG881
+		Load data/wall3.jpg, LowerOfficeWall, 0.25, 0.25 #EG881
 		Load data/EG881/lopacwall2stripe.jpg, LowerOfficeLobbyWall, 0.15, 0.3 #EG881 #Elevator lobbies
-		Load data/EG881/ceilingtile2b.jpg, LowerOfficeCeiling, 0.125, 0.125 #EG881
+		Load data/EG881/ceilingtile3x3.jpg, LowerOfficeCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
 			Load data/EG881/elevdoorright_black.jpg, LowerOfficeShaftDoors, -1, 1, false #EG881
@@ -178,7 +178,7 @@
 		Load data/marbletile.jpg, RestroomWall, 0.15, 0.3
 		
 		#Service elevator lobby
-		Load data/granite_0007e.jpg, ServiceLobbyFloor, 0.2, 0.2
+		Load data/stone.jpg, ServiceLobbyFloor, 0.125, 0.125
 		Load data/st_wall2.jpg, ServiceLobbyWall, 0.13635, 0.09765
 
 		#Drop ceilings
@@ -187,12 +187,15 @@
 
 		#Service level
 		Load data/cem_tr_b.jpg, ServiceFloor, 0.0875, 0.0875
-		Load data/EG881/cem_tr3.jpg, ServiceFloor2, 0.075225, 0.0625 #EG881
 		Load data/stucco4.jpg, ServiceWall, 0.25, 0.25
 		Load data/stucco2.jpg, ServiceWall2, 0.1, 0.1
-		#Load data/stucco1.jpg, ServiceWall2, 0.125, 0.125
 		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
 		Load data/EG881/cem_tr2c.jpg, ServiceCeiling2, 0.075225, 0.0625 #EG881
+
+			#Mechanical Mezzanine
+			Load data/EG881/cem_tr3.jpg, MMEFloor, 0.075225, 0.0625 #EG881
+			Load data/EG881/cem_tr2c.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
+			Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
 		#Roof
 		Load data/cem_tr.jpg, RoofFloor, 0.0875, 0.0875
@@ -335,7 +338,7 @@
 			Load data/Melvin/st_panel.jpg, ServiceBShaftDoors_Trim, 1, 1, false
 
 			Load data/brushed metal door.tga, ServiceCShaftDoors, 1, 1, false #epco_rules #23rd floor mechanicalr room
-			Load data/brushed metal door.tga, ServiceCShaftDoors, 1, 1, false #epco_rules
+			Load data/brushed metal door.tga, ServiceCShaftDoors2, 1, 1, false #epco_rules
 			Load data/Melvin/brushed metal panel.jpg, ServiceCShaftDoors_Trim, 1, 1, false #epco_rules
 
 	####################
@@ -693,9 +696,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	if[%floor% > 8 & %floor% < 23] Set 5S = ServiceLobby
 
 	#Shaft doors for service elevator(s)
-	Set 5E = ServiceB
-	if[%floor% = 1] Set 5E = ServiceA
-	if[%floor% > 8 & %floor% < 23] Set 5E = ServiceA
+	Set 5E = ServiceA
+	if[%floor% > 8 & %floor% < 23] Set 5E = ServiceB
 	if[%floor% = 23] Set 5E = ServiceC
 
 	########################################
@@ -1367,7 +1369,7 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 #Set door textures for restrooms
 <Function RR_DTex>
 	Set DTex = Door8
-	if[%floor% > 8 & %floor% < 16] Set DTex = Door6
+	if[%floor% > 8 & %floor% < 16] Set DTex = Door9b
 	if[%floor% > 15 & %floor% < 23] Set DTex = Door9b
 
 	Set DSTex = %DTex%Side
@@ -1493,12 +1495,30 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	DrawWalls = false, true, false, false, false, false
 	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
 
+		#Mechanical Mezzanine
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+		AddFloor MechFloor, MMEFloor, 1.5, -25, -5, 25, 25, 12, 12, 0, 0, false
+
 	#Ceilings
 	Set CeiOffset = %height%
 
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, false
+
+	#Railings
+	Set WallHeight = 1.5 + 3.5
+	Set WallOffset = 12 - 1.5
+
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall MMERail_Front, MMEWall, 0.5, -25 + 0.5, -5, 25 - 0.5, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_Left, MMEWall, 0.5, -25, -5, -25, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	WallOrientation = right
+	AddWall MMERail_Right, MMEWall, 0.5, 25, -5, 25, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_Back, MMEWall, 0.5, -5, 25, 5, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Mechanical perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -1689,8 +1709,8 @@ AddStdShaft(1, 1, -10, -15, 4.67, 9.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %
 AddStdShaft(2, 1, 10, -15, 4.67, 9.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
 
 #Office high-zone elevators (1, 16-22)
-AddStdShaft(3, 1, -10, 15, 4.67, 9.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 12)
-AddStdShaft(4, 1, 10, 15, 4.67, 9.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight% + 12)
+AddStdShaft(3, 1, -10, 15, 4.67, 9.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 14, %interfloorheight% + 12)
+AddStdShaft(4, 1, 10, 15, 4.67, 9.67, -1, 23, ShaftIntWall, 0.5, 0.33, 0, 14, %interfloorheight% + 12)
 
 #Parking elevators
 AddStdShaft(5, 1, -125, 85, 14.67, 4.67, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
@@ -1721,13 +1741,14 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 
 <Floors -2 to 23>
 	TexPrefix() #Set textures
+	Set DispLobby_HZ = true
 
 	#High-Zone Elevators
-	CreateShaftWall(%5%%OfficeSuffix%, %5%Wall, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, 0.33, -10, 15, 5, 10, SH3, %SHeight%, %SOffset%, true, true, %DispLobby_HZ%, true, false, false, %S_ISE%)
-	CreateShaftWall(%5%%OfficeSuffix%, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 10, 15, 5, 10, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
+	if[%floor% = 23] CreateShaftWall(%5%%OfficeSuffix%, %5%Wall, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, 0.33, -10, 15, 5, 10, SH3, %SHeight%, %SOffset%, true, true, %DispLobby_HZ%, true, false, false, %S_ISE%)
+	if[%floor% = 23] CreateShaftWall(%5%%OfficeSuffix%, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 10, 15, 5, 10, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
 
 	#Service Elevator
-	CreateShaftWall(%5S%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -30, 24, 5, 6, SH7, %SHeight%, %SOffset%, true, true, false, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5S%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -30, 24, 5, 6, SH7, %SHeight%, %SOffset%, true, true, false, true, false, false, %S_ISE%)
 <EndFloors>
 
 <Floor 24>
@@ -1790,6 +1811,7 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 ########################################
 
 #Machine room doors
+#1. Office low zone elevators
 <Floor 17>
 	Set DTex = ServiceDoor2
 	Set DSTex = %DTex%Side
@@ -1798,19 +1820,20 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set Door_MainZ = -15
 
 	WallOrientation = right
-	AddStdDoor Floor %floor%, %floorid%_Shaft8MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-	AddStdDoor Floor %floor%, %floorid%_Shaft8MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft1MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft1MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 
 	Set Door_MainX = 10 - 5
 	Set Door_MainZ = -15
 
 	WallOrientation = left
-	AddStdDoor Floor %floor%, %floorid%_Shaft9MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-	AddStdDoor Floor %floor%, %floorid%_Shaft9MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft2MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft2MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 <EndFloor>
 
+#2. Office high zone elevators
 <Floor 23>
 	Set DTex = ServiceDoor1
 	Set DSTex = %DTex%Side
@@ -1819,19 +1842,35 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set Door_MainZ = 15
 
 	WallOrientation = right
-	AddStdDoor Floor %floor%, %floorid%_Shaft8MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 12, 0, 0, 0, 0
-	AddStdDoor Floor %floor%, %floorid%_Shaft8MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 12, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft3MR_L, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 12, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft3MR_R, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 12, 0, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 12, false, 0, 0, false
 
 	Set Door_MainX = 10 - 5
 	Set Door_MainZ = 15
 
 	WallOrientation = left
-	AddStdDoor Floor %floor%, %floorid%_Shaft9MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 12, 0, 0, 0, 0
-	AddStdDoor Floor %floor%, %floorid%_Shaft9MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 12, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft4MR_L, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 12, 0, 0, 0, 0
+	AddStdDoor Floor %floor%, %floorid%_Shaft4MR_R, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 12, 0, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, 12, false, 0, 0, false
 <EndFloor>
 
+#3. Service elevator
+<Floor 24>
+	#Machine room doors
+	Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+	Set Door_MainX = -30
+	Set Door_MainZ = 24 - 6
+
+	WallOrientation = left
+	AddStdDoor DoorManager, %floorid%_Shaft7MR_L, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+	AddStdDoor DoorManager, %floorid%_Shaft7MR_R, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFloor>
+
+#4. Parking elevators
 <Floor 9>
 	#Machine room doors
 	Set DTex = ServiceDoor2
@@ -3479,6 +3518,7 @@ ShowFullStairs 1 = always
 		#Manual filler walls for some areas
 		WallOrientation = right
 		if[(%floor% > 0 & %floor% < 9) | %floor% = 24] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+		if[%floor% = 23] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight% + %EXOffset%, true, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
@@ -3491,7 +3531,7 @@ ShowFullStairs 1 = always
 
 #West Core Stairwell
 CreateStairwell 2, -20, 17.5, -2, 23
-CutStairwell 2, -4.5, -12, 4.5, 12, 0, 5
+CutStairwell 2, -4.5, -12, 4.5, 12, 0, 14 #Changed the "end_voffset" due to the "Mechanical Mezzanine" I created.
 ShowFullStairs 2 = always
 
 <Floors -2 to 23>
@@ -3579,6 +3619,7 @@ ShowFullStairs 2 = always
 		#Manual filler walls for some areas
 		WallOrientation = right
 		if[(%floor% > 0 & %floor% < 9) | %floor% = 24] AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% - 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+		if[%floor% = 23] AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% - 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight% + %EXOffset%, true, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
