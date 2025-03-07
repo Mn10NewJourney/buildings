@@ -787,7 +787,7 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor LobbyFloor, %5%Floor, 0.5, -%1% - %ExtraWP%, -%2%, %1% - 65, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
-	AddFloor ParkingFloor1, ParkingFloor, 0.5, %1% - 65, -%2%, %1% - 60, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor ParkingFloor1, Sidewalk, 0.5, %1% - 65, -%2%, %1% - 60, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor ParkingFloor2, Road, 0.5, %1% - 60, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	DrawWalls = true, true, false, false, false, false #Doubles as both floor and ceiling
@@ -834,6 +834,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	AddCustomWindows(Lobby_BackWin2, %WinPrefix%WindowsIntB, %WinPrefix%WindowsB, %1% - 80, %2%, %1% - 65, %2%, %WinHeight%, 2/4, 0, %IFloorType%, %5%Wall, ExtFacade)
 	SetAutoSize = true, true
 
+	#----------------------------------------#
+
 	#Lobby perimeter walls
 		WallTex() #Set wall texture
 		Set WallHeight = %fullheight%
@@ -874,6 +876,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 		TextureOverride %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Ceiling2, %5%Ceiling2
 		AddWall RampExitHallDiv_Left, %5%Wall, 0.5, 15, -5, 15, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
+	#----------------------------------------#
+
 	#Doors to Parking Areas
 		Set DTex = Door88
 		Set DSTex = %DTex%Side
@@ -900,6 +904,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 		AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
 		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 
+	#----------------------------------------#
+
 	#Exit doors from parking ramps
 		Set DTex = ServiceDoor2
 		Set DSTex = %DTex%Side
@@ -917,6 +923,45 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 		#Exit sign
 		AddBoxSign(RampExitSign, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, false, true, true, %Door_MainX% + 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 10 + 7.2, true)
 		AddBoxSign(RampExitSign_Hall, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 20, %Door_MainZ%, 1.8, 0.9, %fullheight% - 0.9, true)
+
+	#----------------------------------------#
+
+	#Storage under parking ramps
+	Set WallHeight = 9.5
+	Set WallOffset = %interfloorheight%
+
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		AddWall Storage1Wall, ParkingWall3, 0.5, 75.5, -50, 89.5, -50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		AddWall Storage2Wall, ParkingWall3, 0.5, 60.5, 50, 74.5, 50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Storage doors
+		Set DTex = Door1
+		Set DSTex = %DTex%Side
+
+		#(1) East storage
+		Set Door_MainX = 82.5
+		Set Door_MainZ = -50
+
+		WallOrientation = left
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		#(2) West storage
+		Set Door_MainX = 67.5
+		Set Door_MainZ = 50
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
 	#----------------------------------------#
 
 	#Lower parking perimeter walls
