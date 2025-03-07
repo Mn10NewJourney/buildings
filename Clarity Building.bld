@@ -152,6 +152,7 @@
 		Load data/checker08.jpg, LowerOfficeLobbyFloor, 0.35, 0.35
 		Load data/stucco22b.jpg, LowerOfficeWall, 0.125, 0.125 #EG881
 		Load data/EG881/lopacwall2stripe.jpg, LowerOfficeLobbyWall, 0.15, 0.3 #EG881 #Elevator lobbies
+		Load data/EG881/lopacwall3stripe.jpg, LowerOfficeLobbyWall2, 0.15, 0.3 #EG881 #Other hallways
 		Load data/EG881/ceilingtile3x3.jpg, LowerOfficeCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
@@ -164,6 +165,7 @@
 		Load data/Carpet0013b_S.jpg, UpperOfficeLobbyFloor, 0.2, 0.2
 		Load data/stucco5.jpg, UpperOfficeWall, 0.25, 0.25
 		Load data/marble22.jpg, UpperOfficeLobbyWall, 0.1345, 0.125 #Elevator lobbies
+		Load data/marb148.jpg, UpperOfficeLobbyWall2, 0.25, 0.25 #Other hallways
 		Load data/EG881/ceilingtile3x3.jpg, UpperOfficeCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
@@ -682,6 +684,14 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 	########################################
 	
+	#Set suffixes for hallway walls
+	Set OfficeSuffix = Wall
+	if[%floor% > 8 & %floor% < 23] Set OfficeSuffix = LobbyWall2 #Other walls
+	Set OfficeSuffix2 = Wall
+	if[%floor% > 8 & %floor% < 23] Set OfficeSuffix2 = LobbyWall #Elevator lobbies
+
+	########################################
+	
 	#Offsets for shaft/stairwell wall heights
 	Set EXHeight = 0
 	if[%floor% = -1] Set EXHeight = Floor(0).FullHeight
@@ -1140,8 +1150,8 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 		AddFloor DownRamp_MarkA, NoParkingZ, 0.5, %1% - 29.5, -50, %1% - 27.5, 50, %LO% + 0.001, %UO% + 0.001, false, false, 1, 5, true
 <EndFloor>
 
-#9th-23rd floors
-<Floors 9 to 23>
+#9th-22nd floors
+<Floors 9 to 22>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
@@ -1152,22 +1162,111 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
 	if[%floor% = 9] AddFloor %floorid%F_ExtDeck, RoofFloor2, 0.5, -%1% - %ExtraWP%, -%2%, -%1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-		#Low Zone Lobby
-		if[%floor% < 16] RoomFloorCreator(LZLobbyFloor_TR1, BlackTrim, 0.5, -5 - 0.66, -25, 5 + 0.66, -25 + 0.2, 0, false)
-		if[%floor% < 16] RoomFloorCreator(LZLobbyFloor_TR2, BlackTrim, 0.5, -5 - 0.66, -5 - 0.2, 5 + 0.66, -5, 0, false)
-		if[%floor% < 16] RoomFloorCreator(LZLobbyFloor, %5%LobbyFloor, 0.5, -5 - 0.66, -25 + 0.2, 5 + 0.66, -5 - 0.2, 0, false)
-
-		#High Zone Lobby
-		if[%floor% > 15 & %floor% < 23] RoomFloorCreator(HZLobbyFloor_TR1, BlackTrim, 0.5, -5 - 0.66, 5, 5 + 0.66, 5 + 0.2, 0, false)
-		if[%floor% > 15 & %floor% < 23] RoomFloorCreator(HZLobbyFloor_TR2, BlackTrim, 0.5, -5 - 0.66, 25 - 0.2, 5 + 0.66, 25, 0, false)
-		if[%floor% > 15 & %floor% < 23] RoomFloorCreator(HZLobbyFloor, %5%LobbyFloor, 0.5, -5 - 0.66, 5 + 0.2, 5 + 0.66, 25 - 0.2, 0, false)
-
+		#Hallway floors
+		if[%floor% < 18] RoomFloorCreator(SouthHallwayFloor, %5%LobbyFloor, 0.5, -25, -25, 25, -5 - 0.5, 0, false)
+		if[%floor% > 17] RoomFloorCreator(SouthHallwayFloor, %5%LobbyFloor, 0.5, -15, -25, 15, -5 - 0.5, 0, false)
+		RoomFloorCreator(MiddleHallwayFloor, %5%LobbyFloor, 0.5, -35, -5 - 0.5, 25, 5 + 0.5, 0, false)
+		RoomFloorCreator(NorthHallwayFloor, %5%LobbyFloor, 0.5, -15, 5 + 0.5, 15, 25, 0, false)
+	
 	#Ceilings
 	Set CeiOffset = %height%
 
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, false
+
+	#############################################
+	#New divider lines "For Clarity in My Eyes."
+	#############################################
+		
+	#Office hallway walls
+	Set Endpoint = 25
+	if[%floor% > 17] Set Endpoint = 15
+	
+		#West walls
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride %5%Wall, %5%%OfficeSuffix%, Blank, Blank, Blank, Blank
+		AddWall OfficeHall_West1, %5%Wall, 0.5, -35, -5 - 0.5, -35, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5%Wall, %5%%OfficeSuffix%, Blank, Blank, Blank, Blank
+		AddWall OfficeHall_West2, %5%Wall, 0.5, -35, -5 - 0.5, -%Endpoint%, -5 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	
+		#East walls
+		WallOrientation = right
+		TextureOverride %5%%OfficeSuffix%, %5%Wall, Blank, Blank, Blank, Blank
+		AddWall OfficeHall_East1, %5%Wall, 0.5, 25, -5 - 0.5, 25, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		TextureOverride %5%Wall, %5%%OfficeSuffix%, Blank, Blank, Blank, Blank
+		AddWall OfficeHall_East2, %5%Wall, 0.5, %Endpoint%, -5 - 0.5, 25, -5 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	
+		#North walls
+		WallOrientation = right
+		TextureOverride %5%%OfficeSuffix2%, %5%Wall, Blank, Blank, Blank, Blank
+		AddWall OfficeHall_North, %5%Wall, 0.5, -5, 25, 5, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	
+		#South walls
+		WallOrientation = left
+		TextureOverride %5%%OfficeSuffix2%, %5%Wall, Blank, Blank, Blank, Blank
+		if[%floor% < 18] AddWall OfficeHall_South, %5%Wall, 0.5, -5, -25, 5, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		TextureOverride %5%%OfficeSuffix2%, %5%Wall, Blank, Blank, Blank, Blank
+		if[%floor% > 17] AddWall OfficeHall_South, %5%Wall, 0.5, -35, -5 - 0.5, 25, -5 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#############################################
+	#End of the "Clarity Divider Lines."
+	#############################################
+
+	#Office unit doors
+	Set DTex = Door88 #Set door texture
+	Set DSTex = %DTex%Side
+	DrawWalls = true, true, true, false, false, false
+
+		#West doors
+		Set Door_MainX = -35
+		Set Door_MainZ = 0
+	
+		WallOrientation = left
+		AddStdDoor Floor %floor%, %floorid%_West_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_West_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%%OfficeSuffix%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+		#East doors
+		Set Door_MainX = 25
+		Set Door_MainZ = 0
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_East_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_East_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%%OfficeSuffix%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+		#North doors
+		Set Door_MainX = 0
+		Set Door_MainZ = 25
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_North_D1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_North_D2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%%OfficeSuffix%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+		#South doors - Set 1
+		Set Door_MainX = 0
+		if[%floor% > 17] Set Door_MainX = -20
+		Set Door_MainZ = -25
+		if[%floor% > 17] Set Door_MainZ = -5.5
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, %floorid%_South_D1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_South_D2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%%OfficeSuffix%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+		#South doors - Set 2 (18th-22nd floors only)
+		Set Door_MainX = 20
+		Set Door_MainZ = -5.5
+	
+		WallOrientation = left
+		if[%floor% > 17] AddStdDoor Floor %floor%, %floorid%_South_D1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		if[%floor% > 17] AddStdDoor Floor %floor%, %floorid%_South_D2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		if[%floor% > 17] AddFillerWalls %5%%OfficeSuffix%, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
 <EndFloors>
 
 <Floors 9 to 22>
@@ -1217,7 +1316,24 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 		AddWall %floorid%F_BackWall, %5%Wall, 0.5, -10, %2%, 10, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
+#23rd floor mechanical room
 <Floor 23>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	Set FloorOffset = 0
+
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor %floorid%F_Floor, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, false
+
+	#Ceilings
+	Set CeiOffset = %height%
+
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor %floorid%F_Ceiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, false
+
 	#Mechanical perimeter walls
 	TexPrefix() #Set texture prefix/suffix
 	Set WallHeight = %fullheight%
@@ -1426,12 +1542,12 @@ AddStdShaft(6, 1, -125, -85, 14.67, 4.67, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	if[%floor% > 15 & %floor% < 23] Set DispLobby_HZ = false
 
 	#Low-Zone Elevators
-	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -10, -15, 5, 10, SH1, %SHeight%, %SOffset%, true, true, %DispLobby_LZ%, true, false, false, %S_ISE%)
-	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 10, -15, 5, 10, SH2, %SHeight%, %SOffset%, true, %DispLobby_LZ%, true, true, false, false, %S_ISE%)
+	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%Wall, %5%%OfficeSuffix%, %5%%OfficeSuffix%, %5%Wall, %5%Wall, 0.33, -10, -15, 5, 10, SH1, %SHeight%, %SOffset%, true, true, %DispLobby_LZ%, true, false, false, %S_ISE%)
+	if[%floor% ! 0 & %floor% < 18] CreateShaftWall(%5%Wall, %5%%OfficeSuffix%, %5%Wall, %5%%OfficeSuffix%, %5%Wall, %5%Wall, 0.33, 10, -15, 5, 10, SH2, %SHeight%, %SOffset%, true, %DispLobby_LZ%, true, true, false, false, %S_ISE%)
 
 	#High-Zone Elevators
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -10, 15, 5, 10, SH3, %SHeight%, %SOffset%, true, true, %DispLobby_HZ%, true, false, false, %S_ISE%)
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 10, 15, 5, 10, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%%OfficeSuffix%, %5%Wall, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, 0.33, -10, 15, 5, 10, SH3, %SHeight%, %SOffset%, true, true, %DispLobby_HZ%, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%%OfficeSuffix%, %5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 10, 15, 5, 10, SH4, %SHeight%, %SOffset%, true, %DispLobby_HZ%, true, true, false, false, %S_ISE%)
 <EndFloors>
 
 <Floors -2 to 8>
@@ -2795,10 +2911,10 @@ AddStdShaft(6, 1, -125, -85, 14.67, 4.67, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 5, 
 	TexPrefix() #Set textures
 
 	#East Core Stairwell
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 20, 17.5, 5, 12.5, ST1, %SHeight%, %SOffset%, true, true, true, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 20, 17.5, 5, 12.5, ST1, %SHeight%, %SOffset%, true, true, true, true, false, false, %S_ISE%)
 
 	#West Core Stairwell
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -20, 17.5, 5, 12.5, ST2, %SHeight%, %SOffset%, true, true, true, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%%OfficeSuffix%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -20, 17.5, 5, 12.5, ST2, %SHeight%, %SOffset%, true, true, true, true, false, false, %S_ISE%)
 <EndFloors>
 
 <Floor 24>
