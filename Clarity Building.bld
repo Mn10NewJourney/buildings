@@ -1133,18 +1133,18 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 #Shopping atrium (Levels B2-1)
 <Function ATR_Sets>
 	Set WestEnd_Flr = -121
-	if[%floor% = 1] Set WestEnd_Flr = -91
+	if[%floor% = 1] Set WestEnd_Flr = -89.75
 
 	Set WestEnd_Cei = -121
-	if[%floor% = 0] Set WestEnd_Cei = -91
+	if[%floor% = -1 | %floor% = 0] Set WestEnd_Cei = -89.75
 <EndFunction>
 
 <Floors -2 to 1>
 	ATR_Sets() #Set atrium dimensions
 
 	#Atrium cuts
-	if[%floor% > -2] CutAll %WestEnd_Flr%, %interfloorheight% - 1, -31, -59, %interfloorheight% + 1, 31, false, true
-	if[%floor% < 1] CutAll %WestEnd_Cei%, %fullheight% - 1, -31, -59, %fullheight% + 1, 31, false, true
+	if[%floor% > -2] CutAll %WestEnd_Flr%, %interfloorheight% - 0.5, -31, -59, %interfloorheight% + 0.5, 31, false, true
+	if[%floor% < 1] CutAll %WestEnd_Cei%, %fullheight% - 0.5, -31, -59, %fullheight% + 0.5, 31, false, true
 <EndFloors>
 
 #ATRIUM RAILINGS
@@ -2009,7 +2009,7 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	CreateWallBox2 external, Support%Prefix%1, %5%Wall, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%2, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%3, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	if[%floor% > 1] CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%5, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%6, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%7, %5%Wall, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
