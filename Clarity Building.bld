@@ -444,10 +444,10 @@
 			AddText Blank, HZHallSign, nimbus_sans_bold.ttf, 35, 16-22, -1, -1, -1, -1, center, center, 255, 255, 0, false
 			Load data/Melvin/blank_long.png, BlankLong, 1, 1, false
 			AddText BlankLong, NorthPKHallSign, nimbus_sans_bold.ttf, 35, NORTH, -1, -1, -1, -1, center, center, 192, 0, 0, false
-			AddText BlankLong, SouthPKHallSign, nimbus_sans_bold.ttf, 35, SOUTH, -1, -1, -1, -1, center, center, 0, 32, 96, false
+			AddText BlankLong, SouthPKHallSign, nimbus_sans_bold.ttf, 35, SOUTH, -1, -1, -1, -1, center, center, 61, 69, 196, false
 			#AddText BlankLong, PKHallSign, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 0, 0, 0, false
 			AddText BlankLong, PKHallSign, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 192, 0, 0, false
-			AddText BlankLong, PKHallSign2, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 0, 32, 96, false
+			AddText BlankLong, PKHallSign2, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 61, 69, 196, false
 
 		#4. Signs at elevator lobbies
 		#Load data/signs_mod/Elev3.png, Sign_Elev, 1, 1, false
@@ -1135,10 +1135,10 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 #Shopping atrium (Levels B2-1)
 <Function ATR_Sets>
 	Set WestEnd_Flr = -121
-	if[%floor% = 1] Set WestEnd_Flr = -89.75
+	#if[%floor% = 1] Set WestEnd_Flr = -89.75
 
 	Set WestEnd_Cei = -121
-	if[%floor% = -1 | %floor% = 0] Set WestEnd_Cei = -89.75
+	#if[%floor% = -1 | %floor% = 0] Set WestEnd_Cei = -89.75
 <EndFunction>
 
 <Floors -2 to 1>
@@ -1229,6 +1229,8 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 		#A. NORTH LOBBY
 		WallOrientation = left
+		DrawWalls = false, true, false, false, false, false
+		AddWall NorthElevLobbyLeft, %5%LobbyWall, 0.5, -140, 65, -140, 80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride %5%Wall, %5%LobbyWall, Blank, Blank, Blank, Blank
 		AddWall NorthElevLobbyFront, %5%LobbyWall, 0.5, -140, 65, -110, 65, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -1258,6 +1260,10 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 			AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 		#B. SOUTH LOBBY
+		WallOrientation = left
+		DrawWalls = false, true, false, false, false, false
+		AddWall SouthElevLobbyLeft, %5%LobbyWall, 0.5, -140, -80, -140, -65, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
 		WallOrientation = right
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride %5%LobbyWall2, %5%Wall, Blank, Blank, Blank, Blank
@@ -2011,7 +2017,7 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	CreateWallBox2 external, Support%Prefix%1, %5%Wall, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%2, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%3, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
-	CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
+	if[%floor% > 1] CreateWallBox2 external, Support%Prefix%4, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%5, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%6, %5%Wall, %SupportX%, -%2% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
 	CreateWallBox2 external, Support%Prefix%7, %5%Wall, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, %ShowTop%, false
@@ -3876,9 +3882,12 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	if[%floor% > 1 & %floor% < 9] Set Suffix_N = LobbyWall
 	Set Suffix_S = Wall
 	if[%floor% > 1 & %floor% < 9] Set Suffix_S = LobbyWall2
+	
+	Set ShowRight = true
+	if[%floor% > 1] Set ShowRight = false
 
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%%Suffix_N%, %5%Wall, %5%Wall, %5%Wall, 0.5, -145, 77.5, 5, 12.5, ST3, %SHeight%, %SOffset%, true, false, true, false, false, false, %S_ISE%)
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%%Suffix_S%, %5%Wall, %5%Wall, %5%Wall, 0.5, -145, -77.5, 5, 12.5, ST4, %SHeight%, %SOffset%, false, false, true, true, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%%Suffix_N%, %5%Wall, %5%Wall, %5%Wall, 0.5, -145, 77.5, 5, 12.5, ST3, %SHeight%, %SOffset%, true, false, %ShowRight%, false, false, false, %S_ISE%)
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%%Suffix_S%, %5%Wall, %5%Wall, %5%Wall, 0.5, -145, -77.5, 5, 12.5, ST4, %SHeight%, %SOffset%, false, false, %ShowRight%, true, false, false, %S_ISE%)
 
 		#External walls
 		Set EXH = 0
