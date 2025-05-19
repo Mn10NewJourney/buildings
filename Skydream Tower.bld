@@ -156,7 +156,6 @@
 		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, ParkingElevDoors2, 1, 1, false #EG881
 
 		#Express elevators
-		#Load data/checker08.jpg, ExpressElevFloor, 0.4, 0.4
 		Load data/Carpet0021b_S.jpg, ExpressElevFloor, 0.2, 0.2
 		Load data/marbl3.jpg, ExpressElevWall, 0.36, 0.36
 		Load data/floor111.jpg, ExpressElevWallPanel, 0.25, 0.25
@@ -359,6 +358,7 @@
 	Load data/Melvin/SDT_Signs/SDTCallPanel.png, SDTCallPanel, 1, 1, false
 	LoadRange 1, 6, data/Melvin/SDT_Signs/SkydreamTowerSign%number%.png, SkydreamTowerSign%number%, 1, 1, false
 	LoadRange 1, 2, data/Melvin/SDT_Signs/SDTService%number%.png, SDTService%number%, 1, 1, false
+	Load data/Melvin/SDT_Signs/ParkingElevDir.png, ParkingElevDir, 1, 1, false
 <EndTextures>
 
 #########################################################################
@@ -4262,6 +4262,13 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 		DrawWalls = true, true, true, true, true, true
 		TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
 		AddFloor DoorTrack, ElevDoorTrackZ, 0.05, 0 - 3.5, -3.125 - 0.2, 0 + 3.5, -3.125, 0, 0, 0, 0
+		
+	#Floor directory
+	Set SignWidth = 0.75
+	Set SignHeight = %SignWidth% * 1.2
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall PEDir, ParkingElevDir, 0, -2.65 - (%SignWidth% / 2), -3.125 + 0.201, -2.65 + (%SignWidth% / 2), -3.125 + 0.201, %SignHeight%, %SignHeight%, 4.75, 4.75, 0, 0
 
 	#Button Panel
 	CreatePanel ElevPanel, 8, 2, back, -2.65, -3.125 + 0.201, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0
@@ -4754,6 +4761,7 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 #Global Settings for All Elevators
 <Elevators 1 to 37>
 	NotifyEarly = 2
+	QueueResets = true
 	if[%elevator% < 9 | %elevator% > 32] UpChimeSound 1 = ButlerCitySounds/OtisLuxBellChimeUp.wav #Test Tower
 	if[%elevator% < 9 | %elevator% > 32] DownChimeSound 1 = ButlerCitySounds/OtisLuxBellChimeDown.wav #Test Tower
 	if[%elevator% > 8 & %elevator% < 33] UpChimeSound 1 = 
