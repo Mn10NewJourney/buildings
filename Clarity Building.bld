@@ -7,12 +7,11 @@
 #1. Added all elevators: 8 March 2025
 #2. Completion of tower section (9F-Roof): 8 March 2025
 #3. Completion of all stairwells: 17 May 2025
-#4. Completion of podium section (B2F-8F): TBD
-#5. All details finish date: TBD
+#4. Completion of all remaining details: TBD
 
 #WAITING LIST:
-#1. Plaza escalators and restrooms
-#2. Parking spaces + landscaping
+#1. Parking spaces
+#2. Extra landscaping
 
 ########################################
 
@@ -101,7 +100,7 @@
 	#Main textures
 		#Plaza atrium
 		Load data/marb148.jpg, EscWall, 0.2, 0.2 #EG881 #Escalator outer walls
-		Load data/EG881/granite_0007e_black.jpg, LobbyWall2, 0.075, 0.075 #EG881 #Atrium railings
+		#Load data/EG881/granite_0007e_black.jpg, LobbyWall2, 0.075, 0.075 #EG881 #Atrium railings
 		Load data/Carpet0013_S.jpg, ABCarpet1, 0.2, 0.2 #Atrium base (AB)
 
 		#Shopping level B2
@@ -659,6 +658,10 @@ Set FO = Floor(1).Base #Floor Offset
 	LSFloorCreator(WestEntPath, Sidewalk, -180, -10, -150, 10, %FO%, false, true)
 	LSFloorCreator(SWEmerExitPath, Sidewalk, -180, -70.5, -150, -65.5, %FO%, false, true)
 	LSFloorCreator(NWEmerExitPath, Sidewalk, -180, 65.5, -150, 70.5, %FO%, false, true)
+	LSFloorCreator(SouthPath1, Sidewalk, -80, -120, -70, -90, %FO%, false, false)
+	LSFloorCreator(SouthPath2, Sidewalk, -20, -120, -10, -90, %FO%, false, false)
+	LSFloorCreator(NorthPath1, Sidewalk, -80, 90, -70, 120, %FO%, false, false)
+	LSFloorCreator(NorthPath2, Sidewalk, -20, 90, -10, 120, %FO%, false, false)
 
 	#Sidewalks
 	LSFloorCreator(EastSW_1, Sidewalk, %1%, -235, %1% + 5, 235, %FO%, false, false)
@@ -722,15 +725,19 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 ####================================####
 
 #Trees
+	#South trees
+	AddTree(Tree1, -55, -105, 13.5, 12, Floor(1).Base)
+	AddTree(Tree1, -35, -105, 13.5, 12, Floor(1).Base)
+
 	#West trees
 	AddTree(Tree2, -165, 20, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, 35, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, 50, 12, 16, Floor(1).Base)
-	AddTree(Tree2, -165, 80, 12, 16, Floor(1).Base)
+	#AddTree(Tree2, -165, 80, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -20, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -35, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -50, 12, 16, Floor(1).Base)
-	AddTree(Tree2, -165, -80, 12, 16, Floor(1).Base)
+	#AddTree(Tree2, -165, -80, 12, 16, Floor(1).Base)
 
 ##--------------------------------------------------------------------------------##
 
@@ -751,7 +758,7 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	if[%floor% < 2] Set 5S = PodiumSL
 	if[%floor% > 8 & %floor% < 23] Set 5S = ServiceLobby
 
-	#Shaft doors for service elevator(s)
+	#Shaft doors for service elevator
 	Set 5E = ServiceA
 	if[%floor% > 8 & %floor% < 23] Set 5E = ServiceB
 	if[%floor% = 23] Set 5E = ServiceC
@@ -830,7 +837,105 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 		if[%floor% ! 0] AddWall BackWallB, %5%Wall, 0.5, -110, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloors>
 
+#Restroom door textures for plaza levels
+<Function RR_DTex_Plaza>
+	Set DTex = Door8
+	if[%floor% = -1] Set DTex = Door9b
+	Set DSTex = %DTex%Side
+<EndFunction>
+
+<Floor -2>
+	#Restrooms on B2
+		#Restroom walls
+		TexPrefix() #Set wall textures
+		Set WallHeight = %height%
+		Set WallOffset = 0
+
+			#Wall creation
+			DrawWalls = true, true, false, false, false, false
+
+			WallOrientation = left
+			AddWall %floorid%F_RR_Front, %5%Wall, 0.5, -15, 5, 15, 5, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+			WallOrientation = center
+			AddWall %floorid%F_RR_Mid, %5%Wall, 1, 0, 5, 0, 30, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+			WallOrientation = right
+			AddWall %floorid%F_RR_Back, %5%Wall, 0.5, -15, 30, 15, 30, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+
+		#Restrooms' ceilings
+		Set RRCeiHeight = 8.5
+		FloorOrientation = bottom
+		DrawWalls = true, false, false, false, false, false
+		AddFloor RR_Ceiling, DropCeiling, 0.5, -15, 5, 15, 30, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+
+		#Restroom doors
+		RR_DTex_Plaza() #Set door textures
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 0 - 2, 5.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 0 + 2, 5.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, 0 - 2, 5.5, 3, 7, 0, true, 0, 0, false
+			AddFillerWalls ConnectionWall, 0.5, 0 + 2, 5.5, 3, 7, 0, true, 0, 0, false
+
+		#Restroom signs
+		#Set BoxTex = BlackTrim
+		#Set SignSuffix = _Gray
+		Set BoxTex = WoodSign2
+		Set SignSuffix = _Brown
+
+			#Signs above doors
+			AddBoxSign(RR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, 0 - 2, 5 - 0.025, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, 0 + 2, 5 - 0.025, 1.25, 1.25, 7.25, false)
+<EndFloor>
+
+<Floor -1>
+	#Restrooms on B1
+		#Restroom walls
+		TexPrefix() #Set wall textures
+		#Set WallHeight = %height%
+		Set WallHeight = %height% + Floor(0).FullHeight
+		Set WallOffset = 0
+		
+			#Wall creation
+			DrawWalls = true, true, false, false, false, false
+
+			WallOrientation = left
+			AddWall %floorid%F_RR1_Front, %5%Wall, 0.5, -5, -25, 5, -25, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+			AddWall %floorid%F_RR2_Front, %5%Wall, 0.5, -5, 5, 5, 5, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+			WallOrientation = right
+			AddWall %floorid%F_RR1_Back, %5%Wall, 0.5, -5, -5, 5, -5, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+			AddWall %floorid%F_RR2_Back, %5%Wall, 0.5, -5, 25, 5, 25, %WallHeight%, %WallHeight%, 0, 0, 0, 0, false
+
+		#Restrooms' ceilings
+		Set RRCeiHeight = 8.5
+		FloorOrientation = bottom
+		DrawWalls = true, false, false, false, false, false
+		AddFloor RR1_Ceiling, DropCeiling, 0.5, -5, -25, 5, -5, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+		AddFloor RR2_Ceiling, DropCeiling, 0.5, -5, 5, 5, 25, %RRCeiHeight%, %RRCeiHeight%, 0, 0, false
+
+		#Restroom doors
+		RR_DTex_Plaza() #Set door textures
+	
+			WallOrientation = left
+			AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 0, -5.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, 0, -5.5, 3, 7, 0, true, 0, 0, false
+	
+			WallOrientation = right
+			AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 0, 5.5, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, 0, 5.5, 3, 7, 0, true, 0, 0, false
+
+		#Restroom signs
+		Set BoxTex = BlackTrim
+		Set SignSuffix = _Gray
+		#Set BoxTex = WoodSign2
+		#Set SignSuffix = _Brown
+
+			#Signs above doors
+			AddBoxSign(RR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, 0, -5 + 0.025, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, 0, 5 - 0.025, 1.25, 1.25, 7.25, false)
+<EndFloor>
+
 #1st floor lobby
+#NOTE: There won't be restrooms on this floor, as in real life, not all buildings have restrooms on every single floor.
 <Floor 1>
 	TexPrefix() #Set texture prefix/suffix
 
@@ -893,7 +998,7 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	#----------------------------------------#
 
 	#Lobby perimeter walls
-		WallTex() #Set wall texture
+		TexPrefix() #Set wall texture
 		Set WallHeight = %fullheight%
 		Set WallOffset = 0
 		if[%floor% = 1] Set WallHeight = %height%
@@ -1151,6 +1256,21 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	if[%floor% < 1] CutAll %WestEnd_Cei%, %fullheight% - 0.5, -31, -59, %fullheight% + 0.5, 31, false, true
 <EndFloors>
 
+<Floors 0 to 1>
+	#Extra floorings around escalators from B1 to 1
+	TexPrefix() #Set textures
+
+		#Floors
+		FloorOrientation = top
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% = 1] AddFloor MainEscFloor, %5%Floor, 0.5, -105, 31 - 18 - 15, -105 + 8.5, 31 - 18, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Ceilings
+		FloorOrientation = bottom
+		DrawWalls = true, false, false, false, false, false
+		if[%floor% = 0] AddFloor MainEscCeiling, %5%Ceiling, 0.5, -105, 31 - 18 - 15, -105 + 8.5, 31 - 18, %fullheight%, %fullheight%, 0, 0, true
+<EndFloors>
+
 #ATRIUM RAILINGS
 <Function AtriumRails>
 	TexPrefix()
@@ -1162,18 +1282,55 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
-	AddWall ALeftRail, LobbyWall2, 0.5, %WestEnd_Flr%, -31 - 0.5, %WestEnd_Flr%, 31 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall AFrontRail, LobbyWall2, 0.5, %WestEnd_Flr%, -31, -59, -31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% ! 1] AddWall ALeftRail, %5%Wall, 0.5, %WestEnd_Flr%, -31 - 0.5, %WestEnd_Flr%, 31 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+	if[%floor% = 1] AddWall ALeftRail, %5%Wall, 0.5, %WestEnd_Flr%, 31 - 18 - 2, %WestEnd_Flr%, 31 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = 1] AddWall ALeftRail, %5%Wall, 0.5, %WestEnd_Flr%, -31 - 0.5, %WestEnd_Flr%, 31 - 18 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+	if[%floor% = 1] AddWall ALeftRail_Inside, %5%Wall, 0.5, -97 + 0.5, 31 - 18 - 15, -97 + 0.5, 31 - 18, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% = 1] AddWall AFrontRail_Inside, %5%Wall, 0.5, %WestEnd_Flr% - 0.5, 31 - 18 - 14.5, -97, 31 - 18 - 14.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+	AddWall AFrontRail, %5%Wall, 0.5, %WestEnd_Flr%, -31, -59, -31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 	WallOrientation = left
-	AddWall ARightRail, LobbyWall2, 0.5, -59, -31 - 0.5, -59, 31 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
-	AddWall ABackRail, LobbyWall2, 0.5, %WestEnd_Flr%, 31, -59, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall ARightRail, %5%Wall, 0.5, -59, -31 - 0.5, -59, 31 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+	#if[%floor% ! 1] AddWall ABackRail, %5%Wall, 0.5, %WestEnd_Flr%, 31, -59, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% ! 1] AddWall ABackRailA1, %5%Wall, 0.5, %WestEnd_Flr%, 31, -105, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% ! 1] AddWall ABackRailA2, %5%Wall, 0.5, -97, 31, -65 - 8, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	if[%floor% ! 1] AddWall ABackRailB, %5%Wall, 0.5, -65, 31, -59, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+
+	if[%floor% = 1] AddWall ABackRail, %5%Wall, 0.5, %WestEnd_Flr%, 31, -59, 31, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 <EndFunction>
 
 <Floors -1 to 1>
 	if[%floor% ! 0] AtriumRails()
 <EndFloors>
 
+<Break>
 #========================================#
+
+#Plaza ESCALATORS
+
+#Set escalator properties
+	OP_EscBalustrades(GlassBalustrade, 0, 3.5, 0, 0)
+	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0)
+	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
+	OP_EscTruss(SilverBalustrade, EscWall, 0.5, 3.25, 0, 0, 0, 0)
+
+#1. Escalators from 1 to B1
+<Floor -1>
+	OP_Escalator(%floorid%_PlazaEscalatorUP, up, %floor% + 2, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, Escalator3Z_Unmarked, Escalator3Z, back, -99, 31 - 18, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_PlazaEscalatorDN, down, %floor% + 2, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, Escalator3Z_Unmarked, Escalator3Z, back, -103, 31 - 18, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+<EndFloor>
+
+#1. Escalators from B1 to B2
+<Floor -2>
+	OP_Escalator(%floorid%_PlazaEscalatorUP, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -71, 31, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	OP_Escalator(%floorid%_PlazaEscalatorDN, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/westinghouseescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -67, 31, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+<EndFloor>
+
+#========================================#
+<Break>
 
 #2nd-8th floor parking areas
 <Floors 2 to 8>
@@ -1941,6 +2098,14 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	#Set SupportOffset = -%interfloorheight%
 	Set SupportHeight = %height% + Floor(%floor% + 1).InterfloorHeight
 	Set SupportOffset = 0
+
+	if[%floor% = -2] Set SupportHeight = %fullheight%
+	if[%floor% = -2] Set SupportOffset = -%interfloorheight%
+	if[%floor% = -1 | %floor% = 0] Set SupportHeight = %fullheight%
+	if[%floor% = -1 | %floor% = 0] Set SupportOffset = -%interfloorheight%
+	if[%floor% = 1] Set SupportHeight = %fullheight% + Floor(2).InterfloorHeight
+	if[%floor% = 1] Set SupportOffset = -%interfloorheight%
+
 	Set ShowTop = false
 	
 		#Column prefixes for parking areas
@@ -2036,6 +2201,14 @@ Cut External, %1% - 30, Floor(1).Base + 1, -50, %1%, Floor(8).Base + 1, 50, fals
 	#Set SupportOffset = -%interfloorheight%
 	Set SupportHeight = %height% + Floor(%floor% + 1).InterfloorHeight
 	Set SupportOffset = 0
+	
+	if[%floor% = -2] Set SupportHeight = %fullheight%
+	if[%floor% = -2] Set SupportOffset = -%interfloorheight%
+	if[%floor% = -1 | %floor% = 0] Set SupportHeight = %fullheight%
+	if[%floor% = -1 | %floor% = 0] Set SupportOffset = -%interfloorheight%
+	if[%floor% = 1] Set SupportHeight = %fullheight% + Floor(2).InterfloorHeight
+	if[%floor% = 1] Set SupportOffset = -%interfloorheight%
+
 	Set ShowTop = false
 	
 		#Column prefixes for parking areas
@@ -3306,7 +3479,7 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	#****************************************#
 
 	#Door trims/fillers
-	WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set BankPrefix = LZ
 	Set Shaft1CX = -10 #1st shaft for elevator bank
 	Set Shaft1CZ =  -15
@@ -3422,7 +3595,7 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	#****************************************#
 
 	#Door trims/fillers
-	WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set BankPrefix = HZ
 	Set Shaft1CX = -10 #1st shaft for elevator bank
 	Set Shaft1CZ = 15
@@ -3574,7 +3747,7 @@ AddStdShaft(7, 1, -30, 24, 4.67, 5.67, -3, 24, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	#****************************************#
 
 	#Door trims/fillers
-	WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set Shaft1CX = -125 #1st shaft
 	Set Shaft1CZ = 85
 	Set Shaft2CX = -125 #2nd shaft
