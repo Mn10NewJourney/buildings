@@ -187,10 +187,11 @@
 			Load data/Carpet0021b_S.jpg, ABCarpet3, 0.2, 0.2
 
 			#Interior walls
-			Load data/graniteTexture_0001b.jpg, UpperShopWall, 0.111, 0.111 #Main walls
+			#Load data/st_wall.jpg, UpperShopWall, 0.1875, 0.1344 #Main walls
+			Load data/st_wall2.jpg, UpperShopWall, 0.13635, 0.09765 #Main walls
 			Load data/marb123.jpg, UpperShopWall2, 0.1, 0.1 #Railings
 			Load data/graniteTexture_0002b.jpg, UpperShopWall3L, 0.2, 0.2 #External shaft walls (Shafts 1-4) - Lower walls
-			Load data/wall3.jpg, UpperShopWall3, 0.25, 0.25 #External shaft walls (Shafts 1-4) - Uper walls
+			Load data/wall3.jpg, UpperShopWall3, 0.25, 0.25 #External shaft walls (Shafts 1-4) - Upper walls
 
 			#Escalator outside walls
 			Load data/marble22.jpg, NortheastEscWall, 0.1, 0.1 #Northeast Escalators 5-6
@@ -220,7 +221,6 @@
 		Load data/EG881/cem_tr2b.jpg, ElevMRIntFloor, 0.075225, 0.0625 #EG881
 		Load data/stucco1.jpg, ElevMRIntWall, 0.2, 0.2
 		Load data/EG881/cem_tr2b.jpg, ElevMRIntCeiling, 0.075225, 0.0625 #EG881
-
 		Load data/cem_tr_b.jpg, RoofFloor, 0.075, 0.075
 
 	#Doors
@@ -345,7 +345,6 @@
 		#Load data/panel-back3.jpg, FreightElevWall, 1, 1, false
 		Load data/metal080.jpg, FreightElevWall, 0.5, 0.5
 		Load data/EG881/stainlesssteel2.jpg, FreightElevWallTrim, 1, 1, false #EG881
-		#Rotate FreightElevWallTrim, 90
 
 		#Load data/Threadplate0055_2_S.jpg, FreightElevWallPanel, 0.4, 0.4
 		Load data/panel-back3.jpg, FreightElevCeiling, 1, -1, false
@@ -556,7 +555,7 @@
 <Floor 1>
 	ID = 1
 	Name = Level %floorid%
-	Type = Lobby
+	Type = Recreation
 	Height = 8.5
 	InterfloorHeight = 1.5
 <EndFloor>
@@ -604,7 +603,7 @@
 <Floor 7>
 	ID = 4
 	Name = Level %floorid%
-	Type = Banking
+	Type = Recreation
 	Height = 8.5
 	InterfloorHeight = 1.5
 <EndFloor>
@@ -2724,8 +2723,10 @@ Cut external, 40, Floor(-1).Altitude, -40.5 - 0.1, 80, Floor(9).Base, -40.5 + 0.
 	Set WH = %height%
 	Set WO = 0
 
-	CreateShaftWall(%5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Lower, 4, %WO%, true, true, true, true, false, false, false)
-	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Upper, %WH% - 4, %WO% + 4, true, true, true, true, false, false, false)
+	CreateShaftWall(%5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall3L, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Lower, 4, %WO%, true, true, true, false, false, false, false)
+	CreateShaftWall(%5%Wall3, %5%Wall3, %5%Wall3, %5%Wall3, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft_Upper, %WH% - 4, %WO% + 4, true, true, true, false, false, false, false)
+
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 60, -45, 20, 5, IntElevShaft, %WH%, %WO%, false, false, false, true, false, false, false)
 <EndFloors>
 
 <Floor 11>
@@ -4842,9 +4843,11 @@ AddStdShaft(6, 1, 17.5, 96, 12.17, 5.67, -3, 11, ShaftIntWall, 0.5, 0.33, 0, 5, 
 		DrawWalls = true, false, false, false, false, false
 		AddWall E5-8HallSign, FireSign, 0, %Shaft1CX% - 0.25, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 0.25, %Shaft1CZ% - 5 - 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		if[%floor% < 9] AddWall E5-8FloorSign1, BlankSign%floorid%, 0, %Shaft1CX% - 10 - 0.75, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% - 10 + 0.75, %Shaft1CZ% - 5 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
+		#if[%floor% < 1] AddWall E5-8FloorSign1A, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 5 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
 		if[%floor% < 9] AddWall E5-8FloorSign2, BlankSign%floorid%, 0, %Shaft1CX% + 10 - 0.75, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 10 + 0.75, %Shaft1CZ% - 5 - 0.001, 1.5, 1.5, 6 - 0.75, 6 - 0.75, 0, 0, false
-		if[%floor% > 8] AddWall E5-8FloorSign1, PEFlrSign%floorid%, 0, %Shaft1CX% - 10 - 0.5, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% - 10 + 0.5, %Shaft1CZ% - 5 - 0.001, 1, 1, 6 - 0.5, 6 - 0.5, 0, 0, false
-		if[%floor% > 8] AddWall E5-8FloorSign2, PEFlrSign%floorid%, 0, %Shaft1CX% + 10 - 0.5, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 10 + 0.5, %Shaft1CZ% - 5 - 0.001, 1, 1, 6 - 0.5, 6 - 0.5, 0, 0, false
+		#if[%floor% > 8] AddWall E5-8FloorSign1, PEFlrSign%floorid%, 0, %Shaft1CX% - 10 - 0.5, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% - 10 + 0.5, %Shaft1CZ% - 5 - 0.001, 1, 1, 6 - 0.5, 6 - 0.5, 0, 0, false
+		if[%floor% > 8] AddWall E5-8FloorSign1A, PEFlrSign%floorid%, 0, %Shaft1CX% - 0.5, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 0.5, %Shaft1CZ% - 5 - 0.001, 1, 1, 6 - 0.5, 6 - 0.5, 0, 0, false
+		#if[%floor% > 8] AddWall E5-8FloorSign2, PEFlrSign%floorid%, 0, %Shaft1CX% + 10 - 0.5, %Shaft1CZ% - 5 - 0.001, %Shaft1CX% + 10 + 0.5, %Shaft1CZ% - 5 - 0.001, 1, 1, 6 - 0.5, 6 - 0.5, 0, 0, false
 
 	#Poster above doors
 	DrawWalls = true, false, false, false, false, false
