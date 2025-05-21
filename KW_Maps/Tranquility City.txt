@@ -137,10 +137,15 @@
 		Load data/EG881/cem_tr2b.jpg, NMH_Roof, 0.075225, 0.0625, true #EG881
 
 		#Beautiful Lotus Tower
-		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, BLT_MainWindows, true, 0.05, 1 #EG881
-		Load data/vents1b.jpg, BLT_VentsExt, 1, 1, false
-		Load data/graniteTexture_0001b.jpg, BLT_Facade, 0.0625, 0.0625, true
-		Load data/EG881/cem_tr2b.jpg, BLT_Roof, 0.075225, 0.0625, true #EG881
+			#Lobby front
+			LoadAlphaBlend data/Melvin/LobbyFront/lobbyfront-custom2.png, data/Melvin/LobbyFront/lobbyfront-custom-spec.png, data/sky3c.jpg, BLT_LobbyFront, true, 0.01, 1
+			Load data/Melvin/LobbyFront/lobbyfront-ifloor.png, BLT_LobbyFrontTop, 0.01, 1
+
+			#Windows and vents
+			LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, BLT_MainWindows, true, 0.05, 1 #EG881
+			Load data/vents1b.jpg, BLT_VentsExt, 1, 1, false
+			Load data/graniteTexture_0001b.jpg, BLT_Facade, 0.0625, 0.0625, true
+			Load data/EG881/cem_tr2b.jpg, BLT_Roof, 0.075225, 0.0625, true #EG881
 
 		#Rabbit Tower
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, RBT_Windows, true, 0.05, 1 #EG881
@@ -1544,12 +1549,27 @@ if[%InAmandaPlaza% ! true] AmandaPlaza()
 
 	DrawWalls = true, true, false, false, false, false
 
-		#Main lobby-44th floor
+		#Lobby front (1st floor and mezzanine)
+			#Main facade
+			SetAutoSize = true, false
+			AddWall buildings, BLT_Lobby_Front, BLT_LobbyFront, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 34.5, 34.5, 0, 0, 0, 0
+			AddWall buildings, BLT_Lobby_Left, BLT_LobbyFront, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 34.5, 34.5, 0, 0, 0, 0
+			AddWall buildings, BLT_Lobby_Right, BLT_LobbyFront, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 34.5, 34.5, 0, 0, 0, 0
+			AddWall buildings, BLT_Lobby_Back, BLT_LobbyFront, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 34.5, 34.5, 0, 0, 0, 0
+
+			#2nd floor's interfloor
+			AddWall buildings, BLT_2F-IFloor_Front, BLT_LobbyFrontTop, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 1.5, 1.5, 34.5, 34.5, 0, 0
+			AddWall buildings, BLT_2F-IFloor_Left, BLT_LobbyFrontTop, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 1.5, 1.5, 34.5, 34.5, 0, 0
+			AddWall buildings, BLT_2F-IFloor_Right, BLT_LobbyFrontTop, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 1.5, 1.5, 34.5, 34.5, 0, 0
+			AddWall buildings, BLT_2F-IFloor_Back, BLT_LobbyFrontTop, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 1.5, 1.5, 34.5, 34.5, 0, 0
+			SetAutoSize = true, true
+
+		#2nd-44th floors
 		SetAutoSize = true, false
-		AddWall buildings, BLT_Z1_Front, BLT_MainWindows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 552, 552, 0, 0, 0, 44 + 2
-		AddWall buildings, BLT_Z1_Left, BLT_MainWindows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 552, 552, 0, 0, 0, 44 + 2
-		AddWall buildings, BLT_Z1_Right, BLT_MainWindows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 552, 552, 0, 0, 0, 44 + 2
-		AddWall buildings, BLT_Z1_Back, BLT_MainWindows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 552, 552, 0, 0, 0, 44 + 2
+		AddWall buildings, BLT_Z1_Front, BLT_MainWindows, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 516, 516, 36, 36, 0, 43
+		AddWall buildings, BLT_Z1_Left, BLT_MainWindows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 516, 516, 36, 36, 0, 43
+		AddWall buildings, BLT_Z1_Right, BLT_MainWindows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 516, 516, 36, 36, 0, 43
+		AddWall buildings, BLT_Z1_Back, BLT_MainWindows, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 516, 516, 36, 36, 0, 43
 		SetAutoSize = true, true
 
 		#Zone 1 mechanical
