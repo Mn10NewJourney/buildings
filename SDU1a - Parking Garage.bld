@@ -4,7 +4,7 @@
 
 #Include ObjectPlus and SROC (credit to EG881)
 <Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
-#<Include SROC/Scripts/r1_script.txt> #EG881
+<Include SROC/Scripts/r1_script.txt> #EG881
 
 #Include my scripts
 #<Include Deco2011/Scripts/r4_script.txt>
@@ -33,8 +33,12 @@
 <Textures>
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
-	#Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	
+		#Plants
+		Load data/EG881/grass2.jpg, Grass, 0.01, 0.01 #EG881
+		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
+		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
@@ -52,7 +56,6 @@
 
 	#Concrete
 	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade, 0.0625, 0.0625 #EG881
-	#Load data/stonec.jpg, ExtFacade, 0.075, 0.075
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.0625, 0.0625 #EG881
 
 	#Windows and vents
@@ -294,6 +297,28 @@
 
 ##--------------------------------------------------------------------------------##
 
+#Landscape floor creation function
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+	
+	#Cut ground for floors
+	Cut Landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
 #Landscape
 Set 1 = 51 #Building Dimension X
 Set 2 = 100 #Building Dimension Z
@@ -307,9 +332,10 @@ Set 2 = 100 #Building Dimension Z
 	#AddFloor landscape, EntranceRoad, Road, 0, -%1% - 24, -%2% - 13, -%1% - 7, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, EntranceRoad, PGEntranceRoad, 0, %1% + 4, -%2% - 13, %1% + 24, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
 
-	#Sidewalk
+	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, PerimeterSidewalk, SidewalkDarker, 0, -%1% - 10, -%2% - 13, %1% + 4, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, PerimeterFloor1, Grass, 0, -%1% - 10, -%2% - 13, %1%, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
+	AddFloor landscape, PerimeterFloor2, Sidewalk, 0, %1%, -%2% - 13, %1% + 4, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0	
 	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
 
 	#Entrance/Exit Driveways
@@ -319,6 +345,36 @@ Set 2 = 100 #Building Dimension Z
 	AddFloor landscape, Driveway1, Road, 0, %1%, -81.5, %1% + 4, -40 - (8.5 * 1), Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, Driveway2, Road, 0, %1%, 40 + (8.5 * 1), %1% + 4, 81.5, Floor(0).Base, Floor(0).Base, 0, 0	
 
+############################################################
+
+#Trees west of the garage
+AddTree(Tree1, -56, 70, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 10, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 20, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 30, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 40, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 50, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 60, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 70, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 80, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 90, 7.875, 7, 0)
+AddTree(Tree1, -56, 70 - 100, 7.875, 7, 0)
+
+#Extra paths
+Set FO = Floor(0).Base #Floor Offset
+
+	#South paths
+	LSFloorCreator(PGSouthPath1, Sidewalk, -34.5, -%2% - 13, -29.5, -%2%, %FO%, false, true)
+	LSFloorCreator(PGSouthPath2, Sidewalk, 29.5, -%2% - 13, 34.5, -%2%, %FO%, false, true)
+
+	#West paths
+	LSFloorCreator(PGWestPath1, Sidewalk, -%1% - 10, -90, -%1%, -81.5, %FO%, false, false)
+	LSFloorCreator(PGWestPath2, Sidewalk, -%1% - 10, -54.5, -%1%, -40, %FO%, false, false)
+	LSFloorCreator(PGWestPath3, Sidewalk, -%1% - 10, 81.5, -%1%, 90, %FO%, false, false)
+
+	#North paths
+	LSFloorCreator(PGNorthPath1, Sidewalk, -34.5, %2%, -29.5, %2% + 10, %FO%, false, true)
+	LSFloorCreator(PGNorthPath2, Sidewalk, 29.5, %2%, 34.5, %2% + 10, %FO%, false, true)
 
 ##--------------------------------------------------------------------------------##
 
