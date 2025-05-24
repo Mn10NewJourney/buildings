@@ -65,7 +65,6 @@
 	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
 
 		#Plants
-		#Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
 		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
@@ -289,6 +288,28 @@
 	AddFloor landscape, (%Name%)Sidewalk-West, Sidewalk, 0.5, %CenterX% - 36, %SouthEnd%, %CenterX% - 24, %NorthEnd%, 0, 0, 0, 0
 <EndFunction>
 
+##--------------------------------------------------------------------------------##
+
+#Landscape floor creation function
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+	
+	#Cut ground for floors
+	Cut Landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
+
 ############################################################
 
 #Landscape
@@ -484,7 +505,6 @@ SetAutoSize = true, true
 
 ############################################################
 
-
 #North parking lot 1 (Between School of Medicine and School of Science and Technology)
 Cut Landscape, -408, -1, 42, -120, 1, 165, false, true
 Cut Landscape, -190, -1, 165, -120, 1, 265, false, true
@@ -518,9 +538,14 @@ AddWall landscape, NorthPL1SDriveway-SidewalkFiller2, Sidewalk, 0, -260.5, 30, -
 #Sidewalks
 FloorOrientation = top
 DrawWalls = true, true, true, true, true, true
+#AddFloor landscape, NorthPL1_GrassCurbA1, Grass_Dark, 0.5, -190, 164.5, -185, 215, 0, 0, 0, 0
 AddFloor landscape, NorthPL1_SidewalkRight1, Sidewalk, 0.5, -190, 164.5, -185, 265, 0, 0, 0, 0
+#AddFloor landscape, NorthPL1_GrassCurbA2, Grass_Dark, 0.5, -190, 215 + 21.5, -185, 265, 0, 0, 0, 0
 AddFloor landscape, NorthPL1_SidewalkRight2, Sidewalk, 0.5, -125, 42, -120, 265, 0, 0, 0, 0
-AddFloor landscape, NorthPL1_SidewalkBack, Sidewalk, 0.5, -408, 164.5, -190, 165, 0, 0, 0, 0
+
+AddFloor landscape, NorthPL1_GrassCurbB1, Grass_Dark, 0.5, -408, 164.5, -300 - 20, 165, 0, 0, 0, 0
+AddFloor landscape, NorthPL1_SidewalkBack, Sidewalk, 0.5, -300 - 20, 164.5, -300 + 20, 165, 0, 0, 0, 0
+AddFloor landscape, NorthPL1_GrassCurbB2, Grass_Dark, 0.5, -300 + 20, 164.5, -190, 165, 0, 0, 0, 0
 
 AddFloor landscape, NorthPL1_SidewalkMiddle1, Sidewalk, 0.5, -378 - (8.5 * 1), 102, -378 + (8.5 * 11), 104.5, 0, 0, 0, 0
 AddFloor landscape, NorthPL1_SidewalkMiddle2, Sidewalk, 0.5, -167 - (8.5 * 11), 102, -167, 104.5, 0, 0, 0, 0
@@ -541,9 +566,9 @@ AddFloor landscape, NorthPL1_NoParkingArea4, NoParkingX, 0, -125 - 18, 180, -125
 AddFloor landscape, NorthPL1_NoParkingArea5, NoParkingX, 0, -125 - 18, 120, -125, 180 - (8.5 * 6), %Offset%, %Offset%, 1, 1
 AddFloor landscape, NorthPL1_NoParkingArea6, NoParkingX, 0, -145.5, 42, -125, 120 - (8.5 * 7), %Offset%, %Offset%, 1, 2
 
-AddFloor landscape, NorthPL1_ParkingSpace6, ParkingSpaceZ, 0, -408, 164.5 - 18, -408 + (8.5 * 11), 164.5, %Offset%, %Offset%, 11, 1
-AddFloor landscape, NorthPL1_ParkingSpace7, ParkingSpaceZ, 0, -289, 164.5 - 18, -289 + (8.5 * 11), 164.5, %Offset%, %Offset%, 11, 1
-AddFloor landscape, NorthPL1_NoParkingArea7, NoParkingZ, 0, -408 + (8.5 * 11), 164.5 - 18, -289, 164.5, %Offset%, %Offset%, 3, 1
+AddFloor landscape, NorthPL1_ParkingSpace6, ParkingSpaceZ, 0, -408, 164.5 - 18, -408 + (8.5 * 10), 164.5, %Offset%, %Offset%, 10, 1
+AddFloor landscape, NorthPL1_ParkingSpace7, ParkingSpaceZ, 0, -289 + (8.5 * 1), 164.5 - 18, -289 + (8.5 * 11), 164.5, %Offset%, %Offset%, 10, 1
+AddFloor landscape, NorthPL1_NoParkingArea7, NoParkingZ, 0, -408 + (8.5 * 10), 164.5 - 18, -289 + (8.5 * 1), 164.5, %Offset%, %Offset%, 5, 1
 AddFloor landscape, NorthPL1_NoParkingArea8, NoParkingZ, 0, -289 + (8.5 * 11), 164.5 - 18, -185, 164.5, %Offset%, %Offset%, 1, 1
 
 AddFloor landscape, NorthPL1_ParkingSpace8, ParkingSpaceZ, 0, -378 - (8.5 * 1), 122.5 - 18, -378 + (8.5 * 11), 122.5, %Offset%, %Offset%, 12, -1
@@ -731,16 +756,21 @@ Cut Landscape, 480, -1, -350, 498, 1, -42, false, true
 
 DrawWalls = false, true, false, false, false, false
 AddFloor landscape, GardenFloor4A, WoodenFloor2, 0, 390, -350, 408, -42, 0, 0, 0, 0
-AddFloor landscape, GardenFloor4B, WoodenFloor2, 0, 480, -350, 498, -42, 0, 0, 0, 0
+#AddFloor landscape, GardenFloor4_Path, Sidewalk, 0, 390, -105, 408, -105 + 5, 0, 0, false, true, 0, 0
+#AddFloor landscape, GardenFloor4B, WoodenFloor2, 0, 390, -105 + 5, 408, -42, 0, 0, 0, 0
+
+AddFloor landscape, GardenFloor4C, WoodenFloor2, 0, 480, -350, 498, -42, 0, 0, 0, 0
 
 #Garden area 4A (West)
 FloorOrientation = bottom
 DrawWalls = false, true, true, true, true, true
-AddFloor landscape, Garden3A_FlowerBed1, Concrete1, 0.5, 399 - 6.5, -347.5, 399 + 6.5, -227.5, 0, 0, 0, 0
-AddFloor landscape, Garden3A_FlowerBed2, Concrete1, 0.5, 399 - 6.5, -167.5, 399 + 6.5, -47.5, 0, 0, 0, 0
+AddFloor landscape, Garden4A_FlowerBed1, Concrete1, 0.5, 399 - 6.5, -347.5, 399 + 6.5, -227.5, 0, 0, 0, 0
+AddFloor landscape, Garden4A_FlowerBed2A, Concrete1, 0.5, 399 - 6.5, -167.5, 399 + 6.5, -107.5, 0, 0, 0, 0
+AddFloor landscape, Garden4A_FlowerBed2B, Concrete1, 0.5, 399 - 6.5, -92.5 - 5, 399 + 6.5, -47.5 - 5, 0, 0, 0, 0
 DrawWalls = false, true, false, false, false, false
-AddFloor landscape, Garden3A_Grass1, Grass_Dark, 0, (399 - 6.5) + 1, -347.5 + 1, (399 + 6.5) - 1, -227.5 - 1, 0.51, 0.51, 0, 0
-AddFloor landscape, Garden3A_Grass2, Grass_Dark, 0, (399 - 6.5) + 1, -167.5 + 1, (399 + 6.5) - 1, -47.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden4A_Grass1, Grass_Dark, 0, (399 - 6.5) + 1, -347.5 + 1, (399 + 6.5) - 1, -227.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden4A_Grass2A, Grass_Dark, 0, (399 - 6.5) + 1, -167.5 + 1, (399 + 6.5) - 1, -107.5 - 1, 0.51, 0.51, 0, 0
+AddFloor landscape, Garden4A_Grass2B, Grass_Dark, 0, (399 - 6.5) + 1, -92.5 - 5 + 1, (399 + 6.5) - 1, -47.5 - 5 - 1, 0.51, 0.51, 0, 0
 
 #Garden area 4A trees
 AddTree(Tree2, 399, -340, 12, 16, 0.51)
@@ -756,10 +786,11 @@ AddTree(Tree2, 399, -55 - 105, 12, 16, 0.51)
 AddTree(Tree2, 399, -55 - 90, 12, 16, 0.51)
 AddTree(Tree2, 399, -55 - 75, 12, 16, 0.51)
 AddTree(Tree2, 399, -55 - 60, 12, 16, 0.51)
-AddTree(Tree2, 399, -55 - 45, 12, 16, 0.51)
-AddTree(Tree2, 399, -55 - 30, 12, 16, 0.51)
-AddTree(Tree2, 399, -55 - 15, 12, 16, 0.51)
-AddTree(Tree2, 399, -55, 12, 16, 0.51)
+#AddTree(Tree2, 399, -55 - 45, 12, 16, 0.51)
+
+AddTree(Tree2, 399, -55 - 5 - 30, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 5 - 15, 12, 16, 0.51)
+AddTree(Tree2, 399, -55 - 5, 12, 16, 0.51)
 
 #Garden area 4B (East)
 FloorOrientation = bottom
@@ -802,10 +833,10 @@ AddFloor landscape, EasternPath2, WoodenFloor2, 0, 190, -195, 210, -42, 0, 0, 0,
 #AddFloor landscape, EasternPath3, WoodenFloor3, 0, 215, -350, 235, -195, 0, 0, 0, 0
 
 	#Path to Rebecca Daylight Building
-	Cut Landscape, 300 - 30 - 10, -1, -195, 300 - 30 + 10, 1, -160, false, true
-	Cut Landscape, 300 + 30 - 10, -1, -195, 300 + 30 + 10, 1, -160, false, true
-	AddFloor landscape, RebeccaD.BldLink1, Sidewalk, 0, 300 - 30 - 10, -195, 300 - 30 + 10, -160, 0, 0, 0, 0
-	AddFloor landscape, RebeccaD.BldLink2, Sidewalk, 0, 300 + 30 - 10, -195, 300 + 30 + 10, -160, 0, 0, 0, 0
+	Cut Landscape, 300 - 45, -1, -195, 300 - 15, 1, -160, false, true
+	Cut Landscape, 300 + 15, -1, -195, 300 + 45, 1, -160, false, true
+	AddFloor landscape, RebeccaD.BldLink1, Sidewalk, 0, 300 - 45, -195, 300 - 15, -160, 0, 0, false, true, 0, 0
+	AddFloor landscape, RebeccaD.BldLink2, Sidewalk, 0, 300 + 15, -195, 300 + 45, -160, 0, 0, false, true, 0, 0
 
 #Trees south of Rebecca Daylight Building (RDB)
 AddTree(Tree1, 90, -225, 13.5, 12, 0)
@@ -829,16 +860,14 @@ AddTree(Tree1, 90 + 20, -185, 13.5, 12, 0)
 AddTree(Tree1, 90 + 40, -185, 13.5, 12, 0)
 AddTree(Tree1, 90 + 60, -185, 13.5, 12, 0)
 AddTree(Tree1, 90 + 80, -185, 13.5, 12, 0)
-#AddTree(Tree1, 90 + 100, -185, 13.5, 12, 0)
-#AddTree(Tree1, 90 + 120, -185, 13.5, 12, 0)
-AddTree(Tree1, 90 + 140, -185 - 3, 13.5, 12, 0)
-AddTree(Tree1, 90 + 160, -185 - 3, 13.5, 12, 0)
-#AddTree(Tree1, 90 + 180, -185, 13.5, 12, 0)
-AddTree(Tree1, 90 + 200, -185 - 3, 13.5, 12, 0)
-AddTree(Tree1, 90 + 220, -185 - 3, 13.5, 12, 0)
-#AddTree(Tree1, 90 + 240, -185, 13.5, 12, 0)
-AddTree(Tree1, 90 + 260, -185 - 3, 13.5, 12, 0)
-AddTree(Tree1, 90 + 280, -185 - 3, 13.5, 12, 0)
+
+AddTree(Tree1, 90 + 135, -185 - 3, 13.5, 12, 0)
+AddTree(Tree1, 90 + 155, -185 - 3, 13.5, 12, 0)
+
+AddTree(Tree1, 90 + 210, -185 - 3, 13.5, 12, 0)
+
+AddTree(Tree1, 90 + 265, -185 - 3, 13.5, 12, 0)
+AddTree(Tree1, 90 + 285, -185 - 3, 13.5, 12, 0)
 
 ############################################################
 
@@ -982,7 +1011,7 @@ AddFloor landscape, WesternPath3, WoodenFloor5, 0, -408, -265 - 20, -60, -265, 0
 	AddTree(Tree1, -380 + 180, -165, 13.5, 12, 0)
 	AddTree(Tree1, -380 + 200, -165, 13.5, 12, 0)
 	AddTree(Tree1, -380 + 220, -165, 13.5, 12, 0)
-	AddTree(Tree1, -380 + 240, -165, 13.5, 12, 0)
+	#AddTree(Tree1, -380 + 240, -165, 13.5, 12, 0)
 
 	#Western Path 3
 	AddTree(Tree1, -380, -295, 13.5, 12, 0)
@@ -1028,6 +1057,15 @@ AddFloor landscape, WesternPath3, WoodenFloor5, 0, -408, -265 - 20, -60, -265, 0
 	DrawWalls = true, true, true, true, true, false
 	TextureOverride BldgSignLawBack, BldgSignLaw, BldgSignLawBack, BldgSignLawBack, BldgSignLawBack, BldgSignLawBack
 	AddWall landscape, BldgSignLaw, BldgSignLaw, 0.25, -260, -155 - 7, -260, -155 + 7, 4, 4, 0, 0, 0, 0
+
+############################################################
+
+#Extra paths (May 24, 2025)
+Set FO = Floor(0).Base #Floor Offset
+
+	#Paths west of School of Communication Arts
+	LSFloorCreator(CAWestPath1, Sidewalk, -80 - 40 - 18, -155 - 20, -80 - 40 - 10, -155 + 113, %FO%, false, false)
+	LSFloorCreator(CAWestPath2, Sidewalk, -80 - 40 - 10, -155 + 20, -80 - 40, -155 + 40, %FO%, false, false)
 
 ############################################################
 

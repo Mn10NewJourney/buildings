@@ -45,7 +45,7 @@
 	Load data/downtown.jpg, Downtown, 1, 1
 	#Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 
 	########################################
 
@@ -339,13 +339,24 @@
 AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 Cut Landscape, -100 - 8, -1, -40 - 10, 100 + 10, 1, 40 + 10, false, true
 
-#Sidewalks
+#Perimeter floors
 FloorOrientation = top
 DrawWalls = true, true, true, true, true, true
-AddFloor landscape, SidewalkFront, SidewalkDarker, 0.5, -100, -40 - 10, 100, -40, 0, 0, 0, 0
-AddFloor landscape, SidewalkLeft, SidewalkDarker, 0.5, -100 - 8, -40 - 10, -100, 40 + 10, 0, 0, 0, 0
-AddFloor landscape, SidewalkRight, SidewalkDarker, 0, 100, -40 - 10, 100 + 10, 40 + 10, 0, 0, 0, 0
-AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0, 0, 0, 0
+AddFloor landscape, PFloorFront1, Grass_Dark, 0.5, -100, -40 - 10, -20, -40, 0, 0, 0, 0
+AddFloor landscape, PFloorFront2, Sidewalk, 0.5, -20, -40 - 10, 20, -40, 0, 0, 0, 0
+AddFloor landscape, PFloorFront3, Grass_Dark, 0.5, 20, -40 - 10, 100, -40, 0, 0, 0, 0
+
+AddFloor landscape, PFloorLeft1, Grass_Dark, 0.5, -100 - 8, -40 - 10, -100, 0, 0, 0, 0, 0
+AddFloor landscape, PFloorLeft2, Sidewalk, 0.5, -100 - 8, 0, -100, 21.5, 0, 0, 0, 0
+AddFloor landscape, PFloorLeft3, Grass_Dark, 0.5, -100 - 8, 21.5, -100, 40 + 10, 0, 0, 0, 0
+
+AddFloor landscape, PFloorRight1, Grass_Dark, 0, 100, -40 - 10, 100 + 10, 0, 0, 0, 0, 0
+AddFloor landscape, PFloorRight2, Sidewalk, 0, 100, 0, 100 + 10, 21.5, 0, 0, 0, 0
+AddFloor landscape, PFloorRight3, Grass_Dark, 0, 100, 21.5, 100 + 10, 40 + 10, 0, 0, 0, 0
+
+AddFloor landscape, PFloorBack1, Grass_Dark, 0.5, -100, 40, -20, 40 + 10, 0, 0, 0, 0
+AddFloor landscape, PFloorBack2, Sidewalk, 0.5, -20, 40, 20, 40 + 10, 0, 0, false, true, 0, 0
+AddFloor landscape, PFloorBack3, Grass_Dark, 0.5, 20, 40, 100, 40 + 10, 0, 0, 0, 0
 
 ############################################################
 
@@ -493,9 +504,20 @@ AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0
 <EndFloors>
 
 <Floor 0>
+	#Keys for western entrance doors
+	SetKey 1
+	AddModel Key1, key.mesh, true, -87, 0, 5, 0, -90, 0, 0, 3, false, 0, 0, 0
+
+	#Keys for northern entrance doors
+	SetKey 2
+	AddModel Key1, key.mesh, true, -10, 0, 34.5, 0, 0, 0, 0, 3, false, 0, 0, 0
+
+	########################################
+
 	#Entrance doors
 	Set Texture = EntranceDoor
 
+	#SOUTH DOORS
 	Set MainX = -10
 	WallOrientation = left
 	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -512,6 +534,8 @@ AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0
 	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %MainX% + 1.75, -%2%, 3.5, 8.5, %interfloorheight%, 0, 0
 	AddFillerWalls %Texture%Side, 0.5, %MainX%, -%2%, 7, 8.5, %interfloorheight%, true, 0, 0, true
 
+	#NORTH DOORS
+	SetLock 2, 2
 	Set MainX = -10
 	WallOrientation = right
 	TextureOverride %Texture%Int, %Texture%Ext_Key, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -519,6 +543,7 @@ AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0
 	TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8.5, %interfloorheight%, 0, 0
 	AddFillerWalls %Texture%Side, 0.5, %MainX%, %2%, 7, 8.5, %interfloorheight%, true, 0, 0, true
+	SetLock 0, 0
 
 	Set MainX = 10
 	WallOrientation = right
@@ -528,6 +553,18 @@ AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0
 	AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.75, %2%, 3.5, 8.5, %interfloorheight%, 0, 0
 	AddFillerWalls %Texture%Side, 0.5, %MainX%, %2%, 7, 8.5, %interfloorheight%, true, 0, 0, true
 
+	#WEST DOORS
+	SetLock 1, 1
+	Set MainZ = 5
+	WallOrientation = left
+	TextureOverride %Texture%Ext_Key, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 1, 75, -%1%, %MainZ% - 1.5, 3, 8, %interfloorheight%, 0, 0
+	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 4, 75, -%1%, %MainZ% + 1.5, 3, 8, %interfloorheight%, 0, 0
+	AddFillerWalls %Texture%Side, 0.5, -%1%, %MainZ%, 6, 8, %interfloorheight%, false, 0, 0, true
+	SetLock 0, 0
+
+	#EAST DOORS
 	Set MainZ = 5
 	WallOrientation = right
 	TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -1039,7 +1076,7 @@ AddFloor landscape, SidewalkBack, SidewalkDarker, 0.5, -100, 40, 100, 40 + 10, 0
 	WindowsZ2(Front10, 90, -%2%, front, 15, %height% - 2, 1, MainWindowsB, MainWindowsIntB, %6%, 0.75, %WindowsTiling%)
 
 	#Left Windows
-	WindowsX2(Left, -%1%, 5, left, 7, %height% - 2, 1, MainWindowsB, MainWindowsIntB, %6%, 0.5, %WindowsTiling%)
+	if[%floor% > 0] WindowsX2(Left, -%1%, 5, left, 7, %height% - 2, 1, MainWindowsB, MainWindowsIntB, %6%, 0.5, %WindowsTiling%)
 
 	#Right Windows
 	if[%floor% > 0] WindowsX2(Right, %1%, 5, right, 7, %height% - 2, 1, MainWindowsIntB, MainWindowsB, %6%, 0.5, %WindowsTiling%)

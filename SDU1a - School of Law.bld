@@ -33,7 +33,8 @@
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 
 	#Facade
 	#Load data/intext.jpg, ExtFacade, 0.05, 0.08333, true
@@ -347,6 +348,28 @@
 
 ##--------------------------------------------------------------------------------##
 
+#Landscape floor creation function
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+	
+	#Cut ground for floors
+	Cut Landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
+
+##--------------------------------------------------------------------------------##
+
 #Landscape
 Set 1 = 50 #Building Dimension X
 Set 2 = 100 #Building Dimension Z
@@ -355,20 +378,29 @@ Set 2 = 100 #Building Dimension Z
 	AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 	Cut Landscape, -%1% - 8, -1, -%2% - 10, %1% + 10, 1, %2% + 13, false, true
 
-	#Sidewalk
+	#Perimeter floor
 	DrawWalls = false, true, false, false, false, false
-	AddFloor landscape, PerimeterSidewalk, SidewalkDarker, 0, -%1% - 8, -%2% - 10, %1% + 10, %2% + 13, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, PerimeterFloor, Grass_Dark, 0, -%1% - 8, -%2% - 10, %1% + 10, %2% + 13, Floor(0).Base, Floor(0).Base, 0, 0
 	Cut Landscape, -%1%, Floor(0).Base - 1, -%2%, %1%, Floor(0).Base + 1, %2%, false, true
 
 		#Corners
 		Set CornerOffset = 10
 		DrawWalls = true, false, false, false, false, false
-		AddCustomFloor landscape, SouthwestFloor, SidewalkDarker, -%1%, -%2%, -%1% + %CornerOffset%, -%2%, -%1%, -%2% + %CornerOffset%, Floor(0).Base, 0, 0
-		AddCustomFloor landscape, SoutheastFloor, SidewalkDarker, %1%, -%2%, %1% - %CornerOffset%, -%2%, %1%, -%2% + %CornerOffset%, Floor(0).Base, 0, 0
-		AddCustomFloor landscape, NorthwestFloor, SidewalkDarker, -%1%, %2%, -%1% + %CornerOffset%, %2%, -%1%, %2% - %CornerOffset%, Floor(0).Base, 0, 0
-		AddCustomFloor landscape, NortheastFloor, SidewalkDarker, %1%, %2%, %1% - %CornerOffset%, %2%, %1%, %2% - %CornerOffset%, Floor(0).Base, 0, 0
+		AddCustomFloor landscape, SouthwestFloor, Grass_Dark, -%1%, -%2%, -%1% + %CornerOffset%, -%2%, -%1%, -%2% + %CornerOffset%, Floor(0).Base, 0, 0
+		AddCustomFloor landscape, SoutheastFloor, Grass_Dark, %1%, -%2%, %1% - %CornerOffset%, -%2%, %1%, -%2% + %CornerOffset%, Floor(0).Base, 0, 0
+		AddCustomFloor landscape, NorthwestFloor, Grass_Dark, -%1%, %2%, -%1% + %CornerOffset%, %2%, -%1%, %2% - %CornerOffset%, Floor(0).Base, 0, 0
+		AddCustomFloor landscape, NortheastFloor, Grass_Dark, %1%, %2%, %1% - %CornerOffset%, %2%, %1%, %2% - %CornerOffset%, Floor(0).Base, 0, 0
 
 	DrawWalls = false, true, false, false, false, false
+
+#Entrance paths
+Set FO = Floor(0).Base #Floor Offset
+LSFloorCreator(WestPath1, Sidewalk, -%1% - 8, -60, -%1%, -30, %FO%, false, false)
+LSFloorCreator(WestPath2, Sidewalk, -%1% - 8, 30, -%1%, 60, %FO%, false, false)
+LSFloorCreator(NorthPath, Sidewalk, -2.5 - 26.25, %2%, 2.5 + 26.25, %2% + 13, %FO%, false, true)
+LSFloorCreator(SouthPath, Sidewalk, -2.5 - 26.25, -%2% - 10, 2.5 + 26.25, -%2%, %FO%, false, true)
+LSFloorCreator(EastPath1, Sidewalk, %1%, -60, %1% + 10, -30, %FO%, false, false)
+LSFloorCreator(EastPath2, Sidewalk, %1%, 30, %1% + 10, 60, %FO%, false, false)
 
 ##--------------------------------------------------------------------------------##
 
