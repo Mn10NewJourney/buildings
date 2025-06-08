@@ -326,7 +326,6 @@
 
 		#Service elevator
 		Load data/metal072.jpg, ServiceElevFloor, 0.25, 0.25
-		#Load data/metal080.jpg, ServiceElevCeiling, 0.5, 0.5
 		Load data/panel-back3.jpg, ServiceElevCeiling, 1, -1, false
 		Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ServiceElevCeilingTrim, 1, 1, false
@@ -334,7 +333,6 @@
 		Rotate ServiceElevCeilingTrim2, 90
 
 		Load data/MetalBare0085_3_S.jpg, ServiceElevWall, 0.25, 0.25, true
-		#LoadCropped data/panel-back3.jpg, ServiceElevWallPanel, 0, 72, 64, 88, 1, 1, false
 		Load data/panel-back3.jpg, ServiceElevWallPanel, 1, 1, false
 		Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false #EG881
@@ -437,7 +435,6 @@
 			Load data/Melvin/blank_long.png, BlankLong, 1, 1, false
 			AddText BlankLong, NorthPKHallSign, nimbus_sans_bold.ttf, 35, NORTH, -1, -1, -1, -1, center, center, 192, 0, 0, false
 			AddText BlankLong, SouthPKHallSign, nimbus_sans_bold.ttf, 35, SOUTH, -1, -1, -1, -1, center, center, 61, 69, 196, false
-			#AddText BlankLong, PKHallSign, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 0, 0, 0, false
 			AddText BlankLong, PKHallSign, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 192, 0, 0, false
 			AddText BlankLong, PKHallSign2, nimbus_sans_bold.ttf, 35, PARKING, -1, -1, -1, -1, center, center, 61, 69, 196, false
 
@@ -643,14 +640,15 @@ Cut Landscape, -%1% - %ExtraWP%, -1, -%2%, %1%, 1, %2%, false, true
 Set FO = Floor(1).Base #Floor Offset
 
 	#Roads
-	LSFloorCreator(7thStreet_ParkingAccess, Road, %1% - 60, %2%, %1%, 235, %FO%, false, false)
-	LSFloorCreator(7thStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35, %2% + 35, %1% - 60, %2% + 35 + 30, %FO%, false, false)
+	LSFloorCreator(North_ParkingAccess1, Road, %1% - 60, %2%, %1%, %2% + 65, %FO%, false, false)
+	LSFloorCreator(North_ParkingAccess2, Road, -%1% - %ExtraWP% - 35, %2% + 35, %1% - 60, %2% + 35 + 30, %FO%, false, false)
 
 	LSFloorCreator(MarketStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35 - 30, -%2% - 35 - 30, -%1% - %ExtraWP% - 35, %2% + 35 + 30, %FO%, false, false)
-	LSFloorCreator(MarketStreet_BuildingAccess, Road, -235, -30, -%1% - %ExtraWP% - 65, 30, %FO%, false, false)
+	LSFloorCreator(MarketStreet_Entr, Road, -235, -90, -%1% - %ExtraWP% - 65, -60, %FO%, false, false)
+	LSFloorCreator(MarketStreet_Exit, Road, -235, 60, -%1% - %ExtraWP% - 65, 90, %FO%, false, false)
 
-	LSFloorCreator(6thStreet_ParkingAccess, Road, %1% - 60, -235, %1%, -%2%, %FO%, false, false)
-	LSFloorCreator(6thStreet_LobbyDriveway, Road, -%1% - %ExtraWP% - 35, -%2% - 35 - 30, %1% - 60, -%2% - 35, %FO%, false, false)
+	LSFloorCreator(South_ParkingAccess1, Road, %1% - 60, -%2% - 65, %1%, -%2%, %FO%, false, false)
+	LSFloorCreator(South_ParkingAccess2, Road, -%1% - %ExtraWP% - 35, -%2% - 35 - 30, %1% - 60, -%2% - 35, %FO%, false, false)
 
 	#Pathways
 	LSFloorCreator(WestEntPath, Sidewalk, -180, -10, -150, 10, %FO%, false, true)
@@ -661,64 +659,58 @@ Set FO = Floor(1).Base #Floor Offset
 	LSFloorCreator(NorthPath1, Sidewalk, -80, 90, -70, 120, %FO%, false, false)
 	LSFloorCreator(NorthPath2, Sidewalk, -20, 90, -10, 120, %FO%, false, false)
 
+	LSFloorCreator(Path-to-6thStreet, Sidewalk, -55, -235, -35, -160, %FO%, false, false)
+	LSFloorCreator(Path-to-7thStreet, Sidewalk, -55, 160, -35, 235, %FO%, false, false)
+
 	#Sidewalks
-	LSFloorCreator(EastSW_1, Sidewalk, %1%, -235, %1% + 5, 235, %FO%, false, false)
-	LSFloorCreator(EastSW_2, Sidewalk, %1% - 65, -235, %1% - 60, -%2% - 65, %FO%, false, false)
-	LSFloorCreator(EastSW_3, Sidewalk, %1% - 65, -%2% - 35, %1% - 60, -%2%, %FO%, false, false)
-	LSFloorCreator(EastSW_4, Sidewalk, %1% - 65, %2%, %1% - 60, %2% + 35, %FO%, false, false)
-	LSFloorCreator(EastSW_5, Sidewalk, %1% - 65, %2% + 65, %1% - 60, 235, %FO%, false, false)
+		#East side
+		LSFloorCreator(EastSW_1, Sidewalk, %1%, -160, %1% + 5, 160, %FO%, false, false)
+		LSFloorCreator(EastSW_2, Sidewalk, %1% - 65, -%2% - 35, %1% - 60, -%2%, %FO%, false, false)
+		LSFloorCreator(EastSW_3, Sidewalk, %1% - 65, %2%, %1% - 60, %2% + 35, %FO%, false, false)
 
-	LSFloorCreator(SouthSW_1, Sidewalk, -%1% - %ExtraWP% - 65, -%2% - 70, %1% - 65, -%2% - 65, %FO%, false, true)
-	LSFloorCreator(SouthSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 35, %1% - 65, -%2% - 30, %FO%, false, true)
-	LSFloorCreator(NorthSW_1, Sidewalk, -%1% - %ExtraWP% - 35, %2% + 30, %1% - 65, %2% + 35, %FO%, false, true)
-	LSFloorCreator(NorthSW_2, Sidewalk, -%1% - %ExtraWP% - 65, %2% + 65, %1% - 65, %2% + 70, %FO%, false, true)
+		#South and north sides
+		LSFloorCreator(SouthSW_1, Sidewalk, -%1% - %ExtraWP% - 65, -%2% - 70, %1%, -%2% - 65, %FO%, false, true)
+		LSFloorCreator(SouthSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 35, %1% - 65, -%2% - 30, %FO%, false, true)
 
-	#LSFloorCreator(WestSW_1, Sidewalk, -%1% - %ExtraWP% - 70, -%2% - 70, -%1% - %ExtraWP% - 65, %2% + 70, %FO%, false, false)
-	LSFloorCreator(WestSW_1A, Sidewalk, -%1% - %ExtraWP% - 70, -%2% - 70, -%1% - %ExtraWP% - 65, -30, %FO%, false, false)
-	LSFloorCreator(WestSW_1B, Sidewalk, -%1% - %ExtraWP% - 70, 30, -%1% - %ExtraWP% - 65, %2% + 70, %FO%, false, false)
-	LSFloorCreator(WestSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 30, -%1% - %ExtraWP% - 30, %2% + 30, %FO%, false, false)
-	LSFloorCreator(WestSW_3, Sidewalk, -235, 30, -%1% - %ExtraWP% - 70, 35, %FO%, false, true)
-	LSFloorCreator(WestSW_4, Sidewalk, -235, -35, -%1% - %ExtraWP% - 70, -30, %FO%, false, true)
+		LSFloorCreator(NorthSW_1, Sidewalk, -%1% - %ExtraWP% - 35, %2% + 30, %1% - 65, %2% + 35, %FO%, false, true)
+		LSFloorCreator(NorthSW_2, Sidewalk, -%1% - %ExtraWP% - 65, %2% + 65, %1%, %2% + 70, %FO%, false, true)
 
-####================================####
-
-#South Driveway (6th Street)
-Cut Landscape, %1% - 60, -1, -250, %1%, 1, -235, false, true
-Cut Landscape, %1% - 60, -1, -250 - 0.1, %1%, 1, -250 + 0.1, true, false #Sidewalk cuts
-Cut Landscape, %1% - 60, -1, -235 - 0.1, %1%, 1, -235 + 0.1, true, false #Sidewalk cuts
-
-	AddFloor landscape, 6thStreetDriveway, Road, 0, %1% - 60, -250, %1%, -235, -0.5, 0, false, false, 0, 0	
+		#West side
+		LSFloorCreator(WestSW_1A, Sidewalk, -%1% - %ExtraWP% - 70, -%2% - 70, -%1% - %ExtraWP% - 65, -90, %FO%, false, false)
+		LSFloorCreator(WestSW_1B, Sidewalk, -%1% - %ExtraWP% - 70, -60, -%1% - %ExtraWP% - 65, 60, %FO%, false, false)
+		LSFloorCreator(WestSW_1C, Sidewalk, -%1% - %ExtraWP% - 70, 90, -%1% - %ExtraWP% - 65, %2% + 70, %FO%, false, false)
+	
+		LSFloorCreator(WestSW_2, Sidewalk, -%1% - %ExtraWP% - 35, -%2% - 30, -%1% - %ExtraWP% - 30, %2% + 30, %FO%, false, false)
+	
+		LSFloorCreator(WestSW_3A, Sidewalk, -235, -95, -%1% - %ExtraWP% - 70, -90, %FO%, false, true)
+		LSFloorCreator(WestSW_3B, Sidewalk, -235, -60, -%1% - %ExtraWP% - 70, -55, %FO%, false, true)
+	
+		LSFloorCreator(WestSW_4A, Sidewalk, -235, 55, -%1% - %ExtraWP% - 70, 60, %FO%, false, true)
+		LSFloorCreator(WestSW_4B, Sidewalk, -235, 90, -%1% - %ExtraWP% - 70, 95, %FO%, false, true)
 
 ####================================####
 
-#North Driveway (7th Street)
-Cut Landscape, %1% - 60, -1, 235, %1%, 1, 250, false, true
-Cut Landscape, %1% - 60, -1, 235 - 0.1, %1%, 1, 235 + 0.1, true, false #Sidewalk cuts
-Cut Landscape, %1% - 60, -1, 235 - 0.1, %1%, 1, 250 + 0.1, true, false #Sidewalk cuts
+#West Driveways (Market Street)
+	#Driveway 1 (Entrance)
+	Cut Landscape, -250, -1, -90, -235, 1, -60, false, true
+	Cut Landscape, -250 - 0.1, -1, -90, -250 + 0.1, 1, -60, true, false #Sidewalk cuts
+	Cut Landscape, -235 - 0.1, -1, -90, -235 + 0.1, 1, -60, true, false #Sidewalk cuts
+	AddFloor landscape, MarketStreet_DW1, Road, 0, -250, -90, -235, -60, -0.5, 0, true, false, 0, 0	
 
-	AddFloor landscape, 7thStreetDriveway, Road, 0, %1% - 60, 235, %1%, 250, 0, -0.5, false, false, 0, 0	
-
-####================================####
-
-#West Driveway (Market Street)
-Cut Landscape, -250, -1, -30, -235, 1, 30, false, true
-Cut Landscape, -250 - 0.1, -1, -30, -250 + 0.1, 1, 30, true, false #Sidewalk cuts
-Cut Landscape, -235 - 0.1, -1, -30, -235 + 0.1, 1, 30, true, false #Sidewalk cuts
-
-	AddFloor landscape, 7thStreetDriveway, Road, 0, -250, -30, -235, 30, -0.5, 0, true, false, 0, 0	
+	#Driveway 2 (Exit)
+	Cut Landscape, -250, -1, 60, -235, 1, 90, false, true
+	Cut Landscape, -250 - 0.1, -1, 60, -250 + 0.1, 1, 90, true, false #Sidewalk cuts
+	Cut Landscape, -235 - 0.1, -1, 60, -235 + 0.1, 1, 90, true, false #Sidewalk cuts
+	AddFloor landscape, MarketStreet_DW2, Road, 0, -250, 60, -235, 90, -0.5, 0, true, false, 0, 0	
 
 ####================================####
 
 #Sidewalk fillers
 DrawWalls = true, true, false, false, false, false
-AddWall landscape, 6thSt_SWF1, Sidewalk, 0, %1% - 60, -250, %1% - 60, -235, 0.5, 0.5, -0.5, -0.5, 0, 0
-AddWall landscape, 6thSt_SWF2, Sidewalk, 0, %1%, -250, %1%, -235, 0.5, 0.5, -0.5, -0.5, 0, 0
-
-AddWall landscape, 7thSt_SWF1, Sidewalk, 0, %1% - 60, 235, %1% - 60, 250, 0.5, 0.5, -0.5, -0.5, 0, 0
-AddWall landscape, 7thSt_SWF2, Sidewalk, 0, %1%, 235, %1%, 250, 0.5, 0.5, -0.5, -0.5, 0, 0
-
-AddWall landscape, MarketStreet_SWF1, Sidewalk, 0, -250, -30, -235, -30, 0.5, 0.5, -0.5, -0.5, 0, 0
-AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, MarketStreet_SWF1/1, Sidewalk, 0, -250, -90, -235, -90, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, MarketStreet_SWF1/2, Sidewalk, 0, -250, -60, -235, -60, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, MarketStreet_SWF2/1, Sidewalk, 0, -250, 60, -235, 60, 0.5, 0.5, -0.5, -0.5, 0, 0
+AddWall landscape, MarketStreet_SWF2/2, Sidewalk, 0, -250, 90, -235, 90, 0.5, 0.5, -0.5, -0.5, 0, 0
 
 ####================================####
 
@@ -745,11 +737,9 @@ AddWall landscape, MarketStreet_SWF2, Sidewalk, 0, -250, 30, -235, 30, 0.5, 0.5,
 	AddTree(Tree2, -165, 20, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, 35, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, 50, 12, 16, Floor(1).Base)
-	#AddTree(Tree2, -165, 80, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -20, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -35, 12, 16, Floor(1).Base)
 	AddTree(Tree2, -165, -50, 12, 16, Floor(1).Base)
-	#AddTree(Tree2, -165, -80, 12, 16, Floor(1).Base)
 
 ##--------------------------------------------------------------------------------##
 
