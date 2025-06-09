@@ -99,6 +99,7 @@
 	Load data/diamond13.jpg, LobbyWallLower, 0.3, 0.3, true
 	Load data/black_granite.jpg, LobbyWallUpper, 0.1, 0.1
 	Load data/marble22.jpg, LobbyAtriumRail, 0.1345, 0.125
+	Load data/marb148.jpg, LobbyEscWall, 0.2, 0.2
 
 	Load data/MT/treatment01.jpg, HallwayWallLower, 0.25, 0.25
 	Load data/stucco22b.jpg, HallwayWallUpper, 0.25, 0.25
@@ -161,10 +162,6 @@
 	#Automatic doors
 	Load data/Automatic_Doors/generic_autoarrow.png, AutoDoor, 1, 1, false
 	LoadCropped data/glassdoor_trans.gif, AutoDoorSide, 236, 0, 20, 512, 1, 1, false
-	#Load data/Melvin/AutoDoorSensorUnlit.png, Sensor1_Unlit, 1, 1, false
-	#Load data/Melvin/AutoDoorSensorLit.png, Sensor1_Lit, 1, 1, false
-	#Load data/Melvin/AutoDoorSensorUnlit.png, Sensor2_Unlit, 1, 1, false
-	#Load data/Melvin/AutoDoorSensorLit.png, Sensor2_Lit, 1, 1, false
 	Load data/Melvin/AutoDoorSensorUnlit.png, Sensor3_Unlit, 1, 1, false
 	Load data/Melvin/AutoDoorSensorLit.png, Sensor3_Lit, 1, 1, false
 	Load data/Melvin/AutoDoorSensorUnlit.png, Sensor4_Unlit, 1, 1, false
@@ -430,12 +427,10 @@
 	#Left floors
 	AddFloor landscape, SidewalkLeftA, Sidewalk, 0, -120 - 10, -60, -120, -60, 0, 0, 0, 0
 	AddFloor landscape, SidewalkLeftB, Sidewalk, 0, -120 - 10, -60, -120, 60 + 10, 0, 0, 0, 0
-	#AddFloor landscape, RoadLeft, Road, 0, -120 - 10, -60, -120, -10, 0, 0, 0, 0
 
 	#Right floors
 	AddFloor landscape, SidewalkRight, Sidewalk, 0, 120, -60, 120 + 6, 60, 0, 0, 0, 0
 	AddFloor landscape, RoadRight1, Road, 0, 120 + 6, -60 - 30, 120 + 30, 60 + 10, 0, 0, 0, 0
-	#AddFloor landscape, RoadRight2, Road, 0, 120, -60, 150, -10, 0, 0, 0, 0
 
 	#Back floors
 	AddFloor landscape, GrassBack1, Grass_Dark, 0, -120, 60, -20, 60 + 10, 0, 0, 0, 0
@@ -450,17 +445,10 @@
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, SouthSidewalk1, Sidewalk, 0, -130, -66, 126, -60, 0, 0, false, true, 0, 0
 
-	#FloorOrientation = bottom
-	#DrawWalls = false, true, true, true, true, true
-	#AddFloor landscape, SouthSidewalk2, Sidewalk, 0.5, -90, -60, 90, -57.25, 0, 0, 0, 0
-
 	#Road creation
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-
-		AddFloor landscape, SouthRoad, Road, 0, -120 - 10, -90, 120 + 6, -66, 0, 0, 0, 0
-		#AddFloor landscape, WestRoad, Road, 0, -120, -70, -90, -60, 0, 0, 0, 0
-		#AddFloor landscape, EastRoad, Road, 0, 90, -70, 120, -60, 0, 0, 0, 0
+	AddFloor landscape, SouthRoad, Road, 0, -120 - 10, -90, 120 + 6, -66, 0, 0, 0, 0
 
 #########################################################################
 
@@ -792,8 +780,6 @@
 		AddWall BackWindows2A, MainWindows, 0, 0, %2%, 10, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		TextureOverride LobbyWindowsInt, LobbyWindows, Blank, Blank, Blank, Blank
 		AddWall BackWindows2B, LobbyWindows, 0, 10, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
-		#TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
-		#AddWall BackWindows2C, MainWindows, 0, 15, %2%, 20, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		TextureOverride MainWindowsInt, MainWindows, Blank, Blank, Blank, Blank
 		AddWall BackWindows3, MainWindows, 0, 30, %2%, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
@@ -870,12 +856,18 @@
 	#Entrance area divider walls
 	Set EWH = %height% + Floor(1).InterfloorHeight
 
-	WallOrientation = left
-	DrawWalls = true, false, false, false, false, false
-	AddWall EntranceDividerEX, ExternalFacade, 0.5, -30, -%2%, 30, -%2%, %EWH%, %EWH%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		#External walls
+		WallOrientation = left
+		DrawWalls = true, false, false, false, false, false
+		AddWall EntranceDividerEX, ExternalFacade, 0.5, -30, -%2%, 30, -%2%, %EWH%, %EWH%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+		#Internal walls (Created manually to prevent issues with doors)
+		DrawWalls = false, true, true, true, false, false
+		AddWall EntranceDivider_IN_Lower, LobbyWallLower, 0.5, -30, -%2%, 30, -%2%, 4, 4, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = false, true, true, true, true, false
+		AddWall EntranceDivider_IN_Upper, %6%, 0.5, -30, -%2%, 30, -%2%, %EWH% - 4, %EWH% - 4, %interfloorheight% + 4, %interfloorheight% + 4, 0, 0, true
 
-	DrawWalls = false, true, true, true, false, false
-	AddWall_CustomTex(EntranceDividerIN, 2, LobbyWallLower, %6%, Blank, 0.5, -30, -%2%, 30, -%2%, 4, %EWH% - 4, 0, 0, false)
+	#AddWall_CustomTex(EntranceDividerIN, 2, LobbyWallLower, %6%, Blank, 0.5, -30, -%2%, 30, -%2%, 4, %EWH% - 4, 0, 0, false)
 
 	#Support Columns
 	#Row A
@@ -944,7 +936,7 @@
 <Floor 0>
 	#Entrance doors
 	WallOrientation = left
-	Set MainX = -25
+	Set MainX = -20
 	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
 	AddExternalDoor , , false, Door88, 0.2, 8, 75, %MainX% - 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
 	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
@@ -952,23 +944,7 @@
 	AddFillerWalls ConnectionWall, 0.5, %MainX%, -%2%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 	WallOrientation = left
-	Set MainX = -5
-	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
-	AddExternalDoor , , false, Door88, 0.2, 8, 75, %MainX% - 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
-	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
-	AddExternalDoor , , false, Door88, 0.2, 5, 75, %MainX% + 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, %MainX%, -%2%, 6, 7, %interfloorheight%, true, 0, 0, true
-
-	WallOrientation = left
-	Set MainX = 5
-	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
-	AddExternalDoor , , false, Door88, 0.2, 8, 75, %MainX% - 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
-	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
-	AddExternalDoor , , false, Door88, 0.2, 5, 75, %MainX% + 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, %MainX%, -%2%, 6, 7, %interfloorheight%, true, 0, 0, true
-
-	WallOrientation = left
-	Set MainX = 25
+	Set MainX = 20
 	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
 	AddExternalDoor , , false, Door88, 0.2, 8, 75, %MainX% - 1.5, -%2%, 3, 7, %interfloorheight%, 0, 0
 	TextureOverride Door88, Door88, Door88Side, Door88Side, Door88Side, Door88Side
@@ -2010,26 +1986,63 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 ##--------------------------------------------------------------------------------##
 
 #OPD ATRIUM - 1st-8th floors
+<Function ATR_ExtraCuts>
+	#Extra cuts
+		#Z-Axis
+		Set NorthEX_Flr = 0
+		if[%floor% = 1] Set NorthEX_Flr = 15
+		Set NorthEX_Cei = 0
+		if[%floor% = 0] Set NorthEX_Cei = 15
+<EndFunction>
+
 <Floors 0 to 7>
 	#Atrium cuts
-	if[%floor% > 0] CutAll -15, %interfloorheight% - 1, -%2%, 15, %interfloorheight% + 1, -15, false, true
-	if[%floor% < 7] CutAll -15, %fullheight% - 1, -%2%, 15, %fullheight% + 1, -15, false, true
+	ATR_ExtraCuts() #Extra cut values
+
+	if[%floor% > 0] CutAll -15, %interfloorheight% - 1, -%2%, 15, %interfloorheight% + 1, -15 + %NorthEX_Flr%, false, true
+	if[%floor% < 7] CutAll -15, %fullheight% - 1, -%2%, 15, %fullheight% + 1, -15 + %NorthEX_Cei%, false, true
 <EndFloors>
 
 <Floors 1 to 7>
+	ATR_ExtraCuts() #Extra cut values
+
 	#Atrium railings
 	Set RailingHeight = %interfloorheight% + 3.5
 	Set RailingOffset = -%interfloorheight%
 
 	WallOrientation = right
 	DrawWalls = true, true, false, true, true, false
-	AddWall OPD-ATR-LeftRail, LobbyAtriumRail, 0.5, -15, -%2%, -15, -15 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall OPD-ATR-LeftRail, LobbyAtriumRail, 0.5, -15, -%2%, -15, -15 + 0.5 + %NorthEX_Flr%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 	WallOrientation = left
-	AddWall OPD-ATR-RightRail, LobbyAtriumRail, 0.5, 15, -%2%, 15, -15 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	AddWall OPD-ATR-RightRail, LobbyAtriumRail, 0.5, 15, -%2%, 15, -15 + 0.5 + %NorthEX_Flr%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 
 	DrawWalls = true, true, true, true, true, false
-	AddWall OPD-ATR-BackRail, LobbyAtriumRail, 0.5, -15, -15, 15, -15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
+	Set Offset = 0
+	if[%floor% = 1] Set Offset = 8
+	AddWall OPD-ATR-BackRail, LobbyAtriumRail, 0.5, -15, -15 + %NorthEX_Flr%, 15 - %Offset%, -15 + %NorthEX_Flr%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, false
 <EndFloors>
+
+#########################################################################
+
+<Break>
+
+#OPD ESCALATORS
+
+#Set escalator properties
+	OP_EscBalustrades(GlassBalustrade, 0, 3.5, 0, 0)
+	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0)
+	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
+	OP_EscTruss(SilverBalustrade, LobbyEscWall, 0.5, 3.25, 0, 0, 0, 0)
+
+	#Escalators from 1 to 2
+	<Floor 0>
+		OP_Escalator(%floorid%_OPDEscalator1, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 9, 0, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+		OP_Escalator(%floorid%_OPDEscalator2, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 13, 0, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+	<EndFloor>
+
+<Break>
+
+#########################################################################
 
 ##--------------------------------------------------------------------------------##
 
@@ -2636,10 +2649,8 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	ExitSign(Sign3, ExitSign, ExitSign, StainlessSteel, false, true, false, -119.5 + 0.05, 25, 7, false)
 	ExitSign(Sign4, ExitSignBoth, ExitSignBoth, StainlessSteel, true, true, true, 75, 22, %height% - 0.9, false)
 	ExitSign(Sign5, ExitSignBoth, ExitSignBoth, StainlessSteel, false, true, true, -45, 22, %height% - 0.9, false)
-	ExitSign(MainEntrance_Sign1, ExitSign, ExitSign, StainlessSteel, false, true, true, 25, -59.5 + 0.05, 7.2, false)
-	ExitSign(MainEntrance_Sign2, ExitSign, ExitSign, StainlessSteel, false, true, true, 5, -59.5 + 0.05, 7.2, false)
-	ExitSign(MainEntrance_Sign3, ExitSign, ExitSign, StainlessSteel, false, true, true, -5, -59.5 + 0.05, 7.2, false)
-	ExitSign(MainEntrance_Sign4, ExitSign, ExitSign, StainlessSteel, false, true, true, -25, -59.5 + 0.05, 7.2, false)
+	ExitSign(MainEntrance_Sign1, ExitSign, ExitSign, StainlessSteel, false, true, true, 20, -59.5 + 0.05, 7.2, false)
+	ExitSign(MainEntrance_Sign4, ExitSign, ExitSign, StainlessSteel, false, true, true, -20, -59.5 + 0.05, 7.2, false)
 <EndFloor>
 
 <Floors 1 to 23>
@@ -3698,11 +3709,6 @@ ShaftCut 3, -9, -7 + 0.5, 9, 7, 0, 5
 	AddShaftDoorComponent 8, 1, 2Speed_Slow, ElevDoorsA2, ElevDoorsA2, 0.2, right, 0.4, -0.75, -6.2, 1.25, -6.2, 7, 0, 0, 0, 0, 0
 	FinishShaftDoor 8, 1, false, false
 
-	#Door fillers
-	#WallOrientation = left
-	#AddFillerWalls ConnectionWall, 1, -24.25 + 0.75, 45, 4, 7, 0, true, 0, 0, false
-	#AddFillerWalls ConnectionWall, 1, -14.75 - 0.75, 45, 4, 7, 0, true, 0, 0, false
-
 	#Decos
 	Set TrimTexture = ElevDoorsA_Trim
 	#Elevator 7
@@ -4430,24 +4436,24 @@ ShowFullStairs 3 = always
 
 #Automatic doors
 WallOrientation = left
-AddAutomaticDoor3(9, 1, 0, -15, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front, left, 6, 7, 0.5, 8000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, Sensor3_Unlit, Sensor3_Lit)
-AddAutomaticDoor3(10, 1, 0, 15, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front, left, 6, 7, 0.5, 8000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, Sensor4_Unlit, Sensor4_Lit)
+AddAutomaticDoor3(9, 1, 0, -8, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front, left, 6, 7, 0.5, 8000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, Sensor3_Unlit, Sensor3_Lit)
+AddAutomaticDoor3(10, 1, 0, 8, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front, left, 6, 7, 0.5, 8000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, Sensor4_Unlit, Sensor4_Lit)
 
 <Floor 0>
 	#Entrance 1 decos & sensors
 	#Wall cuts
-	CutAll -15 - 6.2, %interfloorheight%, -60 - 1, -15 + 6.2, %interfloorheight% + 8, -59.5 + 1, true, false
+	CutAll -8 - 6.2, %interfloorheight%, -60 - 1, -8 + 6.2, %interfloorheight% + 8, -59.5 + 1, true, false
 
 	#Decos
-	AddDeco4(StainlessSteel, StainlessSteel, back, true, false, external, 0.9, 0.2, -15, -60, 12, 7, 8, 1, 0, false, Blank, 0)
+	AddDeco4(StainlessSteel, StainlessSteel, back, true, false, external, 0.9, 0.2, -8, -60, 12, 7, 8, 1, 0, false, Blank, 0)
 
 	#Windows around doors
 	SetAutoSize = false, false
 	DrawWalls = true, true, true, true, false, false
 	TextureOverride MainWindows2, MainWindows2, MainWindows2Side, MainWindows2Side, MainWindows2Side, MainWindows2Side
-	AddWall Entrance1_Windows1, MainWindows2, 0.2, -15 - 6, -59.5, -15 - 3, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall Entrance1_Windows1, MainWindows2, 0.2, -8 - 6, -59.5, -8 - 3, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 	TextureOverride MainWindows2, MainWindows2, MainWindows2Side, MainWindows2Side, MainWindows2Side, MainWindows2Side
-	AddWall Entrance1_Windows2, MainWindows2, 0.2, -15 + 3, -59.5, -15 + 6, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall Entrance1_Windows2, MainWindows2, 0.2, -8 + 3, -59.5, -8 + 6, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 	SetAutoSize = true, true
 
 	#Door sensors (Outside)
@@ -4456,31 +4462,31 @@ AddAutomaticDoor3(10, 1, 0, 15, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front
 
 	WallOrientation = right
 	DrawWalls = false, false, true, true, true, true
-	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, -15 - 0.5, -60, -15 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, -8 - 0.5, -60, -8 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 	DrawWalls = true, false, false, false, false, false
-	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, -15 - 0.5, -60, -15 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, -8 - 0.5, -60, -8 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 
 	#Door sensors (Inside)
 	WallOrientation = left
 	DrawWalls = false, false, true, true, true, true
-	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, -15 - 0.5, -59.1, -15 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, -8 - 0.5, -59.1, -8 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 	DrawWalls = false, true, false, false, false, false
-	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, -15 - 0.5, -59.1, -15 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, -8 - 0.5, -59.1, -8 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 
 	#Entrance 2 decos & sensors
 	#Wall cuts
-	CutAll 15 - 6.2, %interfloorheight%, -60 - 1, 15 + 6.2, %interfloorheight% + 8, -59.5 + 1, true, false
+	CutAll 8 - 6.2, %interfloorheight%, -60 - 1, 8 + 6.2, %interfloorheight% + 8, -59.5 + 1, true, false
 
 	#Decos
-	AddDeco4(StainlessSteel, StainlessSteel, back, true, false, external, 0.9, 0.2, 15, -60, 12, 7, 8, 1, 0, false, Blank, 0)
+	AddDeco4(StainlessSteel, StainlessSteel, back, true, false, external, 0.9, 0.2, 8, -60, 12, 7, 8, 1, 0, false, Blank, 0)
 
 	#Windows around doors
 	SetAutoSize = false, false
 	DrawWalls = true, true, true, true, false, false
 	TextureOverride MainWindows2, MainWindows2, MainWindows2Side, MainWindows2Side, MainWindows2Side, MainWindows2Side
-	AddWall Entrance1_Windows1, MainWindows2, 0.2, 15 - 6, -59.5, 15 - 3, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall Entrance1_Windows1, MainWindows2, 0.2, 8 - 6, -59.5, 8 - 3, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 	TextureOverride MainWindows2, MainWindows2, MainWindows2Side, MainWindows2Side, MainWindows2Side, MainWindows2Side
-	AddWall Entrance1_Windows2, MainWindows2, 0.2, 15 + 3, -59.5, 15 + 6, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall Entrance1_Windows2, MainWindows2, 0.2, 8 + 3, -59.5, 8 + 6, -59.5, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 	SetAutoSize = true, true
 
 	#Door sensors (Outside)
@@ -4489,14 +4495,14 @@ AddAutomaticDoor3(10, 1, 0, 15, -60 + 0.7, AutoDoor, AutoDoorSide, 2, 0.2, front
 
 	WallOrientation = right
 	DrawWalls = false, false, true, true, true, true
-	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, 15 - 0.5, -60, 15 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, 8 - 0.5, -60, 8 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 	DrawWalls = true, false, false, false, false, false
-	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, 15 - 0.5, -60, 15 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, 8 - 0.5, -60, 8 + 0.5, -60, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 
 	#Door sensors (Inside)
 	WallOrientation = left
 	DrawWalls = false, false, true, true, true, true
-	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, 15 - 0.5, -59.1, 15 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_SensorBox, StainlessSteel, 0.2, 8 - 0.5, -59.1, 8 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 	DrawWalls = false, true, false, false, false, false
-	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, 15 - 0.5, -59.1, 15 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
+	AddWall Entrance1_Sensor, %Name%_Unlit, 0.2, 8 - 0.5, -59.1, 8 + 0.5, -59.1, 0.5, 0.5, 7.25, 7.25, 0, 0, false
 <EndFloor>
