@@ -106,16 +106,20 @@
 	#Main textures
 		#Level B3
 		Load data/checker08.jpg, B3FFloor, 0.35, 0.35
-		Load data/Carpet0021d_S.jpg, B3FCarpet, 0.2, 0.2
+		#Load data/Carpet0021d_S.jpg, B3FCarpet, 0.2, 0.2
 		Load data/st_wall2.jpg, B3FWall, 0.13635, 0.09765
 		#Load data/st_wall.jpg, B3FWall2, 0.1875, 0.1344 #Atrium railings
 		Load data/st_wall.jpg, B3FEscWall, 0.1875, 0.1344 #Escalator outer walls
 		Load data/EG881/ceilingtile2.jpg, B3FCeiling, 0.125, 0.125 #EG881
 
-			Load data/EG881/elevdoorright_white.jpg, B3FShaftDoors, -1, 1, false #EG881
-			Load data/EG881/elevdoorleft_white.jpg, B3FShaftDoors2, -1, 1, false #EG881
-			Load data/EG881/elevdoortrim_white.jpg, B3FShaftDoors_Trim, 1, 1, false #EG881
+			#Load data/EG881/elevdoorright_white.jpg, B3FShaftDoors, -1, 1, false #EG881
+			#Load data/EG881/elevdoorleft_white.jpg, B3FShaftDoors2, -1, 1, false #EG881
+			#Load data/EG881/elevdoortrim_white.jpg, B3FShaftDoors_Trim, 1, 1, false #EG881
 			#Load data/EG881/elevdoortrim_white.jpg, B3FShaftDoors_TrimTop, 1, 1, false #EG881
+
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, B3FShaftDoors, 1, 1, false
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, B3FShaftDoors2, -1, 1, false
+			Load data/Melvin/st_panel.jpg, B3FShaftDoors_Trim, 1, 1, false
 
 		#Lower hospital levels (B2-3)
 		Load data/marb047.jpg, LHFloor, 0.2, 0.2
@@ -761,7 +765,7 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 		#East carpeting
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 30, -30, 44, -5, 0.001, 0.001, 0, 0, false
+		if[%floor% ! -3 & %floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 30, -30, 44, -5, 0.001, 0.001, 0, 0, false
 
 		#if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 38, -34.8, 48.66, -5.2, 0, 0, 0, 0, false
 		#if[%floor% ! 0] AddFloor EastLobbyCarpet_TR1, BlackTrim, 0.5, 38, -35, 48.66, -34.8, 0, 0, 0, 0, false
@@ -2327,7 +2331,7 @@ AddStdShaft(2, 1, 14, 15, 5.67, 9.67, -1, 17, ShaftIntWall, 0.5, 0.33, 0, 11.5, 
 ########################################
 
 #Low zone elevators
-AddStdShaft(3, 1, -54, -20, 5.67, 14.67, -3, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%) #Serviced floors: B2-7
+AddStdShaft(3, 1, -54, -20, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%) #Serviced floors: B2-7
 AddStdShaft(4, 1, 54, -20, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%) #Serviced floors: B3-7
 
 #Machine room doors
@@ -2712,7 +2716,7 @@ ShowFullShaft 6 = true
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -3 - 6
 	AssignedShaft = 3
 	CreateElevator true, 0, -10 - 0.5, 0
 <EndElevator>
@@ -2722,7 +2726,7 @@ ShowFullShaft 6 = true
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -3 - 6
 	AssignedShaft = 3
 	CreateElevator true, 0, 0 - 0.5, 0
 <EndElevator>
@@ -2732,12 +2736,12 @@ ShowFullShaft 6 = true
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -3 - 6
 	AssignedShaft = 3
 	CreateElevator true, 0, 10 - 0.5, 6
 <EndElevator>
 
-<Function BtnPanelE6-8>
+<Function BtnPanelE6-11>
 	Set PanelNumber = %param1%
 
 	if[%PanelNumber% = 1] AddControl %PanelNumber%, switch.wav, 1, 2, 1, 1, 0, 0, 1, run, stop, ButtonStop-Run, ButtonStop-Stop
@@ -2747,12 +2751,13 @@ ShowFullShaft 6 = true
 	AddButton %PanelNumber%, , Button6, ButtonLit6, 7, 3, 5, 1, 1
 	AddButton %PanelNumber%, , Button5, ButtonLit5, 8, 3, 4, 1, 1
 	AddButton %PanelNumber%, , Button4, ButtonLit4, 9, 3, 3, 1, 1
+	AddButton %PanelNumber%, , Button3, ButtonLit3, 10, 3, 2, 1, 1
 
-	AddButton %PanelNumber%, , Button3, ButtonLit3, 6, 1, 2, 1, 1
-	AddButton %PanelNumber%, , Button2, ButtonLit2, 7, 1, 1, 1, 1
-	AddButton %PanelNumber%, , Button1, ButtonLit1, 8, 1, 0, 1, 1
-	AddButton %PanelNumber%, , ButtonB1, ButtonLitB1, 9, 1, -1, 1, 1
-	AddButton %PanelNumber%, , ButtonB2, ButtonLitB2, 10, 1, -2, 1, 1
+	AddButton %PanelNumber%, , Button2, ButtonLit2, 6, 1, 1, 1, 1
+	AddButton %PanelNumber%, , Button1, ButtonLit1, 7, 1, 0, 1, 1
+	AddButton %PanelNumber%, , ButtonB1, ButtonLitB1, 8, 1, -1, 1, 1
+	AddButton %PanelNumber%, , ButtonB2, ButtonLitB2, 9, 1, -2, 1, 1
+	AddButton %PanelNumber%, , ButtonB3, ButtonLitB3, 10, 1, -3, 1, 1
 
 	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 12, 1, open, 1, 1
 	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 12, 3, close, 1, 1
@@ -2805,7 +2810,7 @@ ShowFullShaft 6 = true
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% + 0.001 - 0.025, %P1_PositionZ%, 0.05, 0.8, 4.65, 2.2, 0, 0, false, true, true, true
 		CreatePanel Blank, 13, 3, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.15, 0.15, 0.22, 0.25, 4, 0, 0 #All buttons
-		BtnPanelE6-8(1)
+		BtnPanelE6-11(1)
 	#--------------------
 	#Indicator sets
 	Set IndOffset = 6.1 - 0.2
@@ -2837,6 +2842,7 @@ ShowFullShaft 6 = true
 
 <Elevator 9>
 	Name = Low Zone Elevator 4
+	Type = Service
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2847,6 +2853,7 @@ ShowFullShaft 6 = true
 
 <Elevator 10>
 	Name = Low Zone Elevator 5
+	Type = Service
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2857,6 +2864,7 @@ ShowFullShaft 6 = true
 
 <Elevator 11>
 	Name = Low Zone Elevator 6
+	Type = Service
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2864,30 +2872,6 @@ ShowFullShaft 6 = true
 	AssignedShaft = 4
 	CreateElevator true, 0, -10 - 0.5, 6
 <EndElevator>
-
-<Function BtnPanelE9-11>
-	Set PanelNumber = %param1%
-
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, switch.wav, 1, 2, 1, 1, 0, 0, 1, run, stop, ButtonStop-Run, ButtonStop-Stop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , ButtonAlarm, ButtonAlarm, 3, 2, alarm, 1, 1
-
-	AddButton %PanelNumber%, , Button7, ButtonLit7, 6, 3, 6, 1, 1
-	AddButton %PanelNumber%, , Button6, ButtonLit6, 7, 3, 5, 1, 1
-	AddButton %PanelNumber%, , Button5, ButtonLit5, 8, 3, 4, 1, 1
-	AddButton %PanelNumber%, , Button4, ButtonLit4, 9, 3, 3, 1, 1
-	AddButton %PanelNumber%, , Button3, ButtonLit3, 10, 3, 2, 1, 1
-
-	AddButton %PanelNumber%, , Button2, ButtonLit2, 6, 1, 1, 1, 1
-	AddButton %PanelNumber%, , Button1, ButtonLit1, 7, 1, 0, 1, 1
-	AddButton %PanelNumber%, , ButtonB1, ButtonLitB1, 8, 1, -1, 1, 1
-	AddButton %PanelNumber%, , ButtonB2, ButtonLitB2, 9, 1, -2, 1, 1
-	AddButton %PanelNumber%, , ButtonB3, ButtonLitB3, 10, 1, -3, 1, 1
-
-	AddButton %PanelNumber%, , ButtonOpen, ButtonOpen, 12, 1, open, 1, 1
-	AddButton %PanelNumber%, , ButtonClose, ButtonClose, 12, 3, close, 1, 1
-
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 13, 3, 1, 1, 0, -0.5, reset, hold, ButtonHold, ButtonLitHold
-<EndFunction>
 
 <Elevators 9 to 11>
 	Set Prefix = LZ
@@ -2934,7 +2918,7 @@ ShowFullShaft 6 = true
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% - 0.001 + 0.025, %P1_PositionZ%, 0.05, 0.8, 4.65, 2.2, 0, 0, false, true, true, true
 		CreatePanel Blank, 13, 3, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.15, 0.15, 0.22, 0.25, 4, 0, 0 #All buttons
-		BtnPanelE9-11(1)
+		BtnPanelE6-11(1)
 
 	#--------------------
 	#Indicator sets
@@ -3595,7 +3579,7 @@ ShowFullShaft 6 = true
 ########################################
 
 #Elevators 6-8 (Low zone, west)
-<Floors -2 to 6>
+<Floors -3 to 6>
 	#Shaft Doors
 	ElevHallTex() #Set shaft door and panel textures
 	Set StartNo = 6 #Number of the first elevator
@@ -3643,10 +3627,18 @@ ShowFullShaft 6 = true
 	Set Shaft1CZ = -20
 	Set DecoType = floor
 
-		#All floors
-		AddDecoObject(E6_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
-		AddDecoObject(E7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
-		AddDecoObject(E8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		#All other floors
+		if[%floor% ! -3] AddDecoObject(E6_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% ! -3] AddDecoObject(E7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% ! -3] AddDecoObject(E8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 6, %Shaft1CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+		#Level B3 only
+		TexPrefix() #Reset texture prefixes
+
+		WallOrientation = right
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 6, %Shaft1CZ% - 11, 4.5, 7, 0, false, 0, 0, false #Elevator 6
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 6, %Shaft1CZ% - 1, 4.5, 7, 0, false, 0, 0, false #Elevator 7
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 6, %Shaft1CZ% + 9, 4.5, 7, 0, false, 0, 0, false #Elevator 8
 
 	#****************************************#
 
@@ -3673,14 +3665,14 @@ ShowFullShaft 6 = true
 	#if[%floor% = 0] Set Offset = 8
 	
 		#Indicator creation (Lobby)
-		if[%floor% = 0] MitsubishiLobbyInds(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, -2, 6)
-		if[%floor% = 0] MitsubishiLobbyInds(right, 7, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, -2, 6)
-		if[%floor% = 0] MitsubishiLobbyInds(right, 8, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, -2, 6)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, -3, 6)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 7, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, -3, 6)
+		if[%floor% = 0] MitsubishiLobbyInds(right, 8, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, -3, 6)
 
 		#Indicator creation (Other floors)
-		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, -2, 6)
-		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 7, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, -2, 6)
-		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 8, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, -2, 6)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 11, %Offset%, -3, 6)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 7, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 1, %Offset%, -3, 6)
+		if[%floor% ! 0] MitsubishiLobbyLanterns(right, 8, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 9, %Offset%, -3, 6)
 
 	#****************************************#
 
@@ -3745,10 +3737,18 @@ ShowFullShaft 6 = true
 	Set Shaft2CZ = -20
 	Set DecoType = floor
 
-		#All floors
-		AddDecoObject(E9_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
-		AddDecoObject(E10_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
-		AddDecoObject(E11_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		#All floors except B3
+		if[%floor% ! -3] AddDecoObject(E9_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% + 9, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% ! -3] AddDecoObject(E10_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 1, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+		if[%floor% ! -3] AddDecoObject(E11_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 6, %Shaft2CZ% - 11, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+		#Level B3 only
+		TexPrefix() #Reset texture prefixes
+
+		WallOrientation = left
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft2CX% - 6, %Shaft1CZ% + 9, 4.5, 7, 0, false, 0, 0, false #Elevator 9
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft2CX% - 6, %Shaft1CZ% - 1, 4.5, 7, 0, false, 0, 0, false #Elevator 10
+		if[%floor% = -3] AddFillerWalls %5%Wall, 0.66, %Shaft2CX% - 6, %Shaft1CZ% - 11, 4.5, 7, 0, false, 0, 0, false #Elevator 11
 
 	#****************************************#
 
