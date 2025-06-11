@@ -133,7 +133,7 @@
 
 		#Upper hospital levels (4-9)
 		Load data/floor065.jpg, UHFloor, 0.25, 0.25
-		Load data/Carpet0012_S.jpg, UHCarpet, 0.2, 0.2
+		Load data/Carpet0021b_S.jpg, UHCarpet, 0.2, 0.2
 		Load data/marb148.jpg, UHWall, 0.15, 0.15, true
 		Load data/EG881/granite_0007e_black.jpg, UHWall2, 0.075, 0.075 #EG881 #Atrium railings
 		Load data/black_granite.jpg, UHEscWall, 0.1, 0.1 #EG881 #Escalator outer walls
@@ -715,7 +715,6 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 	Set IsExternal = false
 	if[%floor% = 1] Set IsExternal = true
 
-
 	#Floors
 	Set FloorOffset = 0
 	if[%floor% = 1] Set FloorOffset = %interfloorheight%
@@ -738,17 +737,18 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 
 	#Carpeting at elevator lobbies
 		#Floor cuts
-		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
+		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
 		if[%floor% = 0] CutAll -8.66, %interfloorheight% - 1, 5, 8.66, %interfloorheight% + 1, 35, false, true #Center
 		if[%floor% = 0] CutAll -8.5, %interfloorheight% - 1, 35, 8, %interfloorheight% + 1, 45, false, true #Center
-		if[%floor% ! 0] CutAll 38, %interfloorheight% - 1, -35, 48.66, %interfloorheight% + 1, -5, false, true #East
+		#if[%floor% ! 0] CutAll 38, %interfloorheight% - 1, -35, 48.66, %interfloorheight% + 1, -5, false, true #East
 
 		#West carpeting
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -48.66, -34.8, -38, -5.2, 0, 0, 0, 0, false
-		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR1, BlackTrim, 0.5, -48.66, -35, -38, -34.8, 0, 0, 0, 0, false
-		if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR2, BlackTrim, 0.5, -48.66, -5.2, -38, -5, 0, 0, 0, 0, false
+		if[%floor% ! -3 & %floor% ! 0 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -44, -30, -30, -5, 0.001, 0.001, 0, 0, false
+		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -48.66, -34.8, -38, -5.2, 0, 0, 0, 0, false
+		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR1, BlackTrim, 0.5, -48.66, -35, -38, -34.8, 0, 0, 0, 0, false
+		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR2, BlackTrim, 0.5, -48.66, -5.2, -38, -5, 0, 0, 0, 0, false
 
 		#Center carpeting
 		FloorOrientation = top
@@ -761,9 +761,11 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 		#East carpeting
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 38, -34.8, 48.66, -5.2, 0, 0, 0, 0, false
-		if[%floor% ! 0] AddFloor EastLobbyCarpet_TR1, BlackTrim, 0.5, 38, -35, 48.66, -34.8, 0, 0, 0, 0, false
-		if[%floor% ! 0] AddFloor EastLobbyCarpet_TR2, BlackTrim, 0.5, 38, -5.2, 48.66, -5, 0, 0, 0, 0, false
+		if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 30, -30, 44, -5, 0.001, 0.001, 0, 0, false
+
+		#if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 38, -34.8, 48.66, -5.2, 0, 0, 0, 0, false
+		#if[%floor% ! 0] AddFloor EastLobbyCarpet_TR1, BlackTrim, 0.5, 38, -35, 48.66, -34.8, 0, 0, 0, 0, false
+		#if[%floor% ! 0] AddFloor EastLobbyCarpet_TR2, BlackTrim, 0.5, 38, -5.2, 48.66, -5, 0, 0, 0, 0, false
 <EndFloors>
 
 <Floors -3 to -1>
@@ -956,9 +958,8 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 		#Back rails
 		if[%floor% ! 1] AddWall ABackRail1, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -38, -5.5, -30, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		if[%floor% = 1] AddWall ABackRail2A, %5%Wall2, 0.5, -22, -5.5, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		#if[%floor% = 1] AddWall ABackRail2B, %5%Wall2, 0.5, -10 - %EC_Flr_X%, -5.5, -18.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10.5, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 1] AddWall ABackRail2B, %5%Wall2, 0.5, -22, -5.5, -10, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		if[%floor% = 1] AddWall ABackRail3, %5%Wall2, 0.5, -10, -5.5, 10 + 0.5, -5.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		#Extra left rail (2nd floor, east of Elevators 6-8)
 		WallOrientation = right
@@ -976,7 +977,7 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 	OP_EscBalustrades(GlassBalustrade, 0, 3.5, 0, 0)
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0)
 	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
-	OP_EscTruss(SilverBalustrade, B3FEscWall, 0.5, 3.25, 0, 0, 0, 0)
+	OP_EscTruss(SilverBalustrade, B3FEscWall, 0.5, 3.125, 0, 0, 0, 0)
 
 #1. Standard-length Escalators from B3 to 1
 <Floor -3>
@@ -1133,14 +1134,14 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	DrawWalls = true, true, false, false, false, false
 
 	WallOrientation = left
-	if[%floor% = 0] AddWall SouthSTR1, %5%Wall, 0.5, 19.5, -85, 19.5, -80, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SouthSTR1, %5%Wall, 0.5, 30, -85, 30, -80, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
-	AddWall SouthSTR2, %5%Wall, 0.5, 29.5, -85, 29.5, -80, %height%, %height%, 0, 0, 0, 0, false
+	AddWall SouthSTR2, %5%Wall, 0.5, 40, -85, 40, -80, %height%, %height%, 0, 0, 0, 0, false
 
 		#Storage's dropped ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		if[%floor% = 0] AddFloor WestStorage_DropCeiling, DropCeiling, 0.5, 19.5, -85, 29.5, -80, 8, 8, 0, 0, false
+		if[%floor% = 0] AddFloor WestStorage_DropCeiling, DropCeiling, 0.5, 30, -85, 30, -80, 8, 8, 0, 0, false
 
 	#====================#
 
@@ -1149,8 +1150,8 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	if[%floor% > 2] Set DTex = Door9b
 	Set DSTex = %DTex%Side
 	
-		#West storage
-		Set Door_MainX = 29.5
+		#South storage
+		Set Door_MainX = 40
 		Set Door_MainZ = -80 - 2
 	
 		WallOrientation = right
@@ -1213,49 +1214,54 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Set DSTex = %DTex%Side
 <EndFunction>
 
-<Floors -3 to 8>
+<Function Restrooms>
 	TexPrefix() #Set texture prefixes
 
-	Set SEP = 0 #South extra position
-	if[%floor% = 0 | %floor% = 1] Set SEP = 8 #South extra position
-
 	#Restrooms
-	WallOrientation = left
-	DrawWalls = true, true, false, false, false, false
-	AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -40, 5 + %SEP%, -20, 5 + %SEP%, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -40, 5 + %SEP%, -40, 35, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -40, 35, -40, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
+		#Main walls (Front/left)
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		AddWall Floor%floorid%Restroom_Front, %5%Wall, 0.5, -40, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall Floor%floorid%Restroom_Left, %5%Wall, 0.5, -40, 5, -40, 35, %height%, %height%, 0, 0, 0, 0, false
+		AddWall Floor%floorid%Restroom_Left_EX, %5%Wall, 0.5, -40, 35, -40, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
 
 		#Extra wall to provide privacy
+		WallOrientation = left
 		DrawWalls = true, true, true, false, false, false
-		if[%floor% = 0 | %floor% = 1] AddWall Floor%floorid%Restroom_Front_EXPriv, %5%Wall, 0.75, -40, 5, -20, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 0] AddWall Floor%floorid%Restroom_Front_EXPriv, %5%Wall, 0.75, -40 - 8, 5, -40 - 8, %2%, %height%, %height%, 0, 0, 0, 0, false
 
-	WallOrientation = right
-	Set Showext = false
-	if[%floor% < -1] Set Showext = true
-	DrawWalls = true, %Showext%, false, false, false, false
-	AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5 + %SEP%, -20, 35, %height%, %height%, 0, 0, 0, 0, false
-	AddWall Floor%floorid%Restroom_Right_EX, %5%Wall, 0.5, -20, 35, -20, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
-	DrawWalls = true, true, false, false, false, false
-	AddWall Floor%floorid%Restroom_Back, %5%Wall, 0.5, -40, 35, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+		#Main walls (Right/back)
+		WallOrientation = right
+		Set Showext = false
+		if[%floor% < -1] Set Showext = true
+		DrawWalls = true, %Showext%, false, false, false, false
+		AddWall Floor%floorid%Restroom_Right, %5%Wall, 0.5, -20, 5, -20, 35, %height%, %height%, 0, 0, 0, 0, false
+		AddWall Floor%floorid%Restroom_Right_EX, %5%Wall, 0.5, -20, 35, -20, %2%, %height%, %height%, 0, 0, 0, 0, false #Storage wall
+		DrawWalls = true, true, false, false, false, false
+		AddWall Floor%floorid%Restroom_Back, %5%Wall, 0.5, -40, 35, -20, 35, %height%, %height%, 0, 0, 0, 0, false
 
-	WallOrientation = center
-	DrawWalls = true, true, false, false, false, false
-	AddWall Floor%floorid%Restroom_Mid, %5%Wall, 0.5, -30, 5 + %SEP%, -30, 35, %height%, %height%, 0, 0, 0, 0, false
+		#Interior (Middle) divider wall
+		WallOrientation = center
+		DrawWalls = true, true, false, false, false, false
+		AddWall Floor%floorid%Restroom_Mid, %5%Wall, 1, -40, 20, -20, 20, %height%, %height%, 0, 0, 0, 0, false
+		
+		########################################
 
 		#Restrooms' dropped ceiling
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor RR_DropCeiling, DropCeiling, 0.5, -40, 5 + %SEP%, -20, 35, 8.5, 8.5, 0, 0, false
+		AddFloor RR_DropCeiling, DropCeiling, 0.5, -40, 5, -20, 35, 8.5, 8.5, 0, 0, false
+
+		########################################
 
 		#Restroom doors
 		RR_DTex() #Set door texture for restrooms
 
 		WallOrientation = right
-		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -35, 5.5 + %SEP%, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -25, 5.5 + %SEP%, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, -35, 5.5 + %SEP%, 3, 7, 0, true, 0, 0, false
-		AddFillerWalls ConnectionWall, 0.5, -25, 5.5 + %SEP%, 3, 7, 0, true, 0, 0, false
+		AddStdDoor Floor %floor%, RR1Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, -39.5, 20 - 2.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, RR2Door_%floorid%, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, -39.5, 20 + 2.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, -39.5, 20 - 2.5, 3, 7, 0, false, 0, 0, false
+		AddFillerWalls ConnectionWall, 0.5, -39.5, 20 + 2.5, 3, 7, 0, false, 0, 0, false
 	
 		#Restroom signs
 		Set BoxTex = WoodSign2
@@ -1264,12 +1270,13 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		if[%floor% > 2] Set SignSuffix = _Gray
 
 			#Signs at hallways
-			if[%floor% ! 0 & %floor% ! 1] AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, false, true, true, -20 - 0.5, 5 - 0.75, 1.5, 1.5, 8, false)
-			if[%floor% = 0 | %floor% = 1] AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, true, true, true, -40 - 0.75, 5 + 0.375, 1.5, 1.5, 8, false)
+			AddBoxSign(RR_HallSign, Sign_Restroom%SignSuffix%, Sign_Restroom%SignSuffix%, %BoxTex%, 0.1, false, true, true, -40 + 0.5, 5 - 0.75, 1.5, 1.5, 8, false)
 
 			#Signs above doors
-			AddBoxSign(RR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, -35, 5 + %SEP% - 0.025, 1.25, 1.25, 7.25, false)
-			AddBoxSign(RR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, -25, 5 + %SEP% - 0.025, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, false, true, true, -40 - 0.025, 20 - 2.5, 1.25, 1.25, 7.25, false)
+			AddBoxSign(RR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, false, true, true, -40 - 0.025, 20 + 2.5, 1.25, 1.25, 7.25, false)
+
+	########################################
 
 	#Doors for storage next to restrooms
 	Set DTex = Door8
@@ -1288,6 +1295,10 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 0] AddFloor WestStorage_DropCeiling, DropCeiling, 0.5, -40, 35, -20, %2%, 9.5, 9.5, 0, 0, false
+<EndFunction>
+
+<Floors -3 to 8>
+	if[%floor% ! 0 & %floor% ! 1] Restrooms() #No restrooms on the 1st and 2nd floor.
 <EndFloors>
 
 #########################################################################
@@ -1304,155 +1315,94 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	Set DSTex = %DTex%Side
 
 	#----------------------------------------#
-
-	#North Hallway Walls
+	
+	#West (Department/Clinic 1) hallway walls
 	WallOrientation = left
-	if[%floor% < -2 | %floor% > 4] AddWall NWClinicHall1, %5%Wall, 0.5, -70, -5, -70, 5.5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < -2 | %floor% > 4] AddWall NWClinicHall2, %5%Wall, 0.5, -70, 5, -40, 5, %height%, %height%, 0, 0, 0, 0, false
-	#if[%floor% = -2] AddWall NEClinicHall3A, %5%Wall, 0.5, -20, 5, 19.5, 5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% ! 1] AddWall WestHallway1/1, %5%Wall, 0.5, -48, -35, -30, -35, %height%, %height%, 0, 0, 0, 0, false
 
-		Set ExtraPoint = 0
-		if[%floor% = -3] Set ExtraPoint = 0.5
-
-	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall3B, %5%Wall, 0.5, 30.5 - %ExtraPoint%, 5, 70, 5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < -2] AddWall NEClinicHall3C, %5%Wall, 0.5, 30, 5, 30, 25, %height%, %height%, 0, 0, 0, 0, false
 	WallOrientation = right
-	if[%floor% < -2 | %floor% > 4] AddWall NEClinicHall4, %5%Wall, 0.5, 70, -5, 70, 5.5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% ! 1] AddWall WestHallway1/2, %5%Wall, 0.5, -30, -%2% - %ExtraSouth%, -30, -35 + 0.5, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% = 1] AddWall WestHallway1/2, %5%Wall, 0.5, -48, -%2% - %ExtraSouth%, -48, -35, %height%, %height%, 0, 0, 0, 0, false
 
-		#Clinic 1 doors
-		Set Door_MainX = -70 + 0.5
+	WallOrientation = right
+	AddWall WestHallway1/3, %5%Wall, 0.5, -48, -5, -48, %2%, %height%, %height%, 0, 0, 0, 0, false
+
+		#Clinic 1 Main Doors
+		Set Door_MainX = -30.5
+		if[%floor% = 1] Set Door_MainX = -48.5
+		Set Door_MainZ = -65
+	
+		WallOrientation = left
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+
+			#Windows around doors
+			Add3DWindows(Clinic1_Win1/1, %Door_MainX% + 0.25, %Door_MainZ%, centerx, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic1_Win1/2, %Door_MainX% + 0.25, %Door_MainZ% - 3.25 - 6, centerx, 12, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 3/4, 1)
+			Add3DWindows(Clinic1_Win1/3, %Door_MainX% + 0.25, %Door_MainZ% + 3.25 + 6, centerx, 12, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 3/4, 1)
+
+			#Windows at elevator lobby
+			if[%floor% ! 1] Add3DWindows(Clinic1_ELWin, -39.25, -34.75, centerz, 17, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 4/4, 1)
+
+		#Clinic 1 Secondary Doors
+		Set Door_MainX = -48
 		Set Door_MainZ = 0
 	
 		WallOrientation = right
-		if[%floor% < -2 | %floor% > 4] AddStdDoor Floor %floor%, Clinic1_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2 | %floor% > 4] AddStdDoor Floor %floor%, Clinic1_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2 | %floor% > 4] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		SetLock 2, 0
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D2A, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D2B, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		SetLock 0, 0
 
-			#Windows above doors
-			if[%floor% < -2 | %floor% > 4] Add3DWindows(Clinic1_Win1, %Door_MainX% - 0.25, %Door_MainZ%, CenterX, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			#Windows around doors
+			Add3DWindows(Clinic1_Win2/1, %Door_MainX% - 0.25, %Door_MainZ%, centerx, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic1_Win2/2, %Door_MainX% - 0.25, %Door_MainZ% - 3.25 - 0.75, centerx, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic1_Win2/3, %Door_MainX% - 0.25, %Door_MainZ% + 3.25 + 0.75, centerx, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
 
-		#Clinic 1A doors
-		Set Door_MainX = -5
-		Set Door_MainZ = 5.5
+	#----------------------------------------#
+
+	#East (Department/Clinic 2) hallway walls
+	WallOrientation = left
+	AddWall EastHallway1/1, %5%Wall, 0.5, 30, -35, 48, -35, %height%, %height%, 0, 0, 0, 0, false
+	AddWall WestHallway1/2, %5%Wall, 0.5, 30, -60, 30, -35 + 0.5, %height%, %height%, 0, 0, 0, 0, false
+
+	WallOrientation = left
+	AddWall WestHallway1/3, %5%Wall, 0.5, 48, -5, 48, %2%, %height%, %height%, 0, 0, 0, 0, false
+
+		#Clinic 2 Main Doors
+		Set Door_MainX = 30.5
+		Set Door_MainZ = -50
 	
 		WallOrientation = right
-		#if[%floor% = -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		#if[%floor% = -2] AddStdDoor Floor %floor%, Clinic1A_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		#if[%floor% = -2] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+		AddStdDoor Floor %floor%, Clinic2_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, Clinic2_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
 
-			#Windows above doors
-			#if[%floor% = -2] Add3DWindows(Clinic1A_Win1, %Door_MainX%, %Door_MainZ% - 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			#Windows around doors
+			Add3DWindows(Clinic2_Win1/1, %Door_MainX% - 0.25, %Door_MainZ%, centerx, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic2_Win1/2, %Door_MainX% - 0.25, %Door_MainZ% - 3 - 3.5, centerx, 6.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 2/4, 1)
+			Add3DWindows(Clinic2_Win1/3, %Door_MainX% - 0.25, %Door_MainZ% + 3 + 6, centerx, 11.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 3/4, 1)
 
-		#Clinic 2 doors
-		Set Door_MainX = 70 - 0.5
+			#Windows at elevator lobby
+			Add3DWindows(Clinic2_ELWin, 39.25, -34.75, centerz, 17, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 4/4, 1)
+
+		#Clinic 2 Secondary Doors
+		Set Door_MainX = 48
 		Set Door_MainZ = 0
 	
 		WallOrientation = left
-		if[%floor% < -2 | %floor% > 4] AddStdDoor Floor %floor%, Clinic2_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2 | %floor% > 4] AddStdDoor Floor %floor%, Clinic2_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% < -2 | %floor% > 4] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		SetLock 1, 0
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D2A, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, Clinic1_%floorid%_D2B, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		SetLock 0, 0
 
-			#Windows above doors
-			if[%floor% < -2 | %floor% > 4] Add3DWindows(Clinic1_Win1, %Door_MainX% + 0.25, %Door_MainZ%, CenterX, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-	#South Hallway Walls
-	Set ExtraOffset = 0
-	if[%floor% = -3] Set ExtraOffset = 10
-
-	WallOrientation = left
-	if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall1_West, %5%Wall, 0.5, -%1%, -30, -70, -30, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% > -3 & %floor% < 5] AddWall SClinicHall5_East, %5%Wall, 0.5, 70, -30, %1%, -30, %height%, %height%, 0, 0, 0, 0, false
-
-	if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall1, %5%Wall, 0.5, -48, -35, -38 + 0.5, -35, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddWall SClinicHall2, %5%Wall, 0.5, -38, -35, -38, -5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, false
-	WallOrientation = right
-	#if[%floor% < -1] AddWall SClinicHall3, %5%Wall, 0.5, -38 - %ExtraOffset%, -5, 38, -5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% ! -1 & %floor% ! 1] AddWall SClinicHall3A, %5%Wall, 0.5, -38 - %ExtraOffset%, -5, -20 + 0.5, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicHall3B, %5%Wall, 0.5, 20 - 0.5, -5, 38, -5, %height%, %height%, 0, 0, 0, 0, false
-
-	AddWall SClinicHall4, %5%Wall, 0.5, 38, -35, 38, -5, %height%, %height%, 0, 0, 0, 0, false
-	WallOrientation = left
-	AddWall SClinicHall5, %5%Wall, 0.5, 38 - 0.5, -35, 48, -35, %height%, %height%, 0, 0, 0, 0, false
-	WallOrientation = center
-	#if[%floor% < -1] AddWall SClinicDivider, %5%Wall, 1, 0, -%2% - %ExtraSouth%, 0, -5, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% ! -1 & %floor% ! 1] AddWall SClinicDivider1, %5%Wall, 1, -20, -%2% - %ExtraSouth%, -20, -5, %height%, %height%, 0, 0, 0, 0, false
-	#AddWall SClinicDivider2, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -5, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider2A, %5%Wall, 1, 20, -%2% - %ExtraSouth%, 20, -80, %height%, %height%, 0, 0, 0, 0, false
-	AddWall SClinicDivider2B, %5%Wall, 1, 20, -60, 20, -5, %height%, %height%, 0, 0, 0, 0, false
-
-		#Clinic 3 extra west doors
-		Set Door_MainX = -85
-		Set Door_MainZ = -30
-	
-		WallOrientation = left
-		if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3W_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3W_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			if[(%floor% > -3 & %floor% < 5) & %floor% ! -1 & %floor% ! 1] Add3DWindows(Clinic3W_Win1, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-		#Clinic 3 west doors
-		Set Door_MainX = -43
-		Set Door_MainZ = -35
-	
-		WallOrientation = left
-		if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			if[%floor% ! -3 & %floor% ! -1 & %floor% ! 1] Add3DWindows(Clinic3_Win1, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-		#Clinic 3 east doors
-		Set Door_MainX = -29
-		if[%floor% = -3] Set Door_MainX = -34
-		Set Door_MainZ = -5.5
-	
-		WallOrientation = left
-		if[%floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3_%floorid%_D2A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% ! -1 & %floor% ! 1] AddStdDoor Floor %floor%, Clinic3_%floorid%_D2B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% ! -1 & %floor% ! 1] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			if[%floor% ! -1 & %floor% ! 1] Add3DWindows(Clinic3_Win2, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-		#Clinic 4 west doors
-		Set Door_MainX = 29
-		#if[%floor% < -1] Set Door_MainX = 20
-		Set Door_MainZ = -5.5
-	
-		WallOrientation = left
-		AddStdDoor Floor %floor%, Clinic4_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, Clinic4_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			Add3DWindows(Clinic4_Win1, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-		#Clinic 4 east doors
-		Set Door_MainX = 43
-		Set Door_MainZ = -35
-	
-		WallOrientation = left
-		AddStdDoor Floor %floor%, Clinic4_%floorid%_D2A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		AddStdDoor Floor %floor%, Clinic4_%floorid%_D2B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			Add3DWindows(Clinic4_Win2, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-
-		#Clinic 4 extra east doors
-		Set Door_MainX = 85
-		Set Door_MainZ = -30
-	
-		WallOrientation = left
-		if[%floor% > -3 & %floor% < 5] AddStdDoor Floor %floor%, Clinic4E_%floorid%_D1A, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% > -3 & %floor% < 5] AddStdDoor Floor %floor%, Clinic4E_%floorid%_D1B, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		if[%floor% > -3 & %floor% < 5] AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-
-			#Windows above doors
-			if[%floor% > -3 & %floor% < 5] Add3DWindows(Clinic4E_Win1, %Door_MainX%, %Door_MainZ% + 0.25, CenterZ, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			#Windows around doors
+			Add3DWindows(Clinic2_Win2/1, %Door_MainX% + 0.25, %Door_MainZ%, centerx, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic2_Win2/2, %Door_MainX% + 0.25, %Door_MainZ% - 3.25 - 0.75, centerx, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(Clinic2_Win2/3, %Door_MainX% + 0.25, %Door_MainZ% + 3.25 + 0.75, centerx, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
 <EndFunction>
 
 <Floors -3 to -1>
@@ -1473,13 +1423,13 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	if[%floor% > 2] Set SignTex = Sign_Elev_Gray
 	if[%floor% > 2] Set SideTex = BlackTrim
 
-	Set Position = -48 - 0.25
-	if[%floor% ! -3 & %floor% ! 0] AddBoxSign(PElevLbySign1, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
+	#Set Position = -48 - 0.25
+	#if[%floor% ! -3 & %floor% ! 0] AddBoxSign(PElevLbySign1, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
 
-	Set Position = 48 + 0.25
-	if[%floor% ! 0] AddBoxSign(PElevLbySign2, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
-	Set Position = 19.5 + 0.25
-	if[(%floor% > -3 & %floor% < 5) & %floor% ! 0] AddBoxSign(PElevLbySign3, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
+	#Set Position = 48 + 0.25
+	#if[%floor% ! 0] AddBoxSign(PElevLbySign2, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
+	#Set Position = 19.5 + 0.25
+	#if[(%floor% > -3 & %floor% < 5) & %floor% ! 0] AddBoxSign(PElevLbySign3, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
 
 	#Service elevator lobby sign
 	Set Position = 25
@@ -1888,7 +1838,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 		DrawWalls = true, false, false, false, false, false
 		AddWall BridgeNorth_Main, BridgeWall, 0.5, 10, -%2% - 40, 20, -%2% - 40, %BHeight%, %BHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
-		DrawWalls = false, true, true, false, false, false
+		DrawWalls = false, true, true, true, false, false
 		AddWall BridgeNorth_Main_Int, LHWall, 0.5, 10, -%2% - 40, 20, -%2% - 40, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 
 		#Access doors
@@ -2325,7 +2275,7 @@ AddTree(Tree1, 90 - 60, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 54, -20, 6, 15, Shaft4, %height%, 0, true, true, true, true, false, false, false)
 
 	#Shaft 6: Atrium Elevators
-	if[%floor% < 7] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 24.5, -70, 5, 10, Shaft6, %height%, 0, true, true, true, true, false, false, false)
+	if[%floor% < 7] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, ExtFacade, ExtFacade, 0.33, 35, -70, 5, 10, Shaft6, %height%, 0, true, true, true, true, false, false, false)
 <EndFloors>
 
 <Floor 18>
@@ -2468,7 +2418,7 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 ########################################
 
 #Atrium elevators (B2-5)
-AddStdShaft(6, 1, 24.5, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, %interfloorheight%)
+AddStdShaft(6, 1, 35, -70, 4.67, 9.67, -3, 6, ShaftIntWall2, 0.5, 0.33, 0, 5, %interfloorheight%)
 ShowFullShaft 6 = true
 
 #Machine room doors
@@ -2476,7 +2426,7 @@ ShowFullShaft 6 = true
 	Set DTex = ServiceDoor2
 	Set DSTex = %DTex%Side
 
-	Set Door_MainX = 24.5 - 5
+	Set Door_MainX = 35 - 5
 	Set Door_MainZ = -70
 
 	WallOrientation = left
@@ -3997,7 +3947,7 @@ ShowFullShaft 6 = true
 
 	#Door trims/fillers
 	WallTex() #Set filler textures to match with shaft walls
-	Set Shaft2CX = 24.5 #2nd shaft for elevator bank
+	Set Shaft2CX = 35 #2nd shaft for elevator bank
 	Set Shaft2CZ = -70
 
 		#All floors
@@ -4022,7 +3972,7 @@ ShowFullShaft 6 = true
 		WallOrientation = center
 		DrawWalls = true, true, true, true, true, true
 		TextureOverride ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSign%Suffix%, ELFlrSignBack, ELFlrSignBack
-		if[%floor% ! 0] AddWall E14-15FloorSign_Hall, ELFlrSign%Suffix%, 1, 15, (%Shaft2CZ%) - 0.5, 15, (%Shaft2CZ%) + 0.5, 1, 1, %height% - 1, %height% - 1, 0, 0, false
+		if[%floor% ! 0] AddWall E14-15FloorSign_Hall, ELFlrSign%Suffix%, 1, 15 + 10, (%Shaft2CZ%) - 0.5, 15 + 10, (%Shaft2CZ%) + 0.5, 1, 1, %height% - 1, %height% - 1, 0, 0, false
 
 	#****************************************#
 
@@ -4228,8 +4178,11 @@ ShowFullStairs 1 = always
 
 	#Doors
 	WallOrientation = left
+	if[%floor% < 7 & %floor% ! 0] SetLock 1, 0
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, %23% - 2, %24%, 3, 7, 0, 0, 0
+	SetLock 0, 0
+
 	WallOrientation = right
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, %23% - 2, %24% + 0.5, 3, 7, 0, 0, 0
@@ -4317,8 +4270,11 @@ ShowFullStairs 2 = always
 
 	#Doors
 	WallOrientation = left
+	if[%floor% < 7 & %floor% ! 0] SetLock 1, 0
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 8, 75, -%23% + 2, %24%, 3, 7, 0, 0, 0
+	SetLock 0, 0
+
 	WallOrientation = right
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 6, 75, -%23% + 2, %24% + 0.5, 3, 7, 0, 0, 0
