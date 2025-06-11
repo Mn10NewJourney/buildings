@@ -5,6 +5,11 @@
 #Otis Series 3 Luxury Chimes was made by Test Tower.
 
 #Initially started on: 6 November 2024
+#Updated 11 June 2025:
+	#1. Edited the OPD area on levels B3-B1 and 2-7 to have a more practical layout.
+	#2. Moved the atrium elevators ~10 ft. east for better alignment with the modified OPD layout.
+
+########################################
 
 #ELEVATOR BACKSTORY
 #1. Main hospital elevators (No. 1-13): Installed by Mitsubishi during November 1998 - January 1999.
@@ -235,7 +240,6 @@
 		Load data/metal1.jpg, ElevRailSide, 0.25, 0.25
 		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
-		#Load data/panel-back3.jpg, ElevPanel, 1, 1, false
 		Load data/Melvin/ABH_Tex/otis4_buttonpanel-lighter.jpg, ElevPanel, 1, 1, false #Mitsubishi elevators
 		Load data/panel-back3.jpg, ElevPanel2, 1, 0.5, false #Otis elevators
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
@@ -635,7 +639,6 @@ if[%floor% > 6] Set ExtraSouth = 0 #Extra south dimensions for levels B3 to 3
 
 	AddFloor landscape, RightSW1, Sidewalk, 0, %1%, -65, %1% + 70, -45, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
 	AddFloor landscape, RightSW2, Sidewalk, 0, %1%, -5, %1% + 70, 15, Floor(0).Base, Floor(0).Base, false, true, 0, 0	
-	#AddFloor landscape, RightSW3, Sidewalk, 0, %1%, -%2% - %ExtraSouth%, %1% + 8, -65, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, RightGrass1, Grass, 0, %1%, -%2% - %ExtraSouth% - 10, %1% + 70, -65, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, RightGrass2, Grass, 0, %1%, -45, %1% + 70, -5, Floor(0).Base, Floor(0).Base, 0, 0	
 	AddFloor landscape, RightGrass3, Grass, 0, %1%, 15, %1% + 70, %2% + 60, Floor(0).Base, Floor(0).Base, 0, 0	
@@ -734,18 +737,13 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 
 	#Carpeting at elevator lobbies
 		#Floor cuts
-		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] CutAll -48.66, %interfloorheight% - 1, -35, -38, %interfloorheight% + 1, -5, false, true #West
 		if[%floor% = 0] CutAll -8.66, %interfloorheight% - 1, 5, 8.66, %interfloorheight% + 1, 35, false, true #Center
 		if[%floor% = 0] CutAll -8.5, %interfloorheight% - 1, 35, 8, %interfloorheight% + 1, 45, false, true #Center
-		#if[%floor% ! 0] CutAll 38, %interfloorheight% - 1, -35, 48.66, %interfloorheight% + 1, -5, false, true #East
 
 		#West carpeting
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% ! -3 & %floor% ! 0 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -44, -30, -30, -5, 0.001, 0.001, 0, 0, false
-		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet, %5%Carpet, 0.5, -48.66, -34.8, -38, -5.2, 0, 0, 0, 0, false
-		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR1, BlackTrim, 0.5, -48.66, -35, -38, -34.8, 0, 0, 0, 0, false
-		#if[%floor% ! -3 & %floor% ! 0 & %floor% ! -1 & %floor% ! 1] AddFloor WestLobbyCarpet_TR2, BlackTrim, 0.5, -48.66, -5.2, -38, -5, 0, 0, 0, 0, false
 
 		#Center carpeting
 		FloorOrientation = top
@@ -759,10 +757,6 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% ! -3 & %floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 30, -30, 44, -5, 0.001, 0.001, 0, 0, false
-
-		#if[%floor% ! 0] AddFloor EastLobbyCarpet, %5%Carpet, 0.5, 38, -34.8, 48.66, -5.2, 0, 0, 0, 0, false
-		#if[%floor% ! 0] AddFloor EastLobbyCarpet_TR1, BlackTrim, 0.5, 38, -35, 48.66, -34.8, 0, 0, 0, 0, false
-		#if[%floor% ! 0] AddFloor EastLobbyCarpet_TR2, BlackTrim, 0.5, 38, -5.2, 48.66, -5, 0, 0, 0, 0, false
 <EndFloors>
 
 <Floors -3 to -1>
@@ -1061,21 +1055,12 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	TextureOverride %StorageIntTex%, %StorageExtTex2%, Blank, Blank, Blank, Blank
 	AddWall WestSTR2, %5%Wall, 0.5, -8, 35, -8, %2% - 0.5, %height%, %height%, 0, 0, 0, 0, false
 
-	#WallOrientation = left
-	#DrawWalls = true, true, false, false, false, false
-	#TextureOverride %StorageExtTex2%, %StorageIntTex%, Blank, Blank, Blank, Blank
-	#AddWall EastSTR1, %5%Wall, 0.5, 8, 35, 8, %2% - 0.5, %height%, %height%, 0, 0, 0, 0, false
-	#WallOrientation = right
-	#TextureOverride %StorageIntTex%, %StorageExtTex%, Blank, Blank, Blank, Blank
-	#AddWall EastSTR2, %5%Wall, 0.5, 20, 35, 20, %2% - 0.5, %height%, %height%, 0, 0, 0, 0, false
-
 	#====================#
 
 	#Dropped ceilings for storages
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 0] AddFloor WestSTRCeil, DropCeiling, 0.5, -20, 35, -8, %2%, 9.5, 9.5, 0, 0, false
-	#if[%floor% = 0] AddFloor EastSTRCeil, DropCeiling, 0.5, 8, 35, 20, %2%, 9.5, 9.5, 0, 0, false
 
 	#====================#
 
@@ -1092,14 +1077,6 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		WallOrientation = left
 		AddStdDoor Floor %floor%, %floorid%_WestStrDoor, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
-
-		#East storage
-		#Set Door_MainX = 8 + 0.5
-		#Set Door_MainZ = 35 + 2
-	
-		#WallOrientation = right
-		#AddStdDoor Floor %floor%, %floorid%_EastStrDoor, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-		#AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, false, 0, 0, false
 <EndFloors>
 
 <Floor 17>
@@ -1114,14 +1091,6 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 		WallOrientation = left
 		AddStdDoor Floor %floor%, %floorid%_WestStrDoor2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 10, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 10, false, 0, 0, false
-
-		#East storage
-		#Set Door_MainX = 8 + 0.5
-		#Set Door_MainZ = 35 + 2
-	
-		#WallOrientation = right
-		#AddStdDoor Floor %floor%, %floorid%_EastStrDoor2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 10, 0, 0, 0, 0
-		#AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 10, false, 0, 0, false
 <EndFloor>
 
 <Floors -3 to 6>
@@ -3648,7 +3617,6 @@ ShowFullShaft 6 = true
 		AddWall E6-8FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 		#AddWall E6-8FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) - 0.5, %Shaft1CX% + 6.001, (%Shaft1CZ% + 4) + 0.5, 1, 1, 5.5, 5.5, 0, 0, false
 		AddBoxSign(ElevBank2Sign, ElevBank2, ElevBank2, ElevBankSide, 0.01, false, false, true, %Shaft1CX% + 6, %Shaft1CZ% + 4, 2.25, 1.5, 5.25, false)
-
 		AddWall E6-8HallSign1, FireSign, 0, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) - 0.25, %Shaft1CX% + 6.001, (%Shaft1CZ% - 6) + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
