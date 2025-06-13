@@ -144,6 +144,9 @@
 		Load data/miscdoor9b.jpg, Door9b, 1, 1, false
 		Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
 
+		Load data/EG881/darkwooddoor_withwindow.gif, ClinicDoor, 1, 1, false #EG881
+		LoadCropped data/EG881/darkwooddoor_withwindow.gif, ClinicDoorSide, 236, 0, 20, 499, 1, 1, false #EG881
+
 		#Glass doors
 		Load data/miscdoor88.gif, Door88, 1, 1, false
 		Load data/Melvin/SDU_Signs/miscdoor88_outside.jpg, Door88Outside, 1, 1, false
@@ -315,14 +318,14 @@
 	
 		#2nd-8th floors
 		AddTextRange 1, 6, BlankSign, SignExamRoom%number%, nimbus_sans_bold_condensed.ttf, 45, Exam Room %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddTextRange 1, 6, BlankSign, SignConsultantRoom%number%, nimbus_sans_bold_condensed.ttf, 45, Consultant Rm. %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 4, BlankSign, SignConsultantRoom%number%, nimbus_sans_bold.ttf, 45, Consultant %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	
 		AddTextRange 5, 7, BlankSign, SignClinic%number%01, nimbus_sans_bold.ttf, 45, Clinic N.%number%/1, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 5, 7, BlankSign, SignClinic%number%02, nimbus_sans_bold.ttf, 45, Clinic N.%number%/2, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 			#2nd floor
-			AddText BlankSign, SignAdultsClinic, nimbus_sans_bold_condensed.ttf, 43, Adults' Clinic, -1, -1, -1, -1, center, center, 0, 0, 0, false
-			AddText BlankSign, SignChildrensClinic, nimbus_sans_bold_condensed.ttf, 43, Children's Clinic, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText BlankSign, SignAdultsClinic, nimbus_sans_bold_condensed.ttf, 45, Adults' Clinic, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText BlankSign, SignChildrensClinic, nimbus_sans_bold_condensed.ttf, 44, Children's Clinic, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		
 			#3rd floor
 			AddText BlankSign, SignENTClinic, nimbus_sans_bold.ttf, 45, ENT Clinic, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -1207,8 +1210,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall1(Clinic1Wall3, BlackTrim, LobbyWallLower, %6%, 0.5, -29, 25 + 3.5, -29, 45, 4, 0, false, false)
 	AddWall1(Clinic1Wall4, BlackTrim, LobbyWallLower, %6%, 0.5, -%1%, 30, -29, 30, 4, 0, false, false)
 	WallOrientation = right
-	if[%floor% ! 0] AddWall1(Clinic1Wall5, BlackTrim, LobbyWallLower, %6%, 0.5, -%1%, -30, -29, -30, 4, 0, false, false)
-	if[%floor% = 0] AddWall1(Clinic1Wall5, BlackTrim, LobbyWallLower, %6%, 0.5, -98.5, -30, -29, -30, 4, 0, false, false)
+	AddWall1(Clinic1Wall5, BlackTrim, LobbyWallLower, %6%, 0.5, -98.5, -30, -29, -30, 4, 0, false, false)
 
 	#Restroom external walls
 	WallOrientation = right
@@ -1275,8 +1277,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	WallOrientation = left
 	AddWall1(Clinic2Wall5, BlackTrim, LobbyWallLower, %6%, 0.5, 29, 30, %1%, 30, 4, 0, false, false)
 	WallOrientation = right
-	if[%floor% ! 0] AddWall1(Clinic2Wall6, BlackTrim, LobbyWallLower, %6%, 0.5, 29, -30, %1%, -30, 4, 0, false, false)
-	if[%floor% = 0] AddWall1(Clinic2Wall6, BlackTrim, LobbyWallLower, %6%, 0.5, 29, -30, 98.5, -30, 4, 0, false, false)
+	AddWall1(Clinic2Wall6, BlackTrim, LobbyWallLower, %6%, 0.5, 29, -30, 98.5, -30, 4, 0, false, false)
 
 	#Entrance doors
 	#North
@@ -1550,13 +1551,13 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall1(Clinic1InsideDivider4, BlackTrim, LobbyWallLower, %6%, 0.5, -60, 30, -60, %2%, 4, 0, false, false)
 	AddWall1(Clinic1InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, -45, 30, -45, %2%, 4, 0, false, false)
 
-	WallOrientation = left
-	AddWall1(Clinic1InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, -%1%, -20, -98, -20, 4, 0, false, false)
+	#WallOrientation = left
+	#AddWall1(Clinic1InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, -%1%, -20, -98, -20, 4, 0, false, false)
 	WallOrientation = right
-	AddWall1(Clinic1InsideDivider6, BlackTrim, LobbyWallLower, %6%, 0.5, -98, -20, -98, 5, 4, 0, false, false)
+	AddWall1(Clinic1InsideDivider6, BlackTrim, LobbyWallLower, %6%, 0.5, -98, -30.5, -98, 5, 4, 0, false, false)
 
 	WallOrientation = center
-	AddWall1(Clinic1InsideDivider7, BlackTrim, LobbyWallLower, %6%, 0.5, -105, -%2%, -105, -30, 4, 0, false, false)
+	#AddWall1(Clinic1InsideDivider7, BlackTrim, LobbyWallLower, %6%, 0.5, -105, -%2%, -105, -30, 4, 0, false, false)
 	AddWall1(Clinic1InsideDivider8, BlackTrim, LobbyWallLower, %6%, 0.5, -90, -%2%, -90, -30, 4, 0, false, false)
 	AddWall1(Clinic1InsideDivider9, BlackTrim, LobbyWallLower, %6%, 0.5, -75, -%2%, -75, -30, 4, 0, false, false)
 	AddWall1(Clinic1InsideDivider10, BlackTrim, LobbyWallLower, %6%, 0.5, -60, -%2%, -60, -30, 4, 0, false, false)
@@ -1564,7 +1565,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Exam room 1
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, -45 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -45 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1575,7 +1576,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom1, SignExamRoom1, 0, (-45 + 0.25 + 2) - 1.5, 30 - 0.101, (-45 + 0.25 + 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 2
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, -45 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -45 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1587,7 +1588,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Exam room 3
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, -75 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -75 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1598,7 +1599,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom3, SignExamRoom3, 0, (-75 + 0.25 + 2) - 1.5, 30 - 0.101, (-75 + 0.25 + 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 4
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, -75 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -75 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1609,7 +1610,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom4, SignExamRoom4, 0, (-75 - 0.25 - 2) - 1.5, 30 - 0.101, (-75 - 0.25 - 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 5
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, -105 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -105 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1620,7 +1621,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom5, SignExamRoom5, 0, (-105 + 0.25 + 2) - 1.5, 30 - 0.101, (-105 + 0.25 + 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 6
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, -105 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, -105 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1632,9 +1633,11 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Treatment room
 	WallOrientation = left
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 4, 75, -98.5, -7.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, -98.5, -7.5, 3, 7, 0, false, 0, 0, false
+	TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
+	AddDoor , , false, Door6, 0.2, 4, 75, -98.5, -7.5 + 1.5, 3, 7, 0, 0, 0
+	TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
+	AddDoor , , false, Door6, 0.2, 1, 75, -98.5, -7.5 - 1.5, 3, 7, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.5, -98.5, -7.5, 6, 7, 0, false, 0, 0, false
 
 	WallOrientation = left
 	DrawWalls = false, true, true, true, true, true
@@ -1687,29 +1690,6 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignConsultantRoom4_Back, StainlessSteel, 0.1, (-75 - 0.25 - 2) - 1.5, -30, (-75 - 0.25 - 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 	DrawWalls = false, true, false, false, false, false
 	AddWall SignConsultantRoom4, SignConsultantRoom4, 0, (-75 - 0.25 - 2) - 1.5, -30 + 0.101, (-75 - 0.25 - 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-
-	#Consultant room 5
-	WallOrientation = left
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 8, 75, -105 + 0.25 + 2, -30.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, -105 + 0.25 + 2, -30.5, 3, 7, 0, true, 0, 0, false
-
-	WallOrientation = left
-	DrawWalls = false, true, true, true, true, true
-	AddWall SignConsultantRoom5_Back, StainlessSteel, 0.1, (-105 + 0.25 + 2) - 1.5, -30, (-105 + 0.25 + 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-	DrawWalls = false, true, false, false, false, false
-	AddWall SignConsultantRoom5, SignConsultantRoom5, 0, (-105 + 0.25 + 2) - 1.5, -30 + 0.101, (-105 + 0.25 + 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-
-	#Consultant room 6
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 5, 75, -105 - 0.25 - 2, -30.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, -105 - 0.25 - 2, -30.5, 3, 7, 0, true, 0, 0, false
-
-	WallOrientation = left
-	DrawWalls = false, true, true, true, true, true
-	AddWall SignConsultantRoom6_Back, StainlessSteel, 0.1, (-105 - 0.25 - 2) - 1.5, -30, (-105 - 0.25 - 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-	DrawWalls = false, true, false, false, false, false
-	AddWall SignConsultantRoom6, SignConsultantRoom6, 0, (-105 - 0.25 - 2) - 1.5, -30 + 0.101, (-105 - 0.25 - 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 #--------------------------------------------------------------------------------#
 	#Clinic 2 divider walls
 	WallOrientation = center
@@ -1721,19 +1701,19 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall1(Clinic2InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, 105, 30, 105, %2%, 4, 0, false, false)
 
 	WallOrientation = left
-	AddWall1(Clinic2InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, 98, -20, %1%, -20, 4, 0, false, false)
-	AddWall1(Clinic2InsideDivider6, BlackTrim, LobbyWallLower, %6%, 0.5, 98, -20, 98, 5, 4, 0, false, false)
+	#AddWall1(Clinic2InsideDivider5, BlackTrim, LobbyWallLower, %6%, 0.5, 98, -20, %1%, -20, 4, 0, false, false)
+	AddWall1(Clinic2InsideDivider6, BlackTrim, LobbyWallLower, %6%, 0.5, 98, -30.5, 98, 5, 4, 0, false, false)
 
 	WallOrientation = center
 	AddWall1(Clinic2InsideDivider7, BlackTrim, LobbyWallLower, %6%, 0.5, 45, -%2%, 45, -30, 4, 0, false, false)
 	AddWall1(Clinic2InsideDivider8, BlackTrim, LobbyWallLower, %6%, 0.5, 60, -%2%, 60, -30, 4, 0, false, false)
 	AddWall1(Clinic2InsideDivider9, BlackTrim, LobbyWallLower, %6%, 0.5, 75, -%2%, 75, -30, 4, 0, false, false)
 	AddWall1(Clinic2InsideDivider10, BlackTrim, LobbyWallLower, %6%, 0.5, 90, -%2%, 90, -30, 4, 0, false, false)
-	AddWall1(Clinic2InsideDivider11, BlackTrim, LobbyWallLower, %6%, 0.5, 105, -%2%, 105, -30, 4, 0, false, false)
+	#AddWall1(Clinic2InsideDivider11, BlackTrim, LobbyWallLower, %6%, 0.5, 105, -%2%, 105, -30, 4, 0, false, false)
 
 	#Exam room 1
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, 45 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 45 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1744,7 +1724,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom1, SignExamRoom1, 0, (45 - 0.25 - 2) - 1.5, 30 - 0.101, (45 - 0.25 - 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 2
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, 45 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 45 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1756,7 +1736,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Exam room 3
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, 75 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 75 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1767,7 +1747,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom3, SignExamRoom3, 0, (75 - 0.25 - 2) - 1.5, 30 - 0.101, (75 - 0.25 - 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 4
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, 75 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 75 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1779,7 +1759,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Exam room 5
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 6, 75, 105 - 0.25 - 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 105 - 0.25 - 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1790,7 +1770,7 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignExamRoom5, SignExamRoom5, 0, (105 - 0.25 - 2) - 1.5, 30 - 0.101, (105 - 0.25 - 2) + 1.5, 30 - 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 
 	#Exam room 6
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
+	TextureOverride Door9b, Door9b, Door9bSide, Door9bSide, Door9bSide, Door9bSide
 	AddDoor , , false, Door6, 0.2, 7, 75, 105 + 0.25 + 2, 30.5, 3, 7, 0, 0, 0
 	AddFillerWalls ConnectionWall, 0.5, 105 + 0.25 + 2, 30.5, 3, 7, 0, true, 0, 0, false
 
@@ -1802,9 +1782,11 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 
 	#Treatment room
 	WallOrientation = right
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 3, 75, 98.5, -7.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, 98.5, -7.5, 3, 7, 0, false, 0, 0, false
+	TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
+	AddDoor , , false, Door8, 0.2, 3, 75, 98.5, -7.5 + 1.5, 3, 7, 0, 0, 0
+	TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
+	AddDoor , , false, Door8, 0.2, 2, 75, 98.5, -7.5 - 1.5, 3, 7, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.5, 98.5, -7.5, 6, 7, 0, false, 0, 0, false
 
 	WallOrientation = right
 	DrawWalls = true, false, true, true, true, true
@@ -1858,29 +1840,6 @@ Set BUHeight = (Floor(2).Height - %BHeight%) + Floor(3).InterfloorHeight #Height
 	AddWall SignConsultantRoom4_Back, StainlessSteel, 0.1, (75 + 0.25 + 2) - 1.5, -30, (75 + 0.25 + 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
 	DrawWalls = false, true, false, false, false, false
 	AddWall SignConsultantRoom4, SignConsultantRoom4, 0, (75 + 0.25 + 2) - 1.5, -30 + 0.101, (75 + 0.25 + 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-
-	#Consultant room 5
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 5, 75, 105 - 0.25 - 2, -30.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, 105 - 0.25 - 2, -30.5, 3, 7, 0, true, 0, 0, false
-
-	WallOrientation = left
-	DrawWalls = false, true, true, true, true, true
-	AddWall SignConsultantRoom5_Back, StainlessSteel, 0.1, (105 - 0.25 - 2) - 1.5, -30, (105 - 0.25 - 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-	DrawWalls = false, true, false, false, false, false
-	AddWall SignConsultantRoom5, SignConsultantRoom5, 0, (105 - 0.25 - 2) - 1.5, -30 + 0.101, (105 - 0.25 - 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-
-	#Consultant room 6
-	WallOrientation = left
-	TextureOverride Door6, Door6, Door6Side, Door6Side, Door6Side, Door6Side
-	AddDoor , , false, Door6, 0.2, 8, 75, 105 + 0.25 + 2, -30.5, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, 105 + 0.25 + 2, -30.5, 3, 7, 0, true, 0, 0, false
-
-	WallOrientation = left
-	DrawWalls = false, true, true, true, true, true
-	AddWall SignConsultantRoom6_Back, StainlessSteel, 0.1, (105 + 0.25 + 2) - 1.5, -30, (105 + 0.25 + 2) + 1.5, -30, 0.75, 0.75, 7.2, 7.2, 0, 0, false
-	DrawWalls = false, true, false, false, false, false
-	AddWall SignConsultantRoom6, SignConsultantRoom6, 0, (105 + 0.25 + 2) - 1.5, -30 + 0.101, (105 + 0.25 + 2) + 1.5, -30 + 0.101, 0.75, 0.75, 7.2, 7.2, 0, 0, false	
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
