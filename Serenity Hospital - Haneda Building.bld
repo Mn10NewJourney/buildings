@@ -1381,12 +1381,12 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	SRH_Haneda_OPD()
 <EndFloors>
 
-<Floors -3 to 6>
+#<Floors -3 to 6>
 	#Elevator lobby signs
-	Set SignTex = Sign_Elev
-	Set SideTex = WoodSign2
-	if[%floor% > 2] Set SignTex = Sign_Elev_Gray
-	if[%floor% > 2] Set SideTex = BlackTrim
+	#Set SignTex = Sign_Elev
+	#Set SideTex = WoodSign2
+	#if[%floor% > 2] Set SignTex = Sign_Elev_Gray
+	#if[%floor% > 2] Set SideTex = BlackTrim
 
 	#Set Position = -48 - 0.25
 	#if[%floor% ! -3 & %floor% ! 0] AddBoxSign(PElevLbySign1, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
@@ -1397,17 +1397,17 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	#if[(%floor% > -3 & %floor% < 5) & %floor% ! 0] AddBoxSign(PElevLbySign3, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
 
 	#Service elevator lobby sign
-	Set Position = 25
+	#Set Position = 25
 
-	Set SignSuffix1 = A
-	Set SignSuffix2 = B
-	if[%floor% > 2] Set SignSuffix1 = _Gray
-	if[%floor% > 2] Set SignSuffix2 = _Gray
-	Set SideTex = WoodSign2
-	if[%floor% > 2] Set SideTex = BlackTrim
+	#Set SignSuffix1 = A
+	#Set SignSuffix2 = B
+	#if[%floor% > 2] Set SignSuffix1 = _Gray
+	#if[%floor% > 2] Set SignSuffix2 = _Gray
+	#Set SideTex = WoodSign2
+	#if[%floor% > 2] Set SideTex = BlackTrim
 
-	if[%floor% ! -3 & %floor% ! -2 & %floor% ! 0] AddBoxSign(SELbySign1, Sign_ServiceElev%SignSuffix1%, Sign_ServiceElev%SignSuffix2%, %SideTex%, 0.1, false, true, true, %Position%, 5 - 0.75, 1.5, 1.5, 7.5, false)
-<EndFloors>
+	#if[%floor% ! -3 & %floor% ! -2 & %floor% ! 0] AddBoxSign(SELbySign1, Sign_ServiceElev%SignSuffix1%, Sign_ServiceElev%SignSuffix2%, %SideTex%, 0.1, false, true, true, %Position%, 5 - 0.75, 1.5, 1.5, 7.5, false)
+#<EndFloors>
 
 #########################################################################
 
@@ -2327,8 +2327,8 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#Wall creation
 	TexPrefix() #Set texture prefixes
 	Set SouthEnd = 5
-	if[%floor% < -1] Set SouthEnd = 25
-	
+	if[%floor% < 9] Set SouthEnd = 25
+
 	Set Extra = 0
 	#if[%floor% < -1] Set Extra = 0.5
 
@@ -2337,14 +2337,11 @@ AddStdShaft(5, 1, 14, 35, 5.67, 9.67, -4, 18, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	#TextureOverride %5%%PTSuffix2%, %5%Wall, Blank, Blank, Blank, Blank
 	AddWall SEL_%floorid%F_Front, %5%Wall, 0.5, 20 - %Extra%, %SouthEnd%, 30.5, %SouthEnd%, %height%, %height%, 0, 0, 0, 0, false
 
-	#WallOrientation = right
-	#if[%floor% < -1] AddWall SEL_%floorid%F_Left, %5%Wall, 0.5, 20, %SouthEnd%, 20, 25, %height%, %height%, 0, 0, 0, 0, false
-
 	WallOrientation = center
 	TextureOverride %5%Wall, %5%%PTSuffix%, Blank, Blank, Blank, Blank
 	AddWall SEL_%floorid%F_Right, %5%Wall, 1, 30, %SouthEnd%, 30, 45, %height%, %height%, 0, 0, 0, 0, false
 
-		#Dropped ceiling on 1st floor
+		#Dropped ceiling on the 1st floor
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
 		if[%floor% = 0] AddFloor SEL_%floorid%F_Ceiling, SLDropCeiling, 0.5, 20, %SouthEnd%, 30, 45, 9.5, 9.5, 0, 0, false
