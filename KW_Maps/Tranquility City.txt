@@ -95,10 +95,16 @@
 			Load data/EG881/Concrete/smoothconcrete1.jpg, SRH_HND_Roof2, 0.0625, 0.0625, true #EG881 #8th floor setback
 
 		#Denver Remston Hospital
-		Load data/daley.jpg, DRH_Windows, 0.0666, 1
-		Load data/cutston3.jpg, DRH_ExtFacade, 0.0625, 0.0625, true
-		Load data/EG881/cem_tr2b.jpg, DRH_Roof, 0.075225, 0.0625, true #EG881 #Roof (SF Bldg.'s 30th floor and SR Bldg.'s 9th floor)
-		Load data/EG881/Concrete/smoothconcrete1.jpg, DRH_Roof2, 0.0625, 0.0625 #EG881 #2nd floor exterior deck (SF Bldg.)
+			#San Francisco and San Rafael Buildings
+			Load data/daley.jpg, DRH_Windows, 0.0666, 1
+			Load data/cutston3.jpg, DRH_ExtFacade, 0.0625, 0.0625, true
+			Load data/EG881/cem_tr2b.jpg, DRH_Roof, 0.075225, 0.0625, true #EG881 #Roof (SF Bldg.'s 30th floor and SR Bldg.'s 9th floor)
+			Load data/EG881/Concrete/smoothconcrete1.jpg, DRH_Roof2, 0.0625, 0.0625 #EG881 #2nd floor exterior deck (SF Bldg.)
+	
+			#Pacific Heights Building
+			LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky1.jpg, DRH_PHB_Windows, true, 0.05, 1 #EG881
+			Load data/graniteTexture_0001b.jpg, DRH_PHB_ExtFacade, 0.1, 0.1, true
+			Load data/EG881/cem_tr2d.jpg, DRH_PHB_Roof, 0.075225, 0.0625 #EG881
 	
 		############################################################
 
@@ -3004,6 +3010,48 @@ if[%InBNM% ! true] BellNatureMall()
 	
 		#Level P8 (Roof)
 		AddFloor buildings, DRHPG_Roof, TCity_Concrete4, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4% + 90, 70, 70, 0, 0
+
+	
+	###************************###
+
+	### D. Pacific Heights Building (6 floors + 2 mezzanines) ###
+	Set 0 = -1644 + 448 + %MainX% #Building Center X
+	Set 1 = 2740 - 145 + 310 + %MainZ% #Building Center Z
+	Set 3 = 105 #Building Dimension X
+	Set 4 = 40 #Building Dimension Z
+
+	DrawWalls = true, true, false, false, false, false
+
+	SetAutoSize = true, false	
+		#Main Structure
+		AddWall buildings, DRH_PHB_Front1, DRH_PHB_Windows, 0, %0% - %3%, %1% - %4%, %0% - 70, %1% - %4%, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_PHB_Front2, DRH_PHB_Windows, 0, %0% + 30, %1% - %4%, %0% + %3%, %1% - %4%, 108, 108, 0, 0, 0, 6
+
+		AddWall buildings, DRH_PHB_Left1, DRH_PHB_Windows, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - 5, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_PHB_Left2, DRH_PHB_ExtFacade, 0, %0% - %3%, %1% - 5, %0% - %3%, %1% + 25, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_PHB_Left3, DRH_PHB_Windows, 0, %0% - %3%, %1% + 25, %0% - %3%, %1% + %4%, 108, 108, 0, 0, 0, 6
+
+		AddWall buildings, DRH_PHB_Right1, DRH_PHB_Windows, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - 5, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_PHB_Right2, DRH_PHB_ExtFacade, 0, %0% + %3%, %1% - 5, %0% + %3%, %1% + 25, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_PHB_Right3, DRH_PHB_Windows, 0, %0% + %3%, %1% + 25, %0% + %3%, %1% + %4%, 108, 108, 0, 0, 0, 6
+
+		AddWall buildings, DRH_SR_Back1, DRH_PHB_Windows, 0, %0% - %3%, %1% + %4%, %0% - 30, %1% + %4%, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_SR_Back2, DRH_PHB_ExtFacade, 0, %0% - 30, %1% + %4%, %0% - 5, %1% + %4%, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_SR_Back3, DRH_PHB_Windows, 0, %0% - 5, %1% + %4%, %0% + 5, %1% + %4%, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_SR_Back4, DRH_PHB_ExtFacade, 0, %0% + 5, %1% + %4%, %0% + 30, %1% + %4%, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_SR_Back5, DRH_PHB_Windows, 0, %0% + 30, %1% + %4%, %0% + %3%, %1% + %4%, 108, 108, 0, 0, 0, 6
+
+		#South Annex
+		AddWall buildings, DRH_PHB_SA_Left, DRH_PHB_ExtFacade, 0, %0% - 70, %1% - %4% - 30, %0% - 70, %1% - %4%, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_PHB_SA_Front1, DRH_PHB_ExtFacade, 0, %0% - 70, %1% - %4% - 30, %0% - 30, %1% - %4% - 30, 108, 108, 0, 0, 0, 0
+		AddWall buildings, DRH_PHB_SA_Front2, DRH_PHB_Windows, 0, %0% - 30, %1% - %4% - 30, %0% + 30, %1% - %4% - 30, 108, 108, 0, 0, 0, 6
+		AddWall buildings, DRH_PHB_SA_Right, DRH_PHB_Windows, 0, %0% + 30, %1% - %4% - 30, %0% + 30, %1% - %4%, 108, 108, 0, 0, 0, 6
+
+	SetAutoSize = true, true
+
+		#Roof
+		AddFloor buildings, DRH_PHB_Roof1, DRH_PHB_Roof, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 108, 108, 0, 0
+		AddFloor buildings, DRH_PHB_Roof2, DRH_PHB_Roof, 0, %0% - 70, %1% - %4% - 30, %0% + 30, %1% - %4%, 108, 108, 0, 0
 <EndFunction>
 
 if[%InDRH% ! true] DRH()
