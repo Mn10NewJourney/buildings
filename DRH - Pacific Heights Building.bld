@@ -43,8 +43,12 @@
 
 	#Landscapes
 	#Load data/downtown.jpg, Downtown, 1, 1
-	Load data/grndroad1mid.jpg, Road, 0.04, 0.04
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	
+		#Roadways
+		Load data/grndroad1mid.jpg, Road, 0.04, 0.04	
+		Load data/Melvin/Roads/2lane-twoway.png, EastWestRoad, 0.05, 0.0333
+		Load data/Melvin/Roads/2lane-twoway-90de.png, NorthSouthRoad, 0.0333, 0.05
 	
 		#Plants
 		Load data/ogrebullet/textures/grass.jpg, Grass, 0.005, 0.005
@@ -348,15 +352,14 @@
 	Type = Hospital
 	Height = 10
 	InterfloorHeight = 2
-	if[%floor% = -3] InterfloorHeight = 1.5
 <EndFloor>
 
 <Floor -4>
 	ID = -
 	Name = Shaft Pit
 	Type = Basement
-	Height = 8.5
-	InterfloorHeight = 1.5
+	Height = 8
+	InterfloorHeight = 2
 <EndFloor>
 
 <Floor 0>
@@ -426,8 +429,38 @@ Set 2 = 40 #Building Dimension Z
 Set ExtraSouth = 30 #Extra south dimensions for South Elevators
 
 #Landscape
+DrawWalls = false, true, false, false, false, false
+
 	#Perimeter floors
+		#Front
+		AddFloor landscape, FrontGrass1, Grass, 0, -135, -90, -70, -40, Floor(0).Base, Floor(0).Base, 0, 0
+		AddFloor landscape, FrontGrass2, Grass, 0, -70, -90, -30, -70, Floor(0).Base, Floor(0).Base, 0, 0
+		AddFloor landscape, FrontSidewalk, Sidewalk, 0, -30, -90, 30, -70, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, FrontGrass3, Grass, 0, 30, -90, 125, -40, Floor(0).Base, Floor(0).Base, 0, 0
+
+		#Left
+		AddFloor landscape, LeftGrass1, Grass, 0, -135, -40, -105, -30, Floor(0).Base, Floor(0).Base, 0, 0
+		AddFloor landscape, LeftSidewalk, Sidewalk, 0, -135, -30, -105, -20, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, LeftGrass2, Grass, 0, -135, -20, -105, 70, Floor(0).Base, Floor(0).Base, 0, 0
+
+		#Right
+		AddFloor landscape, RightGrass1, Grass, 0, 105, -40, 125, -30, Floor(0).Base, Floor(0).Base, 0, 0
+		AddFloor landscape, RightSidewalk, Sidewalk, 0, 105, -30, 125, -20, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+		AddFloor landscape, RightGrass2, Grass, 0, 105, -20, 125, 70, Floor(0).Base, Floor(0).Base, 0, 0
+
+		#Back
+		AddFloor landscape, BackGrass, Grass, 0, -105, 40, 105, 70, Floor(0).Base, Floor(0).Base, 0, 0
 	
+	#Roads and sidewalks
+	AddFloor landscape, SouthRoad1, EastWestRoad, 0, -135, -130, 135, -130 + 30, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, SouthRoad2, Road, 0, 135, -130, 165, -130 + 30, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastRoad, NorthSouthRoad, 0, 135, -100, 165, 70, Floor(0).Base, Floor(0).Base, 0, 0
+	
+	AddFloor landscape, SouthSidewalkA, Sidewalk, 0, -135, -140, 175, -140 + 10, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+	AddFloor landscape, SouthSidewalkB, Sidewalk, 0, -135, -100, 135, -90, Floor(0).Base, Floor(0).Base, false, true, 0, 0
+	AddFloor landscape, EastSidewalkA, Sidewalk, 0, 125, -90, 135, 70, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, EastSidewalkB, Sidewalk, 0, 165, -130, 175, 70, Floor(0).Base, Floor(0).Base, 0, 0
+
 	#Trees
 	
 
