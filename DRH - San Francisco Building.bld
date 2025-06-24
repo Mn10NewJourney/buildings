@@ -515,12 +515,15 @@
 		AddText Sign_LB_Long, Sign_RoomB02A, nimbus_sans_bold_condensed.ttf, 90, Medical Equipment, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_RoomB03, nimbus_sans_bold_condensed.ttf, 90, Maintenance Dept., -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#AddText Sign_LB_Long, Sign_RoomB02B, nimbus_sans_bold_condensed.ttf, 90, Medical Records, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#Medical Records Dept. is now only on this building's 6th floor. (September 20, 2024)
-
 		#1st floor
 		AddText Sign_LB_Long, Sign_X-Ray, nimbus_sans_bold.ttf, 90, X-Ray Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Sign_LB_Long, Sign_ER, nimbus_sans_bold_condensed.ttf, 90, Emergency Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+			#Signs inside the ER
+			AddText Sign_LB_Long, Sign_Oxygen, nimbus_sans_bold.ttf, 90, Oxygen Tanks, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_Resuscitation, nimbus_sans_bold_condensed.ttf, 90, Resuscitation Rm., -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_Control, nimbus_sans_bold.ttf, 90, Control Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
 		#--------------------
 		#2nd floor
 		AddText Sign_LB_Long, Sign_Clinic201, nimbus_sans_bold.ttf, 90, Heart Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -534,7 +537,6 @@
 		AddText Sign_LB_Long, Sign_Clinic303, nimbus_sans_bold.ttf, 90, Eye Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 			#Health check-up center moved to San Rafael Building, 4th floor. (January 5, 2025)
-			#Surgery dept. moved to San Rafael Building, 5th floor. (September 20, 2024)
 
 		#Common signs (Light)
 		AddTextRange 1, 8, Sign_LB_Long, Sign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -542,7 +544,7 @@
 		AddText Sign_LB_Long, Sign_BloodCollectionRoom, nimbus_sans_bold_condensed.ttf, 95, Blood Collection, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Common signs (Dark)
-		AddTextRange 1, 6, Sign_DB, DBSign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+		AddTextRange 1, 7, Sign_DB, DBSign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 		AddText Sign_DB, DBSign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 90, Treatment Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
 		AddText Sign_DB, DBSign_BloodCollectionRoom, nimbus_sans_bold_condensed.ttf, 95, Blood Collection, -1, -1, -1, -1, center, center, 255, 255, 255, false
 
@@ -669,7 +671,7 @@ DrawWalls = true, true, true, true, true, true
 AddFloor landscape, SidewalkLeft, Sidewalk, 0.5, -150, -90, -140, 100, 0, 0, 0, 0
 AddFloor landscape, SidewalkRight, Sidewalk, 0.5, 140, -90, 150, 100, 0, 0, 0, 0
 AddFloor landscape, SidewalkBack, Sidewalk, 0.5, -140, 90, 140, 100, 0, 0, 0, 0
-AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0, 0, 0, 0
+AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0, 0, false, true, 0, 0
 
 ############################################################
 
@@ -1872,7 +1874,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	if[%floor% = 1 | %floor% = 2] Set CenterZ = 45
 	if[%floor% = -1 | %floor% > 3] Set CenterZ = 40
 	Set DTex = ServiceDoor1
-	if[%floor% = 4] Set DTex = ServiceDoor3
+	if[%floor% = 2 | %floor% = 4] Set DTex = ServiceDoor3
 
 	TextureOverride %DTex%, %DTex%, %DTex%Side, %DTex%Side, %DTex%Side, %DTex%Side
 	AddDoor , , false, ServiceDoor1, 0.2, 6, 75, %CenterX% + 1.5, %CenterZ%, 3, 7, 0, 0, 0
@@ -2123,10 +2125,16 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 		WallOrientation = left
 		AddWall ER_Hallway2, %6%, 0.5, 30 - 0.5, 55, 110.5, 55, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
 
+		WallOrientation = right
+		AddWall ER_Hallway3, %6%, 0.5, 30 - 0.5, 45, 110.5, 45, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
+
 		#Emergency Room Divider Walls
 		WallOrientation = center
 		AddWall ER_Divider1, %6%, 1, 50, 55, 50, %2%, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
 		AddWall ER_Divider2, %6%, 1, 29.5, 75, 50.5, 75, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
+		AddWall ER_Divider3, %6%, 1, 65, 20, 65, 45, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
+		AddWall ER_Divider4, %6%, 1, 80, 20, 80, 45, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
+		AddWall ER_Divider5, %6%, 1, 95, 20, 95, 45, %ERHeight%, %ERHeight%, 0, 0, 0, 0, false
 
 		#Emergency Room's dropped ceilings
 		#Also used as the floors of "East Secret Room(s)"
@@ -2161,16 +2169,48 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			SROC_IntRecessedCeiling(ER_TR_Light2, 1, 80, 72.5, 32, 24, 10, 0.25, 1FDCeiling, 1FD_CL1A, 4, 3)
 			#SROC_IntRecessedCeiling(ER_TR_Light3, 1, 100 - 4, 72.5, 8, 24, 10, 0.25, 1FDCeiling, 1FD_CL1A, 1, 3)
 
-		#Doors
-		#Set CenterX = 80
-		#WallOrientation = right
-		#TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
-		#AddDoor , , false, %DoorTex%, 0.2, 6, 75, %CenterX% + 1.5, 55.5, 3, 7, 0, 0, 0
-		#TextureOverride ClinicDoor, ClinicDoor, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide, ClinicDoorSide
-		#AddDoor , , false, %DoorTex%, 0.2, 7, 75, %CenterX% - 1.5, 55.5, 3, 7, 0, 0, 0
-		#AddFillerWalls ConnectionWall, 0.5, %CenterX%, 55.5, 6, 7, 0, true, 0, 0, false
+		#Doors on ER's south side
+		Set DTex = Door9b
+		Set DSTex = %DTex%Side
+	
+			#Control room
+			Set Door_MainX = 35
+			Set Door_MainZ = 44.5
+		
+			WallOrientation = left
+			AddStdDoor Floor %floor%, ControlRoom_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, ControlRoom_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75,  %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+			AddBoxSign(ER_ControlRoomSign, Sign_LB_Long, Sign_Control, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
 
-		#Sliding doors
+			#Blood collection room
+			Set Door_MainX = 80 - 2.5
+			Set Door_MainZ = 44.5
+		
+			WallOrientation = left
+			AddStdDoor Floor %floor%, ControlRoomDr, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
+			AddBoxSign(ER_BCRoomSign, Sign_LB_Long, Sign_BloodCollectionRoom, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+
+			#Resuscitation room
+			Set Door_MainX = 80 + 2.5
+			Set Door_MainZ = 44.5
+		
+			WallOrientation = left
+			AddStdDoor Floor %floor%, ResuscitationRoomDr, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
+			AddBoxSign(ER_ResuscitationSign, Sign_LB_Long, Sign_Resuscitation, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+
+			#Oxygen tank room
+			Set Door_MainX = 95 + 2.5
+			Set Door_MainZ = 44.5
+		
+			WallOrientation = left
+			AddStdDoor Floor %floor%, OxygenTankRoomDr, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+			AddBoxSign(ER_OxygenTankRMSign, Sign_LB_Long, Sign_Oxygen, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+
+		#Sliding doors for Treatment Rooms
 		Set Door_MainX = 80
 		Set Door_MainZ = 55
 		Set FlrLabel = %floorid%
@@ -2617,7 +2657,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 
 		#Exit signs
 		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 130, 20.5, 1.8, 0.9, %height% - 0.9, false)
-		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 44.5 - 0.05, 1.8, 0.9, 7.2, false)
+		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 44.5 - 0.05, 1.8, 0.9, %height% - 0.9, false)
 		AddBoxSign(SF%floorid%03_ExitSign3, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, 30 + 0.05, 20, 1.8, 0.9, 7.2, false)
 	
 		#Hallway walls
@@ -2651,8 +2691,8 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			AddStdDoor Floor %floor%, SF%floorid%03_RoomN1Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 65 + 1.5, 25.5, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, SF%floorid%03_RoomN1Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 65 - 1.5, 25.5, 3, 7, 0, 0, 0, 0, 0
 
-			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 97.5, 25.5, 3, 7, 0, 0, 0, 0, 0
-			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 112.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 97.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN3Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 112.5, 25.5, 3, 7, 0, 0, 0, 0, 0
 
 				#Filler walls
 				AddFillerWalls ConnectionWall, 0.5, 65, 25.5, 6, 7, 0, true, 0, 0, false
@@ -2739,6 +2779,84 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 			FloorOrientation = bottom
 			DrawWalls = true, false, false, false, false, false
 			AddFloor EyeCeiling, EyeCeiling, 0.5, 29.5, -1.25, %1%, 45, %EyeHeight%, %EyeHeight%, 0, 0, false
+
+	#Detailing inside Eye Center
+	WallTex() #Set wall textures
+
+		#Exit signs
+		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 130, 20.5, 1.8, 0.9, %height% - 0.9, false)
+		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 44.5 - 0.05, 1.8, 0.9, 7.2, false)
+		AddBoxSign(SF%floorid%03_ExitSign3, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, 30 + 0.05, 20, 1.8, 0.9, 7.2, false)
+	
+		#Hallway walls
+		DrawWalls = true, true, false, false, false, false
+		WallOrientation = left
+		AddWall SF%floorid%03_WallN1, %EyeTex%, 0.5, 60, 25, 120, 25, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_WallN2, %EyeTex%, 0.5, 60, 25, 60, 45, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = right
+		AddWall SF%floorid%03_WallN3, %EyeTex%, 0.5, 120, 25, 120, 45, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_WallS1, %EyeTex%, 0.5, 60, 16, %1%, 16, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = left
+		AddWall SF%floorid%03_WallS2, %EyeTex%, 0.5, 60, -1.25, 60, 16, %height%, %height%, 0, 0, 0, 0, false
+
+		#Divider walls
+		WallOrientation = center
+		DrawWalls = true, true, false, false, false, falses
+		AddWall SF%floorid%03_DividerS1, %EyeTex%, 1, 75, -1.25, 75, 16, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_DividerS2, %EyeTex%, 1, 90, -1.25, 90, 16, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_DividerS3, %EyeTex%, 1, 105, -1.25, 105, 16, %height%, %height%, 0, 0, 0, 0, false
+
+		AddWall SF%floorid%03_DividerN1, %EyeTex%, 1, 75, 25, 75, 45, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_DividerN2, %EyeTex%, 1, 90, 25, 90, 45, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_DividerN3, %EyeTex%, 1, 105, 25, 105, 45, %height%, %height%, 0, 0, 0, 0, false
+
+		#North room doors
+		Set DTex = Door9b
+		Set DSTex = %DTex%Side
+
+			WallOrientation = right
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN3Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 67.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN4Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 82.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN3Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 97.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN4Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 112.5, 25.5, 3, 7, 0, 0, 0, 0, 0
+
+				#Filler walls
+				AddFillerWalls ConnectionWall, 0.5, 67.5, 25.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 82.5, 25.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 97.5, 25.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 112.5, 25.5, 3, 7, 0, true, 0, 0, false
+
+			#Room signs
+			AddBoxSign(SF%floorid%03_RoomN1, DBSign_ExamRoom1, Sign_DB, Sign_DB, 0.1, true, true, true, 67.5, 25 - 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomN2, DBSign_ExamRoom2, Sign_DB, Sign_DB, 0.1, true, true, true, 82.5, 25 - 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomN3, DBSign_ExamRoom3, Sign_DB, Sign_DB, 0.1, true, true, true, 97.5, 25 - 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomN4, DBSign_ExamRoom4, Sign_DB, Sign_DB, 0.1, true, true, true, 112.5, 25 - 0.05, 0.6 * 4, 0.6, 7.25, false)
+
+		#South room doors
+		Set DTex = Door9b
+		Set DSTex = %DTex%Side
+
+			WallOrientation = left
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomS1Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 67.5, 15.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomS2Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 82.5, 15.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomS3Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 97.5, 15.5, 3, 7, 0, 0, 0, 0, 0
+
+			Set DTex = Door6 #Reset for Treatment Room
+			Set DSTex = %DTex%Side
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomS4Door1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 110 - 1.5, 15.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomS4Door2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, 110 + 1.5, 15.5, 3, 7, 0, 0, 0, 0, 0
+
+				#Filler walls
+				AddFillerWalls ConnectionWall, 0.5, 67.5, 15.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 82.5, 15.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 97.5, 15.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 110, 15.5, 6, 7, 0, true, 0, 0, false
+
+			#Room signs
+			AddBoxSign(SF%floorid%03_RoomS1, Sign_DB, DBSign_ExamRoom5, Sign_DB, 0.1, true, true, true, 67.5, 16 + 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomS2, Sign_DB, DBSign_ExamRoom6, Sign_DB, 0.1, true, true, true, 82.5, 16 + 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomS3, Sign_DB, DBSign_ExamRoom7, Sign_DB, 0.1, true, true, true, 97.5, 16 + 0.05, 0.6 * 4, 0.6, 7.25, false)
+			AddBoxSign(SF%floorid%03_RoomS4, Sign_DB, DBSign_TreatmentRoom, Sign_DB, 0.1, true, true, true, 110, 16 + 0.05, 0.6 * 4, 0.6, 7.25, false)
 <EndFloor>
 
 ################################################################################
@@ -3065,7 +3183,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Detailing inside GI Center	
 		#Exit signs
 		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 130, 20, 1.8, 0.9, %height% - 0.9, false)
-		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 39.5 - 0.05, 1.8, 0.9, 7.2, false)
+		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 39.5 - 0.05, 1.8, 0.9, %height% - 0.9, false)
 		AddBoxSign(SF%floorid%03_ExitSign3, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, 20.5 + 0.05, 20, 1.8, 0.9, 7.2, false)
 	
 		#Hallway walls
