@@ -408,6 +408,9 @@
 		#8. Poster(s) above elevator doors/at lobby areas
 		Load data/Melvin/SentaiTower/Poster7A.png, Poster6A, 1, 1, false
 		Load data/Melvin/SentaiTower/Poster6A.png, Poster6B, 1, 1, false
+		Load data/Melvin/SentaiTower/Poster5A.png, Poster6C, 1, 1, false
+		Load data/Melvin/SentaiTower/Poster3B.png, Poster6D, 1, 1, false
+		LoadRange 1, 3, data/Melvin/DRH/PHB_Posters/Poster%number%.png, TQCPoster%number%, 1, 1, false
 		
 		#9. Hospital-related signs
 		Load data/Melvin/DRH/NewDir_202501/Dir_PH.png, MainDir, 1, 1, false #Floor directory
@@ -643,7 +646,7 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 		if[%floor% = 0] Set NorthOffset = 0
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% = 0 | %floor% = 6] AddFloor SouthLobbyCarpet, %5%Carpet, 0, -60 + 4, -58 + 4, -30, -40 - %NorthOffset%, 0.001, 0.001, 0, 0, false
+		if[%floor% = 0] AddFloor SouthLobbyCarpet, %5%Carpet, 0, -60 + 4, -58 + 4, -30, -40 - %NorthOffset%, 0.001, 0.001, 0, 0, false
 		if[%floor% > 2 & %floor% < 7] AddFloor CenterCarpet, %5%Carpet, 0, -20, -30, 20, 0, 0.001, 0.001, 0, 0, false
 
 	#Ceilings
@@ -981,13 +984,6 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 <EndFloors>
 
 <Break>
-
-<Floor 6>
-	#Poster at elevator lobby
-	DrawWalls = false, true, false, false, false, false
-	AddWall EventHallPoster1, Poster%floorid%A, 0, -45 - 14, -58 + 0.001, -45 + 14, -58 + 0.001, 3.5, 3.5, 15, 15, 0, 0, false
-	AddWall EventHallPoster2, Poster%floorid%B, 0, -45 - 14, -58 + 0.001, -45 + 14, -58 + 0.001, 3.5, 3.5, 15 - 3.5, 15 - 3.5, 0, 0, false
-<EndFloor>
 
 #########################################################################
 
@@ -1680,6 +1676,28 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 		#Exit sign
 		AddBoxSign(WH_Exit2, ExitSignUp, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 1.8, 0.9, 8.2, false)
+
+	#----------------------------------------#
+
+	#Poster at South Elevator Lobby
+	DrawWalls = false, true, false, false, false, false
+	AddWall SouthElevPoster1, Poster%floorid%A, 0, -45 - 14, -58 + 0.001, -45 + 14, -58 + 0.001, 3.5, 3.5, 15, 15, 0, 0, false
+	AddWall SouthElevPoster2, Poster%floorid%B, 0, -45 - 14, -58 + 0.001, -45 + 14, -58 + 0.001, 3.5, 3.5, 15 - 3.5, 15 - 3.5, 0, 0, false
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall SouthElevPoster3, Poster%floorid%C, 0, -45 - 14, -40 - 0.001, -45 + 14, -40 - 0.001, 3.5, 3.5, 15, 15, 0, 0, false
+	AddWall SouthElevPoster4, Poster%floorid%D, 0, -45 - 14, -40 - 0.001, -45 + 14, -40 - 0.001, 3.5, 3.5, 15 - 3.5, 15 - 3.5, 0, 0, false
+
+	#Poster at main hallway
+	Set DirHeight = 9
+	Set DirWidth = (%DirHeight% / 9) * 16
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall MainHallPoster1U, TQCPoster2, 0, -30 + 0.001, -15 - (%DirWidth% / 2), -30 + 0.001, -15 + (%DirWidth% / 2), %DirHeight%, %DirHeight%, 3 + %DirHeight%, 3 + %DirHeight%, 0, 0, false
+	AddWall MainHallPoster1L, TQCPoster1, 0, -30 + 0.001, -15 - (%DirWidth% / 2), -30 + 0.001, -15 + (%DirWidth% / 2), %DirHeight%, %DirHeight%, 3, 3, 0, 0, false
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall MainHallPoster2, TQCPoster3, 0, 30 - 0.001, -15 - (%DirWidth% / 2), 30 - 0.001, -15 + (%DirWidth% / 2), %DirHeight%, %DirHeight%, 5, 5, 0, 0, false
 <EndFloor>
 
 <Floor 7>
