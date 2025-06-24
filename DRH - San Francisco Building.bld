@@ -1840,6 +1840,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	#--------------------
 	#Clinic/Room 3 Entrances
 	Set FillerTex = ConnectionWall
+	if[%floor% = 1] Set FillerTex = %6%
 	if[%floor% = 2] Set FillerTex = EyeWall3
 	if[%floor% = 4] Set FillerTex = GIWall
 
@@ -2525,7 +2526,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	AddBoxSign(EastRestroomSign, Sign_Restroom, Sign_Restroom, BlackTrim, 0.1, false, true, true, 90, 55 - 0.75, 1.5, 1.5, 7.75, false)
 	#--------------------
 	#Doors
-	if[%floor% = 1] AddDoors-LowerLevels(Clinic, Door88, ClinicDoor, ClinicDoor)
+	if[%floor% = 1] AddDoors-LowerLevels(Clinic, Door88, ClinicDoor, Door88)
 	if[%floor% = 2] AddDoors-LowerLevels(Clinic, ClinicDoor, Door88, Door88)
 	
 		#Windows for ENT Center
@@ -2565,7 +2566,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 		DrawWalls = true, false, true, true, true, true
 		AddBoxSign(Clinic%floorid%02A_Sign, Sign_Clinic%floorid%02A, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, -28 + %EXP%, 55, 6, 1.5, 5.5 + %EXO% + %interfloorheight%, true)
 		if[%floor% ! 2] AddBoxSign(Clinic%floorid%02B_Sign, Sign_Clinic%floorid%02B, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 28, 55, 6, 1.5, 5.5 + %interfloorheight%, true)
-		AddBoxSign(Clinic%floorid%03_Sign, Sign_Clinic%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, false, false, 29.5, 28 - %EXP2%, 6, 1.5, 5.5 + %EXO% + %interfloorheight%, true)
+		if[%floor% ! 1] AddBoxSign(Clinic%floorid%03_Sign, Sign_Clinic%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, false, false, 29.5, 28 - %EXP2%, 6, 1.5, 5.5 + %EXO% + %interfloorheight%, true)
 <EndFloors>
 
 ################################################################################
@@ -2600,6 +2601,19 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	
 	#Detailing inside OB-GYN Center	(Southeast)
 	WallTex() #Set wall textures
+
+		#Sign for "OB-GYN Center"
+		Set SignHeight = 1.5
+		Set SignOffset = 7 - %SignHeight% + %interfloorheight%
+		AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, 29.5 - 0.05, 30 + 3.25, 6, %SignHeight%, %SignOffset%, true)
+
+		#Windows around doors
+		Set Door_MainX = 29.5
+		Set Door_MainZ = 20
+
+		Add3DWindows(Room%floorid%03_WinTop, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %6%, 0.5, 1/3, 1)
+		Add3DWindows(Room%floorid%03_WinSide1, %Door_MainX%, %Door_MainZ% - 3 - 3.5, left, 6.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %6%, 0.5, 2/3, 1)
+		Add3DWindows(Room%floorid%03_WinSide2, %Door_MainX%, %Door_MainZ% + 3 + 3.5, left, 6.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %6%, 0.5, 2/3, 1)
 
 		#Exit signs
 		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 130, 20.5, 1.8, 0.9, %height% - 0.9, false)
