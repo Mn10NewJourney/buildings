@@ -38,7 +38,6 @@
 	Load data/black.jpg, Black, 1, 1, false
 	Load data/Melvin/transparent128.png, Blank, 1, 1, false
 	Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
-	#Load data/text16.jpg, WoodSign2, 1, 1, false
 	Load data/signs_mod/elevhallsign1a.png, FireSign, 1, 1, false #EG881
 
 	#Building signs
@@ -114,9 +113,8 @@
 
 			#Health Check-Up Center (4th floor)
 			Load data/Carpet0013b_S.jpg, 4FClinicFloor, 0.25, 0.25
-			Load data/Carpet0006_S.jpg, 4FClinicFloor2, 0.2, 0.2
+			#Load data/Carpet0006_S.jpg, 4FClinicFloor2, 0.2, 0.2
 			Load data/EG881/stucco22b_white.jpg, 4FClinicWall, 0.125, 0.125 #EG881
-			#Load data/EG881/ceilingtile2b.jpg, 4FClinicCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors on the 4th floor
 			Load data/dark muntz door.jpg, 4FShaftDoors, 1, 1, false
@@ -124,7 +122,6 @@
 			Load data/EG881/stainlesssteel2.jpg, 4FShaftDoors_Trim, 1, 1, false #EG881
 
 		#5th-6th floors
-		#Load data/floor065.jpg, 5FFloor, 0.25, 0.25
 		Load data/MarbleWhite0047b_S.jpg, 5FFloor, 0.3, 0.15
 		Rotate 5FFloor, 90
 		Load data/rose_marble.jpg, 5FWall, 0.175, 0.175
@@ -158,7 +155,7 @@
 
 			#Hemodialysis Center (7th floor)
 			Load data/granite_0007e.jpg, HMFloor, 0.15, 0.15
-			Load data/Carpet0021b_S.jpg, HMFloor2, 0.2, 0.2
+			#Load data/Carpet0021b_S.jpg, HMFloor2, 0.2, 0.2
 			Load data/EG881/stucco2f_white2.jpg, HMWall, 0.08, 0.08 #EG881
 			Load data/EG881/ceilingtile2b.jpg, HMCeiling, 0.125, 0.125 #EG881
 
@@ -198,6 +195,9 @@
 		LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
 		Load data/miscdoor9b.jpg, Door9b, 1, 1, false
 		Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
+
+		Load data/EG881/darkwooddoor_withwindow.gif, DWDoor, 1, 1, false #EG881
+		LoadCropped data/EG881/darkwooddoor_withwindow.gif, DWDoorSide, 236, 0, 20, 499, 1, 1, false #EG881
 
 		#Service doors
 		Load data/servicedoor1.jpg, ServiceDoor1, -1, 1, false
@@ -362,7 +362,7 @@
 		#7. Access control
 		#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
 		Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
-		Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
+		#Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
 
 		#8. Department/clinic signs
 		Load data/Melvin/Sign-LightBlue2.png, Sign_LightBlue, 1, 1, false
@@ -380,6 +380,11 @@
 
 			#8th floor
 			AddText Sign_LB_Long, Sign_Clinic801, nimbus_sans_bold.ttf, 90, Skin Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+			#4th-8th floors
+			AddTextRange 1, 8, Sign_LB_Long, Sign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 95, Treatment Room, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_BloodCollectionRoom, nimbus_sans_bold_condensed.ttf, 95, Blood Collection, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#9. Other signs
 		Load data/Melvin/DRH/NewDir_202501/Dir_SR.png, MainDir, 1, 1, false #Floor directory
@@ -616,7 +621,7 @@ AddWall landscape, BldgSignSR, BldgSign, 0.25, 77, -15 - 7, 77, -15 + 7, 4, 4, 0
 		if[%floor% > 2] AddFloor %floorid%F_WestFloor, %5A%Floor, 0.5, -%1%, -15, -33, %2%, 0, 0, 0, 0, false
 
 		#Extra carpeting on the 4th and 7th floors
-		if[%floor% = 3 | %floor% = 6] AddFloor %5A%Carpet, %5A%Floor2, 0.5, -%1% + 7, -15 + 7.5, %1% - 7, 20 - 7.5, 0.001, 0.001, 0, 0, false
+		#if[%floor% = 3 | %floor% = 6] AddFloor %5A%Carpet, %5A%Floor2, 0.5, -%1% + 7, -15 + 7.5, %1% - 7, 20 - 7.5, 0.001, 0.001, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -1134,6 +1139,179 @@ Set BUHeight = Floor(3).InterfloorHeight #Height for upper walls above the bridg
 		AddStdDoor DoorManager, %floorid%F_BloodLabDoor1A, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddStdDoor DoorManager, %floorid%F_BloodLabDoor1B, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFloor>
+
+<Floors 3 to 7>
+	#Detailing in each department/clinic
+	TexPrefix()
+	DrawWalls = true, true, false, false, false, false
+
+		#North walls
+		WallOrientation = left
+		AddWall DRH_SR_North, %5A%Wall, 0.5, -%1%, 5, %1%, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall DRH_SR_WestStairDiv1, %5A%Wall, 0.5, -45, 5, -45, 20, %height%, %height%, 0, 0, 0, 0, false
+		AddWall DRH_SR_EastStairDiv1, %5A%Wall, 0.5, 33, 5, 33, 20, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = right
+		AddWall DRH_SR_WestStairDiv2, %5A%Wall, 0.5, -33, 5, -33, 20, %height%, %height%, 0, 0, 0, 0, false
+		AddWall DRH_SR_EastStairDiv2, %5A%Wall, 0.5, 45, 5, 45, 20, %height%, %height%, 0, 0, 0, 0, false
+
+			#Room divider walls
+			WallOrientation = center
+			if[%floor% ! 4 & %floor% ! 5] AddWall DRH_SR_NorthDiv1, %5A%Wall, 1, -60, 5, -60, %2%, %height%, %height%, 0, 0, 0, 0, false
+			if[%floor% ! 6] AddWall DRH_SR_NorthDiv2, %5A%Wall, 1, -15, 5, -15, %2%, %height%, %height%, 0, 0, 0, 0, false
+			if[%floor% ! 6] AddWall DRH_SR_NorthDiv3, %5A%Wall, 1, 0, 5, 0, %2%, %height%, %height%, 0, 0, 0, 0, false
+			if[%floor% ! 6] AddWall DRH_SR_NorthDiv4, %5A%Wall, 1, 15, 5, 15, %2%, %height%, %height%, 0, 0, 0, 0, false
+			AddWall DRH_SR_NorthDiv5, %5A%Wall, 1, 60, 5, 60, %2%, %height%, %height%, 0, 0, 0, 0, false
+
+			############################################################
+
+			#North Examination/Treament Room Doors
+			Set DTex = DWDoor
+			Set DSTex = %DTex%Side
+
+				#Doors
+				WallOrientation = right
+				if[%floor% ! 4 & %floor% ! 5] AddStdDoor Floor %floor%, %floorid%_ExamRoom1_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -60 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 4 & %floor% ! 5] AddStdDoor Floor %floor%, %floorid%_ExamRoom2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -60 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+				if[%floor% = 4 | %floor% = 5] AddStdDoor Floor %floor%, %floorid%_ExamRoom1_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -60 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 4 | %floor% = 5] AddStdDoor Floor %floor%, %floorid%_ExamRoom1_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -60 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+				if[%floor% ! 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom3_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -22.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom4_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -7.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom5_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 7.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom6_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 22.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+				if[%floor% = 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom3A_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -22.5 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom3A_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -22.5 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom3B_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 22.5 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom3B_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 22.5 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+				AddStdDoor Floor %floor%, %floorid%_ExamRoom7_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 60 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				AddStdDoor Floor %floor%, %floorid%_ExamRoom8_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 60 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+				#Filler walls
+				if[%floor% ! 4 & %floor% ! 5] AddFillerWalls ConnectionWall, 0.5, -60 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% ! 4 & %floor% ! 5] AddFillerWalls ConnectionWall, 0.5, -60 + 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% = 4 | %floor% = 5] AddFillerWalls ConnectionWall, 0.5, -60, 5.5, 6, 7, 0, true, 0, 0, false
+
+				if[%floor% ! 6] AddFillerWalls ConnectionWall, 0.5, -22.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% ! 6] AddFillerWalls ConnectionWall, 0.5, -7.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% ! 6] AddFillerWalls ConnectionWall, 0.5, 7.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% ! 6] AddFillerWalls ConnectionWall, 0.5, 22.5, 5.5, 3, 7, 0, true, 0, 0, false
+				if[%floor% = 6] AddFillerWalls ConnectionWall, 0.5, -22.5, 5.5, 6, 7, 0, true, 0, 0, false
+				if[%floor% = 6] AddFillerWalls ConnectionWall, 0.5, 22.5, 5.5, 6, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 60 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+				AddFillerWalls ConnectionWall, 0.5, 60 + 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+				
+		############################################################
+
+		#South walls
+		Set WestEnd = 20
+		if[%floor% = 7] Set WestEnd = 15
+
+		WallOrientation = left
+		if[%floor% ! 3 & %floor% ! 6] AddWall DRH_SR_South1, %5A%Wall, 0.5, %WestEnd%, -%2%, %WestEnd%, -15, %height%, %height%, 0, 0, 0, 0, false
+		WallOrientation = right
+		if[%floor% ! 3 & %floor% ! 6] AddWall DRH_SR_South2, %5A%Wall, 0.5, %WestEnd%, -15, 33, -15, %height%, %height%, 0, 0, 0, 0, false
+
+			#South Examination/Treament Room Doors
+			WallOrientation = left
+			if[%floor% ! 3 & %floor% ! 6] AddStdDoor Floor %floor%, %floorid%_ExamRoom8_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %WestEnd% + 2.5, -15.5, 3, 7, 0, 0, 0, 0, 0
+			if[%floor% ! 3 & %floor% ! 6] AddFillerWalls ConnectionWall, 0.5, %WestEnd% + 2.5, -15.5, 3, 7, 0, true, 0, 0, false
+
+		############################################################
+
+		#West Stairwell Access Doors
+		Set DTex = Door88
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -39
+		Set Door_MainZ = 5.5
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0
+
+			#Filler walls and windows
+			WallOrientation = right
+			AddFillerWalls %5A%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+			Add3DWindows(WestSTAcc_WinTop, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+			Add3DWindows(WestSTAcc_WinSide1, %Door_MainX% - 3 - 1.25, %Door_MainZ% - 0.5, front, 2, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+			Add3DWindows(WestSTAcc_WinSide2, %Door_MainX% + 3 + 1.25, %Door_MainZ% - 0.5, front, 2, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+
+		#East Stairwell Access Doors
+		Set DTex = Door88
+		Set DSTex = %DTex%Side
+		Set Door_MainX = 39
+		Set Door_MainZ = 5.5
+
+		WallOrientation = right
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddDoor , , false, %DTex%, 0.2, 7, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0
+		TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddDoor , , false, %DTex%, 0.2, 6, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0
+
+			#Filler walls and windows
+			WallOrientation = right
+			AddFillerWalls %5A%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+			Add3DWindows(EastSTAcc_WinTop, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+			Add3DWindows(EastSTAcc_WinSide1, %Door_MainX% - 3 - 1.25, %Door_MainZ% - 0.5, front, 2, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+			Add3DWindows(EastSTAcc_WinSide2, %Door_MainX% + 3 + 1.25, %Door_MainZ% - 0.5, front, 2, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5A%Wall, 0.5, 1/3, 1)
+<EndFloors>
+
+<Floor 3>
+	#Room signs
+	AddBoxSign(%floorid%_Room1, Sign_ExamRoom1, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room2, Sign_ExamRoom2, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room3, Sign_ExamRoom3, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room4, Sign_ExamRoom4, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room5, Sign_BloodCollectionRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room6, Sign_TreatmentRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room7, Sign_ExamRoom5, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room8, Sign_ExamRoom6, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+<EndFloor>
+
+<Floors 4 to 5>
+	#Room signs
+	AddBoxSign(%floorid%_Room1, Sign_TreatmentRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+
+	AddBoxSign(%floorid%_Room3, Sign_ExamRoom1, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room4, Sign_ExamRoom2, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room5, Sign_ExamRoom3, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room6, Sign_ExamRoom4, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room7, Sign_ExamRoom5, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room8, Sign_ExamRoom6, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+
+	AddBoxSign(%floorid%_Room9, Sign_LB_Long, Sign_ExamRoom7, Sign_LB_Long, 0.1, true, true, true, 20 + 2.5, -15 + 0.05, 0.55 * 4, 0.55, 7.25, false)
+<EndFloors>
+
+<Floor 6>
+	#Room signs
+	AddBoxSign(%floorid%_Room1, Sign_ExamRoom1, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room2, Sign_ExamRoom2, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+
+	AddBoxSign(%floorid%_Room3, Sign_TreatmentRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room4, Sign_TreatmentRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+
+	AddBoxSign(%floorid%_Room7, Sign_ExamRoom3, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room8, Sign_ExamRoom4, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+<EndFloor>
+
+<Floor 7>
+	#Room signs
+	AddBoxSign(%floorid%_Room1, Sign_ExamRoom1, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room2, Sign_ExamRoom2, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room3, Sign_ExamRoom3, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room4, Sign_ExamRoom4, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, -7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room5, Sign_ExamRoom5, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 7.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room6, Sign_ExamRoom6, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 22.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room7, Sign_ExamRoom7, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 - 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room8, Sign_ExamRoom8, Sign_LB_Long, Sign_LB_Long, 0.1, true, true, true, 60 + 2.5, 5 - 0.05, 0.55 * 4, 0.55, 7.25, false)
+	AddBoxSign(%floorid%_Room9, Sign_LB_Long, Sign_TreatmentRoom, Sign_LB_Long, 0.1, true, true, true, 15 + 2.5, -15 + 0.05, 0.55 * 4, 0.55, 7.25, false)
 <EndFloor>
 
 #Set door textures for restrooms
@@ -2125,11 +2303,14 @@ ShowFullStairs 1 = always
 
 	#Exit Signs
 	Set SignTex = ExitSign
-	Set SignPos = 0 #For signs at the hallway
-	if[%floor% > 2] Set SignPos = 2.5 #For signs at the hallway
+
+	Set SignPosX = %21% + %23% - 2 #For signs at the hallway
+	if[%floor% > 2] Set SignPosX = %21% #For signs at the hallway
+	Set SignPosZ = 0 #For signs at the hallway
+	if[%floor% > 2] Set SignPosZ = -5 #For signs at the hallway
 
 	if[%floor% > 0] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% - %24% - 0.55, 1.8, 0.9, 7.2, false)
-	if[%floor% > 0] AddBoxSign(Stair%25%_SignHallway, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, %21% + %23% - 2, %SignPos%, 1.8, 0.9, %height% - 0.9, false)
+	if[%floor% > 0] AddBoxSign(Stair%25%_SignHallway, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, %SignPosX%, %SignPosZ%, 1.8, 0.9, %height% - 0.9, false)
 	if[%floor% = 0] AddBoxSign(Stair%25%_SignGroundLevel, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% + 0.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
 
@@ -2206,11 +2387,14 @@ ShowFullStairs 2 = always
 
 	#Exit Signs
 	Set SignTex = ExitSign
-	Set SignPos = 0 #For signs at the hallway
-	if[%floor% > 2] Set SignPos = 2.5 #For signs at the hallway
+	
+	Set SignPosX = %21% - %23% + 2 #For signs at the hallway
+	if[%floor% > 2] Set SignPosX = %21% #For signs at the hallway
+	Set SignPosZ = 0 #For signs at the hallway
+	if[%floor% > 2] Set SignPosZ = -5 #For signs at the hallway
 
 	if[%floor% > 0 & %floor% < 8] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% - 0.55, 1.8, 0.9, 7.2, false)
 	if[%floor% = 8] AddBoxSign(Stair%25%_SignRoof, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% - 0.55, 1.8, 0.9, %interfloorheight% + 7.2, true)
-	if[%floor% > 0 & %floor% < 8] AddBoxSign(Stair%25%_SignHallway, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, %21% - %23% + 2, %SignPos%, 1.8, 0.9, %height% - 0.9, false)
+	if[%floor% > 0 & %floor% < 8] AddBoxSign(Stair%25%_SignHallway, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, %SignPosX%, %SignPosZ%, 1.8, 0.9, %height% - 0.9, false)
 	if[%floor% = 0] AddBoxSign(Stair%25%_SignGroundLevel, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %21% + %23% - 2, %22% - %24% + 0.05, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
