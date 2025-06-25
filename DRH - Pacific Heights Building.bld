@@ -94,6 +94,7 @@
 		Load data/marble22.jpg, BasementDecoWall, 0.1345, 0.125 #OPD Hall
 		Load data/marbl3.jpg, BasementDecoWall2, 0.2, 0.2 #East OPD
 		Load data/rose_marble.jpg, BasementDecoWall3, 0.111, 0.111 #West OPD
+		Load data/panel-back3.jpg, BasementDecoWall4, 1, 1, fslse #Deco columns for North Elevators
 
 		Load data/EG881/stucco22b_white.jpg, BasementWall, 0.125, 0.125 #EG881
 		Load data/st_wall2.jpg, BasementWall2, 0.13635, 0.09765 #Lobby area
@@ -1351,11 +1352,17 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 #Out-patient departments (OPD)
 <Function DRH_PacificHeights_OPD>
-	#Set DrawWalls
-	DrawWalls = true, true, false, false, false, false
+	#Deco walls at North Elevators (Levels B3-B1 only)
+	WallOrientation = left
+	DrawWalls = true, true, true, true, false, false
+	if[%floor% < 0] AddWall NElevDeco1, %5%DecoWall4, 0.4, -4.95 - 0.4, 9.95, -4.95, 9.95, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < 0] AddWall NElevDeco2, %5%DecoWall4, 0.4, 4.95, 9.95, 4.95 + 0.4, 9.95, %height%, %height%, 0, 0, 0, 0, false
 	
 	#----------------------------------------#
 	
+	#Set DrawWalls
+	DrawWalls = true, true, false, false, false, false
+
 	#East Department
 	WallOrientation = left
 	TextureOverride %5%%WallSuffix%, %5%Wall, Blank, Blank, Blank, Blank
@@ -1388,7 +1395,8 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		AddWall EastOPD_IntDeco1, %5%DecoWall2, 0.25, 60, 5, 60, %2% - 3.5, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = true, false, true, true, false, false
 		AddWall EastOPD_IntDeco2, %5%DecoWall2, 0.25, 55, -%2% + 3, 55, -5 - 3, %height%, %height%, 0, 0, 0, 0, false
-		AddWall EastOPD_IntDeco3, %5%DecoWall2, 0.25, 68 + 2, 5, %1% - 10 - 2, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall EastOPD_IntDeco3, %5%DecoWall2, 0.25, 68 + 1, 5, %1% - 10, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall EastOPD_IntDeco4, %5%DecoWall2, 0.25, 60 - 0.25, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
@@ -1510,8 +1518,8 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 		WallOrientation = right
 		DrawWalls = true, false, true, true, false, false
-		AddWall WestOPD_IntDeco4/1, %5%DecoWall3, 0.25, -%1% + 10 + 2, 5, -83 - 2, 5, %height%, %height%, 0, 0, 0, 0, false
-		AddWall WestOPD_IntDeco4/2, %5%DecoWall3, 0.25, -77 + 2, 5, -64 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall WestOPD_IntDeco4/1, %5%DecoWall3, 0.25, -%1% + 10, 5, -83 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall WestOPD_IntDeco4/2, %5%DecoWall3, 0.25, -77 + 1, 5, -64 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
 
 		DrawWalls = true, false, true, true, false, false
 		AddWall WestOPD_IntDeco5, %5%DecoWall3, 0.25, -30.5, -%2% + 3, -30.5, -20 - 1.5, %height%, %height%, 0, 0, 0, 0, false
