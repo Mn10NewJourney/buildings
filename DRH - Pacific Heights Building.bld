@@ -26,9 +26,9 @@
 	Name = Denver Remston Hospital - Pacific Heights Building
 	Designer = Mn10 (Fixtures created by gooper1)
 	Location = 806 Tennerland Street, Tranquility City
-	Description = Completed since mid 2023, this building comes as a "lifesaver" as it helps reduce the occupants of the hospital's original two buildings.
+	Description = Completed since mid 2023, this building was built as an extension east of the hospital's main area.
 	CameraFloor = 0
-	CameraPosition = 5, -45
+	CameraPosition = 20, -45
 	CameraRotation = 0, 270, 0
 <EndGlobals>
 
@@ -88,20 +88,18 @@
 	#Main textures
 		#Basements
 		Load data/floor065.jpg, BasementFloor, 0.25, 0.25
-		Load data/Carpet0013b_S.jpg, BasementFloor2, 0.2, 0.2
+		Load data/Carpet0013b_S.jpg, BasementFloor2, 0.2, 0.2 #Elevator lobbies
 		Load data/Carpet0013b_S.jpg, BasementOPDFloor, 0.2, 0.2
 
 		Load data/marble22.jpg, BasementDecoWall, 0.1345, 0.125 #OPD Hall
 		Load data/marbl3.jpg, BasementDecoWall2, 0.2, 0.2 #East OPD
 		Load data/rose_marble.jpg, BasementDecoWall3, 0.111, 0.111 #West OPD
-		Load data/panel-back3.jpg, BasementDecoWall4, 1, 1, fslse #Deco columns for North Elevators
+		Load data/marble2.jpg, BasementDecoWall4, 0.2, 0.2 #Deco columns for North Elevators
 
 		Load data/EG881/stucco22b_white.jpg, BasementWall, 0.125, 0.125 #EG881
 		Load data/st_wall2.jpg, BasementWall2, 0.13635, 0.09765 #Lobby area
 		Load data/wall3.jpg, BasementWall3, 0.25, 0.25 #Support columns
 		Load data/black_granite.jpg, BasementWall4, 0.1, 0.1 #Elevator lobbies
-
-		#Load data/EG881/ceilingtile2.jpg, BasementCeiling, 0.125, 0.125 #EG881
 		Load data/EG881/ceilingtile3x3.jpg, BasementCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
@@ -126,7 +124,7 @@
 
 		#2nd-5th floors
 		Load data/floor065.jpg, HospitalFloor, 0.25, 0.25
-		Load data/MarbleWhite0047b_S.jpg, HospitalFloor2, 0.15, 0.3
+		Load data/MarbleWhite0047b_S.jpg, HospitalFloor2, 0.15, 0.3 #Elevator lobbies
 		Load data/granite_0007e.jpg, HospitalOPDFloor, 0.15, 0.15
 		Load data/Carpet0021b_S.jpg, HospitalCarpet, 0.2, 0.2
 
@@ -250,11 +248,8 @@
 	Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 	Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 	Load data/panel-back3.jpg, ElevPanel, 1, 1, false
-
-	Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
-	Load data/panel-back4.jpg, ElevExtPanels2, 1, 1, false #Hall lanterns on 2F-5F
-	Load data/EG881/stainlesssteel4.jpg, ElevExtPanels3, 1, 1, false #EG881 #Hall buttons on 2F-5F
-	Rotate ElevExtPanels3, 90
+	Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false #Silver panel: Lanterns on all floors except 2-5; call buttons on all floors
+	Load data/panel-back4.jpg, ElevExtPanels2, 1, 1, false #Gold panel: Hall lanterns on 2F-5F (to match with the door trims)
 
 	#South Elevators
 		#Floor and ceiling
@@ -626,21 +621,16 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 #All floors
 <Floors -3 to 7>
 	TexPrefix() #Set texture prefix/suffix
-	Set IsExternal = false
 
 	#Floors
-	Set FloorOffset = 0
-
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% ! 1 & %floor% ! 7] AddFloor %floorid%F_Floor1, %5%Floor, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
+	if[%floor% ! 1 & %floor% ! 7] AddFloor %floorid%F_Floor1, %5%Floor, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, 0, 0, 0, 0, false
+	if[%floor% = 0 | %floor% = 6] AddFloor %floorid%F_Floor2, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
 
-	#if[%floor% ! 1 & %floor% ! 7] AddFloor %floorid%F_Floor2, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
-	if[%floor% = 0 | %floor% = 6] AddFloor %floorid%F_Floor2, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
-
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_WestOPDFloor, %5%OPDFloor, 0.5, -%1%, -%2%, -30, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_CenterHallFloor, %5%Floor, 0.5, -30, -%2%, 30, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_EastOPDFloor, %5%OPDFloor, 0.5, 30, -%2%, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_WestOPDFloor, %5%OPDFloor, 0.5, -%1%, -%2%, -30, %2%, 0, 0, 0, 0, false
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_CenterHallFloor, %5%Floor, 0.5, -30, -%2%, 30, %2%, 0, 0, 0, 0, false
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_EastOPDFloor, %5%OPDFloor, 0.5, 30, -%2%, %1%, %2%, 0, 0, 0, 0, false
 
 		#Carpeting on floors
 		Set NorthOffset = 4
@@ -651,13 +641,10 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 		if[%floor% > 2 & %floor% < 7] AddFloor CenterCarpet, %5%Carpet, 0, -20, -30, 20, 0, 0.001, 0.001, 0, 0, false
 
 	#Ceilings
-	Set CeiOffset = %height%
-	#if[%floor% = 1] Set CeiOffset = %fullheight%
-
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling1, %5%Ceiling, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
-	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
+	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling1, %5%Ceiling, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %height%, %height%, 0, 0, false
+	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
 <EndFloors>
 
 <Function ElevLobbyTex>
@@ -672,15 +659,6 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 
 	AddFloor %floorid%F_ELFloor1, %5%Floor2, 0.5, -70, -%2% - %ExtraSouth%, -30, -%2%, 0, 0, 0, 0, false
 	AddFloor %floorid%F_ELFloor2, %5%Floor2, 0.5, -5, 10, 5.66, %2%, 0, 0, false, %TD%, 0, 0, false
-
-	#Different ceilings on B3-B1
-	#FloorOrientation = bottom
-	#DrawWalls = true, false, false, false, false, false
-	#if[%floor% < 0] CutAll -70, %fullheight% - 0.1, -%2% - %ExtraSouth%, -30, %fullheight% + 0.1, -%2%, false, true #South
-	#if[%floor% < 0] CutAll -5, %fullheight% - 0.1, 10, 5, %fullheight% + 0.1, %2%, false, true #North
-
-	#if[%floor% < 0] AddFloor %floorid%F_ELCeiling1, %5%Ceiling2, 0.5, -70, -%2% - %ExtraSouth%, -30, -%2%, %height%, %height%, 0, 0, false
-	#if[%floor% < 0] AddFloor %floorid%F_ELCeiling2, %5%Ceiling2, 0.5, -5, 10, 5, %2%, %height%, %height%, 0, 0, false
 <EndFunction>
 
 <Floors -3 to 5>
@@ -801,8 +779,7 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 
 		WallOrientation = center
 		AddWall MF_EastInnerDiv1, %5%%WallSuffix%, 1, 45, 10, 45, %2%, %height%, %height%, 0, 0, 0, 0, false
-		#AddWall MF_EastInnerDiv2, %5%%WallSuffix%, 1, 60, 10, 60, %2%, %height%, %height%, 0, 0, 0, 0, false
-		AddWall MF_EastInnerDiv3, %5%%WallSuffix%, 1, 75, 10, 75, %2%, %height%, %height%, 0, 0, 0, 0, false
+		AddWall MF_EastInnerDiv2, %5%%WallSuffix%, 1, 75, 10, 75, %2%, %height%, %height%, 0, 0, 0, 0, false
 
 	#====================#
 
@@ -1355,8 +1332,8 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 	#Deco walls at North Elevators (Levels B3-B1 only)
 	WallOrientation = left
 	DrawWalls = true, true, true, true, false, false
-	if[%floor% < 0] AddWall NElevDeco1, %5%DecoWall4, 0.4, -4.95 - 0.4, 9.95, -4.95, 9.95, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < 0] AddWall NElevDeco2, %5%DecoWall4, 0.4, 4.95, 9.95, 4.95 + 0.4, 9.95, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < 0] AddWall NElevDeco1, %5%DecoWall4, 0.75, -4.95 - 0.5, 9.95, -4.95, 9.95, %height%, %height%, 0, 0, 0, 0, false
+	if[%floor% < 0] AddWall NElevDeco2, %5%DecoWall4, 0.75, 4.95, 9.95, 4.95 + 0.5, 9.95, %height%, %height%, 0, 0, 0, 0, false
 	
 	#----------------------------------------#
 	
@@ -2444,7 +2421,7 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 	Deceleration = 0.6
 	ServicedFloors = -3 - 0, 2 - 6
 	AssignedShaft = 1
-	CreateElevator true, -10 - 0.5, 0, 0
+	CreateElevator true, -10 - 0.5, 0, 6
 <EndElevator>
 
 <Function BtnPanelE1-3>
@@ -2617,7 +2594,7 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 	Deceleration = 0.6
 	ServicedFloors = -3 - 6
 	AssignedShaft = 2
-	CreateElevator true, 0, -10 - 0.5, 0
+	CreateElevator true, 0, -10 - 0.5, 6
 <EndElevator>
 
 <Function BtnPanelE4-6>
@@ -2772,7 +2749,7 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
-	if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels3
+	#if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels3
 	Set ButtonPrefix = T4VRButton
 
 	#Lantern panels
@@ -2813,7 +2790,6 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
-	if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels3
 	Set ButtonPrefix = T4VRButton
 
 	#Lantern panels
