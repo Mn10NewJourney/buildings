@@ -3557,6 +3557,9 @@ ShowFullStairs 1 = always
 	Set 25 = 1 #Stairwell Number
 	Set 26 = 0.5 #Riser Size
 	
+	#Extra cut at stairwell door on the 1st floor
+	if[%floor% = 0] CutAll %21% - %23%, %interfloorheight% - 0.1, %22% + %24%, %21% + %23%, %interfloorheight% + 0.1, %22% + %24% + 0.5, false, true
+	
 	#Walls
 	WallOrientation = right
 	DrawWalls = false, true, false, false, false, false
@@ -3594,10 +3597,13 @@ ShowFullStairs 1 = always
 	if[%floor% < 29] AddStairs %25%, UpperStairs, Stairs, front, %23% - (6 / 2), 0, 6, %26%, 1, 12, %26% * 12, 0, 0
 
 	#Landings
+	if[%floor% ! 0] Set ExtraPos = 0
+	if[%floor% = 0] Set ExtraPos = 0.5
+
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	if[%floor% = -1] AddStairsFloor %25%, LandingLowest, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
-	if[%floor% > -1] AddStairsFloor %25%, LandingLower, StairsFloor, 0.5, -%23%, 5.5, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% > -1] AddStairsFloor %25%, LandingLower, StairsFloor, 0.5, -%23%, 5.5, %23%, %24% + %ExtraPos%, 0, 0, false, false, 0, 0
 	if[%floor% < 29] AddStairsFloor %25%, LandingUpper, StairsFloor, 0.5, -%23%, -%24%, %23%, -5.5, %26% * 12, %26% * 12, false, false, 0, 0
 
 	#Ceiling
