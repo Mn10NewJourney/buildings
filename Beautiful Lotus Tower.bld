@@ -4,12 +4,12 @@
 ########################################
 
 #Updated 3 March 2025:
-	#Modified the service and freight elevators' floor buttons to have the
-	#floor numbers directly on the buttons themselves, compacting the interior panels.
+	#Modified the service and freight elevators' floor buttons
+	#to have the floor numbers directly on the buttons themselves.
 
 ########################################
 
-#SCRIPTS TO BE INCLUDED
+#SCRIPTS
 	#1. My new scripts
 	<Include buildings/Mn10_Scripts/Deco2023_R1.txt>
 	<Include buildings/Mn10_Scripts/Shafts_and_Elevators.txt>
@@ -52,7 +52,6 @@
 	#Landscapes
 	Load data/downtown.jpg, Downtown, 1, 1
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
 	Load data/stonec.jpg, Plaza, 0.04, 0.04
 
 		#Plants
@@ -78,11 +77,9 @@
 	#Windows and vents
 		#Windows
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1 #EG881
-		#LoadAlphaBlend data/windows11h_black.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindows, true, 0.05, 1
-		#Load data/EG881/windows11h_insideblack.png, MainWindowsInt, 0.05, 1 #EG881
 		Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
+
 		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false #EG881
-		#LoadAlphaBlend data/windows11h_black.jpg, data/windows11ispec.png, data/sky3c.jpg, MainWindowsB, true, 1, 1, false
 		Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
 		Load data/EG881/windows11h_insideblack.png, MainWindowsIntB2, 1, 1, false #EG881
 
@@ -96,18 +93,18 @@
 		Load data/bracing1.jpg, VentsInt, 1, 1, false
 
 	#Main textures
-		#Parking levels and ramps
+		#Parking areas (B11-B3)
 		Load data/Carpet0021d_S.jpg, ParkingLobbyFloor, 0.2, 0.2
 		Load data/EG881/stucco2f_white2.jpg, ParkingLobbyWall, 0.08, 0.08 #EG881
 		Load data/EG881/ceilingtile3x3.jpg, ParkingLobbyCeiling, 0.125, 0.125 #EG881
 		Load data/EG881/cem_tr3.jpg, ParkingFloor, 0.075225, 0.0625 #EG881
 		Load data/stucco4b.jpg, ParkingWall, 0.25, 0.25 #Perimeter walls
-		Load data/stucco4.jpg, ParkingWall2, 0.25, 0.25 #Walls around ramps from 1 to P1
+		Load data/stucco4.jpg, ParkingWall2, 0.25, 0.25 #Walls around ramps from 1 to B3
 		Load data/stucco1.jpg, ParkingWall3, 0.125, 0.125 #Walls around ramp openings at street level
-		Load data/stucco1b.jpg, ParkingWall4, 0.125, 0.125 #Walls around ramps from P1 to SP
+		Load data/stucco1b.jpg, ParkingWall4, 0.125, 0.125 #Walls around ramps from B3 to B11
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
 
-		#Lower levels
+		#Shopping levels (B2-B1)
 		Load data/checker08.jpg, LowerLevelFloor, 0.45, 0.45 #Hallways
 		Load data/MT/treatment01.jpg, LowerLevelFloor2, 0.2, 0.2 #North/South Shops
 		Load data/EG881/eg881_Carpet1.jpg, LowerLevelFloor3, 0.15, 0.15 #EG881 #West/East Shops
@@ -117,7 +114,7 @@
 		Load data/st_wall.jpg, LowerLevelRail, 0.1875, 0.1344 #Escalator railings
 		Load data/EG881/ceilingtile2b.jpg, LowerLevelCeiling, 0.125, 0.125 #EG881
 
-		#Zone 1 main lobby (1st floor)
+		#Zone 1 Lobby (1st floor)
 		Load data/marb047.jpg, LobbyFloor, 0.25, 0.25
 		Load data/Carpet0013_S.jpg, LobbyCarpet, 0.2, 0.2
 		Load data/marbl3.jpg, LobbyWall, 0.2, 0.2
@@ -231,7 +228,6 @@
 		Load data/ropes.png, Ropes, 1, 1, false
 		Load data/metal080.jpg, ElevRail, 0.5, 0.5
 		Load data/metal1.jpg, ElevRailSide, 0.25, 0.25
-		#Load data/MT/panel-back2.gif, ElevPanel, 1, 1, false
 		Load data/panel-back3.jpg, ElevPanel2, 1, 1, false
 		Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
@@ -586,7 +582,7 @@
 	if[%floor% = -1] Altitude = -13.5
 <EndFloors>
 
-<Floors -3 to -10>
+<Floors -3 to -11>
 	ID = B(0 - %floor%)
 	Name = Basement Level (0 - %floor%)
 	Type = Parking
@@ -594,15 +590,8 @@
 	if[%floor% = -3] Height = 10.5
 	InterfloorHeight = 1.5
 	if[%floor% = -3] Group = -2 #Group B3 with B2 to see the escalators' undersides.
+	if[%floor% = -11] Description = Staff parking level.
 <EndFloors>
-
-<Floor -11>
-	ID = B11
-	Name = Staff Parking
-	Type = Basement
-	Height = 8.5
-	InterfloorHeight = 1.5
-<EndFloor>
 
 <Floor -12>
 	ID = %floor%
@@ -872,11 +861,11 @@
 
 	AddFloorAutoArea 170 - 24, -22, -15, 230, -16 + 5, 15 #Auto area for 2nd ramps
 
-	#3. Ramps from lower landing to P1
-	AddFloor landscape, WestRamp_SlopeDowntoP1, ParkingRampMarkedRoad, 0, 170 - 24, -141, 170, -15, Floor(-3).Base, -22, 0, 0	
-	AddFloor landscape, WestRamp_EntrancetoP1, Road, 0, 170 - 30, -141 - 24, 170, -141, Floor(-3).Base, Floor(-3).Base, 0, 0	
-	AddFloor landscape, WestRamp_ExitfromP1, Road, 0, 170 - 30, 141, 170, 141 + 24, Floor(-3).Base, Floor(-3).Base, 0, 0	
-	AddFloor landscape, WestRamp_SlopeP1toExit, ParkingRampMarkedRoad, 0, 170 - 24, 15, 170, 141, -22, Floor(-3).Base, 0, 0	
+	#3. Ramps from lower landing to B3
+	AddFloor landscape, WestRamp_SlopeDowntoB3, ParkingRampMarkedRoad, 0, 170 - 24, -141, 170, -15, Floor(-3).Base, -22, 0, 0	
+	AddFloor landscape, WestRamp_EntrancetoB3, Road, 0, 170 - 30, -141 - 24, 170, -141, Floor(-3).Base, Floor(-3).Base, 0, 0	
+	AddFloor landscape, WestRamp_ExitfromB3, Road, 0, 170 - 30, 141, 170, 141 + 24, Floor(-3).Base, Floor(-3).Base, 0, 0	
+	AddFloor landscape, WestRamp_SlopeB3toExit, ParkingRampMarkedRoad, 0, 170 - 24, 15, 170, 141, -22, Floor(-3).Base, 0, 0	
 
 	AddFloorAutoArea 170 - 24, Floor(-3).Base, -165, 170, -16 + 5, 165 #Auto area for 3rd ramps
 
@@ -895,11 +884,11 @@
 
 	AddFloorAutoArea 170 - 24, -22, -15, 230, -16 + 5, 15 #Auto area for 2nd ramps
 
-	#3. Ramps from lower landing to P1
-	AddFloor landscape, Cei_WestRamp_SlopeDowntoP1, ParkingCeiling, 0, 170 - 24, -141, 170, -15, Floor(-3).Base + Floor(-3).Height, -22 + Floor(-3).Height, 0, 0	
-	AddFloor landscape, Cei_WestRamp_EntrancetoP1, ParkingCeiling, 0, 170 - 30 - 1, -141 - 24, 170, -141, Floor(-3).Base + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
-	AddFloor landscape, Cei_WestRamp_ExitfromP1, ParkingCeiling, 0, 170 - 30 - 1, 141, 170, 141 + 24, Floor(-3).Base + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
-	AddFloor landscape, Cei_WestRamp_SlopeP1toExit, ParkingCeiling, 0, 170 - 24, 15, 170, 141, -22 + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
+	#3. Ramps from lower landing to B3
+	AddFloor landscape, Cei_WestRamp_SlopeDowntoB3, ParkingCeiling, 0, 170 - 24, -141, 170, -15, Floor(-3).Base + Floor(-3).Height, -22 + Floor(-3).Height, 0, 0	
+	AddFloor landscape, Cei_WestRamp_EntrancetoB3, ParkingCeiling, 0, 170 - 30 - 1, -141 - 24, 170, -141, Floor(-3).Base + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
+	AddFloor landscape, Cei_WestRamp_ExitfromB3, ParkingCeiling, 0, 170 - 30 - 1, 141, 170, 141 + 24, Floor(-3).Base + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
+	AddFloor landscape, Cei_WestRamp_SlopeB3toExit, ParkingCeiling, 0, 170 - 24, 15, 170, 141, -22 + Floor(-3).Height, Floor(-3).Base + Floor(-3).Height, 0, 0	
 
 	AddFloorAutoArea 170 - 24, Floor(-3).Base, -141, 170, -16 + 5, 141 #Auto area for 3rd ramps
 
@@ -910,13 +899,13 @@
 	DrawWalls = true, false, false, false, false, false
 	AddWall landscape, PGExitSign, SignExitRamp, 0, 260 - 0.001, 0 - 10, 260 - 0.001, 0 + 10, 8, 8, -16 + 2, -16 + 2, 0, 0
 
-	#2. Signs on P1
+	#2. Signs on B3
 	DrawWalls = false, true, false, false, false, false
-	AddWall landscape, P1Entrance, SignP1Entrance, 0, 158 - 6, -165 + 0.001, 158 + 6, -165 + 0.001, 8, 8, Floor(-3).Base + 2, Floor(-3).Base + 2, 0, 0
+	AddWall landscape, SignEntrance, SignP1Entrance, 0, 158 - 6, -165 + 0.001, 158 + 6, -165 + 0.001, 8, 8, Floor(-3).Base + 2, Floor(-3).Base + 2, 0, 0
 	DrawWalls = true, false, false, false, false, false
-	AddWall landscape, P1Exit, SignP1Exit, 0, 170 - 0.001, 153 - 6, 170 - 0.001, 153 + 6, 8, 8, Floor(-3).Base + 2, Floor(-3).Base + 2, 0, 0
+	AddWall landscape, SignExit, SignP1Exit, 0, 170 - 0.001, 153 - 6, 170 - 0.001, 153 + 6, 8, 8, Floor(-3).Base + 2, Floor(-3).Base + 2, 0, 0
 
-	#3. Signs between P1 and middle landing
+	#3. Signs between B3 and middle landing
 	DrawWalls = false, true, false, false, false, false
 	AddWall landscape, MidExit, SignMidExit, 0, 170.25, -15 + 0.001, 170.25 + 3, -15 + 0.001, 3, 3, -22 + 4.5, -22 + 4.5, 0, 0
 
@@ -1036,7 +1025,7 @@
 ##--------------------------------------------------------------------------------##
 
 #Exterior & interior
-#Parking levels (SP-P1)
+#Parking levels (B11-B3)
 <Floors -11 to -3>
 	Set 1 = 140 #Building Dimension X
 	Set 2 = 180 #Building Dimension Z
@@ -1178,7 +1167,6 @@
 			AddFloor ParkingW5B, ParkingSpaceX, 0, -100, 80 - (8.5 * 2), -100 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
 			AddFloor ParkingW6, ParkingSpaceX, 0, -61, -80 - (8.5 * 2), -61 + 18, -80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-			#AddFloor ParkingW7, ParkingSpaceX, 0, -61, -40 - (8.5 * 2), -61 + 18, -40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 			AddFloor ParkingW7SP, NoParkingX, 0, -61, -59, -61 + 18, -21 - (8.5 * 2), %Offset%, %Offset%, 1, 3, true
 			AddFloor ParkingW7, ParkingSpaceX, 0, -61, -21 - (8.5 * 2), -61 + 18, -21, %Offset%, %Offset%, 1, 2, true
 
@@ -1314,11 +1302,11 @@
 		Add3DWindows(NLobbyEast_WinSide2, %Door_MainX%, %Door_MainZ% + 3 + 2.25, right, 4, %height% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, %6Lobby%, 0.5, 1/4, 1)
 <EndFloors>
 
-#Auto areas for ramps from SP to P1
+#Auto areas for ramps from B11 to B3
 AddFloorAutoArea -100, Floor(-11).Base, -%2% + 5, 100, Floor(-3).Base + 5, -%2% + 20
 AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% - 5
 
-#Lower levels (LL2-LL1)
+#Parking levels (B2-B1)
 <Floors -2 to -1>
 	Set 1 = 140 #Building Dimension X
 	Set 2 = 180 #Building Dimension Z
@@ -1337,8 +1325,7 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	if[%floor% = -1] AddFloor NorthShopFloor, LowerLevelFloor2, 0.5, -%1%, 140, %1%, %2%, 0, 0, 0, 0, false
 	AddFloor WestShopFloor, LowerLevelFloor3, 0.5, -100, -100, -60, 100, 0, 0, 0, 0, false
 	if[%floor% = -2] AddFloor EastShopFloor, LowerLevelFloor3, 0.5, 100, -%2%, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% = -1] AddFloor EastShopFloorA, LowerLevelFloor3, 0.5, 100, -140, %1%, -20, 0, 0, 0, 0, false
-	#if[%floor% = -1] AddFloor EastShopFloorB, LowerLevelFloor3, 0.5, 100, 140, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% = -1] AddFloor EastShopFloor, LowerLevelFloor3, 0.5, 100, -140, %1%, -20, 0, 0, 0, 0, false
 
 	AddFloor CenterFloor, %5%, 0.5, -60, -140, 100, 140, 0, 0, 0, 0, false
 	AddFloor WestFloorMain, %5%, 0.5, -%1%, -140, -100, 140, 0, 0, 0, 0, false
@@ -1415,17 +1402,15 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	if[%floor% ! 1] AddFloor Floor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
-	#if[%floor% = 1] AddFloor SouthwestFloor1, %5%, 0.5, -34, -102 - 40 + 8.5, -10.5, -90, 0, 0, 0, 0, false
-	if[%floor% = 1] AddFloor SouthwestFloor2, %5%, 0.5, -40, -90, -10.5, -66, 0, 0, 0, 0, false
-	if[%floor% = 1] AddFloor NorthwestFloor1, %5%, 0.5, -40, 66, -10.5, 90, 0, 0, 0, 0, false
-	#if[%floor% = 1] AddFloor NorthwestFloor2, %5%, 0.5, -34, 90, -10.5, 102 + 40 - 8.5, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor SouthwestFloor, %5%, 0.5, -40, -90, -10.5, -66, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor NorthwestFloor, %5%, 0.5, -40, 66, -10.5, 90, 0, 0, 0, 0, false
 	if[%floor% = 1] AddFloor CrosswalkFloor, %5%, 0.5, -10.5, -%2%, 10.5, %2%, 0, 0, 0, 0, false
 	if[%floor% = 1] AddFloor SouthFloor, %5%, 0.5, 10.5, -%2%, 58, -74, 0, 0, 0, 0, false
 	if[%floor% = 1] AddFloor MidFloor1, %5%, 0.5, 10.5, -44, 30, -19.5, 0, 0, 0, 0, false
 	if[%floor% = 1] AddFloor MidFloor2, %5%, 0.5, 10.5, 19.5, 46, 54, 0, 0, 0, 0, false
 	if[%floor% = 1] AddFloor NorthFloor, %5%, 0.5, 10.5, 74, 58, %2%, 0, 0, 0, 0, false
 
-		#Carpeted walkways (Main lobby)
+		#Carpeted walkways
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% = 0] AddFloor Carpetway_Mid, LobbyCarpet, 0.5, -10 + 2.5, -102, 10 - 2.5, 102, 0.001, 0.001, 0, 0, false
 		if[%floor% = 0] AddFloor Carpetway_ExpressElev, LobbyCarpet, 0.5, 10 - 2.5, -5, 83 + 5, 5, 0.001, 0.001, 0, 0, false
@@ -1440,10 +1425,8 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% ! 0] AddFloor Ceiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
-	#if[%floor% = 0] AddFloor SouthwestCeiling1, %7%, 0.5, -34, -102 - 40 + 8.5, -10.5, -90, %height%, %height%, 0, 0, false
-	if[%floor% = 0] AddFloor SouthwestCeiling2, %7%, 0.5, -40, -90, -10.5, -66, %height%, %height%, 0, 0, false
-	if[%floor% = 0] AddFloor NorthwestCeiling1, %7%, 0.5, -40, 66, -10.5, 90, %height%, %height%, 0, 0, false
-	#if[%floor% = 0] AddFloor NorthwestCeiling2, %7%, 0.5, -34, 90, -10.5, 102 + 40 - 8.5, %height%, %height%, 0, 0, false
+	if[%floor% = 0] AddFloor SouthwestCeiling, %7%, 0.5, -40, -90, -10.5, -66, %height%, %height%, 0, 0, false
+	if[%floor% = 0] AddFloor NorthwestCeiling, %7%, 0.5, -40, 66, -10.5, 90, %height%, %height%, 0, 0, false
 	if[%floor% = 0] AddFloor CrosswalkCeiling, %7%, 0.5, -10.5, -%2%, 10.5, %2%, %height%, %height%, 0, 0, false
 	if[%floor% = 0] AddFloor SouthCeiling, %7%, 0.5, 10.5, -%2%, 58, -74, %height%, %height%, 0, 0, false
 	if[%floor% = 0] AddFloor MidCeiling, %7%, 0.5, 10.5, -44, 30, -19.5, %height%, %height%, 0, 0, false
@@ -1790,14 +1773,14 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 45] AddFloor Floor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% ! 45] AddFloor Floor, %5%, 0.5, -60, -%2%, 10 + 36, %2%, 0, 0, 0, 0, false
+	if[%floor% = 45] AddFloor MechFloor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% ! 45] AddFloor MechFloor, %5%, 0.5, -60, -%2%, 10 + 36, %2%, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 47] AddFloor Ceiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
-	if[%floor% ! 47] AddFloor Ceiling, %7%, 0.5, -60, -%2%, 10 + 36, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 47] AddFloor MechCeiling, %7%, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% ! 47] AddFloor MechCeiling, %7%, 0.5, -60, -%2%, 10 + 36, %2%, %height%, %height%, 0, 0, false
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 3.5
@@ -2048,7 +2031,6 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	if[%floor% = 49] AddFloor NorthwestFloor2, %5%, 0.5, -34, 90, -10.5, 102, 0, 0, 0, 0, false
 	if[%floor% = 49] AddFloor SouthFloor, %5%, 0.5, 10.5, -55, 83, -19.5, 0, 0, 0, 0, false
 	if[%floor% = 49] AddFloor NorthFloor, %5%, 0.5, 10.5, 7.5, 83, 80, 0, 0, 0, 0, false
-	#if[%floor% = 49] AddFloor EastFloor, %5%, 0.5, 83, -55, 110, 80, 0, 0, 0, 0, false
 	if[%floor% = 49] AddFloor EastFloor, %5%, 0.5, 83, -55, %1%, 80, 0, 0, 0, 0, false
 
 		#Carpeted walkways (48th floor)
@@ -2071,7 +2053,6 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	if[%floor% = 48] AddFloor NorthwestCeiling2, %7%, 0.5, -34, 90, -10.5, 102, %height%, %height%, 0, 0, false
 	if[%floor% = 48] AddFloor SouthCeiling, %7%, 0.5, 10.5, -55, 83, -19.5, %height%, %height%, 0, 0, false
 	if[%floor% = 48] AddFloor NorthCeiling, %7%, 0.5, 10.5, 7.5, 83, 80, %height%, %height%, 0, 0, false
-	#if[%floor% = 48] AddFloor EastCeiling, %7%, 0.5, 83, -55, 110, 80, %height%, %height%, 0, 0, false
 	if[%floor% = 48] AddFloor EastCeiling, %7%, 0.5, 83, -55, %1%, 80, %height%, %height%, 0, 0, false
 
 	#Windows
@@ -2266,7 +2247,6 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 		if[%floor% < -2] Set DTex = Door1
 		if[%floor% = -2 | %floor% = -1] Set DTex = Door8
 		if[%floor% = 0 | %floor% = 1] Set DTex = ServiceDoor3
-		#if[%floor% = 48 | %floor% = 49] Set DTex = ServiceDoor3
 		if[%floor% > 97 & %floor% < 103] Set DTex = ServiceDoor1
 		Set DSTex = %DTex%Side
 <EndFunction>
@@ -2662,7 +2642,7 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 
 #Floor cuts for escalators
 <Floors -2 to 0>
-	#North escalators LL2-1
+	#North escalators B2-1
 	Set WestEnd-Flr = 46.5
 	if[%floor% = 0] Set WestEnd-Flr = 60
 	Set WestEnd-Cei = 46.5
@@ -2671,7 +2651,7 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 		if[%floor% > -2] Cut %WestEnd-Flr%, %interfloorheight% - 0.1, 21, 70.5, %interfloorheight% + 0.1, 21 + 18, false, true
 		if[%floor% < 0] Cut %WestEnd-Cei%, %fullheight% - 0.1, 21, 70.5, %fullheight% + 0.1, 21 + 18, false, true
 		
-	#South escalators LL2-1
+	#South escalators B2-1
 	Set SouthEnd-Flr = -73.5
 	if[%floor% = 0] Set SouthEnd-Flr = -55
 	Set SouthEnd-Cei = -73.5
@@ -2687,7 +2667,7 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	Set WallHeight = %interfloorheight% + 3.5
 	Set WallOffset = -%interfloorheight%
 
-	#North escalators LL2-1
+	#North escalators B2-1
 	Set WestEnd-Flr = 46.5
 	if[%floor% = 0] Set WestEnd-Flr = 60
 
@@ -2701,7 +2681,7 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 	if[%floor% = -1] AddWall NEscRail_Back, %6ER%, 0.5, %WestEnd-Flr% + 8, 21 + 18, 70.5 - 8, 21 + 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	if[%floor% = 0] AddWall NEscRail_Back, %6ER%, 0.5, %WestEnd-Flr%, 21 + 18, 70.5, 21 + 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
-	#South escalators LL2-1
+	#South escalators B2-1
 	Set SouthEnd-Flr = -73.5
 	if[%floor% = 0] Set SouthEnd-Flr = -55
 
@@ -2732,14 +2712,14 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 
 #Escalators creation
 
-#A. NORTH ESCALATORS LL2-1
-#North Escalators LL2-LL1
+#A. NORTH ESCALATORS B2-1
+#North Escalators B2-B1
 <Floor -2>
 	OP_Escalator(%floorid%_NorthEsc1, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 46.5 + 2, 21 + 18, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 	OP_Escalator(%floorid%_NorthEsc2, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 46.5 + 6, 21 + 18, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 <EndFloor>
 
-#North Escalators LL1-1
+#North Escalators B1-1
 <Floor -1>
 	OP_Escalator(%floorid%_NorthEsc1, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 70.5 - 2, 21, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 	OP_Escalator(%floorid%_NorthEsc2, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 70.5 - 6, 21, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
@@ -2747,14 +2727,14 @@ AddFloorAutoArea -100, Floor(-11).Base, %2% - 20, 100, Floor(-3).Base + 5, %2% -
 
 OP_EscLanding(EscalatorLandingX, 5.5, 0, 0, EscalatorLandingX, 5.5, 0, 0) #Reset for left/right escalators
 
-#B. SOUTH ESCALATORS LL2-1
-#South Escalators LL2-LL1
+#B. SOUTH ESCALATORS B2-1
+#South Escalators B2-B1
 <Floor -2>
 	OP_Escalator(%floorid%_SouthEsc1, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3X, right, 10.5, -73.5 + 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 	OP_Escalator(%floorid%_SouthEsc2, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3X, right, 10.5, -73.5 + 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 <EndFloor>
 
-#North Escalators LL1-1
+#North Escalators B1-1
 <Floor -1>
 	OP_Escalator(%floorid%_SouthEsc1, down, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3XB, left, 10.5 + 18, -44.5 - 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 	OP_Escalator(%floorid%_SouthEsc2, up, %floor% + 1, 1.1, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3XB, left, 10.5 + 18, -44.5 - 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
@@ -3215,7 +3195,7 @@ AddStdShaft(22, 1, 20, 80, 9.67, 4.67, 97, 104, ShaftIntWall, 0.5, 0.33, 0, 5, %
 #D2. Upper Express (1, 99-101)
 AddStdShaft(23, 1, 28, 48, 17.67, 5.67, -1, 103, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
 
-#D3. Observation Deck Express (LL1, 98, 102)
+#D3. Observation Deck Express (B1, 98, 102)
 AddStdShaft(24, 1, 77, 37.5, 5.67, 17.67, -2, 104, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
 
 #External walls
@@ -3278,7 +3258,7 @@ AddStdShaft(24, 1, 77, 37.5, 5.67, 17.67, -2, 104, ShaftIntWall, 0.5, 0.33, 0, 5
 
 ####################
 #E. Service and freight
-#E1. Zone 1 Service (SP-45)
+#E1. Zone 1 Service (B11-45)
 AddStdShaft(25, 1, 20, -25.5, 9.67, 5.67, -12, 47, ShaftIntWall, 0.5, 0.33, 0, 5, %interfloorheight%)
 
 #External walls
@@ -6923,8 +6903,6 @@ AddStdShaft(28, 2, -37, 0, 2.67, 5.67, -1, 109, ShaftIntWall, 0.5, 0.33, 0, 5, %
 		if[%floor% = 48] Set SideDecoH = %height% + Floor(49).FullHeight
 		if[%floor% = 48] Set TopDecoH = %SideDecoH% - 7
 
-		#if[%floor% > -3 & %floor% < 0] Set SideDecoH = 8
-		#if[%floor% > -3 & %floor% < 0] Set TopDecoH = 1
 		if[%floor% < 0] Set SideDecoH = 8
 		if[%floor% < 0] Set TopDecoH = 1
 
