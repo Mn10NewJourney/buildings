@@ -3,7 +3,7 @@
 #Entire hospital copyright (c) 2020-Present - Mn10
 
 #Start date: 22 June 2025
-#Major detail finish date: TBD
+#Main structure finish date: ~24-26 June 2025
 
 #SCRIPTS TO BE INCLUDED
 	#1. My new scripts
@@ -95,7 +95,7 @@
 		Load data/marble22.jpg, BasementDecoWall, 0.1345, 0.125 #OPD Hall
 		Load data/marbl3.jpg, BasementDecoWall2, 0.2, 0.2 #East OPD
 		Load data/rose_marble.jpg, BasementDecoWall3, 0.111, 0.111 #West OPD
-		Load data/marble2.jpg, BasementDecoWall4, 0.2, 0.2 #Deco columns for North Elevators
+		#Load data/marble2.jpg, BasementDecoWall4, 0.2, 0.2 #Deco columns for North Elevators
 
 		Load data/EG881/stucco22b_white.jpg, BasementWall, 0.125, 0.125 #EG881
 		Load data/st_wall2.jpg, BasementWall2, 0.13635, 0.09765 #Lobby area
@@ -249,8 +249,8 @@
 	Load data/EG881/elevatordoortrackx.jpg, ElevDoorTrackX, 1, 1, false #EG881
 	Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 	Load data/panel-back3.jpg, ElevPanel, 1, 1, false
-	Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false #Silver panel: Lanterns on all floors except 2-5; call buttons on all floors
-	Load data/panel-back4.jpg, ElevExtPanels2, 1, 1, false #Gold panel: Hall lanterns on 2F-5F (to match with the door trims)
+	Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false #Silver panel: All other floors
+	Load data/panel-back4.jpg, ElevExtPanels2, 1, 1, false #Gold panel: 2nd-5th floors (to match with the door trims)
 
 	#South Elevators
 		#Floor and ceiling
@@ -274,24 +274,24 @@
 
 	#North Elevators
 		#Floor and ceiling
-		Load data/Carpet0012_S.jpg, NorthElevFloor, 0.2, 0.2
-		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, NorthElevCeiling, 1, 1, false
-		Rotate NorthElevCeiling, 270
+		Load data/Carpet0013b_S.jpg, NorthElevFloor, 0.2, 0.2
+		Load data/EG881/stainlesssteel2.jpg, NorthElevCeiling, 1, 1, false #EG881
+		Rotate NorthElevCeiling, 90
 		Load data/EG881/light1x.jpg, NorthElevCeilingLight, 2, 1, false #EG881
 		Load data/panel-back3.jpg, NorthElevCeilingTrim, 1, 1, false
 		Rotate NorthElevCeilingTrim, 90
 
 		#Walls
-		Load data/marb148.jpg, NorthElevWall, 0.25, 0.25
-		Load data/diamond18b.jpg, NorthElevWallPanel, 0.55, 0.55
+		Load data/EG881/blackdoortrim.jpg, NorthElevWall, 1, 1, false #EG881
+		Load data/misc/oak_dark.jpg, NorthElevWallPanel, 0.2, 0.2
 
 		#Panels
-		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, NorthElevPanelMain, 1, 1, false #EG881
-		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, NorthElevPanelTop, 1, 0.125, false #EG881
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, NorthElevPanelMain, 1, 1, false #EG881
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, NorthElevPanelTop, 1, 0.125, false #EG881
 
 		#Car doors
-		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, NorthElevDoors, 1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, NorthElevDoors2, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, NorthElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, NorthElevDoors2, 1, 1, false #EG881
 
 	####################
 
@@ -411,11 +411,19 @@
 		
 		#9. Hospital-related signs
 		Load data/Melvin/DRH/NewDir_202501/Dir_PH.png, MainDir, 1, 1, false #Floor directory
-		#Load data/Melvin/Sign-LightBlue-Long.png, Sign_LB_Long, 1, 1, false
+		Load data/Melvin/Sign-LightBlue-Long.png, Sign_LB_Long, 1, 1, false
 		Load data/Melvin/Sign-DarkBlue.png, Sign_DB, 1, 1, false
 
-		AddTextRange 1, 4, Sign_DB, Sign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
-		AddText Sign_DB, Sign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 90, Treatment Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
+			#Common signs
+			AddTextRange 1, 6, Sign_DB, Sign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+			AddText Sign_DB, Sign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 90, Treatment Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
+
+			#4th floor
+			AddText Sign_LB_Long, Sign_Clinic401, nimbus_sans_bold.ttf, 90, Pediatrics 1, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddText Sign_LB_Long, Sign_Clinic402, nimbus_sans_bold.ttf, 90, Pediatrics 2, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+			#5th floor
+			AddText Sign_LB_Long, Sign_Clinic501, nimbus_sans_bold.ttf, 90, Dental Center, -1, -1, -1, -1, center, center, 0, 0, 0, false
 <EndTextures>
 
 ############################################################
@@ -1331,10 +1339,10 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 #Out-patient departments (OPD)
 <Function DRH_PacificHeights_OPD>
 	#Deco walls at North Elevators (Levels B3-B1 only)
-	WallOrientation = left
-	DrawWalls = true, true, true, true, false, false
-	if[%floor% < 0] AddWall NElevDeco1, %5%DecoWall4, 0.75, -4.95 - 0.5, 9.95, -4.95, 9.95, %height%, %height%, 0, 0, 0, 0, false
-	if[%floor% < 0] AddWall NElevDeco2, %5%DecoWall4, 0.75, 4.95, 9.95, 4.95 + 0.5, 9.95, %height%, %height%, 0, 0, 0, 0, false
+	#WallOrientation = left
+	#DrawWalls = true, true, true, true, false, false
+	#if[%floor% < 0] AddWall NElevDeco1, %5%DecoWall4, 0.75, -4.95 - 0.5, 9.95, -4.95, 9.95, %height%, %height%, 0, 0, 0, 0, false
+	#if[%floor% < 0] AddWall NElevDeco2, %5%DecoWall4, 0.75, 4.95, 9.95, 4.95 + 0.5, 9.95, %height%, %height%, 0, 0, 0, 0, false
 	
 	#----------------------------------------#
 	
@@ -1366,6 +1374,7 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		WallOrientation = center
 		AddWall PacificOPD_EastDiv1, %5%Wall, 0.5, 75 - 5, -%2%, 75 - 5, -5, %height%, %height%, 0, 0, 0, 0, false
 		AddWall PacificOPD_EastDiv2, %5%Wall, 0.5, 90 - 5, -%2%, 90 - 5, -5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% ! 2] AddWall PacificOPD_EastDiv3, %5%Wall, 0.5, 75, 5, 75, %2%, %height%, %height%, 0, 0, 0, 0, false
 
 		#Interior deco walls
 		WallOrientation = right
@@ -1373,8 +1382,11 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		AddWall EastOPD_IntDeco1, %5%DecoWall2, 0.25, 60, 5, 60, %2% - 3.5, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = true, false, true, true, false, false
 		AddWall EastOPD_IntDeco2, %5%DecoWall2, 0.25, 55, -%2% + 3, 55, -5 - 3, %height%, %height%, 0, 0, 0, 0, false
-		AddWall EastOPD_IntDeco3, %5%DecoWall2, 0.25, 68 + 1, 5, %1% - 10, 5, %height%, %height%, 0, 0, 0, 0, false
-		AddWall EastOPD_IntDeco4, %5%DecoWall2, 0.25, 60 - 0.25, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 2] AddWall EastOPD_IntDeco3, %5%DecoWall2, 0.25, 68 + 1, 5, %1% - 10, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 2] AddWall EastOPD_IntDeco4, %5%DecoWall2, 0.25, 60 - 0.25, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
+
+		if[%floor% ! 2] AddWall EastOPD_IntDeco4/1, %5%DecoWall2, 0.25, 83 + 1, 5, %1% - 10, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% ! 2] AddWall EastOPD_IntDeco4/2, %5%DecoWall2, 0.25, 64 + 1, 5, 77 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
@@ -1408,6 +1420,9 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 				#Exit sign
 				AddBoxSign(EastOPDExit, StainlessSteel, ExitSignUp, StainlessSteel, 0.1, false, true, true, %Door_MainX% + 0.05, %Door_MainZ%, 1.8, 0.9, 7, false)
 
+				#Department sign(s)
+				if[%floor% = 4] AddBoxSign(PHB_%floorid%02_Sign, Sign_Clinic%floorid%02, Sign_LB_Long, Sign_LB_Long, 0.08, false, true, true, %Door_MainX% - 0.5 - 0.25 - 0.04, %Door_MainZ% - 3 - 22.5, 6, 1.5, 7 - 1.5, false)
+
 			############################################################
 
 			#Examination/Treament Room Doors
@@ -1436,16 +1451,25 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 				#(2.) North room(s)
 				WallOrientation = right
-				AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 65 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
-				AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 65 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
-				AddFillerWalls ConnectionWall, 0.5, 65, 5.5, 6, 7, 0, true, 0, 0, false
-				
+				if[%floor% = 2] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 65 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 2] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 65 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 2] AddFillerWalls ConnectionWall, 0.5, 65, 5.5, 6, 7, 0, true, 0, 0, false
+
+				if[%floor% ! 2] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 80 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 2] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 80 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 2] AddStdDoor Floor %floor%, %floorid%E_ExamRoom4_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 60 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% ! 2] AddFillerWalls ConnectionWall, 0.5, 80, 5.5, 6, 7, 0, true, 0, 0, false
+				if[%floor% ! 2] AddFillerWalls ConnectionWall, 0.5, 60 + 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+
 				####################
 
 				WallOrientation = right
 				DrawWalls = true, false, true, true, true, true
-				AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 65, 5, 0.6 * 4, 0.6, 7.25, false)
-	
+				if[%floor% = 2] AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 65, 5, 0.6 * 4, 0.6, 7.25, false)
+
+				if[%floor% ! 2] AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 80, 5, 0.6 * 4, 0.6, 7.25, false)
+				if[%floor% ! 2] AddBoxSign(%floorid%E_ExamRoom4, Sign_ExamRoom4, Sign_ExamRoom4, Sign_DB, 0.1, true, false, false, 60 + 2.5, 5, 0.6 * 4, 0.6, 7.25, false)	
+
 	#----------------------------------------#
 
 	DrawWalls = true, true, false, false, false, false
@@ -1468,11 +1492,14 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		AddWall PacificOPD_WestDeco3, %5%DecoWall, 2.5, -30, -70, -30, -67.75 + 0.25, %height%, %height%, 0, 0, 0, 0, false
 
 		#Interior walls
+		Set EXO = 0
+		if[%floor% = 5] Set EXO = 10 #Extra offset for the 5th floor only
+
 		WallOrientation = left
 		DrawWalls = true, true, false, false, false, false
-		AddWall PacificOPD_West_N1, %5%Wall, 0.5, -%1% + 10, 5, -60, 5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall PacificOPD_West_N1, %5%Wall, 0.5, -%1% + 10, 5, -60 + %EXO%, 5, %height%, %height%, 0, 0, 0, 0, false
 		WallOrientation = right
-		AddWall PacificOPD_West_N2, %5%Wall, 0.5, -60, 5, -60, %2%, %height%, %height%, 0, 0, 0, 0, false
+		AddWall PacificOPD_West_N2, %5%Wall, 0.5, -60 + %EXO%, 5, -60 + %EXO%, %2%, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = right
 		AddWall PacificOPD_West_N3, %5%Wall, 0.5, -%1%, -5, -60 + 5, -5, %height%, %height%, 0, 0, 0, 0, false
@@ -1481,14 +1508,18 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		WallOrientation = center
 		AddWall PacificOPD_WestDiv1, %5%Wall, 0.5, -75 + 5, -%2%, -75 + 5, -5, %height%, %height%, 0, 0, 0, 0, false
 		AddWall PacificOPD_WestDiv2, %5%Wall, 0.5, -90 + 5, -%2%, -90 + 5, -5, %height%, %height%, 0, 0, 0, 0, false
-		AddWall PacificOPD_WestDiv3, %5%Wall, 0.5, -75, 5, -75, %2%, %height%, %height%, 0, 0, 0, 0, false
+		AddWall PacificOPD_WestDiv3, %5%Wall, 0.5, -75 + %EXO%, 5, -75 + %EXO%, %2%, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall PacificOPD_WestDiv4, %5%Wall, 0.5, -80, 5, -80, %2%, %height%, %height%, 0, 0, 0, 0, false
 		
 		#Interior deco walls
+		Set EXO_Deco = 0
+		if[%floor% = 5] Set EXO_Deco = 1 #Extra offset for the 5th floor only
+
 		WallOrientation = left
 		DrawWalls = false, true, true, false, false, false
-		AddWall WestOPD_IntDeco1, %5%DecoWall3, 0.25, -60, 5, -60, %2% - 3.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall WestOPD_IntDeco1, %5%DecoWall3, 0.25, -60 + %EXO%, 5 + %EXO_Deco%, -60 + %EXO%, %2% - 3.5, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = false, true, true, true, false, false
-		AddWall WestOPD_IntDeco2, %5%DecoWall3, 0.25, -55, -%2% + 5, -55, -5 - 3, %height%, %height%, 0, 0, 0, 0, false
+		AddWall WestOPD_IntDeco2, %5%DecoWall3, 0.25, -55, -%2% + 5, -55, -5 - 1, %height%, %height%, 0, 0, 0, 0, false
 
 		AddWall WestOPD_IntDeco3/1, %5%DecoWall3, 0.25, -95, -5, -89 - 1, -5, %height%, %height%, 0, 0, 0, 0, false
 		AddWall WestOPD_IntDeco3/2, %5%DecoWall3, 0.25, -86 + 1, -5, -74 - 1, -5, %height%, %height%, 0, 0, 0, 0, false
@@ -1496,8 +1527,13 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 		WallOrientation = right
 		DrawWalls = true, false, true, true, false, false
-		AddWall WestOPD_IntDeco4/1, %5%DecoWall3, 0.25, -%1% + 10, 5, -83 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
-		AddWall WestOPD_IntDeco4/2, %5%DecoWall3, 0.25, -77 + 1, 5, -64 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall WestOPD_IntDeco4/1, %5%DecoWall3, 0.25, -95, 5, -84 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall WestOPD_IntDeco4/2, %5%DecoWall3, 0.25, -81 + 1, 5, -69 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall WestOPD_IntDeco4/3, %5%DecoWall3, 0.25, -61 + 1, 5, -50 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+
+		DrawWalls = true, false, true, true, false, false
+		if[%floor% ! 5] AddWall WestOPD_IntDeco4/1, %5%DecoWall3, 0.25, -%1% + 10, 5, -83 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% ! 5] AddWall WestOPD_IntDeco4/2, %5%DecoWall3, 0.25, -77 + 1, 5, -64 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
 
 		DrawWalls = true, false, true, true, false, false
 		AddWall WestOPD_IntDeco5, %5%DecoWall3, 0.25, -30.5, -%2% + 3, -30.5, -20 - 1.5, %height%, %height%, 0, 0, 0, 0, false
@@ -1529,6 +1565,9 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 				#Exit sign
 				AddBoxSign(WestOPDExit, ExitSignUp, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.05, %Door_MainZ%, 1.8, 0.9, 7, false)
 
+				#Department sign(s)
+				if[%floor% = 4 | %floor% = 5] AddBoxSign(PHB_%floorid%01_Sign, Sign_LB_Long, Sign_Clinic%floorid%01, Sign_LB_Long, 0.08, false, true, true, %Door_MainX% + 0.5 + 0.25 + 0.04, %Door_MainZ% - 3 - 22.5, 6, 1.5, 7 - 1.5, false)
+
 			############################################################
 
 			#Examination/Treament Room Doors
@@ -1557,18 +1596,33 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 				#(2.) North room(s)
 				WallOrientation = right
-				AddStdDoor Floor %floor%, %floorid%W_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -80 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
-				AddStdDoor Floor %floor%, %floorid%W_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -80 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
-				AddStdDoor Floor %floor%, %floorid%W_ExamRoom4_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -60 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
-				AddFillerWalls ConnectionWall, 0.5, -80, 5.5, 6, 7, 0, true, 0, 0, false
-				AddFillerWalls ConnectionWall, 0.5, -60 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
-				
+					#Doors
+					if[%floor% ! 5] AddStdDoor Floor %floor%, %floorid%W_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -80 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+					if[%floor% ! 5] AddStdDoor Floor %floor%, %floorid%W_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -80 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+					if[%floor% ! 5] AddStdDoor Floor %floor%, %floorid%W_ExamRoom4_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -60 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+	
+					if[%floor% = 5] AddStdDoor Floor %floor%, %floorid%W_ExamRoom4_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, -70 + 5 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+					if[%floor% = 5] AddStdDoor Floor %floor%, %floorid%W_ExamRoom5_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -70 + 5 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+					if[%floor% = 5] AddStdDoor Floor %floor%, %floorid%W_ExamRoom6_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, -85 + 5 - 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+
+					#Filler walls
+					if[%floor% ! 5] AddFillerWalls ConnectionWall, 0.5, -80, 5.5, 6, 7, 0, true, 0, 0, false
+					if[%floor% ! 5] AddFillerWalls ConnectionWall, 0.5, -60 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+	
+					if[%floor% = 5] AddFillerWalls ConnectionWall, 0.5, -70 + 5 + 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+					if[%floor% = 5] AddFillerWalls ConnectionWall, 0.5, -70 + 5 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+					if[%floor% = 5] AddFillerWalls ConnectionWall, 0.5, -85 + 5 - 2.5, 5.5, 3, 7, 0, true, 0, 0, false
+
 				####################
 
 				WallOrientation = right
 				DrawWalls = true, false, true, true, true, true
-				AddBoxSign(%floorid%W_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, -80, 5, 0.6 * 4, 0.6, 7.25, false)
-				AddBoxSign(%floorid%W_ExamRoom4, Sign_ExamRoom4, Sign_ExamRoom4, Sign_DB, 0.1, true, false, false, -60 - 2.5, 5, 0.6 * 4, 0.6, 7.25, false)
+				if[%floor% ! 5] AddBoxSign(%floorid%W_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, -80, 5, 0.6 * 4, 0.6, 7.25, false)
+				if[%floor% ! 5] AddBoxSign(%floorid%W_ExamRoom4, Sign_ExamRoom4, Sign_ExamRoom4, Sign_DB, 0.1, true, false, false, -60 - 2.5, 5, 0.6 * 4, 0.6, 7.25, false)
+
+				if[%floor% = 5] AddBoxSign(%floorid%W_ExamRoom4, Sign_ExamRoom4, Sign_ExamRoom4, Sign_DB, 0.1, true, false, false, -70 + 5 + 2.5, 5, 0.6 * 4, 0.6, 7.25, false)
+				if[%floor% = 5] AddBoxSign(%floorid%W_ExamRoom5, Sign_ExamRoom5, Sign_ExamRoom5, Sign_DB, 0.1, true, false, false, -70 + 5 - 2.5, 5, 0.6 * 4, 0.6, 7.25, false)
+				if[%floor% = 5] AddBoxSign(%floorid%W_ExamRoom6, Sign_ExamRoom6, Sign_ExamRoom6, Sign_DB, 0.1, true, false, false, -85 + 5 - 2.5, 5, 0.6 * 4, 0.6, 7.25, false)
 <EndFunction>
 
 <Floors -3 to 5>
@@ -1708,10 +1762,10 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 
 		WallOrientation = right
 		DrawWalls = true, true, false, false, true, false
-		AddWall 7FRail_West, %5%Wall, 0.5, -%1% + 17, -%2%, -%1% + 17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall HallRail_West, %5%Wall, 0.5, -%1% + 17, -%2%, -%1% + 17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 		WallOrientation = left
-		AddWall 7FRail_East, %5%Wall, 0.5, %1% - 17, -%2%, %1% - 17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall HallRail_East, %5%Wall, 0.5, %1% - 17, -%2%, %1% - 17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
 
 #########################################################################
@@ -2646,16 +2700,44 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel
-	Set WPanelHeight = 8
+	Set WPanelHeight = 2.4
 	
 		#Front panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0, -2.8 + 0.01, 4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1/1, %WPTex%, 0 - (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1/2, %WPTex%, 0, -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1/3, %WPTex%, 0 + (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_F2/1, %WPTex%, 0 - (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F2/2, %WPTex%, 0, -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F2/3, %WPTex%, 0 + (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_F3/1, %WPTex%, 0 - (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3/2, %WPTex%, 0, -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3/3, %WPTex%, 0 + (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
 
 		#Back panels
-		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0, 2.8 - 0.01, 4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1/1, %WPTex%, 0 - (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1/2, %WPTex%, 0, 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1/3, %WPTex%, 0 + (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_B2/1, %WPTex%, 0 - (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B2/2, %WPTex%, 0, 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B2/3, %WPTex%, 0 + (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_B3/1, %WPTex%, 0 - (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3/2, %WPTex%, 0, 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3/3, %WPTex%, 0 + (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
 
 		#Right panels
-		CreateWallBox2 elevator, Panel_R1, %WPTex%, 4.44 - 0.01, 0, 0.02, 2.5, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R1/1, %WPTex%, 4.44 - 0.01, 0 - (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R1/2, %WPTex%, 4.44 - 0.01, 0 + (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_R3/1, %WPTex%, 4.44 - 0.01, 0 - (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R3/2, %WPTex%, 4.44 - 0.01, 0 + (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 2.75 + 0.05, 0, 0, false, true, true, true
+
+		CreateWallBox2 elevator, Panel_R3/1, %WPTex%, 4.44 - 0.01, 0 - (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R3/2, %WPTex%, 4.44 - 0.01, 0 + (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 5.25 + 0.05, 0, 0, false, true, true, true
+
 	#--------------------
 	#Car Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -2750,12 +2832,12 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
-	#if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels3
+	if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels2
 	Set ButtonPrefix = T4VRButton
 
 	#Lantern panels
 	Set LPanelTexture = %BPanelTexture%
-	if[%floor% > 1 & %floor% < 6] Set LPanelTexture = ElevExtPanels2
+	#if[%floor% > 1 & %floor% < 6] Set LPanelTexture = ElevExtPanels2
 	Set LanternPrefix = T4VRLantern
 
 		#Lateral offset for lantern panels
@@ -2791,11 +2873,12 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
+	if[%floor% > 1 & %floor% < 6] Set BPanelTexture = ElevExtPanels2
 	Set ButtonPrefix = T4VRButton
 
 	#Lantern panels
 	Set LPanelTexture = %BPanelTexture%
-	if[%floor% > 1 & %floor% < 6] Set LPanelTexture = ElevExtPanels2
+	#if[%floor% > 1 & %floor% < 6] Set LPanelTexture = ElevExtPanels2
 	Set LanternPrefix = T4VRLantern
 
 		#Lateral offset for lantern panels
