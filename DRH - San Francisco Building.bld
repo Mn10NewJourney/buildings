@@ -241,6 +241,7 @@
 
 	Load data/EG881/darkwooddoor_withwindow.gif, ClinicDoor, 1, 1, false #EG881
 	LoadCropped data/EG881/darkwooddoor_withwindow.gif, ClinicDoorSide, 236, 0, 20, 499, 1, 1, false #EG881
+	Load data/EG881/blackdoortrim.jpg, ClinicDoorTrim, 1, 1, false #EG881
 
 	Load data/miscdoor1.jpg, Door1, 1, 1, false
 	LoadCropped data/miscdoor1.jpg, Door1Side, 118, 0, 10, 256, 1, 1, false
@@ -557,6 +558,7 @@
 		#Common signs (Dark)
 		AddTextRange 1, 7, Sign_DB, DBSign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 		AddText Sign_DB, DBSign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 90, Treatment Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
+		AddText Sign_DB, DBSign_RecoveryRoom, nimbus_sans_bold_condensed.ttf, 90, Recovery Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
 		AddText Sign_DB, DBSign_BloodCollectionRoom, nimbus_sans_bold_condensed.ttf, 95, Blood Collection, -1, -1, -1, -1, center, center, 255, 255, 255, false
 
 		#--------------------
@@ -1869,6 +1871,7 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 
 		WallOrientation = left
 		if[%floor% = -1 | %floor% > 3] Set CenterX = 105
+		if[%floor% = 4] Set CenterX = 100
 		TextureOverride %DoorTex2%, %DoorTex2%, %DoorTex2%Side, %DoorTex2%Side, %DoorTex2%Side, %DoorTex2%Side
 		if[%floor% = -1 | %floor% > 3] AddDoor , , false, %DoorTex%, 0.2, 5, 75, %CenterX% + 1.5, %CenterZ%, 3, 7, 0, 0, 0
 		TextureOverride %DoorTex2%, %DoorTex2%, %DoorTex2%Side, %DoorTex2%Side, %DoorTex2%Side, %DoorTex2%Side
@@ -1905,21 +1908,31 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 
 	#Service Entrance
 	WallOrientation = right
-	Set CenterX = 130
-	if[%floor% = 1 | %floor% = 2] Set CenterZ = 45
-	if[%floor% = -1 | %floor% > 3] Set CenterZ = 40
-	Set DTex = ServiceDoor1
-	if[%floor% = 2 | %floor% = 4] Set DTex = ServiceDoor3
+		#Set positions
+		if[%floor% ! 4] Set CenterX = 130
+		if[%floor% = 4] Set CenterX = 115 #Override for the 5th floor.
 
-	TextureOverride %DTex%, %DTex%, %DTex%Side, %DTex%Side, %DTex%Side, %DTex%Side
-	AddDoor , , false, ServiceDoor1, 0.2, 6, 75, %CenterX% + 1.5, %CenterZ%, 3, 7, 0, 0, 0
-	TextureOverride %DTex%, %DTex%, %DTex%Side, %DTex%Side, %DTex%Side, %DTex%Side
-	AddDoor , , false, ServiceDoor1, 0.2, 7, 75, %CenterX% - 1.5, %CenterZ%, 3, 7, 0, 0, 0
-	AddFillerWalls ConnectionWall, 0.5, %CenterX%, %CenterZ%, 6, 7, 0, true, 0, 0, false
+		if[%floor% = 1 | %floor% = 2] Set CenterZ = 45
+		if[%floor% = -1 | %floor% > 3] Set CenterZ = 40
+	
+		#Set textures
+		Set DTex = ServiceDoor1
+		if[%floor% = 2] Set DTex = ServiceDoor3
+		if[%floor% = 4] Set DTex = ClinicDoor #Override for the 5th floor.
 
-	WallOrientation = left
-	DrawWalls = false, true, true, true, true, true
-	AddBoxSign(%Prefix%3_ServEntr_Sign, Sign_LB_Long, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, false, %CenterX%, %CenterZ%, 3, 0.75, 7.5, false)
+		#Doors creation
+		TextureOverride %DTex%, %DTex%, %DTex%Side, %DTex%Side, %DTex%Side, %DTex%Side
+		AddDoor , , false, ServiceDoor1, 0.2, 6, 75, %CenterX% + 1.5, %CenterZ%, 3, 7, 0, 0, 0
+		TextureOverride %DTex%, %DTex%, %DTex%Side, %DTex%Side, %DTex%Side, %DTex%Side
+		AddDoor , , false, ServiceDoor1, 0.2, 7, 75, %CenterX% - 1.5, %CenterZ%, 3, 7, 0, 0, 0
+		if[%floor% ! 4] AddFillerWalls ConnectionWall, 0.5, %CenterX%, %CenterZ%, 6, 7, 0, true, 0, 0, false
+		if[%floor% = 4] AddDecoObject(Clinic%floorid%03_SecEntTrim, %DTex%Trim, %DTex%Trim, back, true, true, 0.05, 0.2, %CenterX%, %CenterZ%, 6, 7, 7.2, 0.2, 0, true, %DTex%Trim, 0.5, floor)
+		#Note: "SecEnt" = "Secondary entrance"
+
+		#Sign above doors
+		WallOrientation = left
+		DrawWalls = false, true, true, true, true, true
+		if[%floor% ! 4] AddBoxSign(%Prefix%3_ServEntr_Sign, Sign_LB_Long, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, false, %CenterX%, %CenterZ%, 3, 0.75, 7.5, false)
 <EndFunction>
 
 <Floor -1>
@@ -3252,6 +3265,32 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	WallOrientation = right
 	TextureOverride %IntTex%, %6%, Blank, Blank, Blank, Blank
 	AddWall EastHallwayWall3, %6%, 0.5, 20, 40, %1%, 40, %height%, %height%, 0, 0, 0, 0, false
+
+	########################################
+
+	#Divider walls behind the GI Center on the 5th floor
+	DrawWalls = true, true, false, false, false, false
+
+	WallOrientation = center
+	if[%floor% = 4] AddWall FarEastDivWall, %6%, 1, 107, 40, 107, 50, %height%, %height%, 0, 0, 0, 0, false
+
+		#Divider doors
+		Set DTex = ClinicDoor
+		Set DSTex = %DTex%Side
+		Set TrimTex = %DTex%Trim
+		
+		Set Door_MainX = 107.5
+		Set Door_MainZ = 45
+		
+			WallOrientation = right
+			SetLock 2, 0
+			if[%floor% = 4] AddStdDoor Floor %floor%, FarEastDiv_D1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+			if[%floor% = 4] AddStdDoor Floor %floor%, FarEastDiv_D2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+			if[%floor% = 4] AddDecoObject(FarEastDivTrim, %TrimTex%, %TrimTex%, right, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %TrimTex%, 1, floor)
+			SetLock 0, 0
+
+		#Exit sign
+		if[%floor% = 4] AddBoxSign(FarEastExitSign, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 1.05, %Door_MainZ%, 1.8, 0.9, 7.25, false)
 <EndFunction>
 
 <Floors 4 to 8>
@@ -3274,14 +3313,16 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 	Set Suffix = 02A
 	if[%floor% = 6] Set Suffix = 02B
-	AddBoxSign(Room%floorid%02B_Sign2, Sign_Room%floorid%%Suffix%, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 105, 50, 3, 0.75, 7.5, false)
+	Set Position = 105
+	AddBoxSign(Room%floorid%02B_Sign2, Sign_Room%floorid%%Suffix%, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 100, 50, 3, 0.75, 7.5, false)
 	#AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, false, false, 20, 20, 3, 0.75, 7.5, false)
 
 		#Sign for "Gastrointestinal Center"
 		Set SignHeight = 2.5
 		#Set SignOffset = 4.75
 		Set SignOffset = 7 - %SignHeight%
-		AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, 20 - 0.05, 30 + 2.75, 5, %SignHeight%, %SignOffset%, false)
+		AddBoxSign(Room%floorid%03_MainSign, Sign_Room%floorid%03, Sign_LB_Long, Sign_LB_Long, 0.1, false, true, true, 20 - 0.05, 30 + 2.75, 5, %SignHeight%, %SignOffset%, false)
+		AddBoxSign(Room%floorid%03_SecondarySign, Sign_LB_Long, Sign_Room%floorid%03, Sign_LB_Long, 0.1, true, true, true, 118.25 + 2.75, 40 + 0.05, 5, %SignHeight%, %SignOffset%, false)
 
 	####################
 
@@ -3311,12 +3352,12 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 			CreateWallBox2 floor, GI_RoomLight6, GICeilingLightX, 132.5, 8, 6, 1.5, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 	
 			CreateWallBox2 floor, GI_RoomLight7A, GICeilingLightZ, 65, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, GI_RoomLight7B, GICeilingLightZ, 75, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, GI_RoomLight7C, GICeilingLightZ, 85, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, GI_RoomLight7B, GICeilingLightZ, 80, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 
-			CreateWallBox2 floor, GI_RoomLight8A, GICeilingLightZ, 95, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, GI_RoomLight8A, GICeilingLightZ, 90, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 			CreateWallBox2 floor, GI_RoomLight8B, GICeilingLightZ, 105, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, GI_RoomLight8C, GICeilingLightZ, 115, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
+
+			CreateWallBox2 floor, GI_RoomLight9, GICeilingLightX, 130, 32, 6, 1.5, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 
 			#Lobby
 			CreateWallBox2 floor, GI_LobbyLight1/1, GICeilingLightZ, 25, 32, 1.5, 6, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
@@ -3337,7 +3378,7 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 			CreateWallBox2 floor, GI_HallLight4, GICeilingLightX, 100, 20, 6, 1.5, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 			CreateWallBox2 floor, GI_HallLight5, GICeilingLightX, 115, 20, 6, 1.5, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
 			CreateWallBox2 floor, GI_HallLight6, GICeilingLightX, 130, 20, 6, 1.5, 0.2, %height% + 0.15 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, GI_HallLight7, GICeilingLightZ, 130, 32, 1.5, 6, 0.2, %height% + 0.175 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, GI_HallLight7, GICeilingLightZ, 115, 32, 1.5, 6, 0.2, %height% + 0.175 - 0.2, 0, 0, false, true, true, true
 
 	####################
 
@@ -3355,20 +3396,27 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	
 	#Detailing inside GI Center	
 		#Exit signs
-		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 130 + 5, 20, 1.8, 0.9, %height% - 0.9, false)
-		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 130, 39.5 - 0.05, 1.8, 0.9, 7.2, false)
+		AddBoxSign(SF%floorid%03_ExitSign1, ExitSignLeft, ExitSignRight, StainlessSteel, 0.1, false, true, true, 115, 20 + 2, 1.8, 0.9, %height% - 0.9, false)
+		AddBoxSign(SF%floorid%03_ExitSign2, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, 115, 39.5 - 0.05, 1.8, 0.9, 7.25, false)
 		AddBoxSign(SF%floorid%03_ExitSign3, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, 20.5 + 0.05, 20, 1.8, 0.9, %height% - 0.9, false)
 	
 		#Hallway walls
 		DrawWalls = true, true, false, false, false, false
-		WallOrientation = left
-		AddWall SF%floorid%03_WallN1, %GITex%, 0.5, 60, 24, 120, 24, %height%, %height%, 0, 0, 0, 0, false
-		AddWall SF%floorid%03_WallN2, %GITex%, 0.5, 60, 24, 60, 40, %height%, %height%, 0, 0, 0, 0, false
-		WallOrientation = right
-		AddWall SF%floorid%03_WallN3, %GITex%, 0.5, 120, 24, 120, 40, %height%, %height%, 0, 0, 0, 0, false
-		AddWall SF%floorid%03_WallS1, %GITex%, 0.5, 50, 16, %1%, 16, %height%, %height%, 0, 0, 0, 0, false
-		WallOrientation = left
-		AddWall SF%floorid%03_WallS2, %GITex%, 0.5, 50, -1.25, 50, 16, %height%, %height%, 0, 0, 0, 0, false
+
+			#North
+			WallOrientation = left
+			AddWall SF%floorid%03_WallN1, %GITex%, 0.5, 60, 24, 110, 24, %height%, %height%, 0, 0, 0, 0, false
+			AddWall SF%floorid%03_WallN2, %GITex%, 0.5, 120, 24, 140, 24, %height%, %height%, 0, 0, 0, 0, false
+			AddWall SF%floorid%03_WallN3, %GITex%, 0.5, 60, 24, 60, 40, %height%, %height%, 0, 0, 0, 0, false
+			AddWall SF%floorid%03_WallN4, %GITex%, 0.5, 120, 24, 120, 40, %height%, %height%, 0, 0, 0, 0, false
+			WallOrientation = right
+			AddWall SF%floorid%03_WallN5, %GITex%, 0.5, 110, 24, 110, 40, %height%, %height%, 0, 0, 0, 0, false
+
+			#South
+			WallOrientation = right
+			AddWall SF%floorid%03_WallS1, %GITex%, 0.5, 50, 16, %1%, 16, %height%, %height%, 0, 0, 0, 0, false
+			WallOrientation = left
+			AddWall SF%floorid%03_WallS2, %GITex%, 0.5, 50, -1.25, 50, 16, %height%, %height%, 0, 0, 0, 0, false
 
 		#====================#
 
@@ -3379,11 +3427,13 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		AddWall SF%floorid%03_Deco2, GIWall2, 0.15, 40 + 1.5, 39.5, 60 - 1.5, 39.5, %height%, %height%, 0, 0, 0, 0, false
 		AddWall SF%floorid%03_Deco3, GIWall2, 0.15, 60, 24, 60, 39.5 - 1.5, %height%, %height%, 0, 0, 0, 0, false
 		AddWall SF%floorid%03_Deco4, GIWall2, 0.15, 50, -1.25 + 2, 50, 16, %height%, %height%, 0, 0, 0, 0, false
-		AddWall SF%floorid%03_Deco5/1, GIWall2, 0.15, 60 - 0.15, 24, 61, 24, %height%, %height%, 0, 0, 0, 0, false
-		AddWall SF%floorid%03_Deco5/2, GIWall2, 0.15, 68 + 1, 24, 92 - 1, 24, %height% - 1.5, %height% - 1.5, 0, 0, 0, 0, false
-		AddWall SF%floorid%03_Deco5/3, GIWall2, 0.15, 98 + 1, 24, 120, 24, %height%, %height%, 0, 0, 0, 0, false
+
+		#Note: "CenEast" = "Central East"
+		AddWall SF%floorid%03_CenEastDeco1, GIWall2, 0.15, 60 - 0.15, 24, 61, 24, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_CenEastDeco2, GIWall2, 0.15, 68 + 1, 24, 86, 24, %height% - 1.5, %height% - 1.5, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_CenEastDeco3, GIWall2, 0.15, 94, 24, 110, 24, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = true, false, false, false, false, true
-		AddWall SF%floorid%03_Deco5/4, GIWall3, 0.15, 61, 24, 98 + 1, 24, 1.5, 1.5, %height% - 1.5, %height% - 1.5, 0, 0, false
+		AddWall SF%floorid%03_CenEastDeco4, GIWall3, 0.15, 61, 24, 94, 24, 1.5, 1.5, %height% - 1.5, %height% - 1.5, 0, 0, false
 
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
@@ -3400,12 +3450,16 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
-		AddWall SF%floorid%03_Deco7/1, GIWall2, 0.15, 120, 24 - 0.15, 120, 39.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_SecEntDeco1, GIWall2, 0.15, 110, 24 - 0.15, 110, 39.5, %height%, %height%, 0, 0, 0, 0, false
 		WallOrientation = right
 		DrawWalls = true, false, true, true, false, false
-		AddWall SF%floorid%03_Deco7/2, GIWall2, 0.15, 120, 39.5, 126, 39.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_SecEntDeco2, GIWall2, 0.15, 120, 24 - 0.15, 120, 39.5, %height%, %height%, 0, 0, 0, 0, false
+
+		AddWall SF%floorid%03_FarEastDeco1, GIWall2, 0.15, 120, 24, 121, 24, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = true, false, true, false, false, false
-		AddWall SF%floorid%03_Deco7/3, GIWall2, 0.15, 134, 39.5, 140, 39.5, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_FarEastDeco2, GIWall2, 0.15, 129, 24, 140, 24, %height%, %height%, 0, 0, 0, 0, false
+		DrawWalls = true, false, false, false, false, true
+		AddWall SF%floorid%03_FarEastDeco3, GIWall3, 0.15, 121, 24, 129, 24, 1.5, 1.5, %height% - 1.5, %height% - 1.5, 0, 0, false
 
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
@@ -3425,31 +3479,37 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		AddWall SF%floorid%03_DividerS4, %GITex%, 1, 110, -1.25, 110, 16, %height%, %height%, 0, 0, 0, 0, false
 		AddWall SF%floorid%03_DividerS5, %GITex%, 1, 125, -1.25, 125, 16, %height%, %height%, 0, 0, 0, 0, false
 
-		AddWall SF%floorid%03_DividerN1, %GITex%, 1, 90, 24, 90, 40, %height%, %height%, 0, 0, 0, 0, false
+		AddWall SF%floorid%03_DividerN1, %GITex%, 1, 85, 24, 85, 40, %height%, %height%, 0, 0, 0, 0, false
 
 		#North room doors
-		Set DTex = Door9b
+		Set DTex = ClinicDoor
 		Set DSTex = %DTex%Side
-		Set TrimTex = %DTex%Side
+		Set TrimTex = %DTex%Trim
 
 			WallOrientation = right
 			AddStdDoor Floor %floor%, SF%floorid%03_RoomN1Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 65 + 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
 			AddStdDoor Floor %floor%, SF%floorid%03_RoomN1Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 65 - 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
 
-			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 95 + 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
-			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 95 - 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 90 + 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 90 - 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
+
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 125 + 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, SF%floorid%03_RoomN2Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 125 - 1.5, 24.5, 3, 7, 0, 0, 0, 0, 0
 
 				#Filler walls
 				AddDecoObject(%floorid%W_N1Trim, %TrimTex%, %TrimTex%, back, true, true, 0.05, 0.2, 65, 24.5, 6, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
-				AddDecoObject(%floorid%W_N2Trim, %TrimTex%, %TrimTex%, back, true, true, 0.05, 0.2, 95, 24.5, 6, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
+				AddDecoObject(%floorid%W_N2Trim, %TrimTex%, %TrimTex%, back, true, true, 0.05, 0.2, 90, 24.5, 6, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
+				AddDecoObject(%floorid%W_N3Trim, %TrimTex%, %TrimTex%, back, true, true, 0.05, 0.2, 125, 24.5, 6, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
 
 			#Room signs
 			AddBoxSign(SF%floorid%03_RoomN1, DBSign_BloodCollectionRoom, Sign_DB, Sign_DB, 0.1, true, true, true, 65, 24 - 0.05, 0.6 * 4, 0.6, 7.45, false)
-			AddBoxSign(SF%floorid%03_RoomN2, DBSign_TreatmentRoom, Sign_DB, Sign_DB, 0.1, true, true, true, 95, 24 - 0.05, 0.6 * 4, 0.6, 7.45, false)
+			AddBoxSign(SF%floorid%03_RoomN2, DBSign_TreatmentRoom, Sign_DB, Sign_DB, 0.1, true, true, true, 90, 24 - 0.05, 0.6 * 4, 0.6, 7.45, false)
+			AddBoxSign(SF%floorid%03_RoomN3, DBSign_RecoveryRoom, Sign_DB, Sign_DB, 0.1, true, true, true, 125, 24 - 0.05, 0.6 * 4, 0.6, 7.45, false)
 
 		#South room doors
 		Set DTex = Door9b
 		Set DSTex = %DTex%Side
+		Set TrimTex = %DTex%Side
 
 			WallOrientation = left
 			AddStdDoor Floor %floor%, SF%floorid%03_RoomS1Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, 57.5, 15.5, 3, 7, 0, 0, 0, 0, 0
