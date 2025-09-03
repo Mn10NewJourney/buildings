@@ -772,7 +772,7 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	ID = R
 	Name = Roof
 	Type = Roof
-	Height = 14.5
+	Height = 9.5
 	InterfloorHeight = 1.5
 <EndFloor>
 
@@ -4482,12 +4482,14 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 <EndFloors>
 
 <Floor 29>
-	CreateShaftWall(ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, 0.33, -25, -25, 5, 5, 9, %height%, %interfloorheight%, true, false, true, true, true, false, true)
+	Set RESH = %height% + 5
+
+	CreateShaftWall(ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, 0.33, -25, -25, 5, 5, 9, %RESH%, %interfloorheight%, true, false, true, true, true, false, true)
 
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
 	AddWall Shaft1LeftE-Lower, ExtFacade, 0.5, -30, -30, -30, -20, %interfloorheight% + 5.5, %interfloorheight% + 5.5, 0, 0, 0, 0, true
-	AddWall Shaft1LeftE-Upper, ExtFacade2, 0.5, -30, -30, -30, -20, %height% - 5.5, %height% - 5.5, %interfloorheight% + 5.5, %interfloorheight% + 5.5, 0, 0, true
+	AddWall Shaft1LeftE-Upper, ExtFacade2, 0.5, -30, -30, -30, -20, %RESH% - 5.5, %RESH% - 5.5, %interfloorheight% + 5.5, %interfloorheight% + 5.5, 0, 0, true
 <EndFloor>
 
 ########################################
@@ -5943,7 +5945,7 @@ ShowFullShaft 9 = true
 	ServicedFloors = 26 - 27, 29
 	DisplayFloors = 26 - 27, 29
 	AssignedShaft = 9
-	MotorPosition = 0, Floor(29).Altitude + Floor(29).FullHeight - 0.5, 0
+	MotorPosition = 0, Floor(29).Base + 14.5, 0
 	CreateElevator false, -24.91, -25, 26
 <EndElevator>
 
