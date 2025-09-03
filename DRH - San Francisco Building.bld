@@ -129,7 +129,6 @@
 		Load data/misc/hickory.jpg, HeartWall5, 0.25, 0.25 #Interior deco walls
 
 		#ENT Center (3rd floor, West)
-		#Load data/Carpet0013b_S.jpg, ENTFloor, 0.2, 0.2
 		Load data/checker08.jpg, ENTFloor, 0.35, 0.35
 		Load data/stucco4.jpg, ENTCeiling, 0.15, 0.15
 
@@ -883,7 +882,6 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	if[%floor% > -1 & %floor% < 7] Set 6 = LobbyWall #Wall Texture
 	if[%floor% > 6 & %floor% < 8] Set 6 = OfficeWall #Wall Texture
 	if[%floor% > 8 & %floor% < 27] Set 6 = WardWall #Wall Texture
-	#if[%floor% = 27] Set 6 = ServiceWall #Wall Texture
 	if[%floor% > 26] Set 6 = ServiceWall2 #Wall Texture
 
 	#Override wall texture for support columns
@@ -1264,10 +1262,7 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	if[%floor% = %LowestFloor%] AddFloor Setback3, SetbackTex, %interfloorheight%, 30, -70, %1%, 0 - 1.25, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
-	Set MH = %height% #Main ceiling height
-	#if[%floor% > 26] Set MH = %height% + Floor(%floor% + 1).InterfloorHeight - 0.5 #Main ceiling height
-
-	Set CeiOffset = %MH%
+	Set CeiOffset = %height%
 	if[%floor% = 1] Set CeiOffset = %fullheight%
 	Set IsExternal = false
 	if[%floor% = 1] Set IsExternal = true
@@ -1276,17 +1271,17 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% < 9 | %floor% = 27] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom1, %7%, 0.5, -%1%, 0 - 1.25, -30, 40, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestHallway, %7E%, 0.5, -%1%, 40, -30, 50, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestServLby, %7E%, 0.5, -%1%, 50, -110, %2%, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom2, %7%, 0.5, -110, 50, -30, %2%, %MH%, %MH%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom1, %7%, 0.5, -%1%, 0 - 1.25, -30, 40, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestHallway, %7E%, 0.5, -%1%, 40, -30, 50, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestServLby, %7E%, 0.5, -%1%, 50, -110, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom2, %7%, 0.5, -110, 50, -30, %2%, %height%, %height%, 0, 0, false
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom1, %7%, 0.5, 30, 0 - 1.25, %1%, 40, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastHallway, %7E%, 0.5, 30, 40, %1%, 50, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastServLby, %7E%, 0.5, 110, 50, %1%, %2%, %MH%, %MH%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom2, %7%, 0.5, 30, 50, 110, %2%, %MH%, %MH%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom1, %7%, 0.5, 30, 0 - 1.25, %1%, 40, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastHallway, %7E%, 0.5, 30, 40, %1%, 50, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastServLby, %7E%, 0.5, 110, 50, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom2, %7%, 0.5, 30, 50, 110, %2%, %height%, %height%, 0, 0, false
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_CenterLobby, %7E%, 0.5, -30, 0 - 1.25, 30, %2%, %MH%, %MH%, 0, 0, false
+	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_CenterLobby, %7E%, 0.5, -30, 0 - 1.25, 30, %2%, %height%, %height%, 0, 0, false
 
 	AddFloor SouthCeiling, %7E%, 0.5, -30, -50, 30, 0 - 1.25, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 
@@ -1545,17 +1540,17 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	WallTex() #Set wall texture
 
 	Set WallHeight = %interfloorheight% + 3.5
-	Set WallOffset = -%interfloorheight%
+	Set WallOffset = 0
 
 	WallOrientation = right
 	DrawWalls = true, true, true, false, true, false
-	AddWall ATRRail_Left, %6%, 0.5, -80, 55, -80, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall ATRRail_Left, %6%, 0.5, -80, 55, -80, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	DrawWalls = true, true, false, false, true, false
-	AddWall ATRRail_Front, %6%, 0.5, -80, 55.5, 60, 55.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall ATRRail_Front, %6%, 0.5, -80, 55.5, 60, 55.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	WallOrientation = left
 	DrawWalls = true, true, true, false, true, false
-	AddWall ATRRail_Right, %6%, 0.5, 60, 55, 60, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall ATRRail_Right, %6%, 0.5, 60, 55, 60, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
 <Floors 27 to 28>
@@ -1613,13 +1608,12 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	########################################
 
 	#Ceiling
-	#Set MH = %height% + Floor(29).InterfloorHeight - 0.5 #Main ceiling height
 	Set MH = %height% #Main ceiling height
 
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 28] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %MH%, %MH%, 0, 0, false
-	if[%floor% = 28] AddFloor SouthCeiling, %7%, 0.5, -30, -50, 30, 0 - 1.25, %MH%, %MH%, 0, 0, false
+	if[%floor% = 28] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 28] AddFloor SouthCeiling, %7%, 0.5, -30, -50, 30, 0 - 1.25, %height%, %height%, 0, 0, false
 
 		#Dropped ceiling (Utility room)
 		FloorOrientation = bottom
@@ -1654,21 +1648,21 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	DrawWalls = true, false, false, true, false, false
 	AddWall FrontElevLbyWall_Ext, ExtFacade, 0.5, -30, -50, 30, -50, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
-	DrawWalls = false, true, false, false, false, true
+	DrawWalls = false, true, false, false, false, false
 	AddWall FrontElevLbyWall_Int1, %6%, 0.5, -30, -50, 0, -50, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 	AddWall FrontElevLbyWall_Int2, %6%, 0.5, 10, -50, 20, -50, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 
 	DrawWalls = true, false, false, false, false, false
 	AddWall LeftElevLbyWall, ExtFacade, 0.5, -30, -50, -30, 0 - 1.25 + 0.5, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
-	DrawWalls = false, true, false, false, false, true
+	DrawWalls = false, true, false, false, false, false
 	AddWall LeftElevLbyWall1_Int1, %6%, 0.5, -30, -50, -30, -30, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 	AddWall LeftElevLbyWall1_Int2, %6%, 0.5, -30, -20, -30, 0 - 1.25 + 0.5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 
 	WallOrientation = right
 	DrawWalls = false, true, false, false, false, false
 	AddWall RightElevLbyWall, ExtFacade, 0.5, 30, -50, 30, 0 - 1.25, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
-	DrawWalls = true, false, false, true, false, true
+	DrawWalls = true, false, false, true, false, false
 	AddWall RightElevLbyWall, %6%, 0.5, 30, -6, 30, 0 - 1.25 + 0.5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 <EndFloors>
 
