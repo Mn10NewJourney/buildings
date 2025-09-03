@@ -4436,14 +4436,21 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	Set WO = 0 #Wall offset
 	if[%floor% = 28] Set WH = %fullheight% #Wall height
 	if[%floor% = 28] Set WO = -%interfloorheight% #Wall offset
+	
+	Set ShowInteriorSide = true
+	if[%floor% > 26] Set ShowInteriorSide = false
 
 	#External shaft walls
 	#Freight elevators
 	if[%floor% < 5] CreateShaftWall(%HeartTex%, %HeartTex%, %HeartTex%, %6%, %6%, %6%, 0.33, -116, 39 - 5, 6, 6, 6, %height%, 0, true, true, true, true, false, false, false)
-	CreateShaftWall(%6%, %6%, %6Int%, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, 7, %WH%, %WO%, true, false, true, false, false, false, false)
+	CreateShaftWall(%6%, %6%, %6Int%, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, 7, %WH%, %WO%, true, false, %ShowInteriorSide%, false, false, false, false)
 
 	#Patient transport elevators
-	CreateShaftWall(%6%, %6Int%, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, 8, %WH%, %WO%, true, true, false, false, false, false, false)
+	CreateShaftWall(%6%, %6Int%, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, 8, %WH%, %WO%, true, %ShowInteriorSide%, false, false, false, false, false)
+
+		#Special values for levels 28 and 28A
+		if[%floor% > 26] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, S7_Mech, %WH%, %WO%, false, false, true false, false, false, false)
+		if[%floor% > 26] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, S8_Mech, %WH%, %WO%, false, true, false, false, false, false, false)
 
 	########################################
 
@@ -4889,7 +4896,7 @@ ShowFullShaft 9 = true
 	#SET TEXTURES
 	M10_ElevCabTex(ElevExt, ElevFloor, ElevCeiling, ElevWall, ElevWall) 
 	M10_ElevDimensions(6.25, 7.5, 8, 0.2, 0.2, true, true, false, true)
-	M10_ElevPanels(ElevPanelMain, ElevPanelTop, 0.25, 1.75, 1.75, 0.2, false, false, true, false)
+	M10_ElevPanels(ElevPanelMain, ElevPanelTop, 1.75, 1.75, 1, 0.2, false, false, true, false)
 
 	#ELEVATOR CREATION
 	M10_ElevInterior()
@@ -4973,7 +4980,7 @@ ShowFullShaft 9 = true
 	#SET TEXTURES
 	M10_ElevCabTex(ElevExt, ElevFloor, ElevCeiling, ElevWall, ElevWall) 
 	M10_ElevDimensions(6.25, 7.5, 8, 0.2, 0.2, true, false, true, true)
-	M10_ElevPanels(ElevPanelMain, ElevPanelTop, 0.25, 1.75, 1.75, 0.2, false, true, false, false)
+	M10_ElevPanels(ElevPanelMain, ElevPanelTop, 1.75, 1.75, 1, 0.2, false, true, false, false)
 
 	#ELEVATOR CREATION
 	M10_ElevInterior()
@@ -5083,7 +5090,7 @@ ShowFullShaft 9 = true
 	#SET TEXTURES
 	M10_ElevCabTex(ElevExt, HRElevFloor, HRElevCeiling, HRElevWall, HRElevWall) 
 	M10_ElevDimensions(6.25, 7.5, 8, 0.2, 0.2, true, true, false, true)
-	M10_ElevPanels(HRElevPanelMain, HRElevPanelTop, 0.25, 1.75, 1.75, 0.2, false, false, true, false)
+	M10_ElevPanels(HRElevPanelMain, HRElevPanelTop, 1.75, 1.75, 1, 0.2, false, false, true, false)
 
 	#ELEVATOR CREATION
 	M10_ElevInterior()
@@ -5165,7 +5172,7 @@ ShowFullShaft 9 = true
 	#SET TEXTURES
 	M10_ElevCabTex(ElevExt, HRElevFloor, HRElevCeiling, HRElevWall, HRElevWall) 
 	M10_ElevDimensions(6.25, 7.5, 8, 0.2, 0.2, true, false, true, true)
-	M10_ElevPanels(HRElevPanelMain, HRElevPanelTop, 0.25, 1.75, 1.75, 0.2, false, true, false, false)
+	M10_ElevPanels(HRElevPanelMain, HRElevPanelTop, 1.75, 1.75, 1, 0.2, false, true, false, false)
 
 	#ELEVATOR CREATION
 	M10_ElevInterior()
@@ -5945,7 +5952,7 @@ ShowFullShaft 9 = true
 	ServicedFloors = 26 - 27, 29
 	DisplayFloors = 26 - 27, 29
 	AssignedShaft = 9
-	MotorPosition = 0, Floor(29).Base + 14.5, 0
+	MotorPosition = 0, Floor(29).Base + 14, 0
 	CreateElevator false, -24.91, -25, 26
 <EndElevator>
 
