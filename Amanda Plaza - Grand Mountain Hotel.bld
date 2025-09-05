@@ -476,7 +476,7 @@ Set 2 = 60 #Building Dimension Z
 	Set 5 = Lobby
 	if[%floor% = 1 | %floor% = 2 | %floor% = 5] Set 5 = %floorid%F
 	if[%floor% > 2 & %floor% < 5] Set 5 = Hotel
-	
+
 	#Special for hotel walls
 		#Elevator lobby
 		Set HotelSuffix = Wall
@@ -486,7 +486,10 @@ Set 2 = 60 #Building Dimension Z
 		#Hallways
 		Set HHS = Wall #HHS = "Hotel Hallway Suffix"
 		if[%floor% > 0 & %floor% < 6] Set HHS = Wall2
-		
+
+		Set HHS2 = %HHS%
+		if[%floor% = 0] Set HHS2 = Wall2
+
 		#Corner walls
 		Set CS = Wall2 #CS = "Corner Suffix"
 		if[%floor% > 0] Set CS = Wall
@@ -615,7 +618,7 @@ Set 2 = 60 #Building Dimension Z
 		#TextureOverride ExtFacade, %5%%CS%, %5%%CS%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall FrontWallB, ExtFacade, 0.5, -15, -%2%, -5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		TextureOverride ExtFacade, %5%%CS%, %5%%HHS%, %5%%CS%, %5%Wall, %5%Wall
+		TextureOverride ExtFacade, %5%%CS%, %5%%HHS2%, %5%%CS%, %5%Wall, %5%Wall
 		AddWall FrontWallC, ExtFacade, 0.5, 5, -%2%, 15, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, true, false, false, false
@@ -719,11 +722,7 @@ Set 2 = 60 #Building Dimension Z
 
 #Cut windows for "Lobby windows"
 	#West/east sides
-	#Cut external, -%1% - 0.1, Floor(0).Base, -10, -%1% + 0.1, Floor(1).Altitude, 10, true, false #West
 	Cut external, %1% - 0.1, Floor(0).Base, -10, %1% + 0.1, Floor(1).Altitude, 10, true, false #East
-
-	#South side
-	#Cut external, -5, Floor(0).Base, -%2% - 0.1, 5, Floor(1).Altitude, -%2% + 0.1, true, false
 
 <Floor 0>
 	TexPrefix() #Set wall textures
@@ -734,7 +733,6 @@ Set 2 = 60 #Building Dimension Z
 
 		SetAutoSize = true, false
 		AddCustomWindows(FrontLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -5, -%2%, 5, -%2%, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
-		#AddCustomWindows(LeftLobbyWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -10, -%1%, 10, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(LeftLobbyWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -20, -%1%, -10, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(LeftLobbyWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, 10, -%1%, 20, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
 		AddCustomWindows(RightLobbyWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -10, %1%, 10, %winheight%, 0, 0, 3, ExtFacade, %5%Wall)
@@ -804,7 +802,6 @@ Set 2 = 60 #Building Dimension Z
 #Set door textures for restrooms
 <Function RR_DTex>
 	Set DTex = Door8
-	#Set DTex = Door6
 	Set DSTex = %DTex%Side
 <EndFunction>
 
@@ -1372,7 +1369,7 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 	Set Shaft1CX = -10 #1st shaft for elevator bank
 	Set Shaft1CZ = 50
 
-		#2nd & 6th floors
+		#2nd, 3rd, and 6th floors
 		if[%floor% = 1 | %floor% = 2 | %floor% = 5] AddDecoObject(Elev1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
 		if[%floor% = 1 | %floor% = 2 | %floor% = 5] AddDecoObject(Elev2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, floor)
 
@@ -1402,7 +1399,6 @@ AddStdShaft(1, 1, -10, 50, 4.67, 9.67, -1, 6, ShaftIntWall, 0.5, 0.33, 0, 5, %in
 
 	#Indicator sets
 	Set Offset = 7.5
-	#if[%floor% = 0] Set Offset = 7.75
 
 		#Set textures
 		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button)

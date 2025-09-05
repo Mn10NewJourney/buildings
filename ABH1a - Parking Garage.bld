@@ -26,7 +26,7 @@
 	Designer = Mn10 (Some content made by Test Tower)
 	Location = Apex Beach Hotel
 	Version = 1a
-	Description = A parking garage with 591 spaces (counting normal spaces only) for guests, staff, and others.
+	Description = A parking garage with 591 spaces (normal spaces only) for the hotel's occupants.
 	CameraFloor = 0
 	CameraPosition = -43.5, -116
 	CameraRotation = 0, 180, 0
@@ -113,8 +113,6 @@
 		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3f.jpg, Door88_Black_Outside, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, Door88_Black_Side, 236, 0, 20, 512, 1, 1, false #EG881
 
-		#Load data/miscdoor9.jpg, Door9, 1, 1, false
-		#LoadCropped data/miscdoor9.jpg, Door9Side, 236, 0, 20, 512, 1, 1, false
 		Load data/miscdoor9b.jpg, Door9b, 1, 1, false
 		Load data/EG881/Doors/miscdoor9bside.jpg, Door9bSide, 1, 1, false #EG881
 
@@ -272,8 +270,8 @@
 
 <Floor 0>
 	ID = %floor% + 1
-	Name = Parking Level %floorid%
-	Type = Lobby
+	Name = Level %floorid%
+	Type = Parking
 	Height = 7.25
 	InterfloorHeight = 1.5
 	Altitude = 3.5
@@ -281,16 +279,15 @@
 
 <Floors 1 to 4>
 	ID = %floor% + 1
-	Name = Parking Level %floorid%
-	if[%floor% ! 2] Type = Recreation
-	if[%floor% = 2] Type = Lobby
+	Name = Level %floorid%
+	Type = Parking
 	Height = 7.25
 	InterfloorHeight = 0.75
 <EndFloor>
 
 <Floor 5>
 	ID = %floor% + 1
-	Name = Parking Level %floorid%
+	Name = Level %floorid%
 	Type = Roof
 	Height = 8.5
 	InterfloorHeight = 0.75
@@ -323,7 +320,6 @@ Set 2 = 135 #Building Dimension Z
 	#Grass
 	AddFloor landscape, PG_Grass, Grass, 0, -%1%, %2%, %1%, %2% + 10, Floor(0).Base, Floor(0).Base, 0, 0
 
-
 	#Cut for stairwells and elevator shafts
 	Cut Landscape, -80, Floor(0).Base - 1, 2.5, -%1%, Floor(0).Base + 1, 12, false, true #West stairwell
 	Cut Landscape, -43.5 - 10, Floor(0).Base - 1, -%2% - 4.5, -43.5 + 10, Floor(0).Base + 1, -%2%, false, true #West elevators
@@ -337,13 +333,11 @@ Set 2 = 135 #Building Dimension Z
 		AddFloor landscape, SoutheastRoadway, Road, 0, %1%, -116, %1% + 10, -92, Floor(0).Base, Floor(0).Base, 0, 0
 		AddFloor landscape, NortheastRoadway, Road, 0, %1%, 92, %1% + 10, 116, Floor(0).Base, Floor(0).Base, 0, 0
 
-
 #Link to Sapphire Sea Tower
 	FloorOrientation = top
 	DrawWalls = true, true, false, true, false, false
 	TextureOverride Concrete1A, Road, Blank, ExtFacade, Blank, Blank
 	AddFloor landscape, Sapphire-ParkingLink, Road, 1.5, -%1% - 10, -116, -%1%, -40, Floor(2).Base, Floor(2).Base, 0, 0
-
 
 	#Fences at Sapphire Sea Tower link
 	Set FenceThickness = 0.6
@@ -356,8 +350,6 @@ Set 2 = 135 #Building Dimension Z
 	WallOrientation = right
 	TextureOverride BrickFences, BrickFences, BrickFences, ExtFacade, BrickFences, BrickFences
 	AddWall landscape, Sapphire-ParkingLink-Fences2, BrickFences, %FenceThickness%, -%1% - 10, -116, -%1%, -116, 1.5 + 3.5, 1.5 + 3.5, Floor(2).Base - 1.5, Floor(2).Base - 1.5, 0, 0
-
-
 
 ##--------------------------------------------------------------------------------##
 
@@ -1110,7 +1102,6 @@ CutStairwell 2, -9, -4.25, 9, 4.25, 0, 5
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
 	AddWall Stair%25%FrontE, %6E%, 0.5, 61, 2.5, 80 - 9, 2.5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
-
 
 	#Doors
 	WallOrientation = right

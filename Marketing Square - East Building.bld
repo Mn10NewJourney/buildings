@@ -97,7 +97,6 @@
 	Load data/wall5.jpg, OfficeLobbyWall, 0.25, 0.25
 
 	Load data/EG881/ceilingtile3x3.jpg, OfficeCeiling, 0.125, 0.125 #EG881
-	#Load data/EG881/ceilingtile2b.jpg, OfficeLobbyCeiling, 0.125, 0.125 #EG881
 
 		#Shaft doors
 		Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, OfficeShaftDoors, 1, 1, false
@@ -304,7 +303,7 @@
 
 <Floor 0>
 	ID = %floor% + 1
-	Name = Lobby
+	Name = Level %floorid%
 	Type = Lobby
 	Height = 9.5
 	InterfloorHeight = 1.5
@@ -313,7 +312,7 @@
 
 <Floors 1 to 6>
 	ID = %floor% + 1
-	Name = Office Level %floorid%
+	Name = Level %floorid%
 	Type = Office
 	Height = 9.5
 	InterfloorHeight = 1.5
@@ -617,9 +616,6 @@ Set 2 = 75 #Building Dimension Z
 	CutAll 25, %interfloorheight% - 0.1, 23, %1%, %interfloorheight% + 0.1, 33, false, true
 	CutAll 30, %interfloorheight% - 0.1, 33, %1%, %interfloorheight% + 0.1, 45, false, true
 
-	#Ceiling cuts for elevator lobby
-	#if[%floor% < 5] CutAll 5, %fullheight% - 0.1, 13, %1%, %fullheight% + 0.1, 23, false, true
-
 	#==============================#
 
 	#Elevator lobby
@@ -639,11 +635,6 @@ Set 2 = 75 #Building Dimension Z
 		if[%floor% > 4] AddWall OFLobbyWall_Int, %5%LobbyWall, 0.5, 5, 13, %1%, 13, %height%, %height%, 0, 0, 0, 0, false
 		DrawWalls = true, false, false, false, false, false
 		AddWall OFLobbyWall_Ext, %5%Wall, 0.5, 5, 13, %1%, 13, %height%, %height%, 0, 0, 0, 0, false
-
-		#Elevator lobby ceiling
-		#FloorOrientation = bottom
-		#DrawWalls = true, false, false, false, false, false
-		#if[%floor% < 5] AddFloor OFLobbyCeiling, %5%LobbyCeiling, 0.5, 5, 13, %1%, 23, %height%, %height%, 0, 0, false
 
 	#==============================#
 	
@@ -1605,10 +1596,6 @@ ShowFullStairs 1 = always
 	WallOrientation = right
 	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 3, 75, -%23%, %24% - 2, 3, 7, 0, 0, 0
-
-		#Manual fillers (external mesh)
-		#WallOrientation = right
-		#if[%floor% = 7] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23%, %22% + %24% - 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
