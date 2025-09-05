@@ -40,7 +40,6 @@
 	Load data/black.jpg, Black, 1, 1, false
 	Load data/Melvin/transparent128.png, Blank, 1, 1, false
 	Load data/EG881/blackdoortrim.jpg, BlackTrim, 1, 1, false #EG881
-	#Load data/text16.jpg, WoodSign2, 1, 1, false
 	Load data/signs_mod/elevhallsign1a.png, FireSign, 1, 1, false
 	Load data/stucco4b.jpg, ColumnTex, 0.25, 0.25 #Support columns
 
@@ -121,7 +120,6 @@
 				#Shaft doors
 				Load data/dark muntz door.jpg, E6Lobby_DarkMuntzShaftDoors, 1, 1, false #EG881 #Level B
 				Load data/dark muntz door.jpg, E6Lobby_DarkMuntzShaftDoors2, -1, 1, false #EG881
-				#Load data/gray2-sm.jpg, E6Lobby_DarkMuntzShaftDoors_Trim, 1, 1, true
 				Load data/EG881/stainlesssteel2.jpg, E6Lobby_DarkMuntzShaftDoors_Trim, 1, 1, false #EG881
 
 				Load data/EG881/elevdoorright_black.jpg, E6Lobby_BlackShaftDoors, -1, 1, false #EG881 #Levels 1-4
@@ -171,7 +169,6 @@
 	#Shafts
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ShaftIntWall, 0.0625, 0.0625, true #EG881
 	Load data/EG881/cem_tr3.jpg, ShaftIntWall2, 0.075225, 0.0625 #EG881
-	#Load data/EG881/Concrete/smoothconcrete1_white.jpg, ShaftIntWall2, 0.0625, 0.0625, true #EG881
 
 	#Elevators
 		#Main components
@@ -186,7 +183,6 @@
 		Load data/EG881/elevatordoortrackz.jpg, ElevDoorTrackZ, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ElevPanel, 1, 1, false
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
-		#Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
 
 	#Original Elevators (No. 1-5)
 		#Floor and ceiling
@@ -239,8 +235,6 @@
 		Load data/panel-back3.jpg, AdditionalElevPanelTop, 1, 0.0667, false
 
 		#Car doors
-		#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, AdditionalElevDoors, -1, 1, false #EG881
-		#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, AdditionalElevDoors2, 1, 1, false #EG881
 		Load data/dark muntz door.jpg, AdditionalElevDoors, 1, 1, false
 		Load data/dark muntz door.jpg, AdditionalElevDoors2, -1, 1, false
 
@@ -405,7 +399,7 @@
 
 <Floor 0>
 	ID = %floor% + 1
-	Name = Parking Level (%floor% + 1)
+	Name = Parking Level %floorid%
 	Type = Lobby
 	Height = 8.5
 	InterfloorHeight = 1.5
@@ -424,7 +418,7 @@
 
 <Floors 2 to 8>
 	ID = %floor%
-	Name = Parking Level %floor%
+	Name = Parking Level %floorid%
 	Type = Parking
 	Height = 8.5
 	InterfloorHeight = 1.5
@@ -433,7 +427,7 @@
 
 <Floor 9>
 	ID = %floor%
-	Name = Parking Level %floor%
+	Name = Parking Level %floorid%
 	Type = Roof
 	Height = 9.5
 	InterfloorHeight = 1.5
@@ -459,7 +453,7 @@ Set 2 = 100 #Building Dimension Z
 	#Downtown ground
 	#AddGround Ground, Downtown, -158400, -158400, 158400, 158400, 0, 7920, 7920
 	#Cut Landscape, -%1% - 45, -1, -%2% - 15, %1% + 5, 1, %2%, false, true #Main cut
-	
+
 	#Perimeter floors
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, FrontFloor1, Grass, 0, -%1% - 45, -%2% - 15, -71, -%2%, Floor(0).Base, Floor(0).Base, 0, 0	
@@ -489,7 +483,6 @@ Set 2 = 100 #Building Dimension Z
 	AddTree(Tree2, -130, -77.5, 12, 16, 0)
 	AddTree(Tree2, -130, -77.5 - 15, 12, 16, 0)
 
-
 ##--------------------------------------------------------------------------------##
 
 #Set texture prefixes/suffixes
@@ -504,7 +497,6 @@ Set 2 = 100 #Building Dimension Z
 
 			#Ceiling
 			Set PLCeilSuffix = Ceiling
-			#if[%floor% > 4] Set PLCeilSuffix = Ceiling2
 	
 			#Shaft doors (Elevators 1-5)
 			Set E1SD = E1Lobby_Silver
@@ -529,6 +521,7 @@ Set 2 = 100 #Building Dimension Z
 
 	#Support columns
 	Set 5C = ColumnTex
+
 	###************###
 
 	#Internal textures for stairwell/shaft walls
@@ -1459,7 +1452,7 @@ ShowFullShaft 3 = true
 <EndElevators>
 
 #West Original Elevators
-#Installed 17 November 1994 (Nearly the same as the elevators in the office building.)
+#Installed 17 November 1994 (Nearly the same as West Building's elevators)
 
 <Elevator 1>
 	Name = West Original Elevator 1
@@ -2010,7 +2003,6 @@ ShowFullShaft 3 = true
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
 <EndFunction>
-
 
 #Original Elevators (West)
 <Function E1-3HallStation>
