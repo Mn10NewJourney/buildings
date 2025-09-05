@@ -67,26 +67,19 @@
 	Load data/wall5.jpg, ElevLbyWall2, 0.25, 0.25
 	Load data/stucco1b.jpg, ElevLbyCeiling, 0.2, 0.2
 	Load data/EG881/ceilingtile2.jpg, ElevLbyCeilingLight, 1, 1, false #EG881
-	
+
 		#Elevators 5-7 Lobby Area
 		Load data/Carpet0013b_S.jpg, ALobbyFloor, 0.2, 0.2
 		Load data/EG881/lopacwall2stripe.jpg, ALobbyWall_Lower, 0.15, 0.3 #EG881 #Lower walls
 		Load data/wall3.jpg, ALobbyWall, 0.25, 0.25 #Upper walls
 		Load data/EG881/ceilingtile3x3.jpg, ALobbyCeiling, 0.125, 0.125 #EG881
-		#Load data/EG881/ceilingtile2.jpg, ALobbyCeiling, 0.125, 0.125 #EG881
 	
 		#Parking-Mall Connector
 		Load data/granite_0007e.jpg, ConnectorFloor, 0.25, 0.25
 		Load data/stucco1b.jpg, ConnectorCeiling, 0.05, 0.05
 		Load data/cutston2.jpg, ConnectorRailing, 0.0625, 0.0625
 
-		#Doors
-		#Load data/miscdoor8.jpg, Door8, 1, 1, false
-		#LoadCropped data/miscdoor8.jpg, Door8Side, 236, 0, 20, 512, 1, 1, false
-		#Load data/miscdoor88.gif, Door88, 1, 1, false
-		#LoadCropped data/miscdoor88.gif, Door88Side, 236, 0, 20, 512, 1, 1, false
-
-		#Black entrance doors
+		#Entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
 		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky1.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
@@ -149,7 +142,7 @@
 			#Panels
 			Load data/panel-back3.jpg, AdditionalElevPanelMain, 1, 1, false
 			Load data/panel-back3.jpg, AdditionalElevPanelTop, 1, 0.125, false
-	
+
 			#Car doors
 			Load data/glassdoor_trans.gif, AdditionalElevDoors, 1, 1, false
 			Load data/glassdoor_trans.gif, AdditionalElevDoors2, -1, 1, false
@@ -410,8 +403,6 @@ Cut Landscape, -80, -1, -200 - 6 - 22, -60, 1, -200, false, true
 Cut Landscape, 100, -1, -35, 105, 1, -5, false, true
 
 #Cuts for entrance
-#Cut Landscape, 100, -1, -180 - 12, 110, 1, -180 + 12, false, true
-#Cut Landscape, 100, -1, 180 - 12, 110, 1, 180 + 12, false, true
 Cut Landscape, 100, -1, -180 - 12, 110, 1, 180 + 12, false, true
 AddFloor landscape, SouthEnt, Road, 0, 100, -180 - 12, 110, -180 + 12, 0, 0, 0, 0
 AddFloor landscape, NorthEnt, Road, 0, 100, 180 - 12, 110, 180 + 12, 0, 0, 0, 0
@@ -647,7 +638,6 @@ AddFloor landscape, EastSidewalkC, Sidewalk, 0, 100, -5, 110, 180 - 12, 0, 0, 0,
 	TextureOverride %ExtTex%, BLKEntDoorInt, BLKEntDoorSide, BLKEntDoorSide, BLKEntDoorSide, BLKEntDoorSide
 	if[%floor% < 9] AddExternalDoor , , false, Door88, 0.2, 1, 75, 85, -20 - 1.5, 3, 7, %interfloorheight%, 0, 0
 	if[%floor% < 9] AddFillerWalls %6C%, 0.5, 85, -20, 6, 7, %interfloorheight%, false, 0, 0, true
-	#if[%floor% = 9] WindowsX2(ElevLbyWindows, 85, -20, left, 10, %height% - 2, 1, MainWindowsB, MainWindowsIntB, %6C%, 0.5, 1)
 
 	WallOrientation = right
 	TextureOverride %6C%, ExtFacade, Blank, Blank, Blank, Blank
@@ -1961,11 +1951,19 @@ ShowFullShaft 3 = true
 <EndFloors>
 
 #Global Settings
-<Elevators 1 to 4>
+<Elevators 1 to 7>
+	#Door timers
+	DoorTimer 1 = 9000
+	QuickClose 1 = 6000
+
+	#Other settings
+	NotifyEarly = 1
 	ReOpen = false
 	ChimeOnArrival = true
-	NotifyEarly = 1
 	QueueResets = true
+<EndElevators>
+
+<Elevators 1 to 4>
 	ChimeSound 1 = KW_Sounds/hitachimtchime1.wav
 	OpenSound 1 = EG881Sounds/elevopen4.wav #EG881
 	CloseSound 1 = EG881Sounds/elevclose4.wav #EG881
@@ -1979,10 +1977,6 @@ ShowFullShaft 3 = true
 <EndElevators>
 
 <Elevators 5 to 7>
-	ReOpen = false
-	ChimeOnArrival = true
-	NotifyEarly = 1
-	QueueResets = true
 	ChimeSound 1 = KW_Sounds/hitachijpchime.wav
 	BeepSound = KW_Sounds/hitachijpbeep.wav
 
@@ -1995,9 +1989,4 @@ ShowFullShaft 3 = true
 	CarStartSound = EG881Sounds/elevstart11.wav #EG881
 	CarMoveSound = EG881Sounds/elevmove11.wav #EG881
 	CarStopSound = EG881Sounds/elevstop11.wav #EG881
-<EndElevators>
-
-<Elevators 1 to 7>
-	DoorTimer 1 = 9000
-	QuickClose 1 = 6000
 <EndElevators>
