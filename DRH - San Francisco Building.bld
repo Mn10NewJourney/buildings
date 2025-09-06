@@ -48,10 +48,10 @@
 	Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
 
 	#Building signs
-	Load data/Melvin/DRH/BldgSigns/SFBldg_White.png, BldgSign, 1, 1, false
-	Load data/stucco1b.jpg, BldgSignBack, 0.25, 0.25
+	Load data/Melvin/DRH/BldgSigns/SFBldg_Light.png, BldgSign, 1, 1, false
+	#Load data/stucco1b.jpg, BldgSignBack, 0.25, 0.25
 	#Load data/marb148.jpg, BldgSignBack, 0.25, 0.25
-	#Load data/marble4.jpg, BldgSignBack, 0.25, 0.25
+	Load data/marble4.jpg, BldgSignBack, 0.25, 0.25
 
 	########################################
 
@@ -3115,11 +3115,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		#AddFillerWalls ConnectionWall, 0.5, %CenterX%, %CenterZ%, 6, 7, 0, true, 0, 0, false
 		AddDecoObject(Clinic%floorid%03_SecEntTrim, %DTex%Trim, %DTex%Trim, back, true, true, 0.05, 0.2, %CenterX%, %CenterZ%, 6, 7, 7.2, 0.2, 0, true, %DTex%Trim, 0.5, floor)
 		#Note: "SecEnt" = "Secondary entrance"
-
-		#Sign above doors
-		#WallOrientation = left
-		#DrawWalls = false, true, true, true, true, true
-		#if[%floor% ! 4] AddBoxSign(%Prefix%3_ServEntr_Sign, Sign_LB_Long, Sign_StaffOnly, Sign_LB_Long, 0.1, true, false, false, %CenterX%, %CenterZ%, 3, 0.75, 7.5, false)
 <EndFunction>
 
 #CEILING LIGHTS FOR "STEM CELL LAB"
@@ -3551,9 +3546,9 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		AddWall ICU-STRCoverWall, %6%, 0.5, 20, -6, 20, -1.25, %height%, %height%, 0, 0, 0, 0, false
 
 		WallOrientation = left
-		AddWall ICU-RestroomCoverWallA, %6%, 0.5, -30, -1.25, -30, 0, %height%, %height%, 0, 0, 0, 0, false
+		AddWall ICU-RRCoverWallA, %6%, 0.5, -30, -1.25, -30, 0, %height%, %height%, 0, 0, 0, 0, false
 		WallOrientation = right
-		AddWall ICU-RestroomCoverWallB, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
+		AddWall ICU-RRCoverWallB, %6%, 0.5, -30, 0, -20, 0, %height%, %height%, 0, 0, 0, 0, false
 
 		#Entrance walls
 		WallOrientation = left
@@ -4394,8 +4389,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	Set 2 = 90 #Building Dimension Z
 	WallTex() #Set wall texture
 
-	########################################
-
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
@@ -4579,10 +4572,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	#Patient transport elevators
 	CreateShaftWall(%6%, %6Int%, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, 8, %WH%, %WO%, true, %ShowInteriorSide%, false, false, false, false, false)
 
-		#Special values for the 5th floor (inside Stem Cell Lab)
-		#if[%floor% = 4] CreateShaftWall(%6%, %6%, StemCellWall, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, S7_Mech, %WH%, %WO%, false, false, true, false, false, false, false)
-		#if[%floor% = 4] CreateShaftWall(%6%, StemCellWall, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, S8_Mech, %WH%, %WO%, false, true, false, false, false, false, false)
-
 		#Special values for levels 28 and 28A
 		if[%floor% > 26] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, -120, 84, 10, 6, S7_Mech, %WH%, %WO%, false, false, true, false, false, false, false)
 		if[%floor% > 26] CreateShaftWall(%6%, %6%, %6%, %6%, %6%, %6%, 0.33, 120, 84, 10, 6, S8_Mech, %WH%, %WO%, false, true, false, false, false, false, false)
@@ -4707,7 +4696,6 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 	Set DistanceX = 40 #Distance between supports X
 	Set DistanceZ = 30 #Distance between supports Z
 	Set SupportHeight = %fullheight%
-	#if[%floor% = 28] Set SupportHeight = %fullheight% + Floor(29).InterfloorHeight
 	Set SupportOffset = -%interfloorheight%
 
 	#Corner Supports
