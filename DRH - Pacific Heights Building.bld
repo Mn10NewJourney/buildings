@@ -218,6 +218,10 @@
 		Load data/servicedoor3.jpg, ServiceDoor3, 1, 1, false
 		LoadCropped data/servicedoor3.jpg, ServiceDoor3Side, 236, 0, 20, 512, 1, 1, false
 
+		#Emergency exit doors
+		Load data/Melvin/DRH/servicedoor2bl_euo.png, ServiceDoor2BL_Emer, 1, 1, false #EG881
+		Load data/Melvin/DRH/servicedoor2br_euo.png, ServiceDoor2BR_Emer, -1, 1, false #EG881
+
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
 		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky1.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
@@ -2293,11 +2297,15 @@ ShowFullStairs 3 = always
 	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 1, -%24% + 0.001, %SignCenterPoint% + 1, -%24% + 0.001, 2, 2, 4, 4, 0, 0
 
 	#Doors
+	Set ExitDoorTex = ServiceDoor2B
+	if[%floor% ! 6 & %floor% ! 7] Set ExitDoorTex = ServiceDoor2BR_Emer
+
 	if[%floor% ! 0 & %floor% ! 6 & %floor% ! 7] SetLock 1, 0
 	WallOrientation = left
-	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	TextureOverride ServiceDoor2, %ExitDoorTex%, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0
 	SetLock 0, 0
+	AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
 
 		#Emergency exit door
 		SetLock 1, 0
@@ -2382,11 +2390,15 @@ ShowFullStairs 4 = always
 	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 1, -%24% + 0.001, %SignCenterPoint% + 1, -%24% + 0.001, 2, 2, 4, 4, 0, 0
 
 	#Doors
+	Set ExitDoorTex = ServiceDoor2B
+	if[%floor% ! 6 & %floor% ! 7] Set ExitDoorTex = ServiceDoor2BL_Emer
+
 	if[%floor% ! 0 & %floor% ! 6 & %floor% ! 7] SetLock 2, 0
 	WallOrientation = right
-	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	TextureOverride %ExitDoorTex%, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 2, 75, -%23%, -%24% + 2, 3, 7, 0, 0, 0
 	SetLock 0, 0
+	AddFillerWalls ConnectionWall, 0.5, %21% - %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
 
 		#Emergency exit door
 		SetLock 2, 0

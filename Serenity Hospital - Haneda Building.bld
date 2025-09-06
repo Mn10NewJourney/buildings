@@ -205,6 +205,10 @@
 		Load data/servicedoor3.jpg, ServiceDoor3, 1, 1, false
 		LoadCropped data/servicedoor3.jpg, ServiceDoor3Side, 236, 0, 20, 512, 1, 1, false
 
+		#Emergency exit doors
+		Load data/Melvin/DRH/servicedoor2bl_euo.png, ServiceDoor2BL_Emer, 1, 1, false #EG881
+		Load data/Melvin/DRH/servicedoor2br_euo.png, ServiceDoor2BR_Emer, -1, 1, false #EG881
+
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
 		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3c.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
@@ -243,7 +247,6 @@
 		Load data/Melvin/ABH_Tex/otis4_buttonpanel-lighter.jpg, ElevPanel, 1, 1, false #Mitsubishi elevators
 		Load data/panel-back3.jpg, ElevPanel2, 1, 0.5, false #Otis elevators
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
-		#Load data/Melvin/SDT_Signs/SDTCallPanel.png, ElevExtPanels-Alt, 1, 1, false
 
 		#High zone elevators
 		Load data/Carpet0021b_S.jpg, HZElevFloor, 0.2, 0.2
@@ -288,7 +291,6 @@
 		Load data/panel-back3.jpg, ServiceElevCeilingTrim2, 1, 1, false
 		Rotate ServiceElevCeilingTrim2, 90
 
-		#Load data/panel-back3.jpg, ServiceElevWall, 1, 1, false
 		Load data/wall5b.jpg, ServiceElevWall, 0.25, 0.25, true
 		Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4
 		Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false #EG881
@@ -660,15 +662,7 @@ AddTree(Tree2, 50 + 10, 60 + 30, 12, 16, 0)
 	AddTree(Tree1, 105 + 30, -65 - 10, 13.5, 12, 0)
 	AddTree(Tree1, 105 + 45, -65 - 10, 13.5, 12, 0)
 
-	#AddTree(Tree1, 105 + 15, -45 + 10, 13.5, 12, 0)
-	#AddTree(Tree1, 105 + 30, -45 + 10, 13.5, 12, 0)
-	#AddTree(Tree1, 105 + 45, -45 + 10, 13.5, 12, 0)
-
 	#Northern path
-	#AddTree(Tree1, 105 + 15, -5 - 10, 13.5, 12, 0)
-	#AddTree(Tree1, 105 + 30, -5 - 10, 13.5, 12, 0)
-	#AddTree(Tree1, 105 + 45, -5 - 10, 13.5, 12, 0)
-
 	AddTree(Tree1, 105 + 15, 15 + 10, 13.5, 12, 0)
 	AddTree(Tree1, 105 + 30, 15 + 10, 13.5, 12, 0)
 	AddTree(Tree1, 105 + 45, 15 + 10, 13.5, 12, 0)
@@ -1379,34 +1373,6 @@ OP_EscTruss(SilverBalustrade, UHEscWall, 0.5, 3.5, 0, 0, 0, 0)
 	SRH_Haneda_OPD()
 <EndFloors>
 
-#<Floors -3 to 6>
-	#Elevator lobby signs
-	#Set SignTex = Sign_Elev
-	#Set SideTex = WoodSign2
-	#if[%floor% > 2] Set SignTex = Sign_Elev_Gray
-	#if[%floor% > 2] Set SideTex = BlackTrim
-
-	#Set Position = -48 - 0.25
-	#if[%floor% ! -3 & %floor% ! 0] AddBoxSign(PElevLbySign1, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
-
-	#Set Position = 48 + 0.25
-	#if[%floor% ! 0] AddBoxSign(PElevLbySign2, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
-	#Set Position = 19.5 + 0.25
-	#if[(%floor% > -3 & %floor% < 5) & %floor% ! 0] AddBoxSign(PElevLbySign3, %SignTex%, %SignTex%, %SideTex%, 0.1, false, true, true, %Position%, -5 + 0.75, 1.5, 1.5, 7.5, false)
-
-	#Service elevator lobby sign
-	#Set Position = 25
-
-	#Set SignSuffix1 = A
-	#Set SignSuffix2 = B
-	#if[%floor% > 2] Set SignSuffix1 = _Gray
-	#if[%floor% > 2] Set SignSuffix2 = _Gray
-	#Set SideTex = WoodSign2
-	#if[%floor% > 2] Set SideTex = BlackTrim
-
-	#if[%floor% ! -3 & %floor% ! -2 & %floor% ! 0] AddBoxSign(SELbySign1, Sign_ServiceElev%SignSuffix1%, Sign_ServiceElev%SignSuffix2%, %SideTex%, 0.1, false, true, true, %Position%, 5 - 0.75, 1.5, 1.5, 7.5, false)
-#<EndFloors>
-
 #########################################################################
 
 #Patient room levels
@@ -2073,7 +2039,6 @@ AddTree(Tree1, 90 - 60, -77.5, 10, 11.25, Floor(7).Base + 1.01)
 		AddWall MMS_LowerStairs_Back, ServiceWall2, 0.25, -15.5 + 10 + 4, -5.25, -15.5 + 10 + 14, -5.25, %RailHeight%, %RailHeight%, %RailOffsetU1%, %RailOffset%, 0, 0, false
 		AddWall MMS_UpperStairs_Back, ServiceWall2, 0.25, -15.5, -5.25, -15.5 + 10, -5.25, %RailHeight%, %RailHeight%, %RailOffsetU2%, %RailOffsetU1%, 0, 0, false
 		AddWall MMS_Landing1_Back, ServiceWall2, 0.25, -15.5 + 10, -5.25, -15.5 + 10 + 4, -5.25, %RailHeight%, %RailHeight%, %RailOffsetU1%, %RailOffsetU1%, 0, 0, false
-		#AddWall MMS_Landing2_Back, ServiceWall2, 0.25, -19.5, -5.25, -15.5, -5.25, %RailHeight%, %RailHeight%, %RailOffsetU2%, %RailOffsetU2%, 0, 0, false
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -4140,9 +4105,12 @@ ShowFullStairs 1 = always
 	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 0.75, %24% - 0.001, %SignCenterPoint% + 0.75, %24% - 0.001, 1.5, 1.5, 3.75, 3.75, 0, 0
 
 	#Doors
+	Set ExitDoorTex = ServiceDoor2B
+	if[%floor% < 7 & %floor% ! 0] Set ExitDoorTex = ServiceDoor2BR_Emer
+
 	WallOrientation = left
 	if[%floor% < 7 & %floor% ! 0] SetLock 1, 0
-	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	TextureOverride ServiceDoor2, %ExitDoorTex%, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 5, 75, %23% - 2, %24%, 3, 7, 0, 0, 0
 	SetLock 0, 0
 
@@ -4152,7 +4120,7 @@ ShowFullStairs 1 = always
 
 		#Manual filler walls
 		WallOrientation = left
-		if[%floor% = 18] AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% - 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls ServiceDoor2Side, 0.5, %21% + %23% - 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
@@ -4232,9 +4200,12 @@ ShowFullStairs 2 = always
 	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 0.75, %24% - 0.001, %SignCenterPoint% + 0.75, %24% - 0.001, 1.5, 1.5, 3.75, 3.75, 0, 0
 
 	#Doors
+	Set ExitDoorTex = ServiceDoor2B
+	if[%floor% < 7 & %floor% ! 0] Set ExitDoorTex = ServiceDoor2BL_Emer
+
 	WallOrientation = left
 	if[%floor% < 7 & %floor% ! 0] SetLock 1, 0
-	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+	TextureOverride ServiceDoor2, %ExitDoorTex%, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
 	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 8, 75, -%23% + 2, %24%, 3, 7, 0, 0, 0
 	SetLock 0, 0
 
@@ -4244,7 +4215,7 @@ ShowFullStairs 2 = always
 
 		#Manual filler walls
 		WallOrientation = left
-		if[%floor% = 18] AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls ServiceDoor2Side, 0.5, %21% - %23% + 2, %22% + %24%, 3, 7 - 0.001, %interfloorheight%, true, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
