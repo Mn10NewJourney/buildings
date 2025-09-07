@@ -236,8 +236,9 @@
 
 	########################################
 
-	#Manual sliding doors
-	Load data/Melvin/SlidingDoors/darkwooddoor_slide_window.png, DWSDoor, 1, 1, false #EG881 #DWS = DarkWoodSliding
+	#Manual sliding doors (DWS = "DarkWoodSliding")
+	Load data/Melvin/SlidingDoors/darkwooddoor_slide_window.png, DWSDoor, 1, 1, false #EG881 #Wide door (5 ft. wide)
+	Load data/Melvin/SlidingDoors/darkwooddoor_slide_window_narrow.png, DWSDoor_NA, 1, 1, false #EG881 #Narrow door (4 ft. wide)
 	LoadCropped data/EG881/darkwooddoor_withwindow.gif, DWSDoorSide, 236, 0, 20, 499, 1, 1, false #EG881
 	Load data/EG881/brownwood.jpg, DWSDoorTrim, 1, 1, false #EG881
 
@@ -1840,6 +1841,52 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	AddBoxSign(Room%floorid%03_Sign, Sign_Room%floorid%03, Sign_Room%floorid%03, Sign_LB_Long, 0.1, true, true, true, 25, 40 + 0.05, 3, 0.75, 7.5, false)
 <EndFloor>
 
+<Function SlidingDoors_ER>
+	#Sliding doors for rooms inside the ER (except the Treatment Room)
+	Set Name = %param1%
+	Set DTex = %param2%
+	Set DSTex = %param3%
+	Set TrimTex = %param4%
+	Set DoorDir = %param5%
+	Set OpeningDir = %param6%
+	Set Door_MainX = %param7%
+	Set Door_MainZ = %param8%
+
+	if[%DoorDir% = front | %DoorDir% = Front] Set M = -1
+	if[%DoorDir% = back | %DoorDir% = Back] Set M = 1
+
+		#Doors
+		WallOrientation = left
+		AddSlidingDoor Floor %floor%, %Name%_Door, , , false, %DTex%, %DSTex%, 0.2, %DoorDir%, %OpeningDir%, 4, 2, %Door_MainX% + (2 * %M%), %Door_MainZ%, 4, 7, 0, 0, 0, 0, 0
+
+		#Decos
+		AddDecoObject(%Name%_ExtDeco, %TrimTex%, %TrimTex%, back, true, false, 0.2, 0.2, %Door_MainX%, %Door_MainZ%, 8, 7, 7 + 0.75, 0.75, 0, false, %TrimTex%, 0.5, floor)
+		AddDecoObject(%Name%_IntDeco, %TrimTex%, %TrimTex%, back, false, true, 0.05, 0.2, %Door_MainX% + (2 * %M%), %Door_MainZ%, 4, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
+<EndFunction>
+
+<Function SlidingDoors_ER_TR>
+	#Sliding doors for the Treatment Room inside the ER
+	Set Name = %param1%
+	Set DTex = %param2%
+	Set DSTex = %param3%
+	Set TrimTex = %param4%
+	Set DoorDir = %param5%
+	Set OpeningDir = %param6%
+	Set Door_MainX = %param7%
+	Set Door_MainZ = %param8%
+
+	if[%DoorDir% = front | %DoorDir% = Front] Set M = -1
+	if[%DoorDir% = back | %DoorDir% = Back] Set M = 1
+
+		#Doors
+		WallOrientation = right
+		AddSlidingDoor Floor %floor%, %Name%_Door, , , false, %DTex%, %DSTex%, 0.2, %DoorDir%, %OpeningDir%, 4, 2, %Door_MainX% + (2.5 * %M%), %Door_MainZ%, 5, 7, 0, 0, 0, 0, 0
+
+		#Decos
+		AddDecoObject(%Name%_ExtDeco, %TrimTex%, %TrimTex%, front, true, false, 0.2, 0.2, %Door_MainX%, %Door_MainZ%, 10, 7, 7 + 0.75, 0.75, 0, false, %TrimTex%, 0.5, floor)
+		AddDecoObject(%Name%_IntDeco, %TrimTex%, %TrimTex%, front, false, true, 0.05, 0.2, %Door_MainX% + (2.5 * %M%), %Door_MainZ%, 5, 7, 7.2, 0.2, 0, true, %TrimTex%, 0.5, floor)
+<EndFunction>
+
 <Floor 0>
 	WallTex() #Set wall texture
 	WallOrientation = left
@@ -1878,24 +1925,24 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 
 		#Custom ceiling lights (X-Ray)
 			#North Hallway
-			CreateWallBox2 floor, XR_NH_Light1, 1FD_CL2X, -35, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light2, 1FD_CL2X, -45, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light3, 1FD_CL2X, -55, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light4, 1FD_CL2X, -65, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light5, 1FD_CL2X, -75, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light6, 1FD_CL2X, -85, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light7, 1FD_CL2X, -95, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_NH_Light8, 1FD_CL2X, -105, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light1, 1FD_CL2X, -35, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light2, 1FD_CL2X, -45, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light3, 1FD_CL2X, -55, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light4, 1FD_CL2X, -65, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light5, 1FD_CL2X, -75, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light6, 1FD_CL2X, -85, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light7, 1FD_CL2X, -95, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_NH_Light8, 1FD_CL2X, -105, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
 			#South Hallway
-			CreateWallBox2 floor, XR_SH_Light1, 1FD_CL2X, -35, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light2, 1FD_CL2X, -45, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light3, 1FD_CL2X, -55, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light4, 1FD_CL2X, -65, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light5, 1FD_CL2X, -75, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light6, 1FD_CL2X, -85, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light7, 1FD_CL2X, -95, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, XR_SH_Light8, 1FD_CL2X, -105, 20, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light1, 1FD_CL2X, -35, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light2, 1FD_CL2X, -45, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light3, 1FD_CL2X, -55, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light4, 1FD_CL2X, -65, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light5, 1FD_CL2X, -75, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light6, 1FD_CL2X, -85, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light7, 1FD_CL2X, -95, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, XR_SH_Light8, 1FD_CL2X, -105, 20, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
 	#Main Entrances
 	WallOrientation = right
@@ -2002,101 +2049,60 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 
 		#Custom ceiling lights (ER)
 			#Storage
-			CreateWallBox2 floor, ERStorage_Light1, 1FD_CL2Z, 40, 75 + 7.5, 1.5, 6, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERStorage_Light1, 1FD_CL2Z, 40, 75 + 7.5, 1.5, 6, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
 			#Main Hallway
-			CreateWallBox2 floor, ERHallway_Light1, 1FD_CL2X, 40, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ERHallway_Light2, 1FD_CL2X, 55, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ERHallway_Light3, 1FD_CL2X, 70, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ERHallway_Light4, 1FD_CL2X, 85, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ERHallway_Light5, 1FD_CL2X, 100, 50, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERHallway_Light1, 1FD_CL2X, 40, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERHallway_Light2, 1FD_CL2X, 55, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERHallway_Light3, 1FD_CL2X, 70, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERHallway_Light4, 1FD_CL2X, 85, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ERHallway_Light5, 1FD_CL2X, 100, 50, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
 			#Treatment Room
 			SROC_IntRecessedCeiling(ER_TR_Light, 1, 80, 72.5, 32, 24, 10, 0.25, 1FDCeiling, 1FD_CL1A, 4, 3)
 
 			#South Auxiliary Rooms
-			CreateWallBox2 floor, ER_OxygenRmLight1, 1FD_CL2Z, 102.5, 32.5, 1.5, 6, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ER_RSCRmLight1, 1FD_CL2Z, 87.5, 32.5, 1.5, 6, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ER_BCRmLight1, 1FD_CL2Z, 72.5, 32.5, 1.5, 6, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_OxygenRmLight1, 1FD_CL2Z, 102.5, 32.5, 1.5, 6, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_RSCRmLight1, 1FD_CL2Z, 87.5, 32.5, 1.5, 6, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_BCRmLight1, 1FD_CL2Z, 72.5, 32.5, 1.5, 6, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
-			CreateWallBox2 floor, ER_CtrlRmLight1, 1FD_CL2X, 40, 40, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ER_CtrlRmLight2, 1FD_CL2X, 55, 40, 6, 1.5, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
-			CreateWallBox2 floor, ER_CtrlRmLight2, 1FD_CL2Z, 35, 30, 1.5, 6, 0.2, 10.05 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_CtrlRmLight1, 1FD_CL2X, 40, 40, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_CtrlRmLight2, 1FD_CL2X, 55, 40, 6, 1.5, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
+			CreateWallBox2 floor, ER_CtrlRmLight2, 1FD_CL2Z, 35, 30, 1.5, 6, 0.2, 10.15 - 0.2, 0, 0, false, true, true, true
 
 		#Doors on ER's south side
-		Set DTex = Door9b
-		Set DSTex = %DTex%Side
-	
 			#Control room
-			Set Door_MainX = 35
-			Set Door_MainZ = 44.5
-		
-			WallOrientation = left
-			AddStdDoor Floor %floor%, ControlRoom_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-			AddStdDoor Floor %floor%, ControlRoom_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75,  %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
-			AddBoxSign(ER_ControlRoomSign, Sign_LB_Long, Sign_Control, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+			SlidingDoors_ER(ControlRoom, DWSDoor_NA, DWSDoorSide, DWSDoorTrim, front, right, 35, 45)
+			AddBoxSign(ER_ControlRoomSign, Sign_LB_Long, Sign_Control, Sign_LB_Long, 0.1, true, true, true, 35 - 2, 45 + 0.25, 0.6 * 4, 0.6, 7.075, false)
 
 			#Blood collection room
-			Set Door_MainX = 80 - 2.5
-			Set Door_MainZ = 44.5
-		
-			WallOrientation = left
-			AddStdDoor Floor %floor%, ControlRoomDr, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
-			AddBoxSign(ER_BCRoomSign, Sign_LB_Long, Sign_BloodCollectionRoom, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+			SlidingDoors_ER(BCRoom, DWSDoor_NA, DWSDoorSide, DWSDoorTrim, back, left, 75, 45)
+			AddBoxSign(ER_BCRoomSign, Sign_LB_Long, Sign_BloodCollectionRoom, Sign_LB_Long, 0.1, true, true, true, 75 + 2, 45 + 0.25, 0.6 * 4, 0.6, 7.075, false)
 
 			#Resuscitation room
-			Set Door_MainX = 80 + 2.5
-			Set Door_MainZ = 44.5
-		
-			WallOrientation = left
-			AddStdDoor Floor %floor%, ResuscitationRoomDr, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
-			AddBoxSign(ER_ResuscitationSign, Sign_LB_Long, Sign_Resuscitation, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+			SlidingDoors_ER(ResuscitationRM, DWSDoor_NA, DWSDoorSide, DWSDoorTrim, front, right, 85, 45)
+			AddBoxSign(ER_ResuscitationSign, Sign_LB_Long, Sign_Resuscitation, Sign_LB_Long, 0.1, true, true, true, 85 - 2, 45 + 0.25, 0.6 * 4, 0.6, 7.075, false)
 
 			#Oxygen tank room
-			Set Door_MainX = 95 + 2.5
-			Set Door_MainZ = 44.5
-		
-			WallOrientation = left
-			AddStdDoor Floor %floor%, OxygenTankRoomDr, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
-			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, 0, true, 0, 0, false
-			AddBoxSign(ER_OxygenTankRMSign, Sign_LB_Long, Sign_Oxygen, Sign_LB_Long, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 0.6 * 4, 0.6, 7.25, false)
+			SlidingDoors_ER(OxygenTankRM, DWSDoor_NA, DWSDoorSide, DWSDoorTrim, front, right, 100, 45)
+			AddBoxSign(ER_OxygenTankRMSign, Sign_LB_Long, Sign_Oxygen, Sign_LB_Long, 0.1, true, true, true, 100 - 2, 45 + 0.25, 0.6 * 4, 0.6, 7.075, false)
 
-		#Sliding doors for Treatment Rooms
-		Set Door_MainX = 80
-		Set Door_MainZ = 55
-		Set FlrLabel = %floorid%
-	
-		Set Texture = DWSDoor
-		Set SideTexture = DWSDoorSide
+		#Sliding doors for Treatment Room
+			#West door
+			SlidingDoors_ER_TR(TR_West, DWSDoor, DWSDoorSide, DWSDoorTrim, front, right, 65, 55)
+			AddBoxSign(ER_TRSign, Sign_TreatmentRoom, Sign_Control, Sign_LB_Long, 0.1, true, true, true, 65 - 2, 55 - 0.25, 0.6 * 4, 0.6, 7.075, false)
+
+			#East door
+			SlidingDoors_ER_TR(TR_East, DWSDoor, DWSDoorSide, DWSDoorTrim, back, left, 95, 55)
+			AddBoxSign(ER_TRSign, Sign_TreatmentRoom, Sign_Control, Sign_LB_Long, 0.1, true, true, true, 95 + 2, 55 - 0.25, 0.6 * 4, 0.6, 7.075, false)
+
+		#Storage inside the Treatment Room
 		WallOrientation = right
-		CreateCustomDoor Floor %floor%, TreatmentRoomDoor, , , false
-
-		CustomDoorComponent Floor %floor%, TreatmentRoomDoor, Left, %Texture%, %SideTexture%, 0.2, back, left, false, 4, 2, 0 - 5, 0, 0, 0, 7, 0, 0, 0, 0, 0
-		CustomDoorComponent Floor %floor%, TreatmentRoomDoor, Right, %Texture%, %SideTexture%, 0.2, front, right, false, 4, 2, 0, 0, 0 + 5, 0, 7, 0, 0, 0, 0, 0
-		FinishDoor Floor %floor%, TreatmentRoomDoor, false
-		MoveDoor Floor %floor%, TreatmentRoomDoor, %Door_MainX%, 0, %Door_MainZ%
-
-			#Sliding door decos
-			AddDecoObject(TRDoorDeco, DWSDoorTrim, DWSDoorTrim, front, true, false, 0.2, 0.2, %Door_MainX%, %Door_MainZ%, 5 * 4, 7, 7.75, 0.75, 0, false, DWSDoorTrim, 0.5, floor)
-
-			#Filler walls only for the door's width
-			WallOrientation = left
-			AddFillerWalls DWSDoorTrim, 0.5, %Door_MainX%, %Door_MainZ%, 5 * 2, 7, %interfloorheight%, true, 0, 0, true
-
-		WallOrientation = right
-		DrawWalls = true, false, true, true, true, true
-		AddBoxSign(ER_TreatmentRmSign, Sign_TreatmentRoom, Sign_LB_Long, Sign_LB_Long, 0.1, true, false, false, 80, 55, 3, 0.75, 8.25, false)
-
-			#Storage
-			WallOrientation = right
-			TextureOverride Door1, Door1, Door1Side, Door1Side, Door1Side, Door1Side
-			AddDoor , , false, Door1, 0.2, 3, 75, 50.5, 82.5 + 1.5, 3, 7, 0, 0, 0
-			TextureOverride Door1, Door1, Door1Side, Door1Side, Door1Side, Door1Side
-			AddDoor , , false, Door1, 0.2, 2, 75, 50.5, 82.5 - 1.5, 3, 7, 0, 0, 0
-			AddFillerWalls ConnectionWall, 1, 50.5, 82.5, 6, 7, 0, false, 0, 0, false
+		TextureOverride Door1, Door1, Door1Side, Door1Side, Door1Side, Door1Side
+		AddDoor , , false, Door1, 0.2, 3, 75, 50.5, 82.5 + 1.5, 3, 7, 0, 0, 0
+		TextureOverride Door1, Door1, Door1Side, Door1Side, Door1Side, Door1Side
+		AddDoor , , false, Door1, 0.2, 2, 75, 50.5, 82.5 - 1.5, 3, 7, 0, 0, 0
+		AddFillerWalls ConnectionWall, 1, 50.5, 82.5, 6, 7, 0, false, 0, 0, false
 
 	#Main Entrance
 	WallOrientation = right
