@@ -1,5 +1,7 @@
-##### Skydream Tower #####
+#Skydream Tower
 #Copyright (c) 2015-Present - Mn10
+
+#This building has been archived and will no longer be touched.
 
 #Originally started on: Not later than 9 May 2015.
 #Updated 26 October 2024: Implemented destination dispatch in the office local elevators (No. 9-32).
@@ -409,11 +411,10 @@
 <Floors 2 to 5>
 	ID = %floor%
 	NumberID = %floor%
-	Name = Meeting
+	Name = Meeting Level %floor%
 	Type = Conference
 	Height = 12
 	InterfloorHeight = 1.5
-	Description = Meeting rooms level %floor%
 	Group = -1 - 5
 <EndFloors>
 
@@ -671,21 +672,21 @@ Cut Landscape, -250, -1, (-132.5 - 48) - 15, 100, 1, -132.5, false, true
 #Parking Ramp Cuts
 Cut Landscape, -190 - 45, -1, -12.5 - 120, -190 - 25, 1, -12.5 + 10, false, true
 
-#Melvin St.
+#Street outside the building
 SetAutoSize = true, false
-AddFloor Landscape, MelvinSt, 4LaneTwoWayX, 0, -250, -132.5 - 48, 100, -132.5, 0, 0, 0, 0
+AddFloor Landscape, MainStreet, 4LaneTwoWayX, 0, -250, -132.5 - 48, 100, -132.5, 0, 0, 0, 0
 SetAutoSize = true, true
 
 #Sidewalk
-AddFloor Landscape, MelvinStSidewalkN1, Sidewalk, 0, -215, -12.5 - 120, 100, (-12.5 - 120) + 15, 0, 0, 0, 0
-AddFloor Landscape, MelvinStSidewalkN2, Sidewalk, 0, -60, (-12.5 - 120) + 15, 60, -100, 0, 0, 0, 0
-AddFloor Landscape, MelvinStSidewalkN3, Sidewalk, 0, -250, -12.5 - 120, -235, (-12.5 - 120) + 15, 0, 0, 0, 0
-AddFloor Landscape, MelvinStSidewalkS, Sidewalk, 0, -250, (-132.5 - 48) - 15, 100, -132.5 - 48, 0, 0, 0, 0
+AddFloor Landscape, SidewalkN1, Sidewalk, 0, -215, -12.5 - 120, 100, (-12.5 - 120) + 15, 0, 0, 0, 0
+AddFloor Landscape, SidewalkN2, Sidewalk, 0, -60, (-12.5 - 120) + 15, 60, -100, 0, 0, 0, 0
+AddFloor Landscape, SidewalkN3, Sidewalk, 0, -250, -12.5 - 120, -235, (-12.5 - 120) + 15, 0, 0, 0, 0
+AddFloor Landscape, SidewalkS, Sidewalk, 0, -250, (-132.5 - 48) - 15, 100, -132.5 - 48, 0, 0, 0, 0
 
 #Grass
-AddFloor Landscape, MelvinStGrass1, Grass, 0, -215, (-12.5 - 120) + 15, -60, -100, 0, 0, 0, 0
-AddFloor Landscape, MelvinStGrass2, Grass, 0, 60, (-12.5 - 120) + 15, 100, -100, 0, 0, 0, 0
-AddFloor Landscape, MelvinStGrass3, Grass, 0, -250, (-12.5 - 120) + 15, -235, -100, 0, 0, 0, 
+AddFloor Landscape, Grass1, Grass, 0, -215, (-12.5 - 120) + 15, -60, -100, 0, 0, 0, 0
+AddFloor Landscape, Grass2, Grass, 0, 60, (-12.5 - 120) + 15, 100, -100, 0, 0, 0, 0
+AddFloor Landscape, Grass3, Grass, 0, -250, (-12.5 - 120) + 15, -235, -100, 0, 0, 0, 
 
 #Trees
 AddTree(SROC_Tree1, -245, -107, 12, 16, 0)
@@ -744,7 +745,6 @@ AddTree(SROC_Tree1, 90, -107, 12, 16, 0)
 	AddFloor ElevatorLobby2, Concrete1, 0, -54.5, 15, -53.5, 15 + 16.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor ElevatorLobby3, Concrete1, 0, -39 - 4.5, 15, -39, 15 + 16.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor ElevatorLobby4, ParkingLobbyFloor, 0, -39, 15, 24, 35 - 0.66, %interfloorheight%, %interfloorheight%, 0, 0, true
-	#AddFloor ElevatorLobby5, Concrete1, 0, 24, 15, 24, 35 - 0.66, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor ElevatorLobby6, Concrete1, 0, 24, 15, 24 + 5, 15 + 16.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 	AddFloor ElevatorLobby7, Concrete1, 0, 49, 15, 54.5, 15 + 16.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 
@@ -1072,7 +1072,6 @@ AddFloorAutoArea -45, Floor(-9).Base, 79, 45, Floor(-2).Base + 6, 95
 	Set ShopHeight = %height%
 	if[%floor% = 0] Set ShopHeight = %height% + Floor(1).FullHeight
 	Set WinTile = 1
-	#if[%floor% = 0] Set WinTile = 2
 
 	#Shop 1 (Northwest)
 	DrawWalls = true, true, false, false, false, false
@@ -1120,7 +1119,6 @@ AddFloorAutoArea -45, Floor(-9).Base, 79, 45, Floor(-2).Base + 6, 95
 	#Atrium Railings
 	WallOrientation = Right
 	DrawWalls = true, true, false, false, true, false
-	#if[%floor% > 1] AddWall AtriumRailing1, %6%, 0.66, -17, %1% - %4%, -17, -54, %interfloorheight% + 4, %interfloorheight% + 4, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	if[%floor% > 1] AddWall AtriumRailing1, %6%, 0.66, -5, -6, 5, -6, %interfloorheight% + 4, %interfloorheight% + 4, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	if[%floor% > 1] AddWall AtriumRailing2, %6%, 0.66, 29, -6, 39, -6, %interfloorheight% + 4, %interfloorheight% + 4, -%interfloorheight%, -%interfloorheight%, 0, 0, false
 	WallOrientation = Left
@@ -1793,9 +1791,6 @@ AddFloorAutoArea -45, Floor(-9).Base, 79, 45, Floor(-2).Base + 6, 95
 		TextureOverride PSELobbyWall, %6%, Blank, Blank, Blank, Blank
 		if[%floor% < -1] AddWall LowerUtil_Back, PSELobbyWall, 0.33, -6 - 6, 62 + 12, -6 + 6, 62 + 12, %height%, %height%, 0, 0, 0, 0, false
 
-		#if[%floor% < -1] CreateWallBox2 floor, LowerUtility_Ext, %6%, -6, 62, 12, 24, %height%, 0, 0, 0, false, true, false, false
-		#if[%floor% < -1] CreateWallBox2 floor, LowerUtility_Int, %6%, -6, 62, 12 - 1, 24 - 1, %height%, 0, 0, 0, true, false, false, false
-
 			#Doors creation
 			WallOrientation = left
 			TextureOverride ServiceDoor3, ServiceDoor3, ServiceDoor3Side, ServiceDoor3Side, ServiceDoor3Side, ServiceDoor3Side
@@ -2010,13 +2005,7 @@ ShaftCut 1, -11.67, -11.67 + 0.33, 11.67, 11.67 - 0.33, 0, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 67] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
 	DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	WallOrientation = Center
 	AddShaftWall %12%, Shaft%12%Divider, Concrete2, 0.2, -%10%, 2.5, %10%, 2.5, %fullheight%, %fullheight%, 0, 0, 0, 0
 
@@ -2054,14 +2043,6 @@ ShaftCut 2, -5.67, -11.67, 5.67 - 0.33, 11.67, 0, 5
 	if[%floor% = 40] AddShaftFloor %12%, MachineRoomBase, Concrete1, 0.5, -%10%, -%11%, %10% - 0.33, %11%, %interfloorheight%, %interfloorheight%, 0, 0
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 40] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
-	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
@@ -2092,14 +2073,6 @@ ShaftCut 3, -5.67 + 0.33, -11.67, 5.67, 11.67, 0.5, 5
 	if[%floor% = 67] AddShaftFloor %12%, MachineRoomBase, Concrete1, 0.5, -%10% + 0.33, -%11%, %10%, %11%, %interfloorheight%, %interfloorheight%, 0, 0
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 67] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
-	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
@@ -2131,13 +2104,6 @@ ShaftCut 4, -5.67, -23.67, 5.67 - 0.33, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 20] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2167,13 +2133,6 @@ ShaftCut 5, -5.67 + 0.33, -23.67, 5.67, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 20] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2204,13 +2163,6 @@ ShaftCut 6, -5.67, -23.67, 5.67 - 0.33, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 39] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2240,13 +2192,6 @@ ShaftCut 7, -5.67 + 0.33, -23.67, 5.67, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 39] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2277,13 +2222,6 @@ ShaftCut 8, -5.67, -23.67, 5.67 - 0.33, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 58] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2313,13 +2251,6 @@ ShaftCut 9, -5.67 + 0.33, -23.67, 5.67, 23.67, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 58] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2350,13 +2281,6 @@ ShaftCut 10, -14.67, -4.67 + 0.33, 14.67, 4.67 - 0.33, 0, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 2] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2386,13 +2310,6 @@ ShaftCut 11, -14.67, -4.67, 14.67, 4.67 - 0.33, 0.5, 5
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 63] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
 	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
 
@@ -2421,14 +2338,6 @@ ShaftCut 12, -6.17, -4.67, 6.17, 4.67 - 0.33, 0, 5
 	#if[%floor% > -9] AddShaftFloor %12%, UtilityShaftBase, Concrete1, 0.5, -%10%, -%11%, %10%, %11% - 0.33, %interfloorheight%, %interfloorheight%, 0, 0
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 65] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
-	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
@@ -2457,14 +2366,6 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 	#if[%floor% > -1] AddShaftFloor %12%, UtilityShaftBase, Concrete1, 0.5, -%10%, -%11%, %10% - 0.33, %11%, %interfloorheight%, %interfloorheight%, 0, 0
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 58] AddShaftFloor %12%, Shaft%12%Top, Concrete1, 0.5, -%10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0
-	
-	#WallOrientation = Left
-	#DrawWalls = true, true, false, false, false, false
-	#AddShaftWall %12%, Shaft%12%Front, Concrete2, 0.33, -%10%, -%11%, %10%, -%11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Left, Concrete2, 0.33, -%10%, -%11%, -%10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#WallOrientation = Right
-	#AddShaftWall %12%, Shaft%12%Right, Concrete2, 0.33, %10%, -%11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
-	#AddShaftWall %12%, Shaft%12%Back, Concrete2, 0.33, -%10%, %11%, %10%, %11%, %fullheight%, %fullheight%, 0, 0, 0, 0
 
 	if[%floor% ! 0 & %floor% ! 1] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight%, 0, 0, 0, true, true, false, false
 	if[%floor% = 0] CreateWallBox2 Shaft %12%, Shaft%12%Wall, Concrete2, 0, 0, (%10% * 2) - 0.66, (%11% * 2) - 0.66, %fullheight% + Floor(1).FullHeight, 0, 0, 0, true, true, false, false
@@ -2534,18 +2435,6 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 	DrawWalls = true, true, true, false, false, false
 	TextureOverride ServiceElevWall, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
 	AddWall Right, ServiceElevWall, 0.2, 3.7, -6, 3.7, 6, 9, 9, 0, 0, 0, 0
-
-	#Side & Top Panels
-	#WallOrientation = Left
-	#DrawWalls = true, true, true, false, false, false
-	#TextureOverride ElevExt, ServiceElevPanelMain, ServiceElevPanelMain, ElevExt, ElevExt, ElevExt
-	#AddWall Left Panel, ServiceElevPanelMain, 0.2, 3.5, -6, 5, -6, 9, 9, 0, 0, 0, 0
-	#DrawWalls = true, true, false, true, false, false
-	#TextureOverride ElevExt, ServiceElevPanelMain, ElevExt, ServiceElevPanelMain, ElevExt, ElevExt
-	#AddWall Right Panel, ServiceElevPanelMain, 0.2, -5, -6, -3.5, -6, 9, 9, 0, 0, 0, 0
-	#DrawWalls = true, true, false, false, false, true
-	#TextureOverride ElevExt, ServiceElevPanelTop, ElevExt, ElevExt, ElevExt, ServiceElevPanelTop
-	#AddWall Top Panel, ServiceElevPanelTop, 0.2, -3.5, -6, 3.5, -6, 1, 1, 8, 8, 0, 0
 
 	#Car Doors
 	WallOrientation = Right
@@ -2842,7 +2731,6 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 	AddButton 1, , ButtonAlarm, ButtonAlarm, 15, 3, alarm, 1, 1
 	
 	#Floor Indicator
-	#AddFloorIndicator Ind_Button, left, 4.25 - 0.201, 3.275, 1.5, 0.75, 6.5
 	AddFloorIndicator Ind_Button, left, 4.25 - 0.201, -3.275, 1.5, 0.75, 6.5
 <EndElevators>
 
@@ -2971,7 +2859,6 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 	
 	#Floor Indicator
 	AddFloorIndicator Ind_Button, right, -4.25 + 0.201, 3.275, 1.5, 0.75, 6.5
-	#AddFloorIndicator Ind_Button, right, -4.25 + 0.201, -3.275, 1.5, 0.75, 6.5
 <EndElevators>
 
 #Upper Express Elevators
@@ -3079,7 +2966,6 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 	AddButton 1, , ButtonOpen, ButtonOpen, 6, 1, open, 1, 1
 	AddButton 1, , ButtonClose, ButtonClose, 6, 2, close, 1, 1
 	AddButton 1, , ButtonAlarm, ButtonAlarm, 7, 2, alarm, 1, 1
-	#AddButton 1, , ButtonHold, ButtonHold, 7, 1, hold, 1, 1
 	
 	CreatePanel ElevPanel, 6, 2, front, -3.275, 3.5 - 0.201, 0.3, 0.15, 0.30, 0.20, 3.75, 0, 0
 	AddButton 2, , Button62, ButtonLit62, 1, 2, 62, 1, 1
@@ -3444,13 +3330,11 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 		Set Suffix = %floorid%
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% ! 1] AddWall %Prefix%ElevFS1, FlrSign%Suffix%, 0, %MainX1% + 0.001, -42 - 0.5, %MainX1% + 0.001, -42 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
-		#if[%floor% = 0] AddWall %Prefix%ElevFS2, FlrSign%Suffix%, 0, %MainX1% + 0.001, -30 - 0.5, %MainX1% + 0.001, -30 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
-		if[%floor% ! 1] AddWall %Prefix%ElevFS3, FlrSign%Suffix%, 0, %MainX1% + 0.001, -18 - 0.5, %MainX1% + 0.001, -18 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
+		if[%floor% ! 1] AddWall %Prefix%ElevFS2, FlrSign%Suffix%, 0, %MainX1% + 0.001, -18 - 0.5, %MainX1% + 0.001, -18 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
 
 		DrawWalls = true, false, false, false, false, false
-		if[%floor% ! 1] AddWall %Prefix%ElevFS4, FlrSign%Suffix%, 0, %MainX2% - 0.001, -42 - 0.5, %MainX2% - 0.001, -42 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
-		#if[%floor% = 0] AddWall %Prefix%ElevFS5, FlrSign%Suffix%, 0, %MainX2% - 0.001, -30 - 0.5, %MainX2% - 0.001, -30 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
-		if[%floor% ! 1] AddWall %Prefix%ElevFS6, FlrSign%Suffix%, 0, %MainX2% - 0.001, -18 - 0.5, %MainX2% - 0.001, -18 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
+		if[%floor% ! 1] AddWall %Prefix%ElevFS3, FlrSign%Suffix%, 0, %MainX2% - 0.001, -42 - 0.5, %MainX2% - 0.001, -42 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
+		if[%floor% ! 1] AddWall %Prefix%ElevFS4, FlrSign%Suffix%, 0, %MainX2% - 0.001, -18 - 0.5, %MainX2% - 0.001, -18 + 0.5, 1, 1, 5.5 + 0.5, 5.5 + 0.5, 0, 0, false
 <EndFloors>
 
 #Mid-Rise Elevators (20-38)
@@ -4738,7 +4622,7 @@ ShaftCut 13, -4.67, -13.67, 4.67 - 0.33, 13.67, 0.5, 5
 
 #----------------------------------------#
 
-#Global Settings for All Elevators
+#Global Settings
 <Elevators 1 to 37>
 	NotifyEarly = 2
 	QueueResets = true
@@ -4967,7 +4851,6 @@ CutStairwell 3, -11.5, -2.25, 11.5, 2.25, 2, 5
 	if[%floor% > 65] AddStairsWall %25%, Left, Brick, 0.33, -%23%, -%24%, -%23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
-	#if[%floor% > 65] AddStairsWall %25%, Right, Brick, 0.33, %23%, -%24%, %23%, %24%, (%interfloorheight%) - %26%, (%interfloorheight%) - %26%, -%interfloorheight%, -%interfloorheight%, 0, 0
 	if[%floor% > 65] AddStairsWall %25%, Back, Brick, 0.33, -%23%, %24%, %23%, %24%, %interfloorheight%, %interfloorheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 <EndFloors>
 
