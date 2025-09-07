@@ -856,23 +856,19 @@ AddFloor landscape, SidewalkFront2, SidewalkDarker, 0.5, -140, -90, 140, -70, 0,
 	#Sets
 	Set 1 = 140 #Building Dimension X
 	Set 2 = 90 #Building Dimension Z
-	Set 5 = BasementFloor #Floor Texture
 	WallTex() #Set wall texture
-	Set 7 = BasementCeiling #Ceiling Texture
-
-	########################################
 
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor MainFloor, %5%, 0.5, -%1%, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
-	AddFloor SouthFloor, %5%, 0.5, -30, -50, 30, 0 - 1.25, 0, 0, 0, 0, false
+	AddFloor MainFloor, BasementFloor, 0.5, -%1%, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
+	AddFloor SouthFloor, BasementFloor, 0.5, -30, -50, 30, 0 - 1.25, 0, 0, 0, 0, false
 
 	#Ceiling
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %height%, %height%, 0, 0, false
-	AddFloor SouthCeiling, %7%, 0.5, -30, -50, 30, 0 - 1.25, %height%, %height%, 0, 0, false
+	AddFloor MainCeiling, BasementCeiling, 0.5, -%1%, 0 - 1.25, %1%, %2%, %height%, %height%, 0, 0, false
+	AddFloor SouthCeiling, BasementCeiling, 0.5, -30, -50, 30, 0 - 1.25, %height%, %height%, 0, 0, false
 
 	########################################
 
@@ -1126,13 +1122,12 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	if[%floor% < 7] Set 5 = LobbyFloor #Floor Texture
 	if[%floor% > 6 & %floor% < 9] Set 5 = OfficeFloor #Floor Texture
 	if[%floor% > 8 & %floor% < 22] Set 5 = WardFloor
-	if[%floor% > 21 & %floor% < 27] Set 5 = WardFloor2
-	if[%floor% = 27] Set 5 = ServiceFloor #Floor Texture
+	if[%floor% > 21] Set 5 = WardFloor2
 
 		#Special values for patient levels
 		Set 5E = %5%
 		if[%floor% > 8 & %floor% < 22] Set 5E = WardLobbyFloor
-		if[%floor% > 21 & %floor% < 27] Set 5E = WardLobbyFloor2
+		if[%floor% > 21] Set 5E = WardLobbyFloor2
 	
 	#Wall Sets
 	WallTex() #Set wall texture
@@ -1140,13 +1135,12 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 	#Ceiling Sets
 	if[%floor% < 7] Set 7 = LobbyCeiling #Ceiling Texture
 	if[%floor% > 6 & %floor% < 9] Set 7 = OfficeCeiling #Ceiling Texture
-	if[%floor% > 8 & %floor% < 27] Set 7 = WardCeiling #Ceiling Texture
-	if[%floor% = 27] Set 7 = ServiceCeiling #Ceiling Texture
+	if[%floor% > 8] Set 7 = WardCeiling #Ceiling Texture
 	Set LowestFloor = 1
 
 		#Special values for patient levels
 		Set 7E = %7%
-		if[%floor% > 8 & %floor% < 27] Set 7E = WardLobbyCeiling
+		if[%floor% > 8] Set 7E = WardLobbyCeiling
 
 	########################################
 
@@ -1158,12 +1152,12 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% < 9 | %floor% = 27] AddFloor MainFloor, %5%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
-	if[%floor% > 8 & %floor% < 27] AddFloor WestFloor, %5%, 0.5, -%1%, 0 - 1.25, -30 - 0.2, %2%, 0, 0, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WestFloorTR, BlackTrim, 0.5, -30 - 0.2, 0 - 1.25, -30, %2%, 0, 0, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor CenterFloor, %5E%, 0.5, -30, 0 - 1.25, 30, %2%, 0, 0, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor EastFloor, %5%, 0.5, 30 + 0.2, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor EastFloorTR, BlackTrim, 0.5, 30, 0 - 1.25, 30 + 0.2, %2%, 0, 0, 0, 0, false
+	if[%floor% < 9] AddFloor MainFloor, %5%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
+	if[%floor% > 8] AddFloor WestFloor, %5%, 0.5, -%1%, 0 - 1.25, -30 - 0.2, %2%, 0, 0, 0, 0, false
+	if[%floor% > 8] AddFloor WestFloorTR, BlackTrim, 0.5, -30 - 0.2, 0 - 1.25, -30, %2%, 0, 0, 0, 0, false
+	if[%floor% > 8] AddFloor CenterFloor, %5E%, 0.5, -30, 0 - 1.25, 30, %2%, 0, 0, 0, 0, false
+	if[%floor% > 8] AddFloor EastFloor, %5%, 0.5, 30 + 0.2, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% > 8] AddFloor EastFloorTR, BlackTrim, 0.5, 30, 0 - 1.25, 30 + 0.2, %2%, 0, 0, 0, 0, false
 	AddFloor SouthFloor, %5E%, 0.5, -30, -50, 30, 0 - 1.25, %FloorOffset%, %FloorOffset%, 0, 0, %IsExternal%
 
 	#2nd floor setback
@@ -1179,19 +1173,19 @@ Cut external, -10, Floor(0).Base, %2% - 0.1, 10, Floor(1).Altitude, %2% + 0.1, t
 
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% < 9 | %floor% = 27] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
+	if[%floor% < 9] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom1, %7%, 0.5, -%1%, 0 - 1.25, -30, 40, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestHallway, %7E%, 0.5, -%1%, 40, -30, 50, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestServLby, %7E%, 0.5, -%1%, 50, -110, %2%, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_WestRoom2, %7%, 0.5, -110, 50, -30, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_WestRoom1, %7%, 0.5, -%1%, 0 - 1.25, -30, 40, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_WestHallway, %7E%, 0.5, -%1%, 40, -30, 50, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_WestServLby, %7E%, 0.5, -%1%, 50, -110, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_WestRoom2, %7%, 0.5, -110, 50, -30, %2%, %height%, %height%, 0, 0, false
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom1, %7%, 0.5, 30, 0 - 1.25, %1%, 40, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastHallway, %7E%, 0.5, 30, 40, %1%, 50, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastServLby, %7E%, 0.5, 110, 50, %1%, %2%, %height%, %height%, 0, 0, false
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_EastRoom2, %7%, 0.5, 30, 50, 110, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_EastRoom1, %7%, 0.5, 30, 0 - 1.25, %1%, 40, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_EastHallway, %7E%, 0.5, 30, 40, %1%, 50, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_EastServLby, %7E%, 0.5, 110, 50, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_EastRoom2, %7%, 0.5, 30, 50, 110, %2%, %height%, %height%, 0, 0, false
 
-	if[%floor% > 8 & %floor% < 27] AddFloor WardCeiling_CenterLobby, %7E%, 0.5, -30, 0 - 1.25, 30, %2%, %height%, %height%, 0, 0, false
+	if[%floor% > 8] AddFloor WardCeiling_CenterLobby, %7E%, 0.5, -30, 0 - 1.25, 30, %2%, %height%, %height%, 0, 0, false
 
 	AddFloor SouthCeiling, %7E%, 0.5, -30, -50, 30, 0 - 1.25, %CeiOffset%, %CeiOffset%, 0, 0, %IsExternal%
 
@@ -1467,17 +1461,15 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	#Sets
 	Set 1 = 140 #Building Dimension X
 	Set 2 = 90 #Building Dimension Z
-	Set 5 = ServiceFloor #Floor Texture
 	WallTex() #Set wall texture
-	Set 7 = ServiceCeiling #Ceiling Texture
 
 	########################################
 
 	#Floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 27] AddFloor MainFloor, %5%, 0.5, -%1%, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% = 27] AddFloor SouthFloor, %5%, 0.5, -30, -50, 30, 0 - 1.25, 0, 0, 0, 0, false
+	if[%floor% = 27] AddFloor MainFloor, ServiceFloor, 0.5, -%1%, 0 - 1.25, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% = 27] AddFloor SouthFloor, ServiceFloor, 0.5, -30, -50, 30, 0 - 1.25, 0, 0, 0, 0, false
 
 		#Mechanical Mezzanine
 		FloorOrientation = top
@@ -1518,12 +1510,10 @@ AddTree(Tree1, 70 + 60, -8.75, 10, 11.25, Floor(1).Base + 1.01)
 	########################################
 
 	#Ceiling
-	Set MH = %height% #Main ceiling height
-
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 28] AddFloor MainCeiling, %7%, 0.5, -%1%, 0 - 1.25, %1%, %2%, %height%, %height%, 0, 0, false
-	if[%floor% = 28] AddFloor SouthCeiling, %7%, 0.5, -30, -50, 30, 0 - 1.25, %height%, %height%, 0, 0, false
+	if[%floor% = 28] AddFloor MainCeiling, ServiceCeiling, 0.5, -%1%, 0 - 1.25, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 28] AddFloor SouthCeiling, ServiceCeiling, 0.5, -30, -50, 30, 0 - 1.25, %height%, %height%, 0, 0, false
 
 		#Dropped ceiling (Utility room)
 		FloorOrientation = bottom
@@ -2912,12 +2902,12 @@ Set BUHeight = (Floor(1).Height - %BHeight%) + Floor(2).InterfloorHeight #Height
 		FloorOrientation = top
 		DrawWalls = true, true, true, true, false, false
 		TextureOverride ExtFacade, BridgeFloor, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddFloor BridgeFloor_SF2ndFloor, %5%, 1.5, -10, %2%, 10, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor BridgeFloor_SF2ndFloor, BridgeFloor, 1.5, -10, %2%, 10, %2% + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		FloorOrientation = bottom
 		DrawWalls = true, true, true, true, false, false
 		TextureOverride BridgeCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddFloor BridgeCeil_SF2ndFloor, %5%, 1.5, -10, %2%, 10, %2% + 10, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
+		AddFloor BridgeCeil_SF2ndFloor, BridgeCeiling, 1.5, -10, %2%, 10, %2% + 10, %interfloorheight% + %BHeight%, %interfloorheight% + %BHeight%, 0, 0, true
 
 		#Carpeting above the bridge's floor
 		FloorOrientation = top
