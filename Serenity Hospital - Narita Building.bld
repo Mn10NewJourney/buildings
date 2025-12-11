@@ -63,7 +63,6 @@
 	#Concrete
 	Load data/cem_tr.jpg, Concrete1, 0.25, 0.25
 	Load data/cutston.jpg, Concrete2, 0.25, 0.25
-	#Load data/cinderblocks.jpg, Concrete3, 0.25, 0.25
 	Load data/cutston.jpg, ExternalFacade, 0.25, 0.25
 
 	#Bridge between Haneda and Narita Buildings
@@ -84,6 +83,9 @@
 	Load data/windows11h_inside.gif, LobbyWindowsInt, 0.025, 1
 
 	#----------------------------------------#
+
+	#Escalator underside cover (Basement) - Added on December 11, 2025
+	Load data/stucco2.jpg, EscUnderideCover, 0.1, 0.1
 
 	#Operating Room (9th floor) - Added on November 8, 2024
 	Load data/floor065.jpg, ORFloor, 0.25, 0.25
@@ -106,7 +108,6 @@
 
 	#Support Columns
 	Load data/metal080.jpg, Column_Basement, 0.5, 0.5
-	#Load data/metal080.jpg, Column_Lobby, 0.5, 0.5
 	Load data/marb148.jpg, Column_Lobby, 0.15, 0.15
 	Load data/marb148.jpg, Column_OR, 0.15, 0.15
 	Load data/stucco22.jpg, Column_PatientRoom, 0.25, 0.25
@@ -120,8 +121,9 @@
 
 	#Ceilings
 	Load data/EG881/ceilingtile2b.jpg, Ceiling1, 0.16666, 0.16666 #EG881
-	Load data/EG881/ceilingtile3x3.jpg, Ceiling1A, 0.16666, 0.16666 #EG881
+	#Load data/EG881/ceilingtile3x3.jpg, Ceiling1A, 0.16666, 0.16666 #EG881
 	Load data/ceilinglight1.jpg, Ceiling2, 0.2, 0.2
+	Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
 
 	#Doors
 		#Main doors
@@ -386,7 +388,6 @@
 	Height = 9.5
 	InterfloorHeight = 2.5
 	Altitude = -14.5
-	Group = 0 #Group B with 1 to see the escalators' undersides.
 <EndFloor>
 
 <Floor -2>
@@ -593,7 +594,7 @@
 	Set 2 = 60 #Building Dimension Z
 	Set 5 = ServiceFloor #Floor Texture
 	Set 6 = ServiceWall #Wall Texture
-	Set 7 = Ceiling1A #Ceiling Texture
+	Set 7 = ServiceCeiling #Ceiling Texture
 
 	Set Height2 = %height% + Floor(%floor% + 1).InterfloorHeight - 0.5
 
@@ -601,6 +602,11 @@
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor MainFloor, %5%, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
+
+		#Escalator underside cover
+		FloorOrientation = top
+		DrawWalls = true, false, true, true, true, true
+		AddFloor EUSCover, EscUnderideCover, 1.75, 7 - 0.25, -16 - 0.25, 15 + 0.25, -6.25, %height%, %height%, 0, 0, false
 
 	#Ceiling
 	FloorOrientation = bottom
