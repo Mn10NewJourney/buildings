@@ -126,12 +126,6 @@
 	########################################
 
 	#Doors
-		#Manual sliding doors
-		Load data/windows11e_inside2.gif, SDWindows, 1, 1, false
-		LoadCropped data/windows11e_inside2.gif, SDWindows_Side, 150, 0, 10, 177, 1, 1, false
-		Load data/panel-back3.jpg, SDDeco, 1, 1, false
-		Load data/Melvin/SlidingDoors/miscdoor88slide.png, Door88Slide, 1, 1, false
-
 		#Main doors
 		Load data/miscdoor6.jpg, Door6, 1, 1, false
 		LoadCropped data/miscdoor6.jpg, Door6Side, 236, 0, 20, 512, 1, 1, false
@@ -272,7 +266,7 @@
 		AddTextRange 1, 5, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#4. Other objects/signs
-		#Load data/signs_mod/Parking_BldgAccess.png, ParkingSign, 1, 1, false
+		Load data/signs_mod/Parking_BldgAccess.png, ParkingSign, 1, 1, false
 		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 
 		#5. Exit signs
@@ -292,7 +286,7 @@
 	Name = Basement Level (0 - %floor%)
 	Type = Basement
 	Height = 8.5
-	if[%floor% = -1] Height = 10.5
+	if[%floor% = -1] Height = 10
 	InterfloorHeight = 1.5
 	if[%floor% = -1] Altitude = -13.5
 <EndFloors>
@@ -310,8 +304,8 @@
 	Name = Ground Level
 	Type = Lobby
 	Height = 15
-	InterfloorHeight = 1.5
-	Altitude = -1.5
+	InterfloorHeight = 2
+	Altitude = -2
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -606,48 +600,26 @@ Set ExtraEast = 45 #Extra east dimensions for ramps
 	#========================================#
 
 	#Elevator lobby walls
+	Set EX = Floor(%floor% + 1).InterfloorHeight - 0.5
+
 		#North lobby
 		WallOrientation = left
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride %5%Wall, %5%LobbyWall, Blank, Blank, Blank, Blank
-		AddWall NorthELWall, %5%Wall, 0.5, -%1% + 10, %2% - 25, -%1% + 20, %2% - 25, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall NorthELWall, %5%Wall, 0.5, -%1% + 10, %2% - 25, -%1% + 20, %2% - 25, %height% + %EX%, %height% + %EX%, %interfloorheight%, %interfloorheight%, 0, 0, true
 	
 		#South lobby
 		TextureOverride %5%Wall, %5%LobbyWall, Blank, Blank, Blank, Blank
-		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 - 15, -%2% + 0.5, 60 - 15, -110, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 - 15, -%2% + 0.5, 60 - 15, -110, %height% + %EX%, %height% + %EX%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		WallOrientation = right
 		TextureOverride %5%LobbyWall, %5%Wall, Blank, Blank, Blank, Blank
-		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 + 15, -%2% + 0.5, 60 + 15, -110, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 + 15, -%2% + 0.5, 60 + 15, -110, %height% + %EX%, %height% + %EX%, %interfloorheight%, %interfloorheight%, 0, 0, true
 		TextureOverride %5%LobbyWall, %5%Wall, Blank, Blank, Blank, Blank
-		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 - 15, -110, 60 + 15, -110, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall SouthELWall_Left, %5%Wall, 0.5, 60 - 15, -110, 60 + 15, -110, %height% + %EX%, %height% + %EX%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Elevator lobby doors
 		#North lobby
-		Set DTex = Door88Slide
-		Set DSTex = Door88Side
-		Set TrimTex = SDDeco
-
-		Set Door_MainX = -107
-		Set Door_MainZ = 95
-		
-			#Filler walls for the door and window next to it
-			WallOrientation = left
-			AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX% + 2, %Door_MainZ%, (4 * 2) + (0.15 * 2), 7 + 0.75, %interfloorheight%, true, 0, 0, true
-
-			#Doors
-			WallOrientation = left
-			AddSlidingDoor Door Manager, %floorid%F_NElevLbyDoor, , , false, %DTex%, %DSTex%, 0.2, front, right, 4, 2, %Door_MainX%, %Door_MainZ% + 0.2, 4, 7, Floor(%floor%).Base, 0, 0, 0, 0
-
-			#Door decos
-			AddDecoObject(%floorid%F_NElevLbyDeco, SDDeco, SDDeco, back, true, false, 0.5, 0.15, %Door_MainX% + 2, %Door_MainZ%, 8, 7, 7.75, 0.75, 0, false, SDDeco, 0.5, external)
-
-			#Windows
-			SetAutoSize = false, false
-			WallOrientation = left
-			DrawWalls = true, true, true, true, false, false
-			TextureOverride SDWindows, SDWindows, SDWindows_Side, SDWindows_Side, SDWindows_Side, SDWindows_Side
-			AddWall NElevLby_Win, SDWindows, 0.2, %Door_MainX% + 2, %Door_MainZ%, %Door_MainX% + 6, %Door_MainZ%, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true		
-			SetAutoSize = true, true
+		#Created along with the ground floor's doors.
 
 		#South lobby
 		Set DTex = BLKEntDoorInt
@@ -707,6 +679,13 @@ Set ExtraEast = 45 #Extra east dimensions for ramps
 		#AddWall BackWall, %5%PerimeterWall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall BackWall1, %5%LobbyWall, 0.5, -%1% + 10, %2%, -%1% + 20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall BackWall2, %5%PerimeterWall, 0.5, -%1% + 32, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		
+	#Link to Pacific Heights Building
+		#Floor cuts
+		if[%floor% = -2 | %floor% = -1] CutAll -25 + 0.5, %interfloorheight% - 0.1, %2% - 0.5, -5 - 0.5, %interfloorheight% + 0.1, %2%, false, true
+
+		#Wall cuts
+		if[%floor% = -2 | %floor% = -1] CutAll -25 + 0.5, %interfloorheight%, %2% - 0.5 - 1, -5 - 0.5, %interfloorheight% + 8.5, %2% + 1, true, false
 
 	#========================================#
 
@@ -795,6 +774,8 @@ AddFloorAutoArea -81, Floor(-5).Base, -78.5, 41, Floor(-1).Base + 5, -78.5 + 25
 		TextureOverride %5%LobbyWall, ExtFacade, Blank, Blank, Blank, Blank
 		AddWall SouthELWall_Right, %5%Wall, 0.5, 60 + 15, -140, 60 + 15, -140 + 8.5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
+	########################################
+
 	#Doors
 	Set DTex = BLKEntDoorInt
 	Set DTex_Ext = BLKEntDoorExt
@@ -823,23 +804,7 @@ AddFloorAutoArea -81, Floor(-5).Base, -78.5, 41, Floor(-1).Base + 5, -78.5 + 25
 			AddBoxSign(NEL_Exit1, ExitSign, StainlessSteel, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% - 0.55, 1.8, 0.9, %interfloorheight% + 7, true)
 
 		#B. South doors
-		Set Door_MainX = -105
-		Set Door_MainZ = 95
-
-		WallOrientation = left
-		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
-		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
-		AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
-		
-		#Windows around doors
-		Add3DWindows(NEL_North_SWin1, %Door_MainX%, %Door_MainZ%, front, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
-		Add3DWindows(NEL_North_SWin2, %Door_MainX% - 3.25 - 0.75, %Door_MainZ%, front, 1.5, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
-		Add3DWindows(NEL_North_SWin3, %Door_MainX% + 3.25 + 0.75, %Door_MainZ%, front, 1.5, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
-
-			#Exit sign above doors
-			AddBoxSign(NEL_Exit2, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 1.8, 0.9, %interfloorheight% + 7, true)
+		#Created in the below section.
 
 		########################################
 
@@ -865,6 +830,44 @@ AddFloorAutoArea -81, Floor(-5).Base, -78.5, 41, Floor(-1).Base + 5, -78.5 + 25
 			#Exit sign above doors
 			AddBoxSign(SEL_Exit, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 1.8, 0.9, %interfloorheight% + 7, true)
 <EndFloor>
+
+<Floors -5 to 0>
+	TexPrefix() #Set texture prefix
+
+	#Elevator lobby doors
+	Set DTex = BLKEntDoorInt
+	if[%floor% = 0] Set DTex_Ext = BLKEntDoorExt
+	if[%floor% < 0] Set DTex_Ext = BLKEntDoorInt
+	Set DSTex = BLKEntDoorSide
+	
+		#NORTH LOBBY
+		#A. North doors
+		#Created in the above section (ground floor only).
+
+		#B. South doors
+		Set Door_MainX = -105
+		Set Door_MainZ = 95
+
+		WallOrientation = left
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %DTex_Ext%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+		AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+		
+		#Windows around doors
+		Set ExtTex = MainWindowsB
+		if[%floor% < 0] Set ExtTex = MainWindowsIntB
+		Set WinHeight = %height% - 0.5
+		if[%floor% = 0] Set WinHeight = 9.5 - 0.5
+
+		Add3DWindows(NEL_North_SWin1, %Door_MainX%, %Door_MainZ%, front, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+		Add3DWindows(NEL_North_SWin2, %Door_MainX% - 3.25 - 0.75, %Door_MainZ%, front, 1.5, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+		Add3DWindows(NEL_North_SWin3, %Door_MainX% + 3.25 + 0.75, %Door_MainZ%, front, 1.5, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+
+			#Exit sign above doors
+			if[%floor% = 0] AddBoxSign(NEL_Exit2, StainlessSteel, ExitSign, StainlessSteel, 0.1, true, true, true, %Door_MainX%, %Door_MainZ% + 0.55, 1.8, 0.9, %interfloorheight% + 7, true)
+<EndFloors>
 
 #Parking Garage Supports
 <Floors -5 to -1>
@@ -1090,6 +1093,9 @@ ShowFullShaft 3 = true
 	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 1, 2, off, 0.4, 0.8, 0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%G, %BtnPrefix%LitG, 1, 2, 0, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 1, 1, -1, 1, 1
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 1, 1, off, 0.4, 0.8, -0.75, 0
+
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 2, 2, off, 0.4, 0.8, 0.75, 0
 	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 2, 2, -2, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B3, %BtnPrefix%LitB3, 2, 1, -3, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%B4, %BtnPrefix%LitB4, 3, 2, -4, 1, 1

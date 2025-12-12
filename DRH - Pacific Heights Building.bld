@@ -97,6 +97,17 @@
 	Load data/graniteTexture_0001b.jpg, ExtFacade, 0.1, 0.1, true
 
 	#Main textures
+		#Pacific Heights PG linking area
+		Load data/marb047.jpg, LinkFloor, 0.25, 0.25
+		#Load data/marble22.jpg, LinkWall, 0.1345, 0.125
+		Load data/marb123.jpg, LinkWall, 0.15, 0.15
+		Load data/EG881/ceilingtile3x3.jpg, LinkCeiling, 0.125, 0.125 #EG881
+
+		Load data/EG881/cem_tr2b.jpg, ParkingFloor, 0.075225, 0.0625 #EG881
+		Load data/stucco1.jpg, ParkingWall, 0.15, 0.15
+		#Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr3.jpg, ParkingCeiling2, 0.075225, 0.0625 #EG881
+
 		#Basements
 		Load data/floor065.jpg, BasementFloor, 0.25, 0.25
 		Load data/Carpet0013b_S.jpg, BasementFloor2, 0.2, 0.2 #Elevator lobbies
@@ -186,14 +197,37 @@
 		#Doors
 		Load data/Automatic_Doors/enter.png, AutoDoorsExt, 1, 1, false
 		Load data/Automatic_Doors/exit.png, AutoDoorsInt, 1, 1, false
+
+		Load data/Automatic_Doors/generic_enter.png, AutoDoorsExt_B1F1, 1, 1, false
+		Load data/Automatic_Doors/generic_exit.png, AutoDoorsInt_B1F1, 1, 1, false
+		Load data/Automatic_Doors/in.png, AutoDoorsExt_B1F2, 1, 1, false
+		Load data/Automatic_Doors/out.png, AutoDoorsInt_B1F2, 1, 1, false
+
+		Load data/Automatic_Doors/generic_autoarrow.png, AutoDoorsExt_B2F1, 1, 1, false
+		Load data/Automatic_Doors/generic_autoarrow.png, AutoDoorsInt_B2F1, 1, 1, false
+		Load data/Automatic_Doors/auto_keepmoving.png, AutoDoorsExt_B2F2, 1, 1, false
+		Load data/Automatic_Doors/auto_keepmoving.png, AutoDoorsInt_B2F2, -1, 1, false
+
 		LoadCropped data/glassdoor_trans.gif, AutoDoors_Side, 236, 0, 20, 512, 1, 1, false
 		Load data/panel-back3.jpg, AD_Deco, 1, 1, false
 
-		#Sensors
+		#Sensors (1st floor)
 		Load data/black.jpg, S1Ent_SensorUnlit, 1, 1, false
 		Load data/yellow.jpg, S1Ent_SensorLit, 1, 1, false
 		Load data/black.jpg, S2Ent_SensorUnlit, 1, 1, false
 		Load data/yellow.jpg, S2Ent_SensorLit, 1, 1, false
+
+		#Sensors (Level B1)
+		Load data/black.jpg, B1FEnt1_SensorUnlit, 1, 1, false
+		Load data/yellow.jpg, B1FEnt1_SensorLit, 1, 1, false
+		Load data/black.jpg, B1FEnt2_SensorUnlit, 1, 1, false
+		Load data/yellow.jpg, B1FEnt2_SensorLit, 1, 1, false
+
+		#Sensors (Level B2)
+		Load data/black.jpg, B2FEnt1_SensorUnlit, 1, 1, false
+		Load data/yellow.jpg, B2FEnt1_SensorLit, 1, 1, false
+		Load data/black.jpg, B2FEnt2_SensorUnlit, 1, 1, false
+		Load data/yellow.jpg, B2FEnt2_SensorLit, 1, 1, false
 
 		#Windows around automatic doors
 		Load data/windows11e_inside2.gif, ADWindows, 1, 1, false
@@ -416,7 +450,7 @@
 		#Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
 		#Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
 
-		#Load data/signs_mod/Parking_Blue.png, ParkingSign, 1, 1, false
+		Load data/signs_mod/Parking_Blue.png, ParkingSign, 1, 1, false
 		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 
 		#8. Poster(s) above elevator doors/at lobby areas
@@ -663,12 +697,12 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% ! 1 & %floor% ! 7] AddFloor %floorid%F_Floor1, %5%Floor, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, 0, 0, 0, 0, false
-	if[%floor% = 0 | %floor% = 6] AddFloor %floorid%F_Floor2, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% ! 1 & %floor% ! 7] AddFloor %floorid%F_Floor1, %5%Floor, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = 0 | %floor% = 6] AddFloor %floorid%F_Floor2, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_WestOPDFloor, %5%OPDFloor, 0.5, -%1%, -%2%, -30, %2%, 0, 0, 0, 0, false
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_CenterHallFloor, %5%Floor, 0.5, -30, -%2%, 30, %2%, 0, 0, 0, 0, false
-	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_EastOPDFloor, %5%OPDFloor, 0.5, 30, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_WestOPDFloor, %5%OPDFloor, 0.5, -%1%, -%2%, -30, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_CenterHallFloor, %5%Floor, 0.5, -30, -%2%, 30, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% < 0 | (%floor% > 1 & %floor% < 6)] AddFloor %floorid%F_EastOPDFloor, %5%OPDFloor, 0.5, 30, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Carpeting on floors
 		Set NorthOffset = 4
@@ -681,8 +715,8 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling1, %5%Ceiling, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %height%, %height%, 0, 0, false
-	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling1, %5%Ceiling, 0.5, -30 - 40, -%2% - %ExtraSouth%, 30, -%2%, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% ! 0 & %floor% ! 6] AddFloor %floorid%F_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 <EndFloors>
 
 <Function ElevLobbyTex>
@@ -708,34 +742,120 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 	#Basement perimeter walls
 	TexPrefix() #Set texture prefix/suffix
 	Set WallHeight = %height%
-	Set WallOffset = 0
+	Set WallOffset = %interfloorheight%
 
 		#Set DrawWalls for Front/Left sides
 		DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
-		AddWall FrontWallA, %5%Wall, 0.5, -%1%, -%2%, -30 - 40, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall FrontWallB, %5%%WallSuffix%, 0.5, -30, -%2% - %ExtraSouth%, 30, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall FrontWallC, %5%Wall, 0.5, 30 - 0.5, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall FrontWallA, %5%Wall, 0.5, -%1%, -%2%, -30 - 40, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWallB, %5%%WallSuffix%, 0.5, -30, -%2% - %ExtraSouth%, 30, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWallC, %5%Wall, 0.5, 30 - 0.5, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall LeftWallB, %5%Wall, 0.5, -%1%, -5 + 30, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallB, %5%Wall, 0.5, -%1%, -5 + 30, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
 
 		WallOrientation = right
-		AddWall RightWallA1, %5%Wall, 0.5, %1%, -%2%, %1%, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall RightWallA2, %5%Wall, 0.5, %1%, -5 + 30, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall RightWallA1, %5%Wall, 0.5, %1%, -%2%, %1%, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall RightWallA2, %5%Wall, 0.5, %1%, -5 + 30, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		AddWall RightWallB, %5%%WallSuffix%, 0.5, 30, -%2% - %ExtraSouth%, 30, -%2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall RightWallB, %5%%WallSuffix%, 0.5, 30, -%2% - %ExtraSouth%, 30, -%2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		AddWall BackWallA1, %5%Wall, 0.5, -%1%, %2%, -30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		#AddWall BackWallA2, %5%%WallSuffix%, 0.5, -30, %2%, -17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall BackWallB, %5%%WallSuffix2%, 0.5, -5, %2%, 5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		#AddWall BackWallC1, %5%%WallSuffix%, 0.5, 17, %2%, 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-		AddWall BackWallC2, %5%Wall, 0.5, 30, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+		AddWall BackWallA1, %5%Wall, 0.5, -%1%, %2%, -30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall BackWallA2, %5%%WallSuffix%, 0.5, -30, %2%, -17, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWallB, %5%%WallSuffix2%, 0.5, -5, %2%, 5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall BackWallC1, %5%%WallSuffix%, 0.5, 17, %2%, 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWallC2, %5%Wall, 0.5, 30, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
+
+#Link to Pacific Heights Parking Garage
+<Floor -2>
+	Set 5 = Link #Override for this area
+	Set PGOffset = 2 #Set floor/wall offset to match with the garage
+
+	#Link area floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor LinkFloor1, %5%Floor, 0.5, -25, -80, -5, -%2% - %ExtraSouth%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LinkFloor1A, %5%Floor, 0.5, -25, -110, -5, -80, %interfloorheight% + %PGOffset%, %interfloorheight%, 0, 0, true
+	AddFloor LinkFloor1B, %5%Floor, 0.5, -25, -140 + 10, -5, -110, %interfloorheight% + %PGOffset%, %interfloorheight% + %PGOffset%, 0, 0, true
+	AddFloor LinkFloor2, ParkingFloor, 0.5, -25, -140 - 0.5, -5, -140 + 10, %interfloorheight% + %PGOffset%, %interfloorheight% + %PGOffset%, 0, 0, true
+
+	#Link area ceiling
+	Set CeiOffset = 8.5 + %interfloorheight%
+
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor LinkCeiling1, %5%Ceiling, 0.5, -25, -80, -5, -%2% - %ExtraSouth%, %CeiOffset%, %CeiOffset%, 0, 0, true
+	AddFloor LinkCeiling1A, %5%Ceiling, 0.5, -25, -110, -5, -80, %CeiOffset% + %PGOffset%, %CeiOffset%, 0, 0, true
+	AddFloor LinkCeiling1B, %5%Ceiling, 0.5, -25, -140 + 10, -5, -110, %CeiOffset% + %PGOffset%, %CeiOffset% + %PGOffset%, 0, 0, true
+	AddFloor LinkCeiling2, ParkingCeiling2, 0.5, -25, -140 - 0.5, -5, -140 + 10, %CeiOffset% + %PGOffset%, %CeiOffset% + %PGOffset%, 0, 0, true
+
+	#Link area walls
+	Set WallHeight = 8.5
+	Set WallOffset = %interfloorheight%
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ParkingWall, %5%Wall, Blank, Blank, Blank, Blank
+	AddWall LinkAreaFront, %5%Wall, 0.5, -25, -140 + 10, -5, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset% + %PGOffset%, 0, 0, true
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall LinkAreaLeft1, %5%Wall, 0.5, -25, -80, -25, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaLeft1A, %5%Wall, 0.5, -25, -110, -25, -80, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaLeft1B, %5%Wall, 0.5, -25, -140 + 10, -25, -110, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset% + %PGOffset%, 0, 0, true
+
+	AddWall LinkAreaLeft2, ParkingWall, 0.5, -25, -140 - 0.5, -25, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset% + %PGOffset%, 0, 0, true
+
+	WallOrientation = right
+	DrawWalls = true, false, false, false, false, false
+	AddWall LinkAreaRight1, %5%Wall, 0.5, -5, -80, -5, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaRight1A, %5%Wall, 0.5, -5, -110, -5, -80, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaRight1B, %5%Wall, 0.5, -5, -140 + 10, -5, -110, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset% + %PGOffset%, 0, 0, true
+
+	AddWall LinkAreaRight2, ParkingWall, 0.5, -5, -140 - 0.5, -5, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset% + %PGOffset%, %WallOffset% + %PGOffset%, 0, 0, true
+	AddWall LinkAreaBack, %5%Wall, 0.5, -25, -%2% - %ExtraSouth%, -5, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
+
+<Floor -1>
+	Set 5 = Link #Override for this area
+
+	#Link area floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor LinkFloor1, %5%Floor, 0.5, -25, -140 + 10, -5, -%2% - %ExtraSouth%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LinkFloor2, ParkingFloor, 0.5, -25, -140 - 0.5, -5, -140 + 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Link area ceiling
+	Set CeiOffset = 8.5 + %interfloorheight%
+
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor LinkCeiling1, %5%Ceiling, 0.5, -25, -140 + 10, -5, -%2% - %ExtraSouth%, %CeiOffset%, %CeiOffset%, 0, 0, true
+	AddFloor LinkCeiling2, ParkingCeiling2, 0.5, -25, -140 - 0.5, -5, -140 + 10, %CeiOffset%, %CeiOffset%, 0, 0, true
+
+	#Link area walls
+	Set WallHeight = 8.5
+	Set WallOffset = %interfloorheight%
+
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ParkingWall, %5%Wall, Blank, Blank, Blank, Blank
+	AddWall LinkAreaFront, %5%Wall, 0.5, -25, -140 + 10, -5, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall LinkAreaLeft1, %5%Wall, 0.5, -25, -140 + 10, -25, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaLeft2, ParkingWall, 0.5, -25, -140 - 0.5, -25, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = right
+	DrawWalls = true, false, false, false, false, false
+	AddWall LinkAreaRight1, %5%Wall, 0.5, -5, -140 + 10, -5, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaRight2, ParkingWall, 0.5, -5, -140 - 0.5, -5, -140 + 10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall LinkAreaBack, %5%Wall, 0.5, -25, -%2% - %ExtraSouth%, -5, -%2% - %ExtraSouth%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
 
 #Mezzanine area
 <Floors 0 to 1>
@@ -903,13 +1023,13 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 
 <Break>
 
-#Atrium cuts between B3 and B1
-<Floors -3 to -1>
+#Atrium cuts between B3 and 1
+<Floors -3 to 0>
 	if[%floor% > -3] CutAll -15, %interfloorheight% - 0.1, -25.5, 15, %interfloorheight% + 0.1, -5, false, true
-	if[%floor% < -1] CutAll -15, %fullheight% - 0.1, -25.5, 15, %fullheight% + 0.1, -5, false, true
+	if[%floor% < 0] CutAll -15, %fullheight% - 0.1, -25.5, 15, %fullheight% + 0.1, -5, false, true
 <EndFloors>
 
-<Floors -2 to -1>
+<Floors -2 to 0>
 	#Atrium railings
 	TexPrefix() #Set texture prefixes
 	Set WallHeight = %interfloorheight% + 3.5
@@ -917,42 +1037,42 @@ AddWall landscape, BldgSignPH, BldgSign, 0.25, -45 - 7, -80, -45 + 7, -80, 4, 4,
 
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
-	AddWall BasementAtriumRail_Left, %5%%WallSuffix%, 0.5, -15, -26, -15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -1] AddWall BasementAtriumRail_Front, %5%%WallSuffix%, 0.5, -15, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -2] AddWall BasementAtriumRail_Front1, %5%%WallSuffix%, 0.5, -15, -25.5, -13, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -2] AddWall BasementAtriumRail_Front2, %5%%WallSuffix%, 0.5, -5, -25.5, 5, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -2] AddWall BasementAtriumRail_Front3, %5%%WallSuffix%, 0.5, 13, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall %floorid%F_AtriumRail_Left, %5%%WallSuffix%, 0.5, -15, -26, -15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -1] AddWall %floorid%F_AtriumRail_Front, %5%%WallSuffix%, 0.5, -15, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -2 | %floor% = 0] AddWall %floorid%F_AtriumRail_Front1, %5%%WallSuffix%, 0.5, -15, -25.5, -13, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -2 | %floor% = 0] AddWall %floorid%F_AtriumRail_Front2, %5%%WallSuffix%, 0.5, -5, -25.5, 5, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -2 | %floor% = 0] AddWall %floorid%F_AtriumRail_Front3, %5%%WallSuffix%, 0.5, 13, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	WallOrientation = left
-	AddWall BasementAtriumRail_Right, %5%%WallSuffix%, 0.5, 15, -26, 15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -2] AddWall BasementAtriumRail_Back, %5%%WallSuffix%, 0.5, -15, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -1] AddWall BasementAtriumRail_Back1, %5%%WallSuffix%, 0.5, -15, -5, -13, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -1] AddWall BasementAtriumRail_Back2, %5%%WallSuffix%, 0.5, -5, -5, 5, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	if[%floor% = -1] AddWall BasementAtriumRail_Back3, %5%%WallSuffix%, 0.5, 13, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall %floorid%F_AtriumRail_Right, %5%%WallSuffix%, 0.5, 15, -26, 15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -2 | %floor% = 0] AddWall %floorid%F_AtriumRail_Back, %5%%WallSuffix%, 0.5, -15, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -1] AddWall %floorid%F_AtriumRail_Back1, %5%%WallSuffix%, 0.5, -15, -5, -13, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -1] AddWall %floorid%F_AtriumRail_Back2, %5%%WallSuffix%, 0.5, -5, -5, 5, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	if[%floor% = -1] AddWall %floorid%F_AtriumRail_Back3, %5%%WallSuffix%, 0.5, 13, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #Cuts for escalators between B1 and 1
-<Floors -1 to 0>
-	if[%floor% > -1] CutAll 3, %interfloorheight% - 0.1, -25.5, 15, %interfloorheight% + 0.1, -5, false, true
-	if[%floor% < 0] CutAll 3, %fullheight% - 0.1, -25.5, 15, %fullheight% + 0.1, -5, false, true
-<EndFloors>
+#<Floors -1 to 0>
+	#if[%floor% > -1] CutAll 3, %interfloorheight% - 0.1, -25.5, 15, %interfloorheight% + 0.1, -5, false, true
+	#if[%floor% < 0] CutAll 3, %fullheight% - 0.1, -25.5, 15, %fullheight% + 0.1, -5, false, true
+#<EndFloors>
 
-<Floor 0>
-	#Atrium railings
-	TexPrefix() #Set texture prefixes
-	Set WallHeight = %interfloorheight% + 3.5
-	Set WallOffset = 0
-
-	WallOrientation = right
-	DrawWalls = true, true, true, true, true, false
-	AddWall 1FEscRail_Left, %5%%WallSuffix%, 0.5, 3, -26, 3, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall 1FEscRail_Front1, %5%%WallSuffix%, 0.5, 3, -25.5, 5, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall 1FEscRail_Front2, %5%%WallSuffix%, 0.5, 13, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
-	WallOrientation = left
-	AddWall 1FEscRail_Right, %5%%WallSuffix%, 0.5, 15, -26, 15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall 1FEscRail_Back, %5%%WallSuffix%, 0.5, 3, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-<EndFloor>
+#<Floor 0>
+#	#Atrium railings
+#	TexPrefix() #Set texture prefixes
+#	Set WallHeight = %interfloorheight% + 3.5
+#	Set WallOffset = 0
+#
+#	WallOrientation = right
+#	DrawWalls = true, true, true, true, true, false
+#	AddWall 1FEscRail_Left, %5%%WallSuffix%, 0.5, 3, -26, 3, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+#	AddWall 1FEscRail_Front1, %5%%WallSuffix%, 0.5, 3, -25.5, 5, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+#	AddWall 1FEscRail_Front2, %5%%WallSuffix%, 0.5, 13, -25.5, 15, -25.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+#
+#	WallOrientation = left
+#	AddWall 1FEscRail_Right, %5%%WallSuffix%, 0.5, 15, -26, 15, -4.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+#	AddWall 1FEscRail_Back, %5%%WallSuffix%, 0.5, 3, -5, 15, -5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+#<EndFloor>
 
 #Atrium cuts between M and 2
 <Floors 1 to 2>
@@ -2601,8 +2721,10 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 	AddButton %PanelNumber%, , %ButtonPrefix%1, %ButtonPrefix%Lit1, 3, 1, 0, 1, 1
 	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 3, 1, off, 0.4, 0.8, -0.75, 0
 
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 4, 2, off, 0.4, 0.8, 0.75, 0
 	AddButton %PanelNumber%, , %ButtonPrefix%B1, %ButtonPrefix%LitB1, 4, 2, -1, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%B2, %ButtonPrefix%LitB2, 4, 1, -2, 1, 1
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 4, 1, off, 0.4, 0.8, -0.75, 0
 	AddButton %PanelNumber2%, , %ButtonPrefix%B3, %ButtonPrefix%LitB3, 5, 1, -3, 1, 1
 
 	AddButton %PanelNumber%, , %ButtonPrefix%Open, %ButtonPrefix%Open, 7, 1, open, 1, 1
@@ -2775,6 +2897,9 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 4, 2, off, 0.4, 0.8, 0.75, 0
 	AddButton %PanelNumber%, , %ButtonPrefix%1, %ButtonPrefix%Lit1, 4, 2, 0, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%B1, %ButtonPrefix%LitB1, 4, 1, -1, 1, 1
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 4, 1, off, 0.4, 0.8, -0.75, 0
+
+	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 5, 2, off, 0.4, 0.8, 0.75, 0
 	AddButton %PanelNumber%, , %ButtonPrefix%B2, %ButtonPrefix%LitB2, 5, 2, -2, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%B3, %ButtonPrefix%LitB3, 5, 1, -3, 1, 1
 
@@ -3262,6 +3387,16 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 	AddAutomaticDoor2(7, 1, 0, -15, -69.5, AutoDoorsExt, AutoDoorsInt, AutoDoorsExt, AutoDoorsInt, AutoDoors_Side, 2, 0.15, true, left, 10, 9, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, S1Ent_SensorUnlit, S1Ent_SensorLit)
 	AddAutomaticDoor2(8, 1, 0, 15, -69.5, AutoDoorsExt, AutoDoorsInt, AutoDoorsExt, AutoDoorsInt, AutoDoors_Side, 2, 0.15, true, left, 10, 9, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, S2Ent_SensorUnlit, S2Ent_SensorLit)
 
+	#Level B1 Entrance
+	WallOrientation = right
+	AddAutomaticDoor2(9, 1, -1, -15, -69.5, AutoDoorsExt_B1F1, AutoDoorsInt_B1F1, AutoDoorsExt_B1F1, AutoDoorsInt_B1F1, AutoDoors_Side, 2, 0.15, true, left, 8, 7, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B1FEnt1_SensorUnlit, B1FEnt1_SensorLit)
+	AddAutomaticDoor2(10, 1, -1, -15, -129.5, AutoDoorsExt_B1F2, AutoDoorsInt_B1F2, AutoDoorsExt_B1F2, AutoDoorsInt_B1F2, AutoDoors_Side, 2, 0.15, true, left, 8, 7, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B1FEnt2_SensorUnlit, B1FEnt2_SensorLit)
+
+	#Level B2 Entrance
+	WallOrientation = right
+	AddAutomaticDoor2(11, 1, -2, -15, -69.5, AutoDoorsExt_B2F1, AutoDoorsInt_B2F1, AutoDoorsExt_B2F1, AutoDoorsInt_B2F1, AutoDoors_Side, 2, 0.15, true, left, 8, 7, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B2FEnt1_SensorUnlit, B2FEnt1_SensorLit)
+	AddAutomaticDoor2(12, 1, -2, -15, -129.5, AutoDoorsExt_B2F2, AutoDoorsInt_B2F2, AutoDoorsExt_B2F2, AutoDoorsInt_B2F2, AutoDoors_Side, 2, 0.15, true, left, 8, 7, 2, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B2FEnt2_SensorUnlit, B2FEnt2_SensorLit)
+
 	<Floor 0>
 		TexPrefix() #Set wall texture
 
@@ -3296,3 +3431,41 @@ AddStdShaft(2, 1, 11, 25, 5.67, 14.67, -4, 8, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 			AddFloor S1Ent_Sensor, S1Ent_SensorUnlit, 0, -15 - 0.05, -69.75 - 0.05, -15 + 0.05, -69.75 + 0.05, 9 - 0.001, 9 - 0.001, 0, 0, false
 			AddFloor S2Ent_Sensor, S2Ent_SensorUnlit, 0, 15 - 0.05, -69.75 - 0.05, 15 + 0.05, -69.75 + 0.05, 9 - 0.001, 9 - 0.001, 0, 0, false
 	<EndFloor>
+	
+	<Floors -1 to -2>
+		TexPrefix() #Set wall texture
+		Set B2F_Offset = 0
+		if[%floor% = -2] Set B2F_Offset = 2 #Offset for south doors
+
+		#Create filler walls and windows
+			#Filler walls
+			WallOrientation = left
+			AddFillerWalls %5%Wall, 1, -15, -70.5, (8 * 2) + 0.3, 7 + 0.75, %interfloorheight%, true, 0, 0, true #Pacific Heights Bldg. side
+			AddFillerWalls %5%Wall, 0.5, -15, -130, (8 * 2) + 0.3, 7 + 0.75, %interfloorheight% + %B2F_Offset%, true, 0, 0, true #Pacific Heights PG side
+
+			#Decos
+			AddDecoObject(B1FEnt1_Deco, AD_Deco, AD_Deco, back, true, false, 1, 0.15, -15, -70.5, 8*2, 7, 7 + 0.75, 0.75, 0, false, Blank, 0, external)
+			AddDecoObject(B1FEnt2_Deco, AD_Deco, AD_Deco, back, true, false, 0.5, 0.15, -15, -130, 8*2, 7, 7 + 0.75, 0.75, %B2F_Offset%, false, Blank, 0, external)
+
+			#Windows around doors
+			WallOrientation = right
+			SetAutoSize = false, false
+			DrawWalls = true, true, true, true, false, false
+			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
+			AddWall %floorid%FEnt1_Windows1, ADWindows, 0.15, -15 - 8, -69.65, -15 - 4, -69.65, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
+			AddWall %floorid%FEnt1_Windows2, ADWindows, 0.15, -15 + 4, -69.65, -15 + 8, -69.65, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
+			AddWall %floorid%FEnt2_Windows1, ADWindows, 0.15, -15 - 8, -69.65 - 60, -15 - 4, -69.65 - 60, 7, 7, %interfloorheight% + %B2F_Offset%, %interfloorheight% + %B2F_Offset%, 0, 0, true
+			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
+			AddWall %floorid%FEnt2_Windows2, ADWindows, 0.15, -15 + 4, -69.65 - 60, -15 + 8, -69.65 - 60, 7, 7, %interfloorheight% + %B2F_Offset%, %interfloorheight% + %B2F_Offset%, 0, 0, true
+
+			SetAutoSize = true, true
+
+			#Sensors
+			FloorOrientation = top
+			DrawWalls = true, true, true, true, false, false		
+			AddFloor %floorid%FEnt1_Sensor, %floorid%FEnt1_SensorUnlit, 0, -15 - 0.05, -69.75 - 0.05, -15 + 0.05, -69.75 + 0.05, 7 - 0.001, 7 - 0.001, 0, 0, false
+			AddFloor %floorid%FEnt2_Sensor, %floorid%FEnt2_SensorUnlit, 0, -15 - 0.05, -69.75 - 60 - 0.05, -15 + 0.05, -69.75 - 60 + 0.05, 7 - 0.001 + %B2F_Offset%, 7 - 0.001 + %B2F_Offset%, 0, 0, false
+	<EndFloors>
