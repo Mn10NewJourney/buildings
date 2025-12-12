@@ -112,6 +112,7 @@
 				Load data/EG881/lightaluminumdoor2.jpg, ParkingShaftDoors, 1, 1, false #EG881
 				Load data/EG881/lightaluminumdoor2.jpg, ParkingShaftDoors2, -1, 1, false #EG881
 				Load data/panel-back3.jpg, ParkingShaftDoors_Trim, 1, 1, false #EG881
+				Load data/graniteTexture_0005b.jpg, ParkingShaftDoors_Deco, 0.111, 0.111
 
 		#Ground floor
 		Load data/marb047.jpg, GroundLobbyFloor, 0.25, 0.25
@@ -179,7 +180,7 @@
 		Load data/panel-back3.jpg, ElevExtPanels, 1, 1, false
 
 		#North elevators
-		Load data/MarbleWhite0047b_S.jpg, NorthElevFloor, 0.15, 0.3
+		Load data/Carpet0021b_S.jpg, NorthElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, NorthElevCeiling, 1, 1, false
 		Rotate NorthElevCeiling, 270
 		Load data/EG881/Lights/squarelight1_white.jpg, NorthElevCeilingLight, 1, 1, false #EG881
@@ -196,17 +197,17 @@
 		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, NorthElevDoors2, 1, 1, false #EG881
 
 		#South elevators
-		Load data/Carpet0021b_S.jpg, SouthElevFloor, 0.2, 0.2
+		Load data/Carpet0013b_S.jpg, SouthElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevCeiling, 1, 1, false
 		Load data/EG881/light1z.jpg, SouthElevCeilingLight, 1, 2, false #EG881
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, SouthElevCeilingDL, 1, 1, false #DL = Downlight
 		Load data/panel-back3.jpg, SouthElevCeilingTrim, 1, 1, false
 		Load data/EG881/stucco2f_white2.jpg, SouthElevWall, 0.15, 0.15 #EG881
 		Load data/graniteTexture_0001b.jpg, SouthElevWallPanel, 0.25, 0.25
-		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, SouthElevPanelMain, 1, 1, false #EG881
-		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, SouthElevPanelTop, 1, 0.125, false #EG881
-		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, SouthElevDoors, 1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, SouthElevDoors2, -1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevPanelMain, 1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevPanelTop, 1, 0.125, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, SouthElevDoors, 1, 1, false #EG881
+		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, SouthElevDoors2, -1, 1, false #EG881
 
 	#----------------------------------------#
 
@@ -572,8 +573,15 @@ Set ExtraEast = 45 #Extra east dimensions for ramps
 	AddFloor PGFloor, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Floor cuts
+		CutAll -%1%, %interfloorheight% - 0.1, -%2%, -100, %interfloorheight% + 1, -60, false, true #Southwest utility area
+		CutAll 100 + (8.5 * 1), %interfloorheight% - 0.1, -%2%, %1%, %interfloorheight% + 1, -79, false, true #Southeast utility area
+
 		CutAll -%1%, %interfloorheight% - 0.1, %2% - 25 - 5, -%1% + 32, %interfloorheight% + 1, %2%, false, true #Elevators 1-2 (North)
-		CutAll 60 - 15, %interfloorheight% - 0.1, -%2%, 60 + 15, %interfloorheight% + 1, -110, false, true #Elevators 3-5 (South)
+		CutAll 60 - 15, %interfloorheight% - 0.1, -%2%, 60 + 15, %interfloorheight% + 1, -119.5 + 18, false, true #Elevators 3-5 (South)
+
+		#Utility area floors
+		AddFloor SWUtilityArea, %5%Floor2, 0.5, -%1%, -%2%, -100, -60, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor SEUtilityArea, %5%Floor2, 0.5, 100 + (8.5 * 1), -%2%, %1%, -79, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Elevator lobby floors
 			#North
@@ -583,9 +591,55 @@ Set ExtraEast = 45 #Extra east dimensions for ramps
 
 			#South
 			AddFloor SElevLbyFlr_Main, %5%LobbyFloor, 0.5, 60 - 15, -119.5 - 0.66, 60 + 15, -110, %interfloorheight%, %interfloorheight%, 0, 0, true
+			AddFloor SElevLbyFlr_EX, %5%Floor, 0.5, 60 - 15, -110, 60 + 15, -119.5 + 18, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#ROAD MARKINGS
 		Set Offset = %interfloorheight% + 0.01
+
+			#Markings around ramps
+			AddFloor RampWarning1, WhiteIslandX, 0, 41, -81 - 2, 81 + 0.5, -79 + 0.5, %Offset%, %Offset%, 2, 1, true
+			AddFloor RampWarning1A, NoParkingX, 0, -81 - 0.5, -81 - 2, 41, -79, %Offset%, %Offset%, 6, 1, true
+			if[%floor% = -5] AddFloor RampWarning1B, WhiteIslandX, 0, 41.5, -79 + 0.5, 81 + 0.5, -65.75, %Offset%, %Offset%, -2, 2, true
+			if[%floor% = -1] AddFloor RampWarning1C, WhiteIslandX, 0, 41.5, -66.5, 81 + 0.5, -54, %Offset%, %Offset%, -2, 2, true
+			AddFloor RampWarning2, NoParkingX, 0, 41.5, -54, 81 + 0.5, -50, %Offset%, %Offset%, 2, 1, true
+			AddFloor RampWarning3, NoParkingX, 0, -81 - 0.5, -53, 41, -50, %Offset%, %Offset%, 6, -1, true
+
+			#South
+			AddFloor Parking_S1, ParkingSpaceZ, 0, 100 - (8.5 * 2), -119.5, 100 + (8.5 * 1), -119.5 + 18, %Offset%, %Offset%, 3, -1, true
+			AddFloor Parking_S2, ParkingSpaceZ, 0, 20 - (8.5 * 2), -119.5, 20 + (8.5 * 2), -119.5 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S3, ParkingSpaceZ, 0, -20 - (8.5 * 2), -119.5, -20 + (8.5 * 2), -119.5 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S4, ParkingSpaceZ, 0, -60 - (8.5 * 2), -119.5, -60 + (8.5 * 2), -119.5 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S5, ParkingSpaceZ, 0, -100, -119.5, -100 + (8.5 * 2), -119.5 + 18, %Offset%, %Offset%, 2, -1, true
+
+			AddFloor Parking_S6, ParkingSpaceZ, 0, 60 - (8.5 * 2), -50, 60 + (8.5 * 2), -50 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S7, ParkingSpaceZ, 0, 20 - (8.5 * 2), -50, 20 + (8.5 * 2), -50 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S8, ParkingSpaceZ, 0, -20 - (8.5 * 2), -50, -20 + (8.5 * 2), -50 + 18, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_S9, ParkingSpaceZ, 0, -60 - (8.5 * 2), -50, -60 + (8.5 * 2), -50 + 18, %Offset%, %Offset%, 4, -1, true
+
+			#West
+			#AddFloor Parking_W1, ParkingSpaceX, 0, -119.5, -100, -119.5 + 18, -100 + (8.5 * 2), %Offset%, %Offset%, -1, 2, true
+			AddFloor Parking_W2, ParkingSpaceX, 0, -119.5, -60, -119.5 + 18, -60 + (8.5 * 2), %Offset%, %Offset%, -1, 2, true
+			AddFloor Parking_W3, ParkingSpaceX, 0, -119.5, -20 - (8.5 * 2), -119.5 + 18, -20 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+			AddFloor Parking_W4, ParkingSpaceX, 0, -119.5, 20 - (8.5 * 2), -119.5 + 18, 20 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+			AddFloor Parking_W5, ParkingSpaceX, 0, -119.5, 60 - (8.5 * 2), -119.5 + 18, 60 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+			#East
+			#AddFloor Parking_E1, ParkingSpaceX, 0, 119.5 - 18, -100, 119.5, -100 + (8.5 * 2), %Offset%, %Offset%, 1, 2, true
+			if[%floor% ! -1] AddFloor Parking_E2, ParkingSpaceX, 0, 119.5 - 18, -60, 119.5, -60 + (8.5 * 2), %Offset%, %Offset%, 1, 2, true
+			AddFloor Parking_E3, ParkingSpaceX, 0, 119.5 - 18, -20 - (8.5 * 2), 119.5, -20 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+			AddFloor Parking_E4, ParkingSpaceX, 0, 119.5 - 18, 20 - (8.5 * 2), 119.5, 20 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+			AddFloor Parking_E5, ParkingSpaceX, 0, 119.5 - 18, 60 - (8.5 * 2), 119.5, 60 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+			#Center
+			AddFloor Parking_C1, ParkingSpaceZ, 0, 60 - (8.5 * 2), -10, 60 + (8.5 * 2), -10 + 18, %Offset%, %Offset%, 4, 1, true
+			AddFloor Parking_C2, ParkingSpaceZ, 0, 20 - (8.5 * 2), -10, 20 + (8.5 * 2), -10 + 18, %Offset%, %Offset%, 4, 1, true
+			AddFloor Parking_C3, ParkingSpaceZ, 0, -20 - (8.5 * 2), -10, -20 + (8.5 * 2), -10 + 18, %Offset%, %Offset%, 4, 1, true
+			AddFloor Parking_C4, ParkingSpaceZ, 0, -60 - (8.5 * 2), -10, -60 + (8.5 * 2), -10 + 18, %Offset%, %Offset%, 4, 1, true
+
+			AddFloor Parking_C5, ParkingSpaceZ, 0, 60 - (8.5 * 2), 41 - 18, 60 + (8.5 * 2), 41, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_C6, ParkingSpaceZ, 0, 20 - (8.5 * 2), 41 - 18, 20 + (8.5 * 2), 41, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_C7, ParkingSpaceZ, 0, -20 - (8.5 * 2), 41 - 18, -20 + (8.5 * 2), 41, %Offset%, %Offset%, 4, -1, true
+			AddFloor Parking_C8, ParkingSpaceZ, 0, -60 - (8.5 * 2), 41 - 18, -60 + (8.5 * 2), 41, %Offset%, %Offset%, 4, -1, true
 
 	#Ceiling(s)
 	FloorOrientation = bottom
@@ -1430,7 +1484,7 @@ ShowFullShaft 3 = true
 	Set LanternPrefix = TKVRLantern
 
 		#Lateral offset for lantern panels
-		Set ExtraLateralOffset = 0
+		Set ExtraLateralOffset = 0.01
 		if[%floor% = 0] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
@@ -1481,11 +1535,9 @@ ShowFullShaft 3 = true
 		AddDecoObject(E1_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
 		AddDecoObject(E2_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
 
-			##4th floor only
-			#WallOrientation = left
-			#if[%floor% = 3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 6, %Shaft1CZ% + 11, 4.5, 7, %interfloorheight%, false, 0, 0, true #Elevator 1
-			#if[%floor% = 3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 6, %Shaft1CZ% + 1, 4.5, 7, %interfloorheight%, false, 0, 0, true #Elevator 2
-			#if[%floor% = 3] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 6, %Shaft1CZ% - 9, 4.5, 7, %interfloorheight%, false, 0, 0, true #Elevator 3
+		#Extra decos on parking levels
+		if[%floor% ! 0] AddDecoObject(E1_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, left, true, false, 0.01, 1 - 0.2, %Shaft1CX% - 6, %Shaft1CZ% + 6, 4.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
+		if[%floor% ! 0] AddDecoObject(E2_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, left, true, false, 0.01, 1 - 0.2, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
 
 	#****************************************#
 
@@ -1571,6 +1623,11 @@ ShowFullShaft 3 = true
 		AddDecoObject(Elev3_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% + 9, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
 		AddDecoObject(Elev4_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% - 1, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
 		AddDecoObject(Elev5_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, back, true, false, 0.05, 0.2, %Shaft1CX% - 11, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, %DecoType%)
+
+		#Extra decos on parking levels
+		if[%floor% ! 0] AddDecoObject(E3_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, back, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 9, %Shaft1CZ% + 6, 4.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
+		if[%floor% ! 0] AddDecoObject(E4_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, back, true, false, 0.01, 1 - 0.2, %Shaft1CX% - 1, %Shaft1CZ% + 6, 4.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
+		if[%floor% ! 0] AddDecoObject(E5_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, back, true, false, 0.01, 1 - 0.2, %Shaft1CX% - 11, %Shaft1CZ% + 6, 4.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, floor)
 
 	#****************************************#
 
