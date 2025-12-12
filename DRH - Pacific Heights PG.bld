@@ -57,6 +57,7 @@
 
 		#Plants
 		Load data/ogrebullet/textures/grass.jpg, Grass, 0.01, 0.01
+		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
 
@@ -302,34 +303,94 @@ Set 2 = 120 #Building Dimension Z
 Set ExtraEast = 45 #Extra east dimensions for ramps
 
 	#Parking garage foundation
-	AddFloor landscape, PGFoundation, Grass, 0, -%1% - 15, -%2% - 5, %1% + %ExtraEast%, %2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, PGFoundation1, Grass_Dark, 0, -%1% - 15, -%2% - 20, %1%, %2%, Floor(0).Base, Floor(0).Base, 0, 0
+	AddFloor landscape, PGFoundation2, Grass, 0, %1%, -%2% - 20, %1% + %ExtraEast%, %2%, Floor(0).Base, Floor(0).Base, 0, 0
 	Cut Landscape, 138, -1, %2% - 194, 162, 1, %2%, false, true #Cut for access road
 	Cut Landscape, %1%, -1, %2% - 194, 138, 1, %2% - 170, false, true #Cut for access road
 
 	#Sidewalks above the garage
 	Set FO = Floor(0).Base #Floor Offset
-	LSFloorCreator(MidPath1, Sidewalk, -%1% - 15, 0 - 15, %1%, 0 + 15, %FO%, false, true)
-	LSFloorCreator(MidPath2, Sidewalk, 0 - 15, 0 + 15, 0 + 15, %2%, %FO%, false, false)
-	LSFloorCreator(EastPath, Sidewalk, %1% - 10, 0 + 15, %1%, %2%, %FO%, false, false)
-	
+	LSFloorCreator(MidPath, Sidewalk, -%1% - 15, 0 - 15, %1%, 0 + 15, %FO%, false, true)
+	LSFloorCreator(MidNorthPath, Sidewalk, 0 - 15, 0 + 15, 0 + 15, %2%, %FO%, false, false)
+	LSFloorCreator(NortheastPath, Sidewalk, %1% - 10, 0 + 15, %1%, %2%, %FO%, false, false)
+	LSFloorCreator(NorthwestPath, Sidewalk, -95, 0 + 15, -85, %2%, %FO%, false, false)
+
+	LSFloorCreator(MidSouthPath, Sidewalk, 0 - 15, -%2% - 20, 0 + 15, 0 - 15, %FO%, false, false)
+	LSFloorCreator(SoutheastPath, Sidewalk, %1% - 10, -%2% - 20, %1%, 0 - 15, %FO%, false, false)
+	LSFloorCreator(SouthwestPath, Sidewalk, -95, -%2% - 20, -85, 0 - 15, %FO%, false, false)
+
 	#Trees
-		#South trees
-		AddTree(Tree1, 0 - 75, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 65, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 55, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 45, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 35, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 25, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 15, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 - 5, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 5, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 15, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 25, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 35, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 45, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 55, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 65, -18, 7.5, 5, 0)
-		AddTree(Tree1, 0 + 75, -18, 7.5, 5, 0)
+		#North-south path trees (Row 1)
+		AddTree(Tree2, -18.5, 0 - 120, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 110, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 100, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 90, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 80, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 70, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 60, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 50, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 40, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 - 30, 7.5, 5, 0)
+
+		AddTree(Tree2, -18.5, 0 + 30, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 40, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 50, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 60, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 70, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 80, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 90, 7.5, 5, 0)
+		AddTree(Tree2, -18.5, 0 + 100, 7.5, 5, 0)
+
+		#North-south path trees (Row 2)
+		AddTree(Tree2, 18.5, 0 - 120, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 110, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 100, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 90, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 80, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 70, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 60, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 50, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 40, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 - 30, 7.5, 5, 0)
+
+		AddTree(Tree2, 18.5, 0 + 30, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 40, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 50, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 60, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 70, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 80, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 90, 7.5, 5, 0)
+		AddTree(Tree2, 18.5, 0 + 100, 7.5, 5, 0)
+
+		#East-west path trees (Row 1)
+		AddTree(Tree1, 0 - 75, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 65, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 55, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 45, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 35, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 25, -18.5, 7.5, 5, 0)
+
+		AddTree(Tree1, 0 + 25, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 35, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 45, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 55, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 65, -18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 75, -18.5, 7.5, 5, 0)
+
+		#East-west path trees (Row 2)
+		AddTree(Tree1, 0 - 75, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 65, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 55, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 45, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 35, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 - 25, 18.5, 7.5, 5, 0)
+
+		AddTree(Tree1, 0 + 25, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 35, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 45, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 55, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 65, 18.5, 7.5, 5, 0)
+		AddTree(Tree1, 0 + 75, 18.5, 7.5, 5, 0)
 
 	########################################
 
