@@ -119,6 +119,7 @@
 		Load data/stucco1.jpg, ServiceWall, 0.25, 0.25
 		Load data/stucco1b.jpg, ServiceWall2, 0.25, 0.25
 		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+		Load data/stucco1b.jpg, EscUnderideCover, 0.1, 0.1 #Escalator underside covers
 
 		#Roof
 		Load data/EG881/cem_tr2c.jpg, ElevMRIntFloor, 0.075225, 0.0625 #EG881
@@ -479,7 +480,6 @@
 	Type = Basement
 	Height = 10
 	InterfloorHeight = 1.5
-	Group = -1 #Group SL with EL to see the escalators' undersides.
 <EndFloor>
 
 <Floor -3>
@@ -507,6 +507,7 @@
 	InterfloorHeight = 4
 <EndFloors>
 
+#Merge floors
 <Floors -1 to 8>
 	Group = -1 - 8
 <EndFloors>
@@ -829,6 +830,13 @@ AddFloor landscape, Garden2_Grass2, Grass_Dark, 0, 122.5 + 1, 30 + 1, 132.5 - 1,
 		AddCustomFloor floor, SoutheastFloor, %5%, %1%, -%2% + %CornerOffset%, %1% - %CornerOffset%, -%2%, %1% - %CornerOffset%, -%2% + %CornerOffset%, 0, 0, 0
 		AddCustomFloor floor, NorthwestFloor, %5%, -%1%, %2% - %CornerOffset%, -%1% + %CornerOffset%, %2%, -%1% + %CornerOffset%, %2% - %CornerOffset%, 0, 0, 0
 		AddCustomFloor floor, NortheastFloor, %5%, %1%, %2% - %CornerOffset%, %1% - %CornerOffset%, %2%, %1% - %CornerOffset%, %2% - %CornerOffset%, 0, 0, 0
+
+		#Escalator underside covers
+		FloorOrientation = top
+		DrawWalls = true, false, true, true, true, true
+		if[%floor% = -2] AddFloor EUSCover_North, EscUnderideCover, 0.5, 33.5, 52, 42, 61, %height%, %height%, 0, 0, false
+		if[%floor% = -2] AddFloor EUSCover_South1, EscUnderideCover, 0.5, 21.75, -41, 26.25, -32.5, %height%, %height%, 0, 0, false
+		if[%floor% = -2] AddFloor EUSCover_South2, EscUnderideCover, 0.5, 33.75, -41, 38.25, -32.5, %height%, %height%, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
