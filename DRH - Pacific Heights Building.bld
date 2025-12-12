@@ -467,6 +467,7 @@
 
 			#Common signs
 			AddTextRange 1, 6, Sign_DB, Sign_ExamRoom%number%, nimbus_sans_bold_condensed.ttf, 92, Exam Room %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+			AddTextRange 1, 2, Sign_DB, Sign_Treatment%number%, nimbus_sans_bold.ttf, 92, Treatment %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
 			AddText Sign_DB, Sign_TreatmentRoom, nimbus_sans_bold_condensed.ttf, 90, Treatment Room, -1, -1, -1, -1, center, center, 255, 255, 255, false
 
 			#Level B3
@@ -1526,6 +1527,7 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		AddWall PacificOPD_EastDiv_S3, %5%Wall, 1, 75, -%2%, 75, -15, %height%, %height%, 0, 0, 0, 0, false
 		AddWall PacificOPD_EastDiv_S4, %5%Wall, 1, 65, -%2%, 65, -15, %height%, %height%, 0, 0, 0, 0, false
 		if[%floor% ! 2 & %floor% ! 5] AddWall PacificOPD_EastDiv_N1, %5%Wall, 1, 75, 5, 75, %2%, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 2] AddWall PacificOPD_EastDiv_N1, %5%Wall, 1, 90, 5, 90, %2%, %height%, %height%, 0, 0, 0, 0, false
 
 		#Interior deco walls
 		WallOrientation = right
@@ -1534,8 +1536,12 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 		DrawWalls = true, false, true, true, false, false
 		AddWall EastOPD_IntDeco_C2, %5%DecoWall2, 0.25, 55, -%2% + 3, 55, -15 + 0.25, %height%, %height%, 0, 0, 0, 0, false
 
-		if[%floor% = 2 | %floor% = 5] AddWall EastOPD_IntDeco_N1, %5%DecoWall2, 0.25, 68 + 1, 5, %1% - 0.5, 5, %height%, %height%, 0, 0, 0, 0, false
-		if[%floor% = 2 | %floor% = 5] AddWall EastOPD_IntDeco_N2, %5%DecoWall2, 0.25, 60, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall EastOPD_IntDeco_N1, %5%DecoWall2, 0.25, 68 + 1, 5, %1% - 0.5, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 5] AddWall EastOPD_IntDeco_N2, %5%DecoWall2, 0.25, 60, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
+
+		if[%floor% = 2] AddWall EastOPD_IntDeco_N1, %5%DecoWall2, 0.25, 95, 5, %1% - 0.5, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 2] AddWall EastOPD_IntDeco_N2, %5%DecoWall2, 0.25, 68 + 1, 5, 90, 5, %height%, %height%, 0, 0, 0, 0, false
+		if[%floor% = 2] AddWall EastOPD_IntDeco_N3, %5%DecoWall2, 0.25, 60, 5, 61, 5, %height%, %height%, 0, 0, 0, 0, false
 
 		if[%floor% ! 2 & %floor% ! 5] AddWall EastOPD_IntDeco_N1, %5%DecoWall2, 0.25, 83 + 1, 5, %1% - 0.5, 5, %height%, %height%, 0, 0, 0, 0, false
 		if[%floor% ! 2 & %floor% ! 5] AddWall EastOPD_IntDeco_N2, %5%DecoWall2, 0.25, 64 + 1, 5, 77 - 1, 5, %height%, %height%, 0, 0, 0, 0, false
@@ -1625,15 +1631,19 @@ Cut external, %1% - 0.1, Floor(0).Base, -25 - 5, %1% + 0.1, Floor(2).Altitude, -
 				if[%floor% ! 2 & %floor% ! 5] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 80 - 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
 				if[%floor% ! 2 & %floor% ! 5] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM_Door2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, 80 + 1.5, 5.5, 3, 7, 0, 0, 0, 0, 0
 				if[%floor% ! 2 & %floor% ! 5] AddStdDoor Floor %floor%, %floorid%E_ExamRoom6_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 60 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
+				if[%floor% = 2] AddStdDoor Floor %floor%, %floorid%E_TreatmentRM2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, 90 + 2.5, 5.5, 3, 7, 0, 0, 0, 0, 0
 
 				if[%floor% ! 2 & %floor% ! 5] AddDecoObject(%floorid%E_TRTrim, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, 80, 5.5, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 				if[%floor% ! 2 & %floor% ! 5] AddDecoObject(%floorid%E_EX6Trim, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, 60 + 2.5, 5.5, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+				if[%floor% = 2] AddDecoObject(%floorid%E_TR2Trim, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, 90 + 2.5, 5.5, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 
 				####################
 
 				WallOrientation = right
 				DrawWalls = true, false, true, true, true, true
-				if[%floor% = 2 | %floor% = 5] AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 65, 5, 0.6 * 4, 0.6, 7.45, false)
+				if[%floor% = 5] AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 65, 5, 0.6 * 4, 0.6, 7.45, false)
+				if[%floor% = 2] AddBoxSign(%floorid%E_TreatmentRM1, Sign_Treatment1, Sign_Treatment1, Sign_DB, 0.1, true, false, false, 65, 5, 0.6 * 4, 0.6, 7.45, false)
+				if[%floor% = 2] AddBoxSign(%floorid%E_TreatmentRM2, Sign_Treatment2, Sign_Treatment2, Sign_DB, 0.1, true, false, false, 90 + 2.5, 5, 0.6 * 4, 0.6, 7.45, false)
 
 				if[%floor% ! 2 & %floor% ! 5] AddBoxSign(%floorid%E_TreatmentRM, Sign_TreatmentRoom, Sign_TreatmentRoom, Sign_DB, 0.1, true, false, false, 80, 5, 0.6 * 4, 0.6, 7.45, false)
 				if[%floor% ! 2 & %floor% ! 5] AddBoxSign(%floorid%E_ExamRoom6, Sign_ExamRoom6, Sign_ExamRoom6, Sign_DB, 0.1, true, false, false, 60 + 2.5, 5, 0.6 * 4, 0.6, 7.45, false)	
