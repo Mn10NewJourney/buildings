@@ -198,9 +198,10 @@
 		#South elevators
 		Load data/Carpet0013b_S.jpg, SouthElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevCeiling, 1, 1, false
-		Load data/EG881/light1z.jpg, SouthElevCeilingLight, 1, 2, false #EG881
-		Load data/otis67/OTIS67_EU_Button_Lighted.gif, SouthElevCeilingDL, 1, 1, false #DL = Downlight
+		Load data/EG881/Lights/squarelight1_white.jpg, SouthElevCeilingLight, 1, 1, false #EG881
 		Load data/panel-back3.jpg, SouthElevCeilingTrim, 1, 1, false
+		Load data/panel-back3.jpg, SouthElevCeilingTrim2, 1, 1, false
+		Rotate SouthElevCeilingTrim2, 90
 		Load data/EG881/stucco2f_white2.jpg, SouthElevWall, 0.15, 0.15 #EG881
 		Load data/graniteTexture_0001b.jpg, SouthElevWallPanel, 0.25, 0.25
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevPanelMain, 1, 1, false #EG881
@@ -1349,26 +1350,18 @@ ShowFullShaft 3 = true
 		#Right panel
 		CreateWallBox2 elevator, Panel_R, %WPTex%, 2.8 - 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
-	#2. Ceiling lights
-	Set LightWidth = 2.375
-	Set LightLength = 9.28 - 0.4
+	#2. Lights
+	Set LightWidth = 3
+	Set LightLength = 4.5
 	Set TrimWidth = 0.2
 
-	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.035, 8 - 0.035, 0, 0, false, true, true, true
+	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
 
 		#2a. Trims around lights
-		CreateWallBox2 elevator, CL_Trim_Left, %Prefix%ElevCeilingTrim, 0 - (%LightWidth% / 2) - (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength%, 0.035, 8 - 0.035, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, CL_Trim_Right, %Prefix%ElevCeilingTrim, 0 + (%LightWidth% / 2) + (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength%, 0.035, 8 - 0.035, 0, 0, false, true, true, true
-
-	#3. Downlights
-	DrawWalls = true, false, false, false, false, false
-	Set DLOffset = 8 - 0.001 #Offsets for downlights
-	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -2.8 + 0.75 - 0.11, (-3 - 0.2) - 0.11, -2.8 + 0.75 + 0.11, (-3 - 0.2) + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 2.8 - 0.75 - 0.11, (-3 - 0.2) - 0.11, 2.8 - 0.75 + 0.11, (-3 - 0.2) + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -2.8 + 0.75 - 0.11, 0 - 0.11, -2.8 + 0.75 + 0.11, 0 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 2.8 - 0.75 - 0.11, 0 - 0.11, 2.8 - 0.75 + 0.11, 0 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight3/2, %Prefix%ElevCeilingDL, 0, -2.8 + 0.75 - 0.11, (3 + 0.2) - 0.11, -2.8 + 0.75 + 0.11, (3 + 0.2) + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight3/2, %Prefix%ElevCeilingDL, 0, 2.8 - 0.75 - 0.11, (3 + 0.2) - 0.11, 2.8 - 0.75 + 0.11, (3 + 0.2) + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		CreateWallBox2 elevator, CL_Trim_Front, %Prefix%ElevCeilingTrim2, 0, 0 - (%LightLength% / 2) - (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Back, %Prefix%ElevCeilingTrim2, 0, 0 + (%LightLength% / 2) + (%TrimWidth% / 2), %LightWidth%, %TrimWidth%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Left, %Prefix%ElevCeilingTrim, 0 - (%LightWidth% / 2) - (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 8 - 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, CL_Trim_Right, %Prefix%ElevCeilingTrim, 0 + (%LightWidth% / 2) + (%TrimWidth% / 2), 0, %TrimWidth%, %LightLength% + (%TrimWidth% * 2), 0.05, 8 - 0.05, 0, 0, false, true, true, true
 	#--------------------
 	#Front Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
