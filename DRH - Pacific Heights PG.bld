@@ -204,10 +204,10 @@
 		Rotate SouthElevCeilingTrim2, 90
 		Load data/EG881/stucco2f_white2.jpg, SouthElevWall, 0.15, 0.15 #EG881
 		Load data/graniteTexture_0001b.jpg, SouthElevWallPanel, 0.25, 0.25
-		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevPanelMain, 1, 1, false #EG881
-		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, SouthElevPanelTop, 1, 0.125, false #EG881
-		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, SouthElevDoors, 1, 1, false #EG881
-		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, SouthElevDoors2, -1, 1, false #EG881
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, SouthElevPanelMain, 1, 1, false #EG881
+		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, SouthElevPanelTop, 1, 0.125, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, SouthElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, SouthElevDoors2, 1, 1, false #EG881
 
 	#----------------------------------------#
 
@@ -266,11 +266,15 @@
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
 		AddTextRange 1, 5, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#4. Other objects/signs
+		#4. Elevator number signs (Outside)
+		Load data/bluegradient4.jpg, ElevNoBack, 1, 1, false
+		AddTextRange 1, 5, ElevNoBack, ElevNo%number%, nimbus_sans_bold.ttf, 120, %number%, -1, -1, -1, -1, center, center, 255, 255, 255, false
+
+		#5. Other objects/signs
 		Load data/signs_mod/Parking_BldgAccess.png, ParkingSign, 1, 1, false
 		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 
-		#5. Exit signs
+		#6. Exit signs
 		Load data/panel-back3.jpg, StainlessSteel, 1, 1, false
 		Load data/Melvin/ExitSignDown.png, ExitSign, 1, 1, false
 		Load data/Melvin/ExitSignUp.png, ExitSignUp, 1, 1, false
@@ -1569,7 +1573,6 @@ ShowFullShaft 3 = true
 
 	#Indicator sets
 	Set IndOffset = 7.5
-	#if[%floor% = 0] Set IndOffset = 8
 
 		#Set textures
 		ACMEInd_LanternTex(TKVRLanternUp, TKVRLanternUpLit, TKVRLanternDown, TKVRLanternDownLit, %BPanelTexture%, TKVR_OInd_Button)
@@ -1577,6 +1580,13 @@ ShowFullShaft 3 = true
 		#Indicator creation
 		ACMELobbyInds(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 6, %IndOffset%, -5, 0)
 		ACMELobbyInds(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 4, %IndOffset%, -5, 0)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = true, false, false, false, false, false
+	AddWall E1Sign, ElevNo1, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 6 + 1.25) - 0.25, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 6 + 1.25) + 0.25, 0.5, 0.5, %IndOffset%, %IndOffset%, 0, 0, false
+	AddWall E2Sign, ElevNo2, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 4 + 1.25) - 0.25, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% - 4 + 1.25) + 0.25, 0.5, 0.5, %IndOffset%, %IndOffset%, 0, 0, false
 <EndFloors>
 
 #Elevators 3-5 (North)
@@ -1671,6 +1681,14 @@ ShowFullShaft 3 = true
 		ACMELobbyInds(back, 3, %Shaft1CX% + 9, %Shaft1CZ% + 6 + %ExtraLateralOffset%, %Offset%, -5, 0)
 		ACMELobbyInds(back, 4, %Shaft1CX% - 1, %Shaft1CZ% + 6 + %ExtraLateralOffset%, %Offset%, -5, 0)
 		ACMELobbyInds(back, 5, %Shaft1CX% - 11, %Shaft1CZ% + 6 + %ExtraLateralOffset%, %Offset%, -5, 0)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = false, true, false, false, false, false
+	AddWall E3Sign, ElevNo3, 0, (%Shaft1CX% + 9 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% + 9 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E4Sign, ElevNo4, 0, (%Shaft1CX% - 1 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% - 1 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E5Sign, ElevNo5, 0, (%Shaft1CX% - 11 + 1.25) - 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, (%Shaft1CX% - 11 + 1.25) + 0.25, %Shaft1CZ% + 6 + %ExtraLateralOffset% + 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
 <EndFloors>
 
 #Rear doors
@@ -1759,6 +1777,14 @@ ShowFullShaft 3 = true
 		ACMELobbyInds(front, 3, %Shaft1CX% + 9, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -5, 0)
 		ACMELobbyInds(front, 4, %Shaft1CX% - 1, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -5, 0)
 		ACMELobbyInds(front, 5, %Shaft1CX% - 11, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -5, 0)
+
+	#****************************************#
+
+	#Elevator number signs
+	DrawWalls = true, false, false, false, false, false
+	AddWall E3Sign, ElevNo3, 0, (%Shaft1CX% + 9 - 1.25) - 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% + 9 - 1.25) + 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E4Sign, ElevNo4, 0, (%Shaft1CX% - 1 - 1.25) - 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% - 1 - 1.25) + 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
+	AddWall E5Sign, ElevNo5, 0, (%Shaft1CX% - 11 - 1.25) - 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CX% - 11 - 1.25) + 0.25, %Shaft1CZ% - 6 - %ExtraLateralOffset% - 0.001, 0.5, 0.5, %Offset%, %Offset%, 0, 0, false
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
