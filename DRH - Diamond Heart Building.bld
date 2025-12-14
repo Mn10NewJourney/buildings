@@ -88,10 +88,10 @@
 
 	#Main textures
 		#Basement
-		Load data/MarbleWhite0047b_S.jpg, BasementFloor, 0.11, 0.22
-		Load data/wall5.jpg, BasementWall, 0.25, 0.25
+		Load data/EG881/cem_tr3.jpg, BasementFloor, 0.075225, 0.0625 #EG881
+		Load data/stucco4.jpg, BasementWall, 0.25, 0.25
 		Load data/stucco1b.jpg, BasementWall2, 0.1, 0.1
-		Load data/EG881/ceilingtile2b.jpg, BasementCeiling, 0.125, 0.125 #EG881
+		Load data/EG881/Ceilings/ceilingtile4single.jpg, BasementCeiling, 0.5, 0.5 #EG881
 		Load data/metal080.jpg, EscUnderideCover, 0.5, 0.5
 
 			#Shaft doors
@@ -101,10 +101,11 @@
 
 		#Lobby and mezzanine
 		Load data/floor065.jpg, LobbyFloor, 0.25, 0.25
+		Load data/MarbleWhite0047b_S.jpg, LobbyFloor2, 0.11, 0.22
 		Load data/wall5.jpg, LobbyWall, 0.25, 0.25
 		#Load data/marbletile.jpg, LobbyWall2, 0.15, 0.3
 		Load data/marble22.jpg, LobbyLobbyWall, 0.1345, 0.125 #Elevator lobby
-		Load data/marble5c.jpg, LobbyEscWall, 0.125, 0.125
+		Load data/EG881/stucco2f_white.jpg, LobbyEscWall, 0.1, 0.1 #EG881
 		Load data/EG881/ceilingtile2.jpg, LobbyCeiling, 0.125, 0.125 #EG881
 
 			#Shaft doors
@@ -112,8 +113,8 @@
 			Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false #EG881
 
-			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, MezzanineShaftDoors, 1, 1, false #EG881
-			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, MezzanineShaftDoors2, 1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor5.jpg, MezzanineShaftDoors, 1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor5.jpg, MezzanineShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, MezzanineShaftDoors_Trim, 1, 1, false #EG881
 
 		#2nd-3rd floors
@@ -597,9 +598,16 @@ DrawWalls = false, true, false, false, false, false
 	#Mezzanine floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 1] AddFloor MezFloor1, %5%Floor, 0.5, 20, -%2%, %1%, %2%, 0, 0, 0, 0, false
-	if[%floor% = 1] AddFloor MezFloor2, %5%Floor, 0.5, -20, 16, 20, 70, 0, 0, 0, 0, false
-	if[%floor% = 1] AddFloor MezFloor3, %5%Floor, 0.5, -20, -70, 20, -50 + 30, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor MezFloor1, %5%Floor2, 0.5, 20 - 0.5, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor MezFloor2, %5%Floor2, 0.5, -20, 16, 20 - 0.5, 70, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor MezFloor3, %5%Floor2, 0.5, -20, -70, 20 - 0.5, -50 + 20, 0, 0, 0, 0, false
+
+	#Mezzanine ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 0] AddFloor MezCeiling1, %5%Ceiling, 0.5, 20 - 0.5, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% = 0] AddFloor MezCeiling2, %5%Ceiling, 0.5, -20, 16, 20 - 0.5, 70, %height%, %height%, 0, 0, false
+	if[%floor% = 0] AddFloor MezCeiling3, %5%Ceiling, 0.5, -20, -70, 20 - 0.5, -50 + 20, %height%, %height%, 0, 0, false
 <EndFloors>
 
 #========================================#
@@ -969,7 +977,7 @@ DrawWalls = false, true, false, false, false, false
 	#Utility room inside core area
 	WallOrientation = left
 	DrawWalls = true, true, false, false, false, false
-	AddWall NEUtilityRM, SAWall, 0.5, 5, 60, 20, 60, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall NEUtilityRM, SAWall, 0.5, 5, 60, 20, 60, %height%, %height%, 0, 0, 0, 0, false
 		
 		#UTILITY ROOM DOORS
 		Set Texture = ServiceDoor1
@@ -1077,20 +1085,20 @@ DrawWalls = false, true, false, false, false, false
 	Set winoffset = 0.5
 
 		#Front
-		Add3DWindows(FrontVents1, 0, %SE_MechPH%, front, 30, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(FrontVents1, 0, %SE_MechPH%, front, 30, %winheight%, %winoffset%, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
 
 		#Left
-		Add3DWindows(LeftVents1, -%1%, 15, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
-		Add3DWindows(LeftVents2, -%1%, 45, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
-		Add3DWindows(LeftVents3, -%1%, 75, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(LeftVents1, -%1%, 15, left, 25, %winheight%, %winoffset%, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(LeftVents2, -%1%, 45, left, 25, %winheight%, %winoffset%, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(LeftVents3, -%1%, 75, left, 25, %winheight%, %winoffset%, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
 
 		#Right
-		Add3DWindows(RightVents1, -%1%, 15, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
-		Add3DWindows(RightVents2, -%1%, 45, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
-		Add3DWindows(RightVents3, -%1%, 75, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(RightVents1, %1%, 15, right, 25, %winheight%, %winoffset%, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(RightVents2, %1%, 45, right, 25, %winheight%, %winoffset%, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(RightVents3, %1%, 75, right, 25, %winheight%, %winoffset%, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
 
 		#Back
-		Add3DWindows(BackVents1, 0, %2%, back, 30, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(BackVents1, 0, %2%, back, 30, %winheight%, %winoffset%, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
 <EndFloor>
 
 
