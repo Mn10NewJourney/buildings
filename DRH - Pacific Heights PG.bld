@@ -765,21 +765,23 @@ Set ExtraEast = 45 #Extra east dimensions for ramps
 
 		#Wall cuts
 		if[%floor% = -2 | %floor% = -1] CutAll -25 + 0.5, %interfloorheight%, %2% - 0.5 - 1, -5 - 0.5, %interfloorheight% + 8.5, %2% + 1, true, false
+<EndFloors>
 
-	#========================================#
+#========================================#
+
+#Cuts for ramps
+Cut External, -81, Floor(-5).Base + 4.5, -78.5, 41, Floor(-1).Base + 1.5, -78.5 + 25, false, true
+
+<Floors -5 to -1>
+	TexPrefix() #Set texture prefix
 
 	#Parking ramps
-		#Cuts for parking ramps
-		if[%floor% > -5] CutAll -81, %interfloorheight% - 1, -78.5, 41, %interfloorheight% + 1, -78.5 + 25, false, true
-		if[%floor% < -1] CutAll -81, %fullheight% - 1, -78.5, 41, %fullheight% + 1, -78.5 + 25, false, true
-
-		#Ramps creation
-		FloorOrientation = top
-		DrawWalls = true, true, false, false, false, false
-		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-		if[%floor% < -1] AddFloor UpRamp, Road, 0.5, -81, -78.5 + 25 - 12.5, 41, -78.5 + 25, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight%, true, false, 0, 0, true
-		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-		if[%floor% < -1] AddFloor DownRamp, Road, 0.5, -81, -78.5, 41, -78.5 + 25 - 12.5, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+	if[%floor% < -1] AddFloor UpRamp, Road, 0.5, -81, -78.5 + 25 - 12.5, 41, -78.5 + 25, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight%, true, false, 0, 0, true
+	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+	if[%floor% < -1] AddFloor DownRamp, Road, 0.5, -81, -78.5, 41, -78.5 + 25 - 12.5, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
 
 	#Railings around ramps
 	WallOrientation = left

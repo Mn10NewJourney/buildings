@@ -1050,57 +1050,6 @@
 		if[%floor% > -11] AddFloor CoreFloor_East2, ParkingFloor, 0.5, 58 - 48, -85.34, 58, 85.34, %interfloorheight%, %interfloorheight%, 0, 0, true
 		if[%floor% > -11] AddFloor CoreFloor_East3, ParkingLobbyFloor, 0.5, 58 - 48, 85.34, 58, 102, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-		#Cuts for parking ramps
-		#South ramps (Down)
-		if[%floor% > -11] CutAll -100, %interfloorheight% - 1, -%2% + 5, 100, %interfloorheight% + 1, -%2% + 20, false, true
-		if[%floor% < -3] CutAll -100, %fullheight% - 1, -%2% + 5, 100, %fullheight% + 2, -%2% + 20, false, true
-
-		FloorOrientation = top
-		DrawWalls = true, true, false, false, false, false
-		TextureOverride %7%, %5%, %7%, %7%, %7%, %7%
-		if[%floor% < -3] AddFloor DownRamp, %5%, 0.5, -100, -%2% + 5, 100, -%2% + 20, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
-
-		#North ramps (Up)
-		if[%floor% > -11] CutAll -100, %interfloorheight% - 1, %2% - 20, 100, %interfloorheight% + 1, %2% - 5, false, true
-		if[%floor% < -3] CutAll -100, %fullheight% - 1, %2% - 20, 100, %fullheight% + 2, %2% - 5, false, true
-
-		FloorOrientation = top
-		DrawWalls = true, true, false, false, false, false
-		TextureOverride %7%, %5%, %7%, %7%, %7%, %7%
-		if[%floor% < -3] AddFloor UpRamp, %5%, 0.5, -100, %2% - 20, 100, %2% - 5, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
-
-	#Railings around ramps
-	WallOrientation = left
-	Set WallHeight = %interfloorheight% + 3.5
-	Set WallOffset = 0
-	Set WallOffset2 = %fullheight%
-
-		#South ramps
-		Set SouthPoint = -%2% + 5
-		Set NorthPoint = -%2% + 20
-
-		DrawWalls = true, true, true, true, true, true
-		WallOrientation = right
-		if[%floor% > -11] AddWall SRamp_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% = -3] AddWall SRamp_Left, %6Ramp%, 0.5, -100, %SouthPoint% - 0.5, -100, %NorthPoint% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% < -3] AddWall SRamp_Inner_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
-		WallOrientation = left
-		if[%floor% < -3] AddWall SRamp_Inner_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
-		if[%floor% > -11] AddWall SRamp_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
-		#North ramps
-		Set SouthPoint = %2% - 20
-		Set NorthPoint = %2% - 5
-
-		DrawWalls = true, true, true, true, true, true
-		WallOrientation = right
-		if[%floor% > -11] AddWall NRamp_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% = -3] AddWall NRamp_Left, %6Ramp%, 0.5, -100, %SouthPoint% - 0.5, -100, %NorthPoint% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% < -3] AddWall NRamp_Inner_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
-		WallOrientation = left
-		if[%floor% < -3] AddWall NRamp_Inner_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
-		if[%floor% > -11] AddWall NRamp_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
@@ -1210,6 +1159,62 @@
 	AddFloor SouthEUSCover, EscUnderideCover2, 3.75, 22.75, -74, 36.25, -65, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	AddFloor NorthEUSCover, EscUnderideCover2, 3.75, 46, 13.25, 55, 26.75, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 <EndFloor>
+
+#PARKING RAMPS
+#(Moved to a separate section on December 14, 2025.)
+	#Cuts for ramps
+	Cut external, -100, Floor(-11).Base + 5, -%2% + 5, 100, Floor(-3).Base + 1, -%2% + 20, false, true #South ramps
+	Cut external, -100, Floor(-11).Base + 5, %2% - 20, 100, Floor(-3).Base + 1, %2% - 5, false, true #North ramps
+
+<Floors -11 to -3>
+	FloorTex() #Set floor Texture
+	WallTex() #Set wall texture
+	CeilingTex() #Ceiling Texture
+
+	#South ramps (Down)
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %7%, %5%, %7%, %7%, %7%, %7%
+	if[%floor% < -3] AddFloor DownRamp, %5%, 0.5, -100, -%2% + 5, 100, -%2% + 20, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+
+	#North ramps (Up)
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %7%, %5%, %7%, %7%, %7%, %7%
+	if[%floor% < -3] AddFloor UpRamp, %5%, 0.5, -100, %2% - 20, 100, %2% - 5, %interfloorheight%, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+
+	#Railings around ramps
+	WallOrientation = left
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallOffset = 0
+	Set WallOffset2 = %fullheight%
+
+		#South ramps
+		Set SouthPoint = -%2% + 5
+		Set NorthPoint = -%2% + 20
+
+		DrawWalls = true, true, true, true, true, true
+		WallOrientation = right
+		if[%floor% > -11] AddWall SRamp_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -3] AddWall SRamp_Left, %6Ramp%, 0.5, -100, %SouthPoint% - 0.5, -100, %NorthPoint% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < -3] AddWall SRamp_Inner_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
+		WallOrientation = left
+		if[%floor% < -3] AddWall SRamp_Inner_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
+		if[%floor% > -11] AddWall SRamp_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#North ramps
+		Set SouthPoint = %2% - 20
+		Set NorthPoint = %2% - 5
+
+		DrawWalls = true, true, true, true, true, true
+		WallOrientation = right
+		if[%floor% > -11] AddWall NRamp_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -3] AddWall NRamp_Left, %6Ramp%, 0.5, -100, %SouthPoint% - 0.5, -100, %NorthPoint% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < -3] AddWall NRamp_Inner_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
+		WallOrientation = left
+		if[%floor% < -3] AddWall NRamp_Inner_Front, %6Ramp%, 0.5, -100, %SouthPoint%, 100, %SouthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset2%, 0, 0, true
+		if[%floor% > -11] AddWall NRamp_Back, %6Ramp%, 0.5, -100, %NorthPoint%, 100, %NorthPoint%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
 
 <Floors -10 to -3>
 	WallTex() #Set wall texture
