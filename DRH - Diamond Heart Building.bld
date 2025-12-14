@@ -77,6 +77,10 @@
 	Load data/windows11h.jpg, MezWindowsB, 1, 1, false
 	Load data/windows11h_inside.gif, MezWindowsIntB, 1, 1, false #EG881
 
+	#Vents
+	Load data/vents1.jpg, VentsExt, 1, 1, false
+	Load data/vents1b.jpg, VentsInt, 1, 1, false
+
 	########################################
 
 	#External facades
@@ -582,8 +586,20 @@ DrawWalls = false, true, false, false, false, false
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% ! 0 & %floor% ! 15] AddFloor MainCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
+	if[%floor% ! 0 & %floor% < 15] AddFloor MainCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
 	if[%floor% = 16] AddFloor MechPHCeiling, %5%Ceiling, 0.5, -%1%, %SE_MechPH%, %1%, %2%, %height%, %height%, 0, 0, false
+<EndFloors>
+
+#Mezzanine area
+<Floors 0 to 1>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Mezzanine floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 1] AddFloor MezFloor1, %5%Floor, 0.5, 20, -%2%, %1%, %2%, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor MezFloor2, %5%Floor, 0.5, -20, 16, 20, 70, 0, 0, 0, 0, false
+	if[%floor% = 1] AddFloor MezFloor3, %5%Floor, 0.5, -20, -70, 20, -50 + 30, 0, 0, 0, 0, false
 <EndFloors>
 
 #========================================#
@@ -725,38 +741,38 @@ DrawWalls = false, true, false, false, false, false
 	#Atrium railings
 	TexPrefix() #Set texture prefixes
 	Set WallHeight = %interfloorheight% + 3.5
-	Set WallOffset = 0
+	Set WallOffset = -%interfloorheight%
 
 	WallOrientation = right
 	DrawWalls = true, true, false, true, true, false
-	AddWall EscRail_Front1, %5%Wall, 0.5, -%1%, -10, -52, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Front1, %5%Wall, 0.5, -%1%, -10, -52, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	DrawWalls = true, true, true, true, true, false
-	AddWall EscRail_Front2, %5%Wall, 0.5, -44, -10, -40, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Front2, %5%Wall, 0.5, -44, -10, -40, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	WallOrientation = left
-	AddWall EscRail_Right, %5%Wall, 0.5, -40, -10.5, -40, 30.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Right, %5%Wall, 0.5, -40, -10.5, -40, 30.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	DrawWalls = true, true, false, true, true, false
-	AddWall EscRail_Back, %5%Wall, 0.5, -%1%, 30, -40, 30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Back, %5%Wall, 0.5, -%1%, 30, -40, 30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
 
 <Floor 3>
 	#Atrium railings
 	TexPrefix() #Set texture prefixes
 	Set WallHeight = %interfloorheight% + 3.5
-	Set WallOffset = 0
+	Set WallOffset = -%interfloorheight%
 
 	WallOrientation = right
 	DrawWalls = true, true, false, true, true, false
-	AddWall EscRail_Front1, %5%Wall, 0.5, -%1%, -60, -52, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Front1, %5%Wall, 0.5, -%1%, -60, -52, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	DrawWalls = true, true, true, true, true, false
-	AddWall EscRail_Front2, %5%Wall, 0.5, -44, -60, -40, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Front2, %5%Wall, 0.5, -44, -60, -40, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	WallOrientation = left
-	AddWall EscRail_Right, %5%Wall, 0.5, -40, -60.5, -40, -29.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Right, %5%Wall, 0.5, -40, -60.5, -40, -29.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	DrawWalls = true, true, false, true, true, false
-	AddWall EscRail_Back, %5%Wall, 0.5, -%1%, -30, -40, -30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall EscRail_Back, %5%Wall, 0.5, -%1%, -30, -40, -30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
 
 #========================================#
@@ -841,7 +857,7 @@ DrawWalls = false, true, false, false, false, false
 		#Front/left walls
 		WallOrientation = left
 		DrawWalls = true, true, false, false, false, false
-		TextureOverride %5%%ELSuffix%, STRWall, Blank, Blank, Blank, Blank
+		TextureOverride %5%%ELSuffix%, USTRWall, Blank, Blank, Blank, Blank
 		AddWall STRFront, USTRWall, 0.5, -20, 16, 20, 16, %WH%, %WH%, %WO%, %WO%, 0, 0, false
 		TextureOverride %5%Wall, USTRWall, Blank, Blank, Blank, Blank
 		AddWall STRLeft, USTRWall, 0.5, -20, 16, -20, 28, %WH%, %WH%, %WO%, %WO%, 0, 0, false
@@ -966,6 +982,57 @@ DrawWalls = false, true, false, false, false, false
 
 #========================================#
 
+#Mechanical penthouse
+<Floors 15 to 16>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Mechanical mezzanine
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 16] AddFloor MMFloor1, %5%Floor2, 0.5, -28, 50, 5, 70, 0, 0, 0, 0, false
+	if[%floor% = 16] AddFloor MMFloor2, %5%Floor2, 0.5, -28, -6, 20, 50, 0, 0, 0, 0, false
+
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 15] AddFloor MMUnderside1, %5%Ceiling, 0.5, -28, 50, 5, 70, %height%, %height%, 0, 0, false
+	if[%floor% = 15] AddFloor MMUnderside2, %5%Ceiling, 0.5, -28, -6, 20, 50, %height%, %height%, 0, 0, false
+
+	#Mechanical perimeter walls
+	Set WallHeight = %fullheight% + Floor(16).FullHeight
+	Set WallOffset = 0
+
+		#Set DrawWalls for all sides
+		DrawWalls = true, true, false, false, false, false
+
+		WallOrientation = left
+		TextureOverride ExtFacade, %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		if[%floor% = 15] AddWall FrontWall, %5%Wall, 0.5, -%1%, %SE_MechPH%, %1%, %SE_MechPH%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		if[%floor% = 15] AddWall LeftWall, %5%Wall, 0.5, -%1%, %SE_MechPH%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		TextureOverride %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		if[%floor% = 15] AddWall RightWall, %5%Wall, 0.5, %1%, %SE_MechPH%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		if[%floor% = 15] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
+
+<Floor 16>
+	#Mechanical mezzanine railings
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallOffset = -%interfloorheight%
+	
+	WallOrientation = left
+	DrawWalls = true, true, true, true, true, false
+	AddWall MechMezRailLeft, ServiceWall2, 0.5, -28, -6, -28, 70, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MechMezRailFront, ServiceWall2, 0.5, -27.5, -6, -20, -6, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
+	WallOrientation = right
+	AddWall MechMezRailRight1, ServiceWall2, 0.5, 20, 6, 20, 38, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MechMezRailRight2, ServiceWall2, 0.5, 5, 50, 5, 60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MechMezRailBack, ServiceWall2, 0.5, -27.5, 70, -20, 70, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+<EndFloor>
+
 #15th floor main roof
 <Floor 15>
 	#Roof floor
@@ -985,6 +1052,8 @@ DrawWalls = false, true, false, false, false, false
 	WallOrientation = Right
 	AddWall RightRail, ExtFacade, 0.5, %1%, -%2%, %1%, %SE_MechPH%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
+	#========================================#
+
 	#Roof access doors
 	Set Texture = ServiceDoor1
 
@@ -1001,37 +1070,29 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%, 0.2, 5, 75, 25 + 1.5, %SE_MechPH%, 3, 7, %interfloorheight%, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, 25, %SE_MechPH%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+	#Mechanical vents
+	Set MainHeight = %height% + Floor(16).FullHeight
+	Set winheight = %MainHeight% - 1 #Named "win (Short for windows)" for compatibility reasons
+	Set winoffset = 0.5
+
+		#Front
+		Add3DWindows(FrontVents1, 0, %SE_MechPH%, front, 30, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+
+		#Left
+		Add3DWindows(LeftVents1, -%1%, 15, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(LeftVents2, -%1%, 45, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(LeftVents3, -%1%, 75, left, 25, %height% - 2, 1, VentsExt, VentsInt, %5%Wall, 0.5, 1, 1)
+
+		#Right
+		Add3DWindows(RightVents1, -%1%, 15, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(RightVents2, -%1%, 45, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+		Add3DWindows(RightVents3, -%1%, 75, left, 25, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
+
+		#Back
+		Add3DWindows(BackVents1, 0, %2%, back, 30, %height% - 2, 1, VentsInt, VentsExt, %5%Wall, 0.5, 1, 1)
 <EndFloor>
 
-#Mechanical penthouse
-<Floors 15 to 16>
-	TexPrefix() #Set texture prefix/suffix
-
-	#Mechanical mezzanine
-	FloorOrientation = top
-	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 16] AddFloor MMFloor1, %5%Floor2, 0.5, -28, 50, 5, 70, 0, 0, 0, 0, false
-	if[%floor% = 16] AddFloor MMFloor2, %5%Floor2, 0.5, -28, -6, 20, 50, 0, 0, 0, 0, false
-
-	#Mechanical perimeter walls
-	Set WallHeight = %fullheight%
-	Set WallOffset = 0
-
-		#Set DrawWalls for all sides
-		DrawWalls = true, true, false, false, false, false
-
-		WallOrientation = left
-		TextureOverride ExtFacade, %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, %SE_MechPH%, %1%, %SE_MechPH%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		TextureOverride ExtFacade, %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, %SE_MechPH%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
-		WallOrientation = right
-		TextureOverride %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddWall RightWall, %5%Wall, 0.5, %1%, %SE_MechPH%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		TextureOverride %5%Wall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-<EndFloors>
 
 #========================================#
 
