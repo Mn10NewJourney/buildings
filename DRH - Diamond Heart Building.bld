@@ -495,9 +495,12 @@
 		#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
 		Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
 		Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
-
 		#Load data/signs_mod/Parking_Blue.png, ParkingSign, 1, 1, false
 		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
+	
+			#Elevator bank signs
+			LoadRange 1, 3, data/Melvin/DRH/NewDir_202512/DHBElevBank%number%.png, DHBElevBank%number%, 1, 1, false
+			Load data/Melvin/DRH/NewDir_202512/DHBElevBank1A.png, DHBElevBank1A, 1, 1, false
 	
 		#8. Hospital-related signs
 		#Load data/Melvin/DRH/NewDir_202501/Dir_PH.png, MainDir, 1, 1, false #Floor directory
@@ -1297,7 +1300,9 @@ DrawWalls = false, true, false, false, false, false
 	WallOrientation = left
 	AddWall_CustomTex(DH_OPD_WestRM_Front, 2, %5%Wall2, %5%Wall, Blank, 0.5, -20, -50, 20, -50, 4, %height% - 4, 0, 0, false)
 	AddWall_CustomTex(DH_OPD_WestRM_Left, 2, %5%Wall2, %5%Wall, Blank, 0.5, -20, -50, -20, -6, 4, %height% - 4, 0, 0, false)
-	
+	WallOrientation = center
+	AddWall_CustomTex(DH_OPD_WestRM_Divider, 2, %5%Wall2, %5%Wall, Blank, 1, -8, -50, -8, -6, 4, %height% - 4, 0, 0, false)
+
 		#East room divider walls
 		WallOrientation = center
 		DrawWalls = true, true, false, false, false, false
@@ -1422,6 +1427,32 @@ DrawWalls = false, true, false, false, false, false
 
 		#========================================#
 
+		#(2a.) West room (Front hallway side)
+		Set DTex = Door88
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -19.5
+		Set Door_MainZ = -46
+		
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_WestRM_D3/1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_WestRM_D3/2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		Add3DWindows(WestRM3_WinTop, %Door_MainX% - 0.5, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+
+			#Windows between doors
+			Add3DWindows(WestRM3_WinCenter, -20, -28, left, 29, %height% - 3.5 - 0.25, 3.5, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 9/4, 1)
+
+		Set Door_MainX = -19.5
+		Set Door_MainZ = -10
+		
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_WestRM_D4/1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_WestRM_D4/2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, false, 0, 0, false
+		Add3DWindows(WestRM4_WinTop, %Door_MainX% - 0.5, %Door_MainZ%, left, 6, %height% - 7.5, 7.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+
+		#========================================#
+
 		#(3.) Offices (South end)
 		Set DTex = Door9b
 		Set DSTex = %DTex%Side
@@ -1475,6 +1506,37 @@ DrawWalls = false, true, false, false, false, false
 			AddDecoObject(%floorid%F_OfficeS1_TR, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, 40, -106.5, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 			AddDecoObject(%floorid%F_OfficeS2_TR, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, 0 + 2.5, -106.5, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 			AddDecoObject(%floorid%F_OfficeS3_TR, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, 0 - 2.5, -106.5, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		#========================================#
+
+		#(4.) North connector doors
+		Set DTex = Door88
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -27.5 #West doors
+		Set Door_MainZ = 70
+		
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_NCDoor1/1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_NCDoor1/2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+			#Windows around doors
+			Add3DWindows(NCD1_WinTop, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(NCD1_WinSide1, %Door_MainX% - 3 - 1.5, %Door_MainZ%, back, 2.5, %height% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(NCD1_WinSide2, %Door_MainX% + 3 + 1.5, %Door_MainZ%, back, 2.5, %height% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+
+		Set Door_MainX = 27.5 #East doors
+		Set Door_MainZ = 70
+		
+		WallOrientation = right
+		AddStdDoor Floor %floor%, %floorid%_NCDoor2/1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, %floorid%_NCDoor2/2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+			#Windows around doors
+			Add3DWindows(NCD2_WinTop, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(NCD2_WinSide1, %Door_MainX% - 3 - 1.5, %Door_MainZ%, back, 2.5, %height% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
+			Add3DWindows(NCD2_WinSide2, %Door_MainX% + 3 + 1.5, %Door_MainZ%, back, 2.5, %height% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, %5%Wall, 0.5, 1/4, 1)
 
 	#========================================#
 
@@ -2936,6 +2998,8 @@ AddStdShaft(4, 1, 10, 44, 9.67, 5.67, -2, 17, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 		DrawWalls = true, false, false, false, false, false
 		AddWall E1-2HallSign, FireSign, 0, %Shaft1CX% + 1 - 0.25, %Shaft1CZ% - 6.001, %Shaft1CX% + 1 + 0.25, %Shaft1CZ% - 6.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		if[%floor% > 6] AddBoxSign(E1-2_FS1, ELFlrSign%floorid%, Blank, Blank, 0, true, false, false, %Shaft1CX% + 1, %Shaft1CZ% - 6.001, 1, 1, 5.5, false)
+		if[%floor% < 7] AddBoxSign(Bank1Sign, DHBElevBank1, DHBElevBank1, Blank, 0, true, false, false, %Shaft1CX% + 1, %Shaft1CZ% - 6.001, 3, 2, 7.5 - 2, false)
+		if[%floor% > 6] AddBoxSign(Bank1Sign, DHBElevBank1A, DHBElevBank1A, Blank, 0, true, false, false, %Shaft1CX% + 1, %Shaft1CZ% - 6.001, 1.8, 0.9, 8 - 0.9, false)
 
 		#Cubic floor signs
 		WallOrientation = center
@@ -3026,6 +3090,7 @@ AddStdShaft(4, 1, 10, 44, 9.67, 5.67, -2, 17, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 		DrawWalls = false, true, false, false, false, false
 		AddWall E3-4HallSign, FireSign, 0, %Shaft1CX% + 1 - 0.25, %Shaft1CZ% + 6.001, %Shaft1CX% + 1 + 0.25, %Shaft1CZ% + 6.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		#AddBoxSign(E3-4_FS1, Blank, ELFlrSign%floorid%, Blank, 0, true, false, false, %Shaft1CX% + 1, %Shaft1CZ% + 6.001, 1, 1, 5.5, false)
+		AddBoxSign(Bank1Sign, DHBElevBank2, DHBElevBank2, Blank, 0, true, false, false, %Shaft1CX% + 1, %Shaft1CZ% + 6.001, 3, 2, 7.5 - 2, false)
 
 	#****************************************#
 
@@ -3137,6 +3202,7 @@ AddStdShaft(4, 1, 10, 44, 9.67, 5.67, -2, 17, ShaftIntWall, 0.5, 0.33, 0, 2 + 5,
 		AddWall E5-8HallSign, FireSign, 0, %Shaft1CX% - 1 - 0.25, %Shaft1CZ% + 6.001, %Shaft1CX% - 1 + 0.25, %Shaft1CZ% + 6.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		AddBoxSign(E5-8_FS1, Blank, ELFlrSign%floorid%, Blank, 0, true, false, false, %Shaft1CX% + 9, %Shaft1CZ% + 6.001, 1, 1, 5.5, false)
 		AddBoxSign(E5-8_FS2, Blank, ELFlrSign%floorid%, Blank, 0, true, false, false, %Shaft1CX% - 11, %Shaft1CZ% + 6.001, 1, 1, 5.5, false)
+		if[%floor% < 7] AddBoxSign(Bank1Sign, DHBElevBank3, DHBElevBank3, Blank, 0, true, false, false, %Shaft1CX% - 1, %Shaft1CZ% + 6.001, 3, 2, 7.5 - 2, false)
 
 	#****************************************#
 
