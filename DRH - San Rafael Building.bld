@@ -1609,10 +1609,13 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	CreateElevator true, 0, -9.5, 7
 <EndElevator>
 
-<Function BtnPanelE1-3>
 	Set PanelNumber = %param1%
-	Set PanelNumber2 = %param1% + 1
+	if[%elevator% < 4] Set PanelNumber2 = %param1% + 1
+	if[%elevator% > 3] Set PanelNumber2 = %param1% #Override for Elevators 4-6
 	Set ButtonPrefix = RTButton
+
+	if[%elevator% < 4] Set 1FButtonPos = %PanelNumber2%
+	if[%elevator% > 3] Set 1FButtonPos = %PanelNumber% #Override for Elevators 4-6
 
 	AddButton %PanelNumber%, , %ButtonPrefix%8, %ButtonPrefix%Lit8, 1, 2, 7, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%7, %ButtonPrefix%Lit7, 1, 1, 6, 1, 1
@@ -1621,8 +1624,10 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	AddButton %PanelNumber%, , %ButtonPrefix%4, %ButtonPrefix%Lit4, 3, 2, 3, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%3, %ButtonPrefix%Lit3, 3, 1, 2, 1, 1
 	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 3, 1, off, 0.4, 0.8, -0.76, 0
-	AddButton %PanelNumber2%, , %ButtonPrefix%1, %ButtonPrefix%Lit1, 4, 1, 0, 1, 1
-	AddButton %PanelNumber2%, , MainFloorStar, MainFloorStar, 4, 1, off, 0.4, 0.8, -0.76, 0
+
+	if[%elevator% > 3] AddButton %PanelNumber%, , %ButtonPrefix%2, %ButtonPrefix%Lit2, 4, 2, 1, 1, 1
+	AddButton %1FButtonPos%, , %ButtonPrefix%1, %ButtonPrefix%Lit1, 4, 1, 0, 1, 1
+	AddButton %1FButtonPos%, , MainFloorStar, MainFloorStar, 4, 1, off, 0.4, 0.8, -0.76, 0
 
 	AddButton %PanelNumber%, , %ButtonPrefix%Open, %ButtonPrefix%Open, 6, 1, open, 1, 1
 	AddButton %PanelNumber%, , %ButtonPrefix%Close, %ButtonPrefix%Close, 6, 2, close, 1, 1
@@ -1711,7 +1716,7 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 		CreatePanel , 7, 1, right, %PanelCenter%, %Position%, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0 #1st floor button only
 
 			#Buttons
-			BtnPanelE1-3(1)
+			BtnPanelE1-6(1)
 
 	#Indicator
 	AddFloorIndicator Ind_Button, right, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
@@ -1773,27 +1778,6 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	AssignedShaft = 2
 	CreateElevator true, 0, 10.5, 7
 <EndElevator>
-
-<Function BtnPanelE4-6>
-	Set PanelNumber = %param1%
-	Set ButtonPrefix = RTButton
-
-	AddButton %PanelNumber%, , %ButtonPrefix%8, %ButtonPrefix%Lit8, 1, 2, 7, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%7, %ButtonPrefix%Lit7, 1, 1, 6, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%6, %ButtonPrefix%Lit6, 2, 2, 5, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%5, %ButtonPrefix%Lit5, 2, 1, 4, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%4, %ButtonPrefix%Lit4, 3, 2, 3, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%3, %ButtonPrefix%Lit3, 3, 1, 2, 1, 1
-	AddButton %PanelNumber%, , ParkingSign, ParkingSign, 3, 1, off, 0.4, 0.8, -0.76, 0
-	AddButton %PanelNumber%, , %ButtonPrefix%2, %ButtonPrefix%Lit2, 4, 2, 1, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%1, %ButtonPrefix%Lit1, 4, 1, 0, 1, 1
-	AddButton %PanelNumber%, , MainFloorStar, MainFloorStar, 4, 1, off, 0.4, 0.8, -0.76, 0
-
-	AddButton %PanelNumber%, , %ButtonPrefix%Open, %ButtonPrefix%Open, 6, 1, open, 1, 1
-	AddButton %PanelNumber%, , %ButtonPrefix%Close, %ButtonPrefix%Close, 6, 2, close, 1, 1
-	if[%PanelNumber% = 1] AddControl %PanelNumber%, , 7, 1, 1, 1, 0, 0, 1, run, stop, %ButtonPrefix%Stop, %ButtonPrefix%Stop
-	if[%PanelNumber% = 1] AddButton %PanelNumber%, , %ButtonPrefix%Alarm, %ButtonPrefix%Alarm, 7, 2, alarm, 1, 1
-<EndFunction>
 
 <Elevators 4 to 6>
 	Set Prefix = East
@@ -1871,7 +1855,7 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 		CreatePanel , 7, 2, left, %PanelCenter%, %Position%, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0
 
 			#Buttons
-			BtnPanelE4-6(1)
+			BtnPanelE1-6(1)
 
 	#Indicator
 	AddFloorIndicator Ind_Button, left, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
