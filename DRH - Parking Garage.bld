@@ -66,17 +66,17 @@
 	########################################
 
 	#Windows
-	Load data/daley.jpg, MainWindows, 0.0666, 1
-	Load data/windows11e_inside.gif, MainWindowsInt, 0.0666, 1
-	Load data/daley.jpg, MainWindowsB, 1, 1, false
-	Load data/windows11e_inside.gif, MainWindowsIntB, 1, 1, false
+	Load data/windows11h.jpg, MainWindows, 0.05, 1
+	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1 #EG881
+	Load data/windows11h.jpg, MainWindowsB, 1, 1, false
+	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false #EG881
 
-		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3j.jpg, BridgeWindows, true, 0.05, 1 #EG881 #Windows around bridge's doors. Also used at the lobby area of Elevators 4-6.
-		Load data/EG881/windows11h_insideblack.png, BridgeWindowsInt, 0.05, 1 #EG881
-		LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3j.jpg, BridgeWindowsB, true, 1, 1, false #EG881
-		Load data/EG881/windows11h_insideblack.png, BridgeWindowsIntB, 1, 1, false #EG881
+		Load data/windows11h.jpg, BridgeWindows, 0.05, 1 #Windows around bridge's doors
+		Load data/windows11h_inside.gif, BridgeWindowsInt, 0.05, 1 #EG881
+		Load data/windows11h.jpg, BridgeWindowsB, 1, 1, false
+		Load data/windows11h_inside.gif, BridgeWindowsIntB, 1, 1, false #EG881
 
-		Load data/daley.jpg, SkybridgeWindows, 0.0666, 1 #Windows at the bridge itself
+		Load data/daley.jpg, SkybridgeWindows, 0.0666, 1 #Windows at the bridge itself (to match with the SF and SR Buildings)
 		Load data/windows11e_inside.gif, SkybridgeWindowsInt, 0.0666, 1
 		Load data/daley.jpg, SkybridgeWindowsB, 1, 1, false
 		Load data/windows11e_inside.gif, SkybridgeWindowsIntB, 1, 1, false
@@ -84,11 +84,9 @@
 	########################################
 
 	#External facades
-	Load data/cutston3.jpg, ExtFacade, 0.0625, 0.0625, true
-	Load data/cutston2.jpg, ExtFacade_Stairs, 0.0625, 0.0625, true
 	#Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade, 0.075, 0.075, true #EG881
+	Load data/cutston.jpg, ExtFacade, 0.075, 0.075, true
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.075, 0.075, true #EG881
-	Load data/stone.jpg, ExtFacade3, 0.0625, 0.0625, true #External walls for Shaft 2
 
 	#Main textures
 		#Parking areas
@@ -149,7 +147,8 @@
 
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
-		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3j.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
+		#Load data/EG881/miscdoor8_blacktranstinted.jpg, BLKEntDoorExt, 1, 1, false #EG881
+		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3c.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
 
 	########################################
@@ -486,7 +485,7 @@ Set ExtraNorth = 90 #Extra length on the north side
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% = 7] AddFloor ElevLbyCeil_Ext, ExtFacade, 0.5, 45, -55, 75, -47, %fullheight%, %fullheight%, 0, 0, true
-		if[%floor% = 7] AddFloor NewElevLbyCeil_Ext, ExtFacade3, 0.5, -%1% + 6, 30, -%1% + 16, 60, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% = 7] AddFloor NewElevLbyCeil_Ext, ExtFacade, 0.5, -%1% + 6, 30, -%1% + 16, 60, %fullheight%, %fullheight%, 0, 0, true
 
 	#Original elevator lobby walls
 	Set WallHeight = %fullheight%
@@ -516,9 +515,9 @@ Set ExtraNorth = 90 #Extra length on the north side
 		Set ExtTex = MainWindowsIntB
 		if[%floor% = 7] Set ExtTex = MainWindowsB
 
-		#Add3DWindows(ELWindows_Left, 45, -51.25, left, 7, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, ParkingLobbyWall, 0.5, 2/3, 1)
-		if[%floor% ! 0] Add3DWindows(ELWindows_Right, 75, -51.25, right, 7, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsB, ParkingLobbyWall, 0.5, 2/3, 1)
-		Add3DWindows(ELWindows_Back, 60, -47, back, 28.5, %WinHeight%, 0.25, MainWindowsIntB, %ExtTex%, ParkingLobbyWall, 0.5, 8/3, 1)
+		#Add3DWindows(ELWindows_Left, 45, -51.25, left, 7, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, ParkingLobbyWall, 0.5, 2/4, 1)
+		if[%floor% ! 0] Add3DWindows(ELWindows_Right, 75, -51.25, right, 7, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsB, ParkingLobbyWall, 0.5, 2/4, 1)
+		Add3DWindows(ELWindows_Back, 60, -47, back, 28.5, %WinHeight%, 0.25, MainWindowsIntB, %ExtTex%, ParkingLobbyWall, 0.5, 8/4, 1)
 
 		#Original elevator lobby doors
 		Set DTex = BLKEntDoorInt
@@ -539,7 +538,7 @@ Set ExtraNorth = 90 #Extra length on the north side
 			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 		
 			#Windows above doors
-			Add3DWindows(PLDoor_Win, %Door_MainX% - 0.5, %Door_MainZ%, left, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/3, 1)
+			Add3DWindows(PLDoor_Win, %Door_MainX% - 0.5, %Door_MainZ%, left, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
 
 			#B. East doors (1st floor only)
 			Set ExtTex = MainWindowsB #Override for windows
@@ -555,7 +554,7 @@ Set ExtraNorth = 90 #Extra length on the north side
 			if[%floor% = 0] AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 		
 			#Windows above doors
-			if[%floor% = 0] Add3DWindows(PLDoor_Win, %Door_MainX%, %Door_MainZ%, right, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, %ExtTex%, ParkingLobbyWall, 0.5, 1/3, 1)
+			if[%floor% = 0] Add3DWindows(PLDoor_Win, %Door_MainX%, %Door_MainZ%, right, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, %ExtTex%, ParkingLobbyWall, 0.5, 1/4, 1)
 
 	#Additional elevator lobby walls
 	Set WallHeight = %fullheight%
@@ -566,7 +565,7 @@ Set ExtraNorth = 90 #Extra length on the north side
 	if[%floor% = 7] Set WallOffset = %interfloorheight% - 0.5
 	
 	Set ExtTex = %5%Wall
-	if[%floor% = 7] Set ExtTex = ExtFacade3
+	if[%floor% = 7] Set ExtTex = ExtFacade
 
 		#EXTERIOR WALLS
 		WallOrientation = left
@@ -592,10 +591,10 @@ Set ExtraNorth = 90 #Extra length on the north side
 		#Windows around walls
 		Set WinHeight = %height% - 0.5
 		if[%floor% = 7] Set WinHeight = 9.5 - 0.5
-		Set ExtTex = BridgeWindowsIntB
-		if[%floor% = 7] Set ExtTex = BridgeWindowsB
+		Set ExtTex = MainWindowsIntB
+		if[%floor% = 7] Set ExtTex = MainWindowsB
 
-		Add3DWindows(AELWindows_Right, -59, 45, right, 28.5, %WinHeight%, 0.25, BridgeWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 8/4, 1)
+		Add3DWindows(AELWindows_Right, -59, 45, right, 28.5, %WinHeight%, 0.25, MainWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 8/4, 1)
 
 		#Elevator lobby doors
 		Set DTex = BLKEntDoorInt
@@ -616,9 +615,9 @@ Set ExtraNorth = 90 #Extra length on the north side
 			AddFillerWalls NewLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 		
 			#Windows around doors
-			Add3DWindows(AELDoor_SWin1, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %WinHeight% - 7, 7.25, %ExtTex%, BridgeWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
-			Add3DWindows(AELDoor_SWin2, %Door_MainX% - 3.25 - 0.625, %Door_MainZ% - 0.5, front, 1.25, %WinHeight%, 0.25, %ExtTex%, BridgeWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
-			Add3DWindows(AELDoor_SWin3, %Door_MainX% + 3.25 + 0.625, %Door_MainZ% - 0.5, front, 1.25, %WinHeight%, 0.25, %ExtTex%, BridgeWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin1, %Door_MainX%, %Door_MainZ% - 0.5, front, 6, %WinHeight% - 7, 7.25, %ExtTex%, MainWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin2, %Door_MainX% - 3.25 - 0.625, %Door_MainZ% - 0.5, front, 1.25, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin3, %Door_MainX% + 3.25 + 0.625, %Door_MainZ% - 0.5, front, 1.25, %WinHeight%, 0.25, %ExtTex%, MainWindowsIntB, NewLobbyWall, 0.5, 1/4, 1)
 
 			#B. North doors
 			Set Door_MainX = -64.25
@@ -632,9 +631,9 @@ Set ExtraNorth = 90 #Extra length on the north side
 			AddFillerWalls NewLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 		
 			#Windows around doors
-			Add3DWindows(AELDoor_SWin1, %Door_MainX%, %Door_MainZ% + 0.5, back, 6, %WinHeight% - 7, 7.25, BridgeWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
-			Add3DWindows(AELDoor_SWin2, %Door_MainX% - 3.25 - 0.625, %Door_MainZ% + 0.5, back, 1.25, %WinHeight%, 0.25, BridgeWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
-			Add3DWindows(AELDoor_SWin3, %Door_MainX% + 3.25 + 0.625, %Door_MainZ% + 0.5, back, 1.25, %WinHeight%, 0.25, BridgeWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin1, %Door_MainX%, %Door_MainZ% + 0.5, back, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin2, %Door_MainX% - 3.25 - 0.625, %Door_MainZ% + 0.5, back, 1.25, %WinHeight%, 0.25, MainWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(AELDoor_SWin3, %Door_MainX% + 3.25 + 0.625, %Door_MainZ% + 0.5, back, 1.25, %WinHeight%, 0.25, MainWindowsIntB, %ExtTex%, NewLobbyWall, 0.5, 1/4, 1)
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 4.5
@@ -973,15 +972,15 @@ Cut External, -45, Floor(0).Base + 1, 121.1, 45, Floor(7).Base + 1, 121.1 + 26, 
 
 	#Shaft 2: Additional elevators
 	Set OuterTex = %5%Wall
-	if[%floor% = 7] Set OuterTex = ExtFacade3
+	if[%floor% = 7] Set OuterTex = ExtFacade
 
-	CreateShaftWall(ExtFacade3, ExtFacade3, ExtFacade3, ExtFacade3, ExtFacade3, ExtFacade3, 0.33, -75 - 3, 45, 3, 15, Shaft2_Ext, %WH%, %WO%, true, true, false, true, %ShowTop%, false, true)
-	CreateShaftWall(%OuterTex%, ExtFacade3, NewLobbyWall, %OuterTex%, ExtFacade3, ExtFacade3, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int, %WH%, %WO%, true, false, false, true, %ShowTop%, false, true)
+	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -75 - 3, 45, 3, 15, Shaft2_Ext, %WH%, %WO%, true, true, false, true, %ShowTop%, false, true)
+	CreateShaftWall(%OuterTex%, ExtFacade, NewLobbyWall, %OuterTex%, ExtFacade, ExtFacade, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int, %WH%, %WO%, true, false, false, true, %ShowTop%, false, true)
 
 	#Set WH = %height% #Reset values for interior walls
 	#Set WO = %interfloorheight%
-	#CreateShaftWall(%OuterTex%, ExtFacade3, NewLobbyWall_Lower, %OuterTex%, ExtFacade3, ExtFacade3, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int2, 4, %WO%, false, false, true, false, false, false, true)
-	#CreateShaftWall(%OuterTex%, ExtFacade3, NewLobbyWall, %OuterTex%, ExtFacade3, ExtFacade3, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int2, %WH% - 4, %WO% + 4, false, false, true, false, false, false, true)
+	#CreateShaftWall(%OuterTex%, ExtFacade, NewLobbyWall_Lower, %OuterTex%, ExtFacade, ExtFacade, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int2, 4, %WO%, false, false, true, false, false, false, true)
+	#CreateShaftWall(%OuterTex%, ExtFacade, NewLobbyWall, %OuterTex%, ExtFacade, ExtFacade, 0.33, -75 + 3, 45, 3, 15, Shaft2_Int2, %WH% - 4, %WO% + 4, false, false, true, false, false, false, true)
 <EndFloors>
 
 <Floors 0 to 7>
@@ -989,13 +988,13 @@ Cut External, -45, Floor(0).Base + 1, 121.1, 45, Floor(7).Base + 1, 121.1 + 26, 
 
 	#West Stairwell
 	Set IntTex = ExtFacade2
-	if[%floor% = 7] Set IntTex = ExtFacade_Stairs
-	CreateShaftWall(ExtFacade_Stairs, ExtFacade_Stairs, %IntTex%, ExtFacade_Stairs, ExtFacade_Stairs, ExtFacade_Stairs, 0.5, -79.5, -15, 5, 12.5, WestST, %WH%, %WO%, true, true, true, true, %ShowTop%, false, true)
+	if[%floor% = 7] Set IntTex = ExtFacade
+	CreateShaftWall(ExtFacade, ExtFacade, %IntTex%, ExtFacade, ExtFacade, ExtFacade, 0.5, -79.5, -15, 5, 12.5, WestST, %WH%, %WO%, true, true, true, true, %ShowTop%, false, true)
 
 	#East Stairwell
 	Set IntTex = ExtFacade2
-	if[%floor% = 7] Set IntTex = ExtFacade_Stairs
-	CreateShaftWall(ExtFacade_Stairs, %IntTex%, ExtFacade_Stairs, ExtFacade_Stairs, ExtFacade_Stairs, ExtFacade_Stairs, 0.5, 79.5, 75, 5, 12.5, EastST, %WH%, %WO%, true, true, true, true, %ShowTop%, false, true)
+	if[%floor% = 7] Set IntTex = ExtFacade
+	CreateShaftWall(ExtFacade, %IntTex%, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.5, 79.5, 75, 5, 12.5, EastST, %WH%, %WO%, true, true, true, true, %ShowTop%, false, true)
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
