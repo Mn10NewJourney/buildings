@@ -367,7 +367,7 @@
 	#Signs
 		#Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
-		AddTextRange 1, 9, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 9, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, A%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Floor signs (Elevator lobbies)
 		Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack.png, ELFlrSignBack, 1, 1, false #8th floor	
@@ -540,7 +540,8 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
 		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1% + 150, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, -%2% + 140.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
@@ -586,8 +587,11 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = left
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
+		Set LeftEndpoint = %2%
+		if[%floor% < 3] Set LeftEndpoint = -%2% + 140.5
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %LeftEndpoint%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		WallOrientation = right
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
@@ -1054,7 +1058,6 @@ DrawWalls = false, true, false, false, false, false
 	Set WallHeight = %height%
 	Set WallOffset = %interfloorheight%
 
-
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
 	AddWall Shaft1LeftE_8F, %5%Wall, 0.5, -110, -40, -110, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -1400,7 +1403,7 @@ ShaftShowOutside 5 = 6 - 17
 
 #Store elevators
 <Elevator 1>
-	Name = Store Elevator 1
+	Name = April DS Elevator 1
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1410,7 +1413,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevator>
 
 <Elevator 2>
-	Name = Store Elevator 2
+	Name = April DS Elevator 2
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1420,7 +1423,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevator>
 
 <Elevator 3>
-	Name = Store Elevator 3
+	Name = April DS Elevator 3
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1519,14 +1522,14 @@ ShaftShowOutside 5 = 6 - 17
 		AddWall RightIndBack, Ind_DarkBlue, 0, 3.05 - 0.001, %Position% - 0.3, 3.05 - 0.001, %Position% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, left, 3.05 - 0.002, %Position% - 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position% + 0.15, %IndOffset%, left, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position% + 0.15, %IndOffset% + 0.55, left, 0.3, 0.275, true, 0, 0
 
 		#Left
 		DrawWalls = true, false, false, false, false, false
 		AddWall LeftIndBack, Ind_DarkBlue, 0, 3.05 - 0.001, %Position2% - 0.3, 3.05 - 0.001, %Position2% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, left, 3.05 - 0.002, %Position2% - 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position2% + 0.15, %IndOffset%, left, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position2% + 0.15, %IndOffset% + 0.55, left, 0.3, 0.275, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -1546,7 +1549,7 @@ ShaftShowOutside 5 = 6 - 17
 
 #Tower Glass Elevators
 <Elevator 4>
-	Name = Tower Glass Elevator 1
+	Name = April Tower Glass Elevator 1
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1556,7 +1559,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevator>
 
 <Elevator 5>
-	Name = Glass Elevator 2
+	Name = April Tower Glass Elevator 2
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1704,14 +1707,14 @@ ShaftShowOutside 5 = 6 - 17
 		AddWall RightIndBack, Ind_DarkBlue, 0, %Position% - 0.3, -1.72 + 0.001, %Position% + 0.3, -1.72 + 0.001, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, back, %Position% - 0.15, -1.72 + 0.002, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, %Position% + 0.15, -1.72 + 0.002, %IndOffset%, back, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, %Position% + 0.15, -1.72 + 0.002, %IndOffset% + 0.55, back, 0.3, 0.275, true, 0, 0
 
 		#Left
 		DrawWalls = false, true, false, false, false, false
 		AddWall LeftIndBack, Ind_DarkBlue, 0, %Position2% - 0.3, -1.72 + 0.001, %Position2% + 0.3, -1.72 + 0.001, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, back, %Position2% - 0.15, -1.72 + 0.002, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, %Position2% + 0.15, -1.72 + 0.002, %IndOffset%, back, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, %Position2% + 0.15, -1.72 + 0.002, %IndOffset% + 0.55, back, 0.3, 0.275, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -1732,7 +1735,7 @@ ShaftShowOutside 5 = 6 - 17
 
 #Tower Interior elevators
 <Elevator 6>
-	Name = Tower Interior Elevator 1
+	Name = April Tower Interior Elevator 1
 	Speed = 15
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1742,7 +1745,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevator>
 
 <Elevator 7>
-	Name = Tower Interior Elevator 2
+	Name = April Tower Interior Elevator 2
 	Speed = 15
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1828,14 +1831,14 @@ ShaftShowOutside 5 = 6 - 17
 		AddWall RightIndBack, Ind_DarkBlue, 0, 3.05 - 0.001, %Position% - 0.3, 3.05 - 0.001, %Position% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, left, 3.05 - 0.002, %Position% - 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position% + 0.15, %IndOffset%, left, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position% + 0.15, %IndOffset% + 0.55, left, 0.3, 0.275, true, 0, 0
 
 		#Left
 		DrawWalls = true, false, false, false, false, false
 		AddWall LeftIndBack, Ind_DarkBlue, 0, 3.05 - 0.001, %Position2% - 0.3, 3.05 - 0.001, %Position2% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, left, 3.05 - 0.002, %Position2% - 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position2% + 0.15, %IndOffset%, left, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, 3.05 - 0.002, %Position2% + 0.15, %IndOffset% + 0.55, left, 0.3, 0.275, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -1854,7 +1857,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevators>
 
 <Elevator 8>
-	Name = Tower Interior Elevator 3
+	Name = April Tower Interior Elevator 3
 	Speed = 15
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1864,7 +1867,7 @@ ShaftShowOutside 5 = 6 - 17
 <EndElevator>
 
 <Elevator 9>
-	Name = Tower Interior Elevator 4
+	Name = April Tower Interior Elevator 4
 	Speed = 15
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1923,14 +1926,14 @@ ShaftShowOutside 5 = 6 - 17
 		AddWall RightIndBack, Ind_DarkBlue, 0, -3.05 + 0.001, %Position% - 0.3, -3.05 + 0.001, %Position% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, right, -3.05 + 0.002, %Position% + 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, -3.05 + 0.002, %Position% - 0.15, %IndOffset%, right, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, -3.05 + 0.002, %Position% - 0.15, %IndOffset% + 0.55, right, 0.3, 0.275, true, 0, 0
 
 		#Left
 		DrawWalls = false, true, false, false, false, false
 		AddWall LeftIndBack, Ind_DarkBlue, 0, -3.05 + 0.001, %Position2% - 0.3, -3.05 + 0.001, %Position2% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
 		AddFloorIndicator Ind_Button, right, -3.05 + 0.002, %Position2% + 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, -3.05 + 0.002, %Position2% - 0.15, %IndOffset%, right, 0.3, 0.275, true, 0, 0
+		AddDirectionalIndicator true, true, true, Blank, Arrow_Blank, Arrow_LitUp, Arrow_Blank, Arrow_LitDown, -3.05 + 0.002, %Position2% - 0.15, %IndOffset% + 0.55, right, 0.3, 0.275, true, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -1978,8 +1981,8 @@ ShaftShowOutside 5 = 6 - 17
 	Set Direction = %param2%
 
 		#Front/back panels
-		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -3.05 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.05 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -3.3 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.3 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
 		#Left/right panels
 		if[%elevator% < 8] CreateWallBox2 elevator, E%elevator%Panel_Left, %WPTex%, -3.3 + 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true

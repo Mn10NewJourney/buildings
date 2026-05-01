@@ -87,9 +87,9 @@
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
 
 	#Concrete
-	#Load data/stone.jpg, ExtFacade, 0.075, 0.075
 	#Load data/granite_0007e.jpg, ExtFacade, 0.0625, 0.0625, true
 	Load data/graniteTexture_0001b.jpg, ExtFacade, 0.075, 0.075, true
+	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.075, 0.075, true #EG881
 
 	#Windows
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, MainWindows, true, 0.05, 1 #EG881
@@ -117,8 +117,8 @@
 			Load data/MarbleWhite0047b_S.jpg, ShopFloor, 0.1, 0.2
 
 				#Atrium base (AB)
-				Load data/Carpet0021b_S.jpg, ABCarpet1, 0.2, 0.2 #East
-				Load data/Carpet0013_S.jpg, ABCarpet2, 0.2, 0.2 #West
+				Load data/Carpet0006_S.jpg, ABCarpet1, 0.2, 0.2 #West and Center
+				Load data/Carpet0021b_S.jpg, ABCarpet2, 0.2, 0.2 #East
 
 			#WALLS
 			Load data/st_wall2.jpg, ShopWall, 0.13635, 0.09765
@@ -162,7 +162,8 @@
 
 		#Roofs
 		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
-		Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881
+		#Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881
+		Load data/cem_tr.jpg, RoofFloor2, 0.1, 0.1
 
 	#Doors
 		#Service doors
@@ -401,6 +402,9 @@ Cut Landscape, %1%, -1, -%2%, %1% + 150, 0.5, %2%, false, true #East Parking are
 #Landscape
 DrawWalls = false, true, false, false, false, false
 
+	#Filler floors
+	AddFloor landscape, FillerFloor1, RoofFloor, 0, -%1%, -%2%, -%1% + 240, %2% - 260 - 320, 4, 4, 0, 0
+	AddFloor landscape, FillerFloor2, RoofFloor, 0, -%1% + 240, -%2%, -%1% + 420, -%2% + 260 - 120, 4, 4, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -449,11 +453,16 @@ DrawWalls = false, true, false, false, false, false
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor EastZonePKFloor, Road, 1, %1% - 240, -%2% + 260, %1% + 150, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
 
+	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+	AddFloor NorthwestZonePKFloor, Road, 1, -416, %2% - 260, -%1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = -1] AddFloor WestZonePKCeiling, %5%Ceiling, 0.5, -416, %2% - 260 - 320, -%1%, %2% - 260, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% = -1] AddFloor EastZonePKCeiling, %5%Ceiling, 0.5, %1%, -%2% + 260, %1% + 150, %2% - 220, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	if[%floor% = -1] AddFloor NorthwestZonePKCeiling, %5%Ceiling, 0.5, -416, %2% - 260, -%1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 <EndFloors>
 
 ########################################
@@ -485,7 +494,10 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% ! 6 & %floor% ! 7] AddFloor WestZoneCeiling, %5%Ceiling, 0.5, -%1%, %2% - 260 - 320, -%1% + 240, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
-	if[%floor% = 7] AddFloor WestZoneCeiling2, %5%Ceiling, 0.5, -%1%, %2% - 260 - 320, -%1% + 180, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 7] AddFloor WestZoneCeiling2A, %5%Ceiling, 0.5, -%1%, %2% - 260 - 320, -%1% + 120, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 7] AddFloor WestZoneCeiling2B, %5%Ceiling, 0.5, -%1% + 120, %2% - 260 - 320, -%1% + 120 + 80, 20 - 30, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 7] AddFloor WestZoneCeiling2C, %5%Ceiling, 0.5, -%1% + 120, 140 + 30, -%1% + 120 + 80, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
+
 	if[%floor% ! 6 & %floor% ! 7] AddFloor CenterZoneCeiling, %5%Ceiling, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
 
 	if[%floor% < 3] AddFloor SouthZoneCeiling, %5%Ceiling, 0.5, -%1% + 240, %2% - 260 - 320 - 160, -%1% + 420, %2% - 260 - 320, %fullheight%, %fullheight%, 0, 0, true
@@ -501,12 +513,17 @@ DrawWalls = false, true, false, false, false, false
 	#Floors
 	FloorOrientation = top
 	DrawWalls = %ShowBottom%, true, false, false, false, false
-	if[%floor% ! 9] AddFloor WestZoneFloor2, %5%Floor, 0.5, -%1%, %2% - 260 - 320, -%1% + 180, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% ! 9] AddFloor WestZoneFloor2A, %5%Floor, 0.5, -%1%, %2% - 260 - 320, -%1% + 120, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% ! 9] AddFloor WestZoneFloor2B, %5%Floor, 0.5, -%1% + 120, %2% - 260 - 320, -%1% + 120 + 80, 20 - 30, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% ! 9] AddFloor WestZoneFloor2C, %5%Floor, 0.5, -%1% + 120, 140 + 30, -%1% + 120 + 80, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+
 	if[%floor% ! 9] AddFloor EastZoneFloor, %5%Floor, 0.5, %1% - 240, %2% - 220 - 200, %1%, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
+	if[%floor% ! 8] AddFloor WestZoneCeiling, %5%Ceiling, 0.5, -%1%, %2% - 260 - 320, -%1% + 240, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% ! 8] AddFloor CenterZoneCeiling, %5%Ceiling, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260, %fullheight%, %fullheight%, 0, 0, true
 	if[%floor% ! 8] AddFloor EastZoneCeiling2, %5%Ceiling, 0.5, %1% - 240, -%2% + 260, %1%, %2% - 220, %fullheight%, %fullheight%, 0, 0, true
 <EndFloors>
 
@@ -518,9 +535,9 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 
-	AddFloor WestZoneRF, RoofFloor, 0.5, -%1%, %2% - 260 - 320, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor CenterZoneRF, RoofFloor, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor EastZoneRF, RoofFloor, 0.5, %1% - 240, -%2% + 260, %1%, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor WestZoneRF, RoofFloor2, 0.5, -%1%, %2% - 260 - 320, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor CenterZoneRF, RoofFloor2, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor EastZoneRF, RoofFloor2, 0.5, %1% - 240, -%2% + 260, %1%, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Roof railings
 	DrawWalls = true, true, true, true, true, false
@@ -530,13 +547,17 @@ DrawWalls = false, true, false, false, false, false
 		#West roof
 		WallOrientation = Left
 		AddWall WRF_FrontRail, ExtFacade, 0.5, -%1% + 0.5, %2% - 260 - 320, -%1% + 240, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall WRF_LeftRail, ExtFacade, 0.5, -%1%, %2% - 260 - 320, -%1%, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall WRF_LeftRail, ExtFacade, 0.5, -%1%, %2% - 260 - 320, -%1%, %2% - 260 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = Right
-		AddWall WRF_BackRail, ExtFacade, 0.5, -%1%, %2% - 260, -%1% + 240, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall WRF_BackRail, ExtFacade, 0.5, -%1%, %2% - 260, -%1% + 240, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, ExtFacade2, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall WRF_BackRail, ExtFacade, 0.5, -%1%, %2% - 260, -%1% + 240, %2% - 260, %interfloorheight% + 24, %interfloorheight% + 24, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Center roof
 		WallOrientation = Right
-		AddWall CRF_BackRail, ExtFacade, 0.5, -%1% + 240, %2% - 260, -%1% + 420, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall CRF_BackRail, ExtFacade, 0.5, -%1% + 240, %2% - 260, -%1% + 420, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, ExtFacade2, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall CRF_BackRail, ExtFacade, 0.5, -%1% + 240, %2% - 260, -%1% + 420, %2% - 260, %interfloorheight% + 24, %interfloorheight% + 24, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = Left
 		AddWall CRF_FrontRail, ExtFacade, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -544,7 +565,131 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = Left
 		AddWall ERF_FrontRail, ExtFacade, 0.5, %1% - 240 + 0.5, -%2% + 260, %1% - 0.5, -%2% + 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall ERF_LeftRail1, ExtFacade, 0.5, %1% - 240, -%2% + 260, %1% - 240, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall ERF_LeftRail2, ExtFacade, 0.5, %1% - 240, %2% - 260 - 0.5, %1% - 240, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall ERF_LeftRail2, ExtFacade, 0.5, %1% - 240, %2% - 260 - 0.5, %1% - 240, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade2, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall ERF_LeftRail2, ExtFacade, 0.5, %1% - 240, %2% - 260 - 0.5, %1% - 240, %2% - 220, %interfloorheight% + 24, %interfloorheight% + 24, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = right
 		AddWall ERF_RightRail, ExtFacade, 0.5, %1%, -%2% + 260, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
+
+#Atrium cuts
+	#West atrium
+	Cut External, -%1% + 80, Floor(0).Base - 0.1, 20, -%1% + 220, Floor(5).Base + 5, 140, false, true #Shopping levels
+	Cut External, -%1% + 120, Floor(5).Base + 5, 20, -%1% + 220, Floor(6).Base + 5, 140, false, true #Shopping levels
+	Cut External, -%1% + 120, Floor(10).Altitude - 1, 20, -%1% + 220, Floor(10).Base + 1, 140, false, true #Roof skylight
+
+	#Center atrium
+	Cut External, -90 + 40, Floor(0).Base - 0.1, 20, 60, Floor(6).Base + 5, 140, false, true #Shopping levels
+	Cut External, -90 + 40, Floor(10).Altitude - 1, 20, 60, Floor(10).Base + 1, 140, false, true #Roof skylight
+
+<Floor 0>
+	#Atrium bases
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+
+		#West atrium
+		AddFloor WestAtriumBase, ABCarpet1, 0.5, -%1% + 80, 20, -%1% + 220, 140, 0, 0, 0, 0, false
+
+		#Center atrium
+		AddFloor CenterAtriumBase, ABCarpet1, 0.5, -90 + 40, 20, 60, 140, 0, 0, 0, 0, false
+<EndFloor>
+
+<Floor 10>
+	#Skylights
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
+	AddFloor WestSkylight, SkylightInt, 0, -%1% + 120, 20, -%1% + 220, 140, %interfloorheight%, %interfloorheight%, 11/4, 12, true
+	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
+	AddFloor CenterSkylight, SkylightInt, 0, -90 + 40, 20, 60, 140, %interfloorheight%, %interfloorheight%, 11/4, 12, true
+
+	#Skylight atrium covers
+	CreateWallBox2 external, WestSLAtriumCover, UpperShopWall2, -%1% + 170, 80, 110, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
+	CreateWallBox2 external, CenterSLAtriumCover, UpperShopWall2, 5, 80, 110, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
+<EndFloor>
+
+########################################
+
+<Function MainPlazaSupport>
+	Set Prefix = %param1%
+	Set SupportX = %param2% #Rightmost column
+	Set SupportZ = %param3%
+	CreateWallBox2 external, Support%Prefix%1, ColumnTex, %SupportX%, %SupportZ% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, ColumnTex, %SupportX% - (%DistanceX% * 1), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, ColumnTex, %SupportX% - (%DistanceX% * 2), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%4, ColumnTex, %SupportX% - (%DistanceX% * 3), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, ColumnTex, %SupportX% - (%DistanceX% * 4), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, ColumnTex, %SupportX% - (%DistanceX% * 5), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%7, ColumnTex, %SupportX% - (%DistanceX% * 6), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%8, ColumnTex, %SupportX% - (%DistanceX% * 7), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%9, ColumnTex, %SupportX% - (%DistanceX% * 8), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%10, ColumnTex, %SupportX% - (%DistanceX% * 9), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%11, ColumnTex, %SupportX% - (%DistanceX% * 10), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%12, ColumnTex, %SupportX% - (%DistanceX% * 11), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%13, ColumnTex, %SupportX% - (%DistanceX% * 12), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%14, ColumnTex, %SupportX% - (%DistanceX% * 13) + 1.25, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFunction>
+
+<Function MainPlazaSupport2>
+	Set Prefix = %param1%
+	Set SupportX = %param2% #Rightmost column
+	Set SupportZ = %param3%
+	CreateWallBox2 external, WestSupport%Prefix%1, ColumnTex, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%2, ColumnTex, %SupportX% - (%DistanceX% * 1), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%3, ColumnTex, %SupportX% - (%DistanceX% * 2), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%4, ColumnTex, %SupportX% - (%DistanceX% * 3), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%5, ColumnTex, %SupportX% - (%DistanceX% * 4), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%6, ColumnTex, %SupportX% - (%DistanceX% * 5), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, WestSupport%Prefix%7, ColumnTex, %SupportX% - (%DistanceX% * 6), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#CreateWallBox2 external, WestSupport%Prefix%8, ColumnTex, %SupportX% - (%DistanceX% * 7), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFunction>
+
+<Function MainPlazaSupport3>
+	Set Prefix = %param1%
+	Set SupportX = %param2% #Rightmost column
+	Set SupportZ = %param3%
+	CreateWallBox2 external, NWSupport%Prefix%1, ColumnTex, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%2, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%3, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%4, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%5, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%6, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, NWSupport%Prefix%7, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 6) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFunction>
+
+#SUPPORTS
+#Parking Garage Supports
+<Floors -2 to -1>
+	#Set Values
+	TexPrefix() #Set texture prefixes
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 40 #Distance between supports Z
+
+	Set SupportHeight = %fullheight%
+	if[%floor% = -1] Set SupportHeight = %fullheight% + Floor(0).InterfloorHeight
+	Set SupportOffset = -%interfloorheight%
+	
+	#West Area
+	MainPlazaSupport2(P, -130, -60)
+	MainPlazaSupport2(Q, -130, -60 + 40)
+	MainPlazaSupport2(R, -130, -60 + 80)
+	MainPlazaSupport2(S, -130, -60 + 120)
+	MainPlazaSupport2(T, -130, -60 + 160)
+	MainPlazaSupport2(U, -130, -60 + 200)
+	MainPlazaSupport2(V, -130, -60 + 240)
+	MainPlazaSupport2(W, -130, -60 + 280)
+	MainPlazaSupport3(Test, -370, 260)
+	
+	#East and Center Areas
+	MainPlazaSupport(A, %1% + 100, -220)
+	MainPlazaSupport(B, %1% + 100, -220 + 40)
+	MainPlazaSupport(C, %1% + 100, -220 + 80)
+	MainPlazaSupport(D, %1% + 100, -220 + 120)
+	MainPlazaSupport(E, %1% + 100, -220 + 160)
+	MainPlazaSupport(F, %1% + 100, -220 + 200)
+	MainPlazaSupport(G, %1% + 100, -220 + 240)
+	MainPlazaSupport(H, %1% + 100, -220 + 280)
+	MainPlazaSupport(J, %1% + 100, -220 + 320)
+	MainPlazaSupport(K, %1% + 100, -220 + 360)
+	MainPlazaSupport(L, %1% + 100, -220 + 400)
+	MainPlazaSupport(M, %1% + 100, -220 + 440)
+<EndFloors>
