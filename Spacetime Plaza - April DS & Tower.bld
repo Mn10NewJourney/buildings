@@ -726,9 +726,9 @@ DrawWalls = false, true, false, false, false, false
 		AddWall BackWall_FarWest_Ext, ExtFacade, 0.5, -%1%, -8.75, -%1% + 20, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, true, true, false, false
-		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
+		TextureOverride %5%Wall, ExtFacade, %5%Wall, %5%Wall, Blank, Blank
 		AddWall BackWall1, ExtFacade, 0.5, -15, -8.75, -10, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
+		TextureOverride %5%Wall, ExtFacade, %5%Wall, %5%Wall, Blank, Blank
 		AddWall BackWall2, ExtFacade, 0.5, 10, -8.75, 15, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, true, false, false, false
@@ -1990,8 +1990,8 @@ ShaftShowOutside 5 = 6 - 17
 		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.3 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
 		#Left/right panels
-		if[%elevator% < 8] CreateWallBox2 elevator, E%elevator%Panel_Left, %WPTex%, -3.3 + 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		if[%elevator% > 7] CreateWallBox2 elevator, E%elevator%Panel_Right, %WPTex%, 3.3 - 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		if[%elevator% < 8] CreateWallBox2 elevator, E%elevator%Panel_Left, %WPTex%, -3.05 + 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		if[%elevator% > 7] CreateWallBox2 elevator, E%elevator%Panel_Right, %WPTex%, 3.05 - 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
 <EndElevators>
 
 #HALL STATIONS
@@ -2053,8 +2053,10 @@ ShaftShowOutside 5 = 6 - 17
 	#Deco dimensions
 		Set SideDecoH = 7.2
 		Set TopDecoH = 0.2
-		if[%floor% < 8] Set SideDecoH = %height%
-		if[%floor% < 8] Set TopDecoH = %height% - 7
+		if[%floor% = 6] Set SideDecoH = %height%
+		if[%floor% = 6] Set TopDecoH = %height% - 7
+		if[%floor% = 7] Set SideDecoH = 8
+		if[%floor% = 7] Set TopDecoH = 1
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -2090,8 +2092,10 @@ ShaftShowOutside 5 = 6 - 17
 	#Deco dimensions
 		Set SideDecoH = 7.2
 		Set TopDecoH = 0.2
-		if[%floor% > -1 & %floor% < 8] Set SideDecoH = %height%
-		if[%floor% > -1 & %floor% < 8] Set TopDecoH = %height% - 7
+		if[%floor% > -1 & %floor% < 7] Set SideDecoH = %height%
+		if[%floor% > -1 & %floor% < 7] Set TopDecoH = %height% - 7
+		if[%floor% = 7] Set SideDecoH = 8
+		if[%floor% = 7] Set TopDecoH = 1
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
