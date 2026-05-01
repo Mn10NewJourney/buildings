@@ -10,6 +10,33 @@
 <Textures>
 	#Spacetime Plaza facades
 	Load data/misc/greymarble.jpg, EastSquareFloor, 0.05, 0.1
+	
+		#Main mall
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, STP_MallWindows, true, 0.05, 1
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, STP_MallWindowsB, true, 1, 1, false
+		Load data/graniteTexture_0001b.jpg, STP_MallExtFacade, 0.0625, 0.0625, true
+		Load data/EG881/cem_tr2b.jpg, STP_MallRoofFloor, 0.075225, 0.0625, true #EG881
+		Load data/cem_tr.jpg, STP_MallRoofFloor2, 0.1, 0.1, true
+		
+		#Monday Dept. Store
+		Load data/windows11h.jpg, STP_MondayWindows, 0.025, 1
+		Load data/cutston.jpg, STP_MondayExtFacade, 0.075, 0.075, true
+		Load data/cem_tr.jpg, STP_MondayRoofFloor, 0.1, 0.1, true
+
+		#April Dept. Store & Tower
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, STP_AprilWindows, true, 0.05, 1
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, STP_AprilWindowsB, true, 1, 1, false
+		Load data/granite_0007e.jpg, STP_AprilExtFacade, 0.0625, 0.0625, true
+		Load data/EG881/cem_tr2b.jpg, STP_AprilRoofFloor, 0.075225, 0.0625, true #EG881
+
+		#Parking Garage & Lavender Moon Hotel
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3c.jpg, LMH_MainWindows, true, 0.05, 1 #EG881
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3c.jpg, LMH_MainWindowsB, true, 1, 1, false #EG881
+		Load data/cutston.jpg, LMH_ExtFacade, 0.075, 0.075, true
+
+		Load data/EG881/cem_tr2b.jpg, LMH_RoofFloor, 0.075225, 0.0625, true #EG881
+		Load data/EG881/Concrete/smoothconcrete1.jpg, LMH_RoofFloor2, 0.0625, 0.0625, true #EG881
+
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -104,3 +131,112 @@ Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
 		AddFloor landscape, STAvenue_NorthRoad2_Bottom1, TCity_2Lane1WX, 0, %0% + 489, %1% + %4% + 89, %0% + 509, %1% + %4% + 113, 0, 0, false, false, 0, 0
 		AddFloor landscape, STAvenue_NorthRoad2_Bottom2, TCity_Road, 0, %0% + 509, %1% + %4% + 89, %0% + 524, %1% + %4% + 113, 0, -0.5, true, false, 0, 0
 		SetAutoSize = true, true
+
+
+##--------------------------------------------------------------------------------##
+#Spacetime Plaza Simplified Facade
+##--------------------------------------------------------------------------------##
+
+<Function SpacetimePlaza>
+	Set 0 = -822 + %MainX% #Building Center X
+	Set 1 = 0 + %MainZ% #Building Center Z
+	Set 3 = 330 #Complex Dimension X (Full width: 660 ft.)
+	Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
+
+	#Foundation
+	FloorOrientation = top
+	DrawWalls = false, true, true, true, true, true
+	AddFloor buildings, SPT_Foundation, TCity_Sidewalk, 4, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 4, 4, 0, 0
+
+	#All Buildings
+	DrawWalls = true, true, true, true, true, false
+	
+	#(1.) Main mall
+		#West and center sections
+		WallOrientation = left
+		TextureOverride STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallRoofFloor2, Blank
+		AddWall buildings, SPT_West&CenterMall, STP_MallExtFacade, 420, %0% - %3%, %1% + %4% - 260 - 320, %0% - %3%, %1% + %4% - 260, 156, 156, 4, 4, 0, 0
+
+		#South section
+		WallOrientation = left
+		TextureOverride STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallRoofFloor, Blank
+		AddWall buildings, SPT_SouthMall, STP_MallExtFacade, 180, %0% - %3% + 240, %1% - 360, %0% - %3% + 240, %1% - 80, 72, 72, 4, 4, 0, 0
+
+		#East section
+		WallOrientation = right
+		TextureOverride STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallExtFacade, STP_MallRoofFloor2, Blank
+		AddWall buildings, SPT_West&CenterMall, STP_MallExtFacade, 240, %0% + %3%, %1% - %4% + 260, %0% + %3%, %1% + %4% - 220, 156, 156, 4, 4, 0, 0
+
+	#(2.) Monday Department Store
+		#Main structure
+		WallOrientation = right
+		TextureOverride STP_MondayExtFacade, STP_MondayExtFacade, STP_MondayExtFacade, STP_MondayExtFacade, STP_MondayRoofFloor, Blank
+		AddWall buildings, SPT_MondayDS, STP_AprilExtFacade, 240, %0% + %3%, %1% + %4% - 220, %0% + %3%, %1% + %4%, 156, 156, 4, 4, 0, 0
+
+		#Windows
+		SetAutoSize = true, false
+		WallOrientation = left
+		TextureOverride STP_MondayWindows, STP_MondayWindows, STP_MondayExtFacade, STP_MondayExtFacade, STP_MondayExtFacade, STP_MondayExtFacade
+		AddWall buildings, SPT_MondayDSWindows, STP_MondayWindows, 1, %0% + %3%, %1% + 390 - 30, %0% + %3%, %1% + 390 + 30, 156, 156, 4, 4, 0, 8
+		SetAutoSize = true, true
+
+	#(3.) Parking Garage & Lavender Moon Hotel
+		#Parking levels
+		SetAutoSize = true, false
+		WallOrientation = left
+		TextureOverride TCity_MainWindows6, TCity_MainWindows6, TCity_MainWindows6, TCity_MainWindows6, Blank, Blank
+		AddWall buildings, LMH_Parking, STP_AprilExtFacade, 420, %0% - %3%, %1% + %4% - 260, %0% - %3%, %1% + %4%, 180, 180, 4, 4, 0, 16
+		SetAutoSize = true, true
+
+		#Middle mechanical
+		WallOrientation = left
+		AddWall buildings, LMH_MidMech, LMH_ExtFacade, 420, %0% - %3%, %1% + %4% - 260, %0% - %3%, %1% + %4%, 24, 24, 184, 184, 0, 0
+
+
+	#(4.) April DS & Tower
+		#Department Store
+		WallOrientation = right
+		TextureOverride STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilRoofFloor, Blank
+		AddWall buildings, SPT_AprilDS_1F-7F, STP_AprilExtFacade, 240, %0% + %3%, %1% - %4%, %0% + %3%, %1% - %4% + 260, 126, 126, 4, 4, 0, 0
+		
+		#Tower
+			#Front facade
+			AddWall buildings, SPT_AprilTower_7F-18F_F1, STP_AprilExtFacade, 0, %0% + 210 - 120, %1% - 370 - 91.25, %0% + 210 - 110, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_F2, STP_AprilExtFacade, 0, %0% + 210 - 100, %1% - 370 - 91.25, %0% + 210 - 80, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_F3, STP_AprilExtFacade, 0, %0% + 210 + 80, %1% - 370 - 91.25, %0% + 210 + 90, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_F4, STP_AprilExtFacade, 0, %0% + 210 + 108, %1% - 370 - 91.25, %0% + 210 + 120, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 0
+
+			SetAutoSize = true, false
+			AddWall buildings, SPT_AprilTower_7F-18F_F5, STP_AprilWindows, 0, %0% + 210 - 110, %1% - 370 - 91.25, %0% + 210 - 100, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 11
+			AddWall buildings, SPT_AprilTower_7F-18F_F6, STP_AprilWindows, 0, %0% + 210 - 80, %1% - 370 - 91.25, %0% + 210 + 80, %1% - 370 - 91.25, 138, 138, 130, 130, 0, 11
+			AddWall buildings, SPT_AprilTower_7F-18F_F7, STP_AprilWindowsB, 0, %0% + 210 + 90, %1% - 370 - 91.25, %0% + 210 + 108, %1% - 370 - 91.25, 138, 138, 130, 130, 4/4, 11
+			SetAutoSize = true, true
+
+			#Left facade
+			AddWall buildings, SPT_AprilTower_7F-18F_L1, STP_AprilExtFacade, 0, %0% + 210 - 120, %1% - 370 - 91.25, %0% + 210 - 120, %1% - 370 - 60, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_L2, STP_AprilExtFacade, 0, %0% + 210 - 120, %1% - 370 - 40, %0% + 210 - 120, %1% - 370 - 8.75, 138, 138, 130, 130, 0, 0
+			SetAutoSize = true, false
+			AddWall buildings, SPT_AprilTower_7F-18F_L3, STP_AprilWindows, 0, %0% + 210 - 120, %1% - 370 - 60, %0% + 210 - 120, %1% - 370 - 40, 138, 138, 130, 130, 0, 11
+			SetAutoSize = true, true
+
+			#Right facade
+			AddWall buildings, SPT_AprilTower_7F-18F_R1, STP_AprilExtFacade, 0, %0% + 210 + 120, %1% - 370 - 91.25, %0% + 210 + 120, %1% - 370 - 60, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_R2, STP_AprilExtFacade, 0, %0% + 210 + 120, %1% - 370 - 15, %0% + 210 + 120, %1% - 370 - 8.75, 138, 138, 130, 130, 0, 0
+			SetAutoSize = true, false
+			AddWall buildings, SPT_AprilTower_7F-18F_R3, STP_AprilWindows, 0, %0% + 210 + 120, %1% - 370 - 60, %0% + 210 + 120, %1% - 370 - 15, 138, 138, 130, 130, 0, 11
+			SetAutoSize = true, true
+
+			#Back facade
+			AddWall buildings, SPT_AprilTower_7F-18F_B1, STP_AprilExtFacade, 0, %0% + 210 - 120, %1% - 370 - 8.75, %0% + 210 - 100, %1% - 370 - 8.75, 138, 138, 130, 130, 0, 0
+			AddWall buildings, SPT_AprilTower_7F-18F_B2, STP_AprilExtFacade, 0, %0% + 210 + 115, %1% - 370 - 8.75, %0% + 210 + 120, %1% - 370 - 8.75, 138, 138, 130, 130, 0, 0
+
+			SetAutoSize = true, false
+			AddWall buildings, SPT_AprilTower_7F-18F_B3, STP_AprilWindows, 0, %0% + 210 - 100, %1% - 370 - 8.75, %0% + 210 + 115, %1% - 370 - 8.75, 138, 138, 130, 130, 0, 11
+			SetAutoSize = true, true
+		
+			#Topside Mechanical
+			TextureOverride STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilRoofFloor, Blank
+			AddWall buildings, SPT_AprilTower_19F, STP_AprilExtFacade, 240, %0% + %3%, %1% - 370 - 91.25, %0% + %3%, %1% - 370 - 8.75, 24, 24, 268, 268, 0, 0
+<EndFunction>
+
+if[%InSTP% ! true] SpacetimePlaza()
