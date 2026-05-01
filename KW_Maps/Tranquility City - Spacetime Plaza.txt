@@ -1,0 +1,106 @@
+#Tranquility City landscape - Spacetime Plaza area
+#Copyright (c) 2026-Present - Mn10
+#Created on April 30, 2026.
+
+##--------------------------------------------------------------------------------##
+
+#This landscape file HAVE TO be used along with the "Tranquility City.txt" file.
+
+#Textures
+<Textures>
+	#Spacetime Plaza facades
+	Load data/misc/greymarble.jpg, EastSquareFloor, 0.05, 0.1
+<EndTextures>
+
+##--------------------------------------------------------------------------------##
+
+################################################################################
+#Landscaping around Spacetime Plaza
+################################################################################
+
+Set 0 = -822 + %MainX% #Building Center X
+Set 1 = 0 + %MainZ% #Building Center Z
+Set 3 = 330 #Complex Dimension X (Full width: 660 ft.)
+Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
+
+	DrawWalls = true, true, false, false, false, false
+
+	#Grass surrounding the complex
+	AddFloor landscape, STP_WestGrass, TCity_Grass2, 0, %0% - %3% - 20, %1% - %4% - 40, %0% - %3%, %1% + %4% + 20, 4, 4, 0, 0
+	AddFloor landscape, STP_NorthGrass, TCity_Grass2, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4% + 20, 4, 4, 0, 0
+	#AddFloor landscape, STP_NorthGrass1, TCity_Grass2, 0, %0% - %3%, %1% + %4%, %0% + 90, %1% + %4% + 20, 4, 4, 0, 0
+	#AddFloor landscape, STP_NorthGrass2A, TCity_Grass2, 0, %0% + 90, %1% + %4%, %0% + %3%, %1% + %4% + 10, 4, 4, 0, 0
+	#AddFloor landscape, STP_NorthGrass2B, TCity_Grass2, 0, %0% + 90, %1% + %4% + 10, %0% + %3%, %1% + %4% + 20, 4, 4, 0, 0
+	
+	#Moonlight Square
+	if[%InSTP% = true] AddFloor landscape, STP_MoonlightSquare_NorthAccess, TCity_Sidewalk, 0, %0% + %3%, %1% + %4%, %0% + %3% + 30, %1% + %4% + 20, 4, 4, false, true, 0, 0
+	if[%InSTP% = true] AddFloor landscape, STP_MoonlightSquare, EastSquareFloor, 0, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0
+
+	DrawWalls = false, true, false, true, true, true
+	if[%InSTP% ! true] AddFloor landscape, STP_MoonlightSquare_Full, EastSquareFloor, 4, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0 #Only show when not loading "Spacetime Plaza"
+	DrawWalls = false, true, false, true, false, false
+	if[%InSTP% ! true] AddFloor landscape, STP_MoonlightSquare_NorthAccess_Full, TCity_Sidewalk, 4, %0% + %3%, %1% + %4%, %0% + %3% + 30, %1% + %4% + 20, 4, 4, false, true, 0, 0
+	
+	#Roads and sidewalks
+	Cut Landscape, %0% - %3% - 128, -1, %1% - 783, %0% - %3% - 20, 1, %1% - 763 + 4.14, false, true #Spacetime Avenue (West)
+	Cut Landscape, %0% + 489 - 4.07, -1, %1% + %4% + 20, %0% + 509, 1, %1% + %4% + 128, false, true #Spacetime Avenue (North)
+
+	DrawWalls = true, true, false, false, false, false
+
+		#Western section
+		AddFloor landscape, STAvenue_WestSW1A, TCity_Sidewalk, 0, %0% - %3% - 35, %1% - 763 + 80, %0% - %3% - 20, %1% + %4% + 20 + 15, 4, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW1B, TCity_Sidewalk, 0, %0% - %3% - 35, %1% - 763, %0% - %3% - 20, %1% - 763 + 80, 0, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW1C, TCity_Sidewalk, 0, %0% - %3% - 35, %1% - 783, %0% - %3% - 20, %1% - 763, 0, 0, 0, 0
+	
+		AddFloor landscape, STAvenue_WestSW2A, TCity_Sidewalk, 0, %0% - %3% - 89, %1% - 763 + 80, %0% - %3% - 59, %1% + %4% + 20 + 15, 4, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW2B, TCity_Sidewalk, 0, %0% - %3% - 89, %1% - 763, %0% - %3% - 59, %1% - 763 + 80, 0, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW2C, TCity_Sidewalk, 0, %0% - %3% - 89, %1% - 783, %0% - %3% - 59, %1% - 763, 0, 0, 0, 0
+	
+		AddFloor landscape, STAvenue_WestSW3A, TCity_Sidewalk, 0, %0% - %3% - 128, %1% - 763 + 80, %0% - %3% - 113, %1% + %4% + 20 + 15, 4, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW3B, TCity_Sidewalk, 0, %0% - %3% - 128, %1% - 763, %0% - %3% - 113, %1% - 763 + 80, 0, 4, 0, 0
+		AddFloor landscape, STAvenue_WestSW3C, TCity_Sidewalk, 0, %0% - %3% - 128, %1% - 783, %0% - %3% - 113, %1% - 763, 0, 0, 0, 0
+
+		AddFloor landscape, STAvenue_WestSW4, TCity_Sidewalk, 0, %0% - %3% - 128, %1% + %4% + 35, %0% - %3% - 113, %1% + %4% + 128, 4, 4, 0, 0
+	
+		SetAutoSize = false, true
+		AddFloor landscape, STAvenue_WestRoad1_Top, TCity_2Lane1WZ, 0, %0% - %3% - 59, %1% - 763 + 80, %0% - %3% - 35, %1% + %4% + 20 + 15, 4, 4, 0, 0
+		AddFloor landscape, STAvenue_WestRoad1_Slope, TCity_2Lane1WZ, 0, %0% - %3% - 59, %1% - 763, %0% - %3% - 35, %1% - 763 + 80, 0, 4, 0, 0
+		AddFloor landscape, STAvenue_WestRoad1_Bottom1, TCity_2Lane1WZ, 0, %0% - %3% - 59, %1% - 783, %0% - %3% - 35, %1% - 763, 0, 0, 0, 0
+		AddFloor landscape, STAvenue_WestRoad1_Bottom2, TCity_2Lane1WZ, 0, %0% - %3% - 59, %1% - 798, %0% - %3% - 35, %1% - 783, -0.5, 0, 0, 0
+	
+		AddFloor landscape, STAvenue_WestRoad2_Top, TCity_2Lane1WZ, 0, %0% - %3% - 113, %1% - 763 + 80, %0% - %3% - 89, %1% + %4% + 20 + 15, 4, 4, 0, 0
+		AddFloor landscape, STAvenue_WestRoad2_Slope, TCity_2Lane1WZ, 0, %0% - %3% - 113, %1% - 763, %0% - %3% - 89, %1% - 763 + 80, 0, 4, 0, 0
+		AddFloor landscape, STAvenue_WestRoad2_Bottom1, TCity_2Lane1WZ, 0, %0% - %3% - 113, %1% - 783, %0% - %3% - 89, %1% - 763, 0, 0, 0, 0
+		AddFloor landscape, STAvenue_WestRoad2_Bottom2, TCity_Road, 0, %0% - %3% - 113, %1% - 798, %0% - %3% - 89, %1% - 783, -0.5, 0, 0, 0
+		SetAutoSize = true, true
+		
+		#Corner
+		AddFloor landscape, STAvenue_Corner, TCity_Road, 0, %0% - %3% - 113, %1% + %4% + 35, %0% - %3% - 35, %1% + %4% + 113, 4, 4, 0, 0
+		
+		#Northern section
+		AddFloor landscape, STAvenue_NorthSW1A, TCity_Sidewalk, 0, %0% - %3% - 20, %1% + %4% + 20, %0% + 409, %1% + %4% + 35, 4, 4, false, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW1B, TCity_Sidewalk, 0, %0% + 409, %1% + %4% + 20, %0% + 489, %1% + %4% + 35, 4, 0, true, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW1C, TCity_Sidewalk, 0, %0% + 489, %1% + %4% + 20, %0% + 509, %1% + %4% + 35, 0, 0, false, true, 0, 0
+	
+		AddFloor landscape, STAvenue_NorthSW2A, TCity_Sidewalk, 0, %0% - %3% - 35, %1% + %4% + 59, %0% + 409, %1% + %4% + 89, 4, 4, false, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW2B, TCity_Sidewalk, 0, %0% + 409, %1% + %4% + 59, %0% + 489, %1% + %4% + 89, 4, 0, true, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW2C, TCity_Sidewalk, 0, %0% + 489, %1% + %4% + 59, %0% + 509, %1% + %4% + 89, 0, 0, false, true, 0, 0
+
+		AddFloor landscape, STAvenue_NorthSW3A, TCity_Sidewalk, 0, %0% - %3% - 35, %1% + %4% + 113, %0% + 409, %1% + %4% + 128, 4, 4, false, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW3B, TCity_Sidewalk, 0, %0% + 409, %1% + %4% + 113, %0% + 489, %1% + %4% + 128, 4, 0, true, true, 0, 0
+		AddFloor landscape, STAvenue_NorthSW3C, TCity_Sidewalk, 0, %0% + 489, %1% + %4% + 113, %0% + 509, %1% + %4% + 128, 0, 0, false, true, 0, 0
+
+		AddFloor landscape, STAvenue_NorthSW4, TCity_Sidewalk, 0, %0% - %3% - 113, %1% + %4% + 113, %0% - %3% - 35, %1% + %4% + 128, 4, 4, false, true, 0, 0
+
+	
+		SetAutoSize = true, false
+		AddFloor landscape, STAvenue_NorthRoad1_Top, TCity_2Lane1WX, 0, %0% - %3% - 35, %1% + %4% + 35, %0% + 409, %1% + %4% + 59, 4, 4, false, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad1_Slope, TCity_2Lane1WX, 0, %0% + 409, %1% + %4% + 35, %0% + 489, %1% + %4% + 59, 4, 0, true, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad1_Bottom1, TCity_2Lane1WX, 0, %0% + 489, %1% + %4% + 35, %0% + 509, %1% + %4% + 59, 0, 0, false, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad1_Bottom2, TCity_Road, 0, %0% + 509, %1% + %4% + 35, %0% + 524, %1% + %4% + 59, 0, -0.5, true, false, 0, 0
+
+		AddFloor landscape, STAvenue_NorthRoad2_Top, TCity_2Lane1WX, 0, %0% - %3% - 35, %1% + %4% + 89, %0% + 409, %1% + %4% + 113, 4, 4, false, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad2_Slope, TCity_2Lane1WX, 0, %0% + 409, %1% + %4% + 89, %0% + 489, %1% + %4% + 113, 4, 0, true, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad2_Bottom1, TCity_2Lane1WX, 0, %0% + 489, %1% + %4% + 89, %0% + 509, %1% + %4% + 113, 0, 0, false, false, 0, 0
+		AddFloor landscape, STAvenue_NorthRoad2_Bottom2, TCity_Road, 0, %0% + 509, %1% + %4% + 89, %0% + 524, %1% + %4% + 113, 0, -0.5, true, false, 0, 0
+		SetAutoSize = true, true

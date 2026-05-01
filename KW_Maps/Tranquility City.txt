@@ -38,10 +38,15 @@
 	Load data/EG881/grass2.jpg, TCity_Grass2, 0.01, 0.01 #EG881
 
 	#Roads
-	Load data/Melvin/Roads/3lane-oneway.png, TCity_3LaneX, 0.05, 1
-    Load data/Melvin/Roads/4lane-twoway1.png, TCity_4LaneX, 0.05, 1
-    Load data/Melvin/Roads/4lane-twoway1-90de.png, TCity_4LaneZ, 1, 0.05
-    Load data/Melvin/Roads/4lane-oneway-90de.png, TCity_4LaneOneWayZ, 1, 0.05
+		#Road textures for Spacetime Avenue surrounding Spacetime Plaza (Added on April 30, 2026)
+		Load data/Melvin/Roads/2lane-oneway.png, TCity_2Lane1WX, 0.05, 1
+		Load data/Melvin/Roads/2lane-oneway-90de.png, TCity_2Lane1WZ, 1, 0.05
+
+		#Original roads since late 2015
+		Load data/Melvin/Roads/3lane-oneway.png, TCity_3LaneX, 0.05, 1
+		Load data/Melvin/Roads/4lane-twoway1.png, TCity_4LaneX, 0.05, 1
+		Load data/Melvin/Roads/4lane-twoway1-90de.png, TCity_4LaneZ, 1, 0.05
+		Load data/Melvin/Roads/4lane-oneway-90de.png, TCity_4LaneOneWayZ, 1, 0.05
 
 	#Windows
 	Load data/windows11e-2.jpg, TCity_Skylight, 1, 1, false
@@ -1243,9 +1248,21 @@ if[%InBCH% ! true] BCH()
     AddFloor landscape, %Name%_Center, TCity_Grass, 0, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ2%, %PositionX% + %WidthX2%, %PositionZ% + %LengthZ2%, 0, 0, 0, 0
     FloorOrientation = top
     DrawWalls = true, true, true, true, true, true
-    AddFloor landscape, %Name%_Front, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+    if[%Name% ! CityBlockB5_New] AddFloor landscape, %Name%_Front, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Front1, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% - 443, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Front2, TCity_Sidewalk, 0.5, %PositionX% - 443 + 24, %PositionZ% - %LengthZ%, %PositionX% - 443 + 54, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Front3, TCity_Sidewalk, 0.5, %PositionX% - 443 + 78, %PositionZ% - %LengthZ%, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ2%, 0, 0, 0, 0
+
+
     AddFloor landscape, %Name%_Left, TCity_Sidewalk, 0.5, %PositionX% - %WidthX%, %PositionZ% - %LengthZ%, %PositionX% - %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
-    AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
+
+    if[%Name% ! CityBlockB5_New] AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
+
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% - %LengthZ%, %PositionX% + %WidthX%, %PositionZ% + 535, 0, 0, 0, 0
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% + 535 + 24, %PositionX% + %WidthX%, %PositionZ% + 535 + 54, 0, 0, 0, 0
+    if[%Name% = CityBlockB5_New] AddFloor landscape, %Name%_Right, TCity_Sidewalk, 0.5, %PositionX% + %WidthX2%, %PositionZ% + 535 + 78, %PositionX% + %WidthX%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
+
     AddFloor landscape, %Name%_Back, TCity_Sidewalk, 0.5, %PositionX% - %WidthX2%, %PositionZ% + %LengthZ2%, %PositionX% + %WidthX2%, %PositionZ% + %LengthZ%, 0, 0, 0, 0
 <EndFunction>
 
@@ -1359,24 +1376,26 @@ CityBlock(CityBlockF4, 1096 + %MainX%, 1096 + %MainZ%, 500, 500)
 CityBlock(CityBlockG4, 1644 + %MainX%, 1096 + %MainZ%, 500, 500)
 
 CityBlock(CityBlockA5, -1644 + %MainX%, 548 + %MainZ%, 500, 500)
-CityBlock(CityBlockB5, -1096 + %MainX%, 548 + %MainZ%, 500, 500)
-CityBlock(CityBlockC5, -548 + %MainX%, 548 + %MainZ%, 500, 500)
+#CityBlock(CityBlockB5, -1096 + %MainX%, 548 + %MainZ%, 500, 500)
+#CityBlock(CityBlockC5, -548 + %MainX%, 548 + %MainZ%, 500, 500)
 CityBlock(CityBlockD5, 0 + %MainX%, 548 + %MainZ%, 500, 500)
 CityBlock(CityBlockE5, 548 + %MainX%, 548 + %MainZ%, 500, 500)
 CityBlock(CityBlockF5, 1096 + %MainX%, 548 + %MainZ%, 500, 500)
 CityBlock(CityBlockG5, 1644 + %MainX%, 548 + %MainZ%, 500, 500)
 
+CityBlock(CityBlockB5_New, -822 + %MainX%, 0 + %MainZ%, 1048, 1596)
+
 CityBlock(CityBlockA6, -1644 + %MainX%, 0 + %MainZ%, 500, 500)
-CityBlock(CityBlockB6, -1096 + %MainX%, 0 + %MainZ%, 500, 500)
-CityBlock(CityBlockC6, -548 + %MainX%, 0 + %MainZ%, 500, 500)
+#CityBlock(CityBlockB6, -1096 + %MainX%, 0 + %MainZ%, 500, 500)
+#CityBlock(CityBlockC6, -548 + %MainX%, 0 + %MainZ%, 500, 500)
 CityBlock(CityBlockD6, 0 + %MainX%, 0 + %MainZ%, 500, 500)
 CityBlock(CityBlockE6, 548 + %MainX%, 0 + %MainZ%, 500, 500)
 CityBlock(CityBlockF6, 1096 + %MainX%, 0 + %MainZ%, 500, 500)
 CityBlock(CityBlockG6, 1644 + %MainX%, 0 + %MainZ%, 500, 500)
 
 CityBlock(CityBlockA7, -1644 + %MainX%, -548 + %MainZ%, 500, 500)
-CityBlock(CityBlockB7, -1096 + %MainX%, -548 + %MainZ%, 500, 500)
-CityBlock(CityBlockC7, -548 + %MainX%, -548 + %MainZ%, 500, 500)
+#CityBlock(CityBlockB7, -1096 + %MainX%, -548 + %MainZ%, 500, 500)
+#CityBlock(CityBlockC7, -548 + %MainX%, -548 + %MainZ%, 500, 500)
 CityBlock(CityBlockD7, 0 + %MainX%, -548 + %MainZ%, 500, 500)
 CityBlock(CityBlockE7, 548 + %MainX%, -548 + %MainZ%, 500, 500)
 CityBlock(CityBlockF7, 1096 + %MainX%, -548 + %MainZ%, 500, 500)
@@ -3266,3 +3285,8 @@ if[%InAceheart% ! true] AceheartMall()
 <EndFunction>
 
 if[%InCLB% ! true] CLB()
+
+################################################################################
+
+#Spacetime Plaza and Avenue - Block B5 (30 April 2026)
+<Include buildings/KW_Maps/Tranquility City - Spacetime Plaza.txt>
