@@ -588,10 +588,15 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
+		Set ShowSP = false
+		if[%floor% < 4] Set ShowSP = true
+		DrawWalls = true, true, false, %ShowSP%, false, false
 		Set LeftEndpoint = %2%
 		if[%floor% < 3] Set LeftEndpoint = -%2% + 140.5
-		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
+		TextureOverride ExtFacade, %5%Wall, Blank, %5%Wall, Blank, Blank
 		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %LeftEndpoint%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
+		DrawWalls = true, true, false, false, false, false
 
 		WallOrientation = right
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
@@ -626,7 +631,7 @@ DrawWalls = false, true, false, false, false, false
 
 	WallOrientation = Right
 	AddWall N-RightRail, ExtFacade, 0.5, %1%, -8.75, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall N-BackRail, ExtFacade, 0.5, -%1% + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	#AddWall N-BackRail, ExtFacade, 0.5, -%1% + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
 #Tower levels
