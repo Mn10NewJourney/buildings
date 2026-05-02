@@ -546,15 +546,142 @@ DrawWalls = false, true, false, false, false, false
 		AddWall BackIFloor, ExtFacade2, 0.5, -%1% + 0.5, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
+########################################
+
+#Mall Parking Elevator Lobby
+<Floors -2 to -1>
+	CutAll -90, %interfloorheight% - 1, -130, -55, %interfloorheight% + 1, -125, false, true #Floor cuts
+<EndFloors>
+
+<Floors -2 to -1>
+	#Mall Parking Lobby Floor
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride ParkingCeiling, ParkingFloor, Blank, Blank, Blank, Blank
+		AddFloor MPKLobbyFloor_EX2, ParkingFloor, 1, -90, -130, -55, -125, %interfloorheight%, %interfloorheight%, 0, 0, true
+<EndFloor>
+
+########################################
+
+#Auto area at linking areas
+AddFloorAutoArea -50, Floor(3).Base, -130, 30, Floor(4).Base + 5, -90
+AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
+
 #Cut for mall entrance areas on 3A-4 and 5A-6
-	Cut External, -90, Floor(4).Base - 5, -130, -10, Floor(4).Base + 5, -90, false, true #Levels 3A-4
-	Cut External, -90, Floor(7).Base - 5, -130, -10, Floor(7).Base + 5, -90, false, true #Levels 5A-6
+	Cut External, -90, Floor(3).Base - 1, -130, -50 + 72, Floor(4).Base + 5, -90, false, true #Levels 3A-4
+	Cut External, -50 + 72, Floor(3).Base - 1, -130, 30, Floor(4).Base + 1, -90, false, true #Levels 3A-4
 
+	Cut External, -90, Floor(6).Base - 1, -130, -50 + 72, Floor(7).Base + 5, -90, false, true #Levels 5A-6
+	Cut External, -50 + 72, Floor(6).Base - 1, -130, 30, Floor(7).Base + 1, -90, false, true #Levels 5A-6
 
-#Cuts for ramps
+<Function Parking-MallLink>
+	Set LF = %param1% #Lower Floor
+	Set UF = %param2% #Upper Floor
+
+	<Floors %LF% to %UF%>
+		#Linking area to mall entrance
+			#Base
+			FloorOrientation = top
+			DrawWalls = true, true, false, false, false, false
+			TextureOverride ParkingCeiling, ParkingFloor2, Blank, Blank, Blank, Blank
+			if[%floor% = %LF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -90, -%2%, 30, -90, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+			#DrawWalls = false, true, false, false, false, false
+			TextureOverride ParkingCeiling, ParkingFloor2, Blank, Blank, Blank, Blank
+			if[%floor% = %UF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -50 + 72, -%2%, 30, -90, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+			#Midpoint
+			DrawWalls = true, true, false, false, false, false
+			if[%floor% = %LF%] AddFloor MallEntLinkFlr1, ParkingFloor, 0.5, -90, -%2%, -50, -90, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkFlr2, ParkingFloor, 0.5, -50, -%2%, -50 + 72 - 12, -119.25, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
+
+			#Ramps
+			if[%floor% = %LF%] AddFloor MallEntLinkRamp1, ParkingFloor, 0.5, -50, -99, -50 + 72, -90, %interfloorheight% + 6, %interfloorheight%, true, false, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkRamp2, ParkingFloor, 0.5, -50, -108, -50 + 72, -99, %interfloorheight% + 6, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+	<EndFloors>
+	
+	<Floor %LF%>
+		#Railings
+		Set WH = 0.5 + 3
+		Set LL = %interfloorheight% - 0.5 #Lower level offset
+		Set ML = %interfloorheight% + 6 - 0.5 #Middle level offset
+		Set UL = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 0.5 #Upper level offset
+	
+			#Rails around ramps
+			WallOrientation = right
+			DrawWalls = true, true, true, true, true, false
+			AddWall MERamp1_RailA, ParkingWall2, 0.25, -50, -90, -50 + 72, -90, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+			AddWall MERamp2_RailA, ParkingWall2, 0.25, -50, -99, -50 + 72, -99, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+	
+			WallOrientation = left
+			AddWall MERamp1_RailB, ParkingWall2, 0.25, -50, -99, -50 + 72, -99, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+			AddWall MERamp2_RailB, ParkingWall2, 0.25, -50, -108, -50 + 72, -108, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+
+			#Rails around stairs
+			WallOrientation = left
+			DrawWalls = true, true, true, true, true, true
+			AddWall MEStair1_RailA, ParkingWall2, 0.25, 22 - 12, -119.5, 22, -119.5, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+			AddWall MEStair2_RailA, ParkingWall2, 0.25, 22 - 12, -125, 22, -125, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+			WallOrientation = right
+			AddWall MEStair1_RailB, ParkingWall2, 0.25, 22 - 12, -124.5, 22, -124.5, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+
+			#Rails at floors
+			WallOrientation = left
+			DrawWalls = true, true, true, true, true, false
+			AddWall MEMidpoint_LeftRail, ParkingWall2, 0.25, -90, -%2%, -90, -90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			WallOrientation = right
+			AddWall MEMidpoint_BackRailA, ParkingWall2, 0.25, -90, -90, -50, -90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			AddWall MEMidpoint_BackRailB, ParkingWall2, 0.25, -50, -119.25, 10, -119.25, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			AddWall MEMidpoint_RightRail, ParkingWall2, 0.25, -50, -119.5, -50, -108 + 0.25, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+	<EndFloor>
+	
+	<Floor %UF%>
+		#Upper Walls
+		Set WallHeight = 1 + 3
+		Set WallOffset = %interfloorheight% - 1
+	
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, false
+		AddWall MELinkWall_Left, ParkingWall, 0.5, -90, -%2%, -90, -90 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		AddWall MELinkWall_Back, ParkingWall, 0.5, -90, -90, -50 + 72, -90, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		AddWall MELinkWall_Right1, ParkingWall, 0.5, -50 + 72, -99 - 0.25, -50 + 72, -90 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MELinkWall_Right2, ParkingWall, 0.5, -50 + 72, -125, -50 + 72, -107.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	<EndFloor>
+<EndFunction>
+
+	#Link area creation
+	Parking-MallLink(3, 4)
+	Parking-MallLink(6, 7)
+
+	#Linking stairs
+	OP_Draw(true, true, true, true, true, true)
+	
+	Set Offset1 = Floor(3).Base
+	Set Offset2 = Floor(3).Base + 6
+	Set Offset3 = Floor(6).Base
+	Set Offset4 = Floor(6).Base + 6
+
+		#Between parking levels 3A-4
+		OP_OrthoStair(external, Parking3A-Mall4, ParkingFloor, -124.5, -124.5 + 5, right, 22, 12, 1, 0.5, %Offset1%, 0.5) #Parking level 3A to Mall level 4
+		OP_OrthoStair(external, Mall4-Parking4, ParkingFloor, -130, -130 + 5, left, 22 - 12, 12, 1, 0.5, %Offset2%, 0.5) #Mall level 4 to Parking level 4
+
+		#Between parking levels 5A-6
+		OP_OrthoStair(external, Parking5A-Mall6, ParkingFloor, -124.5, -124.5 + 5, right, 22, 12, 1, 0.5, %Offset3%, 0.5) #Parking level 5A to Mall level 6
+		OP_OrthoStair(external, Mall6-Parking6A, ParkingFloor, -130, -130 + 5, left, 22 - 12, 12, 1, 0.5, %Offset4%, 0.5) #Mall level 6 to Parking level 6
+
+########################################
+
+#Auto area for ramps
+AddFloorAutoArea -170, Floor(2).Base, 129.5 - 18, -50, Floor(13).Base + 5, 129.5
+AddFloorAutoArea 30, Floor(2).Base, 129.5 - 18, 150, Floor(13).Base + 5, 129.5
+
+#Cuts for parking ramps
 	#Shorter ramps between levels 3-10
 	Cut External, -170, Floor(2).Base + 5, 129.5 - 18, -50, Floor(13).Base + 1.5, 129.5, false, true
 	Cut External, 30, Floor(2).Base + 5, 129.5 - 18, 150, Floor(13).Base + 1.5, 129.5, false, true
+	
 	
 #Parking ramps creation
 	<Floors 2 to 13>
