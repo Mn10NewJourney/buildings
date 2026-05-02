@@ -947,7 +947,22 @@ Set SideTexture = BLKEntDoorSide
 
 <Floor 0>
 	TexPrefix()
-	
+
+	#SOUTH DOORS
+		#Access point S1
+		Set Door_MainX = 10
+		Set Door_MainZ = -360
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS1_Left, , , false, %Texture%Int, %SideTexture%, 0.2, back, front, 75, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS1_Right, , , false, %Texture%Int, %SideTexture%, 0.2, front, front, 75, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 7, 7.5, %interfloorheight%, true, 0, 0, true
+
+		Add3DWindows(EntS1_WinTop, %Door_MainX%, %Door_MainZ%, front, 21, %height% - 8.5, 8, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 6/4, 1)
+		Add3DWindows(EntS1_WinSide1, %Door_MainX% - 10.5 + 3.25, %Door_MainZ%, front, 6.5, 7, 0.5, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 2/4, 1)
+		Add3DWindows(EntS1_WinSide2, %Door_MainX% + 10.5 - 3.25, %Door_MainZ%, front, 6.5, 7, 0.5, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 2/4, 1)
+
 	#EAST DOORS
 		#Access point E1
 		Set Door_MainX = %1%
@@ -1366,7 +1381,7 @@ Set SideTexture = BLKEntDoorSide
 #South Elevators (B1-4)
 	#Wall cuts for shaft walls
 	<Floors -2 to 3>
-		CutAll -89.5 - 0.1, 0, -180, -89.5 + 0.1, %fullheight%, -150, true, false #Left wall cuts
+		CutAll -89.5 - 0.1, 0, -180 + 0.33, -89.5 + 0.1, %fullheight%, -150 - 0.33, true, false #Left wall cuts
 	<EndFloors>
 
 AddStdShaft(1, 1, -85, -165, 4.67, 14.67, -2, 4, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
@@ -1546,15 +1561,6 @@ ShaftShowOutside 2 = 0 - 9
 
 #Parking Elevators (B2-10)
 	#Wall cuts for shaft walls
-	#<Floors 0 to 8>
-	#	if[%floor% ! 7] CutAll -210 + 0.33, 0, 239.5 - 0.1, -200 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
-	#	if[%floor% ! 7] CutAll -185 + 0.33, 0, 239.5 - 0.1, -175 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
-	#<EndFloors>
-	#
-	#<Floors 7 to 9>
-	#	if[%floor% ! 8] CutAll -210 + 0.33, 0, 239.5 - 0.1, -175 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
-	#<EndFloors>
-
 	<Floors 0 to 11>
 		CutAll -210 + 0.33, 0, 239.5 - 0.1, -200 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
 		CutAll -185 + 0.33, 0, 239.5 - 0.1, -175 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
@@ -1564,6 +1570,14 @@ AddStdShaft(3, 2, -205, 225, 4.67, 14.67, -3, 12, ShaftIntWall2, 0.5, 0.33, 0, 2
 AddStdShaft(4, 2, -180, 225, 4.67, 14.67, -3, 12, ShaftIntWall2, 0.5, 0.33, 0, 2, %fullheight%)
 ShowFullShaft 3 = true
 ShowFullShaft 4 = true
+
+#East Elevators (Outer Edge)
+AddStdShaft(5, 1, 320, -145.5, 9.67, 4.17, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(6, 1, 320, 14.5, 9.67, 4.17, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(7, 1, 320, 185.5, 9.67, 4.17, -3, 9, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+ShowFullShaft 5 = true
+ShowFullShaft 6 = true
+ShowFullShaft 7 = true
 
 ##--------------------------------------------------------------------------------##
 
