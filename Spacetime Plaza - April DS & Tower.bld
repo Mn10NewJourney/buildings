@@ -376,9 +376,9 @@
 
 		#Floor signs (Stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddTextRange 1, 19, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 20, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSign19A, nimbus_sans_bold_condensed.ttf, 65, 19A, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
 		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
@@ -459,10 +459,12 @@
 	Type = Mechanical
 	Height = 10
 	InterfloorHeight = 2
+	if[%floor% = 18] Group = 19
+	if[%floor% = 19] Group = 18
 <EndFloors>
 
 <Floor 20>
-	ID = R
+	ID = %floor%
 	Name = Roof
 	Type = Roof
 	Height = 9.5
@@ -756,9 +758,75 @@ DrawWalls = false, true, false, false, false, false
 		AddWall BackWall3, %5%Wall, 0.5, 115, -8.75, %1%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
+<Floor 19>
+	#Mechanical Mezzanine
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+	AddFloor MechFloor_West, MMEFloor, %interfloorheight%, -%1%, -91.25, -80, -45s, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+	AddFloor MechFloor_Center, MMEFloor, %interfloorheight%, -80, -55, 90, -45, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+	AddFloor MechFloor_North, MMEFloor, %interfloorheight%, -10, -45, 10, -8.75, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+	AddFloor MechFloor_East, MMEFloor, %interfloorheight%, 80, -91.25, 90, -55, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	DrawWalls = true, true, true, true, true, false
+	Set WallHeight = %interfloorheight% + 3.5
+	Set WallOffset = 0
+
+	WallOrientation = right
+	AddWall MMERail_West1, MMEWall, 0.5, -80, -60, -80, -55 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	#AddWall MMERail_West2, MMEWall, 0.5, -80, -45 - 0.5, -80, -9.25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = left
+	AddWall MMERail_Center1, MMEWall, 0.5, -80, -55, 80, -55, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall MMERail_Center2, MMEWall, 0.5, -119.5, -45, -10, -45, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	#AddWall MMERail_Center2, MMEWall, 0.5, -80, -45, -10, -45, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall MMERail_Center3, MMEWall, 0.5, 10, -45, 90, -45, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = left
+	AddWall MMERail_North1, MMEWall, 0.5, -10, -45 - 0.5, -10, -13.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall MMERail_North2, MMEWall, 0.5, 10, -45 - 0.5, 10, -13.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	WallOrientation = left
+	AddWall MMERail_East1, MMEWall, 0.5, 80, -60, 80, -54.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall MMERail_East2, MMEWall, 0.5, 90, -60, 90, -45.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
+
 <Floors 18 to 19>
-	#Perimeter walls (Mechanical floors)
 	TexPrefix() #Set texture prefix/suffix
+
+	#Storage south of elevator shafts
+	WallOrientation = left
+	AddWall WestSTR, %5%Wall, 0.5, -110, -80, -100, -80, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall EastSTR, %5%Wall, 0.5, 90, -80, 108, -80, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#West storage doors
+		Set Texture = ServiceDoor1
+		Set Door_MainX = -105
+		Set Door_MainZ = -80 + 0.5
+
+		WallOrientation = right
+		AddStdDoor Door Manager, WestSTRDoor_Left, , , false, %Texture%, %Texture%Side, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, WestSTRDoor_Right, , , false, %Texture%, %Texture%Side, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		#East storage doors
+		Set Texture = ServiceDoor1
+		Set Door_MainX = 94
+		Set Door_MainZ = -80 + 0.5
+
+		WallOrientation = right
+		if[%floor% = 18] AddStdDoor Door Manager, EastSTRDoor_Left, , , false, %Texture%, %Texture%Side, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% = 18] AddStdDoor Door Manager, EastSTRDoor_Right, , , false, %Texture%, %Texture%Side, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% = 18] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+	#Perimeter walls (Mechanical floors)
 	Set WallHeight = %fullheight%
 	Set WallOffset = 0
 
@@ -832,8 +900,8 @@ DrawWalls = false, true, false, false, false, false
 		Set Door_MainZ = -85
 
 		WallOrientation = left
-		AddStdDoor Door Manager, EntDoorE1_Left, , , false, %Texture%, %Texture%Side, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor Door Manager, EntDoorE1_Right, , , false, %Texture%, %Texture%Side, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, RFSTR_Door1, , , false, %Texture%, %Texture%Side, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, RFSTR_Door2, , , false, %Texture%, %Texture%Side, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloor>
 
