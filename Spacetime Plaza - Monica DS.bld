@@ -300,9 +300,6 @@
 		AddTextRange 1, 2, ButtonLit, ButtonLitB%number%, nimbus_sans_bold.ttf, 45, B%number%, 100, 81, 207, 165, center, center, 255, 255, 255, false
 		AddTextRange 1, 8, Button, Button%number%, nimbus_sans_bold.ttf, 45, %number%, 100, 81, 207, 165, center, center, 255, 255, 255, false
 		AddTextRange 1, 8, ButtonLit, ButtonLit%number%, nimbus_sans_bold.ttf, 45, %number%, 100, 81, 207, 165, center, center, 255, 255, 255, false
-		AddText Button, Button7A, nimbus_sans_bold.ttf, 45, 7A, 100, 81, 207, 165, center, center, 255, 255, 255, false
-		AddText ButtonLit, ButtonLit7A, nimbus_sans_bold.ttf, 45, 7A, 100, 81, 207, 165, center, center, 255, 255, 255, false
-
 
 		AddText Button, TextButtonOpen, nimbus_sans_bold.ttf, 22, OPEN, 100, 81, 207, 165, center, center, 255, 255, 255, false
 		AddText Button, TextButtonClose, nimbus_sans_bold.ttf, 22, CLOSE, 100, 81, 207, 165, center, center, 255, 255, 255, false
@@ -317,13 +314,11 @@
 		Load data/ACME Floor Indicator/ACME Floor Indicator.jpg, IndBack, 1, 1, false
 		AddTextRange 1, 2, IndBack, Ind_ButtonB%number%, acme_led.ttf, 180, B%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
 		AddTextRange 1, 8, IndBack, Ind_Button%number%, acme_led.ttf, 180, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
-		AddText IndBack, Ind_Button7A, acme_led.ttf, 180, 7A, -1, -1, -1, -1, center, center, 255, 0, 0, false
 
 		#Outside indicator sets
 		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, IndBack2, 1, 1, false
 		AddTextRange 1, 2, IndBack2, OutsideInd_ButtonB%number%, acme_led.ttf, 240, B%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
 		AddTextRange 1, 8, IndBack2, OutsideInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0, false
-		AddText IndBack2, OutsideInd_Button7A, acme_led.ttf, 240, 7A, -1, -1, -1, -1, center, center, 255, 0, 0, false
 
 		Load data/Old_Hitachi_Elevator/LanternUpUnlit.png, LanternUp, 1, 1, false
 		LoadAnimated data/Old_Hitachi_Elevator/LanternUpLit.png, data/Old_Hitachi_Elevator/LanternUpUnlit.png, data/Old_Hitachi_Elevator/LanternUpLit.png, LanternUpLit, 0.5, 1, 1, false
@@ -343,7 +338,7 @@
 		#Floor signs (Stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 1, 8, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		AddText Blank, BlankSign7A, nimbus_sans_bold.ttf, 72, 7A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddText Blank, BlankSign7A, nimbus_sans_bold.ttf, 72, 7A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
@@ -530,13 +525,13 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = %ShowBottom%, true, false, false, false, false
 	TextureOverride ParkingCeiling, %5%Floor, Blank, Blank, Blank, Blank #1st floor only
 	if[%floor% ! 7 & %floor% ! 9] AddFloor MonicaDSFloor, %5%Floor, 1, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	if[%floor% = 7] AddFloor Level%floorid%Floor, %5%Floor, 1, 27.5, -80, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	#if[%floor% = 7] AddFloor Level%floorid%Floor, %5%Floor, 1, 27.5, -80, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% ! 6 & %floor% ! 8] AddFloor MonicaDSCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
-	if[%floor% = 6] AddFloor Level%floorid%Ceiling, %5%Ceiling, 1, 27.5, -80, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
+	#if[%floor% = 6] AddFloor Level%floorid%Ceiling, %5%Ceiling, 1, 27.5, -80, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -610,11 +605,11 @@ DrawWalls = false, true, false, false, false, false
 #Atrium cuts
 	#Shopping levels
 	Cut External, %1% - 60, Floor(0).Base + 5, -30, %1%, Floor(8).Base + 5, 30, false, true #East
-	Cut External, -60, Floor(0).Base + 5, -50 - 20, -20 + 20, Floor(8).Base + 5, 30 + 20, false, true #West
+	Cut External, -60, Floor(0).Base + 5, -30, -20 + 20, Floor(8).Base + 5, 30, false, true #West
 
 	#Roof cut for skylight
 	Cut External, %1% - 60 + 5, Floor(10).Altitude - 1, -30, %1% - 5, Floor(10).Base + 1, 30, false, true #East
-	Cut External, -60, Floor(10).Altitude - 1, -50 - 20, -20 + 20, Floor(10).Base + 1, 30 + 20, false, true #West
+	Cut External, -60, Floor(10).Altitude - 1, -30, -20 + 20, Floor(10).Base + 1, 30, false, true #West
 
 <Floor 10>
 	#Skylight
@@ -622,11 +617,11 @@ DrawWalls = false, true, false, false, false, false
 	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
 	AddFloor EastSkylight, SkylightInt, 0, %1% - 55, -30, %1% - 5, 30, %interfloorheight%, %interfloorheight%, 5/4, 6, true
 	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
-	AddFloor WestSkylight, SkylightInt, 0, -60, -50 - 20, -20 + 20, 30 + 20, %interfloorheight%, %interfloorheight%, 6/4, 12, true
+	AddFloor WestSkylight, SkylightInt, 0, -60, -30, -20 + 20, 30, %interfloorheight%, %interfloorheight%, 6/4, 6, true
 
 	#Skylight atrium cover
-	CreateWallBox2 external, WestSLAtriumCover, UpperShopWall2, %1% - 30, 0, 50, 60, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
-	CreateWallBox2 external, EastSLAtriumCover, UpperShopWall2, -30, -10, 60, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
+	CreateWallBox2 external, EastSLAtriumCover, UpperShopWall2, %1% - 30, 0, 50, 60, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
+	CreateWallBox2 external, WestSLAtriumCover, UpperShopWall2, -30, 0, 60, 60, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
 <EndFloor>
 
 #Atrium railings
@@ -649,7 +644,7 @@ DrawWalls = false, true, false, false, false, false
 <EndFunction>
 
 <Floors 1 to 8>
-	AtriumRails-East()
+	if[%floor% ! 7] AtriumRails-East()
 <EndFloors>
 
 ########################################
@@ -1023,26 +1018,27 @@ ShowFullShaft 2 = true
 	Add3DWindows(E6Windows, 55, -10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
 <EndFloors>
 
-<Floor 9>
+<Floors 7 to 9>
 	Set WH = 10
 	Set WO = -1
 
-	Add3DWindows(E4Windows, 55, 10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
-	Add3DWindows(E5Windows, 55, 0, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
-	Add3DWindows(E6Windows, 55, -10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
-<EndFloor>
+	if[%floor% ! 8] Add3DWindows(E4Windows, 55, 10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
+	if[%floor% ! 8] Add3DWindows(E5Windows, 55, 0, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
+	if[%floor% ! 8] Add3DWindows(E6Windows, 55, -10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
+<EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
 #Elevators
 #Turn off idle sounds
-<Elevators 1 to 3>
+<Elevators 1 to 6>
 	CarIdleSound = 
 <EndElevators>
 
 #West elevators
 <Elevator 1>
 	Name = Monica DS West Elevator 1
+	Type = Service
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1053,6 +1049,7 @@ ShowFullShaft 2 = true
 
 <Elevator 2>
 	Name = Monica DS West Elevator 2
+	Type = Service
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1063,6 +1060,7 @@ ShowFullShaft 2 = true
 
 <Elevator 3>
 	Name = Monica DS West Elevator 2
+	Type = Service
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -1072,7 +1070,7 @@ ShowFullShaft 2 = true
 <EndElevator>
 
 #Button creation function (Elevators 1-3)
-<Function BtnPanelE1-3>
+<Function BtnPanelE1-6>
 	Set PanelNumber = %param1%
 	Set Prefix = Button #Floor buttons
 	
@@ -1109,7 +1107,7 @@ ShowFullShaft 2 = true
 
 	#Set textures and dimensions
 	M10_ElevCabTex(ElevExt3, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
-	M10_ElevDimensions(6.5, 7, 8, 0.2, 0.2, true, true, false, true)
+	M10_ElevDimensions(6.5, 7, 8, 1.5, 0.2, true, true, false, true)
 	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.5, 1.5, 1, 0.2, false, false, true, false)
 
 	#Finish elevator assembly
@@ -1168,7 +1166,7 @@ ShowFullShaft 2 = true
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% + 0.001 - 0.025, %P1_PositionZ%, 0.05, 0.6, 3.5, 2.5, 0, 0, false, true, true, true
 		CreatePanel Blank, 9, 2, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
-		BtnPanelE1-3(1)
+		BtnPanelE1-6(1)
 		
 		#Intercom panel
 		CreatePanel BlackPanel, 3, 3, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.1, 0.1, 0.2, 0.2, 5.25, 0, 0
@@ -1181,7 +1179,7 @@ ShowFullShaft 2 = true
 		#Floor buttons
 		CreateWallBox2 elevator, LeftPB, ElevPanel, %P2_PositionX% + 0.001 - 0.025, %P2_PositionZ%, 0.05, 0.6, 2.75, 2.5, 0, 0, false, true, true, true
 		CreatePanel Blank, 9, 2, left, %P2_PositionX% - 0.05, %P2_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
-		BtnPanelE1-3(3)
+		BtnPanelE1-6(3)
 	#--------------------
 	#Floor indicator
 	AddFloorIndicator Ind_Button, left, 3.05 - 0.001, 0, 0.8, 0.4, 7.25 - 0.2
@@ -1193,7 +1191,7 @@ ShowFullShaft 2 = true
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
 		#Ropes
-		RopePosition = 0, 8 + 0.2, 0
+		RopePosition = 0, 8 + 1.5, 0
 		RopeTexture = Ropes
 	
 		#Counterweight
@@ -1212,7 +1210,7 @@ ShowFullShaft 2 = true
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 8
+	ServicedFloors = -2 - 6, 8
 	AssignedShaft = 2
 	CreateElevator true, -1.92, 10, 0
 <EndElevator>
@@ -1222,7 +1220,7 @@ ShowFullShaft 2 = true
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 8
+	ServicedFloors = -2 - 6, 8
 	AssignedShaft = 2
 	CreateElevator true, -1.92, 0, 0
 <EndElevator>
@@ -1232,36 +1230,13 @@ ShowFullShaft 2 = true
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 8
+	ServicedFloors = -2 - 6, 8
 	AssignedShaft = 2
 	CreateElevator true, -1.92, -10, 8
 <EndElevator>
 
-<Function BtnPanelE4-6>
-	Set PanelNumber = %param1%
-	Set Prefix = Button #Floor buttons
-	
-		#Prefixes for door control buttons
-		Set Prefix_DC = TextButton
-
-	AddButton %PanelNumber%, , %Prefix_DC%Open, %Prefix_DC%Open, 1, 1, open, 1, 1
-	AddButton %PanelNumber%, , %Prefix_DC%Close, %Prefix_DC%Close, 1, 2, close, 1, 1
-
-	AddButton %PanelNumber%, , %Prefix%8, %Prefix%Lit8, 4, 2, 8, 1, 1
-	AddButton %PanelNumber%, , %Prefix%7A, %Prefix%Lit7A, 5, 2, 7, 1, 1
-	AddButton %PanelNumber%, , %Prefix%7, %Prefix%Lit7, 6, 2, 6, 1, 1
-	AddButton %PanelNumber%, , %Prefix%6, %Prefix%Lit6, 7, 2, 5, 1, 1
-	AddButton %PanelNumber%, , %Prefix%5, %Prefix%Lit5, 8, 2, 4, 1, 1
-
-	AddButton %PanelNumber%, , %Prefix%4, %Prefix%Lit4, 4, 1, 3, 1, 1
-	AddButton %PanelNumber%, , %Prefix%3, %Prefix%Lit3, 5, 1, 2, 1, 1
-	AddButton %PanelNumber%, , %Prefix%2, %Prefix%Lit2, 6, 1, 1, 1, 1
-	AddButton %PanelNumber%, , %Prefix%1, %Prefix%Lit1, 7, 1, 0, 1, 1
-	AddButton %PanelNumber%, , %Prefix%B1, %Prefix%LitB1, 8, 1, -1, 1, 1
-	AddButton %PanelNumber%, , %Prefix%B2, %Prefix%LitB2, 9, 1, -2, 1, 1
-<EndFunction>
-
 <Elevators 4 to 6>
+	DisplayFloors = -2 - 6, 8
 	Set Prefix = East
 	AutoEnable = false
 
@@ -1354,7 +1329,7 @@ ShowFullShaft 2 = true
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% - 0.001 + 0.025, %P1_PositionZ%, 0.05, 0.6, 3.5, 2.5, 0, 0, false, true, true, true
 		CreatePanel Blank, 9, 2, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
-		BtnPanelE4-6(1)
+		BtnPanelE1-6(1)
 		
 		#Intercom panel
 		CreatePanel BlackPanel, 3, 3, right, %P1_PositionX% + 0.05, %P1_PositionZ%, 0.1, 0.1, 0.2, 0.2, 5.25, 0, 0
@@ -1367,7 +1342,7 @@ ShowFullShaft 2 = true
 		#Floor buttons
 		CreateWallBox2 elevator, LeftPB, ElevPanel, %P2_PositionX% - 0.001 + 0.025, %P2_PositionZ%, 0.05, 0.6, 2.75, 2.5, 0, 0, false, true, true, true
 		CreatePanel Blank, 9, 2, right, %P2_PositionX% + 0.05, %P2_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
-		BtnPanelE4-6(3)
+		BtnPanelE1-6(3)
 	#--------------------
 	#Floor indicator
 	AddFloorIndicator Ind_Button, right, -1.72 + 0.001, 0, 0.8, 0.4, 7.25 - 0.2
@@ -1549,11 +1524,8 @@ ShowFullShaft 2 = true
 		ACMELobbyInds(right, 3, %Shaft1CX% + 5 + %ExtraLateralOffset%, %Shaft1CZ% + 10, %Offset%, -2, 8, true)
 <EndFunction>
 
-<Floors -2 to 8>
-	if[%floor% ! 7] E1-3HallStation()
-<EndFloors>
-
-<Floors -2 to 8>
+#East Elevators
+<Function E4-6HallStation>
 	#Shaft Doors
 	ElevHallTex_E4-6() #Set shaft door and panel textures
 	Set StartNo = 4 #Number of the first elevator
@@ -1629,8 +1601,12 @@ ShowFullShaft 2 = true
 		ACMELobbyInds(left, 4, %Shaft1CX% - 5 - %ExtraLateralOffset%, %Shaft1CZ% + 10, %Offset%, -2, 8, true)
 		ACMELobbyInds(left, 5, %Shaft1CX% - 5 - %ExtraLateralOffset%, %Shaft1CZ% - 0, %Offset%, -2, 8, true)
 		ACMELobbyInds(left, 6, %Shaft1CX% - 5 - %ExtraLateralOffset%, %Shaft1CZ% - 10, %Offset%, -2, 8, true)
-<EndFloors>
+<EndFunction>
 
+<Floors -2 to 8>
+	if[%floor% ! 7] E1-3HallStation()
+	if[%floor% ! 7] E4-6HallStation()
+<EndFloors>
 
 #GLOBAL SETTINGS
 <Elevators 1 to 6>
