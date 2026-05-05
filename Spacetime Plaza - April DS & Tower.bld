@@ -78,6 +78,15 @@
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, Skylight, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, SkylightInt, 1, 1, false
 
+	#Eastern Annex (3rd-8th floors)
+	Load data/marb047.jpg, EAFloor, 0.25, 0.25, true
+	Load data/marbletile.jpg, EAWall, 0.15, 0.3, true
+	Load data/stucco1b.jpg, EACeiling, 0.2, 0.2, true
+
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1 #EG881
+	Load data/windows11h_inside.gif, EAWindowsInt, 0.025, 1
+	Load data/stone.jpg, EAExtFacade, 0.075, 0.075, true
+
 	#Main textures
 		#Parking levels and ramps
 		Load data/stonec.jpg, ParkingLobbyFloor, 0.1, 0.1
@@ -740,7 +749,7 @@ DrawWalls = false, true, false, false, false, false
 
 
 		Set IntWallDim = 20
-		if[%floor% = 7] Set IntWallDim = 10
+		if[%floor% < 9] Set IntWallDim = 10
 		DrawWalls = true, false, false, true, false, false
 		AddWall BackWall_FarWest_Int, %5%Wall, 0.5, -%1%, -8.75, -%1% + %IntWallDim%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -905,6 +914,45 @@ DrawWalls = false, true, false, false, false, false
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloor>
 
+
+########################################
+
+#Eastern Annex
+<Floors 2 to 6>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = true, true, false, true, true, true
+	TextureOverride EAExtFacade, EAFloor, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
+	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2%, %1% + 30, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, true, false, true, true, true
+	TextureOverride EACeiling, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
+	if[%floor% = 6] AddFloor EATop, EACeiling, 2, %1%, -%2%, %1% + 30, %2%, %fullheight%, %fullheight%, 0, 0, true
+
+	#Windows
+	Set MyIFloorType = 2
+	if[%floor% = 2] Set MyIFloorType = 3
+	Set WinHeight = %height%
+
+	SetAutoSize = true, false
+
+		AddCustomWindows(EA_FrontWin, EAWindows, EAWindowsInt, %1%, -%2%, %1% + 30, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 30, -%2%, %1% + 30, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+
+	SetAutoSize = true, true
+<EndFloors>
+
+########################################
+
+#Entrance doors
+Set Texture = BLKEntDoor
+Set SideTexture = BLKEntDoorSide
+
+	#--Coming soon--
 
 ########################################
 
@@ -1178,7 +1226,7 @@ DrawWalls = false, true, false, false, false, false
 	CreateShaftWall(%SP%Wall, %SP%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 114, -70, 6, 10, SH2, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
 <EndFloors>
 
-<Floor 7>
+<Floors 7 to 8>
 	TexPrefix()
 
 	#Store Elevators
@@ -1190,12 +1238,12 @@ DrawWalls = false, true, false, false, false, false
 
 	WallOrientation = left
 	DrawWalls = true, false, false, false, false, false
-	AddWall Shaft1LeftE_8F, %5%Wall, 0.5, -110, -40, -110, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall Shaft1LeftE_%floorid%F, %5%Wall, 0.5, -110, -40, -110, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	WallOrientation = right
 	DrawWalls = false, true, false, false, false, false
-	AddWall Shaft1RightE_8F, %5%Wall, 0.5, -100, -40, -100, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-<EndFloor>
+	AddWall Shaft1RightE_%floorid%F, %5%Wall, 0.5, -100, -40, -100, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
 
 <Floors -2 to 19>
 	TexPrefix()
@@ -1244,12 +1292,12 @@ DrawWalls = false, true, false, false, false, false
 
 #Shafts
 #Store elevators
-AddStdShaft(1, 1, -105, -25, 4.67, 14.67, -3, 7, ShaftIntWall3, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(1, 1, -105, -25, 4.67, 14.67, -3, 8, ShaftIntWall3, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 1 = true
-ShaftShowFloors 1 = 0 - 6
-ShaftShowOutside 1 = 0 - 6
+ShaftShowFloors 1 = 0 - 7
+ShaftShowOutside 1 = 0 - 7
 
-	<Floor 7>
+	<Floor 8>
 		#Machine room doors
 
 		#Shaft 1
@@ -1532,7 +1580,7 @@ ShaftShowOutside 5 = 6 - 17
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -2 - 7
 	AssignedShaft = 1
 	CreateElevator true, 0.59, -10, 0
 <EndElevator>
@@ -1542,7 +1590,7 @@ ShaftShowOutside 5 = 6 - 17
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -2 - 7
 	AssignedShaft = 1
 	CreateElevator true, 0.59, 0, 0
 <EndElevator>
@@ -1552,9 +1600,9 @@ ShaftShowOutside 5 = 6 - 17
 	Speed = 6
 	Acceleration = 0.6
 	Deceleration = 0.6
-	ServicedFloors = -2 - 6
+	ServicedFloors = -2 - 7
 	AssignedShaft = 1
-	CreateElevator true, 0.59, 10, 6
+	CreateElevator true, 0.59, 10, 7
 <EndElevator>
 
 #Button creation function (Elevators 1-3)
@@ -1562,6 +1610,7 @@ ShaftShowOutside 5 = 6 - 17
 	Set PanelNumber = %param1%
 	Set BtnPrefix = ZENButton
 
+	AddButton %PanelNumber%, , %BtnPrefix%8, %BtnPrefix%Lit8, 3, 3, 7, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%7, %BtnPrefix%Lit7, 3, 1, 6, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%6, %BtnPrefix%Lit6, 4, 3, 5, 1, 1
 	AddButton %PanelNumber%, , %BtnPrefix%5, %BtnPrefix%Lit5, 4, 1, 4, 1, 1
@@ -2284,6 +2333,7 @@ ShaftShowOutside 5 = 6 - 17
 	#Shaft doors
 	Set DoorTexture = GlassShaftDoors
 	if[%floor% < 0] Set DoorTexture = PLShaftDoors
+	if[%floor% = 7] Set DoorTexture = DGShaftDoors
 
 	#Use automatic filler walls or not
 	Set AutoFiller = false
@@ -2300,6 +2350,8 @@ ShaftShowOutside 5 = 6 - 17
 		Set TopDecoH = %height% - 7
 		if[%floor% < 0] Set SideDecoH = 7.2
 		if[%floor% < 0] Set TopDecoH = 0.2
+		if[%floor% = 7] Set SideDecoH = 8
+		if[%floor% = 7] Set TopDecoH = 1
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -2415,7 +2467,7 @@ ShaftShowOutside 5 = 6 - 17
 	AddFloorIndicator %ElevNo%, false, Ind_Button, right, %Shaft1CX% + 5 + 0.052, %PA%, 0.3, 0.3, 4.5
 <EndFunction>
 
-<Floors -2 to 6>
+<Floors -2 to 7>
 	#Shaft Doors
 	ElevHallTex-Store() #Set shaft door and panel textures
 	Set StartNo = 1 #Number of the first elevator
@@ -2471,8 +2523,10 @@ ShaftShowOutside 5 = 6 - 17
 		#Signs
 		WallOrientation = left
 		DrawWalls = false, true, false, false, false, false
-		AddBoxSign(E1-3_FS1, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
-		AddBoxSign(E1-3_FS2, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+		if[%floor% ! 7] AddBoxSign(E1-3_FS1, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+		if[%floor% ! 7] AddBoxSign(E1-3_FS2, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+		if[%floor% = 7] AddBoxSign(E1-3_FS1, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1, 1, 7 - 1 + %interfloorheight%, true)
+		if[%floor% = 7] AddBoxSign(E1-3_FS2, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 1, 1, 7 - 1 + %interfloorheight%, true)
 
 		AddWall E1-3HallSign, ElevHallSign, 0, %Shaft1CX% + 5.001, %Shaft1CZ% + 0 + 2.75 - 0.25, %Shaft1CX% + 5.001, %Shaft1CZ% + 0 + 2.75 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
