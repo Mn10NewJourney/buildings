@@ -19,7 +19,7 @@
 	#3. My previous scripts
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
-	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+	#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
 ##--------------------------------------------------------------------------------##
 
@@ -109,7 +109,7 @@
 
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1 #EG881
 	Load data/windows11h_inside.gif, EAWindowsInt, 0.025, 1
-	Load data/granite_0007c.jpg, EAExtFacade, 0.075, 0.075, true
+	Load data/stone.jpg, EAExtFacade, 0.075, 0.075, true
 
 	#Main textures
 		#Parking levels and ramps
@@ -754,7 +754,13 @@ DrawWalls = false, true, false, false, false, false
 		#Right windows
 		Set MyIFloorType2 = 2
 		if[%floor% = 6] Set MyIFloorType2 = 1
-		if[%floor% = 6 | %floor% = 8] AddCustomWindows(EZ_RightWin, ShopWindowsInt, ShopWindowsInt, %1%, 100, %1%, 140, %WinHeight%, 0, 0, %MyIFloorType2%, %5%Wall, ExtFacade)
+
+		Set ExtTex = ShopWindowsInt
+		if[%floor% < 2] Set ExtTex = ShopWindows
+
+		if[%floor% < 3] AddCustomWindows(EZ_RightWin1, ShopWindowsInt, %ExtTex%, %1%, -100, %1%, -60, %WinHeight%, 0, 0, %MyIFloorType2%, %5%Wall, ExtFacade)
+		if[%floor% < 2] AddCustomWindows(EZ_RightWin2, ShopWindowsInt, ShopWindows, %1%, 60, %1%, 140, %WinHeight%, 0, 0, %MyIFloorType2%, %5%Wall, ExtFacade)
+		if[%floor% = 2 | %floor% = 5 | %floor% = 6 | %floor% = 8] AddCustomWindows(EZ_RightWin, ShopWindowsInt, ShopWindowsInt, %1%, 100, %1%, 140, %WinHeight%, 0, 0, %MyIFloorType2%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
 
@@ -834,20 +840,40 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride ExtFacade2, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall EZ_LeftWall2, ExtFacade, 0.5, %1% - 240, %2% - 260 - 0.5, %1% - 240, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
+		########################################
+
 		WallOrientation = right
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
-		if[%floor% < 6] AddWall EZ_RightWall, ExtFacade, 0.5, %1%, -%2% + 260, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 5 & %floor% ! 0 & %floor% ! 1 & %floor% ! 2] AddWall EZ_RightWall, ExtFacade, 0.5, %1%, -%2% + 260, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		####################
 
 		DrawWalls = true, true, false, true, false, false #Reset drawwalls
 		TextureOverride %5%Wall, ExtFacade, Blank, %5%Wall, Blank, Blank
-		if[%floor% > 5] AddWall EZ_RightWall_Top1, ExtFacade, 0.5, %1%, -%2% + 260, %1%, 100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 3] AddWall EZ_RightWall_%floorid%F1, ExtFacade, 0.5, %1%, -%2% + 260, %1%, -100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		Set NorthEnd = 60
+		if[%floor% = 2] Set NorthEnd = 100
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride %5%Wall, ExtFacade, %5%Wall, %5%Wall, Blank, Blank
+		if[%floor% < 3] AddWall EZ_RightWall_%floorid%F2, ExtFacade, 0.5, %1%, -60, %1%, %NorthEnd%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
-		if[%floor% > 5] AddWall EZ_RightWall_Top2, ExtFacade, 0.5, %1%, 140, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 3] AddWall EZ_RightWall_%floorid%F3, ExtFacade, 0.5, %1%, 140, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		DrawWalls = true, false, false, false, true, true
-		if[%floor% = 8] AddWall EZ_RightWall_TopIFC, ExtFacade, 0.5, %1%, 100, %1%, 140, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
+		####################
+
+		DrawWalls = true, true, false, true, false, false #Reset drawwalls
+		TextureOverride %5%Wall, ExtFacade, Blank, %5%Wall, Blank, Blank
+		if[%floor% > 4] AddWall EZ_RightWall_Top1, ExtFacade, 0.5, %1%, -%2% + 260, %1%, 100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
+		if[%floor% > 4] AddWall EZ_RightWall_Top2, ExtFacade, 0.5, %1%, 140, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#DrawWalls = true, false, false, false, true, true
+		#if[%floor% = 8] AddWall EZ_RightWall_TopIFC, ExtFacade, 0.5, %1%, 100, %1%, 140, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
 <EndFloors>
 
 ########################################
@@ -1039,13 +1065,13 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = true, true, false, true, true, true
 	TextureOverride EAExtFacade, EAFloor, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
-	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2% + 260, %1% + 20, 140, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2% + 260, %1% + 30, 140, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, true, false, true, true, true
 	TextureOverride EACeiling, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
-	if[%floor% = 9] AddFloor EATop, EACeiling, 2, %1%, -%2% + 260, %1% + 20, 140, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 9] AddFloor EATop, EACeiling, 2, %1%, -%2% + 260, %1% + 30, 140, %fullheight%, %fullheight%, 0, 0, true
 
 	#Windows
 	Set MyIFloorType = 2
@@ -1055,8 +1081,8 @@ DrawWalls = false, true, false, false, false, false
 
 	SetAutoSize = true, false
 
-		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 20, -%2% + 260, %1% + 20, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
-		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_BackWin, EAWindowsInt, EAWindows, %1%, 140, %1% + 20, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 30, -%2% + 260, %1% + 30, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_BackWin, EAWindowsInt, EAWindows, %1%, 140, %1% + 30, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
 
@@ -1112,31 +1138,60 @@ Set SideTexture = BLKEntDoorSide
 	#EAST DOORS
 		#Access point E1
 		Set Door_MainX = %1%
-		Set Door_MainZ = 80
+		Set Door_MainZ = -85
+		
 		WallOrientation = right
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddStdDoor Door Manager, EntDoorE1_Left, , , false, %Texture%Int, %SideTexture%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddStdDoor Door Manager, EntDoorE1_Right, , , false, %Texture%Int, %SideTexture%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 7, 7.5, %interfloorheight%, false, 0, 0, true
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
-		Add3DWindows(EntE1_WinTop, %Door_MainX%, %Door_MainZ%, right, 21, %height% - 8.5, 8, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 6/4, 1)
-		Add3DWindows(EntE1_WinSide1, %Door_MainX%, %Door_MainZ% - 10.5 + 3.25, right, 6.5, 7, 0.5, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 2/4, 1)
-		Add3DWindows(EntE1_WinSide2, %Door_MainX%, %Door_MainZ% + 10.5 - 3.25, right, 6.5, 7, 0.5, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 2/4, 1)
+		Set Door_MainX = %1%
+		Set Door_MainZ = -75
+		
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
 		#Access point E2
 		Set Door_MainX = %1%
-		Set Door_MainZ = 120
+		Set Door_MainZ = 75
+		
 		WallOrientation = right
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddStdDoor Door Manager, EntDoorE2_Left, , , false, %Texture%Int, %SideTexture%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddStdDoor Door Manager, EntDoorE2_Right, , , false, %Texture%Int, %SideTexture%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 7, 7.5, %interfloorheight%, false, 0, 0, true
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
-		Add3DWindows(EntE2_WinTop, %Door_MainX%, %Door_MainZ%, right, 21, %height% - 8.5, 8, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 6/4, 1)
-		Add3DWindows(EntE2_WinSide1, %Door_MainX%, %Door_MainZ% - 10.5 + 3.25, right, 6.5, 7, 0.5, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 2/4, 1)
-		Add3DWindows(EntE2_WinSide2, %Door_MainX%, %Door_MainZ% + 10.5 - 3.25, right, 6.5, 7, 0.5, MainWindowsIntB, MainWindowsB, %5%Wall, 0.5, 2/4, 1)
+		Set Door_MainX = %1%
+		Set Door_MainZ = 85
+		
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		#Access point E3
+		Set Door_MainX = %1%
+		Set Door_MainZ = 115
+		
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		Set Door_MainX = %1%
+		Set Door_MainZ = 125
+		
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 
 	#WEST DOORS
 		#Access point W1
