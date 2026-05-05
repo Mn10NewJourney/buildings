@@ -102,6 +102,15 @@
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, Skylight, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, SkylightInt, 1, 1, false
 
+	#Eastern Annex (3rd-8th floors)
+	Load data/marb047.jpg, EAFloor, 0.25, 0.25, true
+	Load data/marbletile.jpg, EAWall, 0.15, 0.3, true
+	Load data/stucco1b.jpg, EACeiling, 0.2, 0.2, true
+
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1 #EG881
+	Load data/windows11h_inside.gif, EAWindowsInt, 0.025, 1
+	Load data/granite_0007c.jpg, EAExtFacade, 0.075, 0.075, true
+
 	#Main textures
 		#Parking levels and ramps
 		Load data/Carpet0013_S.jpg, ParkingLobbyFloor, 0.2, 0.2
@@ -385,11 +394,11 @@
 
 		#Floor indicators (Both outside and inside)
 		Load data/black.jpg, IndBack, 1, 1, false
-		Load data/black.jpg, IndBack2, 1, 1, false #This might be replaced with a slightly brighter shade of black.
+		Load data/black.jpg, IndBack2, 1, 1, false #This might be replaced with a different shade of black.
 		#Load data/gray2-sm.jpg, IndBack2, 1, 1, false
-		AddTextRange 1, 2, IndBack, Ind_ButtonB%number%, fontgomery.ttf, 47, B%number%, 20, 0, 128, 128, center, center, 255, 0, 0, false
-		AddTextRange 1, 10, IndBack, Ind_Button%number%, fontgomery.ttf, 47, %number%, 20, 0, 128, 128, center, center, 255, 0, 0, false
-		AddTextRange 7, 8, IndBack, Ind_Button%number%A, fontgomery.ttf, 47, %number%A, 20, 0, 128, 128, center, center, 255, 0, 0, false
+		AddTextRange 1, 2, Blank, Ind_ButtonB%number%, fontgomery.ttf, 47, B%number%, 20, 0, 128, 128, center, center, 255, 0, 0, false
+		AddTextRange 1, 10, Blank, Ind_Button%number%, fontgomery.ttf, 47, %number%, 20, 0, 128, 128, center, center, 255, 0, 0, false
+		AddTextRange 7, 8, Blank, Ind_Button%number%A, fontgomery.ttf, 47, %number%A, 20, 0, 128, 128, center, center, 255, 0, 0, false
 
 	#Signs
 		#Main Floor Star
@@ -737,13 +746,17 @@ DrawWalls = false, true, false, false, false, false
 	SetAutoSize = true, false
 
 		#Front windows
-		if[%floor% < 4] AddCustomWindows(SZ_FrontWin, ShopWindows, ShopWindowsInt, -40, %2% - 740 - 120, 40, %2% - 740 - 120, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		if[%floor% < 4] AddCustomWindows(SZ_FrontWin, ShopWindows, ShopWindowsInt, -40, %2% - 740 - 120, 40, %2% - 740 - 120, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
 		#Left windows
-		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(WZ_LeftWin, ShopWindows, ShopWindowsInt, -%1%, 20, -%1%, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(WZ_LeftWin, ShopWindows, ShopWindowsInt, -%1%, 20, -%1%, 140, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+
+		#Right windows
+		Set MyIFloorType2 = 2
+		if[%floor% = 6] Set MyIFloorType2 = 1
+		if[%floor% = 6 | %floor% = 8] AddCustomWindows(EZ_RightWin, ShopWindowsInt, ShopWindowsInt, %1%, 100, %1%, 140, %WinHeight%, 0, 0, %MyIFloorType2%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
-
 
 	#Perimeter walls
 	Set WallHeight = %fullheight%
@@ -823,7 +836,18 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = right
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
-		AddWall EZ_RightWall, ExtFacade, 0.5, %1%, -%2% + 260, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 6] AddWall EZ_RightWall, ExtFacade, 0.5, %1%, -%2% + 260, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, false, true, false, false #Reset drawwalls
+		TextureOverride %5%Wall, ExtFacade, Blank, %5%Wall, Blank, Blank
+		if[%floor% > 5] AddWall EZ_RightWall_Top1, ExtFacade, 0.5, %1%, -%2% + 260, %1%, 100, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
+		if[%floor% > 5] AddWall EZ_RightWall_Top2, ExtFacade, 0.5, %1%, 140, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, false, false, false, true, true
+		if[%floor% = 8] AddWall EZ_RightWall_TopIFC, ExtFacade, 0.5, %1%, 100, %1%, 140, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
 <EndFloors>
 
 ########################################
@@ -1003,6 +1027,39 @@ DrawWalls = false, true, false, false, false, false
 	#AddWall CABackRail, %5%%Suffix%, 0.5, -90 + 40, 140, 60, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	AddWall CABackRailA, %5%%Suffix%, 0.5, -90 + 40, 140, 5 - 20, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	AddWall CABackRailB, %5%%Suffix%, 0.5, 5 + 20, 140, 60, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+<EndFloors>
+
+########################################
+
+#Eastern Annex
+<Floors 2 to 9>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = true, true, false, true, true, true
+	TextureOverride EAExtFacade, EAFloor, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
+	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2% + 260, %1% + 20, 140, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, true, false, true, true, true
+	TextureOverride EACeiling, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
+	if[%floor% = 9] AddFloor EATop, EACeiling, 2, %1%, -%2% + 260, %1% + 20, 140, %fullheight%, %fullheight%, 0, 0, true
+
+	#Windows
+	Set MyIFloorType = 2
+	if[%floor% = 2] Set MyIFloorType = 3
+	Set WinHeight = %height%
+	if[%floor% > 5] Set WinHeight = %height% + Floor(%floor% + 1).FullHeight
+
+	SetAutoSize = true, false
+
+		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 20, -%2% + 260, %1% + 20, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		if[%floor% ! 7 & %floor% ! 9] AddCustomWindows(EA_BackWin, EAWindowsInt, EAWindows, %1%, 140, %1% + 20, 140, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+
+	SetAutoSize = true, true
+
 <EndFloors>
 
 ########################################
@@ -2028,9 +2085,9 @@ ShowFullShaft 10 = true
 	Set P1_PositionZ = 1.72 - 0.001
 
 		#Panels
-		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% + 0.001 - 0.025, 0.7, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
-		CreatePanel , 8, 2, front, %P1_PositionX%, %P1_PositionZ% - 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
-		CreatePanel , 8, 1, front, %P1_PositionX%, %P1_PositionZ% - 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
+		#CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% + 0.001 - 0.025, 0.7, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
+		CreatePanel , 8, 2, front, %P1_PositionX%, %P1_PositionZ%, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
+		CreatePanel , 8, 1, front, %P1_PositionX%, %P1_PositionZ%, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
 
 			#Buttons
 			if[%elevator% = 4] BtnPanelE4(1)
@@ -2041,9 +2098,9 @@ ShowFullShaft 10 = true
 	Set P2_PositionZ = 1.72 - 0.001
 
 		#Panels
-		CreateWallBox2 elevator, RightPB, ElevPanel, %P2_PositionX%, %P2_PositionZ% + 0.001 - 0.025, 0.7, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
-		CreatePanel , 8, 2, front, %P2_PositionX%, %P2_PositionZ% - 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
-		CreatePanel , 8, 1, front, %P2_PositionX%, %P2_PositionZ% - 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
+		#CreateWallBox2 elevator, RightPB, ElevPanel, %P2_PositionX%, %P2_PositionZ% + 0.001 - 0.025, 0.7, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
+		CreatePanel , 8, 2, front, %P2_PositionX%, %P2_PositionZ%, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
+		CreatePanel , 8, 1, front, %P2_PositionX%, %P2_PositionZ%, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
 
 			#Buttons
 			if[%elevator% = 4] BtnPanelE4(3)
@@ -2059,19 +2116,19 @@ ShowFullShaft 10 = true
 
 		#Right
 		DrawWalls = true, false, false, false, false, false
-		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.25, %P1_PositionZ% - 0.051, %P1_PositionX% + 0.25, %P1_PositionZ% - 0.051, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
-		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% - 0.2, %P1_PositionZ% - 0.052, %P1_PositionX% + 0.2, %P1_PositionZ% - 0.052, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
+		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.25, %P1_PositionZ% - 0.001, %P1_PositionX% + 0.25, %P1_PositionZ% - 0.001, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
+		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% - 0.2, %P1_PositionZ% - 0.002, %P1_PositionX% + 0.2, %P1_PositionZ% - 0.002, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, front, %P1_PositionX%, %P1_PositionZ% - 0.053, 0.4, 0.4, %IndOffset%
-		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX%, %P1_PositionZ% - 0.053, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
+		AddFloorIndicator Ind_Button, front, %P1_PositionX%, %P1_PositionZ% - 0.003, 0.4, 0.4, %IndOffset%
+		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX%, %P1_PositionZ% - 0.003, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
 
 		#Left
 		DrawWalls = true, false, false, false, false, false
-		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% - 0.25, %P2_PositionZ% - 0.051, %P2_PositionX% + 0.25, %P2_PositionZ% - 0.051, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
-		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% - 0.2, %P2_PositionZ% - 0.052, %P2_PositionX% + 0.2, %P2_PositionZ% - 0.052, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
+		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% - 0.25, %P2_PositionZ% - 0.001, %P2_PositionX% + 0.25, %P2_PositionZ% - 0.001, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
+		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% - 0.2, %P2_PositionZ% - 0.002, %P2_PositionX% + 0.2, %P2_PositionZ% - 0.002, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, front, %P2_PositionX%, %P2_PositionZ% - 0.053, 0.4, 0.4, %IndOffset%
-		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX%, %P2_PositionZ% - 0.053, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
+		AddFloorIndicator Ind_Button, front, %P2_PositionX%, %P2_PositionZ% - 0.003, 0.4, 0.4, %IndOffset%
+		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX%, %P2_PositionZ% - 0.003, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -2567,7 +2624,7 @@ ShowFullShaft 10 = true
 		#Elevator 1
 		CreateWallBox2 external, E1LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% - 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E1BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% - 10 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% - 10, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E1BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% - 10 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% - 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 1, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 1, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2575,7 +2632,7 @@ ShowFullShaft 10 = true
 		#Elevator 2
 		CreateWallBox2 external, E2LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% - 0, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E2BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% - 0 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% - 0, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E2BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% - 0 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% - 0 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 2, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 2, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2583,7 +2640,7 @@ ShowFullShaft 10 = true
 		#Elevator 3
 		CreateWallBox2 external, E3LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% + 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E3BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% + 10 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% + 10, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E3BlankInd, IndBack, 0, %Shaft1CX% + 5.052, %Shaft1CZ% + 10 - 0.5, %Shaft1CX% + 5.052, %Shaft1CZ% + 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 3, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 3, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2881,7 +2938,7 @@ ShowFullShaft 10 = true
 		#Elevator 8
 		CreateWallBox2 external, E8LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% - 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E8BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 10 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 10, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E8BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 10 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 8, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 8, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2889,7 +2946,7 @@ ShowFullShaft 10 = true
 		#Elevator 9
 		CreateWallBox2 external, E9LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% - 0, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E9BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 0 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 0, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E9BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 0 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% - 0 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 9, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 9, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2897,7 +2954,7 @@ ShowFullShaft 10 = true
 		#Elevator 10
 		CreateWallBox2 external, E10LanternPanel, %LPanelTexture%, %Shaft1CX% + 5 + 0.025 + %ExtraLateralOffset%, %Shaft1CZ% + 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = false, true, false, false, false, false
-		AddWall E10BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% + 10 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% + 10, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E10BlankInd, IndBack, 0, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% + 10 - 0.5, %Shaft1CX% + 5.052 + %ExtraLateralOffset%, %Shaft1CZ% + 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 10, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 - 0.25, %Offset% + 0.05, right, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 10, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2905,7 +2962,7 @@ ShowFullShaft 10 = true
 		#Elevator 11
 		CreateWallBox2 external, E11LanternPanel, %LPanelTexture%, %Shaft2CX% - 5 - 0.025 - %ExtraLateralOffset%, %Shaft2CZ% - 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = true, false, false, false, false, false
-		AddWall E11BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 10, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E11BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 10 - 0.5, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 11, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 + 0.25, %Offset% + 0.05, left, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 11, true, Ind_Button, left, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 - 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2913,7 +2970,7 @@ ShowFullShaft 10 = true
 		#Elevator 12
 		CreateWallBox2 external, E12LanternPanel, %LPanelTexture%, %Shaft2CX% - 5 - 0.025 - %ExtraLateralOffset%, %Shaft2CZ% - 0, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = true, false, false, false, false, false
-		AddWall E12BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 0 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E12BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 0 - 0.5, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% - 0 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 12, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 + 0.25, %Offset% + 0.05, left, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 12, true, Ind_Button, left, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 - 0.25, 0.5, 0.5, %Offset% + 0.05
@@ -2921,7 +2978,7 @@ ShowFullShaft 10 = true
 		#Elevator 13
 		CreateWallBox2 external, E13LanternPanel, %LPanelTexture%, %Shaft2CX% - 5 - 0.025 - %ExtraLateralOffset%, %Shaft2CZ% + 10, 0.05, 1.2, 0.6, %Offset%, 0, 0, false, true, true, true
 		DrawWalls = true, false, false, false, false, false
-		AddWall E13BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% + 10, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% + 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
+		AddWall E13BlankInd, IndBack, 0, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% + 10 - 0.5, %Shaft2CX% - 5.052 - %ExtraLateralOffset%, %Shaft2CZ% + 10 + 0.5, 0.5, 0.5, %Offset% + 0.05, %Offset% + 0.05, 0, 0, false
 
 		AddDirectionalIndicator 13, true, false, true, true, IndBack, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 + 0.25, %Offset% + 0.05, left, 0.65, 0.5, false, 0, 0
 		AddFloorIndicator 13, true, Ind_Button, left, -3.75 - 0.66 - %ExtraLateralOffset% - 0.053, 0 - 0.25, 0.5, 0.5, %Offset% + 0.05
