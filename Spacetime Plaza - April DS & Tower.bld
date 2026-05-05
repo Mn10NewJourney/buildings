@@ -80,11 +80,13 @@
 
 	#Eastern Annex (3rd-8th floors)
 	Load data/marb047.jpg, EAFloor, 0.25, 0.25, true
-	Load data/marbletile.jpg, EAWall, 0.15, 0.3, true
+	Load data/granite_0008b.jpg, EAWall, 0.0833, 0.0833, true
 	Load data/stucco1b.jpg, EACeiling, 0.2, 0.2, true
 
-	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1 #EG881
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1
 	Load data/windows11h_inside.gif, EAWindowsInt, 0.025, 1
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindowsB, true, 1, 1, false
+	Load data/windows11h_inside.gif, EAWindowsIntB, 1, 1, false
 	Load data/stone.jpg, EAExtFacade, 0.075, 0.075, true
 
 	#Main textures
@@ -598,6 +600,9 @@ DrawWalls = false, true, false, false, false, false
 	Set WallHeight = %fullheight%
 	Set WallOffset = 0
 
+	Set ExtTex = ExtFacade
+	if[%floor% > 1] Set ExtTex = EAWall
+
 	#Override for the 1st floor only
 	if[%floor% ! 0] Set WallHeight2 = %WallHeight%
 	if[%floor% ! 0] Set WallOffset2 = %WallOffset%
@@ -621,7 +626,7 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, true, false, false, false, false
 
 		WallOrientation = right
-		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
+		TextureOverride %5%Wall, %ExtTex%, Blank, Blank, Blank, Blank
 		AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		#AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 <EndFloors>
@@ -925,13 +930,13 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = true, true, false, true, true, true
 	TextureOverride EAExtFacade, EAFloor, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
-	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2%, %1% + 30, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = 2] AddFloor EABase, EAFloor, 2, %1%, -%2%, %1% + 24, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, true, false, true, true, true
 	TextureOverride EACeiling, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
-	if[%floor% = 6] AddFloor EATop, EACeiling, 2, %1%, -%2%, %1% + 30, %2%, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 6] AddFloor EATop, EACeiling, 2, %1%, -%2%, %1% + 24, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Windows
 	Set MyIFloorType = 2
@@ -940,8 +945,8 @@ DrawWalls = false, true, false, false, false, false
 
 	SetAutoSize = true, false
 
-		AddCustomWindows(EA_FrontWin, EAWindows, EAWindowsInt, %1%, -%2%, %1% + 30, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
-		AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 30, -%2%, %1% + 30, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(EA_FrontWin, EAWindowsB, EAWindowsIntB, %1%, -%2%, %1% + 24, -%2%, %WinHeight%, 3/4, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(EA_RightWin, EAWindowsInt, EAWindows, %1% + 24, -%2%, %1% + 24, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
 <EndFloors>
@@ -1208,7 +1213,7 @@ Set SideTexture = BLKEntDoorSide
 	Set SupportX = %1% - 20 - (%DistanceX% * 5)
 	CreateWallBox2 external, Support%Prefix%2, ColumnTex, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	#CreateWallBox2 external, Support%Prefix%3, ColumnTex, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	if[%floor% > 7] CreateWallBox2 external, Support%Prefix%4, ColumnTex, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	if[%floor% > 8] CreateWallBox2 external, Support%Prefix%4, ColumnTex, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
