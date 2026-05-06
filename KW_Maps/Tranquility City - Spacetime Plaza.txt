@@ -38,6 +38,11 @@
 		Load data/EG881/cem_tr2b.jpg, LMH_RoofFloor, 0.075225, 0.0625, true #EG881
 		Load data/EG881/Concrete/smoothconcrete1.jpg, LMH_RoofFloor2, 0.0625, 0.0625, true #EG881
 
+		#Accounting Tower
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, ACTT_MainWindows, true, 0.05, 1
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, ACTT_LobbyWindows, true, 0.025, 1
+		Load data/stone.jpg, ACTT_ExtFacade, 0.075, 0.075, true
+		Load data/EG881/cem_tr2b.jpg, ACTT_RoofFloor, 0.075225, 0.0625 #EG881
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -288,6 +293,55 @@ Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
 			#Topside Mechanical
 			TextureOverride STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilExtFacade, STP_AprilRoofFloor, Blank
 			AddWall buildings, STP_AprilTower_19F, STP_AprilExtFacade, 240, %0% + %3%, %1% - 370 - 91.25, %0% + %3%, %1% - 370 - 8.75, 24, 24, 268, 268, 0, 0
+
+	#================================================================================#
+
+	#(5.) Accounting Tower
+	#Reset values for this building
+	Set 0 = -822 - 230 + %MainX% #Building Center X
+	Set 1 = 0 - 260 + %MainZ% #Building Center Z
+	Set 3 = 100 #Building Dimension X
+	Set 4 = 100 #Building Dimension Z
+
+		#1. Lobby and office levels
+			#Corner Walls
+			AddWall buildings, STP_ACTT_Front1, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3% + 10, %1% - %4%, 552, 552, 4, 4, 0, 0
+			AddWall buildings, STP_ACTT_Front2, ACTT_ExtFacade, 0, %0% + %3% - 10, %1% - %4%, %0% + %3%, %1% - %4%, 552, 552, 4, 4, 0, 0
+	
+			AddWall buildings, STP_ACTT_Left1, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - %4% + 10, 552, 552, 4, 4, 0, 0
+			AddWall buildings, STP_ACTT_Left2, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4% - 10, %0% - %3%, %1% + %4%, 552, 552, 4, 4, 0, 0
+	
+			AddWall buildings, STP_ACTT_Right1, ACTT_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - %4% + 10, 552, 552, 4, 4, 0, 0
+			AddWall buildings, STP_ACTT_Right2, ACTT_ExtFacade, 0, %0% + %3%, %1% + %4% - 10, %0% + %3%, %1% + %4%, 552, 552, 4, 4, 0, 0
+	
+			AddWall buildings, STP_ACTT_Back1, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% - %3% + 10, %1% + %4%, 552, 552, 4, 4, 0, 0
+			AddWall buildings, STP_ACTT_Back2, ACTT_ExtFacade, 0, %0% + %3% - 10, %1% + %4%, %0% + %3%, %1% + %4%, 552, 552, 4, 4, 0, 0
+	
+			#Lobby Windows
+			SetAutoSize = true, false
+			AddWall buildings, STP_ACTT_LobbyFrontWin, ACTT_LobbyWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_ACTT_LobbyLeftWin, ACTT_LobbyWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_ACTT_LobbyRightWin, ACTT_LobbyWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_ACTT_LobbyBackWin, ACTT_LobbyWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 48, 48, 4, 4, 0, 2
+			SetAutoSize = true, true
+
+			#Office Windows
+			SetAutoSize = true, false
+			AddWall buildings, STP_ACTT_OfficeFrontWin, ACTT_MainWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 504, 504, 52, 52, 0, 42
+			AddWall buildings, STP_ACTT_OfficeLeftWin, ACTT_MainWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 504, 504, 52, 52, 0, 42
+			AddWall buildings, STP_ACTT_OfficeRightWin, ACTT_MainWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 504, 504, 52, 52, 0, 42
+			AddWall buildings, STP_ACTT_OfficeBackWin, ACTT_MainWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 504, 504, 52, 52, 0, 42
+			SetAutoSize = true, true
+
+		#2. Topside Mechanical
+		AddWall buildings, STP_ACTT_MechFront, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 24, 24, 556, 556, 0, 0
+		AddWall buildings, STP_ACTT_MechLeft, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 24, 24, 556, 556, 0, 0
+		AddWall buildings, STP_ACTT_MechRight, ACTT_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 24, 24, 556, 556, 0, 0
+		AddWall buildings, STP_ACTT_MechBack, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 24, 24, 556, 556, 0, 0
+
+		#3. Roof level
+		AddFloor buildings, STP_ACTT_Roof, ACTT_RoofFloor, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 580, 580, 0, 0
+
 <EndFunction>
 
 if[%InSTP% ! true] SpacetimePlaza()
