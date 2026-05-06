@@ -495,28 +495,43 @@ DrawWalls = false, true, false, false, false, false
 	#if[%floor% = 0] Set ShowBottom = false
 
 		#Left
+		Set EP = 0 #Extra position
+		if[%floor% = 0] Set EP = 40 #Extra position
+
 		WallOrientation = left
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade, ExtFacade, ExtFacade2, ExtFacade2
-		AddWall LeftRail, ExtFacade2, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftRail, ExtFacade2, 0.5, -%1%, -%2%, -%1%, %2% - %EP%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Back
 		WallOrientation = right
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% < 2] AddWall BackRail, ExtFacade2, 0.5, -%1% + 0.5, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 2] AddWall BackRailL1, ExtFacade2, 0.5, -%1% + 0.5, %2%, -90, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
+		if[%floor% = 1] AddWall BackRailL2, ExtFacade2, 0.5, -90 + 200, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#if[%floor% < 2] AddWall BackRail, ExtFacade2, 0.5, -%1% + 0.5, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 1] AddWall BackRail1, ExtFacade2, 0.5, -%1%, %2%, -170, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% > 1] AddWall BackRailU1, ExtFacade2, 0.5, -%1% + 0.5, %2%, -170, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 1] AddWall BackRail2, ExtFacade2, 0.5, -50, %2%, 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% > 1] AddWall BackRailU2, ExtFacade2, 0.5, -50, %2%, 30, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 1] AddWall BackRail3, ExtFacade2, 0.5, 150, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% > 1] AddWall BackRailU3, ExtFacade2, 0.5, 150, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#Perimeter walls around ramps
+		#Override for "BackWallA" only
+		Set WallHeight = %fullheight%
+		Set WallOffset = 0
+		if[%floor% = 0] Set WallHeight = %height%
+		if[%floor% = 0] Set WallOffset = %interfloorheight%
+
 		WallOrientation = right
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 1] AddWall BackWallA, ExtFacade2, 0.5, -170, %2%, -50, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+		if[%floor% < 2] AddWall BackWallA, ExtFacade2, 0.5, -90, %2%, -90 + 200, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 1] AddWall BackWallB, ExtFacade2, 0.5, 30, %2%, 150, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+		if[%floor% > 1] AddWall BackWallB, ExtFacade2, 0.5, -170, %2%, -50, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
+		if[%floor% > 1] AddWall BackWallC, ExtFacade2, 0.5, 30, %2%, 150, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 <EndFloors>
 
 <Floor 14>
@@ -559,11 +574,11 @@ AddFloorAutoArea -50, Floor(3).Base, -130, 30, Floor(4).Base + 5, -90
 AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 #Cut for mall entrance areas on 3A-4 and 5A-6
-	Cut External, -90, Floor(3).Base - 1, -130, -50 + 72, Floor(4).Base + 5, -90, false, true #Levels 3A-4
-	Cut External, -50 + 72, Floor(3).Base - 1, -130, 30, Floor(4).Base + 1, -90, false, true #Levels 3A-4
+	Cut External, -90, Floor(3).Base - 1, -130, -50 + 72, Floor(4).Base + 5, -98, false, true #Levels 3A-4
+	Cut External, -50 + 72, Floor(3).Base - 1, -130, 30, Floor(4).Base + 1, -98, false, true #Levels 3A-4
 
-	Cut External, -90, Floor(6).Base - 1, -130, -50 + 72, Floor(7).Base + 5, -90, false, true #Levels 5A-6
-	Cut External, -50 + 72, Floor(6).Base - 1, -130, 30, Floor(7).Base + 1, -90, false, true #Levels 5A-6
+	Cut External, -90, Floor(6).Base - 1, -130, -50 + 72, Floor(7).Base + 5, -98, false, true #Levels 5A-6
+	Cut External, -50 + 72, Floor(6).Base - 1, -130, 30, Floor(7).Base + 1, -98, false, true #Levels 5A-6
 
 <Function Parking-MallLink>
 	Set LF = %param1% #Lower Floor
@@ -575,20 +590,20 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 			FloorOrientation = top
 			DrawWalls = true, true, false, false, false, false
 			TextureOverride ParkingCeiling, ParkingFloor2, Blank, Blank, Blank, Blank
-			if[%floor% = %LF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -90, -%2%, 30, -90, %interfloorheight%, %interfloorheight%, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -90, -%2%, 30, -98, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 			#DrawWalls = false, true, false, false, false, false
 			TextureOverride ParkingCeiling, ParkingFloor2, Blank, Blank, Blank, Blank
-			if[%floor% = %UF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -50 + 72, -%2%, 30, -90, %interfloorheight%, %interfloorheight%, 0, 0, true
+			if[%floor% = %UF%] AddFloor MallEntLinkFlr_Base, ParkingFloor2, 1, -50 + 72, -%2%, 30, -98, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 			#Midpoint
 			DrawWalls = true, true, false, false, false, false
-			if[%floor% = %LF%] AddFloor MallEntLinkFlr1, ParkingFloor, 1, -90, -%2%, -50, -90, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkFlr1, ParkingFloor, 1, -90, -%2%, -50, -98, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
 			if[%floor% = %LF%] AddFloor MallEntLinkFlr2, ParkingFloor, 1, -50, -%2%, -50 + 72 - 12, -119.25, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
 
 			#Ramps
-			if[%floor% = %LF%] AddFloor MallEntLinkRamp1, ParkingFloor, 1, -50, -99, -50 + 72, -90, %interfloorheight% + 6, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
-			if[%floor% = %LF%] AddFloor MallEntLinkRamp2, ParkingFloor, 1, -50, -108, -50 + 72, -99, %interfloorheight% + 6, %interfloorheight%, true, false, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkRamp1, ParkingFloor, 1, -50, -103, -50 + 72, -98, %interfloorheight% + 6, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+			if[%floor% = %LF%] AddFloor MallEntLinkRamp2, ParkingFloor, 1, -50, -108, -50 + 72, -103, %interfloorheight% + 6, %interfloorheight%, true, false, 0, 0, true
 	<EndFloors>
 	
 	<Floor %LF%>
@@ -601,11 +616,11 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 			#Rails around ramps
 			WallOrientation = right
 			DrawWalls = true, true, true, true, true, false
-			AddWall MERamp1_RailA, ParkingWall2, 0.25, -50, -90, -50 + 72, -90, %WH%, %WH%, %ML%, %UL%, 0, 0, true
-			AddWall MERamp2_RailA, ParkingWall2, 0.25, -50, -99, -50 + 72, -99, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+			AddWall MERamp1_RailA, ParkingWall2, 0.25, -50, -98, -50 + 72, -98, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+			AddWall MERamp2_RailA, ParkingWall2, 0.25, -50, -103, -50 + 72, -103, %WH%, %WH%, %ML%, %LL%, 0, 0, true
 	
 			WallOrientation = left
-			AddWall MERamp1_RailB, ParkingWall2, 0.25, -50, -99, -50 + 72, -99, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+			AddWall MERamp1_RailB, ParkingWall2, 0.25, -50, -103, -50 + 72, -103, %WH%, %WH%, %ML%, %UL%, 0, 0, true
 			AddWall MERamp2_RailB, ParkingWall2, 0.25, -50, -108, -50 + 72, -108, %WH%, %WH%, %ML%, %LL%, 0, 0, true
 
 			#Rails around stairs
@@ -619,9 +634,9 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 			#Rails at floors
 			WallOrientation = left
 			DrawWalls = true, true, true, true, true, false
-			AddWall MEMidpoint_LeftRail, ParkingWall2, 0.25, -90, -%2%, -90, -90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			AddWall MEMidpoint_LeftRail, ParkingWall2, 0.25, -90, -%2%, -90, -98, %WH%, %WH%, %ML%, %ML%, 0, 0, true
 			WallOrientation = right
-			AddWall MEMidpoint_BackRailA, ParkingWall2, 0.25, -90, -90, -50, -90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			AddWall MEMidpoint_BackRailA, ParkingWall2, 0.25, -90, -98, -50, -98, %WH%, %WH%, %ML%, %ML%, 0, 0, true
 			AddWall MEMidpoint_BackRailB, ParkingWall2, 0.25, -50, -119.25, 10, -119.25, %WH%, %WH%, %ML%, %ML%, 0, 0, true
 			AddWall MEMidpoint_RightRail, ParkingWall2, 0.25, -50, -119.5, -50, -108 + 0.25, %WH%, %WH%, %ML%, %ML%, 0, 0, true
 	<EndFloor>
@@ -633,12 +648,11 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	
 		WallOrientation = right
 		DrawWalls = true, true, true, true, true, false
-		AddWall MELinkWall_Left, ParkingWall, 0.5, -90, -%2%, -90, -90 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MELinkWall_Left, ParkingWall, 0.5, -90, -%2%, -90, -98 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = left
-		AddWall MELinkWall_Back, ParkingWall, 0.5, -90, -90, -50 + 72, -90, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MELinkWall_Back, ParkingWall, 0.5, -90, -98, -50 + 72, -98, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		#AddWall MELinkWall_Right1, ParkingWall, 0.5, -50 + 72, -99 - 0.25, -50 + 72, -90 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall MELinkWall_Right2, ParkingWall, 0.5, -50 + 72, -125, -50 + 72, -98.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MELinkWall_Right, ParkingWall, 0.5, -50 + 72, -125, -50 + 72, -102.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	<EndFloor>
 <EndFunction>
 
@@ -665,16 +679,66 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 ########################################
 
 #Auto area for ramps
-AddFloorAutoArea -170, Floor(2).Base, 129.5 - 18, -50, Floor(13).Base + 5, 129.5
-AddFloorAutoArea 30, Floor(2).Base, 129.5 - 18, 150, Floor(13).Base + 5, 129.5
+	#Ramps between 1-2
+	AddFloorAutoArea -90, Floor(2).Base, 129.5 - 36.5, -90 + 200, Floor(13).Base + 5, 129.5
+
+	#Ramps between 3-10
+	AddFloorAutoArea -170, Floor(2).Base, 129.5 - 18, -50, Floor(13).Base + 5, 129.5
+	AddFloorAutoArea 30, Floor(2).Base, 129.5 - 18, 150, Floor(13).Base + 5, 129.5
 
 #Cuts for parking ramps
+	#Longer ramps between levels 1-2
+	Cut External, -90, Floor(0).Base + 5, 129.5 - 36.5, -90 + 200, Floor(1).Base + 1.5, 129.5, false, true
+
 	#Shorter ramps between levels 3-10
 	Cut External, -170, Floor(2).Base + 5, 129.5 - 18, -50, Floor(13).Base + 1.5, 129.5, false, true
 	Cut External, 30, Floor(2).Base + 5, 129.5 - 18, 150, Floor(13).Base + 1.5, 129.5, false, true
 	
 	
 #Parking ramps creation
+	<Floors 0 to 1>
+		TexPrefix() #Set texture prefix
+	
+		#Parking ramps
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P1-P2_A, Road, 1, -90, 129.5 - 18, -90 + 90, 129.5, %interfloorheight%, %interfloorheight% + 9, true, false, 0, 0, true
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P1-P2_B, Road, 1, -90 + 90, 129.5 - 18, -90 + 110, 129.5, %interfloorheight% + 9, %interfloorheight% + 9, true, false, 0, 0, true
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P1-P2_C, Road, 1, -90 + 110, 129.5 - 18, -90 + 200, 129.5, %interfloorheight% + 9, %fullheight% + Floor(%floor% + 1).InterfloorHeight, true, false, 0, 0, true
+
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P2-P1_A, Road, 1, -90, 129.5 - 36.5, -90 + 90, 129.5 - 18.5, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight% + 9, true, false, 0, 0, true
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P2-P1_B, Road, 1, -90 + 90, 129.5 - 36.5, -90 + 110, 129.5 - 18.5, %interfloorheight% + 9, %interfloorheight% + 9, true, false, 0, 0, true
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		if[%floor% < 1] AddFloor Ramp_P2-P1_C, Road, 1, -90 + 110, 129.5 - 36.5, -90 + 200, 129.5 - 18.5, %interfloorheight% + 9, %interfloorheight%, true, false, 0, 0, true
+
+		#Walls around ramps
+		WallOrientation = left
+		Set WallHeight = %height%
+		Set WallOffset = %interfloorheight%
+		if[%floor% = 1] Set WallHeight = %interfloorheight% + 3.5
+		if[%floor% = 1] Set WallOffset = 0
+
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = right
+		AddWall P1-P2RampWall1, ParkingWall3, 0.5, -90, 129.5 - 36, -90 + 200, 129.5 - 36, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall P1-P2RampWall2, ParkingWall3, 0.5, -90, 129.5 - 18, -90 + 200, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Railings on the highest floor
+		Set WallHeight = %interfloorheight% + 3.5
+		Set WallOffset = 0
+
+		WallOrientation = right
+		if[%floor% = 1] AddWall TopRailA, ParkingWall3, 0.5, -90, 129.5 - 18.5, -90, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		if[%floor% = 1] AddWall TopRailB, ParkingWall3, 0.5, -90 + 200, 129.5 - 36.5, -90 + 200, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	<EndFloors>
+
 	<Floors 2 to 13>
 		TexPrefix() #Set texture prefix
 	
@@ -692,23 +756,23 @@ AddFloorAutoArea 30, Floor(2).Base, 129.5 - 18, 150, Floor(13).Base + 5, 129.5
 		Set WallOffset = 0
 		if[%floor% = 2] Set WallHeight = %height%
 		if[%floor% = 2] Set WallOffset = %interfloorheight%
+		if[%floor% = 13] Set WallHeight = %interfloorheight% + 3.5
+		if[%floor% = 13] Set WallOffset = 0
 
-		DrawWalls = true, true, true, true, false, false
+		DrawWalls = true, true, true, true, true, false
 
 		WallOrientation = right
-		TextureOverride ParkingWall2, ExtFacade2, ExtFacade2, ExtFacade2, ParkingWall2, ParkingWall2
-		AddWall UpRampWall, ParkingWall2, 0.5, -170, 129.5 - 18, -50, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		TextureOverride ParkingWall2, ExtFacade2, ExtFacade2, ExtFacade2, ParkingWall2, ParkingWall2
-		AddWall DownRampWall, ParkingWall2, 0.5, 30, 129.5 - 18, 150, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall UpRampWall, ParkingWall3, 0.5, -170, 129.5 - 18, -50, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall DownRampWall, ParkingWall3, 0.5, 30, 129.5 - 18, 150, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Railings on the highest floor
 		Set WallHeight = %interfloorheight% + 3.5
 		Set WallOffset = 0
 
 		WallOrientation = right
-		if[%floor% = 13] AddWall TopRailA, ParkingWall2, 0.5, -170, 129.5 - 18.5, -170, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = 13] AddWall TopRailA, ParkingWall3, 0.5, -170, 129.5 - 18.5, -170, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = left
-		if[%floor% = 13] AddWall TopRailB, ParkingWall2, 0.5, 150, 129.5 - 18.5, 150, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = 13] AddWall TopRailB, ParkingWall3, 0.5, 150, 129.5 - 18.5, 150, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	<EndFloors>
 
 ########################################

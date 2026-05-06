@@ -332,7 +332,7 @@
 			Load data/EG881/elevdoorleft_black.jpg, ServiceBShaftDoors2, -1, 1, false #EG881
 			Load data/EG881/elevdoortrim_black.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
 
-	#Otis ZEN fixtures (Passenger elevators)
+	#Otis ZEN fixtures
 		#Call buttons
 		Load data/NewOtisElevator/ZEN_buttons/Call.png, ZENButtonUp, 1, 1, false
 		Load data/NewOtisElevator/ZEN_buttons/CallLit.png, ZENButtonUpLit, 1, 1, false
@@ -365,8 +365,7 @@
 		Load data/NewOtisElevator/Indicator_sets/Arrow3_Down.png, Arrow_LitDown, 1, 1, false
 
 		Load data/Melvin/transparent128.png, Ind_ButtonBlank, 1, 1, false
-		#Load data/NewOtisElevator/Indicator_sets/Indicator2.png, Ind_LightBlue, 1, 1, false #Main elevators
-		Load data/NewOtisElevator/Indicator_sets/Indicator3.png, Ind_DarkBlue, 1, 1, false #All elevators
+		Load data/NewOtisElevator/Indicator_sets/Indicator3.png, Ind_DarkBlue, 1, 1, false
 
 		AddTextRange 1, 2, Ind_ButtonBlank, Ind_ButtonB%number%, nimbus_sans_bold.ttf, 55, B%number%, -1, -1, -1, -1, center, center, 255, 255, 0, false
 		AddTextRange 1, 19, Ind_ButtonBlank, Ind_Button%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 255, 255, 0, false
@@ -381,15 +380,10 @@
 		Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack.png, ELFlrSignBack, 1, 1, false #8th floor	
 		AddText ELFlrSignBack, ELFlrSign8, nimbus_sans.ttf, 117, 8, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
-		#Load data/graygradient.jpg, ServFlrSignBack, 1, 1, false #Service elevators
-		#AddTextRange 1, 2, ServFlrSignBack, ServFlrSignB%number%, nimbus_sans_bold.ttf, 128, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddTextRange 1, 19, ServFlrSignBack, ServFlrSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-
 		#Floor signs (Stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 1, 20, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddText Blank, BlankSign19A, nimbus_sans_bold_condensed.ttf, 65, 19A, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
 		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
@@ -406,7 +400,7 @@
 
 		#Proximity scanners
 		#Load data/EG881/proxscan1.jpg, ProxScan, 1, 1, false #EG881
-		Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
+		#Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
 		Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
 
 		#Exit signs
@@ -518,7 +512,7 @@ DrawWalls = false, true, false, false, false, false
 	
 	#Service lobby prefixes
 	Set SP = %5%
-	if[%floor% < 18] Set SP = SA
+	if[%floor% > -1 & %floor% < 18] Set SP = SA
 
 	#Service elevators' shaft doors
 	Set 5S = ServiceA
@@ -2299,6 +2293,13 @@ ShaftShowOutside 5 = 6 - 17
 
 			#Buttons
 			BtnPanelE10-11(1)
+
+	#Proximity scanner
+	Set PSscanHeight = 0.45
+	Set PScanWidth = %PSscanHeight% * 0.712
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall ProximityScanner, HIDScanGreen, 0, %P1_PositionX% + 0.001, %P1_PositionZ% - (%PScanWidth% / 2), %P1_PositionX% + 0.001, %P1_PositionZ% + (%PScanWidth% / 2), %PSscanHeight%, %PSscanHeight%, 4.625, 4.625, 0, 0
 	#--------------------
 	#Indicator sets
 	Set IndOffset = 5.75 + 0.25 - (0.4 / 2)
@@ -2555,8 +2556,6 @@ ShaftShowOutside 5 = 6 - 17
 	Set StartNo = 4 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
-	Set IDP = 3.25 + 0.3
-
 	Set IDP = -1.92 - 0.3
 
 	WallOrientation = right
@@ -2828,9 +2827,7 @@ ShaftShowOutside 5 = 6 - 17
 		#Signs
 		WallOrientation = right
 		DrawWalls = true, false, false, false, false, false
-		#AddBoxSign(E10-11_FS2, ServFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 6.001, %Shaft1CZ% + 1, 1, 1, 7 - 1 + %interfloorheight%, true)
-		AddBoxSign(E10-11_FS2, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 6.001, %Shaft1CZ% + 1, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
-
+		AddBoxSign(E10-11_FS1, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 6.001, %Shaft1CZ% + 1, 1.5, 1.5, 7 - 0.75 + %interfloorheight%, true)
 		AddWall E10-11HallSign1, ElevHallSign, 0, %Shaft1CX% - 6.051, %Shaft1CZ% + 1 - 0.25, %Shaft1CX% - 6.051, %Shaft1CZ% + 1 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
