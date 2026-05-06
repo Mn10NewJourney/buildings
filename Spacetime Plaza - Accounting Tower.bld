@@ -64,15 +64,15 @@
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
 
 	#Concrete
-	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade, 0.0625, 0.0625 #EG881
+	Load data/stone.jpg, ExtFacade, 0.075, 0.075, true
 	#Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.0625, 0.0625, true #EG881
 
 	#Windows
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, MainWindows, true, 0.05, 1 #EG881
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, MainWindows, true, 0.05, 1 #EG881
 	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, LobbyWindows, true, 0.025, 1 #EG881
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, LobbyWindows, true, 0.025, 1 #EG881
 	Load data/windows11h_inside.gif, LobbyWindowsInt, 0.025, 1
-	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, MainWindowsB, true, 1, 1, false #EG881
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, MainWindowsB, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
 
 	#Main textures
@@ -147,7 +147,7 @@
 
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
-		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3g.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
+		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky2.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
 
 	#Escalators
@@ -211,9 +211,8 @@
 
 		#Floor signs (Stairwells)
 		#AddTextRange 1, 3, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddTextRange 1, 21, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddText Blank, BlankSign20A, nimbus_sans_bold_condensed.ttf, 65, 20A, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddText Blank, BlankSignR, nimbus_sans_bold.ttf, 72, R, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddTextRange 1, 46, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddText Blank, BlankSign45A, nimbus_sans_bold_condensed.ttf, 65, 20A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
 		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
@@ -279,7 +278,7 @@
 	if[%floor% = 0] Altitude = 2
 <EndFloors>
 
-<Floors 2 to 19>
+<Floors 2 to 43>
 	ID = %floor% + 1
 	Name = Office Level %floorid%
 	Type = Office
@@ -287,9 +286,9 @@
 	InterfloorHeight = 2
 <EndFloors>
 
-<Floors 20 to 21>
+<Floors 44 to 45>
 	if[%floor% = 20] ID = %floor% + 1
-	if[%floor% = 21] ID = 20A
+	if[%floor% = 21] ID = 44A
 	Name = Mechanical Level %floorid%
 	Type = Mechanical
 	Height = 10
@@ -298,7 +297,7 @@
 	if[%floor% = 21] Group = 20
 <EndFloors>
 
-<Floor 22>
+<Floor 46>
 	ID = %floor%
 	Name = Roof
 	Type = Roof
@@ -321,6 +320,9 @@ Set 2 = 100 #Building Dimension Z (Full length: 200 ft.)
 #Landscape
 DrawWalls = false, true, false, false, false, false
 
+	#Filler floors
+	AddFloor landscape, ACTT_FillerFloor, Sidewalk, 0, -%1%, -%2% - 140, %1%, -%2%, 4, 4, 0, 0
+
 ##--------------------------------------------------------------------------------##
 
 #Set texture prefixes/suffixes
@@ -329,7 +331,7 @@ DrawWalls = false, true, false, false, false, false
 	Set 5 = Office
 	if[%floor% < 0] Set 5 = Parking
 	if[%floor% = 0 | %floor% = 1] Set 5 = Lobby
-	if[%floor% > 19] Set 5 = Service
+	if[%floor% > 43] Set 5 = Service
 
 	###************###
 
@@ -352,12 +354,12 @@ DrawWalls = false, true, false, false, false, false
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor ACTT_PGFloor, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor ACTT_PGFloor, Road, 0.5, -%1%, -%2% - 140, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor ACTT_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor ACTT_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2% - 140, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -371,19 +373,19 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - 140, %1%, -%2% - 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - 140, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
 
 		WallOrientation = right
-		AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - 140, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		if[%floor% = -3] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #Lobby and office levels
-<Floors 0 to 19>
+<Floors 0 to 43>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
@@ -448,7 +450,7 @@ DrawWalls = false, true, false, false, false, false
 	#Perimeter windows
 	Set MyIFloorType = 2
 	if[%floor% = 0] Set MyIFloorType = 3
-	if[%floor% = 2] Set MyIFloorType = 1
+	#if[%floor% = 2] Set MyIFloorType = 1
 
 	Set WinPrefix = Main #Windows' prefixes
 	if[%floor% < 2] Set WinPrefix = Lobby
@@ -468,18 +470,18 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Topside mechanical
-<Floors 20 to 21>
+<Floors 44 to 45>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 20] AddFloor ACTT_MechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = 44] AddFloor ACTT_MechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 21] AddFloor ACTT_MechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 45] AddFloor ACTT_MechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -504,7 +506,7 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Roof
-<Floor 22>
+<Floor 46>
 	#Roof floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false

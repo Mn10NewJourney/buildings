@@ -1,8 +1,7 @@
 #Spacetime Plaza - Master File (For entire complex)
 #Copyright (c) 2026-Present - Mn10
 
-#Started on: 30 April 2026
-#(Idea originated around April-May 2017.)
+#Started on: 30 April 2026 (Idea originated around April-May 2017.)
 
 ########################################
 
@@ -25,16 +24,15 @@
 
 #Add buildings
 <Buildings>
-	#Add buildings
-		#Department store annexes (East)
-		Load Spacetime Plaza - Monica DS.bld, 210, 0, 390, 0, -120, 0, -110, 120 + 150, 0, 110 #Northeast annex
-		Load Spacetime Plaza - April DS & Tower.bld, 210, 0, -370, 0, -120, 0, -130, 120 + 150, 0, 130 #Southeast annex
+	#Department store annexes (East)
+	Load Spacetime Plaza - Monica DS.bld, 210, 0, 390, 0, -120, 0, -110, 120 + 150, 0, 110 #Northeast annex
+	Load Spacetime Plaza - April DS & Tower.bld, 210, 0, -370, 0, -120, 0, -130, 120 + 150, 0, 130 #Southeast annex
 
-		#Parking garage and Lavender Moon Hotel (Northwest)
-		Load Spacetime Plaza - PG & Lavender Moon Hotel.bld, -120, 0, 370, 0, -210, 0, -130, 210, 0, 130
+	#Parking garage and Lavender Moon Hotel (Northwest)
+	Load Spacetime Plaza - PG & Lavender Moon Hotel.bld, -120, 0, 370, 0, -210, 0, -130, 210, 0, 130
 
-		#Accounting Tower (Southwest)
-		Load Spacetime Plaza - Accounting Tower.bld, -230, 0, -260, 0, -100, 0, -100, 100, 0, 100
+	#Accounting Tower (Southwest)
+	Load Spacetime Plaza - Accounting Tower.bld, -230, 0, -260, 0, -100, 0, -100 - 140, 100, 0, 100
 <EndBuildings>
 
 
@@ -47,9 +45,7 @@
 	Location = 414 5th Street, Tranquility City
 	Description = The biggest shopping complex in Tranquility City.
 	Version = 1
-	#CameraFloor = 0
 	CameraFloor = 5
-	#CameraPosition = 0, 20
 	CameraPosition = -192.5, 175
 	CameraRotation = 0, 0, 0
 <EndGlobals>
@@ -451,7 +447,7 @@
 ############################################################
 
 #Floor Assignments
-<Floors -1 to -2>
+<Floors -1 to -3>
 	ID = B(0 - %floor%)
 	Name = Basement Level (0 - %floor%)
 	Type = Basement
@@ -460,13 +456,13 @@
 	if[%floor% = -1] Altitude = -10
 <EndFloors>
 
-<Floor -3>
-	ID = -
-	Name = Shaft Pit
-	Type = Basement
-	Height = 8
-	InterfloorHeight = 2
-<EndFloor>
+#<Floor -3>
+#	ID = -
+#	Name = Shaft Pit
+#	Type = Basement
+#	Height = 8
+#	InterfloorHeight = 2
+#<EndFloor>
 
 <Floors 0 to 5>
 	ID = %floor% + 1
@@ -591,17 +587,12 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-	AddFloor WestZonePKFloor, Road, 1, -416, -160, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
-	#AddFloor WestZonePKFloor, Road, 1, -416, %2% - 260 - 320, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor SouthwestZonePKFloor, Road, 1, -416, -%2%, -%1%, -160, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-	#AddFloor WestZonePKFloor, Road, 1, -%1%, %2% - 260 - 320, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
+	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+	AddFloor WestZonePKFloor, Road, 1, -416, -160, -%1% + 240, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor CenterZonePKFloor, Road, 1, -%1% + 240, %2% - 260 - 320, -%1% + 420, %2% - 260, %interfloorheight%, %interfloorheight%, 0, 0, true
-
-	#TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-	#AddFloor SouthZonePKFloor, Road, 1, -%1% + 240, %2% - 260 - 320 - 160, -%1% + 420, %2% - 260 - 320, %interfloorheight%, %interfloorheight%, 0, 0, true
-	#TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
-	#AddFloor SouthZonePKFloor2, Road, 1, -%1% + 240, %2% - 740 - 120, -%1% + 420, %2% - 740, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor EastZonePKFloor, Road, 1, %1% - 240, -%2% + 260, %1% + 150, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
@@ -612,7 +603,7 @@ DrawWalls = false, true, false, false, false, false
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	#if[%floor% = -1] AddFloor WestZonePKCeiling, %5%Ceiling, 0.5, -416, %2% - 260 - 320, -%1%, %2% - 260, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	if[%floor% = -1] AddFloor SouthwestZonePKCeiling, %5%Ceiling, 0.5, -416, -%2%, -%1% + 240, -160, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% = -1] AddFloor WestZonePKCeiling1, %5%Ceiling, 0.5, -416, -160, -%1%, %2% - 260, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% = -1] AddFloor WestZonePKCeiling2, %5%Ceiling, 0.5, -%1%, -160, -%1% + 240, %2% - 260 - 320, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% = -1] AddFloor EastZonePKCeiling, %5%Ceiling, 0.5, %1%, -%2% + 260, %1% + 150, %2% - 220, %fullheight% + 1, %fullheight% + 1, 0, 0, true
@@ -624,14 +615,17 @@ DrawWalls = false, true, false, false, false, false
 	if[%floor% = -1] Set WallHeight = %fullheight% + Floor(0).InterfloorHeight
 	Set WallOffset = 0
 
+		#Southwest Zone
+		DrawWalls = false, true, false, false, false, false
+		WallOrientation = left
+		AddWall SWZoneFrontWall, %5%Wall, 0.5, -416, -%2%, -%1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall SWZoneLeftWall, %5%Wall, 0.5, -416, -%2%, -416, -160, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
 		#West Zone
 		DrawWalls = false, true, false, false, false, false
 		WallOrientation = left
-		#AddWall WestZoneFrontWall, %5%Wall, 0.5, -416, %2% - 260 - 320, -%1% + 240.5, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		#AddWall WestZoneFrontWall, %5%Wall, 0.5, -416, -160, -%1% + 240, -160, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall WestZoneFrontWall, %5%Wall, 0.5, -%1% + 200 - 0.5, -160, -%1% + 240, -160, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall WestZoneLeftWall, %5%Wall, 0.5, -416, -160, -416, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		#AddWall WestZoneLeftWall, %5%Wall, 0.5, -416, %2% - 260 - 320, -416, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = true, false, false, false, false, false
@@ -643,7 +637,7 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = false, true, false, true, false, false
 		if[%floor% = -1] AddWall CenterZoneFrontWallA, %5%Wall, 0.5, -%1% + 240 - 0.5, %2% - 260 - 320, 10 - 15, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% = -1] AddWall CenterZoneFrontWallB, %5%Wall, 0.5, 10 - 15, %2% - 260 - 320, 10 + 15, %2% - 260 - 320, Floor(0).InterfloorHeight + 1.5, Floor(0).InterfloorHeight + 1.5, %interfloorheight% + 8.5, %interfloorheight% + 8.5, 0, 0, true
+		if[%floor% = -1] AddWall CenterZoneFrontWallB, %5%Wall, 0.5, 10 - 15, %2% - 260 - 320, 10 + 15, %2% - 260 - 320, Floor(0).InterfloorHeight + 2, Floor(0).InterfloorHeight + 2, %interfloorheight% + 8, %interfloorheight% + 8, 0, 0, true
 		DrawWalls = false, true, true, false, false, false
 		if[%floor% = -1] AddWall CenterZoneFrontWallC, %5%Wall, 0.5, 10 + 15, %2% - 260 - 320, -%1% + 420.5, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -663,7 +657,7 @@ DrawWalls = false, true, false, false, false, false
 
 #Underground parking access roadways
 Set LL = Floor(-1).Base #Level B1's floor elevation
-Set LL2 = %LL% + 8.5 #Level B1's (lowered) ceiling elevation
+Set LL2 = %LL% + 8 #Level B1's (lowered) ceiling elevation
 Set SL = 0 #Street level
 Set UL = Floor(0).Base #1st floor's floor elevation
 
