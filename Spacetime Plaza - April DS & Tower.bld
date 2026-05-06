@@ -72,6 +72,10 @@
 	#Windows
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, MainWindows, true, 0.05, 1 #EG881
 	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
+
+	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, ShopWindows, true, 0.025, 1 #EG881
+	Load data/windows11h_inside.gif, ShopWindowsInt, 0.025, 1
+
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, MainWindowsB, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
 
@@ -589,6 +593,18 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = true, false, false, false, false, false
 	AddFloor AprilDSCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 
+	#Perimeter windows
+	Set MyIFloorType = 2
+	if[%floor% = 0] Set MyIFloorType = 3
+	Set WinHeight = %height%
+
+	SetAutoSize = true, false
+
+		#Right windows
+		if[%floor% = 2] AddCustomWindows(ADS_RightWin_3F, ShopWindowsInt, ShopWindowsInt, %1%, -10, %1%, 30, %WinHeight%, 0, 0, %MyIFloorType%, EAWall, %5%Wall)
+
+	SetAutoSize = true, true
+
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
 	Set WallHeight = %fullheight%
@@ -621,7 +637,15 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = right
 		TextureOverride %5%Wall, %ExtTex%, Blank, Blank, Blank, Blank
-		AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% ! 2] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride %5%Wall, %ExtTex%, Blank, %5%Wall, Blank, Blank
+		if[%floor% = 2] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, -10, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride %5%Wall, %ExtTex%, %5%Wall, Blank, Blank, Blank
+		if[%floor% = 2] AddWall RightWall, %5%Wall, 0.5, %1%, 30, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
 		#AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 <EndFloors>
 
@@ -951,7 +975,29 @@ DrawWalls = false, true, false, false, false, false
 Set Texture = BLKEntDoor
 Set SideTexture = BLKEntDoorSide
 
-	#--Coming soon--
+<Floor 2>
+	#TexPrefix()
+
+	#EAST DOORS
+		#Access point E1
+		Set Door_MainX = %1%
+		Set Door_MainZ = 5
+		
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+
+		Set Door_MainX = %1%
+		Set Door_MainZ = 15
+
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
+<EndFloor>
 
 ########################################
 
@@ -2299,7 +2345,7 @@ ShaftShowOutside 5 = 6 - 17
 	Set PScanWidth = %PSscanHeight% * 0.712
 
 	DrawWalls = false, true, false, false, false, false
-	AddWall ProximityScanner, HIDScanGreen, 0, %P1_PositionX% + 0.001, %P1_PositionZ% - (%PScanWidth% / 2), %P1_PositionX% + 0.001, %P1_PositionZ% + (%PScanWidth% / 2), %PSscanHeight%, %PSscanHeight%, 4.625, 4.625, 0, 0
+	AddWall ProximityScanner, HIDScanRed, 0, %P1_PositionX% + 0.001, %P1_PositionZ% - (%PScanWidth% / 2), %P1_PositionX% + 0.001, %P1_PositionZ% + (%PScanWidth% / 2), %PSscanHeight%, %PSscanHeight%, 4.875, 4.875, 0, 0
 	#--------------------
 	#Indicator sets
 	Set IndOffset = 5.75 + 0.25 - (0.4 / 2)
