@@ -64,20 +64,16 @@
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
 
 	#Concrete
-	#Load data/cutston.jpg, ExtFacade, 0.075, 0.075, true
-	#Load data/graniteTexture_0005b.jpg, ExtFacade, 0.0625, 0.0625, true
-	Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.0625, 0.0625, true #EG881
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ExtFacade, 0.0625, 0.0625 #EG881
+	#Load data/EG881/granite_0007e_black.jpg, ExtFacade, 0.0625, 0.0625, true #EG881
 
 	#Windows
-	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, MainWindows, true, 0.05, 1 #EG881
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, MainWindows, true, 0.05, 1 #EG881
 	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
-	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, LobbyWindows, true, 0.025, 1 #EG881
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, LobbyWindows, true, 0.025, 1 #EG881
 	Load data/windows11h_inside.gif, LobbyWindowsInt, 0.025, 1
-	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky1.jpg, MainWindowsB, true, 1, 1, false #EG881
+	LoadAlphaBlend data/EG881/windows11h_black2.jpg, data/windows11ispec.png, data/sky3g.jpg, MainWindowsB, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
-
-	#LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, Skylight, true, 1, 1, false #EG881
-	#Load data/windows11h_inside.gif, SkylightInt, 1, 1, false
 
 	#Main textures
 		#Parking levels and ramps
@@ -151,7 +147,7 @@
 
 		#Black entrance doors
 		Load data/EG881/miscdoor8_blacktrans.png, BLKEntDoorInt, 1, 1, false #EG881
-		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky1.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
+		LoadAlphaBlend data/EG881/miscdoor8_blacktranstinted.jpg, data/EG881/miscdoor8_blacktranspec.png, data/sky3g.jpg, BLKEntDoorExt, true, 1, 1, false #EG881
 		LoadCropped data/EG881/miscdoor8_blacktrans.png, BLKEntDoorSide, 236, 0, 20, 512, 1, 1, false #EG881
 
 	#Escalators
@@ -367,6 +363,8 @@ DrawWalls = false, true, false, false, false, false
 	TexPrefix() #Set texture prefix/suffix
 	if[%floor% ! -1] Set WallHeight = %fullheight%
 	if[%floor% = -1] Set WallHeight = %fullheight% + Floor(0).InterfloorHeight
+	Set WallHeight2 = %WallHeight%
+	if[%floor% = -3] Set WallHeight2 = %fullheight% + Floor(-2).InterfloorHeight
 	Set WallOffset = 0
 
 		#Set DrawWalls for Front/Left sides
@@ -381,7 +379,7 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = right
 		AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% = -3] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -3] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #Lobby and office levels
@@ -399,6 +397,7 @@ DrawWalls = false, true, false, false, false, false
 	AddFloor ACTT_Ceiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
+	Set WL = 10 #Walls' length
 	Set WallHeight = %fullheight%
 	Set WallOffset = 0
 
@@ -414,37 +413,37 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = left
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride ExtFacade, %5%Wall, Blank, %5%Wall, Blank, Blank
-		AddWall FrontWallA, %5%Wall, 0.5, -%1%, -%2%, -%1% + 5, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall FrontWallA, %5%Wall, 0.5, -%1%, -%2%, -%1% + %WL%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, Blank, Blank, Blank
-		AddWall FrontWallB, %5%Wall, 0.5, %1% - 5, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall FrontWallB, %5%Wall, 0.5, %1% - %WL%, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		#Left walls
 		WallOrientation = left
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride ExtFacade, %5%Wall, Blank, %5%Wall, Blank, Blank
-		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -%2% + 5, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -%2% + %WL%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, Blank, Blank, Blank
-		AddWall LeftWallB, %5%Wall, 0.5, -%1%, %2% - 5, -%1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall LeftWallB, %5%Wall, 0.5, -%1%, %2% - %WL%, -%1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		#Right walls
 		WallOrientation = right
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride %5%Wall, ExtFacade, Blank, %5%Wall, Blank, Blank
-		AddWall RightWallA, %5%Wall, 0.5, %1%, -%2%, %1%, -%2% + 5, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall RightWallA, %5%Wall, 0.5, %1%, -%2%, %1%, -%2% + %WL%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
-		AddWall RightWallB, %5%Wall, 0.5, %1%, %2% - 5, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall RightWallB, %5%Wall, 0.5, %1%, %2% - %WL%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		#Back walls
 		WallOrientation = right
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride %5%Wall, ExtFacade, Blank, %5%Wall, Blank, Blank
-		AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -%1% + 5, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -%1% + %WL%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
-		AddWall BackWallB, %5%Wall, 0.5, %1% - 5, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall BackWallB, %5%Wall, 0.5, %1% - %WL%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 	#Perimeter windows
 	Set MyIFloorType = 2
@@ -458,10 +457,10 @@ DrawWalls = false, true, false, false, false, false
 
 	SetAutoSize = true, false
 
-		AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + 5, -%2%, %1% - 5, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		AddCustomWindows(LefttWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + 5, -%1%, %2% - 5, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% + 5, %1%, %2% - 5, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		AddCustomWindows(BacktWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% + 5, %2%, %1% - 5, %2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(LefttWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% + %WL%, %1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(BacktWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% + %WL%, %2%, %1% - %WL%, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
 <EndFloors>
