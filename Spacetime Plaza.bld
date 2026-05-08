@@ -457,6 +457,12 @@
 	########################################
 
 	#Signs
+		#Parking level signs
+		Load data/Melvin/SpacetimePlaza/Parking/B2_SE.png, B2_SE, 1, 1, false
+		Load data/Melvin/SpacetimePlaza/Parking/B1_SE.png, B1_SE, 1, 1, false
+		Load data/Melvin/SpacetimePlaza/Parking/B2_NE.png, B2_NE, 1, 1, false
+		Load data/Melvin/SpacetimePlaza/Parking/B1_NE.png, B1_NE, 1, 1, false
+
 		#Main Floor Star
 		Load data/Melvin/Aceheart/MainFloorStar.png, MainFloorStar, 1, 1, false
 
@@ -696,8 +702,8 @@ DrawWalls = false, true, false, false, false, false
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor NorthwestZonePKFloor, Road, 1, -416, %2% - 260, -%1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-		#Extra floorings above roads (East zone)
 		DrawWalls = false, true, false, false, false, false
+		#Extra floorings above roads (East zone)
 		if[%floor% = -2] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, %2% - 220, 0, true)
 		if[%floor% = -1] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, -59, 0, true)
 		CreateFlr(EZ_WestUtilityFloor1A, ParkingFloor, 0.5, 111, -%2% + 260, 130, -180, 0, true)
@@ -705,11 +711,16 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = -2] CreateFlr(EZ_WestUtilityFloor3, ParkingFloor, 0.5, 111, -21, 133, 221, 0, true)
 
 		CreateFlr(EZ_NortheastECF, ParkingFloor, 0.5, 268.5, 179, 333, 261, 0, true) #ECF = Elevator core floor
+		if[%floor% = -1] CreateFlr(EZ_NortheastECF_Extra, ParkingFloor, 0.5, 287, 140, 333, 179, 0, true) #ECF = Elevator core floor
 		CreateFlr(EZ_SoutheastECF, ParkingFloor, 0.5, 281, -221, 333, -19, 0, true)
 
 		CreateFlr(EZ_SouthwestECF, ParkingFloor, 0.5, 111, -221, 149, -179, 0, true)
 		CreateFlr(EZ_MidwestECF, ParkingFloor, 0.5, 111, -61, 149, -19, 0, true)
 		CreateFlr(EZ_NorthwestECF, ParkingFloor, 0.5, 111, 221, 149, 261, 0, true)
+
+		#Extra floorings above roads (Center zone)
+		if[%floor% = -1] CreateFlr(CZ_SouthUtilityFloor1, ParkingFloor, 0.5, 25, -80, 90, -59, 0, true)
+		if[%floor% = -1] CreateFlr(CZ_SouthUtilityFloor2, ParkingFloor, 0.5, -90, -80, -5, -59, 0, true)
 
 
 	#Ceilings
@@ -890,6 +901,275 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor Parking_EWA8, ParkingSpaceX, 0, 151 - 18, -120 - (8.5 * 2), 151, -120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA9, ParkingSpaceX, 0, 151 - 18, -160 - (8.5 * 2), 151, -160 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA10, ParkingSpaceX, 0, 151 - 18, -240 - (8.5 * 2), 151, -240 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+		if[%floor% = -1] AddFloor Parking_EWA11, ParkingSpaceX, 0, 109, 200 - (8.5 * 2), 109 + 18, 200 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% = -1] AddFloor Parking_EWA12, ParkingSpaceX, 0, 109, 160 - (8.5 * 2), 109 + 18, 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% = -1] AddFloor Parking_EWA13, ParkingSpaceX, 0, 109, 120 - (8.5 * 2), 109 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% = -1] AddFloor Parking_EWA14, ParkingSpaceX, 0, 109, 80 - (8.5 * 2), 109 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% = -1] AddFloor Parking_EWA15, ParkingSpaceX, 0, 109, 40 - (8.5 * 2), 109 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+	###************************###
+
+	#FLOOR SIGNS ON COLUMNS
+	Set SignOffset = 5 + %interfloorheight%
+	
+		#East Zone
+		Set SignRow = A
+		Set PositionX = 470
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -218.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -218.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -178.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -178.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -138.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -138.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -98.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -98.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -58.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -58.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -18.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -18.75 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 21.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 21.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 61.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 61.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 101.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 101.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 141.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 141.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 181.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 181.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 221.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 221.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 261.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 261.25 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = B
+		Set PositionX = 430
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -218.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -218.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -178.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -178.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -138.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -138.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -98.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -98.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -58.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -58.75 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -18.75 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -18.75 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 21.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 21.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 61.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 61.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 101.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 101.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 141.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 141.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 181.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 181.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 221.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 221.25 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 261.25 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 261.25 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = C
+		Set PositionX = 390
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = D
+		Set PositionX = 350
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = E
+		Set PositionX = 270
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = F
+		Set PositionX = 230
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = G
+		Set PositionX = 190
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = H
+		Set PositionX = 150
+		AddBoxSign(%floorid%_SE_%SignRow%8A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%8B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%9B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%10B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%11B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%12B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13A, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%13B, %floorid%_SE, %floorid%_SE, BlackTrim, 0.02, true, true, true, %PositionX%, -20 + 1.01, 2, 3, %SignOffset%, true)
+
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+
+		Set SignRow = J
+		Set PositionX = 110
+		AddBoxSign(%floorid%_SE_%SignRow%14A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%14B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 20 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%15B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 60 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%16B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 100 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%17B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 140 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%18B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 180 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
+		AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE, %floorid%_NE, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
 <EndFloors>
 
 ########################################
@@ -1996,9 +2276,9 @@ Set SideTexture = BLKEntDoorSide
 	CreateShaftWall(%5%Wall, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 294, 196, 10, 5, Shaft8, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
 
 	#East Elevators (Inner Edge)
-	CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 133, -190, 6, 10, Shaft9, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
-	CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 134, -31, 5, 10, Shaft10, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
-	CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 134, 249, 5, 10, Shaft11, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 133, -190, 6, 10, Shaft9, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 134, -31, 5, 10, Shaft10, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 134, 249, 5, 10, Shaft11, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
 <EndFloors>
 
 <Floor 10>
@@ -2212,6 +2492,7 @@ AddStdShaft(5, 1, -233, -46, 5.67, 14.67, -1, 10, ShaftIntWall2, 0.5, 0.33, 0, 2
 	<EndFloor>
 
 #East Elevators (Outer Edge)
+#Some of them have elevator lobbies on B2-B1.
 AddStdShaft(6, 1, 294, -186, 9.67, 4.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 AddStdShaft(7, 1, 294, -26 - 10, 9.67, 4.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 AddStdShaft(8, 1, 294, 186 + 10, 9.67, 4.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
@@ -2253,6 +2534,7 @@ ShowFullShaft 8 = true
 	<EndFloor>
 
 #East Elevators (Inner Edge)
+#All of them open directly to the underground parking areas.
 AddStdShaft(9, 1, 133, -190, 5.67, 9.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 AddStdShaft(10, 1, 134, -31, 4.67, 9.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 AddStdShaft(11, 1, 134, 249, 4.67, 9.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
