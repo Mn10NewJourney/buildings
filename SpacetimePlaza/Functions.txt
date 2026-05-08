@@ -1,0 +1,45 @@
+#Spacetime Plaza - Commonly used functions
+#Copyright (c) 2026-Present - Mn10
+
+#Floor function - Automatically cuts the current floor and create a new floor
+<Function CreateFlr>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set Thickness = %param3%
+	Set X1 = %param4%
+	Set Z1 = %param5%
+	Set X2 = %param6%
+	Set Z2 = %param7%
+	Set Offset = %param8%
+	Set IX = %param9% #Is external
+	
+		#Set extra offset for floors in "External" mesh.
+		Set EOffset = 0
+		if[%IX% = true | %IX% = True] Set EOffset = %interfloorheight%
+
+	#Cut existing floor for the new floor
+	CutAll %X1%, %Offset% + %interfloorheight% - 0.1, %Z1%, %X2%, %Offset% + %interfloorheight% + 0.1, %Z2%, false, true
+
+	#Floor creation (FloorOrientation and DrawWalls should be set BEFORE calling this function)
+	AddFloor %FlrName%, %FlrTex%, %Thickness%, %X1%, %Z1%, %X2%, %Z2%, %Offset% + %EOffset%, %Offset% + %EOffset%, 0, 0, %IX%
+<EndFunction>
+
+#Flower pot
+<Function AddFlowerPot>
+	Set FPName = %param1%
+	Set FPTex = %param2%
+	Set SoilTex = %param3% #Soil or grass texture
+	Set X1 = %param4%
+	Set Z1 = %param5%
+	Set X2 = %param6%
+	Set Z2 = %param7%
+	Set HT = %param8%
+	Set Offset = %param9%
+
+	#Flower pot creation
+	FloorOrientation = bottom
+	DrawWalls = false, true, true, true, true, true
+	AddFloor landscape, %FPName%_Main, %FPTex%, %HT%, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, 0, 0	
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FPName%_Soil, %SoilTex%, 0, %X1% + 0.5, %Z1% + 0.5, %X2% - 0.5, %Z2% - 0.5, %Offset% + %HT% + 0.001, %Offset% + %HT% + 0.001, 0, 0	
+<EndFunction>
