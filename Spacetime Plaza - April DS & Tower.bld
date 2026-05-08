@@ -16,7 +16,9 @@
 	#3. My previous scripts
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
-	#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+
+	#4. Functions for this complex
+	<Include buildings/SpacetimePlaza/Functions.txt>
 
 ##--------------------------------------------------------------------------------##
 
@@ -328,13 +330,17 @@
 		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
 
 			#Shaft doors (Service)
-			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceAShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceAShaftDoors, 1, 1, false #EG881 #All other floors
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
 
-			Load data/EG881/elevdoorright_black.jpg, ServiceBShaftDoors, -1, 1, false #EG881
-			Load data/EG881/elevdoorleft_black.jpg, ServiceBShaftDoors2, -1, 1, false #EG881
-			Load data/EG881/elevdoortrim_black.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, ServiceBShaftDoors, 1, 1, false #1st-6th floors
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, ServiceBShaftDoors2, -1, 1, false
+			Load data/Melvin/st_panel.jpg, ServiceBShaftDoors_Trim, 1, 1, false
+
+			Load data/EG881/elevdoorright_black.jpg, ServiceCShaftDoors, -1, 1, false #EG881 #19th floor mechanical area
+			Load data/EG881/elevdoorleft_black.jpg, ServiceCShaftDoors2, -1, 1, false #EG881
+			Load data/EG881/elevdoortrim_black.jpg, ServiceCShaftDoors_Trim, 1, 1, false #EG881
 
 	#Otis ZEN fixtures
 		#Call buttons
@@ -516,11 +522,12 @@ DrawWalls = false, true, false, false, false, false
 	
 	#Service lobby prefixes
 	Set SP = %5%
-	if[%floor% > -1 & %floor% < 18] Set SP = SA
+	if[%floor% > 6 & %floor% < 18] Set SP = SA
 
 	#Service elevators' shaft doors
 	Set 5S = ServiceA
-	if[%floor% > 17] Set 5S = ServiceB
+	if[%floor% > -1 & %floor% < 7] Set 5S = ServiceB
+	if[%floor% > 17] Set 5S = ServiceC
 
 	###************###
 
@@ -545,6 +552,18 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = true, true, false, false, false, false
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor AprilDS_PGFloor, Road, 1, -%1%, -%2%, %1% + 150, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+		#Extra floorings above roads
+		DrawWalls = false, true, false, false, false, false
+		CreateFlr(EastCoreFloor, ParkingFloor, 0.5, 80, -90, 120, -50, 0, true)
+		CreateFlr(SouthwestFloor, ParkingFloor, 0.5, -%1%, -%2%, -80, -80, 0, true)
+
+		CreateFlr(WestLobbyAccFlr, Sidewalk, 0.5, -80, -60, -59, -40, 0, true)
+		CreateFlr(WestLobbyFloor1, ParkingLobbyFloor, 0.5, -%1%, -80, -80, -40, 0, true)
+		CreateFlr(WestLobbyFloor2, ParkingLobbyFloor, 0.5, -110, -40, -80, -10, 0, true)
+		CreateFlr(WestLobbyFloor3, ParkingLobbyFloor, 0.5, -%1%, -10, -80, 30, 0, true)
+		CreateFlr(WestStorageFloor, ParkingFloor2, 0.5, -%1%, -40, -110, -10, 0, true)
+		CreateFlr(WestFloor, ParkingFloor, 0.5, -%1%, 30, -80, %2%, 0, true)
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -562,8 +581,14 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
 		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1% + 150, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, -%2% + 140.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallB, %5%LobbyWall, 0.5, -%1%, -60, -%1%, -40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallC, %5%Wall, 0.5, -%1%, -40, -%1%, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallD, %5%LobbyWall, 0.5, -%1%, -10, -%1%, 30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWallE, %5%Wall, 0.5, -%1%, 30, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#AddWall LeftWall-Cancelled, %5%Wall, 0.5, -%1%, -%2%, -%1%, -%2% + 140.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
@@ -571,6 +596,65 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = right
 		AddWall RightWall, %5%Wall, 0.5, %1% + 150, -%2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		#AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+
+	###************************###
+
+	#ROAD MARKINGS
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = %interfloorheight% + 0.01
+
+		#Parking Spaces
+		AddFloor Parking_ADT1, ParkingSpaceX, 0, 269.5 - 18, 90 - (8.5 * 2), 269.5, 90 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT2, ParkingSpaceX, 0, 269.5 - 18, 50 - (8.5 * 2), 269.5, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT3, ParkingSpaceX, 0, 269.5 - 18, 10 - (8.5 * 2), 269.5, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT4, ParkingSpaceX, 0, 269.5 - 18, -30 - (8.5 * 2), 269.5, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT5, ParkingSpaceX, 0, 269.5 - 18, -70 - (8.5 * 2), 269.5, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% = -2] AddFloor Parking_ADT6, ParkingSpaceX, 0, 269.5 - 18, -110 - (8.5 * 1), 269.5, -110 + (8.5 * 2), %Offset%, %Offset%, 1, 3, true
+
+		AddFloor Parking_ADT7, ParkingSpaceX, 0, 221 - 18, 90 - (8.5 * 2), 221, 90 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT8, ParkingSpaceX, 0, 221 - 18, 50 - (8.5 * 2), 221, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT9, ParkingSpaceX, 0, 221 - 18, 10 - (8.5 * 2), 221, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT10, ParkingSpaceX, 0, 221 - 18, -30 - (8.5 * 2), 221, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT11, ParkingSpaceX, 0, 221 - 18, -70 - (8.5 * 2), 221, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+		AddFloor Parking_ADT12, ParkingSpaceX, 0, 179, 90 - (8.5 * 2), 179 + 18, 90 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT13, ParkingSpaceX, 0, 179, 50 - (8.5 * 2), 179 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT14, ParkingSpaceX, 0, 179, 10 - (8.5 * 2), 179 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT15, ParkingSpaceX, 0, 179, -30 - (8.5 * 2), 179 + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT16, ParkingSpaceX, 0, 179, -70 - (8.5 * 2), 179 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+		AddFloor Parking_ADT17, ParkingSpaceX, 0, 141 - 18, 90 - (8.5 * 2), 141, 90 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT18, ParkingSpaceX, 0, 141 - 18, 50 - (8.5 * 2), 141, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT19, ParkingSpaceX, 0, 141 - 18, 10 - (8.5 * 2), 141, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		#AddFloor Parking_ADT20, ParkingSpaceX, 0, 141 - 18, -30 - (8.5 * 2), 141, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT21, ParkingSpaceX, 0, 141 - 18, -70 - (8.5 * 2), 141, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+		AddFloor Parking_ADT22, ParkingSpaceX, 0, 59, 90 - (8.5 * 2), 59 + 18, 90 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT23, ParkingSpaceX, 0, 59, 50 - (8.5 * 2), 59 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT24, ParkingSpaceX, 0, 59, 10 - (8.5 * 2), 59 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		#AddFloor Parking_ADT25, ParkingSpaceX, 0, 59, -30 - (8.5 * 2), 59 + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT26, ParkingSpaceX, 0, 59, -70 - (8.5 * 2), 59 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+		AddFloor Parking_ADT27, ParkingSpaceX, 0, 21 - 18, 90 - (8.5 * 2), 21, 90 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT28, ParkingSpaceX, 0, 21 - 18, 50 - (8.5 * 2), 21, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT29, ParkingSpaceX, 0, 21 - 18, 10 - (8.5 * 2), 21, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT30, ParkingSpaceX, 0, 21 - 18, -30 - (8.5 * 2), 21, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT31, ParkingSpaceX, 0, 21 - 18, -70 - (8.5 * 2), 21, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+		AddFloor Parking_ADT32, ParkingSpaceX, 0, -21, 90 - (8.5 * 2), -21 + 18, 90 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT33, ParkingSpaceX, 0, -21, 50 - (8.5 * 2), -21 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT34, ParkingSpaceX, 0, -21, 10 - (8.5 * 2), -21 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT35, ParkingSpaceX, 0, -21, -30 - (8.5 * 2), -21 + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ADT36, ParkingSpaceX, 0, -21, -70 - (8.5 * 2), -21 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+		AddFloor Parking_ADT37, ParkingSpaceX, 0, -59 - 18, 90 - (8.5 * 2), -59, 90 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT38, ParkingSpaceX, 0, -59 - 18, 50 - (8.5 * 2), -59, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT39, ParkingSpaceX, 0, -59 - 18, 10 - (8.5 * 2), -59, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ADT40, ParkingSpaceX, 0, -59 - 18, -30 - (8.5 * 1), -59, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 3, true
+		AddFloor Parking_ADT41, ParkingSpaceX, 0, -59 - 18, -70 - (8.5 * 2), -59, -70 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
+		AddFloor Parking_ADT42, ParkingSpaceX, 0, -59 - 18, -110 - (8.5 * 2), -59, -110 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 <EndFloors>
 
 ########################################
@@ -1263,7 +1347,7 @@ Set SideTexture = BLKEntDoorSide
 	TexPrefix()
 
 	#Store Elevators
-	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, -105, -25, 5, 15, SH1, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, -105, -25, 5, 15, SH1, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	#Service Elevators
 	Set ShowRight = false
@@ -2853,12 +2937,18 @@ ShaftShowOutside 5 = 6 - 17
 	#****************************************#
 
 	#Door trims/fillers
-	WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set Shaft1CX = 114 #1st shaft for elevator bank
 	Set Shaft1CZ = -70
 
-		AddDecoObject(E10_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
-		AddDecoObject(E11_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		#All other floors
+		if[%floor% < 0 | %floor% > 6] AddDecoObject(E10_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% + 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		if[%floor% < 0 | %floor% > 6] AddDecoObject(E11_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+		#1st-6th floors
+		WallOrientation = left
+		if[%floor% > -1 & %floor% < 7] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 6, %Shaft1CZ% + 6, 4.5, 7, %interfloorheight%, false, 0, 0, true #Elevator 10
+		if[%floor% > -1 & %floor% < 7] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5, 7, %interfloorheight%, false, 0, 0, true #Elevator 11
 
 	#****************************************#
 

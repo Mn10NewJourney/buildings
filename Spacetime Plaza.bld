@@ -20,6 +20,9 @@
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
 	#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
+	#4. Functions for this complex
+	<Include buildings/SpacetimePlaza/Functions.txt>
+
 ##--------------------------------------------------------------------------------##
 
 #Add buildings
@@ -45,8 +48,8 @@
 	Location = 414 5th Street, Tranquility City
 	Description = The biggest shopping complex in Tranquility City.
 	Version = 1
-	CameraFloor = 5
-	CameraPosition = -192.5, 175
+	CameraFloor = 0
+	CameraPosition = 210, -165
 	CameraRotation = 0, 0, 0
 <EndGlobals>
 
@@ -629,7 +632,7 @@ DrawWalls = false, true, false, false, false, false
 ##--------------------------------------------------------------------------------##
 
 #EXTERIOR & INTERIOR
-#Parking levels
+#Parking level B3 (Accounting Tower only)
 <Floor -3>
 	TexPrefix() #Set texture prefix/suffix
 
@@ -643,7 +646,7 @@ DrawWalls = false, true, false, false, false, false
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor OfficeZonePKCeiling, %5%Ceiling, 0.5, -416, -%2%, -%1% + 240, -160, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor OfficeZonePKCeiling, %5%Ceiling, 0.5, -416, -%2%, -%1%, -160, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -660,6 +663,10 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, false, false, false, false, false
 		AddWall OfficeZoneBackWall, %5%Wall, 0.5, -416, -160, -%1%, -160, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
+
+#Parking levels B2-B1
+	#Level B2: Separated between west (office/hotel) and east (shopping) sides
+	#Level B1: Nearly entire floor is linked together
 
 <Floors -2 to -1>
 	TexPrefix() #Set texture prefix/suffix
@@ -688,6 +695,22 @@ DrawWalls = false, true, false, false, false, false
 
 	TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
 	AddFloor NorthwestZonePKFloor, Road, 1, -416, %2% - 260, -%1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Extra floorings above roads (East zone)
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% = -2] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, %2% - 220, 0, true)
+		if[%floor% = -1] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, -59, 0, true)
+		CreateFlr(EZ_WestUtilityFloor1A, ParkingFloor, 0.5, 111, -%2% + 260, 130, -180, 0, true)
+		CreateFlr(EZ_WestUtilityFloor2, ParkingFloor, 0.5, 111, -180, 133, -61, 0, true)
+		if[%floor% = -2] CreateFlr(EZ_WestUtilityFloor3, ParkingFloor, 0.5, 111, -21, 133, 221, 0, true)
+
+		CreateFlr(EZ_NortheastECF, ParkingFloor, 0.5, 268.5, 179, 333, 261, 0, true) #ECF = Elevator core floor
+		CreateFlr(EZ_SoutheastECF, ParkingFloor, 0.5, 281, -221, 333, -19, 0, true)
+
+		CreateFlr(EZ_SouthwestECF, ParkingFloor, 0.5, 111, -221, 149, -179, 0, true)
+		CreateFlr(EZ_MidwestECF, ParkingFloor, 0.5, 111, -61, 149, -19, 0, true)
+		CreateFlr(EZ_NorthwestECF, ParkingFloor, 0.5, 111, 221, 149, 261, 0, true)
+
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -790,10 +813,10 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor Parking_EN25, ParkingSpaceX, 0, 351 - 18, 80 - (8.5 * 2), 351, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EN26, ParkingSpaceX, 0, 351 - 18, 40 - (8.5 * 2), 351, 40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		AddFloor Parking_EN27, ParkingSpaceZ, 0, 311, 261 - 18, 311 + (8.5 * 2), 261, %Offset%, %Offset%, 2, -1, true
-		AddFloor Parking_EN28, ParkingSpaceZ, 0, 309 - (8.5 * 2), 261 - 18, 309, 261, %Offset%, %Offset%, 2, -1, true
+		#AddFloor Parking_EN27, ParkingSpaceZ, 0, 311, 261 - 18, 311 + (8.5 * 2), 261, %Offset%, %Offset%, 2, -1, true
+		#AddFloor Parking_EN28, ParkingSpaceZ, 0, 309 - (8.5 * 2), 261 - 18, 309, 261, %Offset%, %Offset%, 2, -1, true
 
-		AddFloor Parking_EN29, ParkingSpaceX, 0, 269, 240 - (8.5 * 2), 269 + 18, 240 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		#AddFloor Parking_EN29, ParkingSpaceX, 0, 269, 240 - (8.5 * 2), 269 + 18, 240 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		if[%floor% ! -2] AddFloor Parking_EN30, ParkingSpaceX, 0, 269, 160 - (8.5 * 2), 269 + 18, 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_EN31, ParkingSpaceX, 0, 269, 120 - (8.5 * 2), 269 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_EN32, ParkingSpaceX, 0, 269, 80 - (8.5 * 2), 269 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
@@ -836,14 +859,13 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor Parking_ES17, ParkingSpaceX, 0, 351 - 18, -40 - (8.5 * 2), 351, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_ES18, ParkingSpaceX, 0, 351 - 18, -80 - (8.5 * 2), 351, -80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_ES19, ParkingSpaceX, 0, 351 - 18, -120 - (8.5 * 2), 351, -120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		AddFloor Parking_ES20, ParkingSpaceX, 0, 351 - 18, -160 - (8.5 * 2), 351, -160 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor Parking_ES20, ParkingSpaceX, 0, 351 - 18, -160 - (8.5 * 2), 351, -160, %Offset%, %Offset%, -1, 2, true
 		AddFloor Parking_ES21, ParkingSpaceX, 0, 351 - 18, -200 - (8.5 * 2), 351, -200 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		#AddFloor Parking_ES22, ParkingSpaceX, 0, 269, -40 - (8.5 * 2), 269 + 18, -40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		AddFloor Parking_ES23, ParkingSpaceX, 0, 269, -80 - (8.5 * 2), 269 + 18, -80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		AddFloor Parking_ES24, ParkingSpaceX, 0, 269, -120 - (8.5 * 2), 269 + 18, -120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		#AddFloor Parking_ES25, ParkingSpaceX, 0, 269, -160 - (8.5 * 2), 269 + 18, -160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		#AddFloor Parking_ES26, ParkingSpaceX, 0, 269, -200 - (8.5 * 2), 269 + 18, -200 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ES23, ParkingSpaceX, 0, 281 - 18, -80 - (8.5 * 2), 281, -80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ES24, ParkingSpaceX, 0, 281 - 18, -120 - (8.5 * 2), 281, -120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_ES26, ParkingSpaceX, 0, 281 - 18, -160 - (8.5 * 2), 281, -160, %Offset%, %Offset%, 1, 2, true
+		AddFloor Parking_ES26A, ParkingSpaceX, 0, 281 - 18, -200 - (8.5 * 2), 281, -200 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 
 		AddFloor Parking_ES27, ParkingSpaceX, 0, 231 - 18, -40 - (8.5 * 2), 231, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_ES28, ParkingSpaceX, 0, 231 - 18, -80 - (8.5 * 2), 231, -80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
@@ -1244,7 +1266,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	#East atriums
 	Cut External, 180, Floor(0).Base - 0.1, -180, 240, Floor(10).Base + 5, -60, false, true
-	Cut External, 180, Floor(0).Base - 0.1, 60, 240, Floor(10).Base + 5, 140, false, true
+	Cut External, 180, Floor(0).Base - 0.1, 20, 240, Floor(10).Base + 5, 140, false, true
 
 <Floor 0>
 	#Atrium bases
@@ -1262,7 +1284,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		#East atriums
 		AddFloor EastAtriumBase1, ABCarpet2, 0.5, 180, -180, 240, -60, %interfloorheight%, %interfloorheight%, 0, 0, true
-		AddFloor EastAtriumBase2, ABCarpet2, 0.5, 180, 60, 240, 140, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor EastAtriumBase2, ABCarpet2, 0.5, 180, 20, 240, 140, %interfloorheight%, %interfloorheight%, 0, 0, true
 <EndFloor>
 
 <Floor 4>
@@ -1310,13 +1332,13 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
 	AddFloor EastSkylight1, SkylightInt, 0, 180, -180, 240, -60, %interfloorheight%, %interfloorheight%, 6/4, 12, true
 	TextureOverride SkylightInt, Skylight, Blank, Blank, Blank, Blank
-	AddFloor EastSkylight2, SkylightInt, 0, 180, 60, 240, 140, %interfloorheight%, %interfloorheight%, 6/4, 8, true
+	AddFloor EastSkylight2, SkylightInt, 0, 180, 20, 240, 140, %interfloorheight%, %interfloorheight%, 6/4, 12, true
 
 	#Skylight atrium covers
 	CreateWallBox2 external, WestSLAtriumCover, UpperShopWall2, -%1% + 170, 80, 100, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
 	CreateWallBox2 external, CenterSLAtriumCover, UpperShopWall2, 5, 75, 110, 110, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
 	CreateWallBox2 external, EastSLAtriumCover1, UpperShopWall2, 210, -120, 60, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
-	CreateWallBox2 external, EastSLAtriumCover2, UpperShopWall2, 210, 100, 60, 80, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
+	CreateWallBox2 external, EastSLAtriumCover2, UpperShopWall2, 210, 80, 60, 120, %interfloorheight%, -%interfloorheight%, 0, 0, true, false, false, false
 <EndFloor>
 
 <Floors 1 to 6>
@@ -1969,9 +1991,9 @@ Set SideTexture = BLKEntDoorSide
 	TexPrefix()
 
 	#East Elevators (Outer Edge)
-	CreateShaftWall(%5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 294, -186, 10, 5, Shaft6, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
-	CreateShaftWall(%5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 294, -36, 10, 5, Shaft7, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 294, 196, 10, 5, Shaft8, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
+	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, 294, -186, 10, 5, Shaft6, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
+	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, 294, -36, 10, 5, Shaft7, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 294, 196, 10, 5, Shaft8, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
 
 	#East Elevators (Inner Edge)
 	CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 133, -190, 6, 10, Shaft9, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
@@ -4461,9 +4483,9 @@ ShowFullShaft 11 = true
 		CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 144, 246.5, 5, 12.5, ST13, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 		#East Edge
-		CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 296.5, -176, 12.5, 5, ST14, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
-		CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 296.5, -26, 12.5, 5, ST15, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
-		CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 296.5, 186, 12.5, 5, ST16, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+		CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 296.5, -176, 12.5, 5, ST14, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+		CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, 296.5, -26, 12.5, 5, ST15, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+		CreateShaftWall(%5%Wall, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 296.5, 186, 12.5, 5, ST16, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 	
 <EndFloors>
 
