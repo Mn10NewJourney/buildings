@@ -1236,7 +1236,6 @@ Set SideTexture = BLKEntDoorSide
 
 	Set WallHeight = %height%
 	Set WallOffset = %interfloorheight%
-
 	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
 	if[%floor% < 0] Set WallOffset = %interfloorheight%
 
@@ -1257,7 +1256,7 @@ Set SideTexture = BLKEntDoorSide
 	Set DSTex = %DTex%Side
 
 		#South doors (Levels B2-7 only)
-		Set Door_MainX = 64
+		Set Door_MainX = 94
 		Set Door_MainZ = -80
 
 		WallOrientation = left
@@ -1266,7 +1265,7 @@ Set SideTexture = BLKEntDoorSide
 		if[%floor% < 7] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 		#North doors
-		Set Door_MainX = 64
+		Set Door_MainX = 94
 		Set Door_MainZ = -60
 
 		WallOrientation = right
@@ -1341,11 +1340,11 @@ Set SideTexture = BLKEntDoorSide
 	Set DSTex = %DTex%Side
 
 		Set Door_MainX = -102.5
-		Set Door_MainZ = -80
+		Set Door_MainZ = -60
 
 		WallOrientation = right
 		AddStdDoor Door Manager, StoreLevelSTR_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, true, 0, 0, true
 <EndFloors>
 
 <Floors -2 to 7>
@@ -1356,6 +1355,8 @@ Set SideTexture = BLKEntDoorSide
 	#Storage west of Shaft 1
 	Set WallHeight = %height%
 	Set WallOffset = %interfloorheight%
+	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
+	if[%floor% < 0] Set WallOffset = %interfloorheight%
 
 		#Walls creation
 		WallOrientation = left
@@ -1363,6 +1364,7 @@ Set SideTexture = BLKEntDoorSide
 		TextureOverride %5%%Infix%Wall, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall FarWestSTRFront, %5%Wall, 0.5, -120, -40, -110, -40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = right
+		TextureOverride %5%Wall, %5%%Infix%Wall, Blank, Blank, Blank, Blank
 		AddWall FarWestSTRBack, %5%Wall, 0.5, -120, -10, -110, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#Doors creation
@@ -1374,7 +1376,35 @@ Set SideTexture = BLKEntDoorSide
 
 		WallOrientation = left
 		AddStdDoor Door Manager, FarWestSTR_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, true, 0, 0, true
+<EndFloors>
+
+<Floors -2 to -1>
+	TexPrefix() #Wall textures
+
+	#Storage south of Tower Elevators
+	Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
+	Set WallOffset = %interfloorheight%
+
+		#Walls creation
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride %5%Wall, %5%LobbyWall, Blank, Blank, Blank, Blank
+		AddWall SW_STR_Back, %5%Wall, 0.5, -110, -80, -100, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		AddWall SW_STR_Right, %5%Wall, 0.5, -80, -%2%, -80, -90, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors creation
+	Set DTex = ServiceDoor1
+	Set DSTex = %DTex%Side
+
+		Set Door_MainX = -105
+		Set Door_MainZ = -80
+
+		WallOrientation = left
+		AddStdDoor Door Manager, SW_STR_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, SW_STR_D1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 <EndFloors>
 
 ########################################
