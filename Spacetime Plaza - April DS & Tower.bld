@@ -68,7 +68,6 @@
 		Load data/EG881Mod/WhiteIslandZ.png, WhiteIslandZ, 1, 1, false #EG881
 
 	#Concrete
-	#Load data/stone.jpg, ExtFacade, 0.075, 0.075
 	Load data/granite_0007e.jpg, ExtFacade, 0.0625, 0.0625, true
 
 	#Windows
@@ -86,8 +85,10 @@
 
 	#Eastern Annex (3rd-8th floors)
 	Load data/marb047.jpg, EAFloor, 0.25, 0.25, true
-	Load data/granite_0008b.jpg, EAWall, 0.0833, 0.0833, true
-	Load data/stucco1b.jpg, EACeiling, 0.2, 0.2, true
+	#Load data/granite_0008b.jpg, EAWall, 0.0833, 0.0833, true
+	Load data/marbl3.jpg, EAWall, 0.2, 0.2
+	#Load data/stucco1b.jpg, EACeiling, 0.2, 0.2, true
+	Load data/cutston.jpg, EACeiling, 0.1, 0.1, true
 
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, EAWindows, true, 0.025, 1
 	Load data/windows11h_inside.gif, EAWindowsInt, 0.025, 1
@@ -955,11 +956,12 @@ DrawWalls = false, true, false, false, false, false
 	Set WallOffset = 0
 
 		#FRONT AND LEFT
-		DrawWalls = true, true, false, false, false, false
-
+		DrawWalls = true, true, false, true, false, false
 		WallOrientation = left
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall FrontWall1, %5%Wall, 0.5, -%1%, -91.25, -110, -91.25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, true, false, false, false
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		AddWall FrontWall2A, %5%Wall, 0.5, -100, -91.25, -90, -91.25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -1159,12 +1161,11 @@ DrawWalls = false, true, false, false, false, false
 		#Storage doors
 		Set Texture = ServiceDoor3
 		Set Door_MainX = 108
-		Set Door_MainZ = -85
+		Set Door_MainZ = -82.5
 
 		WallOrientation = left
-		AddStdDoor Door Manager, RFSTR_Door1, , , false, %Texture%, %Texture%Side, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor Door Manager, RFSTR_Door2, , , false, %Texture%, %Texture%Side, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+		AddStdDoor Door Manager, RFSTR_Door, , , false, %Texture%, %Texture%Side, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 <EndFloor>
 
 
@@ -1228,6 +1229,155 @@ Set SideTexture = BLKEntDoorSide
 		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 <EndFloor>
+
+########################################
+
+#Service elevator lobby
+<Floors -2 to 17>
+	TexPrefix() #Wall textures
+
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+
+	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
+	if[%floor% < 0] Set WallOffset = %interfloorheight%
+
+	#Walls creation
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride %5%Wall, %SP%Wall, Blank, Blank, Blank, Blank
+	if[%floor% < 7] AddWall ServLbyFront, %5%Wall, 0.5, 90, -80, 108, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	WallOrientation = right
+	TextureOverride %SP%Wall, %5%Wall, Blank, Blank, Blank, Blank
+	AddWall ServLbyBack, %5%Wall, 0.5, 90, -60, 108, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors creation
+	Set DTex = Door8
+	if[%floor% < 0] Set DTex = ServiceDoor1
+	if[%floor% = 7] Set DTex = ServiceDoor2
+	if[%floor% > 7] Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+		#South doors (Levels B2-7 only)
+		Set Door_MainX = 64
+		Set Door_MainZ = -80
+
+		WallOrientation = left
+		if[%floor% < 7] AddStdDoor DoorManager, %floorid%_ServLby_SD1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% < 7] AddStdDoor DoorManager, %floorid%_ServLby_SD2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% < 7] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		#North doors
+		Set Door_MainX = 64
+		Set Door_MainZ = -60
+
+		WallOrientation = right
+		AddStdDoor DoorManager, %floorid%_ServLby_ND1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_ServLby_ND2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFloors>
+
+<Floors 7 to 17>
+	TexPrefix() #Wall textures
+
+	#Storage next to elevator shafts
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+
+		#Walls creation
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall WestSTR1Right, %5%Wall, 0.5, -110, -91.25, -110, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		AddWall WestSTR2Left, %5%Wall, 0.5, -100, -91.25, -100, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall EastSTRLeft, %SP%Wall, 0.5, 108, -91.25, 108, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors creation
+	Set DTex = Door9b
+	if[%floor% = 7] Set DTex = ServiceDoor2
+	Set DSTex = %DTex%Side
+
+		#West Storage 1 (South of Shaft 2)
+		Set Door_MainX = -110
+		Set Door_MainZ = -82.5
+
+		WallOrientation = right
+		AddStdDoor Door Manager, WS1_Door, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+
+		#West Storage 2 (South of Shaft 4)
+		Set Door_MainX = -100
+		Set Door_MainZ = -82.5
+
+		WallOrientation = left
+		AddStdDoor Door Manager, WS2_Door, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+
+		#East Storage (South of Shaft 2)
+		Set DTex = Door1 #Reset for storage inside service elevator lobby
+		Set DSTex = %DTex%Side
+		Set Door_MainX = 108
+		Set Door_MainZ = -82.5
+
+		WallOrientation = left
+		AddStdDoor Door Manager, ES_Door, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+<EndFloors>
+
+<Floors 1 to 5>
+	TexPrefix() #Wall textures
+
+	#Storage in place of Tower Elevator Lobby
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+
+		#Walls creation
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		if[%floor% ! 2] AddWall %floorid%F_WestSTRFront, %5%Wall, 0.5, -110, -80, -100, -80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		if[%floor% ! 2] AddWall %floorid%F_WestSTRBack, %5%Wall, 0.5, -110, -60, -100, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors creation
+	Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+		Set Door_MainX = -102.5
+		Set Door_MainZ = -80
+
+		WallOrientation = right
+		AddStdDoor Door Manager, StoreLevelSTR_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+<EndFloors>
+
+<Floors -2 to 7>
+	TexPrefix() #Wall textures
+	Set Infix = 
+	if[%floor% < 0] Set Infix = Lobby #Override for parking levels
+
+	#Storage west of Shaft 1
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+
+		#Walls creation
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride %5%%Infix%Wall, %5%Wall, Blank, Blank, Blank, Blank
+		AddWall FarWestSTRFront, %5%Wall, 0.5, -120, -40, -110, -40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		AddWall FarWestSTRBack, %5%Wall, 0.5, -120, -10, -110, -10, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Doors creation
+	Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+		Set Door_MainX = -112.5
+		Set Door_MainZ = -40
+
+		WallOrientation = left
+		AddStdDoor Door Manager, FarWestSTR_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
+<EndFloors>
 
 ########################################
 
