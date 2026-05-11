@@ -520,9 +520,10 @@ DrawWalls = false, true, false, false, false, false
 		CreateFlr(MonicaDS_EastCoreFloor1, ParkingLobbyFloor, 0.5, 18.5, -49, 65, 29, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor1, ParkingLobbyFloor, 0.5, -%1%, -15, -%1% + 21, 15, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor2, ParkingFloor, 0.5, -%1%, 15, -%1% + 21, 40, 0, true)
-		CreateFlr(MonicaDS_NUtilityFloor, ParkingFloor, 0.5, -%1%, %2% - 10, %1% + 150, %2%, 0, true)
+		if[%floor% ! -1] CreateFlr(MonicaDS_NUtilityFloor, ParkingFloor, 0.5, -%1%, %2% - 10, %1% + 150, %2%, 0, true)
+		if[%floor% = -1] CreateFlr(MonicaDS_NUtilityFloor1, ParkingFloor, 0.5, -%1%, %2% - 10, -20, %2%, 0, true)
+		if[%floor% = -1] CreateFlr(MonicaDS_NUtilityFloor2, ParkingFloor, 0.5, 20, %2% - 10, %1% + 150, %2%, 0, true)
 		CreateFlr(MonicaDS_SWUtilityFloor, ParkingFloor, 0.5, -%1%, -%2%, -%1% + 21, -89, 0, true)
-
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -547,7 +548,14 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = right
 		AddWall RightWall, %5%Wall, 0.5, %1% + 150, -%2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% ! -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% = -1] AddWall BackWallA, %5%Wall, 0.5, -%1%, %2%, -20, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, true, false, false, false
+		if[%floor% = -1] AddWall BackWallB, %5%Wall, 0.5, 20, %2%, %1% + 150, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, false, false, false, true
+		AddWall BackWall_IFloorCover, %5%Wall, 0.5, -20, %2%, 20, %2%, Floor(%floor% + 1).InterfloorHeight, Floor(%floor% + 1).InterfloorHeight, %fullheight%, %fullheight%, 0, 0, true
 
 	###************************###
 
