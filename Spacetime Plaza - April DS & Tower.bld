@@ -218,10 +218,10 @@
 
 		#Store elevators
 		Load data/marb047.jpg, StoreElevFloor, 0.364, 0.364
-		Load data/otis4_weaveceiling_3x3.jpg, StoreElevCeiling, 1, 1, false
-		#Load data/panel-back3.jpg, StoreElevCeilingTrim, 1, 1, false
-		#Load data/panel-back3.jpg, StoreElevCeilingTrim2, 1, 1, false
-		#Rotate StoreElevCeilingTrim2, 90
+		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, StoreElevCeiling, 1, 1, false
+		Load data/otis67/OTIS67_EU_Button_Lighted.gif, StoreElevCeilingDL, 1, 1, false
+		Load data/EG881/light1x.jpg, StoreElevCeilingLight, 1, 1, false #EG881
+		Load data/panel-back3.jpg, StoreElevCeilingTrim, 1, 1, false
 
 		Load data/EG881/blackdoortrim.jpg, StoreElevWall, 1, 1, false #EG881
 		Load data/Other People's Textures/marb045.png, StoreElevWallPanel, 0.25, 0.25, true
@@ -1914,7 +1914,23 @@ ShaftShowOutside 5 = 6 - 17
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Lights
-		#Not used in these elevators.
+		#1a. Downlights
+		Set DLOffset = 8 - 0.001
+		FloorOrientation = top
+		DrawWalls = true, false, false, false, true, true
+		AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -1.95 - 0.11, 2.45 - 0.11, -1.95 + 0.11, 2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, 2.45 - 0.11, 0 + 0.11, 2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 1.95 - 0.11, 2.45 - 0.11, 1.95 + 0.11, 2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -1.95 - 0.11, -2.45 - 0.11, -1.95 + 0.11, -2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, -2.45 - 0.11, 0 + 0.11, -2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 1.95 - 0.11, -2.45 - 0.11, 1.95 + 0.11, -2.45 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	
+		#1b. Center light
+		CreateWallBox2 elevator, E%elevator%_MidLight, %Prefix%ElevCeilingLight, 0, 0, 6.1, 2.5, 0.1, 8 - 0.1, 0, 0, false, true, true, true
+	
+		#1c. Ceiling trims
+		CreateWallBox2 elevator, E%elevator%_Trim1, %Prefix%ElevCeilingTrim, 0, 1.5 - 0.125, 6.1, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%_Trim2, %Prefix%ElevCeilingTrim, 0, -1.5 + 0.125, 6.1, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel

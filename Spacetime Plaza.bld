@@ -326,9 +326,10 @@
 
 		########################################
 
-		#East elevators
-		Load data/Carpet0012_S.jpg, EastElevFloor, 0.2, 0.2
-		Load data/Carpet0013b_S.jpg, EastElevFloor2, 0.2, 0.2
+		#East elevators (No. 16-21 and 24-27)
+		Load data/Carpet0012_S.jpg, EastElevFloor, 0.2, 0.2 #Elevators 16-19 and 24-25
+		Load data/Carpet0013b_S.jpg, EastElevFloor2, 0.2, 0.2 #Elevators 20-21
+		Load data/floor065.jpg, EastElevFloor3, 0.25, 0.25 #Elevators 26-27
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, EastElevCeiling, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, EastElevCeiling2, 1, 1, false
 		Rotate EastElevCeiling2, 90
@@ -339,9 +340,13 @@
 		Rotate EastElevCeilingTrim2, 90
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, EastElevCeilingDL, 1, 1, false #DL = Downlight
 
-		Load data/EG881/elevdoortrim_white.jpg, EastElevWall, 0.5, 0.5, true #EG881
+		Load data/EG881/elevdoortrim_white.jpg, EastElevWall, 0.5, 0.5, true #Elevators 16-21 and 24-25
+		Load data/graniteTexture_0005b.jpg, EastElevWall2, 0.1, 0.1, true #Elevators 26-27
 		Load data/checker19.jpg, EastElevWallPanel, 0.5, 0.5 #Elevators 16-19
 		Load data/checker07.jpg, EastElevWallPanel2, 0.5, 0.5 #Elevators 20-21
+		#Load data/diamond18i.jpg, EastElevWallPanel3, 0.5, 0.5 #Elevators 24-25
+		Load data/Other People's Textures/marb048.png, EastElevWallPanel3, 0.3, 0.3 #Elevators 24-25
+		Load data/Other People's Textures/marb045.png, EastElevWallPanel4, 0.3, 0.3 #Elevators 26-27
 		Load data/EG881/elevdoortrim_white.jpg, EastElevPanelMain, 0.5, 0.5, true #EG881
 		Load data/EG881/elevdoortrim_white.jpg, EastElevPanelTop, 0.5, 0.5, true #EG881
 		Load data/panel-back3.jpg, EastElevPanelMain2, 1, 1, false
@@ -3861,10 +3866,10 @@ ShowFullShaft 11 = true
 	#1. Downlights
 	DrawWalls = true, false, false, false, false, false
 	Set DLOffset = 8 - 0.001 #Offsets for downlights
-	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -4.44 + 0.82 - 0.11, -2 - 0.11, -4.44 + 0.82 + 0.11, -2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, -4.44 + 0.82 - 0.11, 2 - 0.11, -4.44 + 0.82 + 0.11, 2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, 4.44 - 0.82 - 0.11, -2 - 0.11, 4.44 - 0.82 + 0.11, -2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 4.44 - 0.82 - 0.11, 2 - 0.11, 4.44 - 0.82 + 0.11, 2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -4.44 + 0.82 - 0.11, -1.75 - 0.11, -4.44 + 0.82 + 0.11, -1.75 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, -4.44 + 0.82 - 0.11, 1.75 - 0.11, -4.44 + 0.82 + 0.11, 1.75 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, 4.44 - 0.82 - 0.11, -1.75 - 0.11, 4.44 - 0.82 + 0.11, -1.75 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 4.44 - 0.82 - 0.11, 1.75 - 0.11, 4.44 - 0.82 + 0.11, 1.75 + 0.11, %DLOffset%, %DLOffset%, 0, 0
 
 	#2. Ceiling trims
 	CreateWallBox2 elevator, E%elevator%_TrimMid, %Prefix%ElevCeilingTrim, 0, 0, 5.6, 5.6, 0.05, 8 - 0.05, 0, 0, false, true, true, true
@@ -4058,10 +4063,12 @@ ShowFullShaft 11 = true
 <Elevators 24 to 27>
 	Set Prefix = East
 	Set Suffix = 
-	if[%elevator% > 25] Set Suffix = 2 #Override for elevators 24-27
+	if[%elevator% > 25] Set Suffix = 2 #Override for elevators 26-27
+	Set FlrSuffix = 
+	if[%elevator% > 25] Set FlrSuffix = 3 #Override for elevators 26-27
 
 	#Set textures and dimensions
-	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling2, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor%FlrSuffix%, %Prefix%ElevCeiling2, %Prefix%ElevWall%Suffix%, %Prefix%ElevWall%Suffix%)
 	M10_ElevDimensions(7.68, 6.2, 8, 0.2, 0.2, true, false, true, true)
 	M10_ElevPanels(%Prefix%ElevPanelMain%Suffix%, %Prefix%ElevPanelTop%Suffix%, 1.1, 1.1, 1, 0.2, false, true, false, false)
 
@@ -4160,26 +4167,22 @@ ShowFullShaft 11 = true
 			#Buttons
 			BtnPanelEastElev2(3)
 
-	#Elevator number sign
-	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, -3.47 + 0.001, 0 - 0.25, -3.47 + 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
-
 	#Indicator sets
 	Set IndOffset = 5.75 + 0.25 - (0.4 / 2)
 
 		#Right
 		DrawWalls = false, true, false, false, false, false
-		AddWall RightIndBack, NewOtisInd_BG2, 0, %P1_PositionX%, %P1_PositionZ% - 0.3, %P1_PositionX%, %P1_PositionZ% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
+		AddWall RightIndBack, NewOtisInd_BG2, 0, %P1_PositionX%, %P1_PositionZ% - 0.25, %P1_PositionX%, %P1_PositionZ% + 0.25, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator NewOtisInd2_Button, right, %P1_PositionX% + 0.001, %P1_PositionZ% + 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %P1_PositionX% + 0.002, %P1_PositionZ% - 0.15, %IndOffset% + 0.015, right, 0.3, 0.275, true, 0, 0
+		AddFloorIndicator NewOtisInd2_Button, right, %P1_PositionX% + 0.001, %P1_PositionZ% + 0.25 - 0.15, 0.3, 0.3, %IndOffset%
+		AddDirectionalIndicator true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %P1_PositionX% + 0.002, %P1_PositionZ% - 0.25 + 0.1, %IndOffset%, right, 0.25, 0.3, true, 0, 0
 
 		#Left
 		DrawWalls = false, true, false, false, false, false
-		AddWall LeftIndBack, NewOtisInd_BG2, 0, %P2_PositionX%, %P2_PositionZ% - 0.3, %P2_PositionX%, %P2_PositionZ% + 0.3, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
-
-		AddFloorIndicator NewOtisInd2_Button, right, %P2_PositionX% + 0.001, %P2_PositionZ% + 0.15, 0.3, 0.3, %IndOffset%
-		AddDirectionalIndicator true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %P2_PositionX% + 0.002, %P2_PositionZ% - 0.15, %IndOffset% + 0.015, right, 0.3, 0.275, true, 0, 0
+		#AddWall LeftIndBack, NewOtisInd_BG2, 0, %P2_PositionX%, %P2_PositionZ% - 0.25, %P2_PositionX%, %P2_PositionZ% + 0.25, 0.3, 0.3, %IndOffset%, %IndOffset%, 0, 0
+		#
+		#AddFloorIndicator NewOtisInd2_Button, right, %P2_PositionX% + 0.001, %P2_PositionZ% + 0.15, 0.3, 0.3, %IndOffset%
+		#AddDirectionalIndicator true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %P2_PositionX% + 0.002, %P2_PositionZ% - 0.15, %IndOffset% + 0.015, right, 0.3, 0.275, true, 0, 0
 <EndElevators>
 
 <Elevators 24 to 27>
@@ -4190,29 +4193,32 @@ ShowFullShaft 11 = true
 		FloorOrientation = top
 		DrawWalls = true, false, false, false, true, true
 		AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -2.25 - 0.11, 2.2 - 0.11, -2.25 + 0.11, 2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-		AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 2.25 - 0.11, 2.2 - 0.11, 2.25 + 0.11, 2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, 2.2 - 0.11, 0 + 0.11, 2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 2.25 - 0.11, 2.2 - 0.11, 2.25 + 0.11, 2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
 		AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -2.25 - 0.11, -2.2 - 0.11, -2.25 + 0.11, -2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-		AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 2.25 - 0.11, -2.2 - 0.11, 2.25 + 0.11, -2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, -2.2 - 0.11, 0 + 0.11, -2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+		AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 2.25 - 0.11, -2.2 - 0.11, 2.25 + 0.11, -2.2 + 0.11, %DLOffset%, %DLOffset%, 0, 0
 	
 		#1b. Center light
-		CreateWallBox2 elevator, E%elevator%_MidLight, %Prefix%ElevCeilingLight2, 0, 0, 6.94, 2.5, 0.1, 8 - 0.1, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%_MidLight, %Prefix%ElevCeilingLight2, 0, 0, 7.28, 2.5, 0.1, 8 - 0.1, 0, 0, false, true, true, true
 	
 		#1c. Ceiling trims
-		CreateWallBox2 elevator, E%elevator%_Trim1, %Prefix%ElevCeilingTrim, 0, 1.5 - 0.125, 6.94, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, E%elevator%_Trim2, %Prefix%ElevCeilingTrim, 0, -1.5 + 0.125, 6.94, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%_Trim1, %Prefix%ElevCeilingTrim, 0, 1.5 - 0.125, 7.28, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%_Trim2, %Prefix%ElevCeilingTrim, 0, -1.5 + 0.125, 7.28, 0.25, 0.1, 8 - 0.1, 0, 0, false, true, true, true
 
 	#2. Panels on walls
-	Set WPTex = %Prefix%ElevWallPanel
+	Set WPTex = %Prefix%ElevWallPanel3
+	if[%elevator% > 25] Set WPTex = %Prefix%ElevWallPanel4
 	Set WPanelHeight = 8
 
 	Set Direction = %param2%
 
 		#Front/back panels
-		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -2.9 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 2.9 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -2.9 + 0.01, 4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 2.9 - 0.01, 4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
 		#Right panel
-		CreateWallBox2 elevator, E%elevator%Panel_Right, %WPTex%, 3.64 - 0.01, 0, 0.02, 1, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Right, %WPTex%, 3.64 - 0.01, 0, 0.02, 2, %WPanelHeight%, 0, 0, 0, false, true, true, true
 <EndElevators>
 
 #HALL STATIONS
@@ -5254,6 +5260,72 @@ ShowFullShaft 11 = true
 		AddFloorIndicator 25, false, NewOtisInd_Button, left, %Shaft1CX% - 5.052, %Shaft1CZ% + 0.15, 0.3, 0.3, 4.5
 <EndFunction>
 
+<Function E26-27HallStation>
+	#Shaft Doors
+	ElevHallTex_East() #Set shaft door and panel textures
+	Set StartNo = 26 #Number of the first elevator
+
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -3.84 - 0.3
+
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo%, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo%, 1, Right, %DoorTexture%2, %DoorTexture%2, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo% + 1, 1, Left, %DoorTexture%, %DoorTexture%, 0.2, right, 0.8, 0.6, %IDP%, 0, %IDP%, 2, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo% + 1, 1, Right, %DoorTexture%2, %DoorTexture%2, 0.2, left, 0.8, 0.6, %IDP%, -2, %IDP%, 0, 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo% + 1, 1, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(26, 11, -4.34, -4.14, -5 - 4, -5 + 4, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(27, 11, -4.34, -4.14, 5 - 4, 5 + 4, ElevDoorTrackX, ElevExt, 0.05, 1, 7)
+
+	#****************************************#
+
+	#Door trims/fillers
+	#WallTex() #Set filler textures to match with shaft walls
+	Set Shaft1CX = 134
+	Set Shaft1CZ = 249
+
+		AddDecoObject(E26_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		AddDecoObject(E27_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 5, %Shaft1CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+	#****************************************#
+
+	#Call buttons
+		#Button panels
+		CreateWallBox2 external, E26-27ExtPanel, %BPanelTexture%, %Shaft1CX% - 5.025, %Shaft1CZ%, 0.05, 0.6 + 0.2, 1 + 0.6 + 0.15, 3.5, 0, 0, false, true, true, true
+
+		#Create buttons
+		CallButtonElevators = 26, 27
+		CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLitBlue, %ButtonPrefix%Down, %ButtonPrefix%DownLitBlue, %Shaft1CX% - 5.051, %Shaft1CZ%, 4 - 0.3, left, 0.3, 0.6, false, 0, 0
+
+		#Signs
+		WallOrientation = right
+		DrawWalls = true, false, false, false, false, false
+		AddBoxSign(E26-27_FloorSign, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ%, 1.5, 1.5, 7 - 0.75 + %interfloorheight%, true)
+		AddWall E26-27_HallSign, ElevHallSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+	#****************************************#
+
+	#Indicators above call buttons
+		#Background
+		Set WH = 0.6	
+		Set WO = 4.5 + %interfloorheight%
+		DrawWalls = true, false, false, false, false, false
+		AddWall E26-27-PA-IndBG, NewOtisInd_BG2, 0, %Shaft1CX% - 5.051, %Shaft1CZ% - 0.3, %Shaft1CX% - 5.051, %Shaft1CZ% + 0.3, %WH%, %WH%, %WO%, %WO%, 0, 0, true
+	
+		#Directional arrows
+		AddDirectionalIndicator 26, false, true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %Shaft1CX% - 5.051, %Shaft1CZ% - 0.15, 4.5 + 0.3 + 0.15 - 0.1375, left, 0.225, 0.275, false, 0, 0
+		AddDirectionalIndicator 27, false, true, true, true, Blank, NewOtisArrow_Blank, NewOtisArrow_LitUp2, NewOtisArrow_Blank, NewOtisArrow_LitDown2, %Shaft1CX% - 5.051, %Shaft1CZ% + 0.15, 4.5 + 0.3 + 0.15 - 0.1375, left, 0.225, 0.275, false, 0, 0
+	
+		#Floor indicators
+		AddFloorIndicator 26, false, NewOtisInd2_Button, left, %Shaft1CX% - 5.052, %Shaft1CZ% - 0.15, 0.3, 0.3, 4.5
+		AddFloorIndicator 27, false, NewOtisInd2_Button, left, %Shaft1CX% - 5.052, %Shaft1CZ% + 0.15, 0.3, 0.3, 4.5
+<EndFunction>
+
 
 <Floors -2 to 8>
 	#Outer Edge (Elevators 16-21)
@@ -5264,9 +5336,11 @@ ShowFullShaft 11 = true
 	#Inner Edge (Elevators 22-27)
 	if[%floor% ! 7] E22-23HallStation()
 	if[%floor% ! 7] E24-25HallStation()
+	if[%floor% ! 7] E26-27HallStation()
 <EndFloors>
 
 #GLOBAL SETTINGS
+#Kone Elevators (No. 1-15)
 <Elevators 1 to 15>
 	#Notifications
 	UpChimeSound 1 = KW_Sounds/konechimeup.wav
@@ -5318,6 +5392,7 @@ ShowFullShaft 11 = true
 	CarStopSound = EG881Sounds/slowelevstop.wav #EG881
 <EndElevators>
 
+#Otis Elevators (No. 16-27)
 <Elevators 16 to 27>
 	#Notifications
 	NotifyEarly = 0
