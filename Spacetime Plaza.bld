@@ -382,9 +382,13 @@
 		Load data/panel-back3.jpg, GlassShaftDoors_Trim, 1, 1, false
 
 		#Interior elevators
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1 (All other elevators)
 		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ParkingShaftDoors2, 1, 1, false #EG881
 		Load data/panel-back3.jpg, ParkingShaftDoors_Trim, 1, 1, false
+
+		Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, EastParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1 (Elevators 22-27)
+		Load data/EG881_Otis/Doors/otisgraydoorright.jpg, EastParkingShaftDoors2, 1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, EastParkingShaftDoors_Trim, 1, 1, false #EG881
 
 		Load data/EG881/lightaluminumdoor2.jpg, ShopShaftDoors, 1, 1, false #EG881 #Levels 1-6
 		Load data/EG881/lightaluminumdoor2.jpg, ShopShaftDoors2, -1, 1, false #EG881
@@ -5126,12 +5130,14 @@ ShowFullShaft 11 = true
 	if[%floor% ! 7] E14-15HallStation()
 <EndFloors>
 
-#Set textures (East elevators, outer edge)
+#Set textures (East elevators)
 <Function ElevHallTex_East>
 	TexPrefix() #Set prefixes for shaft doors
+	Set IsInnerEdge = %param1%
 
 	#Shaft doors
 	Set DoorTexture = %5%ShaftDoors
+	if[%IsInnerEdge% = true & %floor% < 0] Set DoorTexture = EastParkingShaftDoors
 
 	#Use automatic filler walls or not
 	Set AutoFiller = false
@@ -5169,7 +5175,7 @@ ShowFullShaft 11 = true
 #East Elevators (Inner Edge)
 <Function E16-17HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(false) #Set shaft door and panel textures
 	Set StartNo = 16 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5235,7 +5241,7 @@ ShowFullShaft 11 = true
 
 <Function E18-19HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(false) #Set shaft door and panel textures
 	Set StartNo = 18 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5301,7 +5307,7 @@ ShowFullShaft 11 = true
 
 <Function E20-21HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(false) #Set shaft door and panel textures
 	Set StartNo = 20 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5367,7 +5373,7 @@ ShowFullShaft 11 = true
 
 <Function E22-23HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(true) #Set shaft door and panel textures
 	Set StartNo = 22 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5400,11 +5406,10 @@ ShowFullShaft 11 = true
 	#****************************************#
 
 	#Door trims/fillers
-	#WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set Shaft1CX = 133
 	Set Shaft1CZ = -190
 
-		#All other floors
 		AddDecoObject(E22_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% - 4, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(E23_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft1CX% - 6, %Shaft1CZ% + 4, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 
@@ -5444,7 +5449,7 @@ ShowFullShaft 11 = true
 
 <Function E24-25HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(true) #Set shaft door and panel textures
 	Set StartNo = 24 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5467,7 +5472,7 @@ ShowFullShaft 11 = true
 	#****************************************#
 
 	#Door trims/fillers
-	#WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set Shaft1CX = 134
 	Set Shaft1CZ = -31
 
@@ -5510,7 +5515,7 @@ ShowFullShaft 11 = true
 
 <Function E26-27HallStation>
 	#Shaft Doors
-	ElevHallTex_East() #Set shaft door and panel textures
+	ElevHallTex_East(true) #Set shaft door and panel textures
 	Set StartNo = 26 #Number of the first elevator
 
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -5533,7 +5538,7 @@ ShowFullShaft 11 = true
 	#****************************************#
 
 	#Door trims/fillers
-	#WallTex() #Set filler textures to match with shaft walls
+	TexPrefix() #Set filler textures to match with shaft walls
 	Set Shaft1CX = 134
 	Set Shaft1CZ = 249
 
