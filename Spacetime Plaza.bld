@@ -3,6 +3,30 @@
 
 #Started on: 30 April 2026 (Idea originated around April-May 2017.)
 
+#Notes about this place:
+	#General:
+	#1. Restrooms will be added as I work more on this place.
+	#2. Not all parking ramps have been created yet.
+	#3. As of 13 May 2026, only the parking spaces on this complex's easternmost side have been completed.
+	#4. More entrance doors would come as I progress more.
+	#5. I apologize if the escalators' undersides lower the "clearance" on some areas of level B1.
+		# At least, the clearance is still high enough for standard vehicles that I don't have to convert certain parking areas to be storage or utility (like on level 4A of Bell Nature Mall or level 5A of Destiny Plaza).
+		# NOTE: Parking garages IRL typically contains some more things in the ceilings (such as pipes, beams, and lights), not just the escalators' undersides.
+	#6. Walls and windows covering the elevator/escalator lobbies on B2-B1 will be created later on.
+	
+	#All shopping zones (Main mall, April DS, and Monica DS):
+	#1. Not all escalators have been created yet.
+	#2. The "East Annex" will be completed later on.
+
+	#Main mall:
+	#1. Elevators 16-21 and 24-27 will not be used by the "random people" at all. This could be changed in Skyscraper Simulator's future updates.
+	#2. On the 8th floor, there is not any wall south of Stairwell 6 as that area will be a storage.
+	#3. Railings in the South Zone (the 4-story annex west of April DS) will not be created until I finalize that zone's dimensions.
+
+	#Monica Department Store:
+	#1. This area is not intended to have its own service/freight elevators.
+	#2. A second stairwell will come later.
+
 ########################################
 
 #SCRIPTS TO BE INCLUDED
@@ -1903,6 +1927,12 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% ! 8] AddWall EA1FrontRailA, %5%%Suffix%, 0.5, 180, -180, 210 - 15, -180, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% ! 8] AddWall EA1FrontRailB, %5%%Suffix%, 0.5, 210 + 15, -180, 240, -180, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% ! 8] AddWall EA1FrontRail_Mid, %5%%Suffix%, 0.5, 210 - 15, -180 - 8.5, 210 + 15, -180 - 8.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+
+	if[%floor% = 6] AddWall EA1FrontRail_Left, %5%%Suffix%, 0.5, 210 - 15, -189, 210 - 15, -184.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	WallOrientation = left
+	if[%floor% = 6] AddWall EA1FrontRail_Right, %5%%Suffix%, 0.5, 210 + 15, -184.5, 210 + 15, -180.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+
+	WallOrientation = right
 	AddWall EA1LeftRail, %5%%Suffix%, 0.5, 180, -180 - 0.5, 180, -60 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	WallOrientation = left
 	AddWall EA1RightRail, %5%%Suffix%, 0.5, 240, -180 - 0.5, 240, -60 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
@@ -5740,22 +5770,33 @@ ShowFullShaft 11 = true
 	#EAST-CENTER ESCALATORS
 		#Double escalators between 1-2 (Atrium's west edge)
 		<Floor 0>
-			OP_Escalator(MallEastEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 173.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallEastEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 177.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 173.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 177.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 		#Single escalators between 2-6 (Separated between the atrium's west and east edges)
 		<Floors 1 to 4>
 			EscDirections()
-			OP_Escalator(MallEastEsc_%floorid%F_1, %DirectionA%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 177.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallEastEsc_%floorid%F_2, %DirectionB%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3Z, back, 242.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_1, %DirectionA%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 177.5, 80 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_2, %DirectionB%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 242.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		<EndFloors>
 
 		#Double escalators between 6-7 (Atrium's east edge)
 		<Floor 5>
-			OP_Escalator(MallEastEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3Z, back, 246.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallEastEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3Z, back, 242.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 246.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 242.5, 80 - 15 + 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		<EndFloor>
+
+	#SOUTHEAST ESCALATORS
+	OP_EscLanding(EscalatorLandingX, 5.5, 0, 0, EscalatorLandingX, 5.5, 0, 0) #Reset landing textures
+
+		#Criss-cross escalators from 1 to 7
+		<Floors 0 to 5>
+			EscDirections()
+			OP_Escalator(MallEastEsc_%floorid%F_3, %DirectionB%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 210 + 15 - 1, -186.5, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_4, %DirectionA%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 210 - 15 + 1, -182.5, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+		<EndFloors>
+
 
 ##--------------------------------------------------------------------------------##
 
