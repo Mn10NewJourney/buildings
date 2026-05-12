@@ -466,7 +466,15 @@ DrawWalls = false, true, false, false, false, false
 		AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, false, false, false, false, false
-		AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% ! -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% = -1] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, -10, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, true, false, false, false
+		if[%floor% = -1] AddWall BackWall, %5%Wall, 0.5, 30, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, false, false, false, false, true
+		AddWall BackWall_IFloorCover, %5%Wall, 0.5, -10, %2%, 30, %2%, Floor(%floor% + 1).InterfloorHeight, Floor(%floor% + 1).InterfloorHeight, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% = -1] AddWall BackWall_IFloorCover2, %5%Wall, 0.5, -10, %2%, 30, %2%, 2, 2, %interfloorheight% + 8, %interfloorheight% + 8, 0, 0, true
 <EndFloors>
 
 #Tower parking levels
