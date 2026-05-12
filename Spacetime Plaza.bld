@@ -1418,7 +1418,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% = 0] Set WallHeight = %height%
 	if[%floor% = 0] Set WallOffset = %interfloorheight%
 
-	Set SouthEnd = -201
+	Set SouthEnd = -215
 	if[%floor% = 3] Set SouthEnd = -240
 	if[%floor% > 3] Set SouthEnd = -79.5
 
@@ -2299,6 +2299,84 @@ Set SideTexture = BLKEntDoorSide
 	SetKey 1
 	AddModel Key1, key.mesh, true, -185 - 0.414, 0, 210.5 + 0.407, 0, 0, 0, 0, 3, false, 0, 0, 0
 <EndFloor>
+
+##--------------------------------------------------------------------------------##
+
+#Hallway to Elevator Lobbies and Restrooms
+<Function STP-MallHallway>
+	#Set walls' dimensions
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+	if[%floor% = 6] Set WallHeight = %height% + Floor(%floor% + 1).FullHeight
+	if[%floor% = 6] Set WallOffset = %interfloorheight%
+	if[%floor% = 8] Set WallHeight = %fullheight% + Floor(%floor% + 1).FullHeight
+	if[%floor% = 8] Set WallOffset = 0
+
+	#East Zone
+		#E1. Southwest Lobby
+		WallOrientation = left
+		DrawWalls = true, true, false, true, false, false
+		AddWall EZ_SouthwestLby_Front, %5%Wall, 0.5, 90.5, -215, 117, -215, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, false, true, false, false
+		if[%floor% > 2] AddWall EZ_SouthwestLby_Front2, %5%Wall, 0.5, 117, -215, 149, -215, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_SouthwestLby_Back, %5%Wall, 0.5, 90.5, -180, 127, -180, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#E2. Midwest Lobby
+		WallOrientation = left
+		DrawWalls = true, true, false, true, false, false
+		AddWall EZ_MidwestLby_Front, %5%Wall, 0.5, 90.5, -56, 149, -56, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_MidwestLby_Back, %5%Wall, 0.5, 90.5, -21, 129, -21, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#E3. Northwest Lobby
+		WallOrientation = left
+		DrawWalls = true, true, false, true, false, false
+		AddWall EZ_NorthwestLby_Front, %5%Wall, 0.5, 90.5, 224, 149, 224, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_NorthwestLby_Back, %5%Wall, 0.5, 90.5, 259, 129, 259, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#E4. Southeast Lobby
+		WallOrientation = left
+		DrawWalls = true, true, true, false, false, false
+		AddWall EZ_SoutheastLby_Front, %5%Wall, 0.5, 284, -201, 329.5, -201, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_SoutheastLby_Back, %5%Wall, 0.5, 309, -201, 329.5, -201, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#E5. Mideast Lobby
+		WallOrientation = left
+		DrawWalls = true, true, true, false, false, false
+		AddWall EZ_MideastLby_Front, %5%Wall, 0.5, 284, -51, 329.5, -51, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_MideastLby_Back, %5%Wall, 0.5, 309, -21, 329.5, -21, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#E6. Mideast Lobby
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		AddWall EZ_NortheastLby_Front, %5%Wall, 0.5, 309, 181, 329.5, 181, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		DrawWalls = true, true, true, false, false, false
+		AddWall EZ_NortheastLby_Back, %5%Wall, 0.5, 284, 211, 329.5, 211, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFunction>
+
+<Floors 0 to 8>
+	TexPrefix() #Set texture prefixes
+
+	if[%floor% ! 7] STP-MallHallway()
+<EndFloors>
+
 
 ##--------------------------------------------------------------------------------##
 
