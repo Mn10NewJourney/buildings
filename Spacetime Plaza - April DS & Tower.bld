@@ -54,7 +54,7 @@
 		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
-		Load data/EG881/Concrete/smoothconcrete1_white.jpg, FlowerBed, 0.075, 0.075, true #EG881
+		Load data/EG881/cem_tr2d.jpg, FlowerBed, 0.075225, 0.0625 #EG881
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
@@ -131,8 +131,8 @@
 		Load data/EG881/Ceilings/ceilingtile4single.jpg, SLDropCeiling, 0.5, 0.5 #EG881 #Service elevator lobby
 
 		#Service/freight elevator lobbies
-		#Load data/cem_tr.jpg, SAFloor, 0.2, 0.2
-		Load data/wall5b.jpg, SAWall, 0.25, 0.25
+		Load data/floor065.jpg, SAFloor, 0.25, 0.25 #9th-18th floors
+		Load data/wall5b.jpg, SAWall, 0.25, 0.25 #8th-18th floors
 		#Load data/stucco1b.jpg, SACeiling, 0.125, 0.125
 
 		#Service and mechanical levels
@@ -146,6 +146,10 @@
 			Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
 		#Roofs
+		Load data/brick040+.jpg, ElevMRIntFloor, 0.2, 0.2
+		Rotate ElevMRIntFloor, 90
+		Load data/stucco4.jpg, ElevMRIntWall, 0.25, 0.25
+		Load data/EG881/cem_tr2b.jpg, ElevMRIntCeiling, 0.075225, 0.0625 #EG881
 		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 		Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881
 
@@ -193,7 +197,8 @@
 	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ShaftIntWall3, 0.0625, 0.0625, true #EG881
 
 		#Glass Elevator Shaft
-		Load data/EG881/blackdoortrim.jpg, GLEShaftWall, 0.05, 0.05 #EG881
+		#Load data/EG881/blackdoortrim.jpg, GLEShaftWall, 0.05, 0.05 #EG881
+		Load data/stucco5.jpg, GLEShaftWall, 0.145, 0.145
 		Load data/stucco1b.jpg, GLETrack, 0.1, 0.1
 		Load data/windows11e_inside2.gif, GLEPanel, 1, 1, false
 		Load data/EG881/windows11h_insideblack.png, GLEPanel2, 0.25, 1, false #EG881
@@ -924,10 +929,13 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	if[%floor% ! 19] AddFloor AprilTowerFloor, %5%Floor, 0.5, -%1%, -91.25, %1%, -8.75, %interfloorheight%, %interfloorheight%, 0, 0, true
+		
+		#Service elevator lobby
+		if[%floor% > 7 & %floor% < 18] CreateFlr(ServLbyFloor, SAFloor, 0.5, 90, -91.25, 120, -60, 0, true)
 	
 		#Carpeting above floors
-		if[%floor% ! 7 & %floor% ! 19] AddFloor WestLobbyCarpet, %5%Floor2, 0.5, -108, -87, -102, -60, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
-		if[%floor% ! 7 & %floor% ! 19] AddFloor CenterLobbyCarpet, %5%Floor2, 0.5, -8, -40, 8, -17, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+		if[%floor% > 7 & %floor% < 18] AddFloor WestLobbyCarpet, %5%Floor2, 0.5, -108, -87, -102, -60, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+		if[%floor% > 7 & %floor% < 18] AddFloor CenterLobbyCarpet, %5%Floor2, 0.5, -8, -40, 8, -17, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -1136,6 +1144,36 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = false, true, false, false, false, false
 	AddFloor Rooftop, RoofFloor, 0.5, -%1%, -91.25, %1%, -8.75, %interfloorheight%, %interfloorheight%, 0, 0, true
 
+		#Elevator machine room
+		CreateFlr(EMRFloor, ElevMRIntFloor, 0.5, 90, -91.25, 120, -60, 0, true)
+
+	#Elevator machine room enclosures
+		#Ceiling
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevMRIntCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddFloor EMRCeiling, ElevMRIntCeiling, 1, 80, -91.25, 120, -60, %fullheight%, %fullheight%, 0, 0, true
+	
+		#Walls
+		WallOrientation = left
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride ExtFacade, ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall EMRFront, ExtFacade, 0.5, 90, -91.25, %1% - 12, -91.25, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+
+		WallOrientation = right
+		TextureOverride ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall EMRBack, ExtFacade, 0.5, 90, -60, %1% - 12, -60, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Doors
+		Set DTex = ServiceDoor1
+		Set DSTex = %DTex%Side
+		Set Door_MainX = 99
+		Set Door_MainZ = -60
+
+		WallOrientation = right
+		AddStdDoor DoorManager, Roof_EMR_Door1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Roof_EMR_Door2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 	#South roof railings
 	Set WallHeight = %interfloorheight% + 5.5
@@ -1145,9 +1183,10 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = true, true, true, true, true, false
 	#AddWall Rooftop-FrontRail, ExtFacade, 0.5, -%1% + 0.5, -91.25, %1% - 12, -91.25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	AddWall Rooftop-FrontRailA, ExtFacade, 0.5, -%1% + 0.5, -91.25, 80, -91.25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall Rooftop-FrontRailB, ExtFacade, 0.5, 90, -91.25, %1% - 12, -91.25, %fullheight%, %fullheight%, %WallOffset%, %WallOffset%, 0, 0, true
+	#AddWall Rooftop-FrontRailB, ExtFacade, 0.5, 90, -91.25, %1% - 12, -91.25, %fullheight%, %fullheight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, false, true, true, true, false
+		TextureOverride ExtFacade, ExtFacade, ExtFacade, ElevMRIntWall, ExtFacade, ExtFacade
 		AddWall FrontWall_GapCoverB, ExtFacade, 1.25, 80, -91.25, 90, -91.25, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 
 	DrawWalls = true, true, true, true, true, false
@@ -1160,15 +1199,20 @@ DrawWalls = false, true, false, false, false, false
 	####################
 
 	#Storage next to service elevator shaft
-		#Storage walls
-		CreateWallBox2 external, RF_STR_ExtWall, ExtFacade, 114, -85.625, 12, 11.25, %fullheight%, -%interfloorheight%, 0, 0, false, true, true, false
+		#Exterior walls
+		WallOrientation = left
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		AddWall RF_STR_ExtWall, ExtFacade, 12, 108, -91.25, 108, -80, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+
+		#Interior walls
 		CreateWallBox2 external, RF_STR_IntWall, ServiceWall, 114, -85.625, 12 - 1, 11.25 - 1, %height% - 0.5, 0, 0, 0, true, false, false, false
 
 		#Storage ceiling
-		FloorOrientation = top
-		DrawWalls = true, true, false, false, false, false
-		TextureOverride ServiceCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
-		AddFloor RF_STR_Ceiling, ServiceCeiling, 0.5, 108, -91.25, %1%, -80, %fullheight%, %fullheight%, 0, 0, true
+		#FloorOrientation = top
+		#DrawWalls = true, true, false, false, false, false
+		#TextureOverride ServiceCeiling, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade
+		#AddFloor RF_STR_Ceiling, ServiceCeiling, 0.5, 108, -91.25, %1%, -80, %fullheight%, %fullheight%, 0, 0, true
 
 		#Storage doors
 		Set Texture = ServiceDoor3
@@ -1894,10 +1938,10 @@ Set Garden_Offset2 = Floor(7).Base + 4
 
 <Floor 20>
 	#Service Elevators
-	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 114, -70, 6, 10, SH2, %fullheight%, 0, false, true, true, true, true, false, true)
+	CreateShaftWall(ExtFacade, ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 114, -70, 6, 10, SH2, %fullheight%, 0, false, true, true, true, false, false, true)
 
 	#East Stairwell
-	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 85, -75, 5, 15, EastST, %fullheight%, 0, false, true, true, true, true, false, true)
+	CreateShaftWall(ExtFacade, ExtFacade, ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, 0.33, 85, -75, 5, 15, EastST, %fullheight%, 0, false, true, true, true, false, false, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -1936,7 +1980,7 @@ AddStdShaft(2, 1, 114, -70, 5.67, 9.67, -3, 20, ShaftIntWall, 0.5, 0.33, 0, 2 + 
 		#Machine room doors
 
 		#Shaft 2
-		Set DTex = ServiceDoor1
+		Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 		Set Door_MainX = 114 - 6
 		Set Door_MainZ = -70
@@ -3029,8 +3073,8 @@ ShaftShowOutside 5 = 6 - 17
 		Set TopDecoH = 0.2
 		if[%floor% = 6] Set SideDecoH = %height%
 		if[%floor% = 6] Set TopDecoH = %height% - 7
-		if[%floor% = 6] Set SideDecoH = 8
-		if[%floor% = 6] Set TopDecoH = 1
+		if[%floor% = 7] Set SideDecoH = 8
+		if[%floor% = 7] Set TopDecoH = 1
 		if[%floor% > 7] Set SideDecoH = 7.2
 		if[%floor% > 7] Set TopDecoH = 0.2
 
@@ -3070,8 +3114,8 @@ ShaftShowOutside 5 = 6 - 17
 		Set TopDecoH = 0.2
 		if[%floor% > -1 & %floor% < 7] Set SideDecoH = %height%
 		if[%floor% > -1 & %floor% < 7] Set TopDecoH = %height% - 7
-		if[%floor% = 6] Set SideDecoH = 8
-		if[%floor% = 6] Set TopDecoH = 1
+		if[%floor% = 7] Set SideDecoH = 8
+		if[%floor% = 7] Set TopDecoH = 1
 		if[%floor% > 7] Set SideDecoH = 7.2
 		if[%floor% > 7] Set TopDecoH = 0.2
 
