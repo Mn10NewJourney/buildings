@@ -71,8 +71,10 @@
 	Load data/EG881/Concrete/smoothconcrete1.jpg, ExtFacade2, 0.075, 0.075, true #EG881
 
 	#Windows
-	Load data/windows11h.jpg, MainWindowsInt, 0.05, 1
+	Load data/windows11h.jpg, MainWindows, 0.05, 1
 	Load data/windows11h_inside.gif, MainWindowsInt, 0.05, 1
+	Load data/windows11h.jpg, LobbyWindows, 0.025, 1
+	Load data/windows11h_inside.gif, LobbyWindowsInt, 0.025, 1
 	Load data/windows11h.jpg, MainWindowsB, 1, 1, false
 	Load data/windows11h_inside.gif, MainWindowsIntB, 1, 1, false
 
@@ -92,6 +94,9 @@
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
 
 		#Hotel entrance (1st floor)
+		Load data/MarbleWhite0047b_S.jpg, HotelEntranceFloor, 0.15, 0.3
+		Load data/marble2.jpg, HotelEntranceWall, 0.111, 0.111
+		Load data/EG881/ceilingtile3x3.jpg, HotelEntranceCeiling, 0.125, 0.125 #EG881
 
 		#Hotel lobby
 		Load data/marb047.jpg, HotelLobbyFloor, 0.2, 0.2
@@ -490,14 +495,15 @@ DrawWalls = false, true, false, false, false, false
 
 		#Extra floorings above roads
 		if[%floor% = 1 | %floor% = 2] CreateFlr(TowerPK_UtilityFloor1, ParkingFloor, 0.5, -90, -%2%, 110, -108, 0, true)
+		if[%floor% = 0] CreateFlr(TowerPK_UtilityFloor2, ParkingFloor, 0.5, -90.5, 85, 110.5, 93, 0, true)
 
 		Set NorthEnd = -98
 		if[%floor% = 1] Set NorthEnd = -89.5
 		if[%floor% = 2] Set NorthEnd = -108
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1, ParkingFloor, 0.5, -126, -130, -120, -90, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East2, ParkingFloor, 0.5, -120, -130, -90, %NorthEnd%, 0, true)
-		CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90, 0, true)
-
+		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90, 0, true)
+		
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
@@ -520,11 +526,11 @@ DrawWalls = false, true, false, false, false, false
 		Set EP = 0 #Extra position 1 (North)
 		if[%floor% = 0] Set EP = 40 #Extra position 1 (North)
 		Set EP2 = 0 #Extra position 2 (South)
-		if[%floor% = 0] Set EP2 = 140 #Extra position 2 (South)
+		if[%floor% = 1] Set EP2 = 180 #Extra position 2 (South)
 
 		WallOrientation = left
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade, ExtFacade, ExtFacade2, ExtFacade2
-		AddWall LeftRail, ExtFacade2, 0.5, -%1%, -%2% + %EP2%, -%1%, %2% - %EP%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% ! 0] AddWall LeftRail, ExtFacade2, 0.5, -%1%, -%2% + %EP2%, -%1%, %2% - %EP%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Back
 		WallOrientation = right
@@ -557,6 +563,66 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride ExtFacade2, ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
 		if[%floor% > 1] AddWall BackWallC, ExtFacade2, 0.5, 30, %2%, 150, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 <EndFloors>
+
+########################################
+
+#Cuts for double-height lobby
+Cut External, -%1%, Floor(0).Base - 0.1, -%2%, -174, Floor(1).Base + 5, -90, false, true
+Cut External, -174, Floor(0).Base - 0.1, -%2%, -174 + 48, Floor(0).Base + 5, -90, false, true
+Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48, Floor(1).Base + 5, 50, false, true
+
+#Hotel entrance area
+<Floors 0 to 1>
+	Set 5E = HotelEntrance #Override
+
+	#Hotel lobby floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 0] AddFloor HotelEntrFlr, %5E%Floor, 0.5, -%1%, -%2%, -174 + 48, 50, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Hotel lobby ceiling
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 1] AddFloor HotelEntrCeil, %5E%Ceiling, 0.5, -%1% + 0.5, -%2%, -174 + 48, 50, %fullheight%, %fullheight%, 0, 0, true
+
+	#Divider walls
+	DrawWalls = true, true, false, false, false, false
+
+	Set WallHeight = %height%
+	Set WallOffset = %interfloorheight%
+	if[%floor% = 1] Set WallHeight = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
+	if[%floor% = 1] Set WallOffset = 0
+
+		#Back walls
+		WallOrientation = right
+		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
+		AddWall HotelEntrBack, %5E%Wall, 0.5, -%1%, 50, -174 + 48, 50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Right walls
+		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
+		if[%floor% = 0] AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
+		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90, -174 + 48, 50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Front walls
+		WallOrientation = left
+		DrawWalls = false, true, false, false, false, false
+		AddWall HotelEntrFront, %5E%Wall, 0.5, -%1%, -%2%, -174, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+	#Windows
+	Set MyIFloorType = 1
+	Set WinHeight = %height%
+	DrawWalls = true, true, false, false, false, false
+
+	SetAutoSize = true, false
+
+		#Left windows
+		AddCustomWindows(LMH_LobbyWin_Left, LobbyWindows, LobbyWindowsInt, -%1%, -%2%, -%1%, 50, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+
+	SetAutoSize = true, true
+<EndFloors>
+
+########################################
 
 <Floor 14>
 	#Interfloor covers
@@ -810,7 +876,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		DrawWalls = true, true, true, true, true, true
 
 		WallOrientation = right
-		if[%floor% = 2] AddWall TopRailA, ParkingWall3, 0.5, -90, -71.5 - 18.5, -90, -71.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = 2] AddWall TopRailA, ParkingWall3, 0.5, -90, -71.5 - 18.5, -90, -71.5 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = left
 		if[%floor% = 2] AddWall TopRailB, ParkingWall3, 0.5, -90 + 200, -71.5 - 36.5, -90 + 200, -71.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	<EndFloors>
@@ -970,13 +1036,13 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor LMH_Floor, %5%Floor, 0.5, -%1%, %2% - 200, -%1% + 200 + 80, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor LMH_Floor2, %5%Floor, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LMH_Floor2, %5%Floor, 0.5, -%1%, -%2%, -%1% + 121.25, %2% - 200, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor LMH_Ceiling, %5%Ceiling, 0.5, -%1%, %2% - 200, -%1% + 200 + 80, %2%, %fullheight%, %fullheight%, 0, 0, true
-	AddFloor LMH_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %fullheight%, %fullheight%, 0, 0, true
+	AddFloor LMH_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, -%1% + 121.25, %2% - 200, %fullheight%, %fullheight%, 0, 0, true
 <EndFloors>
 
 #Hotel tower levels
@@ -1155,3 +1221,29 @@ AddStdShaft(1, 1, -150, -124, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 
 AddStdShaft(2, 1, -150, -96, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 1 = true
 ShowFullShaft 2 = true
+
+	<Floor 18>
+		#Machine room doors
+
+		#Shaft 1
+		Set DTex = ServiceDoor3
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -150
+		Set Door_MainZ = -124 + 6
+	
+		WallOrientation = right
+		AddStdDoor DoorManager, %floorid%_Shaft1MR_D1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_Shaft1MR_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		#Shaft 2
+		Set DTex = ServiceDoor3
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -150
+		Set Door_MainZ = -96 - 6
+	
+		WallOrientation = left
+		AddStdDoor DoorManager, %floorid%_Shaft2MR_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_Shaft2MR_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+	<EndFloor>
