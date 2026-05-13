@@ -134,7 +134,8 @@
 
 		#Roofs
 		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
-		Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881
+		Load data/cem_tr_b.jpg, RoofFloor2, 0.1, 0.1
+		#Load data/EG881/Concrete/smoothconcrete1.jpg, RoofFloor2, 0.0625, 0.0625 #EG881
 
 	#Doors
 		#Service doors
@@ -1064,9 +1065,9 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	Set WallHeight = %fullheight%
 	Set WallOffset = 0
 
-		DrawWalls = true, true, true, false, false, false
-
+		#Front walls
 		WallOrientation = left
+		DrawWalls = true, true, true, false, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
 		AddWall FrontWallA, %5%Wall, 0.5, -180, -%2%, -174, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -1076,6 +1077,13 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
 		AddWall FrontWallC, %5%Wall, 0.5, -126, -%2%, -120, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Right walls
+		WallOrientation = right
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% = 17] AddWall RightWallA, %5%Wall, 0.5, -%1% + 200 + 80, -%2%, -%1% + 200 + 80, -%2% + 1, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, true, false, false, false
+		if[%floor% = 17] AddWall RightWallB, %5%Wall, 0.5, -%1% + 200 + 80, %2% - 1, -%1% + 200 + 80, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
 #14th floor roof deck
@@ -1083,7 +1091,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	#Roof floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor LMH_%floorid%FRoof, RoofFloor2, 0.5, -%1% + 200, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LMH_%floorid%FRoof, RoofFloor2, 0.5, -%1% + 200 + 80, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 5.5
@@ -1092,10 +1100,10 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		DrawWalls = true, true, true, true, true, false
 
 		WallOrientation = left
-		AddWall FrontWall, ExtFacade, 0.5, -%1% + 200 + 80, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWall, ExtFacade, 0.5, -%1% + 200 + 80, -%2%, %1% - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
-		AddWall RightWall, ExtFacade, 0.5, %1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall RightWall, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall BackWall, ExtFacade, 0.5, -%1% + 200 + 80, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
@@ -1125,7 +1133,46 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	AddCustomWindows(LMH_HotelTowerWin_Back, MainWindowsInt, MainWindows, -%1%, %2%, -%1% + 200, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
+
+
+	#Perimeter walls
+	Set WallHeight = %fullheight%
+	Set WallOffset = 0
+
+		#Front walls
+		WallOrientation = left
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% = 19] AddWall FrontWall, %5%Wall, 0.5, -%1%, %2% - 200, -%1% + 1, %2% - 200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		#Right walls
+		WallOrientation = right
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% = 19] AddWall RightWallA, %5%Wall, 0.5, -%1% + 200, %2% - 200, -%1% + 200, %2% - 200 + 1, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, false, true, false, false, false
+		if[%floor% = 19] AddWall RightWallB, %5%Wall, 0.5, -%1% + 200, %2% - 1, -%1% + 200, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
+
+#16th floor roof deck
+<Floor 19>
+	#Roof floors
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor LMH_%floorid%F_EastRoof, RoofFloor2, 0.5, -%1% + 200, -%2%, -%1% + 200 + 80, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LMH_%floorid%F_SouthRoof, RoofFloor2, 0.5, -%1%, -%2%, -%1% + 200, %2% - 200, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 5.5
+	Set WallOffset = 0
+
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = left
+		AddWall FrontWall, ExtFacade, 0.5, -%1% + 0.5, -%2%, -%1% + 200 + 80 - 0.5, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWall, ExtFacade, 0.5, -%1%, -%2%, -%1%, %2% - 200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		AddWall RightWall, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWall, ExtFacade, 0.5, -%1% + 200, %2%, -%1% + 200 + 80 - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
 
 #Topside mechanical
 <Floors 44 to 45>
