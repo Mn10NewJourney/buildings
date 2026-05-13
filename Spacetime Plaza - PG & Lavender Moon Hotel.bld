@@ -369,8 +369,8 @@
 <EndFloor>
 
 <Floors 44 to 45>
-	if[%floor% = 34] ID = 41
-	if[%floor% = 35] ID = 41A
+	if[%floor% = 44] ID = 41
+	if[%floor% = 45] ID = 41A
 	Name = Topside Mechanical
 	Type = Mechanical
 	Height = 10
@@ -417,8 +417,8 @@ DrawWalls = false, true, false, false, false, false
 	if[%floor% < 14] Set 5 = Parking
 	if[%floor% > 13 & %floor% < 17] Set 5 = Service
 	if[%floor% > 16 & %floor% < 20] Set 5 = HotelLobby
-	if[%floor% = 33] Set 5 = Summit
-	if[%floor% > 33] Set 5 = Service
+	if[%floor% = 43] Set 5 = Summit
+	if[%floor% > 43] Set 5 = Service
 
 	###************###
 
@@ -991,7 +991,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 ########################################
 
-#Midpoint mechanical
+#Middle mechanical
 <Floors 14 to 16>
 	TexPrefix() #Set texture prefix/suffix
 
@@ -1036,14 +1036,12 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor LMH_Floor, %5%Floor, 0.5, -%1%, %2% - 200, -%1% + 200 + 80, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor LMH_Floor2, %5%Floor, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor LMH_Floor, %5%Floor, 0.5, -%1%, -%2%, -%1% + 200 + 80, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor LMH_Ceiling, %5%Ceiling, 0.5, -%1%, %2% - 200, -%1% + 200 + 80, %2%, %fullheight%, %fullheight%, 0, 0, true
-	AddFloor LMH_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %fullheight%, %fullheight%, 0, 0, true
+	AddFloor LMH_Ceiling, %5%Ceiling, 0.5, -%1%, -%2%, -%1% + 200 + 80, %2%, %fullheight%, %fullheight%, 0, 0, true
 	
 	#Windows
 	Set MyIFloorType = 1
@@ -1052,17 +1050,13 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 	SetAutoSize = true, false
 		#Front and left windows
-		AddCustomWindows(LMH_HotelBaseWin_Front1A, MainWindows, MainWindowsInt, -%1%, -%2%, -180, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		AddCustomWindows(LMH_HotelBaseWin_Front1B, MainWindows, MainWindowsInt, -120, %2%, -%1% + 120, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		AddCustomWindows(LMH_HotelBaseWin_Front2, MainWindows, MainWindowsInt, -%1% + 120, %2% - 200, -%1% + 200, %2% - 200, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-
-		AddCustomWindows(LMH_HotelBaseWin_Left, MainWindows, MainWindowsInt, -%1%, %2% - 200, -%1%, %2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(LMH_HotelBaseWin_Front1, MainWindows, MainWindowsInt, -%1%, -%2%, -180, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(LMH_HotelBaseWin_Front2, MainWindows, MainWindowsInt, -120, -%2%, -%1% + 200 + 80, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		AddCustomWindows(LMH_HotelBaseWin_Left, MainWindows, MainWindowsInt, -%1%, -%2%, -%1%, %2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
 		#Right and back windows
-		AddCustomWindows(LMH_HotelBaseWin_Right1, MainWindowsInt, MainWindows, -%1% + 120, -%2%, -%1% + 120, %2% - 200, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
-		AddCustomWindows(LMH_HotelBaseWin_Right2, MainWindowsInt, MainWindows, -%1% + 200, %2% - 200, -%1% + 200, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
-	
-		AddCustomWindows(LMH_HotelBaseWin_Back, MainWindowsInt, MainWindows, -%1%, %2%, -%1% + 200, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(LMH_HotelBaseWin_Right, MainWindowsInt, MainWindows, -%1% + 200 + 80, -%2%, -%1% + 200 + 80, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(LMH_HotelBaseWin_Back, MainWindowsInt, MainWindows, -%1%, %2%, -%1% + 200 + 80, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
 
@@ -1076,13 +1070,34 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
 		AddWall FrontWallA, %5%Wall, 0.5, -180, -%2%, -174, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		DrawWalls = true, true, false, false, false, false
+		DrawWalls = true, false, false, false, false, false
 		AddWall FrontWallB, ExtFacade, 0.5, -174, -%2%, -126, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
 		AddWall FrontWallC, %5%Wall, 0.5, -126, -%2%, -120, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
+
+#14th floor roof deck
+<Floor 17>
+	#Roof floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor LMH_%floorid%FRoof, RoofFloor2, 0.5, -%1% + 200, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 5.5
+	Set WallOffset = 0
+
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = left
+		AddWall FrontWall, ExtFacade, 0.5, -%1% + 200 + 80, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		AddWall RightWall, ExtFacade, 0.5, %1%, %2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWall, ExtFacade, 0.5, -%1% + 200 + 80, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
 
 #Hotel tower levels
 <Floors 19 to 43>
@@ -1092,13 +1107,11 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor LMH_Floor, %5%Floor, 0.5, -%1%, %2% - 200, -%1% + 200, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	#if[%floor% < 19] AddFloor LMH_Floor2, %5%Floor, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor LMH_Ceiling, %5%Ceiling, 0.5, -%1%, %2% - 200, -%1% + 200, %2%, %fullheight%, %fullheight%, 0, 0, true
-	#if[%floor% < 19] AddFloor LMH_Ceiling2, %5%Ceiling, 0.5, -%1%, -%2%, -%1% + 120, %2% - 200, %fullheight%, %fullheight%, 0, 0, true
 
 	#Windows
 	Set MyIFloorType = 1
@@ -1113,6 +1126,62 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 	SetAutoSize = true, true
 <EndFloors>
+
+#Topside mechanical
+<Floors 44 to 45>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = 44] AddFloor TopMechFlr, %5%Floor, 0.5, -%1%, %2% - 200, -%1% + 200, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% = 45] AddFloor TopMechCeil, %5%Ceiling, 0.5, -%1%, %2% - 200, -%1% + 200, %2%, %fullheight%, %fullheight%, 0, 0, true
+
+	#Perimeter walls
+	TexPrefix() #Set texture prefix/suffix
+	Set WallHeight = %fullheight%
+	Set WallOffset = 0
+
+		DrawWalls = true, true, false, false, false, false
+
+		WallOrientation = left
+		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
+		AddWall FrontWall, %5%Wall, 0.5, -%1%, %2% - 200, -%1% + 200, %2% - 200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
+		AddWall LeftWall, %5%Wall, 0.5, -%1%, %2% - 200, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
+		AddWall RightWall, %5%Wall, 0.5, -%1% + 200, %2% - 200, -%1% + 200, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
+		AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, -%1% + 200, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
+
+#Rooftop
+<Floor 46>
+	#Roof floor
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	AddFloor LMH_Roof, RoofFloor, 0.5, -%1%, %2% - 200, -%1% + 200, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	#Railings
+	Set WallHeight = %interfloorheight% + 5.5
+	Set WallOffset = 0
+
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = left
+		AddWall FrontWall, ExtFacade, 0.5, -%1% + 0.5, %2% - 200, -%1% + 200 - 0.5, %2% - 200, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall LeftWall, ExtFacade, 0.5, -%1%, %2% - 200, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = right
+		AddWall RightWall, ExtFacade, 0.5, -%1% + 200, %2% - 200, -%1% + 200, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall BackWall, ExtFacade, 0.5, -%1% + 0.5, %2%, -%1% + 200 - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloor>
 
 ########################################
 
@@ -1170,8 +1239,8 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	CreateWallBox2 external, Support%Prefix%3, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	CreateWallBox2 external, Support%Prefix%4, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	CreateWallBox2 external, Support%Prefix%5, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, ColumnTex, %SupportX% - 1.25, %2% - (%DistanceZ% * 5) + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%7, ColumnTex, %SupportX% - 1.25, %2% - (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 5) + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%7, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row E
 	Set Prefix = E
