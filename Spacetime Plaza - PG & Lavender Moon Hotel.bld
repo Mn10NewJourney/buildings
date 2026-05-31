@@ -96,6 +96,7 @@
 		#Hotel entrance (1st floor)
 		Load data/MarbleWhite0047b_S.jpg, HotelEntranceFloor, 0.15, 0.3
 		Load data/marble2.jpg, HotelEntranceWall, 0.111, 0.111
+		Load data/granite_0008b.jpg, HotelEntranceWall2, 0.25, 0.25 #Deco walls
 		Load data/EG881/ceilingtile3x3.jpg, HotelEntranceCeiling, 0.125, 0.125 #EG881
 
 		#Hotel lobby
@@ -499,7 +500,7 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = 0 | %floor% = 1] CreateFlr(TowerPK_UtilityFloor2, ParkingFloor, 0.5, -90.5, 85, 110.5, 93, 0, true)
 
 		Set NorthEnd = -109
-		if[%floor% = 1] Set NorthEnd = -89.5
+		if[%floor% = 1] Set NorthEnd = -90
 		if[%floor% = 2] Set NorthEnd = -108
 		if[%floor% = 3 | %floor% = 4 | %floor% = 6 | %floor% = 7] Set NorthEnd = -98
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1, ParkingFloor, 0.5, -126, -130, -120, -90, 0, true)
@@ -528,7 +529,7 @@ DrawWalls = false, true, false, false, false, false
 		Set EP = 0 #Extra position 1 (North)
 		if[%floor% = 0] Set EP = 40 #Extra position 1 (North)
 		Set EP2 = 0 #Extra position 2 (South)
-		if[%floor% = 1] Set EP2 = 180 #Extra position 2 (South)
+		#if[%floor% = 1] Set EP2 = 180 #Extra position 2 (South)
 
 		WallOrientation = left
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade, ExtFacade, ExtFacade2, ExtFacade2
@@ -569,31 +570,31 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Cuts for double-height lobby
-Cut External, -%1%, Floor(0).Base - 0.1, -%2%, -174, Floor(1).Base + 5, -90, false, true
-Cut External, -174, Floor(0).Base - 0.1, -%2%, -174 + 48 - 0.5, Floor(0).Base + 5, -90, false, true
-Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48 - 0.5, Floor(1).Base + 5, 50, false, true
+#Cut External, -%1%, Floor(0).Base - 0.1, -%2%, -174, Floor(1).Base + 5, -90, false, true
+#Cut External, -174, Floor(0).Base - 0.1, -%2%, -174 + 48 - 0.5, Floor(0).Base + 5, -90, false, true
+#Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48 - 0.5, Floor(1).Base + 5, 50, false, true
 
 #Hotel entrance area
-<Floors 0 to 1>
+<Floor 0>
 	Set 5E = HotelEntrance #Override
 
 	#Hotel lobby floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 0] AddFloor HotelEntrFlr, %5E%Floor, 0.5, -%1%, -%2%, -174 + 48 - 0.5, 50, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor HotelEntrFlr, %5E%Floor, 0.5, -%1%, -%2%, -174 + 48 - 0.5, 50, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Hotel lobby ceiling
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 1] AddFloor HotelEntrCeil, %5E%Ceiling, 0.5, -%1% + 0.5, -%2%, -174 + 48 - 0.5, 50, %fullheight%, %fullheight%, 0, 0, true
+	AddFloor HotelEntrCeil, %5E%Ceiling, 0.5, -%1% + 0.5, -%2%, -174 + 48 - 0.5, 50, %fullheight%, %fullheight%, 0, 0, true
 
 	#Divider walls
 	DrawWalls = true, true, false, false, false, false
 
 	Set WallHeight = %height%
 	Set WallOffset = %interfloorheight%
-	if[%floor% = 1] Set WallHeight = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
-	if[%floor% = 1] Set WallOffset = 0
+	#if[%floor% = 1] Set WallHeight = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
+	#if[%floor% = 1] Set WallOffset = 0
 
 		#Back walls
 		WallOrientation = right
@@ -602,7 +603,7 @@ Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48 - 0.5, Floor(1).Base + 5
 
 		#Right walls
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
-		if[%floor% = 0] AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
 		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90, -174 + 48, 50, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -612,7 +613,7 @@ Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48 - 0.5, Floor(1).Base + 5
 		AddWall HotelEntrFront, %5E%Wall, 0.5, -%1%, -%2%, -174, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#Windows
-	Set MyIFloorType = 1
+	Set MyIFloorType = 3
 	Set WinHeight = %height%
 	DrawWalls = true, true, false, false, false, false
 
@@ -622,7 +623,7 @@ Cut External, -%1%, Floor(0).Base - 0.1, -90, -174 + 48 - 0.5, Floor(1).Base + 5
 		AddCustomWindows(LMH_LobbyWin_Left, LobbyWindows, LobbyWindowsInt, -%1%, -%2%, -%1%, 50, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
 	SetAutoSize = true, true
-<EndFloors>
+<EndFloor>
 
 ########################################
 
@@ -817,7 +818,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		WallOrientation = left
 		Set WallHeight = %height%
 		Set WallOffset = %interfloorheight%
-		if[%floor% = 1] Set WallHeight = %interfloorheight% + 5.5
+		if[%floor% = 1] Set WallHeight = %interfloorheight% + 3.5
 		if[%floor% = 1] Set WallOffset = 0
 
 		DrawWalls = true, true, true, true, true, false
@@ -827,7 +828,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		AddWall P1-P2RampWall2, ParkingWall3, 0.5, -90, 129.5 - 18, -90 + 200, 129.5 - 18, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Railings on the highest floor
-		Set WallHeight = %interfloorheight% + 5.5
+		Set WallHeight = %interfloorheight% + 3.5
 		Set WallOffset = 0
 		DrawWalls = true, true, true, true, true, true
 
@@ -861,7 +862,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		WallOrientation = left
 		Set WallHeight = %height%
 		Set WallOffset = %interfloorheight%
-		if[%floor% = 2] Set WallHeight = %interfloorheight% + 5.5
+		if[%floor% = 2] Set WallHeight = %interfloorheight% + 3.5
 		if[%floor% = 2] Set WallOffset = 0
 
 		DrawWalls = true, true, true, true, true, false
@@ -873,7 +874,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		AddWall P2-P3RampWall3, ParkingWall3, 0.5, -90, -71.5, -90 + 200, -71.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Railings on the highest floor
-		Set WallHeight = %interfloorheight% + 5.5
+		Set WallHeight = %interfloorheight% + 3.5
 		Set WallOffset = 0
 		DrawWalls = true, true, true, true, true, true
 

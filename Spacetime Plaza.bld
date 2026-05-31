@@ -1299,11 +1299,13 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		Cut Landscape, 10 - 15 - 20, %LL2% - 1, -783, 10 + 15 + 20, %UL% + 1, -%2%, false, true
 		Cut Landscape, 10 - 15, %LL2% - 1, -798, 10 + 15, %UL% + 1, -783, false, true
 
+		Cut Landscape, 10 - 15, %UL% - 1, -%2%, 10 + 15, %UL% + 1, -%2% + 80, false, true #Extra cut (Added on May 31, 2026)
+
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		AddFloor landscape, SouthAccRoad, B1FSouthAccRoad, 0.5, 10 - 15, -%2%, 10 + 15, %2% - 260 - 320, %LL%, %LL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Slope, B1FSouthAccRoad, 0.5, 10 - 15, -%2% - 80, 10 + 15, -%2%, %SL%, %LL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Top1, B1FSouthAccRoad, 0.5, 10 - 15, -783, 10 + 15, -%2% - 80, %SL%, %SL%, 0, 0
+		AddFloor landscape, SouthAccRoad, B1FSouthAccRoad, 0.5, 10 - 15, -%2% + 80, 10 + 15, %2% - 260 - 320, %LL%, %LL%, 0, 0
+		AddFloor landscape, SouthAccRoad_Slope, B1FSouthAccRoad, 0.5, 10 - 15, -%2%, 10 + 15, -%2% + 80, %SL%, %LL%, 0, 0
+		AddFloor landscape, SouthAccRoad_Top1, B1FSouthAccRoad, 0.5, 10 - 15, -783, 10 + 15, -%2%, %SL%, %SL%, 0, 0
 		AddFloor landscape, SouthAccRoad_Top2, Road, 0.5, 10 - 15, -798, 10 + 15, -783, -0.5, %SL%, 0, 0
 	
 		AddFloor landscape, SouthAccRoad_Sidewalk1, Sidewalk, 0.5, 10 - 15 - 20, -783, 10 - 15, -%2%, %SL%, %SL%, 0, 0
@@ -1312,18 +1314,18 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		#Ceiling on level B1
 		FloorOrientation = bottom
 		DrawWalls = true, false, false, false, false, false
-		AddFloor landscape, SouthAccRoad_Ceiling, ParkingCeiling, 0.5, 10 - 15, -%2%, 10 + 15, %2% - 260 - 320 + 0.5, %LL2%, %LL2%, 0, 0
+		AddFloor landscape, SouthAccRoad_Ceiling, ParkingCeiling, 0.5, 10 - 15, -%2% + 80, 10 + 15, %2% - 260 - 320 + 0.5, %LL2%, %LL2%, 0, 0
 
 		#Walls around roadways
 		WallOrientation = right
 		DrawWalls = false, true, false, false, false, false
-		AddWall landscape, SouthAccRoad_LeftWall, ParkingWall3, 0.5, 10 - 15, -%2% - 20 - 80, 10 - 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
+		AddWall landscape, SouthAccRoad_LeftWall, ParkingWall3, 0.5, 10 - 15, -%2%, 10 - 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
 		WallOrientation = left
 		DrawWalls = true, false, false, false, false, false
-		AddWall landscape, SouthAccRoad_RightWall, ParkingWall3, 0.5, 10 + 15, -%2% - 20 - 80, 10 + 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
+		AddWall landscape, SouthAccRoad_RightWall, ParkingWall3, 0.5, 10 + 15, -%2%, 10 + 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
 		
 		#Auto area for ramps
-		AddFloorAutoArea -10 - 15, Floor(-1).Base, -%2% - 80, 10 + 15, Floor(0).Base + 5, %2% - 60 - 320
+		AddFloorAutoArea -10 - 15, Floor(-1).Base, -%2%, 10 + 15, Floor(0).Base + 5, -%2% + 80
 
 	#Northeast Entrance/Exit
 		#Cut landscape for roadways and sidewalks
@@ -3115,7 +3117,7 @@ ShowFullShaft 11 = true
 		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.051, %P1_PositionZ% - 0.3, %P1_PositionX% - 0.051, %P1_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% - 0.052, %P1_PositionZ% - 0.2, %P1_PositionX% - 0.052, %P1_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, left, %P1_PositionX% - 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, left, %P1_PositionX% - 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX% - 0.053, %P1_PositionZ%, %IndOffset% + 0.375, left, 0.45, 0.4, false, 0, 0
 
 		#Left
@@ -3123,7 +3125,7 @@ ShowFullShaft 11 = true
 		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% - 0.051, %P2_PositionZ% - 0.3, %P2_PositionX% - 0.051, %P2_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% - 0.052, %P2_PositionZ% - 0.2, %P2_PositionX% - 0.052, %P2_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, left, %P2_PositionX% - 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, left, %P2_PositionX% - 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX% - 0.053, %P2_PositionZ%, %IndOffset% + 0.375, left, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Shaft components
@@ -3348,7 +3350,7 @@ ShowFullShaft 11 = true
 		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.25, %P1_PositionZ% - 0.001, %P1_PositionX% + 0.25, %P1_PositionZ% - 0.001, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% - 0.2, %P1_PositionZ% - 0.002, %P1_PositionX% + 0.2, %P1_PositionZ% - 0.002, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, front, %P1_PositionX%, %P1_PositionZ% - 0.003, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, front, %P1_PositionX%, %P1_PositionZ% - 0.003, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX%, %P1_PositionZ% - 0.003, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
 
 		#Left
@@ -3356,7 +3358,7 @@ ShowFullShaft 11 = true
 		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% - 0.25, %P2_PositionZ% - 0.001, %P2_PositionX% + 0.25, %P2_PositionZ% - 0.001, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% - 0.2, %P2_PositionZ% - 0.002, %P2_PositionX% + 0.2, %P2_PositionZ% - 0.002, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, front, %P2_PositionX%, %P2_PositionZ% - 0.003, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, front, %P2_PositionX%, %P2_PositionZ% - 0.003, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX%, %P2_PositionZ% - 0.003, %IndOffset% + 0.375, front, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Shaft components
@@ -3500,7 +3502,7 @@ ShowFullShaft 11 = true
 		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.051, %P1_PositionZ% - 0.3, %P1_PositionX% - 0.051, %P1_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% - 0.052, %P1_PositionZ% - 0.2, %P1_PositionX% - 0.052, %P1_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, left, %P1_PositionX% - 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, left, %P1_PositionX% - 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX% - 0.053, %P1_PositionZ%, %IndOffset% + 0.375, left, 0.45, 0.4, false, 0, 0
 
 		#Left
@@ -3508,7 +3510,7 @@ ShowFullShaft 11 = true
 		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% - 0.051, %P2_PositionZ% - 0.3, %P2_PositionX% - 0.051, %P2_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% - 0.052, %P2_PositionZ% - 0.2, %P2_PositionX% - 0.052, %P2_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, left, %P2_PositionX% - 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, left, %P2_PositionX% - 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX% - 0.053, %P2_PositionZ%, %IndOffset% + 0.375, left, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Shaft components
@@ -3619,7 +3621,7 @@ ShowFullShaft 11 = true
 		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% + 0.051, %P1_PositionZ% - 0.3, %P1_PositionX% + 0.051, %P1_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall RightIndBack2, IndBack, 0, %P1_PositionX% + 0.052, %P1_PositionZ% - 0.2, %P1_PositionX% + 0.052, %P1_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, right, %P1_PositionX% + 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, right, %P1_PositionX% + 0.053, %P1_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX% + 0.053, %P1_PositionZ%, %IndOffset% + 0.375, right, 0.45, 0.4, false, 0, 0
 
 		#Left
@@ -3627,7 +3629,7 @@ ShowFullShaft 11 = true
 		AddWall LeftIndBack1, IndBack2, 0, %P2_PositionX% + 0.051, %P2_PositionZ% - 0.3, %P2_PositionX% + 0.051, %P2_PositionZ% + 0.3, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall LeftIndBack2, IndBack, 0, %P2_PositionX% + 0.052, %P2_PositionZ% - 0.2, %P2_PositionX% + 0.052, %P2_PositionZ% + 0.2, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, right, %P2_PositionX% + 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, right, %P2_PositionX% + 0.053, %P2_PositionZ%, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P2_PositionX% + 0.053, %P2_PositionZ%, %IndOffset% + 0.375, right, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Shaft components
@@ -3796,7 +3798,7 @@ ShowFullShaft 11 = true
 		AddWall RightIndBack1, IndBack2, 0, %P1_PositionX% - 0.3, %P1_PositionZ% + 0.051, %P1_PositionX% + 0.3, %P1_PositionZ% + 0.051, 0.95, 0.95, %IndOffset% - 0.15, %IndOffset% - 0.15, 0, 0
 		AddWall RightIndBack2, IndBack, 0,  %P1_PositionX% - 0.2, %P1_PositionZ% + 0.052, %P1_PositionX% + 0.2, %P1_PositionZ% + 0.052, 0.8, 0.8, %IndOffset%, %IndOffset%, 0, 0
 
-		AddFloorIndicator Ind_Button, back, %P1_PositionX%, %P1_PositionZ% + 0.053, 0.4, 0.4, %IndOffset%
+		AddFloorIndicator Ind_Button, back, %P1_PositionX%, %P1_PositionZ% + 0.053, 0.4, 0.4, %IndOffset% + 0.11
 		AddDirectionalIndicator true, true, true, IndBack, ArrowUp, ArrowUpLit, ArrowDown, ArrowDownLit, %P1_PositionX%, %P1_PositionZ% + 0.053, %IndOffset% + 0.375, back, 0.45, 0.4, false, 0, 0
 	#--------------------
 	#Proximity scanner
