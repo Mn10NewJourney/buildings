@@ -211,8 +211,8 @@
 
 		#Floor signs (Stairwells)
 		#AddTextRange 1, 3, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddTextRange 1, 46, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddText Blank, BlankSign45A, nimbus_sans_bold_condensed.ttf, 65, 20A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddTextRange 1, 42, Blank, BlankSign%number%, nimbus_sans_bold.ttf, 72, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		#AddText Blank, BlankSign41A, nimbus_sans_bold_condensed.ttf, 65, 41A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Restrooms
 		Load data/signs_mod/Restroom1A.png, Sign_Restroom_Brown, 1, 1, false
@@ -270,7 +270,7 @@
 	if[%floor% = 0] Altitude = 2
 <EndFloors>
 
-<Floors 2 to 43>
+<Floors 2 to 39>
 	ID = %floor% + 1
 	Name = Office Level %floorid%
 	Type = Office
@@ -278,18 +278,18 @@
 	InterfloorHeight = 2
 <EndFloors>
 
-<Floors 44 to 45>
-	if[%floor% = 44] ID = %floor% + 1
-	if[%floor% = 45] ID = 44A
+<Floors 40 to 41>
+	if[%floor% = 40] ID = %floor% + 1
+	if[%floor% = 41] ID = 41A
 	Name = Mechanical Level %floorid%
 	Type = Mechanical
 	Height = 10
 	InterfloorHeight = 2
-	if[%floor% = 44] Group = 45
-	if[%floor% = 45] Group = 44
+	if[%floor% = 40] Group = 41
+	if[%floor% = 41] Group = 40
 <EndFloors>
 
-<Floor 46>
+<Floor 42>
 	ID = %floor%
 	Name = Roof
 	Type = Roof
@@ -323,7 +323,7 @@ DrawWalls = false, true, false, false, false, false
 	Set 5 = Office
 	if[%floor% < 0] Set 5 = Parking
 	if[%floor% = 0 | %floor% = 1] Set 5 = Lobby
-	if[%floor% > 43] Set 5 = Service
+	if[%floor% > 39] Set 5 = Service
 
 	###************###
 
@@ -377,7 +377,7 @@ DrawWalls = false, true, false, false, false, false
 <EndFloors>
 
 #Lobby and office levels
-<Floors 0 to 43>
+<Floors 0 to 39>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
@@ -462,18 +462,18 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Topside mechanical
-<Floors 44 to 45>
+<Floors 40 to 41>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	if[%floor% = 44] AddFloor ACTT_MechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = 40] AddFloor ACTT_MechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 45] AddFloor ACTT_MechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 41] AddFloor ACTT_MechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -498,7 +498,7 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Roof
-<Floor 46>
+<Floor 42>
 	#Roof floor
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
