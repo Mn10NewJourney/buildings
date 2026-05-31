@@ -806,6 +806,8 @@ DrawWalls = false, true, false, false, false, false
 
 		DrawWalls = false, true, false, false, false, false
 		#Extra floorings above roads (East zone)
+		if[%floor% = -2] CreateFlr(Mall_UnderRampFloor, ParkingFloor2, 0.5, 290, 20, 330, 140, 0, true)
+
 		if[%floor% = -2] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, %2% - 220, 0, true)
 		if[%floor% = -1] CreateFlr(EZ_WestUtilityFloor1, ParkingFloor, 0.5, 90, -%2% + 260, 111, -59, 0, true)
 		CreateFlr(EZ_WestUtilityFloor1A, ParkingFloor, 0.5, 111, -%2% + 260, 130, -180, 0, true)
@@ -1412,6 +1414,57 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 ########################################
 
+#Auto area for parking ramps
+	AddFloorAutoArea 310 - 20, Floor(-2).Base, 20, 310 + 20, Floor(-1).Base + 5, 140
+
+#Cuts for parking ramps
+	Cut External, 310 - 20, Floor(-2).Base + 5, 20, 310 + 20, Floor(-1).Base + 1.5, 140, false, true
+
+#Parking ramps creation
+	<Floor -2>
+		TexPrefix() #Set texture prefix
+	
+		#Parking ramps
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+		AddFloor NorthRamp_B2-B1, Road, 1, 310 - 20, 20, 310 + 20, 140, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight%, 0, 0, true
+
+			DrawWalls = false, true, false, false, false, false
+			AddFloor NorthRamp_Marking, NoParkingZ, 1, 310 - 3, 20, 310 + 3, 140, %fullheight% + Floor(%floor% + 1).InterfloorHeight + 0.001, %interfloorheight% + 0.001, 0, -6, true
+			AddFloor NorthRamp_Marking_EX1, NoParkingZ, 1, 310 - 3, 140, 310 + 3, 140 + 4, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, -0.5, true
+
+		#Railings next to ramps
+		Set WallHeight = 1 + 3.5
+		Set WallOffset = %interfloorheight% - 1
+		Set WallOffset2 = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = left
+		AddWall NR_LeftRail, ParkingWall, 0.5, 310 - 20, 20, 310 - 20, 140, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+		WallOrientation = right
+		AddWall NR_RightRail, ParkingWall, 0.5, 310 + 20, 20, 310 + 20, 140, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+	<EndFloor>
+
+	<Floor -1>
+		#Extra Markings
+		DrawWalls = false, true, false, false, false, false
+		AddFloor NorthRamp_Marking_EX2, NoParkingZ, 1, 310 - 3, 20 - 4, 310 + 3, 20, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, -0.5, true
+
+		#Railings on the highest floor
+		Set WallHeight = %interfloorheight% + 3.5
+		Set WallOffset = 0
+		DrawWalls = true, true, true, true, true, true
+
+		WallOrientation = right
+		AddWall NR_LeftRail, ParkingWall, 0.5, 310 - 20, 20, 310 - 20, 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		WallOrientation = left
+		AddWall NR_RightRail, ParkingWall, 0.5, 310 + 20, 20, 310 + 20, 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall NR_BackRail, ParkingWall, 0.5, 310 - 20.5, 140, 310 + 20.5, 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	<EndFloor>
+
+########################################
+
 #Shopping levels
 <Floors 0 to 7>
 	TexPrefix() #Set texture prefix/suffix
@@ -1739,11 +1792,11 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	#Center atrium
 	Cut External, -90 + 40, Floor(0).Base - 0.1, 60, 60, Floor(0).Base + 1, 135, false, true #Atrium base
-	Cut External, -90 + 40, Floor(1).Altitude - 1, 60, 60, Floor(6).Base + 5, 140, false, true #Shopping levels
+	Cut External, -90 + 40 - 0.5, Floor(1).Altitude - 1, 60, 60, Floor(6).Base + 5, 140, false, true #Shopping levels
 	Cut External, -90 + 40, Floor(10).Altitude - 1, 60, 60, Floor(10).Base + 1, 130, false, true #Roof skylight
 
 		#Extra cuts for escalators
-		Cut External, -90 + 40 - 4.5, Floor(1).Altitude - 1, 100 - 15, -90 + 40, Floor(6).Base + 5, 100 + 15, false, true
+		Cut External, -90 + 40 - 4.5 - 0.5, Floor(1).Altitude - 1, 100 - 15, -90 + 40, Floor(6).Base + 5, 100 + 15, false, true
 		Cut External, 60, Floor(1).Altitude - 1, 100 - 15, 60 + 4.5, Floor(6).Base + 5, 100 + 15, false, true
 
 	#South atrium
@@ -1763,7 +1816,6 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		Cut External, 240, Floor(1).Altitude - 1, 80 - 15, 240 + 4.5, Floor(5).Base + 5, 80 + 15, false, true #1st-6th floors
 		Cut External, 240, Floor(5).Altitude - 1, 80 - 15, 240 + 8.5, Floor(6).Base + 5, 80 + 15, false, true #6th-7th floors
-
 
 <Floor 0>
 	#Atrium bases
@@ -1868,11 +1920,11 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	#Center atrium railings
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, false
-	AddWall CAFrontRail, %5%%Suffix%, 0.5, -90 + 40, 60, 60, 60, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall CALeftRailA, %5%%Suffix%, 0.5, -90 + 40, 60 - 0.5, -90 + 40, 100 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall CALeftRailB, %5%%Suffix%, 0.5, -90 + 40, 100 + 15, -90 + 40, 140 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall CALeftRail_Esc, %5%%Suffix%, 0.5, -90 + 40 - 4.5, 100 - 15, -90 + 40 - 4.5, 100 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 6] AddWall CALeftRail_Top, %5%%Suffix%, 0.5, -90 + 40 - 5, 100 - 15, -90 + 40, 100 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall CAFrontRail, %5%%Suffix%, 0.5, -90 + 40 - 0.5, 60, 60, 60, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall CALeftRailA, %5%%Suffix%, 0.5, -90 + 40 - 0.5, 60 - 0.5, -90 + 40 - 0.5, 100 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall CALeftRailB, %5%%Suffix%, 0.5, -90 + 40 - 0.5, 100 + 15, -90 + 40 - 0.5, 140 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall CALeftRail_Esc, %5%%Suffix%, 0.5, -90 + 40 - 4.5 - 0.5, 100 - 15, -90 + 40 - 4.5 - 0.5, 100 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 6] AddWall CALeftRail_Top, %5%%Suffix%, 0.5, -90 + 40 - 5 - 0.5, 100 - 15, -90 + 40 - 0.5, 100 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
 	#AddWall CARightRail, %5%%Suffix%, 0.5, 60, 60 - 0.5, 60, 140 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
@@ -1884,8 +1936,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% = 6] AddWall CARightRail_Top, %5%%Suffix%, 0.5, 60, 100 - 15, 60 + 5, 100 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
-	#AddWall CABackRail, %5%%Suffix%, 0.5, -90 + 40, 140, 60, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall CABackRailA, %5%%Suffix%, 0.5, -90 + 40, 140, 5 - 20, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	#AddWall CABackRail, %5%%Suffix%, 0.5, -90 + 40 - 0.5, 140, 60, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall CABackRailA, %5%%Suffix%, 0.5, -90 + 40 - 0.5, 140, 5 - 20, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	AddWall CABackRailB, %5%%Suffix%, 0.5, 5 + 20, 140, 60, 140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	
 	#East atrium 2 railings
@@ -5770,7 +5822,7 @@ ShowFullShaft 11 = true
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0) #Reset landing textures
 
 	<Floors 0 to 5>
-		OP_Escalator(MallCenterEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -52.5, 100 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+		OP_Escalator(MallCenterEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -52.5 - 0.5, 100 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		OP_Escalator(MallCenterEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 62.5, 100 + 15 - 1, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 	<EndFloor>
 

@@ -588,6 +588,7 @@ DrawWalls = false, true, false, false, false, false
 	
 		#Extra floorings above roads
 		DrawWalls = false, true, false, false, false, false
+		if[%floor% = -2] CreateFlr(ADS_UnderRampFloor, ParkingFloor2, 0.5, 80, -10, 120, 110, 0, true)
 		CreateFlr(EastCoreFloor, ParkingFloor, 0.5, 80, -90, 120, -50, 0, true)
 		CreateFlr(SouthwestFloor, ParkingFloor, 0.5, -%1%, -%2%, -80, -80, 0, true)
 
@@ -896,7 +897,10 @@ DrawWalls = false, true, false, false, false, false
 	SetAutoSize = true, false
 
 		#Right windows
-		if[%floor% = 0 | %floor% = 2] AddCustomWindows(ADS_RightWin_%floorid%F, ShopWindowsInt, ShopWindowsInt, %1%, -10, %1%, 30, %WinHeight%, 0, 0, %MyIFloorType%, EAWall, %5%Wall)
+		if[%floor% = 0] Set ExtPrefix = 
+		if[%floor% ! 0] Set ExtPrefix = Int
+
+		if[%floor% = 0 | %floor% = 2] AddCustomWindows(ADS_RightWin_%floorid%F, ShopWindowsInt, ShopWindows%ExtPrefix%, %1%, -10, %1%, 30, %WinHeight%, 0, 0, %MyIFloorType%, EAWall, %5%Wall)
 
 	SetAutoSize = true, true
 
