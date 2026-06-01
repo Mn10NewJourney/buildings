@@ -43,3 +43,23 @@
 	DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, %FPName%_Soil, %SoilTex%, 0, %X1% + 0.5, %Z1% + 0.5, %X2% - 0.5, %Z2% - 0.5, %Offset% + %HT% + 0.001, %Offset% + %HT% + 0.001, 0, 0	
 <EndFunction>
+
+#Landscape floor creation function - Similar to "CreateFlr" above, but is used in the landscape mesh.
+<Function LSFloorCreator>
+	Set FlrName = %param1%
+	Set FlrTex = %param2%
+	Set X1 = %param3%
+	Set Z1 = %param4%
+	Set X2 = %param5%
+	Set Z2 = %param6%
+	Set Offset = %param7%
+	Set RA = %param8% #Reverse axis
+	Set TD = %param9% #Texture dir.
+
+	#Cut ground for floors
+	Cut landscape, %X1%, %Offset% - 1, %Z1%, %X2%, %Offset% + 1, %Z2%, false, true
+
+	#Floor creation
+	DrawWalls = false, true, false, false, false, false
+	AddFloor landscape, %FlrName%, %FlrTex%, 0, %X1%, %Z1%, %X2%, %Z2%, %Offset%, %Offset%, %RA%, %TD%, 0, 0	
+<EndFunction>
