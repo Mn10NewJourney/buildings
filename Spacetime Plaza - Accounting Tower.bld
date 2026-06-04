@@ -174,7 +174,6 @@
 		#Main components
 		Load data/metal1.jpg, ElevExt, 0.25, 0.25, true
 		Load data/metal080.jpg, ElevExt2, 0.5, 0.5, true
-		Load data/panel-back3.jpg, ElevExt3, 1, 1, false
 		Load data/counterweight.png, CWeight, 1, 1, false
 		Load data/counterweight_frame.png, CWeight_Frame, 1, 1, false
 		Load data/ropes.png, Ropes, 1, 1, false
@@ -222,9 +221,10 @@
 		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, UpperOfficeElevDoors2, 1, 1, false #EG881
 
 		#Parking elevators (No. 25-26)
-		Load data/Carpet0013b_S.jpg, ParkingElevFloor, 0.2, 0.2
+		Load data/Carpet0021d_S.jpg, ParkingElevFloor, 0.2, 0.2
 		Load data/EG881/elevdoortrim_white.jpg, ParkingElevWall, 0.5, 0.5 #EG881
 		Load data/glasselevator2b.gif, ParkingElevWallGlass, 0.5, 1, false
+		Load data/glasselevator2b.gif, ParkingElevWallGlass2, 1, 1, false
 		Load data/EG881/stainlesssteel2.jpg, ParkingElevWallGlassLink, 1, 1, false #EG881
 
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevCeiling, 1, 1, false
@@ -232,12 +232,12 @@
 		Load data/EG881/Lights/squarelight1_white.jpg, ParkingElevCeilingLight, 1, 1, false #EG881
 		Load data/EG881/stainlesssteel2grid.gif, ParkingElevCeilingGrid, 1, 1, false #EG881
 
-		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevPanelMain, 1, 1, false
-		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevPanelTop, 1, 0.125, false
-		Load data/Melvin/Aceheart/glassdoor_trans_darker.png, ParkingElevDoors, 1, 1, false
-		Load data/Melvin/Aceheart/glassdoor_trans_darker.png, ParkingElevDoors2, -1, 1, false
-		Load data/Melvin/Aceheart/glassdoor_trans_darker_side.png, ParkingElevDoorsSide, 1, 1, false
-		Load data/Melvin/Aceheart/glassdoor_trans_darker_side.png, ParkingElevDoors2Side, -1, 1, false
+		Load data/panel-back3.jpg, ParkingElevPanelMain, 1, 1, false
+		Load data/panel-back3.jpg, ParkingElevPanelTop, 1, 0.125, false
+		Load data/glassdoor_trans.gif, ParkingElevDoors, 1, 1, false
+		Load data/glassdoor_trans.gif, ParkingElevDoors2, -1, 1, false
+		LoadCropped data/glassdoor_trans.gif, ParkingElevDoorsSide, 236, 0, 20, 512, 1, 1, false
+		LoadCropped data/glassdoor_trans.gif, ParkingElevDoors2Side, 236, 0, 20, 512, -1, 1, false
 
 			#Shaft doors (All passenger elevators)
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ParkingShaftDoors, 1, 1, false #EG881
@@ -326,8 +326,7 @@
 	#Signs
 		#Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
-		AddTextRange 1, 24, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-		#AddTextRange 25, 26, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		AddTextRange 1, 26, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Blank floor signs (Elevator lobbies and stairwells)
 		AddTextRange 1, 3, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -558,7 +557,7 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
 		DrawWalls = true, false, false, false, false, false
-		AddWall LeftWall_PKElevShaft, ExtFacade, 0.5, -%1%, -50, -%1%, -30, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% < 2] AddWall LeftWall_PKElevShaft, ExtFacade, 0.5, -%1%, -50, -%1%, -30, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		#Right walls
 		WallOrientation = right
@@ -610,7 +609,7 @@ Set SideTexture = BLKEntDoorSide
 	#TexPrefix()
 
 	#SOUTH DOORS
-	Set Door_MainX = -5
+	Set Door_MainX = -45
 	Set Door_MainZ = -%2%
 
 	WallOrientation = left
@@ -619,7 +618,25 @@ Set SideTexture = BLKEntDoorSide
 	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 
-	Set Door_MainX = 5
+	Set Door_MainX = -35
+	Set Door_MainZ = -%2%
+
+	WallOrientation = left
+	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+	Set Door_MainX = 35
+	Set Door_MainZ = -%2%
+
+	WallOrientation = left
+	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+
+	Set Door_MainX = 45
 	Set Door_MainZ = -%2%
 
 	WallOrientation = left
@@ -1051,8 +1068,8 @@ ShowFullShaft 9 = true
 
 		#Glass windows
 		Add3DWindows(Shaft9LeftWin, -100, -40, left, 17, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 4/4, 2)
-		Add3DWindows(Shaft9FrontWin, -95 - 0.625, -50, front, 8, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 2/4, 2)
-		Add3DWindows(Shaft9FrontWin, -95 - 0.625, -30, back, 8, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 2/4, 2)
+		Add3DWindows(Shaft9FrontWin, -95, -50, front, 7.5, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 2/4, 2)
+		Add3DWindows(Shaft9FrontWin, -95, -30, back, 7.5, %WinHeight%, %WinOffset%, MainWindowsIntB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 2/4, 2)
 	<EndFloors>
 
 ##--------------------------------------------------------------------------------##
@@ -2210,7 +2227,7 @@ ShowFullShaft 9 = true
 	AutoEnable = false
 
 	#Set textures and dimensions	
-	M10_ElevCabTex(ElevExt3, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevCabTex(ElevExt2, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
 	M10_ElevDimensions(7.68, 6, 8, 1.5, 0.2, false, false, false, false)
 	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, 1.25, 1.25, 1, 0.2, false, false, true, false)
 
@@ -2226,41 +2243,40 @@ ShowFullShaft 9 = true
 			#Left walls
 			WallOrientation = left
 			DrawWalls = true, true, true, true, false, false
-			TextureOverride ElevExt3, %WPTex%, ElevExt3, %WPTex%, Blank, Blank
+			fTextureOverride ElevExt2, %WPTex%, ElevExt2, %WPTex%, Blank, Blank
 			AddWall LeftGlassWallLink1, %WPTex%, 0.25, -3.84, -3.00, -3.84, -3.00 + 0.25, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-			TextureOverride ElevExt3, %WPTex%, %WPTex%, ElevExt3, Blank, Blank
+			TextureOverride ElevExt2, %WPTex%, %WPTex%, ElevExt2, Blank, Blank
 			AddWall LeftGlassWallLink2, %WPTex%, 0.25, -3.84, 3.00 - 0.25, -3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 		
 			#Front walls
 			WallOrientation = left
 			DrawWalls = true, true, true, true, false, false
-			TextureOverride ElevExt3, %Prefix%ElevWall, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
+			TextureOverride ElevExt2, %Prefix%ElevWall, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
 			AddWall FrontWall, %Prefix%ElevWall, 0.25, 0 - 0.625, -3.00, 0 + 0.625, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
 			DrawWalls = true, true, true, false, false, false
-			TextureOverride ElevExt3, %WPTex%, ElevExt3, Blank, Blank, Blank
+			TextureOverride ElevExt2, %WPTex%, %WPTex%, Blank, Blank, Blank
 			AddWall FrontGlassWallLink, %WPTex%, 0.25, 3.84 - 0.25, -3.00, 3.84, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 	
 			#Back walls
 			WallOrientation = right
 			DrawWalls = true, true, true, true, false, false
-			TextureOverride %Prefix%ElevWall, ElevExt3, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
+			TextureOverride %Prefix%ElevWall, ElevExt2, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
 			AddWall BackWall, %Prefix%ElevWall, 0.25, 0 - 0.625, 3.00, 0 + 0.625, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
 			DrawWalls = true, true, true, false, false, false
-			TextureOverride %WPTex%, ElevExt3, ElevExt3, Blank, Blank, Blank
+			TextureOverride %WPTex%, ElevExt2, %WPTex%, Blank, Blank, Blank
 			AddWall BackGlassWallLink, %WPTex%, 0.25, 3.84 - 0.25, 3.00, 3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
 		#Glass panels
 		DrawWalls = true, true, false, false, false, false
-		TextureOverride ElevExt3, %WPTex%, ElevExt3, %WPTex%, Blank, Blank
-		AddWall LeftGlassWall, %GlassTex%, 0, -3.84, -3.00 + 0.5, -3.84, 3.00 - 0.5, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall LeftGlassWall, %GlassTex%2, 0, -3.84, -3.00 + 0.25, -3.84, 3.00 - 0.25, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-		AddWall FrontGlassWall_1, %GlassTex%, 0, -3.84 + 0.25, -3.00, 0 - 0.4, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-		AddWall FrontGlassWall_2, %GlassTex%, 0, 0 + 0.4, -3.00, 3.84 - 0.25, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall FrontGlassWall_1, %GlassTex%, 0, -3.84 + 0.25, -3.00, 0 - 0.625, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall FrontGlassWall_2, %GlassTex%, 0, 0 + 0.625, -3.00, 3.84 - 0.25, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-		AddWall BackGlassWall_1, %GlassTex%, 0, -3.84 + 0.25, 3.00, 0 - 0.4, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-		AddWall BackGlassWall_2, %GlassTex%, 0, 0 + 0.4, 3.00, 3.84 - 0.25, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall BackGlassWall_1, %GlassTex%, 0, -3.84 + 0.25, 3.00, 0 - 0.625, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall BackGlassWall_2, %GlassTex%, 0, 0 + 0.625, 3.00, 3.84 - 0.25, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Ceiling lights
@@ -2269,7 +2285,7 @@ ShowFullShaft 9 = true
 	Set GridSuffix = Grid
 
 	Set LightWidth = 7
-	Set LightLength = 3.5
+	Set LightLength = 3
 	
 	DrawWalls = true, false, false, false, false, false
 	AddFloor CeilingLight, %Prefix%ElevCeilingLight, 0, 0 - (%LightWidth% / 2), -(%LightLength% / 2), 0 + (%LightWidth% / 2), (%LightLength% / 2), %LightOffset%, %LightOffset%, 0, 0
@@ -2278,12 +2294,12 @@ ShowFullShaft 9 = true
 	#2. Downlights
 	Set DLOffset = 8 - 0.001
 	DrawWalls = true, false, false, false, true, true
-	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -2.40 - 0.11, 2.40 - 0.11, -2.40 + 0.11, 2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, 2.40 - 0.11, 0 + 0.11, 2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 2.40 - 0.11, 2.40 - 0.11, 2.40 + 0.11, 2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -2.40 - 0.11, -2.40 - 0.11, -2.40 + 0.11, -2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, -2.40 - 0.11, 0 + 0.11, -2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 2.40 - 0.11, -2.40 - 0.11, 2.40 + 0.11, -2.40 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -2.20 - 0.11, 2.20 - 0.11, -2.20 + 0.11, 2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, 2.20 - 0.11, 0 + 0.11, 2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 2.20 - 0.11, 2.20 - 0.11, 2.20 + 0.11, 2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -2.20 - 0.11, -2.20 - 0.11, -2.20 + 0.11, -2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.11, -2.20 - 0.11, 0 + 0.11, -2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 2.20 - 0.11, -2.20 - 0.11, 2.20 + 0.11, -2.20 + 0.11, %DLOffset%, %DLOffset%, 0, 0
 	#--------------------
 	#Car Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -2302,7 +2318,7 @@ ShowFullShaft 9 = true
 	#--------------------
 	#Right Panel
 	Set P1_PositionX = 0
-	Set P1_PositionZ = -3.25 + 0.25
+	Set P1_PositionZ = -3.00 + 0.25
 
 		#Floor buttons
 		CreateWallBox2 elevator, MainPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% + 0.025, 0.75, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
@@ -2312,10 +2328,10 @@ ShowFullShaft 9 = true
 	#--------------------
 	#Left Panel
 	Set P2_PositionX = 0
-	Set P2_PositionZ = 3.25 - 0.25
+	Set P2_PositionZ = 3.00 - 0.25
 
 		#Floor buttons
-		CreateWallBox2 elevator, MainPB, ElevPanel, %P2_PositionX%, %P2_PositionZ% + 0.025, 0.75, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, MainPB, ElevPanel, %P2_PositionX%, %P2_PositionZ% - 0.025, 0.75, 0.05, 4.75, 2.25, 0, 0, false, true, true, true
 
 		CreatePanel Blank, 8, 3, front, %P2_PositionX%, %P2_PositionZ% - 0.051, 0.15, 0.15, 0.25, 0.25, 3.5, 0, 0
 		BtnPanelE25-26(2)
@@ -2982,7 +2998,7 @@ ShowFullShaft 9 = true
 
 	#Other settings
 	QueueResets = true
-	LevelingOpen = 0.2
+	if[%elevator% < 25] LevelingOpen = 0.2
 	if[%elevator% > 22] RecallFloor = 0
 
 	#Door settings
