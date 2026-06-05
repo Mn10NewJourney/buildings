@@ -892,7 +892,7 @@ Set SideTexture = BLKEntDoorSide
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
-	AddFloor MechFloor, MMEFloor, %interfloorheight%, -75, -25, 45.5, 35, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor MechFloor, MMEFloor, %interfloorheight%, -75, -25, 55, 35, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Railings
 	DrawWalls = true, true, true, true, true, false
@@ -905,9 +905,9 @@ Set SideTexture = BLKEntDoorSide
 	AddWall MMERail_South2, MMEWall, 0.5, -45, -25, 45, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	WallOrientation = right
-	AddWall MMERail_East1, MMEWall, 0.5, 45.5, 0, 45.5, 13, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall MMERail_East2, MMEWall, 0.5, 45.5, 25, 45.5, 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall MMERail_North, MMEWall, 0.5, -75 + 0.5, 35, 45.5 - 0.5, 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall MMERail_East1, MMEWall, 0.5, 55, 0, 55, 13, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall MMERail_East2, MMEWall, 0.5, 55, 25, 55, 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall MMERail_North, MMEWall, 0.5, -75 + 0.5, 35, 55 - 0.5, 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
 ########################################
@@ -1081,7 +1081,9 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
 
 	#High Zone Elevators
-	CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, -60, 0, 5, 25, SH6, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	Set ShowRight = false
+	if[%floor% > 39] Set ShowRight = true
+	CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, -60, 0, 5, 25, SH6, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
 <EndFloors>
 
 #Service elevators
