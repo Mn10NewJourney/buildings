@@ -323,8 +323,8 @@
 
 		#Service elevators
 		Load data/metal072b.jpg, ServiceElevFloor, 0.25, 0.25
-		Load data/EG881/blackdoortrim.jpg, ServiceElevWall, 1, 1, false #EG881
-		Load data/wood1.jpg, ServiceElevWallPanel, 0.55, 0.55
+		Load data/stucco22d.jpg, ServiceElevWall, 0.25, 0.25
+		Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4
 		Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
 		Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
 		#Load data/panel-back3.jpg, ServiceElevCeilingTrim, 1, 1, false
@@ -1538,6 +1538,13 @@ Set Garden_Offset2 = Floor(7).Base + 4
 	Set WallOffset = %interfloorheight%
 	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
 	if[%floor% < 0] Set WallOffset = %interfloorheight%
+
+	#Dropped ceilings
+	Set ExtraEP = 0
+	if[%floor% > 6] Set ExtraEP = 11.25
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	if[%floor% > -1 & %floor% < 8] AddFloor April_DC, SLDropCeiling, 0.5, 90, -80 - %ExtraEP%, 108, -60, 9.5, 9.5, 0, 0, false
 
 	#Walls creation
 	WallOrientation = left
@@ -3011,9 +3018,9 @@ ShaftShowOutside 5 = 6 - 17
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Lights
-	Set LightWidth = 4.5
-	Set LightLength = 3
-	Set TrimWidth = 0.2
+	Set LightWidth = 3.6
+	Set LightLength = 2.4
+	#Set TrimWidth = 0.2
 
 	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.05, 8 - 0.05, 0, 0, false, true, true, true
 
@@ -3025,21 +3032,16 @@ ShaftShowOutside 5 = 6 - 17
 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel
-	Set WPanelHeight = 8 - 0.5
-	
-		#Front panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F2, %WPTex%, 0, -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (8.88 * 1/3), -2.8 + 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+	Set WPanelHeight = 3.25
 
-		#Back panels
-		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_B2, %WPTex%, 0, 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (8.88 * 1/3), 2.8 - 0.01, (8.88 * 1/3) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		#Front panel
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0, -2.8 + 0.01, 9.28 - 0.4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
-		#Right panels
-		CreateWallBox2 elevator, Panel_R1, %WPTex%, 4.44 - 0.01, 0 - (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_R2, %WPTex%, 4.44 - 0.01, 0 + (5.6 * 1/4), 0.02, (5.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		#Back panel
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0, 2.8 - 0.01, 9.28 - 0.4, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+
+		#Right panel
+		CreateWallBox2 elevator, Panel_L1, %WPTex%, 4.44 - 0.01, 0, 0.02, 6 - 0.4 - 0.04, %WPanelHeight%, 0, 0, 0, false, true, true, true
 	#--------------------
 	#Car Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
