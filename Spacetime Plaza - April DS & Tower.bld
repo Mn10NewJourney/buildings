@@ -276,10 +276,10 @@
 	
 			#Shaft doors (All passenger elevators)
 				#Store elevators
-				Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, PLShaftDoors, 1, 1, false #EG881 #Levels B2-B1
-				Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, PLShaftDoors2, 1, 1, false #EG881
-				#Load data/EG881/stainlesssteeldoor6.jpg, PLShaftDoors, 1, 1, false #EG881 #Levels B2-B1
-				#Load data/EG881/stainlesssteeldoor6.jpg, PLShaftDoors2, -1, 1, false #EG881
+				#Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, PLShaftDoors, 1, 1, false #EG881 #Levels B2-B1
+				#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, PLShaftDoors2, 1, 1, false #EG881
+				Load data/EG881/stainlesssteeldoor6.jpg, PLShaftDoors, 1, 1, false #EG881 #Levels B2-B1
+				Load data/EG881/stainlesssteeldoor6.jpg, PLShaftDoors2, -1, 1, false #EG881
 				Load data/panel-back3.jpg, PLShaftDoorsSide, 1, 1, false
 				Load data/panel-back3.jpg, PLShaftDoors2Side, -1, 1, false
 				Load data/panel-back3.jpg, PLShaftDoors_Trim, 1, 1, false
@@ -291,8 +291,10 @@
 				Load data/panel-back3.jpg, GlassShaftDoors_Trim, 1, 1, false
 
 				#Tower elevators
-				Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1
-				Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ParkingShaftDoors2, 1, 1, false #EG881
+				#Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1
+				#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ParkingShaftDoors2, 1, 1, false #EG881
+				Load data/EG881/stainlesssteeldoor6.jpg, ParkingShaftDoors, 1, 1, false #EG881 #Levels B2-B1
+				Load data/EG881/stainlesssteeldoor6.jpg, ParkingShaftDoors2, -1, 1, false #EG881
 				Load data/panel-back3.jpg, ParkingShaftDoors_Trim, 1, 1, false
 
 				Load data/EG881/lightaluminumdoor2.jpg, ShopShaftDoors, 1, 1, false #EG881 #Levels 1, 3, and 7
@@ -618,7 +620,18 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1% + 150, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% ! -1] AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1% + 150, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = false, true, false, true, false, false
+		if[%floor% = -1] AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, 140, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = false, true, true, false, false, false
+		if[%floor% = -1] AddWall FrontWall, %5%Wall, 0.5, 180, -%2%, %1% + 150, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = false, true, true, true, false, true
+		AddWall FrontWall, %5%Wall, 0.5, 140, -%2%, 180, -%2%, 1, 1, %fullheight%, %fullheight%, 0, 0, true
+
+
+		DrawWalls = false, true, false, false, false, false
 		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall LeftWallA, %5%Wall, 0.5, -%1%, -%2%, -%1%, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall LeftWallB, %5%LobbyWall, 0.5, -%1%, -60, -%1%, -40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -900,10 +913,10 @@ DrawWalls = false, true, false, false, false, false
 	SetAutoSize = true, false
 
 		#Right windows
-		if[%floor% = 0] Set ExtPrefix = 
-		if[%floor% ! 0] Set ExtPrefix = Int
+		if[%floor% = 0 | %floor% ! 1] Set ExtPrefix = 
+		if[%floor% > 1] Set ExtPrefix = Int
 
-		if[%floor% = 0 | %floor% = 2] AddCustomWindows(ADS_RightWin_%floorid%F, ShopWindowsInt, ShopWindows%ExtPrefix%, %1%, -10, %1%, 30, %WinHeight%, 0, 0, %MyIFloorType%, EAWall, %5%Wall)
+		if[%floor% < 3] AddCustomWindows(ADS_RightWin_%floorid%F, ShopWindowsInt, ShopWindows%ExtPrefix%, %1%, -10, %1%, 30, %WinHeight%, 0, 0, %MyIFloorType%, EAWall, %5%Wall)
 
 	SetAutoSize = true, true
 
@@ -939,14 +952,14 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = right
 		TextureOverride %5%Wall, %ExtTex%, Blank, Blank, Blank, Blank
-		if[%floor% ! 0 & %floor% ! 2] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% > 2] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		DrawWalls = true, true, false, true, false, false
 		TextureOverride %5%Wall, %ExtTex%, Blank, %5%Wall, Blank, Blank
-		if[%floor% = 0 | %floor% = 2] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, -10, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% < 3] AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, -10, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%Wall, %ExtTex%, %5%Wall, Blank, Blank, Blank
-		if[%floor% = 0 | %floor% = 2] AddWall RightWall, %5%Wall, 0.5, %1%, 30, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% < 3] AddWall RightWall, %5%Wall, 0.5, %1%, 30, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		#AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 <EndFloors>

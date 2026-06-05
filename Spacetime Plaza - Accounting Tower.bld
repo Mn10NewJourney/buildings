@@ -94,11 +94,17 @@
 		Load data/stucco4.jpg, ParkingWall3, 0.2, 0.2
 
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
+		
+		#Storage on basement levels
+		Load data/Carpet0006_S.jpg, BasementStorageFloor, 0.2, 0.2
+		#Load data/Carpet0013b_S.jpg, BasementStorageFloor2, 0.2, 0.2
+		Load data/stucco5.jpg, BasementStorageWall, 0.25, 0.25
 
 		#Office lobby
 		Load data/rose_marble.jpg, LobbyFloor, 0.111, 0.111
 		#Load data/st_wall2.jpg, LobbyWall, 0.13635, 0.09765
 		Load data/st_wall2.jpg, LobbyWall, 0.1, 0.0714 #A different tiling value for this tower, to better fit the lobby's height.
+		Load data/marble4.jpg, LobbyRampWall, 0.111, 0.111, true #Also used for the stairs' railings
 		Load data/EG881/ceilingtile2b.jpg, LobbyCeiling, 0.125, 0.125 #EG881
 
 		#Office levels
@@ -251,10 +257,10 @@
 			LoadCropped data/glassdoor_trans.gif, GlassShaftDoors2Side, 236, 0, 20, 512, -1, 1, false
 			Load data/panel-back3.jpg, GlassShaftDoors_Trim, 1, 1, false
 
-			Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors, 1, 1, false #EG881 #Office elevators (1st floor)
-			Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false #EG881
-			#Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors, 1, 1, false #EG881
-			#Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors2, -1, 1, false #EG881
+			#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors, 1, 1, false #EG881 #Office elevators (1st floor)
+			#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors, 1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
 
 			Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, OfficeShaftDoors, 1, 1, false #EG881
@@ -281,9 +287,9 @@
 			Load data/door1.jpg, ServiceBShaftDoors2, -1, 1, false #EG881
 			Load data/elevpanelsilver.jpg, ServiceBShaftDoors_Trim, 1, 1, false
 
-			Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, ServiceCShaftDoors, 1, 1, false #EG881 #Levels B3-B1
-			Load data/EG881_Otis/Doors/otisgraydoorright.jpg, ServiceCShaftDoors2, 1, 1, false #EG881
-			Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceCShaftDoors_Trim, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceCShaftDoors, 1, 1, false #EG881 #Basements
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceCShaftDoors2, 1, 1, false #EG881
+			Load data/panel-back3.jpg, ServiceCShaftDoors_Trim, 1, 1, false #EG881
 
 			Load data/door2.jpg, ServiceDShaftDoors, 1, 1, false #EG881 #Topside mechanical
 			Load data/door2.jpg, ServiceDShaftDoors2, -1, 1, false #EG881
@@ -440,7 +446,7 @@ Set 2 = 100 #Building Dimension Z (Full length: 200 ft.)
 DrawWalls = false, true, false, false, false, false
 
 	#Filler floors
-	AddFloor landscape, ACTT_FillerFloor, Sidewalk, 0, -%1%, -%2% - 140, %1%, -%2%, 4, 4, 0, 0
+	AddFloor landscape, ACTT_FillerFloor, Sidewalk, 0, -%1%, -%2% - 140 - 80, %1%, -%2%, 4, 4, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -481,22 +487,30 @@ DrawWalls = false, true, false, false, false, false
 #Underground parking levels
 <Floors -3 to -1>
 	TexPrefix() #Set texture prefix/suffix
+	Set CF_SouthEnd = -%2%
+	if[%floor% < -1] Set CF_SouthEnd = -60
 
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor ACTT_PGFloor, Road, 0.5, -%1%, -%2% - 140, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor ACTT_PGFloor, Road, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Parking levels core floor
-		CreateFlr(ParkingCoreFloor, ParkingLobbyFloor, 0.5, -%1%, -50, 65, 35, 0, true)
+		CreateFlr(ParkingCoreFloor, ParkingLobbyFloor, 0.5, -%1%, %CF_SouthEnd%, 65, 35, 0, true)
+		
+		#Storage behind shaft on B1
+		if[%floor% = -1] CreateFlr(%floorid%F_STR_W1, BasementStorageFloor, 0.5, -35 + 0.5, -25, -5, -15, 0, true)
+		if[%floor% = -1] CreateFlr(%floorid%F_STR_W2, BasementStorageFloor, 0.5, -35 + 0.5, 15, -5, 25, 0, true)
+		if[%floor% = -1] CreateFlr(%floorid%F_STR_E1, BasementStorageFloor, 0.5, 5, -25, 35 - 0.5, -15, 0, true)
+		if[%floor% = -1] CreateFlr(%floorid%F_STR_E2, BasementStorageFloor, 0.5, 5, -25, 35 - 0.5, -15, 0, true)
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor ACTT_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2% - 140, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor ACTT_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 
 		#Parking levels core ceiling
-		AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, -%1%, -50, 65, 35, %fullheight%, %fullheight%, 0, 0, true
+		AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, -%1%, %CF_SouthEnd%, 65, 35, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -510,14 +524,14 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - 140, %1%, -%2% - 140, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - 140, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2% - 140 - 80, %1%, -%2% - 140 - 80, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2% - 140 - 80, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
 
 		WallOrientation = right
-		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - 140, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - 140 - 80, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		if[%floor% = -3] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
 
@@ -582,6 +596,18 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
 		AddWall RightWallB, %5%Wall, 0.5, %1%, %2% - %WL%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
+		DrawWalls = true, true, true, true, false, true
+		if[%floor% = 0] AddWall MallLink_GapCover1, %5%Wall, 0.5, %1%, -%2% + %WL%, %1%, -%2% + %WL% + 30, 8, 8, %interfloorheight% + 16, %interfloorheight% + 16, 0, 0, true
+
+		DrawWalls = true, true, true, true, true, false
+		if[%floor% = 1] AddWall MallLink_GapCover2, LobbyRampWall, 0.5, %1%, -%2% + %WL% + 30 - 5, %1%, -%2% + %WL% + 30, 3, 3, %interfloorheight%, %interfloorheight%, 0, 0, true
+		#if[%floor% = 1] AddWall MallLink_GapCover3, LobbyRampWall, 0.5, %1%, -%2% + %WL% + 7.5, %1%, -%2% + %WL% + 10, 3, 3, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#DrawWalls = true, true, true, true, false, false
+		#TextureOverride %5%Wall, ExtFacade, %5%Wall, %5%Wall, %5%Wall, %5%Wall
+		#if[%floor% = 1] AddWall MallLink_GapCover2, %5%Wall, 0.5, %1%, -%2% + %WL%, %1%, -%2% + %WL% + 30, 4, 4, %interfloorheight% + 18, %interfloorheight% + 18, 0, 0, true
+
+
 		#Back walls
 		WallOrientation = right
 		DrawWalls = true, true, false, true, false, false
@@ -592,6 +618,9 @@ DrawWalls = false, true, false, false, false, false
 		AddWall BackWallB, %5%Wall, 0.5, %1% - %WL%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 	#Perimeter windows
+	Set LobbyWinEP = 0
+	if[%floor% < 2] Set LobbyWinEP = 30 #Endpoint to provide connection to mall
+	
 	Set MyIFloorType = 2
 	if[%floor% = 0] Set MyIFloorType = 3
 
@@ -607,7 +636,7 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% < 2] AddCustomWindows(LeftWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, -50, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 		if[%floor% < 2] AddCustomWindows(LeftWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -30, -%1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
-		AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% + %WL%, %1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
+		AddCustomWindows(RightWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, %1%, -%2% + %WL% + %LobbyWinEP%, %1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 		AddCustomWindows(BacktWin, %WinPrefix%WindowsInt, %WinPrefix%Windows, -%1% + %WL%, %2%, %1% - %WL%, %2%, %WinHeight%, 0, 0, %MyIFloorType%, %5%Wall, ExtFacade)
 
 	SetAutoSize = true, true
@@ -619,37 +648,40 @@ DrawWalls = false, true, false, false, false, false
 	Set WallOffset = %interfloorheight%
 	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
 	if[%floor% < 0] Set WallOffset = %interfloorheight%
+	
+	Set 5F = %5%
+	if[%floor% < 0] Set 5F = BasementStorage
 
-	#Utility rooms behind shafts
+	#Utility/storage rooms behind shafts
 	#Thanks to EG881 for the discovery of "negative floor/wall thickness value" trick.
 
 		#West utility rooms
 		WallOrientation = left
 		DrawWalls = true, false, true, true, false, false
-		if[%floor% < 14] AddWall WestU1_Ext, %5%Wall, 10, -35, -25, -5, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 14] AddWall WestU1_Ext, %5%%5L%, 10, -35, -25, -5, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		if[%floor% < 14] AddWall WestU1_Int, %5%Wall, -9, -35 + 0.5, -15 - 0.5, -5 - 0.5, -15 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 14] AddWall WestU1_Int, %5F%Wall, -9, -35 + 0.5, -15 - 0.5, -5 - 0.5, -15 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = false, true, true, true, false, false
-		TextureOverride %5%Wall, %5%%5L%, %5%Wall, %5%Wall, Blank, Blank
-		if[%floor% < 14] AddWall WestU2_Ext, %5%Wall, 10, -35, 25, -5, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#TextureOverride %5%Wall, %5%%5L%, %5%Wall, %5%Wall, Blank, Blank
+		if[%floor% < 14] AddWall WestU2_Ext, %5%%5L%, 10, -35, 25, -5, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		if[%floor% < 14] AddWall WestU2_Int, %5%Wall, -9, -35 + 0.5, 15 + 0.5, -5 - 0.5, 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 14] AddWall WestU2_Int, %5F%Wall, -9, -35 + 0.5, 15 + 0.5, -5 - 0.5, 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#East utility rooms
 		WallOrientation = left
 		DrawWalls = true, false, true, true, false, false
-		AddWall EastU1_Ext, %5%Wall, 10, 5, -25, 35, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall EastU1_Ext, %5%%5L%, 10, 5, -25, 35, -25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		AddWall EastU1_Int, %5%Wall, -9, 5 + 0.5, -15 - 0.5, 35 - 0.5, -15 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall EastU1_Int, %5F%Wall, -9, 5 + 0.5, -15 - 0.5, 35 - 0.5, -15 - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = false, true, true, true, false, false
-		TextureOverride %5%Wall, %5%%5L%, %5%Wall, %5%Wall, Blank, Blank
-		AddWall EastU2_Ext, %5%Wall, 10, 5, 25, 35, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		#TextureOverride %5%Wall, %5%%5L%, %5%Wall, %5%Wall, Blank, Blank
+		AddWall EastU2_Ext, %5%%5L%, 10, 5, 25, 35, 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = true, true, true, true, false, false
-		AddWall EastU2_Int, %5%Wall, -9, 5 + 0.5, 15 + 0.5, 35 - 0.5, 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall EastU2_Int, %5F%Wall, -9, 5 + 0.5, 15 + 0.5, 35 - 0.5, 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	#DOORS
 	Set DTex = Door1
@@ -733,10 +765,10 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 20, Floor(1).Base + 5, -60, fal
 #Service elevator lobbies
 <Floors -3 to 39>
 	TexPrefix() #Set texture prefix/suffix
-	Set WallHeight = %height%
-	Set WallOffset = %interfloorheight%
-	if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
-	if[%floor% < 0] Set WallOffset = %interfloorheight%
+	#Set WallHeight = %height%
+	#Set WallOffset = %interfloorheight%
+	#if[%floor% < 0] Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
+	#if[%floor% < 0] Set WallOffset = %interfloorheight%
 
 	#WALLS
 	Set ShowOutside = false
@@ -971,6 +1003,69 @@ Set SideTexture = BLKEntDoorSide
 ########################################
 
 #SUPPORTS
+#Underground Parking Supports
+<Floors -3 to -1>
+	#Set Values
+	TexPrefix() #Set texture prefixes
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 40 #Distance between supports Z
+
+	Set SupportHeight = %fullheight%
+	if[%floor% = -1] Set SupportHeight = %fullheight% + Floor(0).InterfloorHeight
+	Set SupportOffset = -%interfloorheight%
+
+	if[%floor% = 0] Set SupportHeight = %height%
+	if[%floor% = 0] Set SupportOffset = 0
+	
+	Set SupportTex = %5%Wall
+	Set SupportTex2 = %5%%5L%
+	
+	Set ES = 
+	if[%floor% < 0] Set ES = 2 #ES = Extra Suffix
+
+	#Row A
+	Set Prefix = A
+	Set SupportX = %1% - 1.25
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#Row B
+	Set Prefix = B
+	Set SupportX = %1% - (%DistanceX% * 1)
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#Row C
+	Set Prefix = C
+	Set SupportX = %1% - (%DistanceX% * 2)
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#Row D
+	Set Prefix = D
+	Set SupportX = %1% - (%DistanceX% * 3)
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#Row E
+	Set Prefix = E
+	Set SupportX = %1% - (%DistanceX% * 4)
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+
+	#Row F
+	Set Prefix = F
+	Set SupportX = -%1% + 1.25
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% - 40, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% - 40 - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFloors>
+
 #Base Supports
 <Floors -3 to 1>
 	#Set Values
@@ -986,66 +1081,70 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% = 0] Set SupportOffset = 0
 	
 	Set SupportTex = %5%Wall
+	Set SupportTex2 = %5%%5L%
+
+	Set ES = 
+	if[%floor% < 0] Set ES = 2 #ES = Extra Suffix
 
 	#Row A
 	Set Prefix = A
 	Set SupportX = %1% - 1.25
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%4, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row B
 	Set Prefix = B
 	Set SupportX = %1% - (%DistanceX% * 1)
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row C
 	Set Prefix = C
 	Set SupportX = %1% - (%DistanceX% * 2)
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row D
 	Set Prefix = D
 	Set SupportX = %1% - (%DistanceX% * 3)
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	#CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row E
 	Set Prefix = E
 	Set SupportX = %1% - (%DistanceX% * 4)
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%3, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	if[%floor% < -1] CreateWallBox2 external, Support%Prefix%4, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row F
 	Set Prefix = F
 	Set SupportX = -%1% + 1.25
-	CreateWallBox2 external, Support%Prefix%1, %SupportTex%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%2, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%3, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%4, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %SupportTex%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%1, %SupportTex%%ES%, %SupportX%, -%2% + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%2, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%4, %SupportTex2%, %SupportX%, -%2% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFloors>
 
 ### Elevator bank signs
@@ -1056,10 +1155,10 @@ Set SideTexture = BLKEntDoorSide
 	DrawWalls = true, true, true, true, true, true
 
 	#Office elevators
-	AddBoxSign(ElevBank1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.875, 3.75, 1.5, 8, false)
-	AddBoxSign(ElevBank2, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, 35 - 0.5, -25 - 1.875, 3.75, 1.5, 8, false)
-	AddBoxSign(ElevBank3, ElevBank3, ElevBank3, %SignSideTex%, 0.15, false, true, true, 65 - 0.5, -25 - 1.875, 3.75, 1.5, 8, false)
-	AddBoxSign(ElevBank4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.875, 3.75, 1.5, 8, false)
+	AddBoxSign(ElevBank1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(ElevBank2, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, 35 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(ElevBank3, ElevBank3, ElevBank3, %SignSideTex%, 0.15, false, true, true, 65 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(ElevBank4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -1078,7 +1177,7 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% < 24] CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 20, -10, 15, 5, SH4, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
 
 	#Upper Mid Zone Elevators
-	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
+	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
 
 	#High Zone Elevators
 	Set ShowRight = false
@@ -3083,10 +3182,10 @@ ShowFullShaft 9 = true
 
 		#Filler walls for all floors
 		WallOrientation = right
-		AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 1, %Shaft1CZ% + 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 23
+		AddFillerWalls %5%%5L%, 0.66, %Shaft1CX% - 1, %Shaft1CZ% + 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 23
 
 		WallOrientation = left
-		AddFillerWalls %5%Wall, 0.66, %Shaft2CX% + 1, %Shaft2CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 24
+		AddFillerWalls %5%%5L%, 0.66, %Shaft2CX% + 1, %Shaft2CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 24
 
 	#Call buttons
 	CallButtonElevators = 23
