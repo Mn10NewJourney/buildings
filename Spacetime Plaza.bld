@@ -102,7 +102,7 @@
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
-		Load data/Melvin/Roads/2lane-twoway-90de.png, B1FSouthAccRoad, 0.0333, 0.05 #30 ft. wide
+		#Load data/Melvin/Roads/2lane-twoway-90de.png, B1FSouthAccRoad, 0.0333, 0.05 #30 ft. wide
 		Load data/Melvin/Roads/2lane-oneway.png, B1FSoutheastAccRoad, 0.05, 0.041667 #24 ft. wide
 		Load data/Melvin/Roads/2lane-twoway.png, B1FNorthAccRoad, 0.05, 0.041667 #24 ft. wide
 
@@ -162,7 +162,8 @@
 		Load data/stucco1b.jpg, ACTT_LobbyRamp_UDS, 0.1, 0.1
 		Load data/st_wall2.jpg, ACTT_LobbyWall, 0.1, 0.0714, true
 		Load data/marble4.jpg, ACTT_LobbyRampWall, 0.111, 0.111, true #Also used for the stairs' railings
-		Load data/metaldoor.jpg, ACTT_LobbyStairsTread, 8, 1, false
+		Load data/metal10.jpg, ACTT_LobbyStairsTread, 0.5, 0.5, true
+		#Load data/metaldoor.jpg, ACTT_LobbyStairsTread, 6, 1, false
 
 		Load data/EG881/ceilingtile2b.jpg, ACTT_LobbyCeiling, 0.125, 0.125 #EG881
 		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, ACTT_MainWindows, true, 0.05, 1 #EG881
@@ -272,10 +273,8 @@
 
 		#Glass Elevator Shaft
 		Load data/EG881/blackdoortrim.jpg, GLEShaftWall, 0.05, 0.05 #EG881
-		#Load data/stucco5.jpg, GLEShaftWall, 0.145, 0.145
 		Load data/stucco1b.jpg, GLETrack, 0.1, 0.1
 		Load data/windows11e_inside2.gif, GLEPanel, 1, 1, false
-		#Load data/EG881/windows11h_insideblack.png, GLEPanel2, 0.25, 1, false #EG881
 
 	#Elevators
 		#Main components
@@ -347,7 +346,6 @@
 		#West Freight Elevators (No. 14-15)
 		Load data/misc/steel_patt.jpg, FreightElevFloor, 0.25, 0.25, true
 		Load data/stucco22d.jpg, FreightElevWall, 0.25, 0.25
-		#Load data/EG881/stainlesssteel2.jpg, FreightElevWallPanel, 1, 1, false #EG881
 		Load data/Threadplate0055_2_S.jpg, FreightElevWallPanel, 0.4, 0.4, true
 		Load data/metal080.jpg, FreightElevCeiling, 0.5, 0.5
 		Load data/EG881/Lights/squarelight1_white.jpg, FreightElevCeilingLight, 1, 1, false #EG881
@@ -714,7 +712,7 @@ Set 2 = 500 #Building Dimension Z (Full length: 1,000 ft.)
 
 #Cut landscape for building
 Cut Landscape, -%1%, -1, -%2%, %1%, 1, %2%, false, true
-Cut Landscape, -416, -1, -%2%, -%1%, 0.5, %2%, false, true #West Parking area
+Cut Landscape, -416, -1, -%2% - 80, -%1%, 0.5, %2%, false, true #West Parking area
 Cut Landscape, %1%, -1, -%2%, %1% + 150, 0.5, %2%, false, true #East Parking area
 
 #Landscape
@@ -724,9 +722,18 @@ DrawWalls = false, true, false, false, false, false
 	AddFloor landscape, FillerFloor1, Sidewalk, 0, -%1%, -%2%, -%1% + 240, %2% - 260 - 320, 4, 4, 0, 0
 	AddFloor landscape, FillerFloor2, Sidewalk, 0, -%1% + 240, -%2%, -%1% + 420, -%2% + 260 - 120, 4, 4, 0, 0
 
-	#Pathway from Monica Dept. Store's emergency exit stairwell
 	Set FO = Floor(0).Base #Floor Offset
+	#Pathway from Monica Dept. Store's emergency exit stairwell
 	LSFloorCreator(MDS_EExitPath, Sidewalk, 210 + 80 - 12, %2%, 210 + 80 - 12 + 5, %2% + 20, %FO%, false, false)
+
+	#Accounting Tower entrance walkway
+	LSFloorCreator(ACTT_WestEnt, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
+
+	#Lavender Moon Hotel parking access
+	LSFloorCreator(LMH_NorthPGAccessPath, Sidewalk, -120 + 190, %2%, -120 + 210, %2% + 20, %FO%, false, true)
+	LSFloorCreator(LMH_NorthPGExitDriveway, Road, -120 + 110.5, %2%, -120 + 190, %2% + 20 + 15, %FO%, false, false)
+	LSFloorCreator(LMH_WestPGEntranceDriveway, Road, -%1% - 20 - 15, 370 + 55, -%1%, %2%, %FO%, false, false)
+	LSFloorCreator(LMH_WestPGAccessPath, Sidewalk, -%1% - 20, 370 + 40, -%1%, 370 + 55, %FO%, false, true)
 
 ##--------------------------------------------------------------------------------##
 
@@ -893,17 +900,8 @@ DrawWalls = false, true, false, false, false, false
 
 		#Center Zone
 		WallOrientation = left
-		DrawWalls = false, true, false, true, false, false
-		if[%floor% = -1] AddWall CenterZoneFrontWallA, %5%Wall, 0.5, -%1% + 240, %2% - 260 - 320, 10 - 15, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		DrawWalls = false, true, false, false, false, false
-		if[%floor% = -1] AddWall CenterZoneFrontWallB1, %5%Wall, 0.5, 10 - 15, %2% - 260 - 320, 10 + 15, %2% - 260 - 320, Floor(0).InterfloorHeight + 2, Floor(0).InterfloorHeight + 2, %interfloorheight% + 8, %interfloorheight% + 8, 0, 0, true
-		DrawWalls = false, true, false, false, false, false
-		if[%floor% = -1] AddWall CenterZoneFrontWallB2, %5%Wall, 0.5, 10 - 15, %2% - 260 - 320, 10 + 15, %2% - 260 - 320, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
-		DrawWalls = false, true, true, false, false, false
-		if[%floor% = -1] AddWall CenterZoneFrontWallC, %5%Wall, 0.5, 10 + 15, %2% - 260 - 320, -%1% + 420.5, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
-		#DrawWalls = false, true, false, false, false, false
-		#if[%floor% ! -1] AddWall CenterZoneFrontWall, %5%Wall, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420.5, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -1] AddWall CenterZoneFrontWall, %5%Wall, 0.5, -%1% + 240, %2% - 260 - 320, -%1% + 420.5, %2% - 260 - 320, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#East Zone
 		WallOrientation = left
@@ -1314,44 +1312,14 @@ Set SL = 0 #Street level
 Set UL = Floor(0).Base #1st floor's floor elevation
 
 	#South-Center Entrance/Exit (5th Street to level B1)
-		#Cut landscape for roadways and sidewalks
-		Cut Landscape, 10 - 15 - 20, %LL2% - 1, -%2% - 20, 10 - 15, %UL% + 1, -%2%, false, true
-		Cut Landscape, 10 + 15, %LL2% - 1, -%2% - 20, 10 + 15 + 20, %UL% + 1, -%2%, false, true
-
-		Cut Landscape, 10 - 15 - 20, %LL2% - 1, -783, 10 + 15 + 20, %UL% + 1, -%2%, false, true
-		Cut Landscape, 10 - 15, %LL2% - 1, -798, 10 + 15, %UL% + 1, -783, false, true
-
-		Cut Landscape, 10 - 15, %UL% - 1, -%2%, 10 + 15, %UL% + 1, -%2% + 80, false, true #Extra cut (Added on May 31, 2026)
-
-		#Road
-		FloorOrientation = top
-		DrawWalls = false, true, false, false, false, false
-		AddFloor landscape, SouthAccRoad, B1FSouthAccRoad, 0.5, 10 - 15, -%2% + 80, 10 + 15, %2% - 260 - 320, %LL%, %LL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Slope, B1FSouthAccRoad, 0.5, 10 - 15, -%2%, 10 + 15, -%2% + 80, %SL%, %LL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Top1, B1FSouthAccRoad, 0.5, 10 - 15, -783, 10 + 15, -%2%, %SL%, %SL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Top2, Road, 0.5, 10 - 15, -798, 10 + 15, -783, -0.5, %SL%, 0, 0
+	#Removed on 5 June 2026 as it is not necessary (in this simulation) and is not really realistic to have
+	#such a long road leading to the underground PG.
 	
-		#Sidewalk
-		AddFloor landscape, SouthAccRoad_Sidewalk1, Sidewalk, 0.5, 10 - 15 - 20, -783, 10 - 15, -%2%, %SL%, %SL%, 0, 0
-		AddFloor landscape, SouthAccRoad_Sidewalk2, Sidewalk, 0.5, 10 + 15, -783, 10 + 15 + 20, -%2%, %SL%, %SL%, 0, 0
-
-		#Ceiling on level B1
-		FloorOrientation = bottom
-		DrawWalls = true, false, false, false, false, false
-		AddFloor landscape, SouthAccRoad_Ceiling, ParkingCeiling, 0.5, 10 - 15, -%2% + 80, 10 + 15, %2% - 260 - 320 + 0.5, %LL2%, %LL2%, 0, 0
-
-		#Walls around roadways
-		WallOrientation = right
-		DrawWalls = false, true, false, false, false, false
-		AddWall landscape, SouthAccRoad_LeftWallA, ParkingWall3, 0.5, 10 - 15, -%2%, 10 - 15, -%2% + 80, 12, 12, %LL%, %LL%, 0, 0
-		AddWall landscape, SouthAccRoad_LeftWallB, ParkingWall3, 0.5, 10 - 15, -%2% + 80, 10 - 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
-		WallOrientation = left
-		DrawWalls = true, false, false, false, false, false
-		AddWall landscape, SouthAccRoad_RightWallA, ParkingWall3, 0.5, 10 + 15, -%2%, 10 + 15, -%2% + 80, 12, 12, %LL%, %LL%, 0, 0
-		AddWall landscape, SouthAccRoad_RightWallB, ParkingWall3, 0.5, 10 + 15, -%2% + 80, 10 + 15, %2% - 260 - 320, 8, 8, %LL%, %LL%, 0, 0
-		
-		#Auto area for ramps
-		AddFloorAutoArea -10 - 15, Floor(-1).Base, -%2%, 10 + 15, Floor(0).Base + 5, -%2% + 80
+		#Additionally, having a four-way intersection immediately south of the mall's entrance may cause
+		#a great traffic jam near the closing hours (this is something true in certain real cities).
+	
+	#As a compensation, there will be a parking garage created south of April Department Store in the future.
+	#Let me wait until our computers get more advanced first.
 
 	#Southeast Entrance (Market Street to level B1)
 		#Cut landscape for roadways and sidewalks
@@ -1375,7 +1343,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		DrawWalls = true, false, false, false, false, false
 		AddWall external, SoutheastAccRoad_BackWall_1, ParkingWall4, 0.5, 390, -%2%, 480, -%2%, 12, 12, %LL%, %LL%, 0, 0
 		AddWall external, SoutheastAccRoad_BackWall_2, ParkingWall4, 0.5, 480, -%2%, 509, -%2%, 8, 8, %LL%, %LL%, 0, 0
-		AddWall external, SoutheastAccRoad_BackWall_3, ParkingWall4, 0.5, 390 - 40, -%2%, 390, -%2%, 2, 2, %SL% - 2, %SL% - 2, 0, 0
+		AddWall external, SoutheastAccRoad_BackWall_3, ParkingWall4, 0.5, 390 - 40, -%2%, 390, -%2%, 2, 2, %UL% - 2, %UL% - 2, 0, 0
 
 		#Auto area for ramps
 		AddFloorAutoArea 390 - 40, Floor(-1).Base, -%2% - 24, 390 + 80, Floor(0).Base + 5, -%2%
@@ -2461,7 +2429,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 		Set Offset = %param3%
 	
 		DrawWalls = false, true, false, false, false, false
-		AddFloor external, %Name%, ACTT_LobbyStairsTread, 0, %IP% - 0.3, -260 - 80, %IP%, -260 - 65, %Offset% + 0.001, %Offset% + 0.001, 0, 0
+		AddFloor external, %Name%, ACTT_LobbyStairsTread, 0, %IP% - 0.2, -260 - 80, %IP%, -260 - 65, %Offset% + 0.001, %Offset% + 0.001, 0, 0
 	<EndFunction>
 
 	StairTread(LobbyStairsTread_1/1, -108, %Offset1% + 0.5)
