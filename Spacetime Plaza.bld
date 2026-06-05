@@ -1828,7 +1828,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	Cut External, 180, Floor(0).Base - 0.1, 80 - 30, 240, Floor(10).Base + 5, 80 + 30, false, true #Atrium 2 (Center)
 
-	Cut External, 188, Floor(0).Base - 0.1, 200, 230, Floor(8).Base + 5, 240, false, true #Atrium 3 (North) - Shopping levels
+	Cut External, 188, Floor(0).Base + 2, 200, 230, Floor(8).Base + 5, 240, false, true #Atrium 3 (North) - Shopping levels
 	Cut External, 190, Floor(10).Altitude - 1, 200, 230, Floor(10).Base + 5, 240, false, true #Atrium 3 (North) - Roof skylight
 
 		#Extra cuts for escalators (Atrium 1)
@@ -1859,7 +1859,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		#East atriums
 		AddFloor EastAtriumBase1, ABCarpet2, 0.5, 180, -180 - 0.5, 240, -60, %interfloorheight%, %interfloorheight%, 0, 0, true
 		AddFloor EastAtriumBase2, ABCarpet2, 0.5, 180, 80 - 30, 240, 80 + 30, %interfloorheight%, %interfloorheight%, 0, 0, true
-		AddFloor EastAtriumBase3, ABCarpet2, 0.5, 188, 200, 230, 240, %interfloorheight%, %interfloorheight%, 0, 0, true
+		#AddFloor EastAtriumBase3, ABCarpet2, 0.5, 188, 200, 230, 240, %interfloorheight%, %interfloorheight%, 0, 0, true
 <EndFloor>
 
 <Floor 4>
@@ -2058,13 +2058,17 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% = 8] AddWall EA3LeftRail, %5%%Suffix%, 0.5, 188, 200 - 0.5, 188, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% ! 8] AddWall EA3LeftRailA, %5%%Suffix%, 0.5, 188, 200 - 0.5, 188, 220 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% ! 8] AddWall EA3LeftRailB, %5%%Suffix%, 0.5, 188, 220 + 15, 188, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% ! 8] AddWall EA3LeftRailC, %5%%Suffix%, 0.5, 188 - 8.5, 220 - 15, 188 - 8.5, 220 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% ! 8] AddWall EA3LeftRailC, %5%%Suffix%, 0.5, 188 - 8.5, 220 - 15.5, 188 - 8.5, 220 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% = 6] AddWall EA3LeftRailD, %5%%Suffix%, 0.5, 188 - 8.5, 220 - 15, 188 - 0.5, 220 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
-	if[%floor% ! 6] AddWall EA3RightRail, %5%%Suffix%, 0.5, 230, 200 - 0.5, 230, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 6] AddWall EA3RightRailA, %5%%Suffix%, 0.5, 230, 200 - 0.5, 230, 220 - 18, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 6] AddWall EA3RightRailB, %5%%Suffix%, 0.5, 230, 220 + 18, 230, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% ! 8] AddWall EA3RightRail, %5%%Suffix%, 0.5, 230, 200 - 0.5, 230, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 8] AddWall EA3RightRailA, %5%%Suffix%, 0.5, 230, 200 - 0.5, 230, 220 - 18, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 8] AddWall EA3RightRailB, %5%%Suffix%, 0.5, 230, 220 + 18, 230, 240 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 8] AddWall EA3RightRailC, %5%%Suffix%, 0.5, 230 + 8.5, 220 - 18, 230 + 8.5, 220 + 18, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+
+	if[%floor% = 8] AddWall EA3RightRailD, %5%%Suffix%, 0.5, 230 + 0.5, 220 + 18, 230 + 8.5 + 0.5, 220 + 18, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	WallOrientation = left
 	AddWall EA3BackRail, %5%%Suffix%, 0.5, 188, 240, 230, 240, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFunction>
 
@@ -2164,24 +2168,17 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		#Back rail
 		AddWall SABackRail-%floorid%F, %5%%Suffix%, 0.5, -30, -180, 30, -180, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-<EndFloors>
-
-<Floor 2>
-	TexPrefix() #Wall textures
-	Set RailingHeight = %interfloorheight% + 3.5
-	Set RailingOffset = 0
-	Set Suffix = Wall
 
 	#Extra railings around escalators
 	DrawWalls = true, true, true, true, true, false
 
 	WallOrientation = right
 	AddWall SALeftRail-EX1, %5%%Suffix%, 0.5, -34.5, -260 - 15, -34.5, -260 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall SALeftRail-EX2, %5%%Suffix%, 0.5, -35, -260 - 15, -30.5, -260 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 2] AddWall SALeftRail-EX2, %5%%Suffix%, 0.5, -35, -260 - 15, -30.5, -260 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	WallOrientation = left
 	AddWall SARightRail-EX1, %5%%Suffix%, 0.5, 34.5, -260 - 15, 34.5, -260 + 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	WallOrientation = right
-	AddWall SARightRail-EX2, %5%%Suffix%, 0.5, 30.5, -260 - 15, 35, -260 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 2] AddWall SARightRail-EX2, %5%%Suffix%, 0.5, 30.5, -260 - 15, 35, -260 - 15, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloor>
 
 <Floor 3>
@@ -3013,7 +3010,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Sign leading to the elevators & restrooms
 			AddBoxSign(EZ_Northwest_Sign1, %SignTex%_Left, %SignTex%_Right, %SideTex%, 0.1, true, true, true, 149 + 0.75, 234 + 0.1, 1.5, 3, 7 + %interfloorheight%, true)
-			if[%floor% > 5] AddBoxSign(EZ_Northwest_Sign2, %SignTex%_Right, %SignTex%_Left, %SideTex%, 0.1, false, true, true, 129 + 0.1, 259 + 0.75, 1.5, 3, 7 + %interfloorheight%, true)
+			#if[%floor% > 5] AddBoxSign(EZ_Northwest_Sign2, %SignTex%_Right, %SignTex%_Left, %SideTex%, 0.1, false, true, true, 129 + 0.1, 259 + 0.75, 1.5, 3, 7 + %interfloorheight%, true)
 			if[%floor% > 5] AddBoxSign(EZ_Northwest_Sign3, %SignTex%_Left, %SignTex%_Right, %SideTex%, 0.1, false, true, true, 119 - 0.1, 224 - 0.75, 1.5, 3, 7 + %interfloorheight%, true)
 
 			#Exit sign
@@ -6501,10 +6498,10 @@ ShowFullShaft 11 = true
 
 #ESCALATORS
 #Set escalator properties
-	OP_EscBalustrades(GlassBalustrade, 0, 3, 0, 0)
+	OP_EscBalustrades(GlassBalustrade, 0, 3.25, 0, 0)
 	OP_EscLanding(EscalatorLandingX, 5.5, 0, 0, EscalatorLandingX, 5.5, 0, 0)
 	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
-	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3.25, 0, 0, 0, 0)
+	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3, 0, 0, 0, 0)
 
 #Set escalators' direction (For criss-cross layout)
 <Function EscDirections>
@@ -6530,7 +6527,7 @@ ShowFullShaft 11 = true
 		<EndFloors>
 		
 		#Double escalators between 7-8 (Added on 5 June 2026)
-		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 
 		<Floor 6>
 			#Southern Pair
@@ -6543,7 +6540,7 @@ ShowFullShaft 11 = true
 		<EndFloor>
 
 	#CENTER ESCALATORS
-	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0) #Reset landing textures
 
 	<Floors 0 to 5>
@@ -6558,14 +6555,14 @@ ShowFullShaft 11 = true
 			OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 185.5, 220 + 15, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		<EndFloors>
 		
-		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 		<Floor 6>
-			OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 232.5, 220 + 18, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 236.5, 220 + 18, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 236.5, 220 - 18, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 232.5, 220 - 18, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 	#EAST-CENTER ESCALATORS
-	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 
 		#Double escalators between 1-2 (Atrium's west edge)
 		<Floor 0>
@@ -6597,14 +6594,14 @@ ShowFullShaft 11 = true
 		<EndFloors>
 		
 		#Double escalators between 7-8 (Added on 5 June 2026)
-		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 		<Floor 6>
 			OP_Escalator(MallEastEsc_%floorid%F_C1, up, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 234.14, -120 + 2, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 			OP_Escalator(MallEastEsc_%floorid%F_C2, down, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 234.14, -120 - 2, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 	#SOUTH ESCALATORS (Added on 5 June 2026)
-	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3.25, 0, 0, 0, 0) #Reset balustrade texture
+	OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0) #Reset landing textures
 
 		#Double escalators from 1 to 2
