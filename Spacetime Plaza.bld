@@ -855,7 +855,7 @@ DrawWalls = false, true, false, false, false, false
 			#Elevator lobby floors
 
 		#Extra floorings above roads (Center zone)
-		if[%floor% = -1] CreateFlr(CZ_SouthUtilityFloor, ParkingFloor, 0.5, -90, -80, 90, -59, 0, true)
+		if[%floor% = -1] CreateFlr(CZ_SouthUtilityFloor, ParkingFloor, 0.5, -90, -75, 90, -59, 0, true)
 
 		#Extra floorings above roads (West zone)
 		CreateFlr(WZ_SouthUtilityFloor1, ParkingFloor, 0.5, -130, -80, -90, -59, 0, true)
@@ -1303,6 +1303,27 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = -1] AddBoxSign(%floorid%_SE_%SignRow%19B, %floorid%_NE_%SignRow%19, %floorid%_NE_%SignRow%19, BlackTrim, 0.02, true, true, true, %PositionX%, 220 + 1.01, 2, 3, %SignOffset%, true)
 		#if[%floor% = -1] AddBoxSign(%floorid%_SE_%SignRow%20A, %floorid%_NE_%SignRow%20, %floorid%_NE_%SignRow%20, BlackTrim, 0.02, true, true, true, %PositionX%, 260 - 1.01, 2, 3, %SignOffset%, true)
 		#if[%floor% = -1] AddBoxSign(%floorid%_SE_%SignRow%20B, %floorid%_NE_%SignRow%20, %floorid%_NE_%SignRow%20, BlackTrim, 0.02, true, true, true, %PositionX%, 260 + 1.01, 2, 3, %SignOffset%, true)
+<EndFloors>
+
+<Floors -3 to -1>
+	#Accounting Tower parking spaces
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = %interfloorheight% + 0.01
+
+	Set ACTT_CX = -230
+	Set ACTT_CZ = -260
+
+		#South Parking Spaces
+		AddFloor --ACTT_PS_S31, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 97.75, %ACTT_CX% - 141 + 18, %ACTT_CZ% - 97.75 + (8.5 * 1), %Offset%, %Offset%, 1, 1, true
+		AddFloor --ACTT_PS_S32, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 120 - (8.5 * 2), %ACTT_CX% - 141 + 18, %ACTT_CZ% - 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor --ACTT_PS_S33, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 160 - (8.5 * 2), %ACTT_CX% - 141 + 18, %ACTT_CZ% - 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor --ACTT_PS_S34, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 200 - (8.5 * 2), %ACTT_CX% - 141 + 18, %ACTT_CZ% - 200 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor --ACTT_PS_S35, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 240 - (8.5 * 2), %ACTT_CX% - 141 + 18, %ACTT_CZ% - 240 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor --ACTT_PS_S36, ParkingSpaceX, 0, %ACTT_CX% - 141, %ACTT_CZ% - 261 - (8.5 * 1), %ACTT_CX% - 141 + 18, %ACTT_CZ% - 261, %Offset%, %Offset%, 1, 1, true
+
+		AddFloor --ACTT_PS_S41, ParkingSpaceZ, 0, %ACTT_CX% - 120 - (8.5 * 2), %ACTT_CZ% - 299 - 17, %ACTT_CX% - 120 + (8.5 * 2), %ACTT_CZ% - 299, %Offset%, %Offset%, 4, -1, true
+		AddFloor --ACTT_PS_S42, ParkingSpaceZ, 0, %ACTT_CX% - 160 - (8.5 * 1), %ACTT_CZ% - 299 - 17, %ACTT_CX% - 160 + (8.5 * 2), %ACTT_CZ% - 299, %Offset%, %Offset%, 3, -1, true
 <EndFloors>
 
 ########################################
@@ -2660,21 +2681,36 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 <Function ACTT_PGSupports>
 	Set Prefix = %param1%
-	Set SupportX = %param2% #Rightmost column
+	Set SupportX = %param2%
+	Set SupportZ = %param3% #Southmost column
+	Set SupportTex = %param4%
+
+	CreateWallBox2 external, SWSupport%Prefix%/1, %SupportTex%, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/2, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/3, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/4, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/5, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/6, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/7, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/8, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/9, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/10, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/11, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 10), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFunction>
+
+<Function ACTT_PGSupports2>
+	Set Prefix = %param1%
+	Set SupportX = %param2% #Leftmost column
 	Set SupportZ = %param3%
 	Set SupportTex = %param4%
 
-	CreateWallBox2 external, SWSupport%Prefix%1, %SupportTex%, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%2, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%3, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%4, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%5, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%6, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%7, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%8, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%9, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%10, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, SWSupport%Prefix%11, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 10), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/1, %SupportTex%, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/2, %SupportTex%, %SupportX% + (%DistanceZ% * 1), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/3, %SupportTex%, %SupportX% + (%DistanceZ% * 2), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/4, %SupportTex%, %SupportX% + (%DistanceZ% * 3), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/5, %SupportTex%, %SupportX% + (%DistanceZ% * 4), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/6, %SupportTex%, %SupportX% + (%DistanceZ% * 5), %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%/7, %SupportTex%, %SupportX% + (%DistanceZ% * 6) - 1.25, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFunction>
 
 #SUPPORTS
@@ -2691,6 +2727,8 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 	
 	#Southwest Area
 	ACTT_PGSupports(Set1, -370, -560, ParkingWall2)
+	ACTT_PGSupports2(Set2, -370, -120, ParkingWall2)
+	ACTT_PGSupports2(Set3, -370, -90, ParkingWall2)
 <EndFloors>
 
 <Floors -2 to -1>
