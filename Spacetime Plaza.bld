@@ -1686,8 +1686,11 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		if[%floor% < 4] AddWall SZ_LeftWall, ExtFacade, 0.5, -%1% + 240, %2% - 740 - 120, -%1% + 240, %2% - 260 - 320 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = right
-		DrawWalls = true, true, false, true, false, true #Override
+		DrawWalls = true, true, false, true, false, true #Override for divider walls between plaza & April DS
 		if[%floor% = 3] AddWall SZ_RightWall, %5%Wall, 0.5, -%1% + 420, %2% - 740 - 120, -%1% + 420, -%2% + 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		DrawWalls = true, true, false, true, false, false #Override for divider walls between plaza & April DS
+		if[%floor% < 3] AddWall SZ_RightWall, %5%Wall, 0.5, -%1% + 420, %2% - 740 - 120, -%1% + 420, -370 + 30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, false, false, false, false #Reset drawwalls
 
@@ -2960,7 +2963,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Southwest_RR_Flr, RestroomAreaFloor, 0.5, 90, -215, 117, -180, 0, true)
 
 			#Restrooms' ceilings
@@ -3009,7 +3012,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Midwest_RR_Flr, RestroomAreaFloor, 0.5, 90, -56, 117 + 2, -21, 0, true)
 
 			#Restrooms' ceilings
@@ -3064,7 +3067,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Northwest_RR_Flr, RestroomAreaFloor, 0.5, 90, 224, 117 + 2, 259, 0, true)
 
 			#Restrooms' ceilings
@@ -3113,7 +3116,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Southeast_RR_Flr1, RestroomAreaFloor, 0.5, 304, -190.5, 309, -181, 0, true)
 			CreateFlr(EZ_Southeast_RR_Flr2, RestroomAreaFloor, 0.5, 309, -190.5, 330, -171, 0, true)
 
@@ -3162,7 +3165,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Mideast_RR_Flr1, RestroomAreaFloor, 0.5, 304, -40.5, 309, -31, 0, true)
 			CreateFlr(EZ_Mideast_RR_Flr2, RestroomAreaFloor, 0.5, 309, -40.5, 330, -21, 0, true)
 
@@ -3211,7 +3214,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 			#Restrooms' floor
 			FloorOrientation = top
-			DrawWalls = true, true, false, false, false, false
+			DrawWalls = false, true, false, false, false, false
 			CreateFlr(EZ_Northeast_RR_Flr1, RestroomAreaFloor, 0.5, 304, 191, 309, 200.5, 0, true)
 			CreateFlr(EZ_Northeast_RR_Flr2, RestroomAreaFloor, 0.5, 309, 181, 330, 200.5, 0, true)
 
@@ -6692,7 +6695,7 @@ ShowFullShaft 11 = true
 	<EndFloors>
 
 CreateStairwell 1, -85, -284, 0, 4
-CutStairwell 1, -4.5, -14.5, 4.5, 14.5, 0, 5
+CutStairwell 1, -4.5 - 0.5, -14.5, 4.5, 14.5, 0, 5
 ShowFullStairs 1 = always
 
 <Floors 0 to 4>
@@ -6719,9 +6722,6 @@ ShowFullStairs 1 = always
 	DrawWalls = true, true, true, true, false, true
 	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, -%24% + 5, 0, -%24% + 5 + %NumSteps%, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 
-	#DrawWalls = true, true, true, true, true, true
-	#if[%floor% = 0] AddStairsWall %25%, Stair%25%Center_T1, StairsWall2, 1, 0, -%24% + 5 + 9, 0, -%24% + 5 + 12, %interfloorheight% + 3, %interfloorheight% + 3, -%interfloorheight%, -%interfloorheight%, 0, 0
-
 	#Railing
 	WallOrientation = right
 	DrawWalls = true, true, true, true, true, true
@@ -6745,11 +6745,8 @@ ShowFullStairs 1 = always
 	#Landings
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
-	if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
+	if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23% - 0.5, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
 	if[%floor% > 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps%, %23%, %24%, 0, 0, false, false, 0, 0
-	#if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24% + 5 + 12, %23%, %24%, 0, 0, false, false, 0, 0
-	#if[%floor% = 0] AddStairsFloor %25%, Stairs%25%Transition1, StairsFloor, 0.5, -%23%, -%24% + 5 + 9, -%23% + 4, -%24% + 5 + 12, 0, 0, false, false, 0, 0
-
 	if[%floor% < 4] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5, -%23%, -%24%, %23%, -%24% + 5, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
 
 	if[%DblStairs% = true & %floor% < 4] AddStairsFloor %25%, Stairs%25%LandingLowerEX, StairsFloor, 0.5, -%23%, -%24% + 5 + %NumSteps%, %23%, %24%, %26% * %NumStepsU2%, %26% * %NumStepsU2%, false, false, 0, 0
@@ -6765,21 +6762,26 @@ ShowFullStairs 1 = always
 	#Doors
 	WallOrientation = left
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% ! 0 & %floor% ! 3] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, %23%, %24% - 2, 3, 7, 0, 0, 0
-	WallOrientation = right
-	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 3, 75, %23% + 0.5, %24% - 2, 3, 7, 0, 0, 0
+	if[%floor% ! 3] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, %23%, %24% - 2, 3, 7, 0, 0, 0
+
+		#Emergency exit door
+		WallOrientation = left
+		SetLock 1, 0
+		TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 4, 75, -%23% - 0.5, %24% - 2, 3, 7, 0, 0, 0
+		SetLock 0, 0
 
 		#Filler walls
 		WallOrientation = left
 		if[%floor% ! 3] AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% + %24% - 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
+		if[%floor% = 0] AddFillerWalls ConnectionWall, 0.5, %21% - %23%, %22% + %24% - 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
 	if[%floor% < 0] Set SignTex = ExitSignUp
 
-	if[%floor% ! 0 & %floor% ! 3] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% + %24% - 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
-	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% + %23% - 0.05, %22% + %24% - 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% ! 3] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% + %24% - 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% + %24% - 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
 
 #****************************************#
@@ -6791,7 +6793,7 @@ ShowFullStairs 1 = always
 	<EndFloors>
 
 CreateStairwell 2, -85, -124, 0, 4
-CutStairwell 2, -4.5, -14.5, 4.5, 14.5, 0, 5
+CutStairwell 2, -4.5 - 0.5, -14.5, 4.5, 14.5, 0, 5
 ShowFullStairs 2 = always
 
 <Floors 0 to 4>
@@ -6818,9 +6820,6 @@ ShowFullStairs 2 = always
 	DrawWalls = true, true, true, true, false, true
 	AddStairsWall %25%, Stair%25%Center, StairsWall2, 1, 0, %24% - 5 - %NumSteps%, 0, %24% - 5, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0
 
-	#DrawWalls = true, true, true, true, true, true
-	#if[%floor% = 0] AddStairsWall %25%, Stair%25%Center_T1, StairsWall2, 1, 0, %24% - 5 - 12, 0, %24% - 5 - 9, %interfloorheight% + 3, %interfloorheight% + 3, -%interfloorheight%, -%interfloorheight%, 0, 0
-
 	#Railing
 	WallOrientation = left
 	DrawWalls = true, true, true, true, true, true
@@ -6846,9 +6845,6 @@ ShowFullStairs 2 = always
 	DrawWalls = true, true, false, false, false, false
 	if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24%, 0, 0, false, false, 0, 0
 	if[%floor% > 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps%, 0, 0, false, false, 0, 0
-	#if[%floor% = 0] AddStairsFloor %25%, Stairs%25%LandingLower, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - 12, 0, 0, false, false, 0, 0
-	#if[%floor% = 0] AddStairsFloor %25%, Stairs%25%Transition1, StairsFloor, 0.5, -%23%, %24% - 5 - 12, -%23% + 4, %24% - 5 - 9, 0, 0, false, false, 0, 0
-
 	if[%floor% < 4] AddStairsFloor %25%, Stairs%25%LandingUpper, StairsFloor, 0.5, -%23%, %24% - 5, %23%, %24%, %26% * %NumSteps%, %26% * %NumSteps%, false, false, 0, 0
 
 	if[%DblStairs% = true & %floor% < 4] AddStairsFloor %25%, Stairs%25%LandingLowerEX, StairsFloor, 0.5, -%23%, -%24%, %23%, %24% - 5 - %NumSteps%, %26% * %NumStepsU2%, %26% * %NumStepsU2%, false, false, 0, 0
@@ -6864,21 +6860,26 @@ ShowFullStairs 2 = always
 	#Doors
 	WallOrientation = left
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% ! 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0
-	WallOrientation = right
-	TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 2, 75, %23% + 0.5, -%24% + 2, 3, 7, 0, 0, 0
+	AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0
+	
+		#Emergency exit door
+		SetLock 1, 0
+		WallOrientation = left
+		TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+		if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, -%23% - 0.5, -%24% + 2, 3, 7, 0, 0, 0
+		SetLock 0, 0
 
 		#Filler walls
 		WallOrientation = left
 		AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
+		if[%floor% = 0] AddFillerWalls ConnectionWall, 0.5, %21% - %23% - 0.5, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true
 
 	#Exit Signs
 	Set SignTex = ExitSign
 	if[%floor% < 0] Set SignTex = ExitSignUp
 
-	if[%floor% ! 0] AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
-	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% + %23% - 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	AddBoxSign(Stair%25%_SignMain, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
 
 #****************************************#
@@ -7076,7 +7077,7 @@ ShowFullStairs 4 = always
 	if[%floor% < 0] Set SignTex = ExitSignUp
 
 	if[%floor% ! 0] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% - %23% - 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
-	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
 
 <Break>
