@@ -728,7 +728,9 @@ DrawWalls = false, true, false, false, false, false
 	LSFloorCreator(MDS_EExitPath, Sidewalk, 210 + 80 - 12, %2%, 210 + 80 - 12 + 5, %2% + 20, %FO%, false, false)
 
 	#Accounting Tower entrance walkway
-	LSFloorCreator(ACTT_WestEnt, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
+	LSFloorCreator(ACTT_WestEnt1, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
+	LSFloorCreator(ACTT_WestEnt2, Sidewalk, -%1% - 20, -260 - 220, -%1%, -260 - 200, %FO%, false, false)
+	LSFloorCreator(ACTT_WestEnt3, Sidewalk, -%1% - 20, -%2%, -%1%, -%2% + 20, %FO%, false, false)
 
 	#Lavender Moon Hotel parking access
 	LSFloorCreator(LMH_NorthPGAccessPath, Sidewalk, -120 + 190, %2%, -120 + 210, %2% + 20, %FO%, false, true)
@@ -857,7 +859,7 @@ DrawWalls = false, true, false, false, false, false
 
 		#Extra floorings above roads (West zone)
 		CreateFlr(WZ_SouthUtilityFloor1, ParkingFloor, 0.5, -130, -80, -90, -59, 0, true)
-		CreateFlr(WZ_SouthUtilityFloor2, ParkingFloor, 0.5, -250, -80, -170, -59, 0, true)
+		CreateFlr(WZ_SouthUtilityFloor2, ParkingFloor, 0.5, -251, -70, -170, -59, 0, true)
 
 			#Escalator lobby floors
 			CreateFlr(WZ_EscLobbyFlr, ParkingLobbyFloor, 0.5, -210, 60, -164, 100, 0, true)
@@ -2653,8 +2655,41 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 	CreateWallBox2 external, NWSupport%Prefix%7, ColumnTex, %SupportX%, %SupportZ% + (%DistanceZ% * 6) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFunction>
 
+<Function ACTT_PGSupports>
+	Set Prefix = %param1%
+	Set SupportX = %param2% #Rightmost column
+	Set SupportZ = %param3%
+	Set SupportTex = %param4%
+
+	CreateWallBox2 external, SWSupport%Prefix%1, %SupportTex%, %SupportX%, %SupportZ%, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%2, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%3, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%4, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%5, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%6, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%7, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%8, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 7), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%9, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 8), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%10, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 9), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, SWSupport%Prefix%11, %SupportTex%, %SupportX%, %SupportZ% + (%DistanceZ% * 10), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+<EndFunction>
+
 #SUPPORTS
 #Parking Garage Supports
+<Floors -3 to -1>
+	#Set Values
+	TexPrefix() #Set texture prefixes
+	Set DistanceX = 40 #Distance between supports X
+	Set DistanceZ = 40 #Distance between supports Z
+
+	Set SupportHeight = %fullheight%
+	if[%floor% = -1] Set SupportHeight = %fullheight% + Floor(0).InterfloorHeight
+	Set SupportOffset = -%interfloorheight%
+	
+	#Southwest Area
+	ACTT_PGSupports(Set1, -370, -560, ParkingWall2)
+<EndFloors>
+
 <Floors -2 to -1>
 	#Set Values
 	TexPrefix() #Set texture prefixes

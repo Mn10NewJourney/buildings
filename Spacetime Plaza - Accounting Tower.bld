@@ -257,9 +257,7 @@
 			LoadCropped data/glassdoor_trans.gif, GlassShaftDoors2Side, 236, 0, 20, 512, -1, 1, false
 			Load data/panel-back3.jpg, GlassShaftDoors_Trim, 1, 1, false
 
-			#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors, 1, 1, false #EG881 #Office elevators (1st floor)
-			#Load data/EG881/lightaluminumdoor2.jpg, LobbyShaftDoors2, -1, 1, false #EG881
-			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors, 1, 1, false #EG881
+			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors, 1, 1, false #EG881 #Office elevators (1st floor)
 			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
 
@@ -353,6 +351,7 @@
 
 		#Elevator bank signs
 		LoadRange 1, 4, data/Melvin/SpacetimePlaza/ACTTower/ElevBank%number%.png, ElevBank%number%, 1, 1, false
+		LoadRange 1, 2, data/Melvin/SpacetimePlaza/ACTTower/ElevBank%number%_Inner.png, ElevBank%number%_Inner, 1, 1, false
 		Load data/Melvin/Sign-DarkBlue.png, ElevBankSide, 1, 1, false
 
 		#Elevators
@@ -487,8 +486,8 @@ DrawWalls = false, true, false, false, false, false
 #Underground parking levels
 <Floors -3 to -1>
 	TexPrefix() #Set texture prefix/suffix
-	Set CF_SouthEnd = -%2%
-	if[%floor% < -1] Set CF_SouthEnd = -60
+	#Set CF_SouthEnd = -%2%
+	Set CF_SouthEnd = -60
 
 	#Floors
 	FloorOrientation = top
@@ -601,11 +600,6 @@ DrawWalls = false, true, false, false, false, false
 
 		DrawWalls = true, true, true, true, true, false
 		if[%floor% = 1] AddWall MallLink_GapCover2, LobbyRampWall, 0.5, %1%, -%2% + %WL% + 30 - 5, %1%, -%2% + %WL% + 30, 3, 3, %interfloorheight%, %interfloorheight%, 0, 0, true
-		#if[%floor% = 1] AddWall MallLink_GapCover3, LobbyRampWall, 0.5, %1%, -%2% + %WL% + 7.5, %1%, -%2% + %WL% + 10, 3, 3, %interfloorheight%, %interfloorheight%, 0, 0, true
-
-		#DrawWalls = true, true, true, true, false, false
-		#TextureOverride %5%Wall, ExtFacade, %5%Wall, %5%Wall, %5%Wall, %5%Wall
-		#if[%floor% = 1] AddWall MallLink_GapCover2, %5%Wall, 0.5, %1%, -%2% + %WL%, %1%, -%2% + %WL% + 30, 4, 4, %interfloorheight% + 18, %interfloorheight% + 18, 0, 0, true
 
 
 		#Back walls
@@ -1217,7 +1211,7 @@ Set SideTexture = BLKEntDoorSide
 	CreateWallBox2 external, Support%Prefix%6, %SupportTex%%ES%, %SupportX%, -%2% + (%DistanceZ% * 5) - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFloors>
 
-### Elevator bank signs
+#Elevator bank signs
 <Floor 0>
 	Set SignSideTex = ElevBankSide
 
@@ -1225,10 +1219,21 @@ Set SideTexture = BLKEntDoorSide
 	DrawWalls = true, true, true, true, true, true
 
 	#Office elevators
-	AddBoxSign(ElevBank1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(ElevBank1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
 	AddBoxSign(ElevBank2, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, 35 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
 	AddBoxSign(ElevBank3, ElevBank3, ElevBank3, %SignSideTex%, 0.15, false, true, true, 65 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
-	AddBoxSign(ElevBank4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(ElevBank4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
+
+	#Secondary signs for Low Zone and Lower Mid Zone Elevators
+		#Only these two banks have them, due to the position of the elevator lobbies.
+
+		#Low Zone elevators
+		AddBoxSign(ElevBank1_Inner1, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(ElevBank1_Inner2, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+
+		#Lower Mid Zone elevators
+		AddBoxSign(ElevBank2_Inner1, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(ElevBank2_Inner2, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -1247,7 +1252,10 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% < 24] CreateShaftWall(%5%%5L%, %5%%5L%, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, 20, -10, 15, 5, SH4, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
 
 	#Upper Mid Zone Elevators
-	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
+	Set ShowRight = true
+	if[%floor% < 0] Set ShowRight = false
+
+	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, %ShowRight%, true, false, false, true)
 
 	#High Zone Elevators
 	Set ShowRight = false
@@ -1278,10 +1286,10 @@ Set SideTexture = BLKEntDoorSide
 <Floors -3 to 1>
 	TexPrefix()
 	
-	Set ShowLeft = true
-	if[%floor% > -1] Set ShowLeft = false
+	#Set ShowLeft = true
+	#if[%floor% > -1] Set ShowLeft = false
 
-	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, -95, -40, 5, 10, SH9, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
+	CreateShaftWall(%5%%5L%, %5%Wall, %5%%5L%, %5%%5L%, %5%Wall, %5%Wall, 0.33, -95, -40, 5, 10, SH9, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
 <EndFloors>
 
 #Stairwells
