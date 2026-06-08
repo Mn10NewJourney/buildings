@@ -1,6 +1,15 @@
 #Spacetime Plaza - Accounting Tower
 #Copyright (c) 2026-Present - Mn10
 
+#Revised Elevator Speeds (8 June 2026)
+	#ELEVATORS	DETAILS					SPEED
+	#1-6		Low Zone (3-12)			12 FPS (3.65 m/s)
+	#7-12		Lower Mid Zone (13-22)	16 FPS (4.88 m/s)
+	#13-17		Upper Mid Zone (23-31)	20 FPS (6.1 m/s)
+	#18-22		High Zone (32-40)		24 FPS (7.31 m/s)
+	#23-24		Service					14 FPS (4.26 m/s)
+	#25-26		Parking					3.5 FPS (1.07 m/s)
+
 ########################################
 
 #SCRIPTS TO BE INCLUDED
@@ -29,7 +38,7 @@
 #Globals
 <Globals>
 	Name = Spacetime Plaza - Accounting Tower
-	Designer = Mn10 (Fixtures created by various users)
+	Designer = Mn10 (Fixtures created by gooper1)
 	Location = 407 5th Street, Tranquility City
 	Version = 1
 	CameraFloor = 0
@@ -119,13 +128,13 @@
 		#Office levels
 		Load data/Carpet0021b_S.jpg, OfficeFloor, 0.2, 0.2
 		Load data/Carpet0012_S.jpg, OfficeFloor2, 0.2, 0.2 #Elevator core area
-		Load data/stucco22b.jpg, OfficeWall, 0.25, 0.25
+		Load data/stucco22b.jpg, OfficeWall, 0.125, 0.125
 		Load data/EG881/ceilingtile2.jpg, OfficeCeiling, 0.125, 0.125 #EG881
 
 			#Storage on office levels
 			Load data/Carpet0013b_S.jpg, OfficeStorageFloor, 0.2, 0.2
 			Load data/stucco2f.jpg, OfficeStorageWall, 0.08, 0.08
-			Load data/EG881/ceilingtile3x3.jpg, OfficeStorageCeiling, 0.125, 0.125 #EG881
+			Load data/stucco4.jpg, OfficeStorageCeiling, 0.25, 0.25 #EG881
 
 			#Restrooms on office levels
 			Load data/marb047.jpg, OfficeRRFloor, 0.4, 0.4
@@ -1562,6 +1571,113 @@ DrawWalls = false, true, false, false, false, false
 
 	CreateFlr(OfficeCoreFloor, OfficeFloor2, 0.5, -65 - %EF_Endpoint_W%, -35, 75 - %EF_Endpoint_E%, 35, 0, false)
 
+	########################################
+
+	#Main core walls (With the "negative thickness" trick, discovered by EG881)
+	#SOUTH WALLS
+	WallOrientation = left
+	DrawWalls = true, false, true, true, false, false
+	AddWall SouthCoreWall_Ext, %5%Wall, 10, -65 - %EF_Endpoint_W%, -35, 75 - %EF_Endpoint_E%, -35, %height%, %height%, 0, 0, 0, 0, false
+
+	DrawWalls = false, true, true, true, false, false
+	AddWall SouthCoreWall_Int, %5%Wall, -9.5, -65 - %EF_Endpoint_W% + 0.5, -25, 75 - %EF_Endpoint_E% - 0.5, -25, %height%, %height%, 0, 0, 0, 0, false
+
+	#EAST AND WEST WALLS - These walls has a "positive thickness" as usual.
+	DrawWalls = true, true, false, false, false, false
+	WallOrientation = right
+	if[%floor% < 33 & %floor% ! 31] AddWall EastCoreWall_Ext, %5%Wall, 0.5, 75 - %EF_Endpoint%, -25, 75 - %EF_Endpoint_E%, 25, %height%, %height%, 0, 0, 0, 0, false
+	WallOrientation = left
+	if[%floor% > 30] AddWall WestCoreWall_Ext, %5%Wall, 0.5, -65 - %EF_Endpoint%, -25, -65 - %EF_Endpoint_E%, 25, %height%, %height%, 0, 0, 0, 0, false
+
+	#NORTH WALLS
+	WallOrientation = right
+	DrawWalls = false, true, true, true, false, false
+	AddWall NorthCoreWall_Ext, %5%Wall, 10, -65 - %EF_Endpoint_W%, 35, 75 - %EF_Endpoint_E%, 35, %height%, %height%, 0, 0, 0, 0, false
+
+	DrawWalls = true, false, true, true, false, false
+	AddWall NorthCoreWall_Int, %5%Wall, -9.5, -65 - %EF_Endpoint_W% + 0.5, 25, 75 - %EF_Endpoint_E% - 0.5, 25, %height%, %height%, 0, 0, 0, 0, false
+
+	########################################
+
+	#Office access doors
+	Set DTex = Door9b
+	Set DSTex = %DTex%Side
+	Set DTTex = %DTex%Side
+	
+		#North doors
+		Set Door_MainX = -40
+		Set Door_MainZ = 35
+
+		WallOrientation = right
+		AddStdDoor Floor %floor%, NorthOfficeAcc_D1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, NorthOfficeAcc_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_N1Trim, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		Set Door_MainX = 40
+		Set Door_MainZ = 35
+
+		WallOrientation = right
+		AddStdDoor Floor %floor%, NorthOfficeAcc_D1, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, NorthOfficeAcc_D2, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_N2Trim, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+		
+		########################################
+
+		#South doors
+		Set Door_MainX = -40
+		Set Door_MainZ = -35
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, SouthOfficeAcc_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, SouthOfficeAcc_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_S1Trim, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		Set Door_MainX = 40
+		Set Door_MainZ = -35
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, SouthOfficeAcc_D3, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, SouthOfficeAcc_D4, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_S2Trim, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		########################################
+
+		#West doors
+		Set Door_MainX = -65 - %EF_Endpoint_W%
+		Set Door_MainZ = -30
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, WestOfficeAcc_D1, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, WestOfficeAcc_D2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_W1Trim, %DTTex%, %DTTex%, left, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		Set Door_MainX = -65 - %EF_Endpoint_W%
+		Set Door_MainZ = 30
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, WestOfficeAcc_D3, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, WestOfficeAcc_D4, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_W2Trim, %DTTex%, %DTTex%, left, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		########################################
+
+		#East doors
+		Set Door_MainX = 75 - %EF_Endpoint_E%
+		Set Door_MainZ = -30
+
+		WallOrientation = right
+		AddStdDoor Floor %floor%, EastOfficeAcc_D1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, EastOfficeAcc_D2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_E1Trim, %DTTex%, %DTTex%, right, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
+		Set Door_MainX = 75 - %EF_Endpoint_E%
+		Set Door_MainZ = 30
+
+		WallOrientation = right
+		AddStdDoor Floor %floor%, EastOfficeAcc_D3, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, EastOfficeAcc_D4, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(OfficeAcc_E2Trim, %DTTex%, %DTTex%, right, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 6, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+
 	#================================================================================#
 
 	#Restrooms
@@ -2813,7 +2929,7 @@ ShowFullShaft 9 = true
 #Lower Mid Zone Elevators
 <Elevator 7>
 	Name = ACTTower LMZ Elev. 1
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -2823,7 +2939,7 @@ ShowFullShaft 9 = true
 
 <Elevator 8>
 	Name = ACTTower LMZ Elev. 2
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -2833,7 +2949,7 @@ ShowFullShaft 9 = true
 
 <Elevator 9>
 	Name = ACTTower LMZ Elev. 3
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -2843,7 +2959,7 @@ ShowFullShaft 9 = true
 
 <Elevator 10>
 	Name = ACTTower LMZ Elev. 4
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -2853,7 +2969,7 @@ ShowFullShaft 9 = true
 
 <Elevator 11>
 	Name = ACTTower LMZ Elev. 5
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -2863,7 +2979,7 @@ ShowFullShaft 9 = true
 
 <Elevator 12>
 	Name = ACTTower LMZ Elev. 6
-	Speed = 18
+	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 12-21
@@ -3059,7 +3175,7 @@ ShowFullShaft 9 = true
 #Upper Mid Zone Elevators
 <Elevator 13>
 	Name = ACTTower UMZ Elev. 1
-	Speed = 24
+	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 22-30
@@ -3069,7 +3185,7 @@ ShowFullShaft 9 = true
 
 <Elevator 14>
 	Name = ACTTower UMZ Elev. 2
-	Speed = 24
+	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 22-30
@@ -3079,7 +3195,7 @@ ShowFullShaft 9 = true
 
 <Elevator 15>
 	Name = ACTTower UMZ Elev. 3
-	Speed = 24
+	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 22-30
@@ -3089,7 +3205,7 @@ ShowFullShaft 9 = true
 
 <Elevator 16>
 	Name = ACTTower UMZ Elev. 4
-	Speed = 24
+	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 22-30
@@ -3099,7 +3215,7 @@ ShowFullShaft 9 = true
 
 <Elevator 17>
 	Name = ACTTower UMZ Elev. 5
-	Speed = 24
+	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 22-30
@@ -3187,7 +3303,7 @@ ShowFullShaft 9 = true
 #High Zone Elevators
 <Elevator 18>
 	Name = ACTTower HZ Elev. 1
-	Speed = 30
+	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 31-39
@@ -3197,7 +3313,7 @@ ShowFullShaft 9 = true
 
 <Elevator 19>
 	Name = ACTTower HZ Elev. 2
-	Speed = 30
+	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 31-39
@@ -3207,7 +3323,7 @@ ShowFullShaft 9 = true
 
 <Elevator 20>
 	Name = ACTTower HZ Elev. 3
-	Speed = 30
+	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 31-39
@@ -3217,7 +3333,7 @@ ShowFullShaft 9 = true
 
 <Elevator 21>
 	Name = ACTTower HZ Elev. 4
-	Speed = 30
+	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 31-39
@@ -3227,7 +3343,7 @@ ShowFullShaft 9 = true
 
 <Elevator 22>
 	Name = ACTTower HZ Elev. 5
-	Speed = 30
+	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = 0, 31-39
@@ -3436,7 +3552,7 @@ ShowFullShaft 9 = true
 <Elevator 23>
 	Name = ACTTower West Service Elev.
 	Type = Service
-	Speed = 15
+	Speed = 14
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = -3 - 40
@@ -3534,7 +3650,7 @@ ShowFullShaft 9 = true
 <Elevator 24>
 	Name = ACTTower East Service Elev.
 	Type = Service
-	Speed = 15
+	Speed = 14
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = -3 - 40
@@ -3660,7 +3776,7 @@ ShowFullShaft 9 = true
 
 <Elevator 25>
 	Name = ACTTower Parking Elev. 1
-	Speed = 5
+	Speed = 3.5
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = -2 - 1
@@ -3670,7 +3786,7 @@ ShowFullShaft 9 = true
 
 <Elevator 26>
 	Name = ACTTower Parking Elev. 2
-	Speed = 5
+	Speed = 3.5
 	Acceleration = 0.6
 	Deceleration = 0.6
 	ServicedFloors = -2 - 1
@@ -4095,6 +4211,11 @@ ShowFullShaft 9 = true
 		AddWall E13-17_HS1, ElevHallSign, 0, %Shaft1CX% + 5.001, %Shaft1CZ% - 15 - 0.25, %Shaft1CX% + 5.001, %Shaft1CZ% - 15 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		AddWall E13-17_HS2, ElevHallSign, 0, %Shaft1CX% + 5.001, %Shaft1CZ% + 15 - 0.25, %Shaft1CX% + 5.001, %Shaft1CZ% + 15 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
+		#Secondary floor signs on office levels
+		DrawWalls = true, false, false, false, false, false
+		if[%floor% ! 0] AddBoxSign(E13-17_FS3, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 9.5 - 0.001, %Shaft1CZ% - 10, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+		if[%floor% ! 0] AddBoxSign(E13-17_FS4, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 9.5 - 0.001, %Shaft1CZ% + 10, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+
 	#****************************************#
 
 	#Indicator sets
@@ -4189,6 +4310,11 @@ ShowFullShaft 9 = true
 
 		AddWall E18-22_HS1, ElevHallSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 15 - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% - 15 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 		AddWall E18-22_HS2, ElevHallSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 15 - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 15 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+
+		#Secondary floor signs on office levels
+		DrawWalls = false, true, false, false, false, false
+		if[%floor% ! 0] AddBoxSign(E18-22_FS3, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% - 9.5 + 0.001, %Shaft1CZ% - 10, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+		if[%floor% ! 0] AddBoxSign(E18-22_FS4, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% - 9.5 + 0.001, %Shaft1CZ% + 10, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
 
 	#****************************************#
 
