@@ -121,10 +121,15 @@
 
 		#9th-18th floors
 		Load data/floor065.jpg, TowerFloor, 0.25, 0.25
-		Load data/Carpet0021b_S.jpg, TowerFloor2, 0.2, 0.2
+		#Load data/Carpet0021b_S.jpg, TowerFloor2, 0.2, 0.2
 		Load data/Carpet0012_S.jpg, TowerFloor3, 0.2, 0.2
 		Load data/wall5.jpg, TowerWall, 0.25, 0.25
 		Load data/EG881/ceilingtile2b.jpg, TowerCeiling, 0.125, 0.125 #EG881
+
+			#Restrooms on tower levels
+			Load data/marb047.jpg, TowerRRFloor, 0.25, 0.25
+			Load data/Other People's Textures/marb045.png, TowerRRWall, 0.2, 0.2 #Lower walls
+			Load data/misc/bath_tile.jpg, TowerRRWall2, 0.25, 0.25 #Upper walls
 
 		#Drop ceilings
 		Load data/EG881/Ceilings/ceilingtile4single.jpg, DropCeiling, 0.5, 0.5 #EG881 #Restrooms
@@ -320,7 +325,7 @@
 		Load data/metal072.jpg, ServiceElevFloor, 0.25, 0.25
 		Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
 		Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
-		Load data/panel-back3.jpg, ServiceElevWall, 1, 1, false
+		Load data/wall5b.jpg, ServiceElevWall, 0.25, 0.25, true
 		Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4
 		Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false
 		Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false
@@ -1001,15 +1006,15 @@ DrawWalls = false, true, false, false, false, false
 		#Office area floors
 		Set Extra = 0
 		if[%floor% < 9] Set Extra = 20
-		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor1, %5%Floor3, 0.5, -80 + %Extra%, -91.25, 80 - 25, -50, 0, true)
+		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor1, %5%Floor3, 0.5, -80 + %Extra%, -91.25, 80 - 25, -50 - 0.5, 0, true)
 		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor1A, %5%Floor3, 0.5, 80 - 25, -91.25, 80, -80, 0, true)
 		if[%floor% = 8] CreateFlr(AT_OfficeFloor1B, %5%Floor3, 0.5, -80, -91.25, -80 + %Extra%, -80, 0, true)
-		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor2, %5%Floor3, 0.5, -90, -40, -10, -8.75, 0, true)
-		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor3, %5%Floor3, 0.5, 10, -40, %1%, -8.75, 0, true)
+		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor2, %5%Floor3, 0.5, -90, -40 + 0.5, -10, -8.75, 0, true)
+		if[%floor% > 7 & %floor% < 18] CreateFlr(AT_OfficeFloor3, %5%Floor3, 0.5, 10, -40 + 0.5, %1%, -8.75, 0, true)
 	
 		#Carpeting above floors
-		if[%floor% > 7 & %floor% < 18] AddFloor WestLobbyCarpet, %5%Floor2, 0.5, -108, -87, -102, -60, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
-		if[%floor% > 7 & %floor% < 18] AddFloor CenterLobbyCarpet, %5%Floor2, 0.5, -7, -40, 7, -17, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+		#if[%floor% > 7 & %floor% < 18] AddFloor WestLobbyCarpet, %5%Floor2, 0.5, -108, -87, -102, -60, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+		#if[%floor% > 7 & %floor% < 18] AddFloor CenterLobbyCarpet, %5%Floor2, 0.5, -7, -40, 7, -17, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -1081,7 +1086,9 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, false, false, false, false, false
 		AddWall LeftWall1A, ExtFacade, 0.5, -%1%, -80, -%1%, -60, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		DrawWalls = true, true, true, false, false, false
+		Set ShowInside = true
+		if[%floor% > 8] Set ShowInside = false
+		DrawWalls = true, %ShowInside%, %ShowInside%, false, false, false
 		TextureOverride ExtFacade, %5%Wall, %5%Wall, Blank, Blank, Blank
 		AddWall LeftWall2, %5%Wall, 0.5, -%1%, -40, -%1%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -1102,7 +1109,7 @@ DrawWalls = false, true, false, false, false, false
 		Set IntWallDim = 20
 		if[%floor% < 9] Set IntWallDim = 10
 		DrawWalls = true, false, false, true, false, false
-		AddWall BackWall_FarWest_Int, %5%Wall, 0.5, -%1%, -8.75, -%1% + %IntWallDim%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% < 9] AddWall BackWall_FarWest_Int, %5%Wall, 0.5, -%1%, -8.75, -%1% + %IntWallDim%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = false, true, false, false, false, false
 		AddWall BackWall_FarWest_Ext, ExtFacade, 0.5, -%1%, -8.75, -%1% + 20, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -1117,6 +1124,75 @@ DrawWalls = false, true, false, false, false, false
 		TextureOverride %5%Wall, ExtFacade, %5%Wall, Blank, Blank, Blank
 		AddWall BackWall3, %5%Wall, 0.5, 115, -8.75, %1%, -8.75, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloors>
+
+#================================================================================#
+
+<Break>
+
+#West restrooms (10th-18th floors)
+<Floors 9 to 19>
+	TexPrefix() #Set texture prefix/suffix
+
+	#Floors
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	CreateFlr(%floorid%F_WestRR, TowerRRFloor, 0.5, -120, -40, -100 - 0.5, -8.75, 0, false)
+
+	########################################
+	
+	#Dropped ceilings
+	FloorOrientation = bottom
+	DrawWalls = true, false, false, false, false, false
+	AddFloor WestRRDropCeil, DropCeiling, 0.5, -120, -40, -100, -8.75, 8.5, 8.5, 0, 0, false
+
+	#Walls (Using the "negative thickness" trick, discovered by EG881)
+	WallOrientation = left
+	DrawWalls = false, true, true, false, false, false
+	AddWall AT_WestRR_Ext, %5%Wall, 20, -120, -40, -120, -8.75, %height%, %height%, 0, 0, 0, 0, false
+
+	DrawWalls = true, true, true, true, false, false
+	AddWall AT_WestRR_Int, TowerRRWall, -19, -100 - 0.5, -40 + 0.5, -100 - 0.5, -8.75 - 0.5, 3.5, 3.5, 0, 0, 0, 0, false
+	AddWall AT_WestRR_Int2, TowerRRWall2, -19, -100 - 0.5, -40 + 0.5, -100 - 0.5, -8.75 - 0.5, 8.5 - 3.5, 8.5 - 3.5, 3.5, 3.5, 0, 0, false
+
+	WallOrientation = center
+	DrawWalls = true, true, false, false, false, false
+	AddWall_CustomTex(AT_WestRR_MidDiv, 2, TowerRRWall, TowerRRWall2, Blank, 1, -120, -25, -100, -25, 3.5, 8.5 - 3.5, 0, 0, false)
+
+	########################################
+
+	#DOORS AND SIGNS
+	#Door texture sets
+	Set DTex = Door9b
+	Set DSTex = %DTex%Side
+	Set DTTex = %DTex%Side
+	
+	#Sign texture sets
+	Set BoxTex = WoodSign2
+	Set SignSuffix = _Brown
+
+		#West restroom 1
+		Set Door_MainX = -100.5
+		Set Door_MainZ = -25 - 2.5
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, ACTT_%floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(WRR1_Deco, %DTTex%, %DTTex%, left, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+	
+		AddBoxSign(WRR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, false, true, true, %Door_MainX% + 0.525, %Door_MainZ%, 1, 1, 7.5, false)
+
+		#West restroom 2
+		Set Door_MainX = -100.5
+		Set Door_MainZ = -25 + 2.5
+	
+		WallOrientation = right
+		AddStdDoor Floor %floor%, ACTT_%floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddDecoObject(WRR2_Deco, %DTTex%, %DTTex%, left, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
+	
+		AddBoxSign(WRR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, false, true, true, %Door_MainX% + 0.525, %Door_MainZ%, 1, 1, 7.5, false)
+<EndFloors>
+<Break>
+
+#================================================================================#
 
 <Floor 19>
 	#Mechanical Mezzanine
