@@ -30,9 +30,9 @@
 	Location = 414 5th Street, Tranquility City
 	Description = The only section of this mall without its own service/freight elevator.
 	Version = 1
-	CameraFloor = 0
-	CameraPosition = -65, -30
-	CameraRotation = 0, 270, 0
+	CameraFloor = -2
+	CameraPosition = 10, -72
+	CameraRotation = 0, 0, 0
 <EndGlobals>
 
 ##--------------------------------------------------------------------------------##
@@ -328,8 +328,8 @@
 			AddTextRange 21, 25, B1_NE, B1_NE_D%number%, nimbus_sans_bold.ttf, 45, D%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B1_NE, B1_NE_DA%number%, nimbus_sans_bold.ttf, 45, DA%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B1_NE, B1_NE_E%number%, nimbus_sans_bold.ttf, 45, E%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
-			AddTextRange 21, 25, B1_NE, B1_NE_F%number%, nimbus_sans_bold.ttf, 45, F%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
-			AddTextRange 21, 25, B1_NE, B1_NE_G%number%, nimbus_sans_bold.ttf, 45, G%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
+			#AddTextRange 21, 25, B1_NE, B1_NE_F%number%, nimbus_sans_bold.ttf, 45, F%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
+			#AddTextRange 21, 25, B1_NE, B1_NE_G%number%, nimbus_sans_bold.ttf, 45, G%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B1_NE, B1_NE_H%number%, nimbus_sans_bold.ttf, 45, H%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B1_NE, B1_NE_J%number%, nimbus_sans_bold.ttf, 45, J%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 
@@ -486,7 +486,8 @@ DrawWalls = false, true, false, false, false, false
 	AddFloor MonicaDS_PGFloor, Road, 1, -%1%, -%2%, %1% + 150, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Extra floorings above roads
-		CreateFlr(MonicaDS_EastCoreFloor1, ParkingLobbyFloor, 0.5, 18.5, -49, 65, 29, 0, true)
+		CreateFlr(MonicaDS_EastCoreFloor1, ParkingLobbyFloor, 0.5, 25, -48.5, 65, 28.5, 0, true)
+		CreateFlr(MonicaDS_EastCoreFloor1A, ParkingFloor, 0.5, 18.5, -48.5, 25, 28.5, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor1, ParkingLobbyFloor, 0.5, -%1%, -15, -%1% + 21, 15, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor2, ParkingFloor, 0.5, -%1%, 15, -%1% + 21, 40, 0, true)
 		if[%floor% ! -1] CreateFlr(MonicaDS_NUtilityFloor, ParkingFloor, 0.5, -%1%, %2% - 12, %1% + 150, %2%, 0, true)
@@ -498,6 +499,10 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = -1] AddFloor MonicaDS_PGCeiling, %5%Ceiling, 0.5, %1%, -%2%, %1% + 150, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+
+		#Elevator lobby ceilings
+		AddFloor MonicaDS_WestLbyCeiling, ParkingLobbyCeiling, 0.5, -110, -15, -99, 15, %interfloorheight% + 9, %interfloorheight% + 9, 0, 0, true
+		AddFloor MonicaDS_EastLbyCeiling, ParkingLobbyCeiling, 0.5, 25, -48.5, 65, 28.5, %interfloorheight% + 9, %interfloorheight% + 9, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -526,6 +531,94 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, false, false, false, false, true
 		AddWall BackWall_IFloorCover, %5%Wall, 0.5, -20, %2%, 20, %2%, Floor(%floor% + 1).InterfloorHeight, Floor(%floor% + 1).InterfloorHeight, %fullheight%, %fullheight%, 0, 0, true
 		if[%floor% = -1] AddWall BackWall_IFloorCover2, %5%Wall, 0.5, -20, %2%, 20, %2%, 1, 1, %interfloorheight% + 9, %interfloorheight% + 9, 0, 0, true
+
+	###************************###
+
+	#Elevator lobby walls
+		#West lobby
+		WallOrientation = right
+		DrawWalls = true, true, true, true, false, false
+		AddWall MDS_WestLobbyWall_Ext, ParkingWall, 11, -99, -15, -99, 15, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = true, fa;se, true, true, false, false
+		AddWall MDS_WestLobbyWall_Int, ParkingLobbyWall, -10.5, -110, -15 + 0.5, -110, 15 - 0.5, 9, 9, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+			#Doors
+			Set DTex = BLKEntDoorInt
+			#Set DSTex = %DTex%Side
+			Set DSTex = BLKEntDoorSide
+
+			Set Door_MainX = -99 - 0.5
+			Set Door_MainZ = 0
+	
+			WallOrientation = left
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+			#Windows on walls
+			#Set WinHeight = %height% - 0.5
+			Set WinHeight = 9 - 0.5
+			Set ExtTex = MainWindowsIntB
+	
+			Add3DWindows(WestELWindows_Front, -104.75, -15, front, 10, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+			Add3DWindows(WestELWindows_Back, -104.75, 15, back, 10, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+
+			Add3DWindows(WestELWindows_Right1, -99, 0 - 3 - 0.25 - 5.5, right, 11, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+			Add3DWindows(WestELWindows_Right2, -99, 0 + 3 + 0.25 + 5.5, right, 11, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+			Add3DWindows(WestELWindows_Right3, -99, 0, right, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+
+		#East lobby
+		WallOrientation = left
+		DrawWalls = true, true, true, true, false, false
+		AddWall MDS_EastLobbyWall_Ext, ParkingWall, 40, 25, -48.5, 25, 28.5, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall MDS_EastLobbyWall_Int, ParkingLobbyWall, -39, 64.5, -48.5 + 0.5, 64.5, 28.5 - 0.5, 9, 9, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+			#Doors
+			Set DTex = BLKEntDoorInt
+			#Set DSTex = %DTex%Side
+			Set DSTex = BLKEntDoorSide
+
+			Set Door_MainX = 25 + 0.5 #Left doors
+			Set Door_MainZ = 0
+	
+			WallOrientation = right
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+			Set Door_MainX = 65 - 0.5 #Right doors
+			Set Door_MainZ = -20
+	
+			WallOrientation = left
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
+			AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+			#Windows on walls
+			#Set WinHeight = %height% - 0.5
+			Set WinHeight = 9 - 0.5
+			Set ExtTex = MainWindowsIntB
+	
+			Add3DWindows(EastELWindows_Front, 45, -48.5, front, 38.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 9/4, 1)
+			Add3DWindows(EastELWindows_Back, 45, 28.5, back, 38.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 9/4, 1)
+
+			Add3DWindows(EastELWindows_Left1, 25, 5 + 11.375, left, 22.75, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 6/4, 1)
+			Add3DWindows(EastELWindows_Left2A, 25, 0 + 4, left, 1.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Left2B, 25, 0, left, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Left2C, 25, 0 - 4, left, 1.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Left3, 25, -5 - 21.375, left, 42.75, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 11/4, 1)
+
+			Add3DWindows(EastELWindows_Right1, 65, 15 + 0.25 + 6.25, right, 12.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+			Add3DWindows(EastELWindows_Right2A, 65, -16, right, 1.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Right2B, 65, -20, right, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Right2C, 65, -24, right, 1.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(EastELWindows_Right3, 65, -36.375, right, 22.75, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 6/4, 1)
 
 	###************************###
 
@@ -561,31 +654,46 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor Parking_E20, ParkingSpaceX, 0, 99, -30 - (8.5 * 2), 99 + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_E21, ParkingSpaceX, 0, 99, -70 - (8.5 * 2), 99 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		
+		if[%floor% = -1] AddFloor Parking_E22A, ParkingSpaceX, 0, 61 - 18, 71, 61, 71 + (8.5 * 3), %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_E22, ParkingSpaceX, 0, 61 - 18, 50 - (8.5 * 2), 61, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		#AddFloor Parking_E23, ParkingSpaceX, 0, 61 - 18, 10 - (8.5 * 2), 61, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		#AddFloor Parking_E24, ParkingSpaceX, 0, 61 - 18, -30 - (8.5 * 2), 61, -30 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_E25, ParkingSpaceX, 0, 61 - 18, -70 - (8.5 * 2), 61, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		AddFloor Parking_E26, ParkingSpaceX, 0, 19, 50 - (8.5 * 2), 19 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		#AddFloor Parking_E27, ParkingSpaceX, 0, 19, 10 - (8.5 * 2), 19 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		#AddFloor Parking_E28, ParkingSpaceX, 0, 19, -30 - (8.5 * 2), 19 + 18, -30 + (8.5 * 1), %Offset%, %Offset%, 1, 3, true
-		AddFloor Parking_E29, ParkingSpaceX, 0, 19, -70 - (8.5 * 2), 19 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% < -1] AddFloor Parking_E26, ParkingSpaceX, 0, 19, 50 - (8.5 * 2), 19 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		#if[%floor% < -1] AddFloor Parking_E27, ParkingSpaceX, 0, 19, 10 - (8.5 * 2), 19 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		#if[%floor% < -1] AddFloor Parking_E28, ParkingSpaceX, 0, 19, -30 - (8.5 * 2), 19 + 18, -30 + (8.5 * 1), %Offset%, %Offset%, 1, 3, true
+		if[%floor% < -1] AddFloor Parking_E29, ParkingSpaceX, 0, 19, -70 - (8.5 * 2), 19 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 
 		#West
-		AddFloor Parking_W1, ParkingSpaceX, 0, -19 - 18, 50 - (8.5 * 2), -19, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		AddFloor Parking_W2, ParkingSpaceX, 0, -19 - 18, 10 - (8.5 * 2), -19, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		AddFloor Parking_W3, ParkingSpaceX, 0, -19 - 18, -30 - (8.5 * 2), -19, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		AddFloor Parking_W4, ParkingSpaceX, 0, -19 - 18, -70 - (8.5 * 2), -19, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% < -1] AddFloor Parking_W1, ParkingSpaceX, 0, -19 - 18, 50 - (8.5 * 2), -19, 50 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% < -1] AddFloor Parking_W2, ParkingSpaceX, 0, -19 - 18, 10 - (8.5 * 2), -19, 10 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% < -1] AddFloor Parking_W3, ParkingSpaceX, 0, -19 - 18, -30 - (8.5 * 2), -19, -30 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% < -1] AddFloor Parking_W4, ParkingSpaceX, 0, -19 - 18, -70 - (8.5 * 2), -19, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		AddFloor Parking_W5, ParkingSpaceX, 0, -61, 50 - (8.5 * 2), -61 + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		AddFloor Parking_W6, ParkingSpaceX, 0, -61, 10 - (8.5 * 2), -61 + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		AddFloor Parking_W7, ParkingSpaceX, 0, -61, -30 - (8.5 * 2), -61 + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		AddFloor Parking_W8, ParkingSpaceX, 0, -61, -70 - (8.5 * 2), -61 + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		Set Extra = 0
+		if[%floor% = -1] Set Extra = 5
+		
+		AddFloor Parking_W5, ParkingSpaceX, 0, -61 - %Extra%, 50 - (8.5 * 2), -61 - %Extra% + 18, 50 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_W6, ParkingSpaceX, 0, -61 - %Extra%, 10 - (8.5 * 2), -61 - %Extra% + 18, 10 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_W7, ParkingSpaceX, 0, -61 - %Extra%, -30 - (8.5 * 2), -61 - %Extra% + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor Parking_W8, ParkingSpaceX, 0, -61 - %Extra%, -70 - (8.5 * 2), -61 - %Extra% + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 
-		AddFloor Parking_W9, ParkingSpaceX, 0, -99 - 18, 90 - (8.5 * 2), -99, 90 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
+		AddFloor Parking_W9, ParkingSpaceX, 0, -99 - 18, 71, -99, 71 + (8.5 * 3), %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_W10, ParkingSpaceX, 0, -99 - 18, 69 - (8.5 * 3), -99, 69, %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_W11, ParkingSpaceX, 0, -99 - 18, -30 - (8.5 * 2), -99, -30 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_W12, ParkingSpaceX, 0, -99 - 18, -70 - (8.5 * 2), -99, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+
+		#Islands around entrance areas
+		if[%floor% = -1] AddFloor EntArea_LeftIsland, WhiteIslandZ, 0, -20 - 2, -91 - 1.5, -20 + 2, 98, %Offset%, %Offset%, 1, 10, true
+		if[%floor% = -1] AddFloor EntArea_MiddleIsland, NoParkingZ, 0, 0 - 3, -91 - 1.5, 0 + 3, 110, %Offset%, %Offset%, 1, 10, true
+		#if[%floor% = -1] AddFloor EntArea_RightIsland, WhiteIslandZ, 0, 20 - 2, -91 - 1.5, 20 + 2, 98, %Offset%, %Offset%, -1, 10, true
+		if[%floor% = -1] AddFloor EntArea_RightIsland1, WhiteIslandZ, 0, 20 - 2, -91 - 1.5, 35, -48.5, %Offset%, %Offset%, -2, 2, true
+		if[%floor% = -1] AddFloor EntArea_RightIsland2, WhiteIslandZ, 0, 20 - 2, 28.5, 35, 98, %Offset%, %Offset%, -2, 4, true
+
+		#Marking at elevator lobbies
+		AddFloor WestLobbyIsland, NoParkingZ, 0, -99, 0 - 8, -99 + 5, 0 + 8, %Offset%, %Offset%, 1, 1, true
+		AddFloor EastLobbyIsland, NoParkingZ, 0, 65, -20 - 8, 65 + 5, -20 + 8, %Offset%, %Offset%, 1, 1, true
 
 	###************************###
 
@@ -672,29 +780,29 @@ DrawWalls = false, true, false, false, false, false
 
 	Set SignRow = F
 	Set PositionX = 20
-	AddBoxSign(%floorid%_NE_%SignRow%21A, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%21B, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%22A, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 - 1.01, 2, 3, %SignOffset%, true)
-	#AddBoxSign(%floorid%_NE_%SignRow%22B, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 + 1.01, 2, 3, %SignOffset%, true)
-	#AddBoxSign(%floorid%_NE_%SignRow%23A, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 - 1.01, 2, 3, %SignOffset%, true)
-	#AddBoxSign(%floorid%_NE_%SignRow%23B, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 + 1.01, 2, 3, %SignOffset%, true)
-	#AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%21A, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%21B, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%22A, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 - 1.01, 2, 3, %SignOffset%, true)
+	#if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%22B, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 + 1.01, 2, 3, %SignOffset%, true)
+	#if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%23A, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 - 1.01, 2, 3, %SignOffset%, true)
+	#if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%23B, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 + 1.01, 2, 3, %SignOffset%, true)
+	#if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
 
 	Set SignRow = G
 	Set PositionX = -20
-	AddBoxSign(%floorid%_NE_%SignRow%21A, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%21B, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%22A, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%22B, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%23A, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%23B, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%21A, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%21B, %floorid%_NE_%SignRow%21, %floorid%_NE_%SignRow%21, BlackTrim, 0.02, true, true, true, %PositionX%, -90 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%22A, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%22B, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%23A, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%23B, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
+	if[%floor% < -1] AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
 
 	Set SignRow = H
 	Set PositionX = -60
@@ -1036,8 +1144,8 @@ Set SideTexture = BLKEntDoorSide
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 80, 105, 12.5, 5, Stair12, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
 
 	#East Elevators
-	if[%floor% < 0] CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 15, SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
-	if[%floor% > -1] CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 60 - 2.5, 0, 2.5, 15, SH2, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	if[%floor% < 0] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 15, SH2, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
+	if[%floor% > -1] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 60 - 2.5, 0, 2.5, 15, SH2, %SHeight%, %SOffset%, true, true, false, true, false, false, true)
 <EndFloors>
 
 <Floor 10>
