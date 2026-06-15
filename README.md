@@ -1,5 +1,5 @@
 # Mn10's Building Repository
-Downloading a WIP file from here is intended ONLY for experimental purposes.
+Downloading any building from here is intended ONLY for experimental purposes.
 
 (You MUST have a recent official release of my IP installed before doing so.)
 
