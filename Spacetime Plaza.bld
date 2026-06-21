@@ -61,10 +61,10 @@
 	Load Spacetime Plaza - April DS & Tower.bld, 210, 0, -370, 0, -120, 0, -130, 120 + 150, 0, 130 #Southeast annex
 
 	#Parking garage and Lavender Moon Hotel (Northwest)
-	Load Spacetime Plaza - PG & Lavender Moon Hotel.bld, -120, 0, 370, 0, -210, 0, -130, 210, 0, 130
+	#Load Spacetime Plaza - PG & Lavender Moon Hotel.bld, -120, 0, 370, 0, -210, 0, -130, 210, 0, 130
 
 	#Accounting Tower (Southwest)
-	Load Spacetime Plaza - Accounting Tower.bld, -230, 0, -260, 0, -100, 0, -100 - 140 - 80, 100, 0, 100
+	#Load Spacetime Plaza - Accounting Tower.bld, -230, 0, -260, 0, -100, 0, -100 - 140 - 80, 100, 0, 100
 <EndBuildings>
 
 ##--------------------------------------------------------------------------------##
@@ -95,6 +95,7 @@
 
 	#Landscapes
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
+	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
 	Load data/EG881/brick040+_brown.jpg, BrickFences, 0.25, 0.25 #EG881
 
 		#Plants
@@ -756,6 +757,55 @@ DrawWalls = false, true, false, false, false, false
 	LSFloorCreator(LMH_NorthPGExitDriveway, Road, -120 + 110.5, %2%, -120 + 190, %2% + 20 + 15, %FO%, false, false)
 	LSFloorCreator(LMH_WestPGEntranceDriveway, Road, -%1% - 20 - 15, 370 + 55, -%1%, %2%, %FO%, false, false)
 	LSFloorCreator(LMH_WestPGAccessPath, Sidewalk, -%1% - 20, 370 + 40, -%1%, 370 + 55, %FO%, false, true)
+
+
+	########################################
+
+	Set LL = 0 #Tranquility City street level
+	Set ML = 2 #Halfway between TQC street level and STP Main level
+	Set UL = 4 #Spacetime Plaza main level
+
+	#Stairs and ramps linking to Tennerland Street and Westin Tranquility City
+		#Stairs creation
+		OP_Draw(true, true, true, true, true, true)
+		OP_OrthoStair(landscape, STP_WestLinkStairs_1, Sidewalk, 60, 100, left, -509, 4, 1, 0.5, %LL%, 0.5)
+		OP_OrthoStair(landscape, STP_WestLinkStairs_2, Sidewalk, 60, 100, left, -509 + 4 + 9, 4, 1, 0.5, %ML%, 0.5)
+
+		#Ramps and extra floors
+		DrawWalls = false, true, false, false, false, false
+		AddFloor landscape, STP_WestLinkMidLanding, Sidewalk, 0, -505, 60, -496, 100, %ML%, %ML%, 0, 0
+		AddFloor landscape, STP_WestLinkTopLanding, Sidewalk, 0, -492, 60, -458, 100, %UL%, %UL%, 0, 0
+
+		AddFloor landscape, STP_WestLink_Ramp1, SidewalkDarker, 0, -509, 100.5, -509 + 48, 110, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp1Top, SidewalkDarker, 0, -509 + 48, 100.5, -458, 110, %UL%, %UL%, false, true, 0, 0
+
+		AddFloor landscape, STP_WestLink_Ramp2, SidewalkDarker, 0, -509, 50, -509 + 48, 59.5, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp2Top, SidewalkDarker, 0, -509 + 48, 50, -458, 59.5, %UL%, %UL%, false, true, 0, 0
+
+		#Railings around west stairs
+		Set FenceThickness = 0.5
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = right
+		AddWall landscape, STP_WestLinkStairs_FrontRail1, BrickFences, %FenceThickness%, -509, 60, -505, 60, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_FrontRail2, BrickFences, %FenceThickness%, -505, 60, -496, 60, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_FrontRail3, BrickFences, %FenceThickness%, -496, 60, -492, 60, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_FrontRail4, BrickFences, %FenceThickness%, -492, 60, -458, 60, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+
+		WallOrientation = left
+		AddWall landscape, STP_WestLinkStairs_BackRail1, BrickFences, %FenceThickness%, -509, 100, -505, 100, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_BackRail2, BrickFences, %FenceThickness%, -505, 100, -496, 100, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_BackRail3, BrickFences, %FenceThickness%, -496, 100, -492, 100, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkStairs_BackRail4, BrickFences, %FenceThickness%, -492, 100, -458, 100, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+
+		#Railings around west ramps
+		WallOrientation = right
+		AddWall landscape, STP_WestLinkRamps_FrontRail1, BrickFences, %FenceThickness%, -509, 50, -509 + 48, 50, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkRamps_FrontRail2, BrickFences, %FenceThickness%, -509 + 48, 50, -458, 50, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0	
+
+		WallOrientation = left
+		AddWall landscape, STP_WestLinkRamps_BackRail1, BrickFences, %FenceThickness%, -509, 110, -509 + 48, 110, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, STP_WestLinkRamps_BackRail2, BrickFences, %FenceThickness%, -509 + 48, 110, -458, 110, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0	
 
 ##--------------------------------------------------------------------------------##
 
@@ -3790,7 +3840,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 		CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 296.5, -26, 12.5, 5, ST15_Top, %fullheight%, 0, true, true, true, true, true, false, true)
 		CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 296.5, 186, 12.5, 5, ST16_Top, %fullheight%, 0, true, true, true, true, true, false, true)
 <EndFloor>
-
+<End>
 ##--------------------------------------------------------------------------------##
 
 #Shafts
