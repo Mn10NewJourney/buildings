@@ -95,7 +95,7 @@
 
 	#Landscapes
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
-	Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
+	#Load data/Melvin/ABH_Tex/walkway-darker.jpg, SidewalkDarker, 0.03125, 0.03125
 	Load data/EG881/brick040+_brown.jpg, BrickFences, 0.25, 0.25 #EG881
 
 		#Plants
@@ -747,6 +747,10 @@ DrawWalls = false, true, false, false, false, false
 	#Accounting Tower parking garage entrance
 	LSFloorCreator(ACTT_PGEntrance, Road, -416 - 3, -320 - 40, -416 + 24 + 3, -320, %FO%, false, false)
 
+	#Mall parking garage entrance/exit
+	LSFloorCreator(Mall_PGAccess1, Road, -416 - 3, -60 - 40, -416 + 24 + 3, -60, %FO%, false, false)
+	LSFloorCreator(Mall_PGAccess2, Road, -416 - 3, 140 - 40, -416 + 24 + 3, 140, %FO%, false, false)
+
 	#Accounting Tower entrance walkway
 	LSFloorCreator(ACTT_WestEnt1, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
 	LSFloorCreator(ACTT_WestEnt2, Sidewalk, -%1% - 20, -260 - 120, -%1%, -260 - 100, %FO%, false, false)
@@ -776,11 +780,11 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor landscape, STP_WestLinkMidLanding, Sidewalk, 0, -505, 60, -496, 100, %ML%, %ML%, 0, 0
 		AddFloor landscape, STP_WestLinkTopLanding, Sidewalk, 0, -492, 60, -458, 100, %UL%, %UL%, 0, 0
 
-		AddFloor landscape, STP_WestLink_Ramp1, SidewalkDarker, 0, -509, 100.5, -509 + 48, 110, %LL%, %UL%, true, true, 0, 0
-		AddFloor landscape, STP_WestLink_Ramp1Top, SidewalkDarker, 0, -509 + 48, 100.5, -458, 110, %UL%, %UL%, false, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp1, Sidewalk, 0, -509, 100.5, -509 + 48, 110, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp1Top, Sidewalk, 0, -509 + 48, 100.5, -458, 110, %UL%, %UL%, false, true, 0, 0
 
-		AddFloor landscape, STP_WestLink_Ramp2, SidewalkDarker, 0, -509, 50, -509 + 48, 59.5, %LL%, %UL%, true, true, 0, 0
-		AddFloor landscape, STP_WestLink_Ramp2Top, SidewalkDarker, 0, -509 + 48, 50, -458, 59.5, %UL%, %UL%, false, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp2, Sidewalk, 0, -509, 50, -509 + 48, 59.5, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, STP_WestLink_Ramp2Top, Sidewalk, 0, -509 + 48, 50, -458, 59.5, %UL%, %UL%, false, true, 0, 0
 
 		#Railings around west stairs
 		Set FenceThickness = 0.5
@@ -1576,6 +1580,110 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	
 	#As a compensation, there will be a parking garage created south of April Department Store in the future.
 	#Let me wait until our computers get more advanced first.
+
+	#--------------------#
+
+	#Northwest Exit (Exit from mall and hotel parking, spanning levels B2 to 1)
+		#Cut landscape and external meshes for ramps
+		Cut landscape, -416, %UL% - 2, 140, -416 + 24, %UL% + 1, 140 + 120, false, true
+		Cut external, -416, Floor(-2).Base + 5, 140, -416 + 24, %UL% + 2, 140 + 120, false, true
+
+		<Floors -2 to -1>
+			TexPrefix() #Set texture prefix
+		
+			#Parking ramp creation
+			FloorOrientation = top
+			DrawWalls = true, true, false, false, false, false
+			TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+			AddFloor Shop2_ParkingRamp, Road, 1, -416, 140, -416 + 24, 140 + 120, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight%, 0, 0, true
+
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			Set WallOffset2 = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
+			DrawWalls = true, true, true, true, true, false
+	
+			WallOrientation = right
+			AddWall Shop2_PR_RightRail, ParkingWall, 0.5, -416 + 24, 140, -416 + 24, 140 + 120, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+		<EndFloors>
+		
+		<Floor -1>
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			DrawWalls = true, true, true, true, true, false
+	
+			WallOrientation = left
+			AddWall Shop2_PR_RightRail2, ParkingWall, 0.5, -416 + 24, 140, -416 + 24, 140 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		<EndFloor>
+
+		<Floor 0>
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			DrawWalls = true, true, true, true, true, false
+
+			WallOrientation = right
+			AddWall Shop2_PR_LeftRail_Top, ParkingWall3, 0.5, -415.5, 140, -415.5, 140 + 120, 3.5, 3.5, %interfloorheight%, %interfloorheight%, 0, 0, true
+			WallOrientation = left
+			AddWall Shop2_PR_RightRail_Top, ParkingWall3, 0.5, -416 + 24, 140, -416 + 24, 140 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall Shop2_PR_BackRail_Top, ParkingWall3, 0.5, -416, 140 + 120, -416 + 24 + 0.5, 140 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		<EndFloor>
+
+		#Auto area for ramps
+		AddFloorAutoArea -416, Floor(-3).Base, 140, -416 + 24, Floor(0).Base + 5, 140 + 120
+
+	#--------------------#
+
+	#West-Central Entrance (Access to mall and hotel parking, spanning levels B2 to 1)
+		#Cut landscape and external meshes for ramps
+		Cut landscape, -416, %UL% - 2, -60, -416 + 24, %UL% + 1, -60 + 120, false, true
+		Cut external, -416, Floor(-2).Base + 5, -60, -416 + 24, %UL% + 2, -60 + 120, false, true
+
+		<Floors -2 to -1>
+			TexPrefix() #Set texture prefix
+		
+			#Parking ramp creation
+			FloorOrientation = top
+			DrawWalls = true, true, false, false, false, false
+			TextureOverride ParkingCeiling, Road, Blank, Blank, Blank, Blank
+			AddFloor Shop1_ParkingRamp, Road, 1, -416, -60, -416 + 24, -60 + 120, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight%, 0, 0, true
+
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			Set WallOffset2 = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1
+			DrawWalls = true, true, true, true, true, false
+	
+			WallOrientation = right
+			AddWall Shop1_PR_RightRail, ParkingWall, 0.5, -416 + 24, -60, -416 + 24, -60 + 120, %WallHeight%, %WallHeight%, %WallOffset2%, %WallOffset%, 0, 0, true
+		<EndFloors>
+		
+		<Floor -1>
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			DrawWalls = true, true, true, true, true, false
+	
+			WallOrientation = left
+			AddWall Shop1_PR_RightRail2, ParkingWall, 0.5, -416 + 24, -60, -416 + 24, -60 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		<EndFloor>
+
+		<Floor 0>
+			#Railings next to ramps
+			Set WallHeight = 1 + 3.5
+			Set WallOffset = %interfloorheight% - 1
+			DrawWalls = true, true, true, true, true, false
+
+			WallOrientation = right
+			AddWall Shop1_PR_LeftRail_Top, ParkingWall3, 0.5, -415.5, -60, -415.5, -60 + 120, 3.5, 3.5, %interfloorheight%, %interfloorheight%, 0, 0, true
+			WallOrientation = left
+			AddWall Shop1_PR_RightRail_Top, ParkingWall3, 0.5, -416 + 24, -60, -416 + 24, -60 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+			AddWall Shop1_PR_BackRail_Top, ParkingWall3, 0.5, -416, -60 + 120, -416 + 24 + 0.5, -60 + 120, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		<EndFloor>
+
+		#Auto area for ramps
+		AddFloorAutoArea -416, Floor(-3).Base, -60, -416 + 24, Floor(0).Base + 5, -60 + 120
 
 	#--------------------#
 
