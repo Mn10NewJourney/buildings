@@ -980,6 +980,9 @@ DrawWalls = false, true, false, false, false, false
 
 	SetAutoSize = true, false
 
+		#Front windows
+		if[%floor% > 0] AddCustomWindows(ADS_FrontWin_%floorid%F, ShopWindows, ShopWindowsInt, -20, -%2%, 20, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+
 		#Right windows
 		if[%floor% = 0 | %floor% ! 1] Set ExtPrefix = 
 		if[%floor% > 1] Set ExtPrefix = Int
@@ -1006,7 +1009,15 @@ DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
-		AddWall FrontWall, %5%Wall, 0.5, -%1%, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		if[%floor% = 0] AddWall FrontWall_1F, %5%Wall, 0.5, -%1%, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
+		DrawWalls = true, true, false, true, false, false
+		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
+		if[%floor% > 0] AddWall FrontWall_%floorid%F, %5%Wall, 0.5, -%1%, -%2%, -20, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
+		DrawWalls = true, true, true, false, false, false
+		TextureOverride ExtFacade, %5%Wall, %5%Wall, %5%Wall, Blank, Blank
+		if[%floor% > 0] AddWall FrontWall_%floorid%F, %5%Wall, 0.5, 20, -%2%, %1%, -%2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
 		Set ShowSP = false
 		if[%floor% < 4] Set ShowSP = true
@@ -2015,6 +2026,94 @@ Set SideTexture = BLKEntDoorSide
 		AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
 		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+<EndFloor>
+
+########################################
+
+#Additional entrance doors at April Tower elevators
+Set Texture = BLKEntDoor
+Set SideTexture = BLKEntDoorSide
+
+<Floor 0>
+	TexPrefix() #Set texture prefixes
+
+  #WEST DOORS
+		#Access point W1A
+		Set Door_MainX = -%1%
+		Set Door_MainZ = -100
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorW1A_Left, , , false, %Texture%Int, %SideTexture%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorWA1_Right, , , false, %Texture%Int, %SideTexture%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7.5, %interfloorheight%, false, 0, 0, true
+
+		Add3DWindows(EntW1A_WinTop, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 8, 7.75, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(EntW1A_WinSide1, %Door_MainX%, %Door_MainZ% - 3 - 3.25, left, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+		Add3DWindows(EntW1A_WinSide2, %Door_MainX%, %Door_MainZ% + 3 + 3.25, left, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+
+		#Access point W1B
+		Set Door_MainX = -%1%
+		Set Door_MainZ = -120
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorW1B_Left, , , false, %Texture%Int, %SideTexture%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorW1B_Right, , , false, %Texture%Int, %SideTexture%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7.5, %interfloorheight%, false, 0, 0, true
+
+		Add3DWindows(EntW1B_WinTop, %Door_MainX%, %Door_MainZ%, left, 6, %height% - 8, 7.75, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(EntW1B_WinSide1, %Door_MainX%, %Door_MainZ% - 3 - 3.25, left, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+		Add3DWindows(EntW1B_WinSide2, %Door_MainX%, %Door_MainZ% + 3 + 3.25, left, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+
+	#SOUTH DOORS
+		#Access point S1
+		Set Door_MainX = -110
+		Set Door_MainZ = -%2%
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS1_Left, , , false, %Texture%Int, %SideTexture%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS1_Right, , , false, %Texture%Int, %SideTexture%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7.5, %interfloorheight%, true, 0, 0, true
+
+		Add3DWindows(EntS1_WinTop, %Door_MainX%, %Door_MainZ%, front, 6, %height% - 8, 7.75, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(EntS1_WinSide1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, front, 4, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+		Add3DWindows(EntS1_WinSide2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, front, 4, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+<EndFloor>
+
+#Additional entrance doors at the south end
+<Floor 0>
+	TexPrefix() #Set texture prefixes
+
+	#SOUTH DOORS
+		#Access point S2A
+		Set Door_MainX = -9.5
+		Set Door_MainZ = -%2%
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS2_Left, , , false, %Texture%Int, %SideTexture%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS2_Right, , , false, %Texture%Int, %SideTexture%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7.5, %interfloorheight%, true, 0, 0, true
+
+		Add3DWindows(EntS2A_WinTop, %Door_MainX%, %Door_MainZ%, front, 6, %height% - 8, 7.75, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(EntS2A_WinSide1, %Door_MainX% - 3 - 3.25, %Door_MainZ%, front, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+		Add3DWindows(EntS2A_WinSide2, %Door_MainX% + 3 + 3.25, %Door_MainZ%, front, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+
+		#Access point S2B
+		Set Door_MainX = 9.5
+		Set Door_MainZ = -%2%
+		WallOrientation = left
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS2_Left, , , false, %Texture%Int, %SideTexture%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddStdDoor Door Manager, EntDoorS2_Right, , , false, %Texture%Int, %SideTexture%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7.5, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7.5, %interfloorheight%, true, 0, 0, true
+
+		Add3DWindows(EntS2A_WinTop, %Door_MainX%, %Door_MainZ%, front, 6, %height% - 8, 7.75, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(EntS2A_WinSide1, %Door_MainX% - 3 - 3.25, %Door_MainZ%, front, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
+		Add3DWindows(EntS2A_WinSide2, %Door_MainX% + 3 + 3.25, %Door_MainZ%, front, 6, %height% - 0.5, 0.25, MainWindowsB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 2)
 <EndFloor>
 
 ########################################
