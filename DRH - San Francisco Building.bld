@@ -24,6 +24,9 @@
 <Include Shaft Wall Creator/Scripts/r1_script.txt>
 <Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
+#New ACME Floor Indicator script (backported from Miriam Tower)
+<Include data/Melvin/ACME_PI_2026/Indicators.txt>
+
 ############################################################
 
 #Globals
@@ -4911,11 +4914,15 @@ ShowFullShaft 9 = true
 	Load data/Vector's Fixtures/SchindlerRT/rtdnlanternlit.png, RTLanternDownLit, 1, 1, false
 
 	Load data/ACME Floor Indicator/Resized/ACME Floor Indicator 2.jpg, IndBack, 1, 1, false
-	AddText IndBack, Ind_ButtonB, acme_led.ttf, 240, _B, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddText IndBack, Ind_ButtonEX, acme_led.ttf, 240, EX, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddTextRange 1, 9, IndBack, Ind_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddTextRange 10, 28, IndBack, Ind_Button%number%, acme_led.ttf, 240, %number%, -1, -1, -1, -1, center, center, 255, 0, 0
-	AddText IndBack, Ind_ButtonR, acme_led.ttf, 240, _R, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddText IndBack, Ind_ButtonB, acme_led.ttf, 240, __B, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddText IndBack, Ind_ButtonEX, acme_led.ttf, 240, _EX, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddTextRange 1, 9, IndBack, Ind_Button%number%, acme_led.ttf, 240, __%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddTextRange 10, 28, IndBack, Ind_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+	AddText IndBack, Ind_ButtonR, acme_led.ttf, 240, __R, -1, -1, -1, -1, center, center, 255, 0, 0
+
+	Load data/MT/blank.gif, ArrowUp, 1, 1, false
+	Load data/Melvin/DRH/darrow_single_otis_upred_trans.png, ArrowUpLit, 1, 1, false
+	Load data/Melvin/DRH/darrow_single_otis_downred_trans.png, ArrowDownLit, 1, 1, false
 
 	#--------------------
 
@@ -5032,7 +5039,8 @@ ShowFullShaft 9 = true
 	BtnPanelE1-5(1)
 	
 	#Indicator
-	AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, 2.925 - 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Buttons (left panel)
 	Set PanelCenter = 2.775
@@ -5041,7 +5049,8 @@ ShowFullShaft 9 = true
 	BtnPanelE1-5(3)
 
 	#Indicators
-	AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, 2.925 - 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	########################################
 
@@ -5114,7 +5123,8 @@ ShowFullShaft 9 = true
 	BtnPanelE1-5(1)
 	
 	#Indicator
-	AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(right, -2.925 + 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Buttons (left panel)
 	Set PanelCenter = -2.775
@@ -5123,7 +5133,8 @@ ShowFullShaft 9 = true
 	BtnPanelE1-5(3)
 
 	#Indicators
-	AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(right, -2.925 + 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Ropes
 	RopePosition = 0, 8 + 0.2, 0
@@ -5223,7 +5234,8 @@ ShowFullShaft 9 = true
 	BtnPanelE6-9(1)
 	
 	#Indicator
-	AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, 2.925 - 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Buttons (left panel)
 	Set PanelCenter = 2.775
@@ -5231,7 +5243,8 @@ ShowFullShaft 9 = true
 	BtnPanelE6-9(2)
 
 	#Indicators
-	AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, 2.925 - 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, 2.925 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Ropes
 	RopePosition = 0, 8 + 0.2, 0
@@ -5305,7 +5318,8 @@ ShowFullShaft 9 = true
 	BtnPanelE6-9(1)
 	
 	#Indicator
-	AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(right, -2.925 + 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Buttons (left panel)
 	Set PanelCenter = -2.775
@@ -5313,7 +5327,8 @@ ShowFullShaft 9 = true
 	BtnPanelE6-9(2)
 
 	#Indicators
-	AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(right, -2.925 + 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, right, -2.925 + 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Ropes
 	RopePosition = 0, 8 + 0.2, 0
@@ -5514,7 +5529,8 @@ ShowFullShaft 9 = true
 	BtnPanelE10(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, front, 4.5 - 0.2 - 0.75, 3 - 0.2 - 0.051, 0.5, 0.286, 5.85 + 0.25 - 0.143
+	ACME_PI_InternalInd(front, 4.5 - 0.2 - 0.75, 3 - 0.2 - 0.051, 5.85 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, front, 4.5 - 0.2 - 0.75, 3 - 0.2 - 0.051, 0.5, 0.286, 5.85 + 0.25 - 0.143
 
 	#Proximity scanner
 	Set PSscanHeight = 0.45
@@ -5612,7 +5628,8 @@ ShowFullShaft 9 = true
 	BtnPanelE11(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(front, %PanelCenter%, 4.5 - 0.2 - 0.001, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, front, %PanelCenter%, 4.5 - 0.2 - 0.001, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Proximity scanner
 	DrawWalls = true, false, false, false, false, false
@@ -5736,15 +5753,16 @@ ShowFullShaft 9 = true
 	#Button panels & floor indicators
 	#Buttons
 	if[%elevator% = 12] Set PanelCenter = -3 + 0.2 + 0.051
-	if[%elevator% = 12] Set Direction = right
+	if[%elevator% = 12] Set Direction2 = right
 	if[%elevator% = 13] Set PanelCenter = 3 - 0.2 - 0.051
-	if[%elevator% = 13] Set Direction = left
+	if[%elevator% = 13] Set Direction2 = left
 
-	CreatePanel Blank, 13, 3, %Direction%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0
+	CreatePanel Blank, 13, 3, %Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0
 	BtnPanelE12-15(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, %Direction%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.5, 0.286, 5.85 + 0.25 - 0.143
+	ACME_PI_InternalInd(%Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 5.85 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, %Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.5, 0.286, 5.85 + 0.25 - 0.143
 
 	#Proximity scanner
 	if[%elevator% = 12] DrawWalls = false, true, false, false, false, false
@@ -5906,15 +5924,16 @@ ShowFullShaft 9 = true
 	#Button panels & floor indicators
 	#Buttons
 	if[%elevator% = 14] Set PanelCenter = -3 + 0.2 + 0.051
-	if[%elevator% = 14] Set Direction = right
+	if[%elevator% = 14] Set Direction2 = right
 	if[%elevator% = 15] Set PanelCenter = 3 - 0.2 - 0.051
-	if[%elevator% = 15] Set Direction = left
+	if[%elevator% = 15] Set Direction2 = left
 
-	CreatePanel Blank, 13, 3, %Direction%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0
+	CreatePanel Blank, 13, 3, %Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.26, 0.13, 0.15, 0.2, 3.5, 0, 0
 	BtnPanelE12-15(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, %Direction%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.5, 0.286, 5.85 + 0.25 - 0.143
+	ACME_PI_InternalInd(%Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 5.85 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, %Direction2%, %PanelCenter%, -4.5 + 0.2 + 0.75, 0.5, 0.286, 5.85 + 0.25 - 0.143
 
 	#Proximity scanner
 	Set PSscanHeight = 0.45
@@ -6103,7 +6122,8 @@ ShowFullShaft 9 = true
 	BtnPanelE16(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, left, 3.75 - 0.2 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, 3.75 - 0.2 - 0.001, %PanelCenter%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, 3.75 - 0.2 - 0.001, %PanelCenter%, 0.5, 0.286, 5.75 + 0.25 - 0.143
 
 	#Proximity scanner
 	DrawWalls = true, false, false, false, false, false
@@ -6185,20 +6205,21 @@ ShowFullShaft 9 = true
 	if[%floor% ! 0] Set IndOffset = 7.5
 
 		#Set textures
-		ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
+		ACME_PI_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
 
 		#Indicator creation
-		if[%floor% = 0] ACMELobbyInds(right, 1, -20 + %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
-		if[%floor% = 0] ACMELobbyInds(right, 2, -20 + %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
-		if[%floor% = 0] ACMELobbyInds(right, 3, -20 + %ExtraLateralOffset%, -25, %IndOffset%, -1, 13)
-		if[%floor% = 0] ACMELobbyInds(left, 4, -10 - %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
-		if[%floor% = 0] ACMELobbyInds(left, 5, -10 - %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 1, -20 + %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 2, -20 + %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 3, -20 + %ExtraLateralOffset%, -25, %IndOffset%, -1, 13)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 4, -10 - %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 5, -10 - %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
 
-		if[%floor% ! 0] ACMELobbyLanterns(right, 1, -20 + %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
-		if[%floor% ! 0] ACMELobbyLanterns(right, 2, -20 + %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
-		if[%floor% ! 0] ACMELobbyLanterns(right, 3, -20 + %ExtraLateralOffset%, -25, %IndOffset%, -1, 13)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 4, -10 - %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 5, -10 - %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 1, -20 + %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 2, -20 + %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 3, -20 + %ExtraLateralOffset%, -25, %IndOffset%, -1, 13)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 4, -10 - %ExtraLateralOffset%, -45, %IndOffset%, -1, 13)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 5, -10 - %ExtraLateralOffset%, -35, %IndOffset%, -1, 13)
 <EndFunction>
 
 <Floors -1 to 13>
@@ -6340,18 +6361,19 @@ ShowFullShaft 9 = true
 	if[%floor% ! 0] Set IndOffset = 7.5
 
 		#Set textures
-		ACMEInd_LanternTex(LanternUp, LanternUpLit2, LanternDown, LanternDownLit2, %PanelTexture%, Ind_Button) #Reset lantern textures for high-rise elevators
+		ACME_PI_LanternTex(LanternUp, LanternUpLit2, LanternDown, LanternDownLit2, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(LanternUp, LanternUpLit2, LanternDown, LanternDownLit2, %PanelTexture%, Ind_Button) #Reset lantern textures for high-rise elevators
 
 		#Indicator creation
-		if[%floor% = 0] ACMELobbyInds(right, 6, 10 + %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
-		if[%floor% = 0] ACMELobbyInds(right, 7, 10 + %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
-		if[%floor% = 0] ACMELobbyInds(left, 8, 20 - %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
-		if[%floor% = 0] ACMELobbyInds(left, 9, 20 - %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 6, 10 + %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 7, 10 + %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 8, 20 - %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 9, 20 - %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
 
-		if[%floor% ! 0] ACMELobbyLanterns(right, 6, 10 + %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
-		if[%floor% ! 0] ACMELobbyLanterns(right, 7, 10 + %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 8, 20 - %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 9, 20 - %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 6, 10 + %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 7, 10 + %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 8, 20 - %ExtraLateralOffset%, -45, %IndOffset%, 0, 26)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 9, 20 - %ExtraLateralOffset%, -35, %IndOffset%, 0, 26)
 <EndFunction>
 
 <Function E6-9ElevLobby>
@@ -6556,10 +6578,11 @@ ShowFullShaft 9 = true
 	if[%floor% ! 0] Set IndOffset = 7.5
 	
 		#Set textures
-		ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
+		ACME_PI_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
 
 		#Indicator creation
-		ACMELobbyInds(right, 10, 10 + %ExtraLateralOffset%, %CenterZ%, %IndOffset%, -1, 26)
+		ACME_PI_LobbyInds(right, 10, 10 + %ExtraLateralOffset%, %CenterZ%, %IndOffset%, -1, 26)
 <EndFunction>
 
 <Function E10ShaftDoors-Rear>
@@ -6642,10 +6665,11 @@ ShowFullShaft 9 = true
 	if[%floor% ! 0] Set IndOffset = 7.5
 		
 		#Set textures
-		ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
+		ACME_PI_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(LanternUp, LanternUpLit, LanternDown, LanternDownLit, %PanelTexture%, Ind_Button)
 
 		#Indicator creation
-		ACMELobbyInds(left, 10, -2 - %ExtraLateralOffset%, %CenterZ%, %IndOffset%, -1, 26)
+		ACME_PI_LobbyInds(left, 10, -2 - %ExtraLateralOffset%, %CenterZ%, %IndOffset%, -1, 26)
 <EndFunction>
 
 <Floors -1 to 26>
@@ -6759,10 +6783,11 @@ ShowFullShaft 9 = true
 	if[%floor% > 21 & %floor% < 27] Set PanelTexture = BrassPanel
 
 		#Set textures
-		ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button) #Reset values for freight elevator
+		ACME_PI_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button) #Reset values for freight elevator
 
 		#Indicator creation
-		ACMELobbyInds(back, 11, -116, 40, %IndOffset%, -1, 2)
+		ACME_PI_LobbyInds(back, 11, -116, 40, %IndOffset%, -1, 2)
 
 	########################################
 
@@ -6885,12 +6910,13 @@ ShowFullShaft 9 = true
 	Set PanelTexture = StainlessSteel
 	if[%floor% > 21 & %floor% < 27] Set PanelTexture = BrassPanel
 
-	ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button)
+	ACME_PI_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button)
 
-	ACMELobbyInds(front, 12, -124, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
-	ACMELobbyInds(front, 13, -116, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
-	ACMELobbyInds(front, 14, 116, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
-	ACMELobbyInds(front, 15, 124, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
+	ACME_PI_LobbyInds(front, 12, -124, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
+	ACME_PI_LobbyInds(front, 13, -116, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
+	ACME_PI_LobbyInds(front, 14, 116, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
+	ACME_PI_LobbyInds(front, 15, 124, 78 - %ExtraLateralOffset%, %IndOffset%, -1, 26)
 
 	########################################
 
@@ -7015,7 +7041,7 @@ ShowFullShaft 9 = true
 	if[%floor% = 26] Set ExtraLateralOffset = 0.05 #Override for Elevator 16
 
 	ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %PanelTexture%, Ind_Button)
-	ACMELobbyInds(right, 16, -20 + %ExtraLateralOffset%, -25, %IndOffset%, 26, 29)
+	ACME_PI_LobbyInds(right, 16, -20 + %ExtraLateralOffset%, -25, %IndOffset%, 26, 29)
 <EndFunction>
 
 <Floors 26 to 29>
