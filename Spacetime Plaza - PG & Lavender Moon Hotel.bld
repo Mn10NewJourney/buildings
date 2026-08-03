@@ -222,7 +222,7 @@
 		#Hotel express elevators
 
 		#Hotel low zone elevators
-		Load data/Carpet0012_S.jpg, LowerHotelElevFloor, 0.2, 0.2
+		Load data/Carpet0021b_S.jpg, LowerHotelElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LowerHotelElevCeiling, 1, 1, false #EG881
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, LowerHotelElevCeilingDL, 1, 1, false
 		Load data/EG881/light1x.jpg, LowerHotelElevCeilingLight, 1, 1, false #EG881
@@ -240,7 +240,7 @@
 		#Hotel mid zone and high zone elevators
 		Load data/Carpet0013b_S.jpg, UpperHotelElevFloor, 0.2, 0.2 #EG881
 		Load data/marb148.jpg, UpperHotelElevWall, 0.2, 0.2
-		Load data/checker07.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
+		Load data/checker23.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
 		Load data/checker06.jpg, UpperHotelElevWallPanel2, 0.5, 0.5 #Elevators 20-24
 	
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, UpperHotelElevCeiling, 1, 1, false
@@ -1504,6 +1504,21 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -96, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
 <EndFloors>
 
+#Hotel elevators
+<Floors 16 to 45>
+	TexPrefix()
+
+	#Low zone eleators
+	if[%floor% < 30] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 - 10, 30, 5, 15, LMH_SH4, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	if[%floor% < 30] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 10, 30, 5, 15, LMH_SH5, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+
+	#Mid zone eleators
+	if[%floor% < 38] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 40, 30, 5, 25, LMH_SH4, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+
+	#High zone eleators
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 - 40, 30, 5, 25, LMH_SH5, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+<EndFloors>
+
 ##--------------------------------------------------------------------------------##
 
 #SHAFTS
@@ -1546,11 +1561,67 @@ AddStdShaft(3, 1, -150, -84, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2
 AddStdShaft(4, 1, -110 - 10, 30, 4.67, 14.67, 16, 29, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 AddStdShaft(5, 1, -110 + 10, 30, 4.67, 14.67, 16, 29, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 
+	<Floor 29>
+		#Machine room doors
+
+		#Shaft 4
+		Set DTex = ServiceDoor2
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -110 - 10 + 5
+		Set Door_MainZ = 30
+	
+		WallOrientation = right
+		AddStdDoor DoorManager, %floorid%_MR_D1/1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_MR_D1/2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#Shaft 5
+		Set DTex = ServiceDoor3
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -110 + 10 - 5
+		Set Door_MainZ = 30
+	
+		WallOrientation = left
+		AddStdDoor DoorManager, %floorid%_MR_D2/1, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_MR_D2/2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	<EndFloor>
+
 #Mid Zone Elevators (25-32)
 AddStdShaft(6, 1, -110 + 40, 30, 4.67, 24.67, 16, 37, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 
+	<Floor 37>
+		#Machine room doors
+
+		#Shaft 6
+		Set DTex = ServiceDoor2
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -110 + 40 + 5
+		Set Door_MainZ = 30
+	
+		WallOrientation = right
+		AddStdDoor DoorManager, %floorid%_MR_D1/1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_MR_D1/2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	<EndFloor>
+
 #High Zone Elevators (33-40)
 AddStdShaft(7, 1, -110 - 40, 30, 4.67, 24.67, 16, 45, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+
+	<Floor 45>
+		#Machine room doors
+
+		#Shaft 7
+		Set DTex = ServiceDoor3
+		Set DSTex = %DTex%Side
+		Set Door_MainX = -110 - 40 - 5
+		Set Door_MainZ = 30
+	
+		WallOrientation = left
+		AddStdDoor DoorManager, %floorid%_MR_D1/1, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, %floorid%_MR_D1/2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	<EndFloor>
 
 #West Service Elevator
 AddStdShaft(8, 1, -140, 30 + 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
@@ -2146,12 +2217,12 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 	Set WPanelHeight = 8 - 0.5
 	
 		#Front panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (5.6 * 1/4), -3.1 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (5.6 * 1/4), -3.1 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (5.6 * 1/4), -2.8 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (5.6 * 1/4), -2.8 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
 		#Back panels
-		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (5.6 * 1/4), 3.1 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (5.6 * 1/4), 3.1 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (5.6 * 1/4), 2.8 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (5.6 * 1/4), 2.8 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
 		#Left/right panels
 		Set Position = -2.8 + 0.01
@@ -2502,11 +2573,11 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 <Textures>
 	#Floor signs (Elevator lobby)
 	Load data/graygradient.jpg, ELFlrSignBack, 1, 1, false #1st and 14th-16th floors
-	Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack.png, ELFlrSignBack2, 1, 1, false #39th-40th floors
+	Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack_Monica.png, ELFlrSignBack2, 1, 1, false #39th-40th floors
 
 	AddText ELFlrSignBack, ELFlrSign1, nimbus_sans_bold.ttf, 128, 1, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 14, 16, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
-	AddTextRange 39, 40, ELFlrSignBack2, ELFlrSign%number%, nimbus_sans.ttf, 117, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddTextRange 39, 40, ELFlrSignBack2, ELFlrSign%number%, nimbus_sans_condensed.ttf, 130, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	#Floor signs (Stairwells)
 	AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -2667,10 +2738,10 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 
 	#Call buttons
 	CallButtonElevators = 1, 2, 3, 4, 5, 6, 7, 8
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 12, %Shaft1CZ% + 6.001, 3.5, back, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 12, %Shaft1CZ% + 6.001, 3.5, back, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 12, %Shaft2CZ% - 6.001, 3.5, front, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% + 12, %Shaft2CZ% - 6.001, 3.5, front, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 12, %Shaft1CZ% + 6.001, 4 - 0.4, back, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 12, %Shaft1CZ% + 6.001, 4 - 0.4, back, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 12, %Shaft2CZ% - 6.001, 4 - 0.4, front, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% + 12, %Shaft2CZ% - 6.001, 4 - 0.4, front, 0.4, 0.8, true, 0, 0
 
 		#Signs
 		WallOrientation = left
@@ -2811,11 +2882,11 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 
 	#Call buttons
 	CallButtonElevators = 9, 10, 11, 12, 13, 14
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 3.5, right, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 3.5, right, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
 
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 5.001, %Shaft2CZ% - 5, 3.5, left, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 5.001, %Shaft2CZ% + 5, 3.5, left, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 5.001, %Shaft2CZ% - 5, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft2CX% - 5.001, %Shaft2CZ% + 5, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
 
 		#Floor signs
 		WallOrientation = left
@@ -2937,10 +3008,10 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 
 	#Call buttons
 	CallButtonElevators = 15, 16, 17, 18, 19
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 15, 3.5, right, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 3.5, right, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 3.5, right, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 15, 3.5, right, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 15, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% + 5.001, %Shaft1CZ% + 15, 4 - 0.4, right, 0.4, 0.8, true, 0, 0
 
 		#Floor signs
 		WallOrientation = left
@@ -3041,10 +3112,10 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 
 	#Call buttons
 	CallButtonElevators = 20, 21, 22, 23, 24
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% - 15, 3.5, left, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% - 5, 3.5, left, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% + 5, 3.5, left, 0.5, 1, true, 0, 0
-	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% + 15, 3.5, left, 0.5, 1, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% - 15, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% - 5, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% + 5, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX% - 5.001, %Shaft1CZ% + 15, 4 - 0.4, left, 0.4, 0.8, true, 0, 0
 
 		#Floor signs
 		WallOrientation = right
