@@ -203,6 +203,7 @@
 
 		#Parking elevators
 		Load data/floor065.jpg, ParkingElevFloor, 0.25, 0.25
+		Load data/Carpet0013_S.jpg, ParkingElevCarpet, 0.2, 0.2
 		Load data/EG881/elevdoortrim_white.jpg, ParkingElevWall, 0.5, 0.5 #EG881
 		Load data/misc/oak_stained.jpg, ParkingElevWallPanel, 0.45, 0.45 #Elevators 1-4
 		Load data/misc/oak_dark.jpg, ParkingElevWallPanel2, 0.45, 0.45 #Elevators 5-8
@@ -239,8 +240,8 @@
 		#Hotel mid zone and high zone elevators
 		Load data/Carpet0013b_S.jpg, UpperHotelElevFloor, 0.2, 0.2 #EG881
 		Load data/marb148.jpg, UpperHotelElevWall, 0.2, 0.2
-		Load data/checker24.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
-		Load data/misc/oak_stained.jpg, UpperHotelElevWallPanel2, 0.414, 0.414 #Elevators 20-24
+		Load data/checker07.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
+		Load data/checker06.jpg, UpperHotelElevWallPanel2, 0.5, 0.5 #Elevators 20-24
 	
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, UpperHotelElevCeiling, 1, 1, false
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, UpperHotelElevCeilingDL, 1, 1, false
@@ -514,6 +515,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor LMH_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -575,6 +577,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor TowerParkingCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	if[%floor% > 0] AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102, %fullheight%, %fullheight%, 0, 0, true
 
 	#Railings
 	DrawWalls = true, true, true, true, true, true
@@ -1622,7 +1625,7 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 
 #ELEVATORS
 #Disable idle sounds, enabling the movement sounds to be heard more clearly.
-<Elevators 1 to 8>
+<Elevators 1 to 24>
 	CarIdleSound = 
 <EndElevators>
 
@@ -1894,6 +1897,11 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 		#Right panels
 		CreateWallBox2 elevator, Panel_R, %WPTex%, 3.55 - 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
 	#--------------------
+	#Carpeting
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, true, true
+	AddFloor E%elevator%Carpet, %Prefix%ElevCarpet, 0, 0 - 2, 0 - 2.5, 0 + 2, 0 + 2.5, 0.001, 0.001, 0, 0
+	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
 		#Ropes
@@ -2138,18 +2146,18 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 	Set WPanelHeight = 8 - 0.5
 	
 		#Front panels
-		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (2.8 * 1/4), -3.1 + 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (2.8 * 1/4), -3.1 + 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (5.6 * 1/4), -3.1 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (5.6 * 1/4), -3.1 + 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
 		#Back panels
-		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (2.8 * 1/4), 3.1 - 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (2.8 * 1/4), 3.1 - 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (5.6 * 1/4), 3.1 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (5.6 * 1/4), 3.1 - 0.01, (5.6 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
 		#Left/right panels
-		Set Position = 2.8 - 0.01
-		if[%elevator% > 11] Set Position = -2.8 + 0.01
-		CreateWallBox2 elevator, Panel_R1, %WPTex%, %Position%, 0 - (3.1 * 1/4), 0.02, (3.1 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_R2, %WPTex%, %Position%, 0 + (3.1 * 1/4), 0.02, (3.1 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		Set Position = -2.8 + 0.01
+		if[%elevator% > 11] Set Position = 2.8 - 0.01
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, %Position%, 0 - (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R2, %WPTex%, %Position%, 0 + (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 <EndElevators>
 
 ##--------------------------------------------------------------------------------##
@@ -2447,13 +2455,13 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 	#2. Downlights
 	DrawWalls = true, false, false, false, false, false
 	Set DLOffset = 8 - 0.001 #Offsets for downlights
-	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -1.875 - 0.095, (-3.3 + 1) - 0.095, -1.875 + 0.095, (-3.3 + 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.095, (-3.3 + 1) - 0.095, 0 + 0.095, (-3.3 + 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 1.875 - 0.095, (-3.3 + 1) - 0.095, 1.875 + 0.095, (-3.3 + 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/1, %Prefix%ElevCeilingDL, 0, -1.875 - 0.095, (-2.65) - 0.095, -1.875 + 0.095, (-2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/2, %Prefix%ElevCeilingDL, 0, 0 - 0.095, (-2.65) - 0.095, 0 + 0.095, (-2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight1/3, %Prefix%ElevCeilingDL, 0, 1.875 - 0.095, (-2.65) - 0.095, 1.875 + 0.095, (-2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
 
-	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -1.875 - 0.095, (3.3 - 1) - 0.095, -1.875 + 0.095, (3.3 - 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.095, (3.3 - 1) - 0.095, 0 + 0.095, (3.3 - 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
-	AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 1.875 - 0.095, (3.3 - 1) - 0.095, 1.875 + 0.095, (3.3 - 1) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/1, %Prefix%ElevCeilingDL, 0, -1.875 - 0.095, (2.65) - 0.095, -1.875 + 0.095, (2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/2, %Prefix%ElevCeilingDL, 0, 0 - 0.095, (2.65) - 0.095, 0 + 0.095, (2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
+	AddFloor Downlight2/3, %Prefix%ElevCeilingDL, 0, 1.875 - 0.095, (2.65) - 0.095, 1.875 + 0.095, (2.65) + 0.095, %DLOffset%, %DLOffset%, 0, 0
 
 	#3. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel1
@@ -2463,8 +2471,8 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 	Set Direction = %param2%
 
 		#Front/back panels
-		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -3.3 + 0.01, 3, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.3 - 0.01, 3, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -3.3 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.3 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
 
 		#Left/right panels
 		if[%elevator% < 18] CreateWallBox2 elevator, E%elevator%Panel_Left, %WPTex%, -2.8 + 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
@@ -3043,12 +3051,12 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 		DrawWalls = true, false, false, false, false, false
 
 			#Blank signs (Floor with bright-colored walls)
-			if[%floor% > 19 & %floor% < 42] AddBoxSign(TheHotel_FS2/1, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% - 5, 1.5, 1.5, 6.5 - 0.75, false)
-			if[%floor% > 19 & %floor% < 42] AddBoxSign(TheHotel_FS2/2, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% + 5, 1.5, 1.5, 6.5 - 0.75, false)
+			if[%floor% > 19 & %floor% < 42] AddBoxSign(TheHotel_FS2/1, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% - 15, 1.5, 1.5, 6.5 - 0.75, false)
+			if[%floor% > 19 & %floor% < 42] AddBoxSign(TheHotel_FS2/2, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% + 15, 1.5, 1.5, 6.5 - 0.75, false)
 	
 			#Signs with background (Floors with dark-colored walls)
-			if[%floor% < 20 | %floor% > 41] AddBoxSign(TheHotel_FS2/1, ELFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% - 5, 1, 1, 5.5, false)
-			if[%floor% < 20 | %floor% > 41] AddBoxSign(TheHotel_FS2/2, ELFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% + 5, 1, 1, 5.5, false)
+			if[%floor% < 20 | %floor% > 41] AddBoxSign(TheHotel_FS2/1, ELFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% - 15, 1, 1, 5.5, false)
+			if[%floor% < 20 | %floor% > 41] AddBoxSign(TheHotel_FS2/2, ELFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 5.001, %Shaft1CZ% + 15, 1, 1, 5.5, false)
 
 		#"In case of fire" signs
 		WallOrientation = right

@@ -297,6 +297,7 @@
 			Load data/panel-back3.jpg, ParkingShaftDoorsSide, 1, 1, false
 			Load data/panel-back3.jpg, ParkingShaftDoors2Side, -1, 1, false
 			Load data/panel-back3.jpg, ParkingShaftDoors_Trim, 1, 1, false
+			Load data/graniteTexture_0005b.jpg, ParkingShaftDoors_Deco, 0.111, 0.111
 			
 			Load data/glassdoor_trans.gif, GlassShaftDoors, 1, 1, false #Parking elevators (1st-2nd floors)
 			Load data/glassdoor_trans.gif, GlassShaftDoors2, -1, 1, false
@@ -1003,7 +1004,7 @@ DrawWalls = false, true, false, false, false, false
     #Main positive - Parameter 3
     #Wall name - Parameter 4
     TextureOverride %param2%, %param3%, BldgSignBack, BldgSignBack, BldgSignBack, BldgSignBack
-    AddWall Miriam_%floorid%F_%param4%, %param2%, 0.5, %param5%, %param6%, %param7%, %param8%, %param9%, %param9%, %interfloorheight%, %interfloorheight%, 0, 0, true
+    AddWall Miriam_%floorid%F_%param4%, %param2%, 0.5, %param5%, %param6%, %param7%, %param8%, %param9%, %param9%, %param10%, %param10%, 0, 0, true
 
   #Footnote: Parameters 5-8 contains the wall's coordinates, wall height is specified in Parameter 9.
 <EndFunction>
@@ -1014,10 +1015,10 @@ DrawWalls = false, true, false, false, false, false
 
   #Escalator lobby walls
   Set B3F_WH = %height% + Floor(-2).InterfloorHeight
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61 + 0.5, %CF_SouthEnd%, %B3F_WH%)
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall, 10, %CF_SouthEnd%, 10, -40, %B3F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61 + 0.5, %CF_SouthEnd%, 61 + 0.5, -40, %B3F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61 + 0.5, -40, %B3F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61 + 0.5, %CF_SouthEnd%, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall, 10, %CF_SouthEnd%, 10, -40, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61 + 0.5, %CF_SouthEnd%, 61 + 0.5, -40, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61 + 0.5, -40, %B3F_WH%, %interfloorheight%)
 
   #Access doors on level B3 are automatic (Created after all elevators)
 <EndFloor>
@@ -1029,15 +1030,17 @@ DrawWalls = false, true, false, false, false, false
   Set EastEnd = 65
   if[%floor% < -1] Set EastEnd = 61.5
  
-  if[%floor% = -2] Set B2F_WH = %height% + Floor(-1).InterfloorHeight #Level B2
-  if[%floor% = -1] Set B2F_WH = %height% + 1 #Level B1
+  if[%floor% = -2] Set B2F_WH = %height% #Level B2
+  if[%floor% = -2] Set B2F_WO = %interfloorheight% #Level B2
+  if[%floor% = -1] Set B2F_WH = %fullheight% #Level B1
+  if[%floor% = -1] Set B2F_WO = 0 #Level B1
  
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, -%1%, %CF_SouthEnd%, %EastEnd%, %CF_SouthEnd%, %B2F_WH%)
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_A, -%1%, %CF_SouthEnd%, -%1%, -50 - 10, %B2F_WH%)
-  MiriamTower_CoreWalls(left, %5%Wall, Blank, LeftWall_A, -%1%, -50 - 10, -%1%, -50 + 10, %B2F_WH%)
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_B, -%1%, -50 + 10, -%1%, 25.5, %B2F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, %EastEnd%, %CF_SouthEnd%, %EastEnd%, 25.5, %B2F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, -%1%, 25.5, %EastEnd%, 25.5, %B2F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, -%1%, %CF_SouthEnd%, %EastEnd%, %CF_SouthEnd%, %B2F_WH%, %B2F_WO%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_A, -%1%, %CF_SouthEnd%, -%1%, -50 - 10, %B2F_WH%, %B2F_WO%)
+  MiriamTower_CoreWalls(left, %5%Wall, Blank, LeftWall_A, -%1%, -50 - 10, -%1%, -50 + 10, %B2F_WH%, %B2F_WO%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_B, -%1%, -50 + 10, -%1%, 25.5, %B2F_WH%, %B2F_WO%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, %EastEnd%, %CF_SouthEnd%, %EastEnd%, 25.5, %B2F_WH%, %B2F_WO%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, -%1%, 25.5, %EastEnd%, 25.5, %B2F_WH%, %B2F_WO%)
 
   #TOWER CORE DOORS
 	#Set DTex = BLKEntDoorInt
@@ -1283,7 +1286,7 @@ DrawWalls = false, true, false, false, false, false
 
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	CreateFlr(LobbyInnerCoreFloor, LobbyInnerFloor_%floorid%F, 0.5, -55, -25, 55, 25, 0, false)
+	CreateFlr(LobbyInnerCoreFloor, LobbyInnerFloor_%floorid%F, 0.5, -55, -25, 55, 25, 0, true)
 <EndFloor>
 
 #--------------------------------------------------------------------------------#
@@ -2659,6 +2662,7 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% < 0] Set ShowRight = false
 
 	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, %ShowRight%, true, false, false, true)
+	if[%floor% = -1] CreateShaftWall(%5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, 0.33, 63, 0, 2, 25, SH5_IFloor, %interfloorheight% - 1 + 0.1, 0 - 0.1, true, false, true, true, false, true, true)
 
 	#High Zone Elevators
 	Set ShowRight = false
@@ -4787,7 +4791,7 @@ ShowFullShaft 9 = true
 	Set LanternPrefix = DWLantern
 
 		#Lateral offset for lantern panels
-		Set ExtraLateralOffset = 0
+		Set ExtraLateralOffset = 0.01
 		if[%floor% = 0 | %floor% = 1] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
@@ -4823,6 +4827,10 @@ ShowFullShaft 9 = true
 		AddDecoObject(Elev25_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 3.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(Elev26_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 3.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 
+		#Extra decos on parking levels
+		if[%floor% < 0] AddDecoObject(E25_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 3.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+		if[%floor% < 0] AddDecoObject(E26_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 3.5 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+
 	#****************************************#
 
 	#Call buttons
@@ -4846,6 +4854,22 @@ ShowFullShaft 9 = true
 		#Indicator creation
 		ACME_PI_LobbyInds(right, 25, %Shaft1CX% + 5 + %ExtraLateralOffset%, %Shaft1CZ% - 5, %Offset%, -2, 1)
 		ACME_PI_LobbyInds(right, 26, %Shaft1CX% + 5 + %ExtraLateralOffset%, %Shaft1CZ% + 5, %Offset%, -2, 1)
+<EndFloors>
+
+<Floors -2 to -1>
+	#Storage south of parking elevators
+	WallOrientation = right
+	DrawWalls = true, true, false, false, false, false
+	AddWall Miriam_SouthwestSTR, ParkingLobbyWall, 0.5, -90, -69, -90, -60, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Storage doors
+		Set Texture = ServiceDoor1
+		Set Door_MainX = -90
+		Set Door_MainZ = -60 - 2.5
+
+		WallOrientation = right
+		AddStdDoor Door Manager, Miriam_SouthwestSTRDoor, , , false, %Texture%, %Texture%Side, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 <EndFloors>
 
 #****************************************#
