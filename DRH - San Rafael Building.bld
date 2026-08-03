@@ -18,7 +18,10 @@
 	#3. My previous scripts
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
-	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+	#<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+
+	#4. New ACME Floor Indicator script
+	<Include data/Melvin/ACME_PI_2026/Indicators.txt>
 
 ############################################################
 
@@ -27,7 +30,7 @@
 	Name = Denver Remston Hospital - San Rafael Building
 	Designer = Mn10
 	Location = 806 Tennerland Street, Tranquility City
-	Description = Since the opening of Pacific Heights Building, many departments here have changed their opening hours.
+	Description = Since the 6-story Pacific Heights Building's debut, many departments in this 8-story building have changed their opening hours.
 	CameraFloor = 0
 	CameraPosition = -70, -20
 	CameraRotation = 0, 90, 0
@@ -295,6 +298,10 @@
 
 	Load data/ACME Floor Indicator/Resized/ACME Floor Indicator 2.jpg, IndBack, 1, 1, false
 	AddTextRange 1, 8, IndBack, Ind_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+
+	Load data/MT/blank.gif, ArrowUp, 1, 1, false
+	Load data/Melvin/DRH/darrow_single_otis_upred_trans.png, ArrowUpLit, 1, 1, false
+	Load data/Melvin/DRH/darrow_single_otis_downred_trans.png, ArrowDownLit, 1, 1, false
 
 	########################################
 
@@ -1720,7 +1727,8 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 			BtnPanelE1-6(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, right, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
+	ACME_PI_InternalInd(right, %PanelCenter%, %Position%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, right, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
 
 	#Proximity scanner
 	Set PSscanHeight = 0.45
@@ -1859,7 +1867,8 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 			BtnPanelE1-6(1)
 
 	#Indicator
-	AddFloorIndicator Ind_Button, left, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
+	ACME_PI_InternalInd(left, %PanelCenter%, %Position%, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	#AddFloorIndicator Ind_Button, left, %PanelCenter%, %Position%, 0.5, 0.286, 5.85 + 0.25 - 0.143
 
 	#Proximity scanner
 	Set PSscanHeight = 0.45
@@ -2021,16 +2030,17 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	if[%floor% = 0] Set IndOffset = 8
 
 		#Set textures
-		ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %BPanelTexture%, Ind_Button)
+		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %LPanelTexture%, Ind_Button)
 
 		#Indicator creation
-		if[%floor% = 0] ACMELobbyInds(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
-		if[%floor% = 0] ACMELobbyInds(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
-		if[%floor% = 0] ACMELobbyInds(left, 3, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(left, 3, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
 
-		if[%floor% ! 0] ACMELobbyLanterns(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
-		if[%floor% ! 0] ACMELobbyLanterns(left, 3, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 1, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 2, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(left, 3, %Shaft1CX% - 6 - %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
 
 	#****************************************#
 
@@ -2038,7 +2048,6 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set Offset = 9
 	if[%floor% ! 0] Set Offset = 8.375
 	Set Suffix =  
-	#if[%floor% > 3 & %floor% < 6] Set Suffix = _Black
 
 	DrawWalls = true, false, false, false, false, false
 	AddWall E1Sign, ElevNo1%Suffix%, 0, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 11) - 0.5, %Shaft1CX% - 6 - %ExtraLateralOffset% - 0.001, (%Shaft1CZ% + 11) + 0.5, 1, 1, %Offset%, %Offset%, 0, 0, false
@@ -2141,16 +2150,17 @@ AddStdShaft(2, 1, 39, -30, 5.67, 14.67, -1, 8, ShaftIntWall, 0.5, 0.33, 0, 5, %i
 	Set IndOffset = 7.5
 
 		#Set textures
-		ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %BPanelTexture%, Ind_Button)
+		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(RTLanternUp, RTLanternUpLit, RTLanternDown, RTLanternDownLit, %BPanelTexture%, Ind_Button)
 
 		#Indicator creation
-		if[%floor% = 0] ACMELobbyInds(right, 4, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
-		if[%floor% = 0] ACMELobbyInds(right, 5, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
-		if[%floor% = 0] ACMELobbyInds(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 4, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 5, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
+		if[%floor% = 0] ACME_PI_LobbyInds(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
 
-		if[%floor% ! 0] ACMELobbyLanterns(right, 4, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
-		if[%floor% ! 0] ACMELobbyLanterns(right, 5, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
-		if[%floor% ! 0] ACMELobbyLanterns(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 4, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% - 9, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 5, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 1, %IndOffset%, 0, 7)
+		if[%floor% ! 0] ACME_PI_LobbyLanterns(right, 6, %Shaft1CX% + 6 + %ExtraLateralOffset%, %Shaft1CZ% + 11, %IndOffset%, 0, 7)
 
 	#****************************************#
 

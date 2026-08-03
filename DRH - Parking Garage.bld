@@ -20,7 +20,10 @@
 	#3. My previous scripts
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
-	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+	<Include data/ACME Floor Indicator/Scripts/Indicators.txt> #ThyssenKrupp elevators
+
+	#4. New ACME Floor Indicator script
+	<Include data/Melvin/ACME_PI_2026/Indicators.txt> #Schindler elevators
 
 ############################################################
 
@@ -238,11 +241,15 @@
 		Load data/MT/LanternLit.gif, LanternUpLit, 1, 1, false
 		Load data/MT/LanternUnlit.gif, LanternDown, 1, -1, false
 		Load data/MT/LanternLit.gif, LanternDownLit, 1, -1, false
-		Load data/black.jpg, InsideIndBack, 1, 1, false
-		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, OutsideIndBack, 1, 1, false
+		#Load data/black.jpg, InsideIndBack, 1, 1, false
+		Load data/ACME Floor Indicator/Resized/ACME Floor Indicator.jpg, IndBack, 1, 1, false
 
-		AddTextRange 1, 8, InsideIndBack, Ind_Button%number%, acme_led.ttf, 75, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
-		AddTextRange 1, 8, OutsideIndBack, OutsideInd_Button%number%, acme_led.ttf, 240, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+		#AddTextRange 1, 8, InsideIndBack, Ind_Button%number%, acme_led.ttf, 75, _%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+		AddTextRange 1, 8, IndBack, Ind_Button%number%, acme_led.ttf, 240, __%number%, -1, -1, -1, -1, center, center, 255, 0, 0
+
+		Load data/MT/blank.gif, ArrowUp, 1, 1, false
+		Load data/Melvin/DRH/darrow_single_otis_upred_trans.png, ArrowUpLit, 1, 1, false
+		Load data/Melvin/DRH/darrow_single_otis_downred_trans.png, ArrowDownLit, 1, 1, false
 
 	####################
 
@@ -1149,8 +1156,11 @@ ShowFullShaft 2 = true
 	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position% - 0.25, 3.05 - 0.051, %Position% + 0.25, 3.05 - 0.051, 0.5, 0.5, 6.25, 6.25, 0, 0
 	
 	#Indicator sets
-	AddFloorIndicator Ind_Button, front, %Position%, 3.05 - 0.051, 0.35, 0.35, 5.75
-	AddFloorIndicator Ind_Button, front, %Position2%, 3.05 - 0.051, 0.35, 0.35, 5.75
+	ACME_PI_InternalInd(front, %Position%, 3.05 - 0.051, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+	ACME_PI_InternalInd(front, %Position2%, 3.05 - 0.051, 5.75 + 0.25 - 0.143, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+
+	#AddFloorIndicator Ind_Button, front, %Position%, 3.05 - 0.051, 0.35, 0.35, 5.75
+	#AddFloorIndicator Ind_Button, front, %Position2%, 3.05 - 0.051, 0.35, 0.35, 5.75
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -1434,12 +1444,17 @@ ShowFullShaft 2 = true
 	if[%floor% = 7] Set Offset = 7.75
 
 		#Set textures
-		ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, OutsideInd_Button)
+		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button, ArrowUp, ArrowUpLit, ArrowDownLit)
+		#ACMEInd_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, Ind_Button)
 
 		#Indicator creation
-		ACMELobbyInds(back, 1, %Shaft1CX% + 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
-		ACMELobbyInds(back, 2, %Shaft1CX%, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
-		ACMELobbyInds(back, 3, %Shaft1CX% - 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+		ACME_PI_LobbyInds(back, 1, %Shaft1CX% + 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+		ACME_PI_LobbyInds(back, 2, %Shaft1CX%, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+		ACME_PI_LobbyInds(back, 3, %Shaft1CX% - 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+
+		#ACMELobbyInds(back, 1, %Shaft1CX% + 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+		#ACMELobbyInds(back, 2, %Shaft1CX%, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
+		#ACMELobbyInds(back, 3, %Shaft1CX% - 10, %Shaft1CZ% + 5 + %ExtraLateralOffset%, %Offset%, 0, 7)
 
 	#****************************************#
 
