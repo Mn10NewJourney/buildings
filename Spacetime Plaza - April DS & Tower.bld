@@ -86,7 +86,7 @@
 	LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky3j.jpg, Skylight, true, 1, 1, false #EG881
 	Load data/windows11h_inside.gif, SkylightInt, 1, 1, false
 
-	#Eastern Annex (3rd-8th floors)
+	#Eastern Annex (3rd-6th floors)
 	Load data/marb047.jpg, EAFloor, 0.25, 0.25, true
 	Load data/EG881/lopacwall3stripe.jpg, EAWall, 0.1, 0.2 #EG881
 	Load data/cutston.jpg, EACeiling, 0.1, 0.1, true
@@ -556,8 +556,16 @@ DrawWalls = false, true, false, false, false, false
 	DrawWalls = true, true, true, true, true, false
 
 	WallOrientation = right
-	AddWall external, ADSEast_FrontFencesA, EasternFences, %FenceThickness%, %1%, -%2%, 140, -%2%, 3 + %PL%, 3 + %PL%, %SL%, %SL%, 0, 0
-	AddWall external, ADSEast_FrontFencesB, EasternFences, %FenceThickness%, 180, -%2%, %1% + 150 + 0.5, -%2%, 3 + %PL%, 3 + %PL%, %SL%, %SL%, 0, 0
+	TextureOverride EasternFences, EasternFences, EasternFences, ParkingWall3, EasternFences, EasternFences
+	AddWall external, ADSEast_FrontFencesA, EasternFences, %FenceThickness%, %1% + 15, -%2%, 140, -%2%, 3 + %PL%, 3 + %PL%, %SL%, %SL%, 0, 0
+
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride EasternFences, EasternFences, EasternFences, EasternFences, EasternFences, ParkingWall3
+	AddWall external, ADSEast_FrontFencesB, EasternFences, %FenceThickness%, 140, -%2%, 180, -%2%, 3 + %PL% - 1, 3 + %PL% - 1, %SL% + 1, %SL% + 1, 0, 0
+
+	DrawWalls = true, true, true, true, true, false
+	TextureOverride EasternFences, EasternFences, ParkingWall3, EasternFences, EasternFences, EasternFences
+	AddWall external, ADSEast_FrontFencesC, EasternFences, %FenceThickness%, 180, -%2%, %1% + 150 + 0.5, -%2%, 3 + %PL%, 3 + %PL%, %SL%, %SL%, 0, 0
 
 	WallOrientation = left
 	AddWall external, ADSEast_RightFencesA, EasternFences, %FenceThickness%, %1% + 150, -%2%, %1% + 150, -10, 3 + %PL%, 3 + %PL%, %SL%, %SL%, 0, 0
@@ -1013,7 +1021,7 @@ DrawWalls = false, true, false, false, false, false
 	Set WallOffset = 0
 
 	Set ExtTex = ExtFacade
-	if[%floor% > 1] Set ExtTex = EAWall
+	if[%floor% > 1 & %floor% < 6] Set ExtTex = EAWall
 
 	#Override for the 1st floor only
 	if[%floor% ! 0] Set WallHeight2 = %WallHeight%
@@ -1854,7 +1862,7 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Eastern Annex
-<Floors 2 to 6>
+<Floors 2 to 5>
 	TexPrefix() #Set texture prefix/suffix
 
 	#Floors
@@ -1867,7 +1875,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, true, false, true, true, true
 	TextureOverride EACeiling, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade, EAExtFacade
-	if[%floor% = 6] AddFloor EATop, EACeiling, 2, %1%, -%2%, %1% + 24, %2%, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 5] AddFloor EATop, EACeiling, 2, %1%, -%2%, %1% + 24, %2%, %fullheight%, %fullheight%, 0, 0, true
 
 	#Windows
 	Set MyIFloorType = 2
