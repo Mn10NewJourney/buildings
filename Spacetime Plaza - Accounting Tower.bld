@@ -1,4 +1,5 @@
-#Spacetime Plaza - Accounting Tower
+#Spacetime Plaza - Miriam Tower
+#(Keeping the filename "Spacetime Plaza - Accounting Tower.bld" for compatibility reasons.)
 #Copyright (c) 2026-Present - Mn10
 
 #Revised Elevator Speeds (As of 8 June 2026)
@@ -37,9 +38,10 @@
 
 #Globals
 <Globals>
-	Name = Spacetime Plaza - Accounting Tower
+	Name = Spacetime Plaza - Miriam Tower
 	Designer = Mn10 (Fixtures created by gooper1)
 	Location = 407 5th Street, Tranquility City
+	Description = This 41-story office tower is mostly called by its colloquial name "Accounting Tower" as it is occupied by many finance and accounting companies.
 	Version = 1
 	CameraFloor = 0
 	CameraPosition = 0, -80
@@ -976,6 +978,81 @@ DrawWalls = false, true, false, false, false, false
 			AddBoxSign(WRR_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, false, true, true, %Door_MainX% - 0.5 - 0.025, %Door_MainZ%, 1, 1, 7.5, 7.5 + %interfloorheight%, true)
 <EndFloor>
 
+########################################
+
+<Break>
+
+#ESCALATOR LOBBY WALLS ON B3F / CORE WALLS ON B2F-B1F
+
+<Function MiriamTower_CoreWalls>
+  #Set wall orientation - Parameter 1
+  WallOrientation = %param1%
+  DrawWalls = true, true, false, false, false, false
+
+  #Set textures
+    #Main negative - Parameter 2
+    #Main positive - Parameter 3
+    #Wall name - Parameter 4
+    TextureOverride %param2%, %param3%, BldgSignBack, BldgSignBack, BldgSignBack, BldgSignBack
+    AddWall Miriam_%floorid%F_%param4%, %param2%, 0.5, %param5%, %param6%, %param7%, %param8%, %param9%, %param9%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+  #Footnote: Parameters 5-8 contains the wall's coordinates, wall height is specified in Parameter 9.
+<EndFunction>
+
+#Core walls and doors creation
+<Floor -3>
+  TexPrefix() #Set texture prefix/suffix
+
+  #Escalator lobby walls
+  Set B3F_WH = %height% + Floor(-2).InterfloorHeight
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61, %CF_SouthEnd%, %B3F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall, 10, %CF_SouthEnd%, 10, -40, %B3F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61, %CF_SouthEnd%, 61, -40, %B3F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61, -40, %B3F_WH%)
+
+  #Access doors on level B3 are automatic (Created after all elevators)
+<EndFloor>
+
+<Floors -2 to -1>
+  TexPrefix() #Set texture prefix/suffix
+
+  #TOWER CORE WALLS
+  Set B2F_WH = %height% + 1 #Same values for both levels B2 and B1
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, -%1%, %CF_SouthEnd%, 65, %CF_SouthEnd%, %B2F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_A, -%1%, %CF_SouthEnd%, -%1%, -50 - 10, %B2F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_B, -%1%, -50 + 10, -%1%, 40, %B2F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 65, %CF_SouthEnd%, 65, 40, %B2F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, -%1%, 40, 65, 40, %B2F_WH%)
+
+  #TOWER CORE DOORS
+	Set DTex = BLKEntDoorInt
+	#Set DSTex = %DTex%Side
+	Set DSTex = BLKEntDoorSide
+
+  #North doors (Manual doors)
+    #Northwest doors
+		Set Door_MainX = -40
+		Set Door_MainZ = 40
+		WallOrientation = right
+		AddStdDoor Door Manager, %floorid%F_CoreDoorN1/1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_CoreDoorN1/2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+    #Northeast doors
+		Set Door_MainX = 40
+		Set Door_MainZ = 40
+		WallOrientation = right
+		AddStdDoor Door Manager, %floorid%F_CoreDoorN2/1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_CoreDoorN2/2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+  #South doors are automatic (Created after all elevators)
+<EndFloors>
+
+########################################
+
+<Break>
+
 #Lobby and office levels
 <Floors 0 to 39>
 	TexPrefix() #Set texture prefix/suffix
@@ -1071,7 +1148,10 @@ DrawWalls = false, true, false, false, false, false
 
 	SetAutoSize = true, false
 
-		AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		if[%floor% ! 0] AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		if[%floor% = 0] AddCustomWindows(FrontWinA, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, -50, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		if[%floor% = 0] AddCustomWindows(FrontWinB, %WinPrefix%Windows, %WinPrefix%WindowsInt, 50, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+
 		if[%floor% > 1] AddCustomWindows(LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 		if[%floor% < 2] AddCustomWindows(LeftWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, -50 - 10, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 		if[%floor% < 2] AddCustomWindows(LeftWin2, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -30 - 10, -%1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
@@ -2082,42 +2162,42 @@ Set SideTexture = BLKEntDoorSide
 <Floor 0>
 	#TexPrefix()
 
-	#SOUTH DOORS
-	Set Door_MainX = -45
-	Set Door_MainZ = -%2%
-
-	WallOrientation = left
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-
-	Set Door_MainX = -35
-	Set Door_MainZ = -%2%
-
-	WallOrientation = left
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-
-	Set Door_MainX = 35
-	Set Door_MainZ = -%2%
-
-	WallOrientation = left
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-
-	Set Door_MainX = 45
-	Set Door_MainZ = -%2%
-
-	WallOrientation = left
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	##SOUTH DOORS (Changed to automatic doors on August 3, 2026)
+	#Set Door_MainX = -45
+	#Set Door_MainZ = -%2%
+	#
+	#WallOrientation = left
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#
+	#Set Door_MainX = -35
+	#Set Door_MainZ = -%2%
+	#
+	#WallOrientation = left
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#
+	#Set Door_MainX = 35
+	#Set Door_MainZ = -%2%
+	#
+	#WallOrientation = left
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#
+	#Set Door_MainX = 45
+	#Set Door_MainZ = -%2%
+	#
+	#WallOrientation = left
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
+	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 
 	#WEST DOORS
 	Set Door_MainX = -%1%
@@ -2844,7 +2924,7 @@ ShowFullShaft 9 = true
 
 #Low Zone Elevators
 <Elevator 1>
-	Name = ACTTower LZ Elev. 1
+	Name = Miriam Tower LZ Elev. 1
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2854,7 +2934,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 2>
-	Name = ACTTower LZ Elev. 2
+	Name = Miriam Tower LZ Elev. 2
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2864,7 +2944,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 3>
-	Name = ACTTower LZ Elev. 3
+	Name = Miriam Tower LZ Elev. 3
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2874,7 +2954,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 4>
-	Name = ACTTower LZ Elev. 4
+	Name = Miriam Tower LZ Elev. 4
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2884,7 +2964,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 5>
-	Name = ACTTower LZ Elev. 5
+	Name = Miriam Tower LZ Elev. 5
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -2894,7 +2974,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 6>
-	Name = ACTTower LZ Elev. 6
+	Name = Miriam Tower LZ Elev. 6
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3064,7 +3144,7 @@ ShowFullShaft 9 = true
 
 #Lower Mid Zone Elevators
 <Elevator 7>
-	Name = ACTTower LMZ Elev. 1
+	Name = Miriam Tower LMZ Elev. 1
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3074,7 +3154,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 8>
-	Name = ACTTower LMZ Elev. 2
+	Name = Miriam Tower LMZ Elev. 2
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3084,7 +3164,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 9>
-	Name = ACTTower LMZ Elev. 3
+	Name = Miriam Tower LMZ Elev. 3
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3094,7 +3174,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 10>
-	Name = ACTTower LMZ Elev. 4
+	Name = Miriam Tower LMZ Elev. 4
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3104,7 +3184,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 11>
-	Name = ACTTower LMZ Elev. 5
+	Name = Miriam Tower LMZ Elev. 5
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3114,7 +3194,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 12>
-	Name = ACTTower LMZ Elev. 6
+	Name = Miriam Tower LMZ Elev. 6
 	Speed = 16
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3310,7 +3390,7 @@ ShowFullShaft 9 = true
 
 #Upper Mid Zone Elevators
 <Elevator 13>
-	Name = ACTTower UMZ Elev. 1
+	Name = Miriam Tower UMZ Elev. 1
 	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3320,7 +3400,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 14>
-	Name = ACTTower UMZ Elev. 2
+	Name = Miriam Tower UMZ Elev. 2
 	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3330,7 +3410,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 15>
-	Name = ACTTower UMZ Elev. 3
+	Name = Miriam Tower UMZ Elev. 3
 	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3340,7 +3420,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 16>
-	Name = ACTTower UMZ Elev. 4
+	Name = Miriam Tower UMZ Elev. 4
 	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3350,7 +3430,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 17>
-	Name = ACTTower UMZ Elev. 5
+	Name = Miriam Tower UMZ Elev. 5
 	Speed = 20
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3438,7 +3518,7 @@ ShowFullShaft 9 = true
 
 #High Zone Elevators
 <Elevator 18>
-	Name = ACTTower HZ Elev. 1
+	Name = Miriam Tower HZ Elev. 1
 	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3448,7 +3528,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 19>
-	Name = ACTTower HZ Elev. 2
+	Name = Miriam Tower HZ Elev. 2
 	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3458,7 +3538,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 20>
-	Name = ACTTower HZ Elev. 3
+	Name = Miriam Tower HZ Elev. 3
 	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3468,7 +3548,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 21>
-	Name = ACTTower HZ Elev. 4
+	Name = Miriam Tower HZ Elev. 4
 	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3478,7 +3558,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 22>
-	Name = ACTTower HZ Elev. 5
+	Name = Miriam Tower HZ Elev. 5
 	Speed = 24
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3682,7 +3762,7 @@ ShowFullShaft 9 = true
 
 #West Service Elevator
 <Elevator 23>
-	Name = ACTTower West Service Elev.
+	Name = Miriam Tower West Service Elev.
 	Type = Service
 	Speed = 14
 	Acceleration = 0.6
@@ -3780,7 +3860,7 @@ ShowFullShaft 9 = true
 
 #East Service Elevator
 <Elevator 24>
-	Name = ACTTower East Service Elev.
+	Name = Miriam Tower East Service Elev.
 	Type = Service
 	Speed = 14
 	Acceleration = 0.6
@@ -3909,7 +3989,7 @@ ShowFullShaft 9 = true
 <EndElevators>
 
 <Elevator 25>
-	Name = ACTTower Parking Elev. 1
+	Name = Miriam Tower Parking Elev. 1
 	Speed = 3.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -3919,7 +3999,7 @@ ShowFullShaft 9 = true
 <EndElevator>
 
 <Elevator 26>
-	Name = ACTTower Parking Elev. 2
+	Name = Miriam Tower Parking Elev. 2
 	Speed = 3.5
 	Acceleration = 0.6
 	Deceleration = 0.6
