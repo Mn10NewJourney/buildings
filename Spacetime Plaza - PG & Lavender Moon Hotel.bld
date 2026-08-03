@@ -221,26 +221,26 @@
 		#Hotel express elevators
 
 		#Hotel low zone elevators
-		Load data/Carpet0021d_S.jpg, LowerHotelElevFloor, 0.2, 0.2
+		Load data/Carpet0012_S.jpg, LowerHotelElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, LowerHotelElevCeiling, 1, 1, false #EG881
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, LowerHotelElevCeilingDL, 1, 1, false
 		Load data/EG881/light1x.jpg, LowerHotelElevCeilingLight, 1, 1, false #EG881
 		Load data/panel-back3.jpg, LowerHotelElevCeilingTrim, 1, 1, false
 		Rotate LowerHotelElevCeilingTrim, 90
 
-		Load data/marbl3.jpg, LowerHotelElevWall, 0.36, 0.36
-		Load data/Other People's Textures/marb044.png, LowerHotelElevWallPanel, 0.3, 0.3
-		Load data/Other People's Textures/marb045.png, LowerHotelElevWallPanel2, 0.3, 0.3
+		Load data/EG881/blackdoortrim.jpg, LowerHotelElevWall, 1, 1, false #EG881
+		Load data/herringbone08.jpg, LowerHotelElevWallPanel, 0.3, 0.3
+		Load data/herringbone06.jpg, LowerHotelElevWallPanel2, 0.3, 0.3
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, LowerHotelElevPanelMain, 1, 1, false #EG881
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel1.jpg, LowerHotelElevPanelTop, 1, 0.125, false #EG881
 		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, LowerHotelElevDoors, 1, 1, false #EG881
 		Load data/EG881_Otis/Doors/otisstainlesssteel1door.jpg, LowerHotelElevDoors2, -1, 1, false #EG881
 
 		#Hotel mid zone and high zone elevators
-		Load data/Carpet0013_S.jpg, UpperHotelElevFloor, 0.2, 0.2 #EG881
+		Load data/Carpet0013b_S.jpg, UpperHotelElevFloor, 0.2, 0.2 #EG881
 		Load data/marb148.jpg, UpperHotelElevWall, 0.2, 0.2
-		Load data/diamond18b.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
-		Load data/diamond18i.jpg, UpperHotelElevWallPanel2, 0.5, 0.5 #Elevators 20-24
+		Load data/checker24.jpg, UpperHotelElevWallPanel1, 0.5, 0.5 #Elevators 15-19
+		Load data/misc/oak_stained.jpg, UpperHotelElevWallPanel2, 0.414, 0.414 #Elevators 20-24
 	
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, UpperHotelElevCeiling, 1, 1, false
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, UpperHotelElevCeilingDL, 1, 1, false
@@ -2135,17 +2135,21 @@ AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 
 	#2. Panels on walls
 	Set WPTex = %Prefix%ElevWallPanel
 	if[%elevator% > 11] Set WPTex = %Prefix%ElevWallPanel2
-	Set WPanelHeight = 8
+	Set WPanelHeight = 8 - 0.5
+	
+		#Front panels
+		CreateWallBox2 elevator, Panel_F1, %WPTex%, 0 - (2.8 * 1/4), -3.1 + 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F3, %WPTex%, 0 + (2.8 * 1/4), -3.1 + 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
-	Set Direction = %param2%
-
-		#Front/back panels
-		CreateWallBox2 elevator, E%elevator%Panel_Front, %WPTex%, 0, -3.3 + 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, E%elevator%Panel_Back, %WPTex%, 0, 3.3 - 0.01, 2, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		#Back panels
+		CreateWallBox2 elevator, Panel_B1, %WPTex%, 0 - (2.8 * 1/4), 3.1 - 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B3, %WPTex%, 0 + (2.8 * 1/4), 3.1 - 0.01, (2.8 * 1/2) - 0.3, 0.02, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 
 		#Left/right panels
-		if[%elevator% < 12] CreateWallBox2 elevator, E%elevator%Panel_Left, %WPTex%, -2.8 + 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
-		if[%elevator% > 11] CreateWallBox2 elevator, E%elevator%Panel_Right, %WPTex%, 2.8 - 0.01, 0, 0.02, 4, %WPanelHeight%, 0, 0, 0, false, true, true, true
+		Set Position = 2.8 - 0.01
+		if[%elevator% > 11] Set Position = -2.8 + 0.01
+		CreateWallBox2 elevator, Panel_R1, %WPTex%, %Position%, 0 - (3.1 * 1/4), 0.02, (3.1 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_R2, %WPTex%, %Position%, 0 + (3.1 * 1/4), 0.02, (3.1 * 1/2) - 0.3, %WPanelHeight%, 0.25 + 0.05, 0, 0, false, true, true, true
 <EndElevators>
 
 ##--------------------------------------------------------------------------------##
