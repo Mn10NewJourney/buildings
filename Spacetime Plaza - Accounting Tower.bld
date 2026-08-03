@@ -1005,10 +1005,10 @@ DrawWalls = false, true, false, false, false, false
 
   #Escalator lobby walls
   Set B3F_WH = %height% + Floor(-2).InterfloorHeight
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61, %CF_SouthEnd%, %B3F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61 + 0.5, %CF_SouthEnd%, %B3F_WH%)
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall, 10, %CF_SouthEnd%, 10, -40, %B3F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61, %CF_SouthEnd%, 61, -40, %B3F_WH%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61, -40, %B3F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61 + 0.5, %CF_SouthEnd%, 61 + 0.5, -40, %B3F_WH%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61 + 0.5, -40, %B3F_WH%)
 
   #Access doors on level B3 are automatic (Created after all elevators)
 <EndFloor>
@@ -1020,6 +1020,7 @@ DrawWalls = false, true, false, false, false, false
   Set B2F_WH = %height% + 1 #Same values for both levels B2 and B1
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, -%1%, %CF_SouthEnd%, 65, %CF_SouthEnd%, %B2F_WH%)
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_A, -%1%, %CF_SouthEnd%, -%1%, -50 - 10, %B2F_WH%)
+  MiriamTower_CoreWalls(left, %5%Wall, Blank, LeftWall_A, -%1%, -50 - 10, -%1%, -50 + 10, %B2F_WH%)
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall_B, -%1%, -50 + 10, -%1%, 40, %B2F_WH%)
   MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 65, %CF_SouthEnd%, 65, 40, %B2F_WH%)
   MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, -%1%, 40, 65, 40, %B2F_WH%)
@@ -1036,7 +1037,12 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = right
 		AddStdDoor Door Manager, %floorid%F_CoreDoorN1/1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddStdDoor Door Manager, %floorid%F_CoreDoorN1/2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		Add3DWindows(CoreDoorN1_WinTop, %Door_MainX%, %MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+		Add3DWindows(CoreDoorN1_WinSide1, %Door_MainX% - 3 - 1, %MainZ%, back, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+		Add3DWindows(CoreDoorN1_WinSide2, %Door_MainX% + 3 + 1, %MainZ%, back, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+
 
     #Northeast doors
 		Set Door_MainX = 40
@@ -1044,7 +1050,7 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = right
 		AddStdDoor Door Manager, %floorid%F_CoreDoorN2/1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddStdDoor Door Manager, %floorid%F_CoreDoorN2/2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls %5%Wall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls %5%LobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
   #South doors are automatic (Created after all elevators)
 <EndFloors>
@@ -1149,8 +1155,8 @@ DrawWalls = false, true, false, false, false, false
 	SetAutoSize = true, false
 
 		if[%floor% ! 0] AddCustomWindows(FrontWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		if[%floor% = 0] AddCustomWindows(FrontWinA, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, -50, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
-		if[%floor% = 0] AddCustomWindows(FrontWinB, %WinPrefix%Windows, %WinPrefix%WindowsInt, 50, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		if[%floor% = 0] AddCustomWindows(FrontWinA, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1% + %WL%, -%2%, -20, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
+		if[%floor% = 0] AddCustomWindows(FrontWinB, %WinPrefix%Windows, %WinPrefix%WindowsInt, 20, -%2%, %1% - %WL%, -%2%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
 		if[%floor% > 1] AddCustomWindows(LeftWin, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, %2% - %WL%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 		if[%floor% < 2] AddCustomWindows(LeftWin1, %WinPrefix%Windows, %WinPrefix%WindowsInt, -%1%, -%2% + %WL%, -%1%, -50 - 10, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
@@ -2031,6 +2037,8 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Lobby atrium and escalator cuts
+Cut External, 20 + 20, Floor(-3).Base + 5, -61 - 8, 20 + 20 + 18.5, Floor(-1).Base + 5, -59 + 8, false, true #B3F-B2F escalators
+
 Cut External, 20, Floor(-3).Base + 5, -61 - 8, 20 + 20, Floor(-1).Base + 5, -59 + 8, false, true #B3F-B1F escalators
 Cut External, 20, Floor(-1).Base + 5, -59, 20 + 20, Floor(0).Base + 5, -59 + 8, false, true #B1F-1F escalators
 
@@ -2046,8 +2054,8 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 
 	DrawWalls = true, true, true, true, true, false
 	WallOrientation = left
-	AddWall EscRail_Right, %5%%Suffix%, 0.5, 20 + 20, -61 - 8, 20 + 20, -59 + 8, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall EscRail_Back, %5%%Suffix%, 0.5, 20 - 0.5, -59 + 8, 20 + 20 + 0.5, -59 + 8, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall EscRail_Right, %5%%Suffix%, 0.5, 20 + 20, -61 - 8, 20 + 20 + 18.5, -59 + 8, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall EscRail_Back, %5%%Suffix%, 0.5, 20 - 0.5, -59 + 8, 20 + 20 + 18.5 + 0.5, -59 + 8, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloor>
 
 <Floor -1>
