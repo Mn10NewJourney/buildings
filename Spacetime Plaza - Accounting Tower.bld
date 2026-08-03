@@ -95,7 +95,8 @@
 
 	#Main textures
 		#Parking levels and ramps
-		Load data/Carpet0021d_S.jpg, ParkingLobbyFloor, 0.35, 0.35
+		#Load data/Carpet0021d_S.jpg, ParkingLobbyFloor, 0.2, 0.2
+		Load data/tanmarble.jpg, ParkingLobbyFloor, 0.35, 0.35
 		Load data/EG881/stucco2f_white2.jpg, ParkingLobbyWall, 0.08, 0.08 #EG881
 		Load data/MarbleWhite0047b_S.jpg, ParkingLobbyWall2, 0.15, 0.3 #EG881 #Escalator railings
 		Load data/EG881/stucco22b_white.jpg, ParkingEscWall, 0.1, 0.1 #EG881 #Escalator outer walls
@@ -109,6 +110,7 @@
 		Load data/stucco4.jpg, ParkingWall3, 0.2, 0.2
 
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
+		Load data/cutston.jpg, ParkingCeiling2, 0.1, 0.1
 
 			#Storage on basement levels
 			Load data/Carpet0006_S.jpg, BasementStorageFloor, 0.2, 0.2
@@ -275,8 +277,8 @@
 		#Parking elevators (No. 25-26)
 		Load data/Carpet0021d_S.jpg, ParkingElevFloor, 0.2, 0.2
 		Load data/EG881/elevdoortrim_white.jpg, ParkingElevWall, 0.5, 0.5 #EG881
-		Load data/glasselevator2b.gif, ParkingElevWallGlass, 0.5, 1, false
-		Load data/glasselevator2b.gif, ParkingElevWallGlass2, 1, 1, false
+		#Load data/glasselevator2b.gif, ParkingElevWallGlass, 0.5, 1, false
+		Load data/glasselevator2b.gif, ParkingElevWallGlass, 1, 1, false
 		Load data/EG881/stainlesssteel2.jpg, ParkingElevWallGlassLink, 1, 1, false #EG881
 
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ParkingElevCeiling, 1, 1, false
@@ -568,6 +570,7 @@ DrawWalls = false, true, false, false, false, false
 		#Parking levels core ceiling
 		if[%floor% = -3] AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, 10, %CF_SouthEnd%, 61.5, -40, %fullheight%, %fullheight%, 0, 0, true
 		if[%floor% > -3] AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, -%1%, %CF_SouthEnd%, %EastEnd%, 25.5, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% = -2] AddFloor ACTT_PGCoreCeiling2, %5%Ceiling2, 0.5, %EastEnd%, %CF_SouthEnd%, 65, 25.5, %fullheight%, %fullheight%, 0, 0, true
 
 		#Storage behind shafts/restrooms on B2-B1
 		if[%floor% > -3] CreateFlr(%floorid%F_STR_W1, BasementStorageCeiling, 0.5, -35, -25, -5, -15, %height%, false)
@@ -1032,7 +1035,7 @@ DrawWalls = false, true, false, false, false, false
  
   if[%floor% = -2] Set B2F_WH = %height% #Level B2
   if[%floor% = -2] Set B2F_WO = %interfloorheight% #Level B2
-  if[%floor% = -1] Set B2F_WH = %fullheight% #Level B1
+  if[%floor% = -1] Set B2F_WH = %fullheight% + Floor(0).InterfloorHeight - 1 #Level B1
   if[%floor% = -1] Set B2F_WO = 0 #Level B1
  
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, -%1%, %CF_SouthEnd%, %EastEnd%, %CF_SouthEnd%, %B2F_WH%, %B2F_WO%)
@@ -2662,7 +2665,7 @@ Set SideTexture = BLKEntDoorSide
 	if[%floor% < 0] Set ShowRight = false
 
 	if[%floor% < 33] CreateShaftWall(%5%%5L%, %5%%5L%, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, 60, 0, 5, 25, SH5, %SHeight%, %SOffset%, true, false, %ShowRight%, true, false, false, true)
-	if[%floor% = -1] CreateShaftWall(%5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, 0.33, 63, 0, 2, 25, SH5_IFloor, %interfloorheight% - 1 + 0.1, 0 - 0.1, true, false, true, true, false, true, true)
+	#if[%floor% = -1] CreateShaftWall(%5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, %5%Wall2, 0.33, 63, 0, 2, 25, SH5_IFloor, %interfloorheight% - 1 + 0.1, 0 - 0.1, true, false, true, true, false, true, true)
 
 	#High Zone Elevators
 	Set ShowRight = false
@@ -4094,40 +4097,40 @@ ShowFullShaft 9 = true
 
 		#Other walls surrounding the glass panels
 			#Left walls
-			WallOrientation = left
-			DrawWalls = true, true, true, true, false, false
-			fTextureOverride ElevExt2, %WPTex%, ElevExt2, %WPTex%, Blank, Blank
-			AddWall LeftGlassWallLink1, %WPTex%, 0.25, -3.84, -3.00, -3.84, -3.00 + 0.2, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-			TextureOverride ElevExt2, %WPTex%, %WPTex%, ElevExt2, Blank, Blank
-			AddWall LeftGlassWallLink2, %WPTex%, 0.25, -3.84, 3.00 - 0.2, -3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			#WallOrientation = left
+			#DrawWalls = true, true, true, true, false, false
+			#TextureOverride ElevExt2, %WPTex%, ElevExt2, %WPTex%, Blank, Blank
+			#AddWall LeftGlassWallLink1, %WPTex%, 0.25, -3.84, -3.00, -3.84, -3.00 + 0.2, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			#TextureOverride ElevExt2, %WPTex%, %WPTex%, ElevExt2, Blank, Blank
+			#AddWall LeftGlassWallLink2, %WPTex%, 0.25, -3.84, 3.00 - 0.2, -3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 		
 			#Front walls
 			WallOrientation = left
 			DrawWalls = true, true, true, true, false, false
 			TextureOverride ElevExt2, %Prefix%ElevWall, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
-			AddWall FrontWall, %Prefix%ElevWall, 0.25, 0 - 0.625, -3.00, 0 + 0.625, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			AddWall FrontWall, %Prefix%ElevWall, 0.25, 3.84 - 1.25, -3.00, 3.84, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-			DrawWalls = true, false, false, false, false, false
-			AddWall FrontGlassWallLink, ElevExt2, 0.25, 3.84 - 0.2, -3.00, 3.84, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			#DrawWalls = true, false, false, false, false, false
+			#AddWall FrontGlassWallLink, ElevExt2, 0.25, 3.84 - 0.2, -3.00, 3.84, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 	
 			#Back walls
 			WallOrientation = right
 			DrawWalls = true, true, true, true, false, false
 			TextureOverride %Prefix%ElevWall, ElevExt2, %Prefix%ElevWall, %Prefix%ElevWall, Blank, Blank
-			AddWall BackWall, %Prefix%ElevWall, 0.25, 0 - 0.625, 3.00, 0 + 0.625, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			AddWall BackWall, %Prefix%ElevWall, 0.25, 3.84 - 1.25, 3.00, 3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-			DrawWalls = false, true, false, false, false, false
-			AddWall BackGlassWallLink, ElevExt2, 0.25, 3.84 - 0.2, 3.00, 3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+			#DrawWalls = false, true, false, false, false, false
+			#AddWall BackGlassWallLink, ElevExt2, 0.25, 3.84 - 0.2, 3.00, 3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
 		#Glass panels
 		DrawWalls = true, true, false, false, false, false
-		AddWall LeftGlassWall, %GlassTex%2, 0, -3.84, -3.00 + 0.2, -3.84, 3.00 - 0.2, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall LeftGlassWall, %GlassTex%2, 0, -3.84, -3.00, -3.84, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-		AddWall FrontGlassWall_1, %GlassTex%, 0, -3.84 + 0.2, -3.00, 0 - 0.625, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-		AddWall FrontGlassWall_2, %GlassTex%, 0, 0 + 0.625, -3.00, 3.84 - 0.2, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall FrontGlassWall, %GlassTex%, 0, -3.84, -3.00, 3.84 - 1.25, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		#AddWall FrontGlassWall_2, %GlassTex%, 0, 0 + 0.625, -3.00, 3.84 - 0.2, -3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 
-		AddWall BackGlassWall_1, %GlassTex%, 0, -3.84 + 0.2, 3.00, 0 - 0.625, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
-		AddWall BackGlassWall_2, %GlassTex%, 0, 0 + 0.625, 3.00, 3.84 - 0.2, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		AddWall BackGlassWall, %GlassTex%, 0, -3.84, 3.00, 3.84 - 1.25, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
+		#AddWall BackGlassWall_2, %GlassTex%, 0, 0 + 0.625, 3.00, 3.84 - 0.2, 3.00, %WPanelHeight%, %WPanelHeight%, 0, 0, 0, 0
 	#--------------------
 	#DETAILED INTERIORS
 	#1. Ceiling lights
@@ -4168,7 +4171,7 @@ ShowFullShaft 9 = true
 		AddFloor DoorTrack, ElevDoorTrackX, 0.05, %IDP%, -1.75 - (1.75 * 1), %IDP% + 0.2, 1.75 + (1.75 * 1), 0, 0, 0, 0
 	#--------------------
 	#Right Panel
-	Set P1_PositionX = 0
+	Set P1_PositionX = 3.84 - 0.25 - 0.5
 	Set P1_PositionZ = -3.00 + 0.25
 
 		#Floor buttons
@@ -4178,7 +4181,7 @@ ShowFullShaft 9 = true
 		BtnPanelE25-26(1)
 	#--------------------
 	#Left Panel
-	Set P2_PositionX = 0
+	Set P2_PositionX = 3.84 - 0.25 - 0.5
 	Set P2_PositionZ = 3.00 - 0.25
 
 		#Floor buttons
