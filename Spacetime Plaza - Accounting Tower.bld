@@ -555,7 +555,7 @@ DrawWalls = false, true, false, false, false, false
 
 		if[%floor% = -3] CreateFlr(ParkingCoreFloor1, ParkingFloor, 0.5, 10, %CF_SouthEnd% - 5, 55.5, %CF_SouthEnd%, 0, true)
 		if[%floor% = -3] CreateFlr(ParkingCoreFloor2, ParkingLobbyFloor, 0.5, 10, %CF_SouthEnd%, 55.5, -40, 0, true)
-		if[%floor% = -3] CreateFlr(ParkingCoreFloor3, ParkingFloor, 0.5, 55.5, %CF_SouthEnd%, 61, -40, 0, true)
+		if[%floor% = -3] CreateFlr(ParkingCoreFloor3, ParkingFloor, 0.5, 55.5, %CF_SouthEnd% - 5, 61, -40, 0, true)
 
 		#Storage behind shafts/restrooms on B2-B1
 		if[%floor% > -3] CreateFlr(%floorid%F_STR_W1, BasementStorageFloor, 0.5, -35 + 0.5, -25, -5, -15, 0, true)
@@ -1019,10 +1019,10 @@ DrawWalls = false, true, false, false, false, false
 
   #Escalator lobby walls
   Set B3F_WH = %height% + Floor(-2).InterfloorHeight
-  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 61 + 0.5, %CF_SouthEnd%, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, FrontWall, 10, %CF_SouthEnd%, 55.5, %CF_SouthEnd%, %B3F_WH%, %interfloorheight%)
   MiriamTower_CoreWalls(left, %5%Wall, %5%LobbyWall, LeftWall, 10, %CF_SouthEnd%, 10, -40, %B3F_WH%, %interfloorheight%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 61 + 0.5, %CF_SouthEnd%, 61 + 0.5, -40, %B3F_WH%, %interfloorheight%)
-  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 61 + 0.5, -40, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, RightWall, 55.5, %CF_SouthEnd%, 55.5, -40, %B3F_WH%, %interfloorheight%)
+  MiriamTower_CoreWalls(right, %5%LobbyWall, %5%Wall, BackWall, 10, -40, 55.5, -40, %B3F_WH%, %interfloorheight%)
 
   #Access doors on level B3 are automatic (Created after all elevators)
 <EndFloor>
@@ -5055,7 +5055,7 @@ ShowFullShaft 9 = true
 
 	#Level B3 Entrances
 	WallOrientation = right
-	AddAutomaticDoor2(32, 7, -3, 45, -69, AutoDoorsExt_B3F, AutoDoorsInt_B3F, AutoDoorsExt_B3F, AutoDoorsInt_B3F, AutoDoors_Side, 2, 0.15, true, left, 6, 7, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B3F1_SensorUnlit, B3F1_SensorLit)
+	AddAutomaticDoor2(32, 7, -3, 47.5, -69, AutoDoorsExt_B3F, AutoDoorsInt_B3F, AutoDoorsExt_B3F, AutoDoorsInt_B3F, AutoDoors_Side, 2, 0.15, true, left, 7, 7, 0, 1, 15000, elevopenquick.wav, elevclosequick.wav, , true, true, 5, B3F1_SensorUnlit, B3F1_SensorLit)
 
 	<Floor 0>
 		TexPrefix() #Set wall texture
@@ -5149,24 +5149,24 @@ ShowFullShaft 9 = true
 		TexPrefix() #Set wall texture
 
 		#East doors' filler walls and windows
-		Set ADX = 45
+		Set ADX = 47.5
 		Set ADZ = -69
 
 			#Filler walls
 			WallOrientation = left
-			AddFillerWalls %5%Wall, 0.5, %ADX%, %ADZ% - 0.5, (6 * 2) + 0.3, 7 + 1, %interfloorheight%, true, 0, 0, true
+			AddFillerWalls %5%Wall, 0.5, %ADX%, %ADZ% - 0.5, (7 * 2) + 0.3, 7 + 1, %interfloorheight%, true, 0, 0, true
 
 			#Decos
-			AddDecoObject(%floorid%FEnt1_Deco, AD_Deco, AD_Deco, back, true, false, 0.5, 0.15, %ADX%, %ADZ% - 0.5, 6*2, 7, 7 + 1, 1, 0, false, Blank, 0, external)
+			AddDecoObject(%floorid%FEnt1_Deco, AD_Deco, AD_Deco, back, true, false, 0.5, 0.15, %ADX%, %ADZ% - 0.5, 7*2, 7, 7 + 1, 1, 0, false, Blank, 0, external)
 
 			#Windows around doors
 			WallOrientation = right
 			SetAutoSize = false, false
 			DrawWalls = true, true, true, true, false, false
 			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
-			AddWall %floorid%FEnt_Windows1, ADWindows, 0.15, %ADX% - 6.0, %ADZ% - 0.15, %ADX% - 3.0, %ADZ% - 0.15, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+			AddWall %floorid%FEnt_Windows1, ADWindows, 0.15, %ADX% - 7.0, %ADZ% - 0.15, %ADX% - 3.5, %ADZ% - 0.15, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 			TextureOverride ADWindows, ADWindows, ADWindows_Side, ADWindows_Side, ADWindows_Side, ADWindows_Side
-			AddWall %floorid%FEnt_Windows2, ADWindows, 0.15, %ADX% + 3.0, %ADZ% - 0.15, %ADX% + 6.0, %ADZ% - 0.15, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
+			AddWall %floorid%FEnt_Windows2, ADWindows, 0.15, %ADX% + 3.5, %ADZ% - 0.15, %ADX% + 7.0, %ADZ% - 0.15, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0, true
 			SetAutoSize = true, true
 
 			#Sensors
