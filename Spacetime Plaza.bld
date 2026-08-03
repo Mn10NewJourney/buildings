@@ -570,6 +570,18 @@
 			AddTextRange 1, 10, B2_SW, B2_SW_WH%number%, nimbus_sans_bold.ttf, 35, WH%number%, 0, 0, 175, 64, center, center, 255, 255, 255, false
 			AddTextRange 1, 10, B1_SW, B1_SW_WH%number%, nimbus_sans_bold.ttf, 35, WH%number%, 0, 0, 175, 64, center, center, 255, 255, 255, false
 
+			AddText B2_SW, B2_SW_WB12, nimbus_sans_bold.ttf, 35, WB12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B2_SW, B2_SW_WC12, nimbus_sans_bold.ttf, 35, WC12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B2_SW, B2_SW_WD12, nimbus_sans_bold.ttf, 35, WD12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B2_SW, B2_SW_WE12, nimbus_sans_bold.ttf, 35, WE12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B2_SW, B2_SW_WG12, nimbus_sans_bold.ttf, 35, WG12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+
+			AddText B1_SW, B1_SW_WB12, nimbus_sans_bold.ttf, 35, WB12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B1_SW, B1_SW_WC12, nimbus_sans_bold.ttf, 35, WC12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B1_SW, B1_SW_WD12, nimbus_sans_bold.ttf, 35, WD12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B1_SW, B1_SW_WE12, nimbus_sans_bold.ttf, 35, WE12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+			AddText B1_SW, B1_SW_WG12, nimbus_sans_bold.ttf, 35, WG12, 0, 0, 175, 64, center, center, 255, 255, 255, false
+
 			#Signs on B2 (East shopping zone)
 			AddTextRange 8, 13, B2_SE, B2_SE_A%number%, nimbus_sans_bold.ttf, 45, A%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 8, 13, B2_SE, B2_SE_B%number%, nimbus_sans_bold.ttf, 45, B%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
@@ -753,7 +765,7 @@ DrawWalls = false, true, false, false, false, false
 	LSFloorCreator(ACTT_PGEntrance, Road, -416 - 3, -320 - 40, -416 + 24 + 3, -320, %FO%, false, false)
 
 	#Mall parking garage entrance/exit
-	LSFloorCreator(Mall_PGAccess1, Road, -416 - 3, -60 - 40, -416 + 24 + 3, -60, %FO%, false, false)
+	LSFloorCreator(Mall_PGAccess1, Road, -416 - 3, -60 - 40, -416 + 24, -60, %FO%, false, false)
 	LSFloorCreator(Mall_PGAccess2, Road, -416 - 3, 140 - 40, -416 + 24 + 3, 140, %FO%, false, false)
 
 	#Miriam Tower entrance walkway
@@ -1594,6 +1606,12 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = -3] AddFloor --ACTT_PS_NW1, ParkingSpaceZ, 0, -350 - (8.5 * 2), -161 - 1.25, -350 + (8.5 * 2), -161 - 1.25 + 18, %Offset%, %Offset%, 4, 1, true
 		if[%floor% = -3] AddFloor --ACTT_PS_NW2, ParkingSpaceZ, 0, -390 - (8.5 * 2), -161 - 1.25, -390 + (8.5 * 2), -161 - 1.25 + 18, %Offset%, %Offset%, 4, 1, true
 
+		#North parking spaces (Levels B2-B1 only)
+		if[%floor% ! -3] AddFloor Miriam_PS_N9, ParkingSpaceZ, 0, %ACTT_CX% + 40 - (8.5 * 2), -119 - 18, %ACTT_CX% + 40 + (8.5 * 2), -119, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -3] AddFloor Miriam_PS_N10, ParkingSpaceZ, 0, %ACTT_CX% + 0 - (8.5 * 2), -119 - 18, %ACTT_CX% + 0 + (8.5 * 2), -119, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -3] AddFloor Miriam_PS_N11, ParkingSpaceZ, 0, %ACTT_CX% - 40 - (8.5 * 2), -119 - 18, %ACTT_CX% - 40 + (8.5 * 2), -119, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -3] AddFloor Miriam_PS_N12, ParkingSpaceZ, 0, %ACTT_CX% - 80 - (8.5 * 2), -119 - 18, %ACTT_CX% - 80 + (8.5 * 2), -119, %Offset%, %Offset%, 4, -1, true
+
 	###************************###
 
 	#FLOOR SIGNS ON COLUMNS (Miriam Tower side)
@@ -1623,6 +1641,25 @@ DrawWalls = false, true, false, false, false, false
 	AddBoxSign(%floorid%_SW_%SignRow%10B, %floorid%_SW_%SignRow%10, %floorid%_SW_%SignRow%10, BlackTrim, 0.02, true, true, true, %PositionX%, -200 + 1.01, 2, 2, %SignOffset%, true)
 	if[%floor% = -3] AddBoxSign(%floorid%_SW_%SignRow%11A, %floorid%_SW_%SignRow%11, %floorid%_SW_%SignRow%11, BlackTrim, 0.02, false, true, true, %PositionX% - 1.01, -160, 2, 2, %SignOffset%, true)
 	if[%floor% = -3] AddBoxSign(%floorid%_SW_%SignRow%11B, %floorid%_SW_%SignRow%11, %floorid%_SW_%SignRow%11, BlackTrim, 0.02, false, true, true, %PositionX% + 1.01, -160, 2, 2, %SignOffset%, true)
+
+	#FLOOR SIGNS ON COLUMNS (Miriam Tower side)
+	Set SignOffset = 5 + %interfloorheight%
+	Set SignRow = 12
+	Set PositionZ = -120
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WB%SignRow%A, %floorid%_SW_WB%SignRow%, %floorid%_SW_WB%SignRow%, BlackTrim, 0.02, false, true, true, -170 - 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WB%SignRow%B, %floorid%_SW_WB%SignRow%, %floorid%_SW_WB%SignRow%, BlackTrim, 0.02, false, true, true, -170 + 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WC%SignRow%A, %floorid%_SW_WC%SignRow%, %floorid%_SW_WC%SignRow%, BlackTrim, 0.02, false, true, true, -210 - 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WC%SignRow%B, %floorid%_SW_WC%SignRow%, %floorid%_SW_WC%SignRow%, BlackTrim, 0.02, false, true, true, -210 + 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WD%SignRow%A, %floorid%_SW_WD%SignRow%, %floorid%_SW_WD%SignRow%, BlackTrim, 0.02, false, true, true, -250 - 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WD%SignRow%B, %floorid%_SW_WD%SignRow%, %floorid%_SW_WD%SignRow%, BlackTrim, 0.02, false, true, true, -250 + 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WE%SignRow%A, %floorid%_SW_WE%SignRow%, %floorid%_SW_WE%SignRow%, BlackTrim, 0.02, false, true, true, -290 - 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WE%SignRow%B, %floorid%_SW_WE%SignRow%, %floorid%_SW_WE%SignRow%, BlackTrim, 0.02, false, true, true, -290 + 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WG%SignRow%A, %floorid%_SW_WG%SignRow%, %floorid%_SW_WG%SignRow%, BlackTrim, 0.02, false, true, true, -330 - 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
+	if[%floor% ! -3] AddBoxSign(%floorid%_SW_WG%SignRow%B, %floorid%_SW_WG%SignRow%, %floorid%_SW_WG%SignRow%, BlackTrim, 0.02, false, true, true, -330 + 1.01, %PositionZ%, 2, 2, %SignOffset%, true)
 <EndFloors>
 
 <Break>
@@ -1634,14 +1671,19 @@ DrawWalls = false, true, false, false, false, false
 	#EXTRA FLOORINGS ABOVE ROADS (WEST ZONE)
 	CreateFlr(WZ_SouthUtilityFloor1, ParkingFloor, 0.5, -130, -80, -90, -59, 0, true)
 	CreateFlr(WZ_SouthUtilityFloor2, ParkingFloor, 0.5, -251, -70, -209, -59, 0, true)
-	CreateFlr(WZ_SouthUtilityFloor2, ParkingFloor, 0.5, -171, -70, -130, -59, 0, true)
+	CreateFlr(WZ_SouthUtilityFloor2A, ParkingFloor, 0.5, -239, -59, -209, -19, 0, true) #Freight elevator lobby
+	CreateFlr(WZ_SouthUtilityFloor3, ParkingFloor, 0.5, -171, -70, -130, -59, 0, true)
 
 	Set EX = 5 #Extra value for "WZ_WestUtilityFloor2" only
 	if[%floor% = -2] Set EX = 1
 
 	CreateFlr(WZ_WestUtilityFloor1, ParkingFloor, 0.5, -416, -161, -369, -89, 0, true)
 	CreateFlr(WZ_WestUtilityFloor2, ParkingFloor, 0.5, -416, 100 - 5, -369, 100 + %EX%, 0, true)
-	CreateFlr(WZ_WestUtilityFloor3, ParkingFloor, 0.5, -416, 299, -369 - 20, 500, 0, true)
+	CreateFlr(WZ_WestUtilityFloor3, ParkingFloor, 0.5, -416, 299, -392, 500, 0, true)
+
+	#Utility floors under ramps
+	if[%floor% = -2] CreateFlr(WZ_WUF_UnderEntranceRamp, ParkingFloor, 0.5, -416, -89, -392, 60, 0, true)
+	if[%floor% = -2] CreateFlr(WZ_WUF_UnderExitRamp, ParkingFloor, 0.5, -416, 101, -392, 260, 0, true)
 
 		#Escalator lobby floors
 		CreateFlr(WZ_EscLobbyFlr, ParkingLobbyFloor, 0.5, -210 + 40, 60, -164 + 40, 100, 0, true)
@@ -1681,6 +1723,7 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor WestParking_CB5, ParkingSpaceX, 0, -331, 120 - (8.5 * 2), -331 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		#AddFloor WestParking_CB6, ParkingSpaceX, 0, -331, 160 - (8.5 * 2), -331 + 18, 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CB7, ParkingSpaceX, 0, -331, 200 - (8.5 * 2), -331 + 18, 200 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		AddFloor WestParking_CB7A, ParkingSpaceX, 0, -331, 240 - (8.5 * 2), -331 + 18, 240 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 
 		AddFloor WestParking_CB8A, ParkingSpaceX, 0, -289 - 18, -75 - (8.5 * 1.5), -289, -75 + (8.5 * 1.5), %Offset%, %Offset%, -1, 3, true
 		AddFloor WestParking_CB8, ParkingSpaceX, 0, -289 - 18, -40 - (8.5 * 2), -289, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
@@ -1702,19 +1745,19 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor WestParking_CC11, ParkingSpaceX, 0, -209 - 18, 80 - (8.5 * 2), -209, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CC12, ParkingSpaceX, 0, -209 - 18, 120 - (8.5 * 2), -209, 120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		AddFloor WestParking_CD1, ParkingSpaceX, 0, -171, -40 - (8.5 * 2), -171 + 18, -40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% ! -1] AddFloor WestParking_CD1, ParkingSpaceX, 0, -171, -40 - (8.5 * 2), -171 + 18, -40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CD2, ParkingSpaceX, 0, -171, 0 - (8.5 * 2), -171 + 18, 0 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CD3, ParkingSpaceX, 0, -171, 40 - (8.5 * 2), -171 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		#AddFloor WestParking_CD4, ParkingSpaceX, 0, -171, 80 - (8.5 * 2), -171 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CD5, ParkingSpaceX, 0, -171, 120 - (8.5 * 2), -171 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		if[%floor% ! -1] AddFloor WestParking_CD6, ParkingSpaceX, 0, -171, 160 - (8.5 * 2), -171 + 18, 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+		if[%floor% ! -1] AddFloor WestParking_CD6, ParkingSpaceX, 0, -171, 200 - (8.5 * 2), -171 + 18, 200 + (8.5 * 1), %Offset%, %Offset%, 1, 3, true
 
-		AddFloor WestParking_CD8, ParkingSpaceX, 0, -129 - 18, -40 - (8.5 * 2), -129, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% ! -1] AddFloor WestParking_CD8, ParkingSpaceX, 0, -129 - 18, -40 - (8.5 * 2), -129, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CD9, ParkingSpaceX, 0, -129 - 18, 0 - (8.5 * 2), -129, 0 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CD10, ParkingSpaceX, 0, -129 - 18, 40 - (8.5 * 2), -129, 40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		#AddFloor WestParking_CD11, ParkingSpaceX, 0, -129 - 18, 80 - (8.5 * 2), -129, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CD12, ParkingSpaceX, 0, -129 - 18, 120 - (8.5 * 2), -129, 120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		if[%floor% ! -1] AddFloor WestParking_CD13, ParkingSpaceX, 0, -129 - 18, 160 - (8.5 * 2), -129, 160 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		if[%floor% ! -1] AddFloor WestParking_CD13, ParkingSpaceX, 0, -129 - 18, 200 - (8.5 * 2), -129, 200 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
 <EndFloors>
 
 ########################################
@@ -4012,19 +4055,30 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 	CreateShaftWall(ExtFacade, %LobbyPrefix%Wall, ExtFacade, ExtFacade2, ExtFacade, %5%Wall, 0.33, -180, 225, 5, 15, ParkingElev_S2, %fullheight% + 1, 0, true, true, true, false, true, false, true)
 <EndFloor>
 
+####################
+
+<Floor -2>
+	TexPrefix()
+
+	#West Freight Elevator 1
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -233, -55, 6, 6, Shaft5A, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
+<EndFloor>
+
 <Floor -1>
 	TexPrefix()
 
-	#Freight Elevators
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -233, -46, 6, 15, Shaft5_FE_IFloor, %interfloorheight% - 0.5 + 0.1, -0.1, true, false, true, true, false, true, true)
+	#West Freight Elevator 2 (Interfloor walls under shaft)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -233, -38, 6, 7, Shaft5_FE_IFloor, %interfloorheight% - 0.5 + 0.1, -0.1, true, false, true, true, false, true, true)
 <EndFloor>
 
 <Floors -1 to 9>
 	TexPrefix()
 
-	#Freight Elevators
+	#West Freight Elevators (Both)
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -233, -46, 6, 15, Shaft5_FE, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
 <EndFloors>
+
+####################
 
 <Floor 10>
 	TexPrefix()
