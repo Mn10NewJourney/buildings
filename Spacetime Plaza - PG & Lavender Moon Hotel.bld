@@ -529,17 +529,17 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = false, true, false, false, false, false
 
 		WallOrientation = left
-		if[%floor% = -2] AddWall FrontWall, %5%Wall, 0.5, 30 - 0.5, -%2%, %1%, -%2%, %WallHeight% + 1, %WallHeight% + 1, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -2] AddWall FrontWall, %5%Wall, 0.5, 30 - 0.5, -%2%, %1%, -%2%, %WallHeight% + Floor(-1).InterfloorHeight, %WallHeight% + Floor(-1).InterfloorHeight, %WallOffset%, %WallOffset%, 0, 0, true
 		#AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		WallOrientation = right
-		DrawWalls = true, false, false, false, false, false
+		DrawWalls = true, true, false, false, false, false
 		if[%floor% = -2] AddWall RightWall_Inner, %5%Wall, 0.5, %1% - 140, -%2%, %1% - 140, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = true, true, true, false, true, false #Reset for the following wall.
-		if[%floor% = -1] AddWall RightWall_DK1, LoadingDockRailing, 0.5, %1% - 140, -%2%, %1% - 140, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+		if[%floor% = -1] AddWall RightWall_DK1, LoadingDockRailing, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 
 		#AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -577,7 +577,7 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = 1] Set NorthEnd = -90
 		if[%floor% = 2] Set NorthEnd = -108
 		if[%floor% = 3 | %floor% = 4 | %floor% = 6 | %floor% = 7] Set NorthEnd = -98
-		if[%floor% > 1] CreateFlr(TowerPK_ElevLbyFlr_East1A, ParkingFloor2, 0.5, -126, -90, -120, -78, 0, true)
+		#if[%floor% > 1] CreateFlr(TowerPK_ElevLbyFlr_East1A, ParkingFloor2, 0.5, -126, -90, -120, -78, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1, ParkingFloor2, 0.5, -126, -130, -120, -90, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East2, ParkingFloor2, 0.5, -120, -130, -90, %NorthEnd%, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90, 0, true)
@@ -689,8 +689,7 @@ Cut External, -%1%, Floor(0).Base - 0.1, 5, -145, Floor(0).Base + 5, 40, false, 
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
 		AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
-		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90 + 12, -174 + 48, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		#AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90 + 12, -174 + 48, 40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90, -174 + 48, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
 		AddWall HotelEntr_R3, %5E%Wall, 0.5, -145, 5 - 0.5, -145, 40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -1572,7 +1571,10 @@ ShowFullShaft 2 = true
 	<EndFloor>
 
 #Hotel lobby express elevators
-AddStdShaft(3, 1, -150, -84, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+#AddStdShaft(3, 1, -150, -84, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+
+#Podium Service Elevator
+AddStdShaft(3, 1, 60, 30 - 19, 4.67, 5.67, -3, 16, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 
 #Low Zone Elevators (17-24)
 AddStdShaft(4, 1, -110 - 10, 30, 4.67, 14.67, 16, 29, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
@@ -1640,11 +1642,11 @@ AddStdShaft(7, 1, -110 - 40, 30, 4.67, 24.67, 16, 45, ShaftIntWall, 0.5, 0.33, 0
 		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 	<EndFloor>
 
-#West Service Elevator
-AddStdShaft(8, 1, -140, 30 + 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+#West Tower Service Elevator
+AddStdShaft(8, 1, -140, 30 + 19, 4.67, 5.67, -3, 46, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 
-#East Service Elevator
-AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+#East Tower Service Elevator
+AddStdShaft(9, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 
 ##--------------------------------------------------------------------------------##
 
