@@ -555,7 +555,7 @@ DrawWalls = false, true, false, false, false, false
 
 		if[%floor% = -3] CreateFlr(ParkingCoreFloor1, ParkingFloor, 0.5, 10, %CF_SouthEnd% - 5, 55.5, %CF_SouthEnd%, 0, true)
 		if[%floor% = -3] CreateFlr(ParkingCoreFloor2, ParkingLobbyFloor, 0.5, 10, %CF_SouthEnd%, 55.5, -40, 0, true)
-		if[%floor% = -3] CreateFlr(ParkingCoreFloor3, ParkingFloor, 0.5, 55.5, %CF_SouthEnd% - 5, 61, -40, 0, true)
+		if[%floor% < -1] CreateFlr(ParkingCoreFloor3, ParkingFloor, 0.5, 55.5, %CF_SouthEnd% - 5, 61, 40, 0, true)
 
 		#Storage behind shafts/restrooms on B2-B1
 		if[%floor% > -3] CreateFlr(%floorid%F_STR_W1, BasementStorageFloor, 0.5, -35 + 0.5, -25, -5, -15, 0, true)
@@ -2684,7 +2684,9 @@ Set SideTexture = BLKEntDoorSide
 	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -50, -19, 5, 6, SH7, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	#East Service Elevator
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, 19, 5, 6, SH8, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	Set ShowBack = true
+	if[%floor% = -2 | %floor% = -1] Set ShowBack = false
+	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, 19, 5, 6, SH8, %SHeight%, %SOffset%, true, true, true, %ShowBack%, false, false, true)
 <EndFloors>
 
 <Floor 42>

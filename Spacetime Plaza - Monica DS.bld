@@ -28,7 +28,7 @@
 	Name = Spacetime Plaza - Monica Dept. Store
 	Designer = Mn10
 	Location = 888 Market Street, Tranquility City
-	Description = The only section of this mall without its own service/freight elevator.
+	Description = This department store never had its own freight elevators until late 2006.
 	Version = 1
 	CameraFloor = -2
 	CameraPosition = 10, -72
@@ -118,7 +118,7 @@
 
 		#Service/freight elevator lobbies
 		#Load data/cem_tr.jpg, SAFloor, 0.2, 0.2
-		#Load data/stucco4.jpg, SAWall, 0.2, 0.2
+		Load data/stucco4.jpg, SAWall, 0.2, 0.2
 		#Load data/stucco1b.jpg, SACeiling, 0.125, 0.125
 
 		#Roofs
@@ -321,7 +321,7 @@
 			AddTextRange 21, 25, B2_NE, B2_NE_F%number%, nimbus_sans_bold.ttf, 45, F%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B2_NE, B2_NE_G%number%, nimbus_sans_bold.ttf, 45, G%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B2_NE, B2_NE_H%number%, nimbus_sans_bold.ttf, 45, H%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
-			AddTextRange 21, 25, B2_NE, B2_NE_J%number%, nimbus_sans_bold.ttf, 45, J%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
+			AddTextRange 21, 22, B2_NE, B2_NE_J%number%, nimbus_sans_bold.ttf, 45, J%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 
 			#Signs on B1
 			AddTextRange 21, 25, B1_NE, B1_NE_A%number%, nimbus_sans_bold.ttf, 45, A%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
@@ -333,7 +333,7 @@
 			#AddTextRange 21, 25, B1_NE, B1_NE_F%number%, nimbus_sans_bold.ttf, 45, F%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			#AddTextRange 21, 25, B1_NE, B1_NE_G%number%, nimbus_sans_bold.ttf, 45, G%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 			AddTextRange 21, 25, B1_NE, B1_NE_H%number%, nimbus_sans_bold.ttf, 45, H%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
-			AddTextRange 21, 25, B1_NE, B1_NE_J%number%, nimbus_sans_bold.ttf, 45, J%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
+			AddTextRange 21, 22, B1_NE, B1_NE_J%number%, nimbus_sans_bold.ttf, 45, J%number%, 0, 0, 256, 64, center, center, 0, 0, 0, false
 
 		#Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
@@ -506,8 +506,11 @@ DrawWalls = false, true, false, false, false, false
 		CreateFlr(MonicaDS_EastCoreFloor1A, ParkingFloor, 0.5, 18.5, -48.5, 25, 28.5, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor1, ParkingLobbyFloor, 0.5, -%1%, -15, -%1% + 21, 15, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor2, ParkingFloor, 0.5, -%1%, 15, -%1% + 21, 40, 0, true)
-		if[%floor% ! -1] CreateFlr(MonicaDS_NUtilityFloor, ParkingFloor, 0.5, -%1%, %2% - 12, %1% + 150, %2%, 0, true)
-		if[%floor% = -1] CreateFlr(MonicaDS_NUtilityFloor1, ParkingFloor, 0.5, -%1%, %2% - 12, -20, %2%, 0, true)
+
+		CreateFlr(MonicaDS_FEBase, ParkingFloor, 0.5, -%1%, 40, -%1% + 21, %2%, 0, true)
+	
+		if[%floor% ! -1] CreateFlr(MonicaDS_NUtilityFloor, ParkingFloor, 0.5, -%1% + 21, %2% - 12, %1% + 150, %2%, 0, true)
+		if[%floor% = -1] CreateFlr(MonicaDS_NUtilityFloor1, ParkingFloor, 0.5, -%1% + 21, %2% - 12, -20, %2%, 0, true)
 		if[%floor% = -1] CreateFlr(MonicaDS_NUtilityFloor2, ParkingFloor, 0.5, 20, %2% - 12, %1% + 150, %2%, 0, true)
 		CreateFlr(MonicaDS_SWUtilityFloor, ParkingFloor, 0.5, -%1%, -%2%, -%1% + 21, -89, 0, true)
 
@@ -535,11 +538,12 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, true, false, false, false, false #Override for this wall on level B2
 		#if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, -15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, 40, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, 40, -%1%, %2% - 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		DrawWalls = true, true, false, false, true, false #Override for these walls on level B1
+		DrawWalls = true, true, false, false, true, false #Override for this wall on level B1
 		if[%floor% = -1] AddWall LeftWall_DK1, LoadingDockRailing, 0.5, -%1%, -%2%, -%1%, -15, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
-		if[%floor% = -1] AddWall LeftWall_DK2, LoadingDockRailing, 0.5, -%1%, 40, -%1%, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+		DrawWalls = true, true, false, false, true, true #Override for this wall on level B1
+		if[%floor% = -1] AddWall LeftWall_DK2, LoadingDockRailing, 0.5, -%1%, 40, -%1%, %2% - 12, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 
 		#Set DrawWalls for Right/Back sides
 		DrawWalls = true, false, false, false, false, false
@@ -705,8 +709,8 @@ DrawWalls = false, true, false, false, false, false
 		AddFloor Parking_W7, ParkingSpaceX, 0, -61 - %Extra%, -30 - (8.5 * 2), -61 - %Extra% + 18, -30 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_W8, ParkingSpaceX, 0, -61 - %Extra%, -70 - (8.5 * 2), -61 - %Extra% + 18, -70 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 
-		AddFloor Parking_W9, ParkingSpaceX, 0, -99 - 18, 71, -99, 71 + (8.5 * 3), %Offset%, %Offset%, -1, 3, true
-		AddFloor Parking_W10, ParkingSpaceX, 0, -99 - 18, 69 - (8.5 * 3), -99, 69, %Offset%, %Offset%, -1, 3, true
+		#AddFloor Parking_W9, ParkingSpaceX, 0, -99 - 18, 71, -99, 71 + (8.5 * 3), %Offset%, %Offset%, -1, 3, true
+		#AddFloor Parking_W10, ParkingSpaceX, 0, -99 - 18, 69 - (8.5 * 3), -99, 69, %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_W11, ParkingSpaceX, 0, -99 - 18, -30 - (8.5 * 2), -99, -30 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
 		AddFloor Parking_W12, ParkingSpaceX, 0, -99 - 18, -70 - (8.5 * 2), -99, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
@@ -851,12 +855,44 @@ DrawWalls = false, true, false, false, false, false
 	AddBoxSign(%floorid%_NE_%SignRow%22B, %floorid%_NE_%SignRow%22, %floorid%_NE_%SignRow%22, BlackTrim, 0.02, true, true, true, %PositionX%, -50 + 1.01, 2, 3, %SignOffset%, true)
 	#AddBoxSign(%floorid%_NE_%SignRow%23A, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 - 1.01, 2, 3, %SignOffset%, true)
 	#AddBoxSign(%floorid%_NE_%SignRow%23B, %floorid%_NE_%SignRow%23, %floorid%_NE_%SignRow%23, BlackTrim, 0.02, true, true, true, %PositionX%, -10 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
-	AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
-	#AddBoxSign(%floorid%_NE_%SignRow%26A, %floorid%_NE_%SignRow%26, %floorid%_NE_%SignRow%26, BlackTrim, 0.02, true, true, true, %PositionX%, 108.75 - 1.01, 2, 3, %SignOffset%, true)
+	#AddBoxSign(%floorid%_NE_%SignRow%24A, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 - 1.01, 2, 3, %SignOffset%, true)
+	#AddBoxSign(%floorid%_NE_%SignRow%24B, %floorid%_NE_%SignRow%24, %floorid%_NE_%SignRow%24, BlackTrim, 0.02, true, true, true, %PositionX%, 30 + 1.01, 2, 3, %SignOffset%, true)
+	#AddBoxSign(%floorid%_NE_%SignRow%25A, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 - 1.01, 2, 3, %SignOffset%, true)
+	#AddBoxSign(%floorid%_NE_%SignRow%25B, %floorid%_NE_%SignRow%25, %floorid%_NE_%SignRow%25, BlackTrim, 0.02, true, true, true, %PositionX%, 70 + 1.01, 2, 3, %SignOffset%, true)
 <EndFloors>
+
+<Floor -2>
+	#Loading dock access doors
+	Set DTex = ServiceDoor1
+	Set DSTex = %DTex%Side
+
+		#North doors
+		Set Door_MainX = -120
+		Set Door_MainZ = 90
+
+		WallOrientation = left
+		AddStdDoor DoorManager, Monica_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#Center doors
+		Set Door_MainX = -120
+		Set Door_MainZ = 67.5
+
+		WallOrientation = left
+		AddStdDoor DoorManager, Monica_DockAccess2/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccess2/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#South doors
+		Set Door_MainX = -120
+		Set Door_MainZ = 45
+
+		WallOrientation = left
+		AddStdDoor DoorManager, Monica_DockAccess2/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccess2/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFloor>
 
 ########################################
 
@@ -945,7 +981,7 @@ DrawWalls = false, true, false, false, false, false
 	WallOrientation = Right
 	AddWall RF-RightRail, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	#AddWall RF-BackRail, ExtFacade, 0.5, -%1% + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-	AddWall RF-BackRailA, ExtFacade, 0.5, -%1% + 0.5, %2%, 67.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	AddWall RF-BackRailA, ExtFacade, 0.5, -%1% + 20, %2%, 67.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 	AddWall RF-BackRailB, ExtFacade, 0.5, 92.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
@@ -1128,7 +1164,7 @@ Set SideTexture = BLKEntDoorSide
 	#Row F
 	Set Prefix = F
 	Set SupportX = %1% - 20 - (%DistanceX% * 5)
-	CreateWallBox2 external, Support%Prefix%1, ColumnTex, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	#CreateWallBox2 external, Support%Prefix%1, ColumnTex, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	CreateWallBox2 external, Support%Prefix%2, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	CreateWallBox2 external, Support%Prefix%3, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	#CreateWallBox2 external, Support%Prefix%4, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
@@ -1136,26 +1172,36 @@ Set SideTexture = BLKEntDoorSide
 	CreateWallBox2 external, Support%Prefix%6, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 5), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 <EndFloors>
 
-#Shopping Area Supports
-<Floors 0 to 6>
-	#Set Values
-	TexPrefix() #Set texture prefixes
-	Set DistanceX = 40 #Distance between supports X
-	Set DistanceZ = 40 #Distance between supports Z
-
-	Set SupportHeight = %fullheight%
-	Set SupportOffset = -%interfloorheight%
-	if[%floor% = 0] Set SupportHeight = %height%
-	if[%floor% = 0] Set SupportOffset = 0
-
-	#Rows A-F
-<EndFloors>
+##Shopping Area Supports
+#<Floors 0 to 6>
+#	#Set Values
+#	TexPrefix() #Set texture prefixes
+#	Set DistanceX = 40 #Distance between supports X
+#	Set DistanceZ = 40 #Distance between supports Z
+#
+#	Set SupportHeight = %fullheight%
+#	Set SupportOffset = -%interfloorheight%
+#	if[%floor% = 0] Set SupportHeight = %height%
+#	if[%floor% = 0] Set SupportOffset = 0
+#
+#	#Rows A-F
+#<EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
 #External shaft/stairwell walls
 <Floors -2 to 9>
 	TexPrefix()
+
+	##Freight Elevators (Added on August 4, 2026) - Moved to after creating the shaft
+	#Set ShowLeft = false
+	#if[%floor% < 0] Set ShowLeft = true
+	#Set ShowFront = false
+	#if[%floor% < 0] Set ShowFront = true
+	#
+	#CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110, 104, 10, 6, SH3, %SHeight%, %SOffset%, %ShowFront%, %ShowLeft%, true, false, false, false, true)
+
+	########################################
 
 	#West Elevators
 	Set ShowLeft = false
@@ -1166,6 +1212,8 @@ Set SideTexture = BLKEntDoorSide
 	#West Stairwell
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, -115, 27.5, 5, 12.5, Stair1, %SHeight%, %SOffset%, false, %ShowLeft%, true, true, false, false, true)
 
+	########################################
+
 	#East Stairwell
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.5, 80, 105, 12.5, 5, Stair12, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
 
@@ -1175,8 +1223,11 @@ Set SideTexture = BLKEntDoorSide
 <EndFloors>
 
 <Floor 10>
+	#Freight Elevators (Added on August 4, 2026)
+	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -110, -104, 10, 6, SH3_RF, %fullheight%, 0, true, false, true, true, true, false, true)
+
 	#West Elevators
-	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -115, 0, 5, 15, SH1_RF, %fullheight%, 0, true, false, true, true, true, false, true)
+	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -115, 0, 5, 15, SH1_RF, %fullheight%, 0, true, false, true, false, true, false, true)
 
 	#West Stairwell
 	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.5, -115, 27.5, 5, 12.5, Stair1_RF, %fullheight%, 0, false, false, true, true, true, false, true)
@@ -1214,6 +1265,8 @@ ShowFullShaft 1 = true
 		AddStdDoor DoorManager, %floorid%_Shaft1MR_D2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 	<EndFloor>
+
+########################################
 
 #East elevators
 AddShaft 2, 60, 0, -3, 10
@@ -1392,6 +1445,78 @@ ShowFullShaft 2 = true
 #	if[%floor% ! 8] Add3DWindows(E5Windows, 55, 0, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
 #	if[%floor% ! 8] Add3DWindows(E6Windows, 55, -10, left, 4 + 0.4, %WH%, %WO%, MainWindowsIntB, MainWindowsIntB, GLEShaftWall, 0.66 + 0.01, 1/4, 1)
 #<EndFloors>
+
+########################################
+
+#Freight elevators (Added on August 4, 2026)
+	#Wall cuts for shaft walls
+	<Floors 0 to 8>
+		CutAll -119.5 - 0.1, 0, %2% - 12 + 0.33, -119.5 + 0.1, %fullheight%, %2% - 0.5, true, false #Left wall cuts
+		CutAll -119.5 - 0.1, 0, %2% - 12 - 10, -119.5 + 0.1, %fullheight%, %2% - 12, true, false #Service lobby wall cuts
+		CutAll -%1% + 0.5, 0, %2% - 0.5 - 0.1, -%1% + 20 - 0.33, %fullheight%, %2% - 0.5 + 0.1, true, false #Back wall cuts
+	<EndFloors>
+
+AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+
+#External shaft walls
+<Floors -2 to 9>
+	TexPrefix()
+
+	#Freight Elevators (Added on August 4, 2026)
+	Set ShowLeft = false
+	if[%floor% < 0] Set ShowLeft = true
+	Set ShowFront = false
+	if[%floor% < 0] Set ShowFront = true
+
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110, 104, 10, 6, SH3, %SHeight%, %SOffset%, %ShowFront%, %ShowLeft%, true, false, false, false, true)
+<EndFloors>
+
+<Floors 0 to 8>
+	TexPrefix()
+
+	#FREIGHT ELEVATOR LOBBY
+		#Outer walls
+		Set ExtraHeight = 0
+		if[%floor% = 6 | %floor% = 8] Set ExtraHeight = Floor(%floor% + 1).FullHeight
+
+		WallOrientation = left
+		DrawWalls = true, false, false, true, false, false
+		if[%floor% ! 7] AddWall Monica_FELobby_Outer, %5%Wall, 10, -120, 88, -100, 88, %height% + %ExtraHeight%, %height% + %ExtraHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Inner walls
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, false
+		TextureOverride SAWall, SAWall, SAWall, SAWall, SLDropCeiling, Blank
+		if[%floor% ! 7] AddWall Monica_FELobby_Inner, SAWall, -9.5, -120 + 0.5, 98, -100 - 0.5, 98, 9.5, 9.5, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#DOORS
+		Set DTex = Door8
+		if[%floor% > 5] Set DTex = ServiceDoor3
+		Set DSTex = %DTex%Side
+
+		Set Door_MainX = -100
+		Set Door_MainZ = 93
+
+		WallOrientation = right
+		if[%floor% ! 7] AddStdDoor DoorManager, Monica_FELD_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% ! 7] AddStdDoor DoorManager, Monica_FELD_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFloors>
+
+<Floor 10>
+	#Machine room doors
+
+	#Shaft 3
+	Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+	Set Door_MainX = 110
+	Set Door_MainZ = 104 - 6
+
+	WallOrientation = left
+	AddStdDoor DoorManager, %floorid%_Shaft3MR_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+	AddStdDoor DoorManager, %floorid%_Shaft3MR_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+	AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFloor>
 
 ##--------------------------------------------------------------------------------##
 
