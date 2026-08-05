@@ -242,6 +242,7 @@
 		Load data/EG881/Drywall/wall5c_bluegray.jpg, SHallWall_Lower, 0.2, 0.2 #EG881
 		Load data/misc/plaster.jpg, SHallWall, 0.5, 0.5
 		Load data/wall5b.jpg, SHallWall2, 0.25, 0.25 #Utility room next to freight elevators
+		Load data/stucco3.jpg, SHallWall3, 0.25, 0.25 #Utility room next to freight elevators
 		Load data/stucco4.jpg, SHallCeiling, 0.2, 0.2
 
 		#Roofs
@@ -5503,7 +5504,8 @@ ShowFullShaft 11 = true
 			FloorOrientation = top
 			DrawWalls = false, true, false, false, false, false
 			if[%floor% ! 7 & %floor% ! 9] CreateFlr(SHallFloor1, SHallFloor, 0.5, -249, -80, -90, -61, 0, true)
-			if[%floor% ! 7 & %floor% ! 9] CreateFlr(SHallFloor2, SHallFloor2, 0.5, -227 - 0.66, -61, -227 + %FELobbyWidth%, -31, 0, true)
+			if[%floor% ! 7 & %floor% ! 9] CreateFlr(SHallFloor2A, SHallFloor2, 0.5, -227 - 0.66, -61, -227 + %FELobbyWidth%, -35, 0, true)
+			if[%floor% ! 7 & %floor% ! 9] CreateFlr(SHallFloor2B, SHallFloor2, 0.5, -227 - 12, -35, -227 + %FELobbyWidth%, -31, 0, true)
 
 			#Ceilings
 			FloorOrientation = bottom
@@ -5686,9 +5688,11 @@ ShowFullShaft 11 = true
 	<Floors -1 to 10>
 		#Storage between Shafts 5 and 12
 			#WALLS
+			Set Suffix = 2
+			if[%floor% = -1] Set Suffix = 3
 			WallOrientation = left
 			DrawWalls = true, true, true, true, true, false
-			TextureOverride SHallWall2, SHallWall2, SHallWall2, SHallWall2, SLDropCeiling, Blank
+			TextureOverride SHallWall%Suffix%, SHallWall%Suffix%, SHallWall%Suffix%, SHallWall%Suffix%, SLDropCeiling, Blank
 			if[%floor% ! 7 & %floor% ! 9] AddWall StorageNexttoFEs, SHallWall2, -11, -227.5, -34.5, -227.5, -31.5, 8.5, 8.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 	
 			#DOORS
