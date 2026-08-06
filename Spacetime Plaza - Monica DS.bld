@@ -46,7 +46,6 @@
 	Load data/stucco4.jpg, ColumnTex, 0.25, 0.25 #Support columns
 	Load data/text16.jpg, WoodSign2, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/elevhallsign2.png, ElevHallSign, 1, 1, false
-	#Load data/signs_mod/elevhallsign1.png, ElevHallSign, 1, 1, false
 
 	#Landscapes
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
@@ -950,18 +949,19 @@ Set Garden_Offset2 = Floor(0).Base + 4
 <Floors -2 to -1>
 	Set SignOffset = %interfloorheight% + 9
 
-	Set ExtraSuffix = 
-	if[%floor% = -1] Set ExtraSuffix = Exit
+	#Set ExtraSuffix = 
+	#if[%floor% = -1] Set ExtraSuffix = Exit
 
-	#South entrance
-	AddBoxSign(MDS_NorthEntrance3, NoEntry, Parking_NoLeft, OverheadSign_Black, 0.1, false, true, true, 180, 85, 16, 2, %SignOffset%, true)
+	#North ends
+	if[%floor% = -2] AddBoxSign(MDS_NorthEnd1, Parking_NoRight, NoEntry, OverheadSign_Black, 0.1, false, true, true, 60, 85, 16, 2, %SignOffset%, true)
+	if[%floor% = -2] AddBoxSign(MDS_NorthEnd2, NoRight, NoEntry_Short, OverheadSign_Black, 0.1, false, true, true, -20, 85 - 8 + 2.5, 5, 2, %SignOffset%, true)
 
 	#Driving lanes
-	AddBoxSign(MDS_DrivingLane1, Parking, NoEntry, OverheadSign_Black, 0.1, true, true, true, 240, -30, 16, 2, %SignOffset%, true)
-	AddBoxSign(MDS_DrivingLane2, Parking, NoEntry, OverheadSign_Black, 0.1, true, true, true, 160, -30, 16, 2, %SignOffset%, true)
-	AddBoxSign(MDS_DrivingLane2A, NoEntry, Parking%ExtraSuffix%, OverheadSign_Black, 0.1, true, true, true, 80, -30, 16, 2, %SignOffset%, true)
-	if[%floor% = -2] AddBoxSign(MDS_DrivingLane3, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 0, -30, 16, 2, %SignOffset%, true)
-	if[%floor% = -2] AddBoxSign(MDS_DrivingLane4, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, -80, -30, 16, 2, %SignOffset%, true)
+	AddBoxSign(MDS_DrivingLane1, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 240, -90, 16, 2, %SignOffset%, true)
+	AddBoxSign(MDS_DrivingLane2, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 160, -90, 16, 2, %SignOffset%, true)
+	AddBoxSign(MDS_DrivingLane2A, Parking, NoEntry, OverheadSign_Black, 0.1, true, true, true, 80, -90, 16, 2, %SignOffset%, true)
+	if[%floor% = -2] AddBoxSign(MDS_DrivingLane3, Parking, NoEntry, OverheadSign_Black, 0.1, true, true, true, 0, -90, 16, 2, %SignOffset%, true)
+	if[%floor% = -2] AddBoxSign(MDS_DrivingLane4, Parking, NoEntry, OverheadSign_Black, 0.1, true, true, true, -80, -90, 16, 2, %SignOffset%, true)
 <EndFloors>
 
 ########################################

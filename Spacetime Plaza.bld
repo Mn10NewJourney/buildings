@@ -1,4 +1,4 @@
-#Spacetime Plaza - Master File (For entire complex)
+\#Spacetime Plaza - Master File (For entire complex)
 #Copyright (c) 2026-Present - Mn10
 
 #Started on: 30 April 2026 (Idea originated around April-May 2017.)
@@ -104,6 +104,9 @@
 		Load data/Melvin/Roads/2lane-oneway.png, B1FSoutheastAccRoad, 0.05, 0.041667 #24 ft. wide
 		Load data/EG881/2lanex_doubleline.jpg, B2FNorthAccRoad, 0.05, 0.041667 #EG881 #Loading dock access, 24 ft. wide
 		Load data/Melvin/Roads/2lane-twoway.png, B1FNorthAccRoad, 0.05, 0.041667 #24 ft. wide
+
+		Load data/Melvin/Roads/2lane-oneway.png, 2Lane-OWX-20FT, 0.05, 0.05 #20 ft. wide
+		Load data/Melvin/Roads/2lane-twoway.png, 2Lane-TWX-20FT, 0.05, 0.05 #20 ft. wide
 		Load data/Melvin/Roads/2lane-twoway-90de.png, 2Lane-TWZ-20FT, 0.05, 0.05 #20 ft. wide
 
 		#Road markings
@@ -1033,7 +1036,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
-	Set WallHeight = %height% + 1
+	Set WallHeight = %height% + Floor(-2).InterfloorHeight
 	Set WallOffset = %interfloorheight%
 
 		DrawWalls = false, true, false, false, false, false
@@ -1325,9 +1328,21 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	###************************###
 
 	#ROAD MARKINGS
+	#Two-way road markings at the middle of the complex
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	CreateFlr(MiddleRoadway1, 2Lane-TWX-20FT, 0.5, 189, -10, 431, 10, 0, true)
+
+	#One-way road markings at the middle of the complex
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%floor% = -1] CreateFlr(MiddleRoadway2, 2Lane-OWX-20FT, 0.5, -89.75, 150, 151, 170, 0, true) #Eastbound
+	if[%floor% = -1] CreateFlr(MiddleRoadway3, 2Lane-OWX-20FT, 0.5, -89.75, -10, 151, 10, 0, true) #Westbound
+
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	Set Offset = %interfloorheight% + 0.01
+
 
 		#East Zone (North)
 		AddFloor Parking_EN1, ParkingSpaceX, 0, 479.5 - 18, 280 - (8.5 * 2), 479.5, 280 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
@@ -1413,7 +1428,8 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 		#East Zone (West Edge, North and South)
 		if[%floor% = -2] AddFloor Parking_EWA1, ParkingSpaceX, 0, 151 - 18, 200 - (8.5 * 2), 151, 200 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
-		AddFloor Parking_EWA2, ParkingSpaceX, 0, 151 - 18, 141, 151, 141 + (8.5 * 1), %Offset%, %Offset%, -1, 1, true
+		#AddFloor Parking_EWA2, ParkingSpaceX, 0, 151 - 18, 141, 151, 141 + (8.5 * 1), %Offset%, %Offset%, -1, 1, true
+		if[%floor% = -2] AddFloor Parking_EWA2, ParkingSpaceX, 0, 151 - 18, 160 - (8.5 * 2), 151, 160 + (8.5 * 1), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA3, ParkingSpaceX, 0, 151 - 18, 120 - (8.5 * 2), 151, 120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA4, ParkingSpaceX, 0, 151 - 18, 80 - (8.5 * 2), 151, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA5, ParkingSpaceX, 0, 151 - 18, 40 - (8.5 * 2), 151, 40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
@@ -1423,7 +1439,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		AddFloor Parking_EWA9, ParkingSpaceX, 0, 151 - 18, -160 - (8.5 * 2), 151, -160 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor Parking_EWA10, ParkingSpaceX, 0, 151 - 18, -240 - (8.5 * 2), 151, -240 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		if[%floor% = -1] AddFloor Parking_EWA12, ParkingSpaceX, 0, 109, 141, 109 + 18, 141 + (8.5 * 1), %Offset%, %Offset%, 1, 1, true
+		#if[%floor% = -1] AddFloor Parking_EWA12, ParkingSpaceX, 0, 109, 141, 109 + 18, 141 + (8.5 * 1), %Offset%, %Offset%, 1, 1, true
 		if[%floor% = -1] AddFloor Parking_EWA13, ParkingSpaceX, 0, 109, 120 - (8.5 * 2), 109 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		if[%floor% = -1] AddFloor Parking_EWA14, ParkingSpaceX, 0, 109, 80 - (8.5 * 2), 109 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		if[%floor% = -1] AddFloor Parking_EWA15, ParkingSpaceX, 0, 109, 40 - (8.5 * 2), 109 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
@@ -1910,7 +1926,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		#Extra floorings above roads (East zone)
 		if[%floor% = -2] CreateFlr(Mall_UnderRampFloor, ParkingFloor, 0.5, 290, 20, 330, 140, 0, true)
 
-		#Utility room floor (east of Elevators 8-13)
+		#Utility space floor (east of Elevators 8-13)
 		CreateFlr(URFloor_NextToE8-13, ParkingFloor, 0.5, -175, 179, -131, 240, 0, true)
 
 		#Two-way road markings leading to the exit
@@ -1977,14 +1993,14 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		AddFloor WestParking_CC11, ParkingSpaceX, 0, -209 - 18, 80 - (8.5 * 2), -209, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CC12, ParkingSpaceX, 0, -209 - 18, 120 - (8.5 * 2), -209, 120 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
-		AddFloor WestParking_CD1, ParkingSpaceX, 0, -171, -21 - (8.5 * 1), -171 + 18, -21, %Offset%, %Offset%, 1, 1, true
+		#AddFloor WestParking_CD1, ParkingSpaceX, 0, -171, -21 - (8.5 * 1), -171 + 18, -21, %Offset%, %Offset%, 1, 1, true
 		AddFloor WestParking_CD2, ParkingSpaceX, 0, -171, 0 - (8.5 * 2), -171 + 18, 0 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CD3, ParkingSpaceX, 0, -171, 40 - (8.5 * 2), -171 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		#AddFloor WestParking_CD4, ParkingSpaceX, 0, -171, 80 - (8.5 * 2), -171 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CD5, ParkingSpaceX, 0, -171, 120 - (8.5 * 2), -171 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		#if[%floor% ! -1] AddFloor WestParking_CD6, ParkingSpaceX, 0, -171, 200 - (8.5 * 2), -171 + 18, 200 + (8.5 * 1), %Offset%, %Offset%, 1, 3, true
 
-		AddFloor WestParking_CD8, ParkingSpaceX, 0, -129 - 18, -21 - (8.5 * 1), -129, -21, %Offset%, %Offset%, -1, 1, true
+		#AddFloor WestParking_CD8, ParkingSpaceX, 0, -129 - 18, -21 - (8.5 * 1), -129, -21, %Offset%, %Offset%, -1, 1, true
 		AddFloor WestParking_CD9, ParkingSpaceX, 0, -129 - 18, 0 - (8.5 * 2), -129, 0 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CD10, ParkingSpaceX, 0, -129 - 18, 40 - (8.5 * 2), -129, 40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		#AddFloor WestParking_CD11, ParkingSpaceX, 0, -129 - 18, 80 - (8.5 * 2), -129, 80 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
@@ -2307,6 +2323,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	#Underground Parking Signs
 	Load data/Melvin/SpacetimePlaza/Parking_East1/SouthEntrance.png, SouthEntrance, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/UpToB1.png, UpToB1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_East1/UpToB1_Alt.png, UpToB1_Alt, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/DownToB2.png, DownToB2, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/NoEntry.png, NoEntry, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/Parking.png, Parking, 1, 1, false
@@ -2314,9 +2331,13 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	Load data/Melvin/SpacetimePlaza/Parking_East1/Parking_NoLeft.png, Parking_NoLeft, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/Parking_NoRight.png, Parking_NoRight, 1, 1, false
 
+	Load data/Melvin/SpacetimePlaza/Parking_East1/ParkingLeft.png, ParkingLeft, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_East1/ParkingLeftExit.png, ParkingLeftExit, 1, 1, false
+
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoLeft.png, NoLeft, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoRight.png, NoRight, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoEntry_Short.png, NoEntry_Short, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_East2/NoEntry_Short2.png, NoEntry_Short2, 1, 1, false
 	
 	#West Ramp Signs
 	Load data/Melvin/SpacetimePlaza/Parking_West1/SWRampSign1.png, SWRampSign1, 1, 1, false
@@ -2368,7 +2389,6 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	if[%floor% = -1] AddBoxSign(MallWest_FarNorthExit, West_UpToExit, Blank, Blank, 0.08, true, false, true, -120, 586, 13.5, 4.5, %SignOffset%, true)
 <EndFloors>
 
-
 #East Parking
 <Floors -2 to -1>
 	Set SignOffset = %interfloorheight% + 9
@@ -2385,7 +2405,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	if[%floor% = -1] Set RampSignTex = DownToB2
 	if[%floor% = -2] Set RampSignTex = UpToB1
 
-	AddBoxSign(MainMall_DrivingLane1/2, Parking%ExtraSuffix%, NoEntry, OverheadSign_Black, 0.1, true, true, true, 450, -20, 16, 2, %SignOffset%, true)
+	if[%floor% = -1] AddBoxSign(MainMall_DrivingLane1/2, Parking%ExtraSuffix%, NoEntry, OverheadSign_Black, 0.1, true, true, true, 450, -20, 16, 2, %SignOffset%, true)
+	if[%floor% = -2] AddBoxSign(MainMall_DrivingLane1/2, UpToB1_Alt, NoEntry_Short2, OverheadSign_Black, 0.1, true, true, true, 450 - 8 + 5, -20, 10, 2, %SignOffset%, true)
+
 	AddBoxSign(MainMall_DrivingLane2/2_RampEntry, %RampSignTex%, NoEntry, OverheadSign_Black, 0.1, true, true, true, 370, -20, 16, 2, %SignOffset%, true)
 	AddBoxSign(MainMall_DrivingLane2/2_RampExit, NoRight, NoEntry_Short, OverheadSign_Black, 0.1, false, true, true, 350, 160 - 8 + 2.5, 5, 2, %SignOffset%, true)
 
@@ -2401,6 +2423,15 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 	AddBoxSign(MainMall_DrivingLane3/3, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 250, 140, 16, 2, %SignOffset%, true)
 	AddBoxSign(MainMall_DrivingLane4/3, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 170, 140, 16, 2, %SignOffset%, true)
+
+	AddBoxSign(MainMall_DrivingLane1/4, ParkingLeft%ExtraSuffix%, NoEntry, OverheadSign_Black, 0.1, true, true, true, 450, 260, 16, 2, %SignOffset%, true)
+	AddBoxSign(MainMall_DrivingLane2/4, ParkingLeft%ExtraSuffix%, NoEntry, OverheadSign_Black, 0.1, true, true, true, 370, 260, 16, 2, %SignOffset%, true)
+	AddBoxSign(MainMall_DrivingLane3/4, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 250, 260, 16, 2, %SignOffset%, true)
+	AddBoxSign(MainMall_DrivingLane4/4, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 170, 260, 16, 2, %SignOffset%, true)
+
+	#Additional "Up to B1" signs
+	if[%floor% = -2] AddBoxSign(UpToB1_Extra1, NoEntry_Short2, UpToB1_Alt, OverheadSign_Black, 0.1, true, true, true, 250 + 8 - 5, 20, 10, 2, %SignOffset%, true)
+	if[%floor% = -2] AddBoxSign(UpToB1_Extra2, NoEntry_Short2, UpToB1_Alt, OverheadSign_Black, 0.1, true, true, true, 170 + 8 - 5, 20, 10, 2, %SignOffset%, true)
 <EndFloors>
 
 #West Parking

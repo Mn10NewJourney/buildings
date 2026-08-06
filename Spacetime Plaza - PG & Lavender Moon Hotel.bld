@@ -527,10 +527,10 @@ DrawWalls = false, true, false, false, false, false
 	if[%floor% ! -1] AddFloor LMH_PGFloor, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Extra floorings above roads (East zone)
-		#if[%floor% < -1] CreateFlr(BasementPK_UtilityFloor, ParkingFloor, 0.5, -180, -130, -126, -90, 0, true)
-		CreateFlr(%floorid%F_PLFloor_East, ParkingFloor, 0.5, -126, -130, -120, -90, 0, true)
-		CreateFlr(%floorid%F_PLFloor_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90, 0, true)
-		CreateFlr(%floorid%F_PLFloor_West, ParkingFloor, 0.5, -190, -130, -174, -90, 0, true)
+		#if[%floor% < -1] CreateFlr(BasementPK_UtilityFloor, ParkingFloor, 0.5, -180, -130, -126, -90 - 5, 0, true)
+		CreateFlr(%floorid%F_PLFloor_East, ParkingFloor, 0.5, -126, -130, -120, -90 - 5, 0, true)
+		CreateFlr(%floorid%F_PLFloor_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90 - 5, 0, true)
+		CreateFlr(%floorid%F_PLFloor_West, ParkingFloor, 0.5, -190, -130, -174, -90 - 5, 0, true)
 
 		#Concrete floors for loading dock
 		if[%floor% ! -1] CreateFlr(DockFloor_Left, LoadingDockFloor, 0.5, %1% - 140, -%2%, %1% - 140 + 15, %2%, 0, true)
@@ -543,7 +543,7 @@ DrawWalls = false, true, false, false, false, false
 	if[%floor% = -2] AddFloor LMH_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1% - 140, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% = -2] AddFloor LMH_DockMezCeiling, %5%Ceiling, 0.5, 70, 5, 80, 55, %fullheight%, %fullheight%, 0, 0, true
 	if[%floor% ! -2] AddFloor LMH_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102, %fullheight%, %fullheight%, 0, 0, true
+	AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102 - 5, %fullheight%, %fullheight%, 0, 0, true
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
@@ -609,10 +609,10 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = 1] Set NorthEnd = -90
 		if[%floor% = 2] Set NorthEnd = -108
 		if[%floor% = 3 | %floor% = 4 | %floor% = 6 | %floor% = 7] Set NorthEnd = -98
-		#if[%floor% > 1] CreateFlr(TowerPK_ElevLbyFlr_East1A, ParkingFloor2, 0.5, -126, -90, -120, -78, 0, true)
-		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1, ParkingFloor2, 0.5, -126, -130, -120, -90, 0, true)
+		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1EX, ParkingFloor2, 0.5, -174, -90 - 5, -126, -90, 0, true)
+		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East1, ParkingFloor2, 0.5, -126, -130, -120, -90 - 5, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East2, ParkingFloor2, 0.5, -120, -130, -90, %NorthEnd%, 0, true)
-		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90, 0, true)
+		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90 - 5, 0, true)
 
 		if[%floor% > 4 & %floor% ! 6 & %floor% ! 7] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -90, -130, -50, -109, 0, true)
 		if[%floor% = 0] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -126, -130, -60, -109, 0, true)
@@ -621,7 +621,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor TowerParkingCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	if[%floor% > 0] AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% > 0] AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102 - 5, %fullheight%, %fullheight%, 0, 0, true
 
 	#Railings
 	DrawWalls = true, true, true, true, true, true
@@ -680,14 +680,18 @@ DrawWalls = false, true, false, false, false, false
 
 <Floors -2 to 13>
 	#Flooring at service elevator lobbies
-	Set Extra = 0
-	if[%floor% < 0] Set Extra = 9
+	#Set Extra = 0
+	#if[%floor% < 0] Set Extra = 9
 
+	#Tower Service Elevators
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	CreateFlr(WestTowerServiceFloor, ParkingFloor3, 0.5, -145, 5, -129 + %Extra%, 55, 0, true)
-	CreateFlr(EastTowerServiceFloor, ParkingFloor3, 0.5, -91 - %Extra%, 5, -75, 55, 0, true)
-	
+	if[%floor% > -1] CreateFlr(WestTowerServiceFloor, ParkingFloor3, 0.5, -145, 5, -129, 55, 0, true)
+	if[%floor% > -1] CreateFlr(EastTowerServiceFloor, ParkingFloor3, 0.5, -91, 5, -75, 55, 0, true)
+
+	if[%floor% < 0] CreateFlr(TowerServiceFloor, ParkingFloor3, 0.5, -145, 5, -75, 55, 0, true) #Basements only
+
+	#Podium Service Elevator
 	if[%floor% ! -1] Set End = 0
 	if[%floor% = -1] Set End = 10	
 	if[%floor% > -2] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - %End%, 55, 0, true)
@@ -725,7 +729,7 @@ DrawWalls = false, true, false, false, false, false
 		#Center
 		AddFloor LuminaPG_SpaceC1, ParkingSpaceZ, 0, -190 - (8.5 * 2), 51 - 18, -190 + (8.5 * 2), 51, %Offset%, %Offset%, 4, -1, true
 		AddFloor LuminaPG_SpaceC2, ParkingSpaceZ, 0, -150 - (8.5 * 2), 51 - 18, -150, 51, %Offset%, %Offset%, 2, -1, true
-		AddFloor LuminaPG_SpaceC3, ParkingSpaceZ, 0, -110 - (8.5 * 1), 51 - 18, -110 + (8.5 * 1), 51, %Offset%, %Offset%, 2, -1, true
+		#AddFloor LuminaPG_SpaceC3, ParkingSpaceZ, 0, -110 - (8.5 * 1), 51 - 18, -110 + (8.5 * 1), 51, %Offset%, %Offset%, 2, -1, true
 		AddFloor LuminaPG_SpaceC4, ParkingSpaceZ, 0, -70, 51 - 18, -70 + (8.5 * 2), 51, %Offset%, %Offset%, 2, -1, true
 		if[%floor% ! -1] AddFloor LuminaPG_SpaceC5, ParkingSpaceZ, 0, -30 - (8.5 * 2), 51 - 18, -30 + (8.5 * 2), 51, %Offset%, %Offset%, 4, -1, true
 		if[%floor% = -1] AddFloor LuminaPG_SpaceC5, ParkingSpaceZ, 0, -49, 51 - 18, -49 + (8.5 * 1), 51, %Offset%, %Offset%, 1, -1, true
@@ -734,7 +738,7 @@ DrawWalls = false, true, false, false, false, false
 
 		AddFloor LuminaPG_SpaceC8, ParkingSpaceZ, 0, -190 - (8.5 * 2), 9, -190 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 4, 1, true
 		AddFloor LuminaPG_SpaceC9, ParkingSpaceZ, 0, -150 - (8.5 * 2), 9, -150, 9 + 18, %Offset%, %Offset%, 2, 1, true
-		AddFloor LuminaPG_SpaceC10, ParkingSpaceZ, 0, -110 - (8.5 * 1), 9, -110 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 2, 1, true
+		#AddFloor LuminaPG_SpaceC10, ParkingSpaceZ, 0, -110 - (8.5 * 1), 9, -110 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 2, 1, true
 		AddFloor LuminaPG_SpaceC11, ParkingSpaceZ, 0, -70, 9, -70 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 2, 1, true
 		if[%floor% ! -1] AddFloor LuminaPG_SpaceC12, ParkingSpaceZ, 0, -30 - (8.5 * 2), 9, -30 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 4, 1, true
 		if[%floor% = -1] AddFloor LuminaPG_SpaceC12, ParkingSpaceZ, 0, -49, 9, -49 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 1, 1, true
@@ -846,9 +850,9 @@ Cut External, -%1%, Floor(0).Base - 0.1, 5, -145, Floor(0).Base + 5, 40, false, 
 
 		#Right walls
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
-		AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall HotelEntr_R1, %5E%Wall, 0.5, -174 + 48, -118, -174 + 48, -102 - 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
-		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90, -174 + 48, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall HotelEntr_R2, %5E%Wall, 0.5, -174 + 48, -90 - 5, -174 + 48, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		TextureOverride %5E%Wall, ParkingWall, Blank, Blank, Blank, Blank
 		AddWall HotelEntr_R3, %5E%Wall, 0.5, -145, 5 - 0.5, -145, 40, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -947,10 +951,9 @@ Set SideTexture = BLKEntDoorSide
 
 #Utility floor next to Mall Parking Elevators
 <Floors -2 to -1>
-	#Mall Parking Lobby Floor
-		FloorOrientation = top
-		DrawWalls = true, true, false, false, false, false
-		CreateFlr(ExtraURFloor, ParkingFloor, 0.5, -55, -130, 0 + 1, -109 + 14, 0, true)
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	CreateFlr(ExtraURFloor, ParkingFloor, 0.5, -55, -130, 0 + 1, -109 + 14, 0, true)
 <EndFloor>
 
 ########################################
@@ -1712,17 +1715,17 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% < 0] Set ShowFront = true
 
 	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, 0.33, -150, -124, 24, 6, LMH_SH1, %SHeight%, %SOffset%, %ShowFront%, true, true, true, false, false, true)
-	if[%floor% ! 0] CreateShaftWall(%5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -96, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	if[%floor% ! 0] CreateShaftWall(%5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -96 - 5, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	if[%floor% = 0] CreateShaftWall(%5%Wall, HotelEntranceWall, %5%Wall, HotelEntranceWall, %5%Wall, %5%Wall, 0.33, -150, -124, 24, 6, LMH_SH1, %SHeight%, %SOffset%, %ShowFront%, true, true, true, false, false, true)
-	if[%floor% = 0] CreateShaftWall(HotelEntranceWall, HotelEntranceWall, %5%Wall, HotelEntranceWall, %5%Wall, %5%Wall, 0.33, -150, -96, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	if[%floor% = 0] CreateShaftWall(HotelEntranceWall, HotelEntranceWall, %5%Wall, HotelEntranceWall, %5%Wall, %5%Wall, 0.33, -150, -96 - 5, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
 
 <Floors 14 to 18>
 	TexPrefix()
 
 	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -124, 24, 6, LMH_SH1, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
-	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -96, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	if[%floor% ! 0] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -150, -96 - 5, 24, 6, LMH_SH2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
 
 #Hotel elevators
@@ -1743,6 +1746,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 #Podium Service Elevator
 <Floors -2 to 16>
 	TexPrefix()
+	if[%floor% = -2] Set SHeight = %height% + Floor(-1).InterfloorHeight #Override
 
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 75, 30 - 19, 5, 6, SH3, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
@@ -1760,10 +1764,10 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	TexPrefix()
 
 	#West Tower Stairwell
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -140, 30 - 12.5, 5, 12.5, LMH_ST1, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -140, 30 - 12.5, 5, 12.5, LMH_ST1, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	#East Tower Stairwell
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -80, 30 + 12.5, 5, 12.5, LMH_ST2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -80, 30 + 12.5, 5, 12.5, LMH_ST2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
@@ -1771,7 +1775,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 #SHAFTS
 #Parking elevators
 AddStdShaft(1, 1, -150, -124, 23.67, 5.67, -2, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
-AddStdShaft(2, 1, -150, -96, 23.67, 5.67, -2, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(2, 1, -150, -96 - 5, 23.67, 5.67, -2, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 1 = true
 ShowFullShaft 2 = true
 
@@ -1793,7 +1797,7 @@ ShowFullShaft 2 = true
 		Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 		Set Door_MainX = -150
-		Set Door_MainZ = -96 - 6
+		Set Door_MainZ = -96 - 5 - 6
 	
 		WallOrientation = left
 		AddStdDoor DoorManager, %floorid%_Shaft2MR_D1, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
@@ -2949,7 +2953,7 @@ ShowFullShaft 9 = true
 	Set Shaft1CX = -150 #1st shaft for elevator bank
 	Set Shaft1CZ = -124
 	Set Shaft2CX = -150 #2nd shaft for elevator bank
-	Set Shaft2CZ = -96
+	Set Shaft2CZ = -96 - 5
 
 		#PARKING LEVELS
 			#Elevators 1-4
