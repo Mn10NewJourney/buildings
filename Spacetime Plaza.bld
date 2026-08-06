@@ -316,11 +316,13 @@
 		########################################
 
 		#South elevators (No. 1-3)
-		Load data/MT/treatment02.jpg, SouthElevFloor, 0.25, 0.25
+		#Load data/MT/treatment02.jpg, SouthElevFloor, 0.25, 0.25
+		Load data/Carpet0021d_S.jpg, SouthElevFloor, 0.2, 0.2
 		Load data/EG881/stainlesssteel2.jpg, SouthElevCeiling, 1, 1, false #EG881
 		Load data/EG881/light1z.jpg, SouthElevCeilingLight, 1, 1, false #EG881
 		Load data/EG881/blackdoortrim.jpg, SouthElevWall, 1, 1, false #EG881
-		Load data/checker10.jpg, SouthElevWallPanel, 0.5, 0.5
+		#Load data/checker10.jpg, SouthElevWallPanel, 0.5, 0.5
+		Load data/otis4_weavefloor.jpg, SouthElevWallPanel, 1, 3, false
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, SouthElevPanelMain, 1, 1, false #EG881
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, SouthElevPanelTop, 1, 0.125, false #EG881
 		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, SouthElevDoors, -1, 1, false #EG881
@@ -791,7 +793,7 @@ DrawWalls = false, true, false, false, false, false
 	LSFloorCreator(Mall_PGAccess1, Road, -416 - 3, -60 - 40, -416 + 24 - 0.5, -60, %FO%, false, false)
 	LSFloorCreator(Mall_PGAccess2, Road, -416 - 3, 140 - 40, -416 + 24 + 3, 140, %FO%, false, false)
 	LSFloorCreator(LuminaPGAcc, Road, -416 - 3, 460 - 30, -416 + 24 + 3, 460 + 30, %FO%, false, false)
-	LSFloorCreator(SouthwestU-turn, Road, -416 - 3, -480, -416 + 24 + 3, -480 + 20, %FO%, false, false)
+	#LSFloorCreator(SouthwestU-turn, Road, -416 - 3, -480, -416 + 24 + 3, -480 + 20, %FO%, false, false)
 
 	#Miriam Tower entrance walkway
 	LSFloorCreator(ACTT_WestEnt1, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
@@ -1085,6 +1087,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		DrawWalls = false, true, false, false, false, false
 		#Extra floorings above roads (East zone)
 		if[%floor% = -2] CreateFlr(Mall_UnderRampFloor, ParkingFloor, 0.5, 290, 20, 330, 140, 0, true)
+		if[%floor% = -1] CreateFlr(Mall_AboveRampFloor, ParkingFloor, 0.5, 290, 140, 313, 179, 0, true)
 
 		if[%floor% = -1] CreateFlr(ChamberGapFiller1, ParkingFloor, 0.5, 90 - 0.5, -360 + 0.5, 90, -80, 0, true)
 		if[%floor% = -1] CreateFlr(ChamberGapFiller2, ParkingFloor, 0.5, -90 + 0.5, -80 - 0.5, 90 - 0.5, -80, 0, true)
@@ -1356,7 +1359,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 		AddFloor Parking_EN27, ParkingSpaceX, 0, 269, 240 - (8.5 * 2), 269 + 18, 240 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_EN28, ParkingSpaceX, 0, 269, 160 - (8.5 * 2), 269 + 18, 160 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
-		if[%floor% = -2] AddFloor Parking_EN28_Spacer, NoParkingZ, 0, 269 + 18, 140, 269 + 18 + 6, 140 + 40, %Offset%, %Offset%, 1, 2, true
+		if[%floor% = -2] AddFloor Parking_EN28_Spacer, NoParkingZ, 0, 269 + 18, 140, 269 + 18 + 6, 140 + 40 - 1, %Offset%, %Offset%, 1, 2, true
 		AddFloor Parking_EN29, ParkingSpaceX, 0, 269, 120 - (8.5 * 2), 269 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_EN30, ParkingSpaceX, 0, 269, 80 - (8.5 * 2), 269 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor Parking_EN31, ParkingSpaceX, 0, 269, 40 - (8.5 * 2), 269 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
@@ -1890,6 +1893,18 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 	#--------------------#
 
+	#EXTRA MARKINGS
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	Set Offset = %interfloorheight% + 0.01
+
+		#Motorcycle Parking Divider
+		if[%floor% = -1] AddFloor MPDivider1, WhiteIslandZ, 0, -88.75 - 1.5 - 1.25, 180 - 1.5, -88.75 + 1.5, 240, %Offset%, %Offset%, 1, 3, true
+		if[%floor% = -1] AddFloor MPDivider2, NoParkingX, 0, -88.75 + 1.5 + 8, 180 - 1.5, -50 - 1.5, 180 + 1.5, %Offset%, %Offset%, -3, 1, true
+		if[%floor% = -1] AddFloor MPDivider3, NoParkingZ, 0, -50 - 1.5, 180 - 1.5, -50 + 1.5, 199, %Offset%, %Offset%, -1, 1, true
+
+	#--------------------#
+
 	#WEST ZONE PARKING SPACES
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
@@ -1938,6 +1953,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		AddFloor WestParking_CC3, ParkingSpaceX, 0, -251, 40 - (8.5 * 2), -251 + 18, 40 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CC4, ParkingSpaceX, 0, -251, 80 - (8.5 * 2), -251 + 18, 80 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
 		AddFloor WestParking_CC5, ParkingSpaceX, 0, -251, 120 - (8.5 * 2), -251 + 18, 120 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
+
+		AddFloor WestParking_CC6, ParkingSpaceX, 0, -240 - 18, 200 - (8.5 * 2), -240, 200 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
+		AddFloor WestParking_CC7, ParkingSpaceX, 0, -240 - 18, 221, -240, 221 + (8.5 * 2), %Offset%, %Offset%, -1, 2, true
 
 		#AddFloor WestParking_CC8, ParkingSpaceX, 0, -209 - 18, -40 - (8.5 * 2), -209, -40 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 		AddFloor WestParking_CC9, ParkingSpaceX, 0, -209 - 18, 0 - (8.5 * 2), -209, 0 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
@@ -2270,8 +2288,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 <Textures>
 	#Sign background
 	Load data/black.jpg, OverheadSign_Black, 1, 1, false
+	Load data/panel-back2.jpg, GrayBG, 1, 1, false
 
-	#Signs
+	#Underground Parking Signs
 	Load data/Melvin/SpacetimePlaza/Parking_East1/SouthEntrance.png, SouthEntrance, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/UpToB1.png, UpToB1, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East1/DownToB2.png, DownToB2, 1, 1, false
@@ -2284,6 +2303,18 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoLeft.png, NoLeft, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoRight.png, NoRight, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_East2/NoEntry_Short.png, NoEntry_Short, 1, 1, false
+	
+	#West Ramp Signs
+	Load data/Melvin/SpacetimePlaza/Parking_West1/SWRampSign1.png, SWRampSign1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/SWRampSign2.png, SWRampSign2, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/NWRampSign1.png, NWRampSign1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/NWRampSign2.png, NWRampSign2, 1, 1, false
+
+	#North Ramp Signs
+	Load data/Melvin/SpacetimePlaza/Parking_North/NWRampSign3.png, NWRampSign3, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_North/NWRampSign4.png, NWRampSign4, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_North/NERampSign1.png, NERampSign1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_North/NERampSign2.png, NERampSign2, 1, 1, false
 <EndTextures>
 
 #East Parking
@@ -2319,6 +2350,52 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	AddBoxSign(MainMall_DrivingLane3/3, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 250, 140, 16, 2, %SignOffset%, true)
 	AddBoxSign(MainMall_DrivingLane4/3, NoEntry, Parking, OverheadSign_Black, 0.1, true, true, true, 170, 140, 16, 2, %SignOffset%, true)
 <EndFloors>
+
+#West Parking
+<Floor 0>
+	Set SignOffset = %interfloorheight% + 3.5
+
+	#Southwest Entrance (Miriam Tower, 5th Street)
+	CreateWallBox2 external, SWSign1_Pole, GrayBG, -417.5, -320 + 1, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(SWSign1, SWRampSign1, GrayBG, GrayBG, 0.5, true, true, true, -417.5, -320 + 1, 2, 2 * 1.5, %SignOffset%, true)
+
+	#Southwest Exit (Miriam Tower, 5th Street)
+	CreateWallBox2 external, SWSign2_Pole, GrayBG, -404, -360 - 1, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(SWSign2, GrayBG, SWRampSign2, GrayBG, 0.5, true, true, true, -404, -360 - 1, 2, 2 * 1.2, %SignOffset%, true)
+
+	#----------------------------------------#
+
+	#Northwest Entrance (Mall and Lavender Moon Hotel)
+	CreateWallBox2 external, NWSign1_Pole, GrayBG, -417.5, -60 + 1, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NWSign1, NWRampSign1, GrayBG, GrayBG, 0.5, true, true, true, -417.5, -60 + 1, 2, 2 * 1.5, %SignOffset%, true)
+
+	#Northwest Exit (Mall and Lavender Moon Hotel)
+	CreateWallBox2 external, NWSign2_Pole, GrayBG, -404, 100 - 1, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NWSign2, GrayBG, NWRampSign2, GrayBG, 0.5, true, true, true, -404, 100 - 1, 2, 2 * 1.2, %SignOffset%, true)
+<EndFloor>
+
+#North Parking
+<Floor 0>
+	Set SignOffset = %interfloorheight% + 3.5
+
+	#Northwest Entrance
+	CreateWallBox2 external, NWSign3_Pole, GrayBG, -250 + 1, 587.5, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NWSign3, NWRampSign3, GrayBG, GrayBG, 0.5, false, true, true, -250 + 1, 587.5, 2, 2 * 1.2, %SignOffset%, true)
+
+	#Northwest Exit
+	CreateWallBox2 external, NWSign4_Pole, GrayBG, -280 - 1, 574, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NWSign4, GrayBG, NWRampSign4, GrayBG, 0.5, false, true, true, -280 - 1, 574, 2, 2 * 0.8, %SignOffset%, true)
+
+	#----------------------------------------#
+
+	#Northeast Entrance (Market Street)
+	CreateWallBox2 external, NESign1_Pole, GrayBG, 350 - 1, 560.5, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NESign1, GrayBG, NERampSign1, GrayBG, 0.5, false, true, true, 350 - 1, 560.5, 2, 2 * 1.5, %SignOffset%, true)
+
+	#Northeast Exit (Market Street)
+	CreateWallBox2 external, NESign2_Pole, GrayBG, 380 + 1, 574, 0.25, 0.25, 3.5, 0, 0, 0, false, true, false, false
+	AddBoxSign(NESign2, NERampSign2, GrayBG, GrayBG, 0.5, false, true, true, 380 + 1, 574, 2, 2 * 0.8, %SignOffset%, true)
+<EndFloor>
 
 ########################################
 
@@ -2767,7 +2844,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		Add3DWindows(B1FChamberNorth_WinTop1, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
 		Add3DWindows(B1FChamberNorth_WinSide1/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
-		Add3DWindows(B1FChamberNorth_WinSide1/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		#Add3DWindows(B1FChamberNorth_WinSide1/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		Add3DWindows(B1FChamberNorth_WinSide1/2, %Door_MainX% + 7.5, %Door_MainZ%, back, 8.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 2/4, 1)
 
 		Set Door_MainX = -30 + 7.5
 		Set Door_MainZ = -79.5
@@ -2780,7 +2858,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		AddFillerWalls %5%Wall, 1, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 		Add3DWindows(B1FChamberNorth_WinTop2, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
-		Add3DWindows(B1FChamberNorth_WinSide2/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		#Add3DWindows(B1FChamberNorth_WinSide2/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
 		Add3DWindows(B1FChamberNorth_WinSide2/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
 
 		#Northeast doors
@@ -2796,7 +2874,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		Add3DWindows(B1FChamberNorth_WinTop3, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
 		Add3DWindows(B1FChamberNorth_WinSide3/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
-		Add3DWindows(B1FChamberNorth_WinSide3/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		#Add3DWindows(B1FChamberNorth_WinSide3/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		Add3DWindows(B1FChamberNorth_WinSide3/2, %Door_MainX% + 7.5, %Door_MainZ%, back, 8.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 2/4, 1)
 
 		Set Door_MainX = 50 + 7.5
 		Set Door_MainZ = -79.5
@@ -2809,9 +2888,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		AddFillerWalls %5%Wall, 1, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 		Add3DWindows(B1FChamberNorth_WinTop4, %Door_MainX%, %Door_MainZ%, back, 6, %height% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
-		Add3DWindows(B1FChamberNorth_WinSide4/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
+		#Add3DWindows(B1FChamberNorth_WinSide4/1, %Door_MainX% - 3 - 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
 		Add3DWindows(B1FChamberNorth_WinSide4/2, %Door_MainX% + 3 + 2.25, %Door_MainZ%, back, 4, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 1, 1/4, 1)
-
 <EndFloor>
 
 ########################################
@@ -3167,15 +3245,15 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		Cut External, 60, Floor(1).Altitude - 1, 100 - 15, 60 + 4.5, Floor(6).Base + 5, 100 + 15, false, true
 
 	#South atrium
-	Cut External, -8.5, Floor(0).Base - 5, -140 - 24.14, -8.5 + 16, Floor(0).Base + 1, -140, false, true #B1F Chamber Access
+	Cut External, -8.5, Floor(0).Base - 4.07, -140 - 24.14, -8.5 + 16, Floor(0).Base + 1, -140, false, true #B1F Chamber Access
 
 	Cut External, -30, Floor(0).Base - 0.1, -300, 30, Floor(0).Base + 1, -180 - 10, false, true #Atrium base
 	Cut External, -30, Floor(0).Base + 5, -300, 30, Floor(2).Base + 5, -180, false, true #Shopping levels
 	Cut External, -30, Floor(4).Altitude - 1, -300, 30, Floor(4).Base + 1, -180, false, true #Roof skylight
 
 		#Extra cuts for escalators between 2-3
-		Cut External, -34.5, Floor(1).Base - 1, -260 - 15, -30, Floor(2).Base + 5, -260 + 15, false, true
-		Cut External, 30, Floor(1).Base - 1, -260 - 15, 34.5, Floor(2).Base + 5, -260 + 15, false, true
+		Cut External, -34.5, Floor(1).Base - 4.14, -260 - 15, -30, Floor(2).Base + 5, -260 + 15, false, true
+		Cut External, 30, Floor(1).Base - 4.14, -260 - 15, 34.5, Floor(2).Base + 5, -260 + 15, false, true
 
 	#East atriums
 	Cut External, 198, Floor(-2).Base + 1, -189 - 8 - 2, 218, Floor(-1).Base + 5, -181, false, true #Atrium 1 (South) - B2F-B1F Escalators
@@ -4401,7 +4479,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 #TOWER PARKING LOBBY (Elevators 8-11)
 <Floors -2 to -1>
-	CutAll -210, %interfloorheight% - 1, 179 + 20, -175, %interfloorheight% + 1, 240, false, true #Floor cuts
+	CutAll -210, %interfloorheight% - 1, 179, -175, %interfloorheight% + 1, 240, false, true #Floor cuts
 <EndFloors>
 
 <Floors 0 to 11>
@@ -4417,7 +4495,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 		FloorOrientation = top
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride ParkingCeiling, ParkingFloor, Blank, Blank, Blank, Blank
-		AddFloor TPKLobbyFloor_EX1, ParkingFloor, 1, -210, 179 + 20, -175, 210, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor TPKLobbyFloor_EX1, ParkingFloor, 1, -210, 179, -175, 210, %interfloorheight%, %interfloorheight%, 0, 0, true
 		DrawWalls = false, true, false, false, false, false
 		AddFloor TPKLobbyFloor, ParkingLobbyFloor, 0.5, -210, 210, -175, 240, %interfloorheight%, %interfloorheight%, 0, 0, true
 
@@ -5708,6 +5786,28 @@ ShowFullShaft 11 = true
 			if[%floor% ! 7 & %floor% ! 9] AddStdDoor DoorManager, STP_WestStorage_%floorid%F, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 2.75, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			if[%floor% ! 7 & %floor% ! 9] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 2.75, 7, %interfloorheight%, false, 0, 0, true
 	<EndFloors>
+	
+	<Floor -2>
+		#Utility room south of Stairwell 6
+			#WALLS
+			WallOrientation = left
+			DrawWalls = true, true, false, false, false, false
+			AddWall B2F_WestCenterUtility_Left, ParkingWall, 0.5, -125, -80, -125, -60.5, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+			WallOrientation = right
+			AddWall B2F_WestCenterUtility_Back, ParkingWall, 0.5, -125, -60.5, -100, -60.5, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+	
+			#DOORS
+			Set DTex = ServiceDoor3
+			Set DSTex = %DTex%Side
+
+			Set Door_MainX = -125 + 0.5
+			Set Door_MainZ = -70
+
+			WallOrientation = right
+			AddStdDoor DoorManager, B2F_WCU_D1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, B2F_WCU_D2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	<EndFloor>
 
 ##--------------------------------------------------------------------------------##
 

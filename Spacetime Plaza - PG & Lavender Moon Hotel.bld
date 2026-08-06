@@ -416,24 +416,31 @@
 	Type = Skylobby
 	Height = 22
 	InterfloorHeight = 2
-	Description = Hotel lobby and Miriam Lounge
 <EndFloor>
 
-<Floors 18 to 42>
+<Floors 18 to 19>
 	ID = %floor% - 3
-	Name = Level %floor%
+	Name = Recreation Level %floor%
 	Type = Recreation
 	Height = 10
 	InterfloorHeight = 2
 <EndFloors>
 
-<Floor 43>
+<Floors 20 to 41>
 	ID = %floor% - 3
-	Name = Good Friday Restaurant
-	Type = Recreation
+	Name = Hotel Level %floor%
+	Type = Hotel
 	Height = 10
 	InterfloorHeight = 2
-<EndFloor>
+<EndFloors>
+
+<Floors 42 to 43>
+	ID = %floor% - 3
+	Name = Restaurant Level %floor%
+	Type = Restaurant
+	Height = 10
+	InterfloorHeight = 2
+<EndFloors>
 
 <Floors 44 to 45>
 	if[%floor% = 44] ID = 41
@@ -554,12 +561,15 @@ DrawWalls = false, true, false, false, false, false
 		WallOrientation = right
 		DrawWalls = true, true, false, false, false, false
 		if[%floor% = -2] AddWall RightWall_Inner, %5%Wall, 0.5, %1% - 140, -%2%, %1% - 140, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = true, false, false, false, false, false
+		if[%floor% = -1] AddWall RightWall_Inner2, %5%Wall, 0.5, %1% - 140, 5, %1% - 140, 55, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = true, true, true, true, true, false #Reset for the following wall.
 		if[%floor% = -1] AddWall RightWall_DK1, LoadingDockRailing, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, 5, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+		if[%floor% = -1] AddWall RightWall_DK2, LoadingDockRailing, 0.5, %1% - 130, 5 + 12, %1% - 130, 55 - 25, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 		DrawWalls = true, true, true, false, true, false #Reset for the following wall.
-		if[%floor% = -1] AddWall RightWall_DK2, LoadingDockRailing, 0.5, %1% - 140, 55, %1% - 140, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+		if[%floor% = -1] AddWall RightWall_DK3, LoadingDockRailing, 0.5, %1% - 140, 55, %1% - 140, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 
 		#AddWall RightWall, %5%Wall, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
@@ -667,17 +677,128 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% > 1] AddWall BackWallC, ExtFacade2, 0.5, 30, %2%, 150, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 <EndFloors>
 
-<Floors -1 to 13>
+<Floors -2 to 13>
 	#Flooring at service elevator lobbies
+	Set Extra = 0
+	if[%floor% < 0] Set Extra = 9
+
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	CreateFlr(WestTowerServiceFloor, ParkingFloor3, 0.5, -145, 5, -129, 55, 0, true)
-	CreateFlr(EastTowerServiceFloor, ParkingFloor3, 0.5, -91, 5, -75, 55, 0, true)
+	CreateFlr(WestTowerServiceFloor, ParkingFloor3, 0.5, -145, 5, -129 + %Extra%, 55, 0, true)
+	CreateFlr(EastTowerServiceFloor, ParkingFloor3, 0.5, -91 - %Extra%, 5, -75, 55, 0, true)
 	
 	if[%floor% ! -1] Set End = 0
 	if[%floor% = -1] Set End = 10	
-	CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - %End%, 55, 0, true)
+	if[%floor% > -2] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - %End%, 55, 0, true)
 <EndFloors>
+
+########################################
+
+#ROAD MARKINGS AND EXTRAS
+<Floors -2 to -1>
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+
+	#Extra floors under ramps
+	Set EastPoint = %1% - 140 - 10
+	if[%floor% = -1] Set EastPoint = -10
+	CreateFlr(LuminaPG_FarNorthUF, ParkingFloor, 0.5, -%1%, 110, %EastPoint%, %2%, 0, true)
+	if[%floor% = -2] CreateFlr(LuminaPG_MidEastUF, ParkingFloor, 0.5, %EastPoint%, -%2%, %1% - 140, %2%, 0, true)
+
+	#Basement Parking Spaces
+	Set Offset = %interfloorheight% + 0.01
+
+		#North (Northernmost of the complex)
+		AddFloor LuminaPG_SpaceN1, ParkingSpaceZ, 0, -190 - (8.5 * 2), 89, -190 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceN2, ParkingSpaceZ, 0, -150 - (8.5 * 2), 89, -150 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceN3, ParkingSpaceZ, 0, -110 - (8.5 * 2), 89, -110 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceN4, ParkingSpaceZ, 0, -70 - (8.5 * 2), 89, -70 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceN5, ParkingSpaceZ, 0, -30 - (8.5 * 2), 89, -30 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% = -1] AddFloor LuminaPG_SpaceN5, ParkingSpaceZ, 0, -49, 89, -49 + (8.5 * 4), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceN6, ParkingSpaceZ, 0, 10 - (8.5 * 2), 89, 10 + (8.5 * 2), 89 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceN7, ParkingSpaceZ, 0, 50 - (8.5 * 2), 89, 50 + (8.5 * 1), 89 + 18, %Offset%, %Offset%, 3, 1, true
+
+		#Center
+		AddFloor LuminaPG_SpaceC1, ParkingSpaceZ, 0, -190 - (8.5 * 2), 51 - 18, -190 + (8.5 * 2), 51, %Offset%, %Offset%, 4, -1, true
+		AddFloor LuminaPG_SpaceC2, ParkingSpaceZ, 0, -150 - (8.5 * 2), 51 - 18, -150, 51, %Offset%, %Offset%, 2, -1, true
+		AddFloor LuminaPG_SpaceC3, ParkingSpaceZ, 0, -110 - (8.5 * 1), 51 - 18, -110 + (8.5 * 1), 51, %Offset%, %Offset%, 2, -1, true
+		AddFloor LuminaPG_SpaceC4, ParkingSpaceZ, 0, -70, 51 - 18, -70 + (8.5 * 2), 51, %Offset%, %Offset%, 2, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC5, ParkingSpaceZ, 0, -30 - (8.5 * 2), 51 - 18, -30 + (8.5 * 2), 51, %Offset%, %Offset%, 4, -1, true
+		if[%floor% = -1] AddFloor LuminaPG_SpaceC5, ParkingSpaceZ, 0, -49, 51 - 18, -49 + (8.5 * 1), 51, %Offset%, %Offset%, 1, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC6, ParkingSpaceZ, 0, 10 - (8.5 * 2), 51 - 18, 10 + (8.5 * 2), 51, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC7, ParkingSpaceZ, 0, 31, 51 - 18, 31 + (8.5 * 1), 51, %Offset%, %Offset%, 1, -1, true
+
+		AddFloor LuminaPG_SpaceC8, ParkingSpaceZ, 0, -190 - (8.5 * 2), 9, -190 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceC9, ParkingSpaceZ, 0, -150 - (8.5 * 2), 9, -150, 9 + 18, %Offset%, %Offset%, 2, 1, true
+		AddFloor LuminaPG_SpaceC10, ParkingSpaceZ, 0, -110 - (8.5 * 1), 9, -110 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 2, 1, true
+		AddFloor LuminaPG_SpaceC11, ParkingSpaceZ, 0, -70, 9, -70 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 2, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC12, ParkingSpaceZ, 0, -30 - (8.5 * 2), 9, -30 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% = -1] AddFloor LuminaPG_SpaceC12, ParkingSpaceZ, 0, -49, 9, -49 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 1, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC13, ParkingSpaceZ, 0, 10 - (8.5 * 2), 9, 10 + (8.5 * 2), 9 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceC14, ParkingSpaceZ, 0, 31, 9, 31 + (8.5 * 1), 9 + 18, %Offset%, %Offset%, 1, 1, true
+
+		#South (Closest to the mall)
+		AddFloor LuminaPG_SpaceS1, ParkingSpaceZ, 0, -190 - (8.5 * 2), -29 - 18, -190 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+
+		AddFloor LuminaPG_SpaceS1_Spacer, NoParkingZ, 0, -190 + (8.5 * 2) + 1, -69.75, -150 - (8.5 * 2) - 1, -29, %Offset%, %Offset%, 1, 2, true
+
+		AddFloor LuminaPG_SpaceS2, ParkingSpaceZ, 0, -150 - (8.5 * 2), -29 - 18, -150 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+		AddFloor LuminaPG_SpaceS3, ParkingSpaceZ, 0, -110 - (8.5 * 2), -29 - 18, -110 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+		AddFloor LuminaPG_SpaceS4, ParkingSpaceZ, 0, -70 - (8.5 * 2), -29 - 18, -70 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS5, ParkingSpaceZ, 0, -30 - (8.5 * 2), -29 - 18, -30 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+		if[%floor% = -1] AddFloor LuminaPG_SpaceS5, ParkingSpaceZ, 0, -49, -29 - 18, -49 + (8.5 * 1), -29, %Offset%, %Offset%, 1, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS6, ParkingSpaceZ, 0, 10 - (8.5 * 2), -29 - 18, 10 + (8.5 * 2), -29, %Offset%, %Offset%, 4, -1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS7, ParkingSpaceZ, 0, 31, -29 - 18, 31 + (8.5 * 1), -29, %Offset%, %Offset%, 1, -1, true
+
+		AddFloor LuminaPG_SpaceS8, ParkingSpaceZ, 0, -190 - (8.5 * 2), -69.75, -190 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceS9, ParkingSpaceZ, 0, -150 - (8.5 * 2), -69.75, -150 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceS10, ParkingSpaceZ, 0, -110 - (8.5 * 2), -69.75, -110 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor LuminaPG_SpaceS11, ParkingSpaceZ, 0, -70 - (8.5 * 2), -69.75, -70 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS12, ParkingSpaceZ, 0, -30 - (8.5 * 2), -69.75, -30 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% = -1] AddFloor LuminaPG_SpaceS12, ParkingSpaceZ, 0, -49, -69.75, -49 + (8.5 * 1), -69.75 + 18, %Offset%, %Offset%, 1, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS13, ParkingSpaceZ, 0, 10 - (8.5 * 2), -69.75, 10 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS14, ParkingSpaceZ, 0, 31, -69.75, 31 + (8.5 * 1), -69.75 + 18, %Offset%, %Offset%, 1, 1, true
+
+		#Islands around entrance areas
+		if[%floor% = -1] AddFloor EntArea_LeftIsland, WhiteIslandZ, 0, -11.25 - 1.5, -70, -11.25 + 1.5, 110, %Offset%, %Offset%, 1, 9, true
+		if[%floor% = -1] AddFloor EntArea_MidIsland, NoParkingZ, 0, 10 - 3, -70, 10 + 3, 129.5, %Offset%, %Offset%, -1, 10, true
+		if[%floor% = -1] AddFloor EntArea_RightIsland, WhiteIslandZ, 0, 30 - 1.5, -%2%, 30 + 1.5 + 1.25, 110, %Offset%, %Offset%, -1, 24, true
+<EndFloors>
+
+########################################
+
+<Floor -2>
+	#Loading dock access doors
+	Set DTex = ServiceDoor3
+	Set DSTex = %DTex%Side
+
+		#North doors
+		Set Door_MainX = 70
+		Set Door_MainZ = 70
+
+		WallOrientation = right
+		AddStdDoor DoorManager, Lavender_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Lavender_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#Center doors
+		Set Door_MainX = 70
+		Set Door_MainZ = 25
+
+		WallOrientation = right
+		AddStdDoor DoorManager, Lavender_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Lavender_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#South doors
+		Set Door_MainX = 70
+		Set Door_MainZ = -50
+
+		WallOrientation = right
+		AddStdDoor DoorManager, Lavender_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Lavender_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFloor>
 
 ########################################
 
@@ -808,7 +929,7 @@ Set SideTexture = BLKEntDoorSide
 
 #Mall Parking Elevator Lobby
 <Floors -2 to -1>
-	CutAll -90, %interfloorheight% - 1, -130, -55, %interfloorheight% + 1, -125, false, true #Floor cuts
+	CutAll -90, %interfloorheight% - 1, -130, -55, %interfloorheight% + 1, -109, false, true #Floor cuts
 <EndFloors>
 
 <Floors -2 to -1>
@@ -816,7 +937,7 @@ Set SideTexture = BLKEntDoorSide
 		FloorOrientation = top
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride ParkingCeiling, ParkingFloor, Blank, Blank, Blank, Blank
-		AddFloor MPKLobbyFloor_EX2, ParkingFloor, 1, -90, -130, -55, -125, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor MPKLobbyFloor_EX2, ParkingFloor, 1, -90, -130, -55, -109, %interfloorheight%, %interfloorheight%, 0, 0, true
 <EndFloor>
 
 ########################################
@@ -1160,27 +1281,25 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	if[%floor% ! 14] AddFloor MidMechFlr, %5%Floor, 0.5, -%1%, -%2%, %1% - 140, %2%, 0, 0, 0, 0, false
-	if[%floor% = 16] AddFloor MidMechFlr2, %5%Floor, 0.5, 70, 5, 80, 55, 0, 0, 0, 0, false
+	if[%floor% ! 14] AddFloor MidMechFlr2, %5%Floor, 0.5, 70, 5, 80, 55, 0, 0, 0, 0, false
 	if[%floor% = 14] AddFloor MidMechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% ! 16] AddFloor MidMechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1% - 140, %2%, %height%, %height%, 0, 0, false
-	if[%floor% = 15] AddFloor MidMechCeil2, %5%Ceiling, 0.5, 70, 5, 80, 55, %height%, %height%, 0, 0, false
+	if[%floor% ! 16] AddFloor MidMechCeil2, %5%Ceiling, 0.5, 70, 5, 80, 55, %height%, %height%, 0, 0, false
 	if[%floor% = 16] AddFloor MidMechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
 
 	#Railings
 	Set WallHeight = %interfloorheight% + 3.5
 	Set WallOffset = -%interfloorheight%
 
-	WallOrientation = left
-	DrawWalls = true, true, false, true, true, true #Reset for the following wall.
-	if[%floor% = 16] AddWall RightMechRail_A, %5%Wall, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	if[%floor% = 15] AddWall RightMechRail_A, %5%Wall, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, %2% - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-
-	DrawWalls = true, true, true, false, true, true #Reset for the following wall.
-	if[%floor% = 16] AddWall RightMechRail_B, %5%Wall, 0.5, %1% - 140, 55, %1% - 140, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	WallOrientation = right
+	DrawWalls = true, true, false, false, true, false
+	if[%floor% ! 14] AddWall RightMechRail_A, %5%Wall, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% ! 14] AddWall RightMechRail_B, %5%Wall, 0.5, %1% - 130, 5 + 12, %1% - 130, 55 - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% ! 14] AddWall RightMechRail_C, %5%Wall, 0.5, %1% - 140, 55, %1% - 140, %2% - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
