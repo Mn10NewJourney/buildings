@@ -71,6 +71,7 @@
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
+		Load data/Melvin/Roads/2lane-twoway-90de.png, 2Lane-TWZ-20FT, 0.05, 0.05 #20 ft. wide
 
 		#Road markings
 		Load data/EG881/parkingspacex.png, ParkingSpaceX, 1, 1, false #EG881
@@ -705,6 +706,9 @@ DrawWalls = false, true, false, false, false, false
 	CreateFlr(LuminaPG_FarNorthUF, ParkingFloor, 0.5, -%1%, 110, %EastPoint%, %2%, 0, true)
 	if[%floor% = -2] CreateFlr(LuminaPG_MidEastUF, ParkingFloor, 0.5, %EastPoint%, -%2%, %1% - 140, %2%, 0, true)
 
+	#Two-way road markings leading to the exit
+	if[%floor% = -1] CreateFlr(NorthwestLane, 2Lane-TWZ-20FT, 0.5, 15 - 10, -%2%, 15 + 10, -90, 0, true)
+
 	#Basement Parking Spaces
 	Set Offset = %interfloorheight% + 0.01
 
@@ -758,11 +762,12 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% = -1] AddFloor LuminaPG_SpaceS12, ParkingSpaceZ, 0, -49, -69.75, -49 + (8.5 * 1), -69.75 + 18, %Offset%, %Offset%, 1, 1, true
 		if[%floor% ! -1] AddFloor LuminaPG_SpaceS13, ParkingSpaceZ, 0, 10 - (8.5 * 2), -69.75, 10 + (8.5 * 2), -69.75 + 18, %Offset%, %Offset%, 4, 1, true
 		if[%floor% ! -1] AddFloor LuminaPG_SpaceS14, ParkingSpaceZ, 0, 31, -69.75, 31 + (8.5 * 1), -69.75 + 18, %Offset%, %Offset%, 1, 1, true
+		if[%floor% ! -1] AddFloor LuminaPG_SpaceS15, ParkingSpaceZ, 0, 50 - (8.5 * 2), -109 - 18, 50 + (8.5 * 1), -109, %Offset%, %Offset%, 3, -1, true
 
 		#Islands around entrance areas
 		if[%floor% = -1] AddFloor EntArea_LeftIsland, WhiteIslandZ, 0, -11.25 - 1.5, -70, -11.25 + 1.5, 110, %Offset%, %Offset%, 1, 9, true
 		if[%floor% = -1] AddFloor EntArea_MidIsland, NoParkingZ, 0, 10 - 3, -70, 10 + 3, 129.5, %Offset%, %Offset%, -1, 10, true
-		if[%floor% = -1] AddFloor EntArea_RightIsland, WhiteIslandZ, 0, 30 - 1.5, -%2%, 30 + 1.5 + 1.25, 110, %Offset%, %Offset%, -1, 24, true
+		if[%floor% = -1] AddFloor EntArea_RightIsland, WhiteIslandZ, 0, 30 - 1.5, -%2%, 30 + 1.5 + 1.25, 110, %Offset%, %Offset%, -1, 12, true
 <EndFloors>
 
 ########################################
@@ -929,7 +934,7 @@ Set SideTexture = BLKEntDoorSide
 
 #Mall Parking Elevator Lobby
 <Floors -2 to -1>
-	CutAll -90, %interfloorheight% - 1, -130, -55, %interfloorheight% + 1, -109, false, true #Floor cuts
+	CutAll -90, %interfloorheight% - 1, -130, -55, %interfloorheight% + 1, -109 + 14, false, true #Floor cuts
 <EndFloors>
 
 <Floors -2 to -1>
@@ -937,7 +942,15 @@ Set SideTexture = BLKEntDoorSide
 		FloorOrientation = top
 		DrawWalls = true, true, false, false, false, false
 		TextureOverride ParkingCeiling, ParkingFloor, Blank, Blank, Blank, Blank
-		AddFloor MPKLobbyFloor_EX2, ParkingFloor, 1, -90, -130, -55, -109, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddFloor MPKLobbyFloor_EX2, ParkingFloor, 1, -90, -130, -55, -109 + 14, %interfloorheight%, %interfloorheight%, 0, 0, true
+<EndFloor>
+
+#Utility floor next to Mall Parking Elevators
+<Floors -2 to -1>
+	#Mall Parking Lobby Floor
+		FloorOrientation = top
+		DrawWalls = true, true, false, false, false, false
+		CreateFlr(ExtraURFloor, ParkingFloor, 0.5, -55, -130, 0 + 1, -109 + 14, 0, true)
 <EndFloor>
 
 ########################################
