@@ -95,7 +95,8 @@
 		Load data/EG881/grass2.jpg, Grass_Dark, 0.01, 0.01 #EG881
 		Load data/EG881/Trees_Summer/BradfordPear1.png, Tree1, 1, 1, false #EG881
 		Load data/EG881/tree1.gif, Tree2, 1, 1, false #EG881
-		Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+		#Load data/EG881/cem_tr2b.jpg, FlowerBed, 0.075225, 0.0625 #EG881
+		Load data/EG881/Concrete/smoothconcrete1.jpg, FlowerBed, 0.075, 0.075, true #EG881 #Shaft tops
 
 		#Roads
 		Load data/grndroad1mid.jpg, Road, 0.04, 0.04
@@ -1032,9 +1033,8 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
-	if[%floor% ! -1] Set WallHeight = %fullheight%
-	if[%floor% = -1] Set WallHeight = %fullheight% + Floor(0).InterfloorHeight
-	Set WallOffset = 0
+	Set WallHeight = %height% + 1
+	Set WallOffset = %interfloorheight%
 
 		DrawWalls = false, true, false, false, false, false
 		WallOrientation = left
@@ -1263,9 +1263,11 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 	#Perimeter walls
 	TexPrefix() #Set texture prefix/suffix
-	if[%floor% ! -1] Set WallHeight = %fullheight%
+	if[%floor% ! -1] Set WallHeight = %height%
+	if[%floor% ! -1] Set WallOffset = %interfloorheight%
+
 	if[%floor% = -1] Set WallHeight = %fullheight% + Floor(0).InterfloorHeight
-	Set WallOffset = 0
+	if[%floor% = -1] Set WallOffset = 0
 
 		#SOUTHWEST ZONE
 		DrawWalls = false, true, false, false, false, false
@@ -2327,7 +2329,45 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	Load data/Melvin/SpacetimePlaza/Parking_North/NWRampSign4.png, NWRampSign4, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_North/NERampSign1.png, NERampSign1, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/Parking_North/NERampSign2.png, NERampSign2, 1, 1, false
+
+	#West Wall Signs
+	Load data/Melvin/SpacetimePlaza/Parking_West1/DownToB2.png, West_DownToB2, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/DownToB3.png, West_DownToB3, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/NoEntry-Ramp1.png, West_NoEntry-Ramp1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/NoEntry-Ramp2.png, West_NoEntry-Ramp2, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/UpToB2.png, West_UpToB2, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/UpToB1.png, West_UpToB1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/UpToExit.png, West_UpToExit, 1, 1, false
 <EndTextures>
+
+#West Parking
+<Floors -3 to -1>
+	Set SignOffset = %interfloorheight% + 3.5
+
+	if[%floor% = -1] Set DRS = B2 #Down ramp suffix
+	if[%floor% = -2] Set DRS = B3
+
+	if[%floor% = -3] Set URS = B2 #Up ramp suffix
+	if[%floor% = -2] Set URS = B1
+	if[%floor% = -1] Set URS = Exit
+
+	#Signs on walls
+	WallOrientation = left
+	if[%floor% > -3] AddBoxSign(Miriam_DR1, Blank, West_DownTo%DRS%, Blank, 0.08, false, false, true, -415.5, -540, 13.5, 4.5, %SignOffset%, true)
+	if[%floor% > -3] AddBoxSign(Miriam_DR2, Blank, West_DownTo%DRS%, Blank, 0.08, false, false, true, -415.5, -335, 13.5, 4.5, %SignOffset%, true)
+
+	AddBoxSign(Miriam_UR1, Blank, West_UpTo%URS%, Blank, 0.08, false, false, true, -415.5, -185, 13.5, 4.5, %SignOffset%, true)
+
+	if[%floor% > -2] AddBoxSign(MallWest_DR1, Blank, West_DownTo%DRS%, Blank, 0.08, false, false, true, -415.5, -75, 13.5, 4.5, %SignOffset%, true)
+	if[%floor% > -3] AddBoxSign(MallWest_DR2, Blank, West_NoEntry-Ramp1, Blank, 0.08, false, false, true, -415.5, 75, 13.5, 4.5, %SignOffset%, true)
+
+	if[%floor% > -3] AddBoxSign(MallWest_UR1, Blank, West_UpTo%URS%, Blank, 0.08, false, false, true, -415.5, 275, 13.5, 4.5, %SignOffset%, true)
+	if[%floor% > -2] AddBoxSign(MallWest_UR2, Blank, West_NoEntry-Ramp2, Blank, 0.08, false, false, true, -415.5, 125, 13.5, 4.5, %SignOffset%, true)
+
+	WallOrientation = right
+	if[%floor% = -1] AddBoxSign(MallWest_FarNorthExit, West_UpToExit, Blank, Blank, 0.08, true, false, true, -120, 586, 13.5, 4.5, %SignOffset%, true)
+<EndFloors>
+
 
 #East Parking
 <Floors -2 to -1>
@@ -6484,8 +6524,8 @@ ShowFullShaft 11 = true
 		if[%elevator% < 11] Set Position = -3.05 + 0.01
 		if[%elevator% > 10] Set Position = 3.05 - 0.01
 
-		CreateWallBox2 elevator, Panel_L1, %WPTex%, -3.05 + 0.01, 0 - (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
-		CreateWallBox2 elevator, Panel_L2, %WPTex%, -3.05 + 0.01, 0 + (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_L1, %WPTex%, %Position%, 0 - (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_L2, %WPTex%, %Position%, 0 + (6.6 * 1/4), 0.02, (6.6 * 1/2) - 0.3, %WPanelHeight%, 0.25, 0, 0, false, true, true, true
 <EndElevators>
 
 #West Freight Elevators

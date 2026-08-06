@@ -597,7 +597,7 @@ DrawWalls = false, true, false, false, false, false
 		DrawWalls = true, false, false, false, false, false
 
 		WallOrientation = right
-		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - 140 - 80, %1%, %2% + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall RightWall, %5%Wall, 0.5, %1%, -%2% - 140 - 80, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		#if[%floor% = -3] AddWall BackWall, %5%Wall, 0.5, -%1%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset%, %WallOffset%, 0, 0, true
 
 	###************************###
@@ -1077,6 +1077,34 @@ DrawWalls = false, true, false, false, false, false
 		Add3DWindows(CoreDoorN2_WinSide2, %Door_MainX% + 3 + 1, %Door_MainZ%, back, 1.5, %height% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
 
   #South doors are automatic (Created after all elevators)
+<EndFloors>
+
+
+########################################
+
+#PARKING SIGNS
+#Load new textures
+<Textures>
+	#Sign background
+	Load data/black.jpg, OverheadSign_Black, 1, 1, false
+
+	#Signs
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B1_SWEntrance.png, B1_SWEntrance, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B2_SWEntrance.png, B2_SWEntrance, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B3_SWEntrance.png, B3_SWEntrance, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B1_WestJunction1.png, B1_WestJunction1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B2_WestJunction1.png, B2_WestJunction1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_West1/B3_SWEntrance.png, B3_WestJunction1, 1, 1, false
+	Load data/Melvin/SpacetimePlaza/Parking_East1/NoEntry.png, NoEntry, 1, 1, false
+<EndTextures>
+
+#Sign creation
+<Floors -3 to -1>
+	Set SignOffset = %interfloorheight% + 9
+
+	#Entrance from two-way ramps
+	AddBoxSign(MT_SWEntrance, %floorid%_SWEntrance, NoEntry, OverheadSign_Black, 0.1, false, true, true, -98.75, 80, 16, 2, %SignOffset%, true)
+	AddBoxSign(MT_WJ1, NoEntry, %floorid%_WestJunction1, OverheadSign_Black, 0.1, true, true, true, 80, -69.5, 16, 2, %SignOffset%, true)
 <EndFloors>
 
 ########################################
@@ -2711,10 +2739,14 @@ Set SideTexture = BLKEntDoorSide
 	TexPrefix()
 
 	#West Stairwell
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -50, 12.5, 5, 12.5, ACTT_ST1, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	Set ShowLeft = false
+	if[%floor% < -1 | %floor% > 41] Set ShowLeft = true
+	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -50, 12.5, 5, 12.5, ACTT_ST1, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
 
 	#East Stairwell
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, -12.5, 5, 12.5, ACTT_ST2, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	Set ShowRight = true
+	if[%floor% > -3 & %floor% < 33] Set ShowRight = false
+	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, -12.5, 5, 12.5, ACTT_ST2, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
 <EndFloors>
 
 <Floor 42>
