@@ -523,7 +523,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	if[%floor% = -1] AddFloor LMH_PGFloor, Road, 0.5, -%1%, -%2%, %1% - 140, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	if[%floor% = -1] AddFloor LMH_DockMezFloor, ParkingFloor3, 0.5, 70, 5, 80, 55, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% = -1] AddFloor LMH_DockMezFloor, ParkingFloor3, 0.5, 70, 5, 80 - 0.5, 55, %interfloorheight%, %interfloorheight%, 0, 0, true
 	if[%floor% ! -1] AddFloor LMH_PGFloor, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Extra floorings above roads (East zone)
@@ -541,7 +541,7 @@ DrawWalls = false, true, false, false, false, false
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% = -2] AddFloor LMH_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1% - 140, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	if[%floor% = -2] AddFloor LMH_DockMezCeiling, %5%Ceiling, 0.5, 70, 5, 80, 55, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = -2] AddFloor LMH_DockMezCeiling, %5%Ceiling, 0.5, 70, 5, 80 - 0.5, 55, %fullheight%, %fullheight%, 0, 0, true
 	if[%floor% ! -2] AddFloor LMH_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	AddFloor LMH_ELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102 - 5, %fullheight%, %fullheight%, 0, 0, true
 
@@ -561,14 +561,18 @@ DrawWalls = false, true, false, false, false, false
 		#Set DrawWalls for Right/Back sides
 		WallOrientation = right
 		DrawWalls = true, true, false, false, false, false
-		if[%floor% = -2] AddWall RightWall_Inner, %5%Wall, 0.5, %1% - 140, -%2%, %1% - 140, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% = -2] AddWall RightWall_Inner1, %5%Wall, 0.5, %1% - 140, -%2%, %1% - 140, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% = -2] AddWall RightWall_Inner2, %5%Wall, 0.5, %1% - 140, 5 + 12, %1% - 140, 55 - 25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% = -2] AddWall RightWall_Inner3, %5%Wall, 0.5, %1% - 140, 55, %1% - 140, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+
 		DrawWalls = true, false, false, false, false, false
 		if[%floor% = -1] AddWall RightWall_Inner2, %5%Wall, 0.5, %1% - 140, 5, %1% - 140, 55, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, true
 
 		WallOrientation = right
 		DrawWalls = true, true, true, true, true, false #Reset for the following wall.
 		if[%floor% = -1] AddWall RightWall_DK1, LoadingDockRailing, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, 5, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
-		if[%floor% = -1] AddWall RightWall_DK2, LoadingDockRailing, 0.5, %1% - 130, 5 + 12, %1% - 130, 55 - 25, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
+		if[%floor% = -1] AddWall RightWall_DK2, LoadingDockRailing, 0.5, %1% - 130 - 0.5, 5 + 12, %1% - 130 - 0.5, 55 - 25, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 		DrawWalls = true, true, true, false, true, false #Reset for the following wall.
 		if[%floor% = -1] AddWall RightWall_DK3, LoadingDockRailing, 0.5, %1% - 140, 55, %1% - 140, %2%, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
 
@@ -601,7 +605,8 @@ DrawWalls = false, true, false, false, false, false
 	AddFloor TowerParkingFlr, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Extra floorings above roads
-		if[%floor% = 1 | %floor% = 2] CreateFlr(TowerPK_UtilityFloor1, ParkingFloor2, 0.5, -90, -%2%, 110, -108, 0, true)
+		if[%floor% = 1 | %floor% = 2] CreateFlr(TowerPK_UtilityFloor1, ParkingFloor2, 0.5, -90, -%2%, %1% - 21, -108, 0, true)
+		#if[%floor% = 1 | %floor% = 2] CreateFlr(TowerPK_UtilityFloor1, ParkingFloor2, 0.5, -90, -%2%, 110, -108, 0, true)
 		if[%floor% = 0 | %floor% = 1] CreateFlr(TowerPK_UtilityFloor2, ParkingFloor, 0.5, -90.5, 85, 110.5, 93, 0, true)
 		if[%floor% = 0] CreateFlr(WalkwayNorthofHotelEntrance, ParkingFloor, 0.5, -%1%, 40, -145, 55, 0, true)
 
@@ -619,9 +624,20 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_East2, ParkingFloor2, 0.5, -120, -130, -90, %NorthEnd%, 0, true)
 		if[%floor% > 0] CreateFlr(TowerPK_ElevLbyFlr_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90 - 5, 0, true)
 
-		if[%floor% > 4 & %floor% ! 6 & %floor% ! 7] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -90, -130, -50, -109, 0, true)
+		if[%floor% = 3 | %floor% = 4 | %floor% = 6 | %floor% = 7] CreateFlr(LinkToMonicaDS, ParkingFloor2, 0.5, 30, -130, %1% - 21, -95, 0, true)
+		if[%floor% > 4 & %floor% ! 6 & %floor% ! 7] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -90, -130, %1% - 21, -109, 0, true)
+		#if[%floor% > 4 & %floor% ! 6 & %floor% ! 7] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -90, -130, -50, -109, 0, true)
 		if[%floor% = 0] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -126, -130, -60, -109, 0, true)
-		
+
+		#Extra floorings under ramps
+		if[%floor% = 1] CreateFlr(SouthRampUDSFloor, ParkingFloor3, 0.5, -90, -108, 110, -71, 0, true)
+		if[%floor% = 2] CreateFlr(NorthRampUDSFloor, ParkingFloor3, 0.5, -170, 111, 150, %2%, 0, true)
+
+		#Far east utility floors
+		CreateFlr(FarEastUF, ParkingFloor2, 0.5, %1% - 21, -%2%, %1%, %2%, 0, true)
+		#CreateFlr(FarEastUF_1, LoadingDockFloor, 0.5, %1% - 21, -%2%, %1%, -109, 0, true)
+		#CreateFlr(FarEastUF_2, LoadingDockFloor, 0.5, %1% - 21, 9, %1%, %2%, 0, true)
+
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
@@ -698,8 +714,8 @@ DrawWalls = false, true, false, false, false, false
 
 	#Podium Service Elevator
 	if[%floor% ! -1] Set End = 0
-	if[%floor% = -1] Set End = 10	
-	if[%floor% > -2] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - %End%, 55, 0, true)
+	if[%floor% = -1] Set End = 10 + 0.5
+	if[%floor% > -2] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - 0.5 - %End%, 55, 0, true)
 <EndFloors>
 
 ########################################
@@ -963,9 +979,117 @@ Set SideTexture = BLKEntDoorSide
 
 ########################################
 
-#Auto area at linking areas
-AddFloorAutoArea -50, Floor(3).Base, -130, 30, Floor(4).Base + 5, -90
+#LINKING AREA TO MONICA DEPARTMENT STORE - Added on August 7, 2026
+#Auto area(s)
+AddFloorAutoArea 189, Floor(3).Base, 25, 210, Floor(4).Base + 5, 90 #Monica DS
+AddFloorAutoArea 189, Floor(6).Base, 25, 210, Floor(7).Base + 5, 90 #Monica DS
+
+#Cut for store entrance areas on 3A-4 and 5A-6
+	Cut External, 195, Floor(4).Base - 5, 75 - 48, 210, Floor(4).Base + 5, 90 + 12, false, true #Levels 3A-4
+	Cut External, 195, Floor(7).Base - 5, 75 - 48, 210, Floor(7).Base + 5, 90 + 12, false, true #Levels 5A-6
+
+<Function MonicaLink>
+	Set LF = %param1% #Lower Floor
+	Set UF = %param2% #Upper Floor
+
+	<Floors %LF% to %UF%>
+		#Linking area to mall entrance
+			#Ramps
+			if[%floor% = %LF%] AddFloor MonicaLinkRamp1, ParkingFloor, 1, 206 - 4, 75 - 48, 206, 75, %fullheight% + Floor(%floor% + 1).InterfloorHeight, %interfloorheight% + 6, 0, 0, true
+			if[%floor% = %LF%] AddFloor MonicaLinkRamp2, ParkingFloor, 1, 206 - 9, 75 - 48, 206 - 5, 75, %interfloorheight%, %interfloorheight% + 6, 0, 0, true
+
+			#Midpoint
+			DrawWalls = true, true, false, false, false, false
+			if[%floor% = %LF%] AddFloor MonicaLink_Midpoint, ParkingFloor, 1, 206 - 9, 75, 210, 90, %interfloorheight% + 6, %interfloorheight% + 6, 0, 0, true
+	<EndFloors>
+	
+	<Floor %LF%>
+		#Railings
+		Set WH = 1 + 3
+		Set LL = %interfloorheight% - 1 #Lower level offset
+		Set ML = %interfloorheight% + 6 - 1 #Middle level offset
+		Set UL = %fullheight% + Floor(%floor% + 1).InterfloorHeight - 1 #Upper level offset
+	
+			#Rails around ramps
+			WallOrientation = right
+			DrawWalls = true, true, true, true, true, true
+			AddWall MonicaRamp1_RailA, ParkingWall, 0.25, 206 - 4, 75 - 48, 206 - 4, 75, %WH%, %WH%, %UL%, %ML%, 0, 0, true
+			AddWall MonicaRamp2_RailA, ParkingWall, 0.25, 206 - 9, 75 - 48, 206 - 9, 75, %WH%, %WH%, %LL%, %ML%, 0, 0, true
+
+			DrawWalls = true, true, true, true, true, false
+			AddWall MonicaRamp1-2_RailEX, ParkingWall, 0.25, 206 - 5, 75, 206 - 4, 75, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+
+			WallOrientation = left
+			DrawWalls = true, true, true, true, true, true
+			AddWall MonicaRamp1_RailB, ParkingWall, 0.25, 206, 75 - 48, 206, 75, %WH%, %WH%, %LL%, %ML%, 0, 0, true
+			AddWall MonicaRamp2_RailB, ParkingWall, 0.25, 206 - 5, 75 - 48, 206 - 5, 75, %WH%, %WH%, %LL%, %ML%, 0, 0, true
+			AddWall MonicaRamp1-2_RailD, ParkingWall, 0.25, 206, 75, 210, 75, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+
+			#Rails around stairs
+			WallOrientation = right
+			DrawWalls = true, true, true, true, true, true
+			AddWall MonicaStair1_RailA, ParkingWall, 0.25, 206 - 4, 90, 206 - 4, 90 + 12, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+			AddWall MonicaStair2_RailA, ParkingWall, 0.25, 206 - 9, 90, 206 - 9, 90 + 12, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+			WallOrientation = left
+			AddWall MonicaStair1_RailB, ParkingWall, 0.25, 206, 90, 206, 90 + 12, %WH%, %WH%, %ML%, %UL%, 0, 0, true
+			AddWall MonicaStair2_RailB, ParkingWall, 0.25, 206 - 5, 90, 206 - 5, 90 + 12, %WH%, %WH%, %ML%, %LL%, 0, 0, true
+
+			WallOrientation = right
+			DrawWalls = true, true, true, true, true, false
+			AddWall MonicaStair1-2_RailC, ParkingWall, 0.25, 206 - 5, 90, 206 - 4, 90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+			DrawWalls = true, true, true, false, true, false
+			AddWall MonicaStair1-2_RailD, ParkingWall, 0.25, 206, 90, 210, 90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+
+			#Rails at floors
+			WallOrientation = right
+			DrawWalls = true, true, true, true, true, true
+			AddWall MonicaMidpoint_BackRailA, ParkingWall, 0.25, 206 - 9, 75, 206 - 9, 90, %WH%, %WH%, %ML%, %ML%, 0, 0, true
+	<EndFloor>
+	
+	<Floor %UF%>
+		#Upper Walls
+		Set WallHeight = 1 + 3
+		Set WallOffset = %interfloorheight% - 1
+	
+		WallOrientation = right
+		DrawWalls = true, true, true, true, true, false
+		AddWall MonicaLinkWall_Left, ParkingWall, 0.5, 195, 75 - 48, 195, 90 + 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MonicaLinkWall_Front1, ParkingWall, 0.5, 195 - 0.5, 75 - 48, 206 - 4, 75 - 48, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MonicaLinkWall_Front2, ParkingWall, 0.5, 206, 75 - 48, 210, 75 - 48, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		WallOrientation = left
+		AddWall MonicaLinkWall_Back1, ParkingWall, 0.5, 195 - 0.5, 90 + 12, 206 - 4, 90 + 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		AddWall MonicaLinkWall_Back2, ParkingWall, 0.5, 206, 90 + 12, 210, 90 + 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+	<EndFloor>
+<EndFunction>
+
+	#Link area creation
+	MonicaLink(3, 4)
+	MonicaLink(6, 7)
+
+	#Linking stairs
+	OP_Draw(true, true, true, true, true, true)
+	
+	Set Offset1 = Floor(3).Base
+	Set Offset2 = Floor(3).Base + 6
+	Set Offset3 = Floor(6).Base
+	Set Offset4 = Floor(6).Base + 6
+
+		#Between parking levels 3A-4
+		OP_OrthoStair(external, Parking3A-Monica4, ParkingFloor, 206 - 9, 206 - 5, back, 90 + 12, 12, 1, 0.5, %Offset1%, 1) #Parking level 3A to Mall level 4
+		OP_OrthoStair(external, Monica4-Parking4, ParkingFloor, 206 - 4, 206, front, 90, 12, 1, 0.5, %Offset2%, 1) #Mall level 4 to Parking level 4
+
+		#Between parking levels 5A-6
+		OP_OrthoStair(external, Parking5A-Monica6, ParkingFloor, 206 - 9, 206 - 5, back, 90 + 12, 12, 1, 0.5, %Offset3%, 1) #Parking level 5A to Mall level 6
+		OP_OrthoStair(external, Monica6-Parking6, ParkingFloor, 206 - 4, 206, front, 90, 12, 1, 0.5, %Offset4%, 1) #Mall level 6 to Parking level 6
+
+########################################
+
+#LINKING AREA TO MAIN MALL
+#Auto area(s)
+AddFloorAutoArea -50, Floor(3).Base, -130, 30, Floor(4).Base + 5, -90 #Main mall
 AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
+
 
 #Cut for mall entrance areas on 3A-4 and 5A-6
 	Cut External, -90, Floor(3).Base - 1, -130, -50 + 72, Floor(4).Base + 5, -95, false, true #Levels 3A-4
@@ -1293,6 +1417,41 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 	<EndFloor>
 
+	<Floor 2>
+		Set WallHeight = %height% + 1
+		Set WallOffset = %interfloorheight%
+
+		DrawWalls = true, true, true, true, false, false
+		
+		#West Storage
+		WallOrientation = right
+		AddWall WestSTR, ParkingWall3, 0.5, -50, 111.5, -50, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+			#Doors
+			Set Texture = ServiceDoor3
+			Set Door_MainX = -50
+			Set Door_MainZ = 120.5
+	
+			WallOrientation = right
+			AddStdDoor Door Manager, WestSTR_D1, , , false, %Texture%, %Texture%Side, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor Door Manager, WestSTR_D2, , , false, %Texture%, %Texture%Side, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		#East Storage
+		WallOrientation = left
+		AddWall EastSTR, ParkingWall3, 0.5, 30, 111.5, 30, 129.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+			#Doors
+			Set Texture = ServiceDoor3
+			Set Door_MainX = 30
+			Set Door_MainZ = 120.5
+	
+			WallOrientation = left
+			AddStdDoor Door Manager, EastSTR_D1, , , false, %Texture%, %Texture%Side, 0.2, left, left, 75, 75,  %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor Door Manager, EastSTR_D2, , , false, %Texture%, %Texture%Side, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	<EndFloor>
+
 ########################################
 
 #Middle mechanical
@@ -1303,14 +1462,14 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	if[%floor% ! 14] AddFloor MidMechFlr, %5%Floor, 0.5, -%1%, -%2%, %1% - 140, %2%, 0, 0, 0, 0, false
-	if[%floor% ! 14] AddFloor MidMechFlr2, %5%Floor, 0.5, 70, 5, 80, 55, 0, 0, 0, 0, false
+	if[%floor% ! 14] AddFloor MidMechFlr2, %5%Floor, 0.5, 70, 5, 80 - 0.5, 55, 0, 0, 0, 0, false
 	if[%floor% = 14] AddFloor MidMechFlr, %5%Floor, 0.5, -%1%, -%2%, %1%, %2%, 0, 0, 0, 0, false
 
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	if[%floor% ! 16] AddFloor MidMechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1% - 140, %2%, %height%, %height%, 0, 0, false
-	if[%floor% ! 16] AddFloor MidMechCeil2, %5%Ceiling, 0.5, 70, 5, 80, 55, %height%, %height%, 0, 0, false
+	if[%floor% ! 16] AddFloor MidMechCeil2, %5%Ceiling, 0.5, 70, 5, 80 - 0.5, 55, %height%, %height%, 0, 0, false
 	if[%floor% = 16] AddFloor MidMechCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %height%, %height%, 0, 0, false
 
 	#Railings
@@ -1321,7 +1480,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	DrawWalls = true, true, false, true, true, false
 	if[%floor% ! 14] AddWall RightMechRail_A, %5%Wall, 0.5, %1% - 140, -%2% + 0.5, %1% - 140, 5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	DrawWalls = true, true, false, false, true, false
-	if[%floor% ! 14] AddWall RightMechRail_B, %5%Wall, 0.5, %1% - 130, 5 + 12, %1% - 130, 55 - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	if[%floor% ! 14] AddWall RightMechRail_B, %5%Wall, 0.5, %1% - 130 - 0.5, 5 + 12, %1% - 130 - 0.5, 55 - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	DrawWalls = true, true, true, false, true, false
 	if[%floor% ! 14] AddWall RightMechRail_C, %5%Wall, 0.5, %1% - 140, 55, %1% - 140, %2% - 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
@@ -1701,7 +1860,18 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	AddWall RightWall_LMHBoundary3, InvisibleWall, 0, %1%, %2% - 12, %1%, %2%, %height% + 5.5, %height% + 5.5, %interfloorheight%, %interfloorheight%, 0, 0, true
 <EndFloor>
 
-<Floors 0 to 13>
+<Floors 0 to 10>
+	#Invisible walls, to prevent getting stuck in the shopping zone's walls
+	DrawWalls = false, true, false, false, false, false
+	AddWall FrontWall_LMHBoundary_A, InvisibleWall, 0, -%1%, -%2%, -72.5 - 3, -%2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall FrontWall_LMHBoundary_B, InvisibleWall, 0, -72.5 + 3, -%2%, %1%, -%2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+	DrawWalls = true, false, false, false, false, false
+	AddWall RightWall_LMHBoundary_A, InvisibleWall, 0, %1%, -%2%, %1%, 75, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddWall RightWall_LMHBoundary_B, InvisibleWall, 0, %1%, 90, %1%, %2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+<EndFloor>
+
+<Floors 11 to 13>
 	#Invisible walls, to prevent getting stuck in the shopping zone's walls
 	DrawWalls = false, true, false, false, false, false
 	AddWall FrontWall_LMHBoundary_A, InvisibleWall, 0, -%1%, -%2%, -72.5 - 3, -%2%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
@@ -1756,7 +1926,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	TexPrefix()
 	if[%floor% = -2] Set SHeight = %height% + Floor(-1).InterfloorHeight #Override
 
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 75, 30 - 19, 5, 6, SH3, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 75 - 0.5, 30 - 19, 5, 6, SH3, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
 
 #Tower Service Elevators
@@ -1783,15 +1953,15 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% = -2] Set SHeight = %height% + Floor(-1).InterfloorHeight #Override
 
 	#Podium Stairwell
-	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 75, 30 + 12.5, 5, 12.5, LMH_ST3, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 75 - 0.5, 30 + 12.5, 5, 12.5, LMH_ST3, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 <EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
 #SHAFTS
 #Parking elevators
-AddStdShaft(1, 1, -150, -124, 23.67, 5.67, -2, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
-AddStdShaft(2, 1, -150, -96 - 5, 23.67, 5.67, -2, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(1, 1, -150, -124, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(2, 1, -150, -96 - 5, 23.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 1 = true
 ShowFullShaft 2 = true
 
@@ -1822,7 +1992,7 @@ ShowFullShaft 2 = true
 	<EndFloor>
 
 #Podium Service Elevator
-AddStdShaft(3, 1, 75, 30 - 19, 4.67, 5.67, -3, 16, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(3, 1, 75 - 0.5, 30 - 19, 4.67, 5.67, -3, 16, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 3 = true
 
 #Low Zone Elevators (17-24)
@@ -3700,14 +3870,14 @@ ShowFullStairs 2 = always
 <EndFloors>
 
 #Podium Stairwell
-CreateStairwell 3, 75, 30 + 12.5, -2, 16
+CreateStairwell 3, 75 - 0.5, 30 + 12.5, -2, 16
 CutStairwell 3, -4.5, -12, 4.5, 12, 0, 5
 ShowFullStairs 3 = always
 
 <Floors -2 to 16>
 	StairwellSets() #Determine stairs' size
 
-	Set 21 = 75 #Center X
+	Set 21 = 75 - 0.5 #Center X
 	Set 22 = 30 + 12.5 #Center Z
 	Set 23 = 4.5 #Cut X
 	Set 24 = 12 #Cut Z
@@ -3785,7 +3955,7 @@ ShowFullStairs 3 = always
 
 		#Filler walls
 		Set M = 1 #Multiplier
-		if[%floor% = -2] Set M = 2 #Multiplier
+		#if[%floor% = -2] Set M = 2 #Multiplier
 
 		WallOrientation = right
 		AddFillerWalls ConnectionWall, 0.5 * %M%, %21% - %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true #Main doors
