@@ -558,7 +558,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		DrawWalls = true, true, false, false, false, false #Override for this wall on level B2
 		#if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, -%2%, -%1%, -15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, 40, -%1%, %2% - 12, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		if[%floor% = -2] AddWall LeftWall, %5%Wall, 0.5, -%1%, 40, -%1%, %2% - 12 - 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		DrawWalls = true, true, false, false, true, false #Override for this wall on level B1
 		if[%floor% = -1] AddWall LeftWall_DK1, LoadingDockRailing, 0.5, -%1%, -%2%, -%1%, -15, %interfloorheight% + 3.5, %interfloorheight% + 3.5, 0, 0, 0, 0, true
@@ -579,6 +579,14 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		DrawWalls = true, false, false, false, false, true
 		AddWall BackWall_IFloorCover, %5%Wall, 0.5, -20, %2%, 20, %2%, Floor(%floor% + 1).InterfloorHeight, Floor(%floor% + 1).InterfloorHeight, %fullheight%, %fullheight%, 0, 0, true
 		if[%floor% = -1] AddWall BackWall_IFloorCover2, %5%Wall, 0.5, -20, %2%, 20, %2%, 1, 1, %interfloorheight% + 9, %interfloorheight% + 9, 0, 0, true
+
+	#Extra walls at service elevators on B2
+	DrawWalls = true, true, false, false, false, false
+
+	WallOrientation = left
+	if[%floor% = -2] AddWall B2F_SLArea_Front, %5%Wall, 0.5, -%1%, %2% - 12 - 15, -%1% + 20, %2% - 12 - 15, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
+	WallOrientation = right
+	if[%floor% = -2] AddWall B2F_SLArea_Right, %5%Wall, 0.5, -%1% + 20, %2% - 12 - 15, -%1% + 20, %2% - 12, %height% + 1, %height% + 1, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	###************************###
 
@@ -881,8 +889,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	Set DSTex = %DTex%Side
 
 		#North doors
-		Set Door_MainX = -120
-		Set Door_MainZ = 90
+		Set Door_MainX = -120 + 20
+		Set Door_MainZ = %2% - 12 - 7.5
+		#Set Door_MainZ = 90
 
 		WallOrientation = left
 		AddStdDoor DoorManager, Monica_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
@@ -1114,14 +1123,17 @@ Set Texture = BLKEntDoor
 		AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %Door_MainX%, %Door_MainZ% + 1.75, 3.5, 8, %interfloorheight%, 0, 0
 <EndFloor>
 
+#Connector doors to Lumina Parking Garage
 Set Texture = Door88
+Set ShiftBy = 85
+
 <Floors 0 to 8>
 	TexPrefix() #Set texture prefixes
 	Set WinHeight = 10 #Entrance windows' height
 
-	#WEST DOORS (Linking to Lumina PG)
+	#Doors creation
 	Set Door_MainX = -%1%
-	Set Door_MainZ = 63
+	Set Door_MainZ = 63 - %ShiftBy%
 
 	WallOrientation = left
 	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
@@ -1530,7 +1542,7 @@ ShowFullShaft 2 = true
 	#Wall cuts for shaft walls
 	<Floors 0 to 8>
 		CutAll -119.5 - 0.1, 0, %2% - 12 + 0.33, -119.5 + 0.1, %fullheight%, %2% - 0.5, true, false #Left wall cuts
-		CutAll -119.5 - 0.1, 0, %2% - 12 - 10, -119.5 + 0.1, %fullheight%, %2% - 12, true, false #Service lobby wall cuts
+		CutAll -119.5 - 0.1, 0, %2% - 12 - 15, -119.5 + 0.1, %fullheight%, %2% - 12, true, false #Service lobby wall cuts
 		CutAll -%1% + 0.5, 0, %2% - 0.5 - 0.1, -%1% + 20 - 0.33, %fullheight%, %2% - 0.5 + 0.1, true, false #Back wall cuts
 	<EndFloors>
 
@@ -1544,18 +1556,18 @@ ShowFullShaft 2 = true
 
 		WallOrientation = left
 		DrawWalls = true, false, false, true, false, false
-		if[%floor% ! 7] AddWall Monica_FELobby_Outer, %5%Wall, 10, -120, 88, -100, 88, %height% + %ExtraHeight%, %height% + %ExtraHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% ! 7] AddWall Monica_FELobby_Outer, %5%Wall, 15, -120, 83, -100, 83, %height% + %ExtraHeight%, %height% + %ExtraHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Inner walls
 		WallOrientation = left
 		DrawWalls = true, true, true, true, true, false
 		TextureOverride SAWall, SAWall, SAWall, SAWall, SACeiling, Blank
-		if[%floor% ! 7] AddWall Monica_FELobby_Inner, SAWall, -9.5, -120 + 0.5, 98, -100 - 0.5, 98, 9, 9, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% ! 7] AddWall Monica_FELobby_Inner, SAWall, -14.5, -120 + 0.5, 98, -100 - 0.5, 98, 10, 10, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Inner floor - This needs to be created before the shaft itself.
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		CreateFlr(WZ_NorthwestUF, SAFloor, 0.5, -120, 88, -100, 88 + 10 + 12, 0, true)
+		CreateFlr(WZ_NorthwestUF, SAFloor, 0.5, -120, 83, -100, 83 + 15 + 12, 0, true)
 
 		#DOORS
 		Set DTex = Door8
@@ -1563,7 +1575,7 @@ ShowFullShaft 2 = true
 		Set DSTex = %DTex%Side
 
 		Set Door_MainX = -100
-		Set Door_MainZ = 93
+		Set Door_MainZ = 83 + 7.5
 
 		WallOrientation = right
 		if[%floor% ! 7] AddStdDoor DoorManager, Monica_FELD_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0

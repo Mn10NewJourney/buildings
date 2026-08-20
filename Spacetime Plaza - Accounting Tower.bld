@@ -300,7 +300,7 @@
 			Load data/panel-back3.jpg, ParkingShaftDoorsSide, 1, 1, false
 			Load data/panel-back3.jpg, ParkingShaftDoors2Side, -1, 1, false
 			Load data/panel-back3.jpg, ParkingShaftDoors_Trim, 1, 1, false
-			Load data/graniteTexture_0005b.jpg, ParkingShaftDoors_Deco, 0.111, 0.111
+			Load data/graniteTexture_0005b.jpg, ParkingShaftDoors_Deco, 0.1, 0.1
 			
 			Load data/glassdoor_trans.gif, GlassShaftDoors, 1, 1, false #Parking elevators (1st-2nd floors)
 			Load data/glassdoor_trans.gif, GlassShaftDoors2, -1, 1, false
@@ -312,9 +312,9 @@
 			Load data/EG881/stainlesssteeldoor6.jpg, LobbyShaftDoors2, -1, 1, false #EG881
 			Load data/panel-back3.jpg, LobbyShaftDoors_Trim, 1, 1, false
 
-			Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, OfficeShaftDoors, 1, 1, false #EG881
-			Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, OfficeShaftDoors2, 1, 1, false #EG881
-			Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, OfficeShaftDoors_Trim, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, OfficeShaftDoors, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, OfficeShaftDoors2, 1, 1, false #EG881
+			Load data/panel-back3.jpg, OfficeShaftDoors_Trim, 1, 1, false
 
 		#Service elevators (No. 23-24)
 		Load data/metal072.jpg, ServiceElevFloor, 0.25, 0.25
@@ -2754,6 +2754,145 @@ Set SideTexture = BLKEntDoorSide
 
 ##--------------------------------------------------------------------------------##
 
+#EXTRA UTILITY ROOMS
+
+<Break>
+
+#1. Set door textures
+<Function ExtraUR_Doors>
+	Set DTex = Door8
+	if[%floor% > 1] Set DTex = Door6
+	Set DSTex = %DTex%Side
+<EndFunction>
+
+#2. Center rooms
+<Function Center_UR>
+	Set EXPosition = 0
+	if[%floor% < 0] Set EXPosition = 5
+
+	#South room (Between shafts 2 and 4)
+	DrawWalls = true, true, false, false, false, false
+	WallOrientation = left
+	AddWall CenterUR1_Front, %5%%5L%, 0.5, -5, -25, 5, -25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	WallOrientation = right
+	AddWall CenterUR1_Back, %5%%5L%, 0.5, -5, -5 - %EXPosition%, 5, -5 - %EXPosition%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Doors
+		Set Door_MainX = 0
+		Set Door_MainZ = -5 - %EXPosition%
+		WallOrientation = right
+		AddStdDoor Door Manager, %floorid%F_CenterUR1_D1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_CenterUR1_D2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+	########################################
+
+	#North room (Between shafts 1 and 3)
+	DrawWalls = true, true, false, false, false, false
+
+	WallOrientation = left
+	AddWall CenterUR2_Front, %5%%5L%, 0.5, -5, 5 + %EXPosition%, 5, 5 + %EXPosition%, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	WallOrientation = right
+	AddWall CenterUR2_Back, %5%%5L%, 0.5, -5, 25, 5, 25, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Doors
+		Set Door_MainX = 0
+		Set Door_MainZ = 5 + %EXPosition%
+		WallOrientation = left
+		AddStdDoor Door Manager, %floorid%F_CenterUR2_D1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_CenterUR2_D2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+<EndFunction>
+
+#3. West room (Between shafts 1 and 2)
+<Function West_UR>
+	#Walls
+	DrawWalls = true, true, false, false, false, false
+	WallOrientation = left
+	AddWall WestUR_Left, %5%%5L%, 0.5, -35, -5, -35, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	WallOrientation = right
+	AddWall WestUR_Right, %5%%5L%, 0.5, -5, -5, -5, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Doors
+		Set Door_MainX = -35
+		Set Door_MainZ = 0
+		WallOrientation = left
+		AddStdDoor Door Manager, %floorid%F_WestUR_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_WestUR_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFunction>
+
+#4. East room (Between shafts 3 and 4)
+<Function East_UR>
+	#Walls
+	DrawWalls = true, true, false, false, false, false
+	WallOrientation = left
+	AddWall EastUR_Left, %5%%5L%, 0.5, 5, -5, 5, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	WallOrientation = right
+	AddWall EastUR_Right, %5%%5L%, 0.5, 35, -5, 35, 5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#Doors
+		Set Door_MainX = 35
+		Set Door_MainZ = 0
+		WallOrientation = right
+		AddStdDoor Door Manager, %floorid%F_EastUR_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor Door Manager, %floorid%F_EastUR_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+<EndFunction>
+
+<Break>
+
+#5. Utility room creation
+#Level B2
+<Floor -2>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	Center_UR() #Room creation
+<EndFloor>
+
+#1st floor (Lobby)
+<Floor 0>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	Center_UR() #Room creation
+<EndFloor>
+
+#3rd-12th floors
+<Floors 2 to 11>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	East_UR() #Room creation
+<EndFloors>
+
+#13th-14th floors
+<Floors 12 to 13>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	West_UR() #Room creation
+<EndFloors>
+
+#23th-24th floors
+<Floors 22 to 23>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	East_UR() #Room creation
+<EndFloors>
+
+#25th-40th floors
+<Floors 24 to 39>
+	TexPrefix() #Set texture prefixes for walls
+	ExtraUR_Doors() #Set door textures
+
+	Center_UR() #Room creation
+<EndFloors>
+
+##--------------------------------------------------------------------------------##
+
 #SHAFTS
 #Low Zone Elevators (3-12)
 AddStdShaft(1, 1, -20, 10, 14.67, 4.67, -1, 13, ShaftIntWall, 0.5, 0.33, 0.5, 2 + 5, %interfloorheight%)
@@ -4252,8 +4391,8 @@ ShowFullShaft 9 = true
 	#Deco dimensions
 		Set SideDecoH = %height%
 		Set TopDecoH = %height% - 7
-		if[%floor% ! 0 & %floor% ! 1] Set SideDecoH = %height% #Separated lines in case I wish to change the trims' heights only on the office levels.
-		if[%floor% ! 0 & %floor% ! 1] Set TopDecoH = %height% - 7
+		if[%floor% ! 0 & %floor% ! 1] Set SideDecoH = 8 #Separated lines in case I wish to change the trims' heights only on the office levels.
+		if[%floor% ! 0 & %floor% ! 1] Set TopDecoH = %SideDecoH% - 7
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -4323,6 +4462,7 @@ ShowFullShaft 9 = true
 
 	#Indicator sets
 	Set Offset = 7.5
+	if[%floor% > 1] Set Offset = 7.25
 
 		#Set textures
 		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DWInd_Button, DWArrowUp, DWArrowUpLit, DWArrowDownLit)
@@ -4397,6 +4537,7 @@ ShowFullShaft 9 = true
 
 	#Indicator sets
 	Set Offset = 7.5
+	if[%floor% > 1] Set Offset = 7.25
 
 		#Set textures
 		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DWInd_Button, DWArrowUp, DWArrowUpLit, DWArrowDownLit)
@@ -4499,6 +4640,7 @@ ShowFullShaft 9 = true
 
 	#Indicator sets
 	Set Offset = 7.5
+	if[%floor% > 1] Set Offset = 7.25
 
 		#Set textures
 		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DWInd_Button, DWArrowUp, DWArrowUpLit, DWArrowDownLit)
@@ -4599,6 +4741,7 @@ ShowFullShaft 9 = true
 
 	#Indicator sets
 	Set Offset = 7.5
+	if[%floor% > 1] Set Offset = 7.25
 
 		#Set textures
 		ACME_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, DWInd_Button, DWArrowUp, DWArrowUpLit, DWArrowDownLit)

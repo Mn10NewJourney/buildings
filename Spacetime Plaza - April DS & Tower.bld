@@ -322,20 +322,22 @@
 				Load data/EG881/elevdoorleft_black.jpg, 8FShaftDoors2, -1, 1, false #EG881
 				Load data/EG881/elevdoortrim_black.jpg, 8FShaftDoors_Trim, 1, 1, false
 
-				Load data/EG881/elevdoorright_white.jpg, TowerShaftDoors, -1, 1, false #EG881 #Levels 9-18
-				Load data/EG881/elevdoorleft_white.jpg, TowerShaftDoors2, -1, 1, false #EG881
-				Load data/EG881/elevdoortrim_white.jpg, TowerShaftDoors_Trim, 1, 1, false #EG881
+				Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, TowerShaftDoors, 1, 1, false #EG881 #Levels 9-18
+				Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, TowerShaftDoors2, 1, 1, false #EG881
+				Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, TowerShaftDoors_Trim, 1, 1, false #EG881
+				Load data/MarbleWhite0047b_S.jpg, TowerShaftDoors_Deco, 0.15, 0.3
 
 				Load data/Melvin/SpacetimePlaza/glassdoor_trans_white.png, WGShaftDoors, 1, 1, false #Levels 9-18, glass elevators (WG = White Glass)
 				Load data/Melvin/SpacetimePlaza/glassdoor_trans_white.png, WGShaftDoors2, -1, 1, false
 				Load data/Melvin/SpacetimePlaza/glassdoor_trans_white_side.png, WGShaftDoorsSide, 1, 1, false
 				Load data/Melvin/SpacetimePlaza/glassdoor_trans_white_side.png, WGShaftDoors2Side, -1, 1, false
 				Load data/EG881/elevdoortrim_white.jpg, WGShaftDoors_Trim, 1, 1, false #EG881
+				Load data/MarbleWhite0047b_S.jpg, WGShaftDoors_Deco, 0.15, 0.3
 
 		#Service elevators
 		Load data/metal072.jpg, ServiceElevFloor, 0.25, 0.25
-		Load data/graygradient.jpg, ServiceElevCeiling, 1, -1, false
-		#Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
+		#Load data/graygradient.jpg, ServiceElevCeiling, 1, -1, false
+		Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
 		Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
 		Load data/wall5b.jpg, ServiceElevWall, 0.25, 0.25
 		Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4
@@ -349,7 +351,7 @@
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
 
-			Load data/Melvin/SRH/st_doors_blackedge.jpg, ServiceBShaftDoors, 1, 1, false #1st-6th floors
+			Load data/Melvin/SRH/st_doors_blackedge.jpg, ServiceBShaftDoors, 1, 1, false #1st-7th floors
 			Load data/Melvin/SRH/st_doors_blackedge.jpg, ServiceBShaftDoors2, -1, 1, false
 			Load data/Melvin/st_panel.jpg, ServiceBShaftDoors_Trim, 1, 1, false
 
@@ -2310,8 +2312,8 @@ Set Garden_Offset2 = Floor(7).Base + 4
 	if[%floor% > 6] Set ExtraEP = 11.25
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	if[%floor% > -1 & %floor% < 8] AddFloor ADT_SLCeiling1, SLDropCeiling, 0.5, 90, -80 - %ExtraEP%, 108, -60, 9, 9, 0, 0, false
-	if[%floor% = 7] AddFloor ADT_SLCeiling2, SLDropCeiling, 0.5, 114 - 6, -91.25, 114 + 6, -80, 9, 9, 0, 0, false
+	if[%floor% > -1 & %floor% < 8] AddFloor ADT_SLCeiling1, SLDropCeiling, 0.5, 90, -80 - %ExtraEP%, 108, -60, 10, 10, 0, 0, false
+	if[%floor% = 7] AddFloor ADT_SLCeiling2, SLDropCeiling, 0.5, 114 - 6, -91.25, 114 + 6, -80, 12, 12, 0, 0, false
 
 	#Walls creation
 	WallOrientation = left
@@ -4001,8 +4003,8 @@ ShaftShowOutside 5 = 6 - 17
 		if[%floor% = 6] Set TopDecoH = %height% - 7
 		if[%floor% = 7] Set SideDecoH = 8
 		if[%floor% = 7] Set TopDecoH = 1
-		if[%floor% > 7] Set SideDecoH = 8.5
-		if[%floor% > 7] Set TopDecoH = 1.5
+		if[%floor% > 7] Set SideDecoH = 7.2
+		if[%floor% > 7] Set TopDecoH = 0.2
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -4015,7 +4017,7 @@ ShaftShowOutside 5 = 6 - 17
 
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
-		#if[%floor% > -1] Set ExtraLateralOffset = 0.01
+		if[%floor% > 7] Set ExtraLateralOffset = 0.01
 <EndFunction>
 
 #Set textures (Tower Interior Elevators)
@@ -4044,8 +4046,8 @@ ShaftShowOutside 5 = 6 - 17
 		if[%floor% > -1 & %floor% < 7] Set TopDecoH = %height% - 7
 		if[%floor% = 7] Set SideDecoH = 8
 		if[%floor% = 7] Set TopDecoH = 1
-		if[%floor% > 7] Set SideDecoH = 8.5
-		if[%floor% > 7] Set TopDecoH = 1.5
+		if[%floor% > 7] Set SideDecoH = 7.2
+		if[%floor% > 7] Set TopDecoH = 0.2
 
 	#Call button panels
 	Set BPanelTexture = ElevExtPanels
@@ -4058,7 +4060,7 @@ ShaftShowOutside 5 = 6 - 17
 
 		#Lateral offset for lantern panels
 		Set ExtraLateralOffset = 0
-		#if[%floor% > -1] Set ExtraLateralOffset = 0.01
+		if[%floor% > 7] Set ExtraLateralOffset = 0.01
 <EndFunction>
 
 #Store elevators
@@ -4186,9 +4188,13 @@ ShaftShowOutside 5 = 6 - 17
 	Set Shaft1CX = 0 #1st shaft for elevator bank
 	Set Shaft1CZ = -8.75
 
-		#Decos on 5th floor
+		#Door trims
 		AddDecoObject(Elev4_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(Elev5_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+		#Extra decos on 8th-18th floors
+		if[%floor% > 7] AddDecoObject(E4_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, front, true, false, 0.01, 1 - 0.2, %Shaft1CX% - 5, %Shaft1CZ% - 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+		if[%floor% > 7] AddDecoObject(E5_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, front, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
 
 	#****************************************#
 
@@ -4211,8 +4217,12 @@ ShaftShowOutside 5 = 6 - 17
 	#****************************************#
 
 	#Lanterns next to doors
-	AddDirectionalIndicator 4, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 2 + 1, -1.92 - 0.5 - 0.661, 6, front, 0.414, 1, true, 0, 0
-	AddDirectionalIndicator 5, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -2 - 1, -1.92 - 0.5 - 0.661, 6, front, 0.414, 1, true, 0, 0
+		#Distance from doors
+		Set Dist = 1
+		if[%floor% > 7] Set Dist = 0.6
+	
+	AddDirectionalIndicator 4, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 2 + %Dist%, -1.92 - 0.5 - 0.661 - %ExtraLateralOffset%, 6, front, 0.414, 1, true, 0, 0
+	AddDirectionalIndicator 5, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -2 - %Dist%, -1.92 - 0.5 - 0.661 - %ExtraLateralOffset%, 6, front, 0.414, 1, true, 0, 0
 
 	#Indicators above call buttons
 		#Background
@@ -4275,10 +4285,17 @@ ShaftShowOutside 5 = 6 - 17
 	Set Shaft2CX = -95 #1st shaft for elevator bank
 	Set Shaft2CZ = -70
 
+		#Door trims
 		AddDecoObject(Elev6_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(Elev7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, right, true, false, 0.05, 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(Elev8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 5, %Shaft2CZ% - 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 		AddDecoObject(Elev9_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, left, true, false, 0.05, 0.2, %Shaft2CX% - 5, %Shaft2CZ% + 5, 4, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+		#Extra decos on 8th-18th floors
+		if[%floor% > 7] AddDecoObject(E6_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% - 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+		if[%floor% > 7] AddDecoObject(E7_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, right, true, false, 0.01, 1 - 0.2, %Shaft1CX% + 5, %Shaft1CZ% + 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+		if[%floor% > 7] AddDecoObject(E8_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, left, true, false, 0.01, 1 - 0.2, %Shaft2CX% - 5, %Shaft2CZ% - 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
+		if[%floor% > 7] AddDecoObject(E9_ExtraDecos, %DoorTexture%_Deco, %DoorTexture%_Deco, left, true, false, 0.01, 1 - 0.2, %Shaft2CX% - 5, %Shaft2CZ% + 5, 4 + 0.4, 7 + 0.2, %height%, %height% - 7.2, 0, false, %DoorTexture%_Deco, 0.66, external)
 
 	#****************************************#
 
@@ -4297,21 +4314,25 @@ ShaftShowOutside 5 = 6 - 17
 		DrawWalls = false, true, false, false, false, false
 		if[%floor% ! 7] AddBoxSign(E6-9_FS1, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ%, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
 		if[%floor% = 7] AddBoxSign(E6-9_FS1, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ%, 1, 1, 7 - 1 + %interfloorheight%, true)
-		AddWall E6-9HallSign1, ElevHallSign, 0, %Shaft1CX% + 5.051, %Shaft1CZ% - 0.25, %Shaft1CX% + 5.051, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		AddWall E6-9HallSign1, ElevHallSign, 0, %Shaft1CX% + 5.001, %Shaft1CZ% - 0.25, %Shaft1CX% + 5.001, %Shaft1CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 		WallOrientation = right
 		DrawWalls = true, false, false, false, false, false
 		if[%floor% ! 7] AddBoxSign(E6-9_FS2, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft2CX% - 5.001, %Shaft2CZ%, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
 		if[%floor% = 7] AddBoxSign(E6-9_FS2, ELFlrSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft2CX% - 5.001, %Shaft2CZ%, 1, 1, 7 - 1 + %interfloorheight%, true)
-		AddWall E6-9HallSign1, ElevHallSign, 0, %Shaft2CX% - 5.051, %Shaft2CZ% - 0.25, %Shaft2CX% - 5.051, %Shaft2CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		AddWall E6-9HallSign1, ElevHallSign, 0, %Shaft2CX% - 5.001, %Shaft2CZ% - 0.25, %Shaft2CX% - 5.001, %Shaft2CZ% + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
 
 	#Lanterns next to doors
-	AddDirectionalIndicator 6, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.25 + 0.5 + 0.661, 2 + 1, 6, right, 0.414, 1, true, 0, 0
-	AddDirectionalIndicator 7, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.25 + 0.5 + 0.661, -2 - 1, 6, right, 0.414, 1, true, 0, 0
-	AddDirectionalIndicator 8, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.25 - 0.5 - 0.661, 2 + 1, 6, left, 0.414, 1, true, 0, 0
-	AddDirectionalIndicator 9, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.25 - 0.5 - 0.661, -2 - 1, 6, left, 0.414, 1, true, 0, 0
+		#Distance from doors
+		Set Dist = 1
+		if[%floor% > 7] Set Dist = 0.6
+
+	AddDirectionalIndicator 6, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.25 + 0.5 + 0.661 + %ExtraLateralOffset%, 2 + %Dist%, 6, right, 0.414, 1, true, 0, 0
+	AddDirectionalIndicator 7, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, 3.25 + 0.5 + 0.661 + %ExtraLateralOffset%, -2 - %Dist%, 6, right, 0.414, 1, true, 0, 0
+	AddDirectionalIndicator 8, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.25 - 0.5 - 0.661 - %ExtraLateralOffset%, 2 + %Dist%, 6, left, 0.414, 1, true, 0, 0
+	AddDirectionalIndicator 9, true, false, false, true, %LPanelTexture%, %LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, -3.25 - 0.5 - 0.661 - %ExtraLateralOffset%, -2 - %Dist%, 6, left, 0.414, 1, true, 0, 0
 
 	#Indicators above call buttons
 		#Background
@@ -4410,7 +4431,6 @@ ShaftShowOutside 5 = 6 - 17
 		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
 		AddShaftWall 2, GapFiller_Elev10, ElevExt, 0.15 * 2, -5.34, -4 + 2.25, -5.34, -4 + 2.25 + 0.25, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0
 
-
 	#****************************************#
 
 	#Door trims/fillers
@@ -4441,7 +4461,7 @@ ShaftShowOutside 5 = 6 - 17
 		WallOrientation = right
 		DrawWalls = true, false, false, false, false, false
 		AddBoxSign(E10-11_FS1, BlankSign%floorid%, Blank, Blank, 0, false, false, false, %Shaft1CX% - 6.001, %Shaft1CZ% + 1, 1.5, 1.5, 7 - 0.75 + %interfloorheight%, true)
-		AddWall E10-11HallSign1, ElevHallSign, 0, %Shaft1CX% - 6.051, %Shaft1CZ% + 1 - 0.25, %Shaft1CX% - 6.051, %Shaft1CZ% + 1 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
+		AddWall E10-11HallSign1, ElevHallSign, 0, %Shaft1CX% - 6.001, %Shaft1CZ% + 1 - 0.25, %Shaft1CX% - 6.001, %Shaft1CZ% + 1 + 0.25, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#
 
