@@ -29,9 +29,10 @@
 
 	#Monica DS:
 	#1. (Future) Elevators 7-8 are intended to open directly to the underground parking areas.
+	#2. Escalators from B2 to 1 will be done later.
 
-	#April DS and Monica DS:
-	#1. Atriums, railings, and escalators in these zones will be completed later.
+	#April DS:
+	#1. Atriums, railings, and escalators will be completed later.
 
 ########################################
 
@@ -211,7 +212,7 @@
 		#Extra shopping area (level B1) - Added on August 5, 2026
 		Load data/EG881/Flooring/eg881_floortile1_offwhite.jpg, EXShopFloor, 0.25, 0.25 #EG881
 		Load data/misc/carpet.jpg, EXShopFloor2, 0.2, 0.2
-		Load data/marbletile.jpg, EXShopWall, 0.15, 0.3
+		Load data/marble22.jpg, EXShopWall, 0.1345, 0.125
 		Load data/marb148.jpg, EXShopWall2, 0.25, 0.25 #Escalator exterior walls
 		Load data/EG881/ceilingtile2.jpg, EXShopCeiling, 0.125, 0.125 #EG881
 
@@ -228,7 +229,8 @@
 			#WALLS
 			Load data/st_wall2.jpg, ShopWall, 0.13635, 0.09765
 			Load data/st_wall.jpg, ShopWall2, 0.1875, 0.1344 #Atrium railings
-			
+			Load data/black_granite.jpg, LMH_SHAWall, 0.1, 0.1 #Matching with LMH's hotel entrance area
+
 			#CEILINGS
 			Load data/EG881/ceilingtile2b.jpg, ShopCeiling, 0.125, 0.125 #EG881
 
@@ -821,13 +823,13 @@ DrawWalls = false, true, false, false, false, false
 	#Mall parking garage entrance/exit
 	LSFloorCreator(Mall_PGAccess1, Road, -416 - 3, -60 - 40, -416 + 24 - 0.5, -60, %FO%, false, false)
 	LSFloorCreator(Mall_PGAccess2, Road, -416 - 3, 140 - 40, -416 + 24 + 3, 140, %FO%, false, false)
-	LSFloorCreator(LuminaPGAcc, Road, -416 - 3, 460 - 30, -416 + 24 + 3, 460 + 30, %FO%, false, false)
+	LSFloorCreator(LuminaPGAcc, Road, -416 - 3, 370 + 70, -416 + 24 + 3, %2%, %FO%, false, false)
 	#LSFloorCreator(SouthwestU-turn, Road, -416 - 3, -480, -416 + 24 + 3, -480 + 20, %FO%, false, false)
 
 	#Miriam Tower entrance walkway
-	LSFloorCreator(ACTT_WestEnt1, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
-	LSFloorCreator(ACTT_WestEnt2, Sidewalk, -%1% - 20, -260 - 120, -%1%, -260 - 100, %FO%, false, false)
-	LSFloorCreator(ACTT_WestEnt3, Sidewalk, -%1% - 20, -%2%, -%1%, -%2% + 20, %FO%, false, false)
+	LSFloorCreator(Miriam_WestEnt1, Sidewalk, -%1% - 20, -260 - 10, -%1%, -260 + 10, %FO%, false, false)
+	LSFloorCreator(Miriam_WestEnt2, Sidewalk, -%1% - 20, -260 - 120, -%1%, -260 - 100, %FO%, false, false)
+	LSFloorCreator(Miriam_WestEnt3, Sidewalk, -%1% - 20, -%2% - 80, -%1%, -%2% - 80 + 20, %FO%, false, false)
 
 	#LMH entrance walkway
 	LSFloorCreator(LMH_WestEnt1, Sidewalk, -%1% - 20, 370 - 100, -%1%, 370 - 80, %FO%, false, false)
@@ -836,8 +838,15 @@ DrawWalls = false, true, false, false, false, false
 	#Lavender Moon Hotel parking access
 	LSFloorCreator(LMH_NorthPGAccessPath, Sidewalk, -120 + 190, %2%, -120 + 210, %2% + 20, %FO%, false, true)
 	LSFloorCreator(LMH_NorthPGExitDriveway, Road, -120 + 110.5, %2%, -120 + 190, %2% + 20 + 15, %FO%, false, false)
-	LSFloorCreator(LMH_WestPGEntranceDriveway, Road, -%1% - 20 - 15, 370 + 55, -%1%, %2%, %FO%, false, false)
-	LSFloorCreator(LMH_WestPGAccessPath, Sidewalk, -%1% - 20, 370 + 40, -%1%, 370 + 55, %FO%, false, true)
+	LSFloorCreator(LMH_WestPGEntranceDriveway, Road, -%1% - 20 - 15, 370 + 70, -%1%, %2%, %FO%, false, false)
+	#LSFloorCreator(LMH_WestPGAccessPath, Sidewalk, -%1% - 20, 370 + 40, -%1%, 370 + 55, %FO%, false, true)
+
+	########################################
+
+	#South entrance paths (to 5th Street)
+	LSFloorCreator(SouthEntrance_Miriam, Sidewalk, -230 - 20, -783, -230 + 20, -580, %FO%, false, false)
+	LSFloorCreator(SouthEntrance_MainMall_W, Sidewalk, -40, -783, -30, -580, %FO%, false, false)
+	LSFloorCreator(SouthEntrance_MainMall_E, Sidewalk, 30, -783, 40, -580, %FO%, false, false)
 
 	########################################
 
@@ -1374,6 +1383,12 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		AddFloor Parking_CS3, ParkingSpaceZ, 0, 10 - (8.5 * 2), -19 - 18, 10 + (8.5 * 2), -19, %Offset%, %Offset%, 4, -1, true
 		AddFloor Parking_CS4, ParkingSpaceZ, 0, -30 - (8.5 * 2), -19 - 18, -30 + (8.5 * 2), -19, %Offset%, %Offset%, 4, -1, true
 		AddFloor Parking_CS5, ParkingSpaceZ, 0, -70 - (8.5 * 2), -19 - 18, -70 + (8.5 * 2), -19, %Offset%, %Offset%, 4, -1, true
+
+		AddFloor Parking_CS6, ParkingSpaceZ, 0, -30 - (8.5 * 2), 179, -30 + (8.5 * 2), 179 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor Parking_CS7, ParkingSpaceZ, 0, -10 - (8.5 * 2), 179, -10, 179 + 18, %Offset%, %Offset%, 2, 1, true
+		AddFloor Parking_CS8, ParkingSpaceZ, 0, 50 - (8.5 * 2), 179, 50 + (8.5 * 2), 179 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor Parking_CS9, ParkingSpaceZ, 0, 90 - (8.5 * 2), 179, 90 + (8.5 * 2), 179 + 18, %Offset%, %Offset%, 4, 1, true
+		AddFloor Parking_CS10, ParkingSpaceZ, 0, 130 - (8.5 * 2), 179, 130 + (8.5 * 2), 179 + 18, %Offset%, %Offset%, 4, 1, true
 
 		#East Zone (North)
 		AddFloor Parking_EN1, ParkingSpaceX, 0, 479.5 - 18, 280 - (8.5 * 2), 479.5, 280 + (8.5 * 2), %Offset%, %Offset%, 1, 4, true
@@ -3169,8 +3184,11 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		Set Extra = 0
 		if[%floor% > 3] Set Extra = 0.5 #Reset for center zone's front wall
 
+		Set FacadeTex = ExtFacade2
+		if[%floor% = 0] Set FacadeTex = LMH_SHAWall
+
 		WallOrientation = Right
-		TextureOverride %5%Wall, ExtFacade2, Blank, Blank, Blank, Blank
+		TextureOverride %5%Wall, %FacadeTex%, Blank, Blank, Blank, Blank
 		AddWall CZ_BackWall, ExtFacade, 0.5, -%1% + 240, %2% - 260, -%1% + 420 + 0.5, %2% - 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		WallOrientation = Left
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
@@ -3248,6 +3266,24 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		DrawWalls = true, true, true, false, false, false
 		TextureOverride %5%Wall, %ExtTex%, %5%Wall, Blank, Blank, Blank
 		if[%floor% > 4] AddWall EZ_RightWall_Top2, ExtFacade, 0.5, %1%, 140, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+
+		####################
+
+		WallOrientation = right
+		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
+		AddWall EZ_BackWall (Monica), ExtFacade, 0.5, %1% - 240, %2% - 220, %1%, %2% - 220, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+<EndFloors>
+
+#LMH shopping arcade entrance area trims (Added on September 5, 2026)
+<Floor 0>
+	WallOrientation = right
+	AddFillerWalls ConnectionWall, 0.5, -120 + 50, 240, 40, 12, %interfloorheight%, true, 0, 0, true
+<EndFloor>
+
+#Monica DS entrance area trims (Added on September 5, 2026)
+<Floors 0 to 8>
+	WallOrientation = right
+	if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, 210 - 20, 390 - 110, 80, 12, %interfloorheight%, true, 0, 0, true
 <EndFloors>
 
 ########################################
@@ -4892,7 +4928,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 		AddWall EZ_NorthwestLby_Front, %5%Wall, 0.5, 90.5, 224, %EastEndpoint%, 224, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
 		Set EXO = 0 #Extra offset
-		if[%floor% > 5] Set EXO = 10
+		#if[%floor% > 5] Set EXO = 10
 		WallOrientation = right
 		DrawWalls = true, true, false, false, false, false
 		AddWall EZ_NorthwestLby_Back, %5%Wall, 0.5, 90.5, 259, 129 - %EXO%, 259, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -5115,7 +5151,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 	#DOORS
 	Set DTex = ServiceDoor3
-	if[%floor% = -1] Set DTex = Door6
+	if[%floor% = -1] Set DTex = ServiceDoor2
 	Set DSTex = %DTex%Side
 
 		#West Lobby
@@ -8823,7 +8859,7 @@ ShowFullShaft 11 = true
 			OP_Escalator(MallWestEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, -200 + 40 + 1, 80 + 2, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
-		#Criss-cross escalators between 3-7
+		#Criss-cross escalators between 2-7
 		<Floors 1 to 5>
 			EscDirections()
 			OP_Escalator(MallWestEsc_%floorid%F_1, %DirectionA%, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, -170 + 40 - 1, 80 - 6, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
