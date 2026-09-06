@@ -944,6 +944,8 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 		DrawWalls = true, false, false, false, false, false
 		AddFloor SHACeil, %5S%Ceiling, 0.5, %CenterPoint%, -%2%, %1%, %NorthPoint%, %fullheight%, %fullheight%, 0, 0, true
 
+	########################################
+
 	#Divider walls
 	Set WallHeight = %height% + Floor(%floor% + 1).InterfloorHeight - 1
 	Set WallOffset = %interfloorheight%
@@ -974,6 +976,27 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 		AddWall HTE_Front2, %5E%Wall, 0.5, -174 + 48, -%2%, %CenterPoint%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 		AddWall SHA_Front, %5S%Wall, 0.5, %CenterPoint%, -%2%, %1%, -%2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
+	########################################
+
+	#Divider doors (Open on start)
+	Set EntireHeight = 12
+
+		#Right doors
+		Set MainX = %CenterPoint% + 0.5
+		Set MainZ = -50 - 6
+		WallOrientation = right
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , true, %Texture%Int, 0.2, 3, 75, %MainX%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+		TextureOverride %Texture%Int, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+		AddExternalDoor , , true, %Texture%Int, 0.2, 2, 75, %MainX%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+		AddFillerWalls %5E%Wall, 1, %MainX%, %MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+	
+		Add3DWindows(HTE_SHA_WinTop1, %MainX%, %MainZ%, right, 6, %EntireHeight% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%%5L%, 1, 1/4, 1)
+		Add3DWindows(HTE_SHA_WinSide1/1, %MainX%, %MainZ% - 3 - 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%%5L%, 1, 1/4, 1)
+		Add3DWindows(HTE_SHA_WinSide1/2, %MainX%, %MainZ% + 3 + 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%%5L%, 1, 1/4, 1)
+
+	########################################
+
 	#Perimeter walls
 		#Left walls
 		WallOrientation = left
@@ -996,7 +1019,9 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 		AddCustomWindows(HotelEntrWin_Left2, LobbyWindows, LobbyWindowsInt, -%1%, -50 + 20, -%1%, %NorthPoint%, %WinHeight%, 0, 0, %MyIFloorType%, ExtFacade, %5%Wall)
 
 	SetAutoSize = true, true
-	
+
+	########################################
+
 	#Filler walls at entrance areas
 		#Monica Dept. Store
 		WallOrientation = right
@@ -1008,7 +1033,8 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 
 		#Main mall (Link to main shopping area)
 		WallOrientation = left
-		AddFillerWalls ConnectionWall, 0.5, 50, -%2%, 40, 12, %interfloorheight%, true, 0, 0, true
+		#AddFillerWalls ConnectionWall, 0.5, 50, -%2%, 40, 15, %interfloorheight%, true, 0, 0, true
+		AddFillerWalls ConnectionWall, 0.5, 50 + 40, -%2%, 80, 15, %interfloorheight%, true, 0, 0, true
 <EndFloor>
 
 #Entrance doors
@@ -2255,7 +2281,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% = 0] Set 5 = HotelEntrance #Override
 
 	Set ShowLeft = false
-	if[%floor% < 0] Set ShowFront = true
+	if[%floor% < 0] Set ShowLeft = true
 
 	CreateShaftWall(%5%Wall, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, -205, -50, 5, 15, LMH_LobbyEXShaft, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
 <EndFloors>

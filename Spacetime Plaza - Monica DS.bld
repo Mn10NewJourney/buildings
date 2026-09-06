@@ -46,7 +46,7 @@
 	Load data/stucco4.jpg, ColumnTex, 0.25, 0.25 #Support columns
 	Load data/text16.jpg, WoodSign2, 1, 1, false
 	Load data/Melvin/SpacetimePlaza/elevhallsign2.png, ElevHallSign, 1, 1, false
-	Load data/cutston.jpg, EscUnderideCover, 0.125, 0.125
+	Load data/cutston.jpg, EscUndersideCover, 0.125, 0.125
 
 	#Landscapes
 	Load data/walkway.jpg, Sidewalk, 0.03125, 0.03125
@@ -112,7 +112,8 @@
 		#Shopping levels 5-8
 		Load data/marb047.jpg, UpperShopFloor, 0.2, 0.2
 		Load data/marbl3.jpg, UpperShopWall, 0.2, 0.2, true
-		Load data/rose_marble.jpg, UpperShopWall2, 0.1, 0.1 #Atrium railings
+		#Load data/rose_marble.jpg, UpperShopWall2, 0.1, 0.1 #Atrium railings
+		Load data/diamond18d.jpg, UpperShopWall2, 0.36, 0.36 #Atrium railings
 		Load data/EG881/ceilingtile2b.jpg, UpperShopCeiling, 0.125, 0.125 #EG881
 
 		#Drop ceilings
@@ -934,7 +935,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	#Escalator underside cover
 	FloorOrientation = top
 	DrawWalls = true, false, true, true, true, true
-	AddFloor EUSCover, EscUnderideCover, 2.5, -64 - 0.1, -100.5 - 0.1, -54 + 0.1, -92.5 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor EUSCover, EscUndersideCover, 2.63, -64 - 0.1, -100.5 - 0.1, -54 + 0.1, -92.5 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 <EndFloor>
 
 ########################################
@@ -1059,7 +1060,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 #Entrance area trims
 <Floors 0 to 8>
 	WallOrientation = left
-	if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, -20, -%2%, 80, 12, %interfloorheight%, true, 0, 0, true
+	if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, 0, -%2%, 120, 12, %interfloorheight%, true, 0, 0, true
 <EndFloors>
 
 #9th floor roof area
@@ -1176,6 +1177,26 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	AddWall WARightRail, %5%%Suffix%, 0.5, -30, -30 - 13.5 - 0.5, -30, -30 + 13.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	AddWall WABackRail, %5%%Suffix%, 0.5, -50 + 4, -30 + 13.5, -30 - 4 - %ExtraOffset%, -30 + 13.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloors>
+
+<Floor 8>
+	TexPrefix() #Wall textures
+	Set Suffix = Wall2
+	
+	Set ExtraOffset = 0
+
+	#Railings creation
+	Set RailingHeight = %interfloorheight% + 3.5
+	Set RailingOffset = 0
+
+	DrawWalls = true, true, true, true, true, false
+
+	WallOrientation = right
+	AddWall WALeftRail, %5%%Suffix%, 0.5, -50, -30 - 13.5 - 9 - 0.5, -50, -30 + 13.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall WAFrontRail, %5%%Suffix%, 0.5, -50, -30 - 13.5 - 9, -30 - 8, -30 - 13.5 - 9, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	WallOrientation = left
+	AddWall WARightRail, %5%%Suffix%, 0.5, -30, -30 - 13.5 - 9 - 0.5, -30, -30 + 13.5 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall WABackRail, %5%%Suffix%, 0.5, -50, -30 + 13.5, -30, -30 + 13.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+<EndFloor>
 
 ########################################
 
