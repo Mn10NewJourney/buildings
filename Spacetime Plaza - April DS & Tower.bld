@@ -1027,12 +1027,13 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 ########################################
 
-#<Floor -1>
-#	#Escalator underside cover
-#	FloorOrientation = top
-#	DrawWalls = true, false, true, true, true, true
-#	AddFloor EUSCover, EscUndersideCover, 2.63, -64 - 0.1, -100.5 - 0.1, -54 + 0.1, -92.5 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-#<EndFloor>
+<Floor -1>
+	#Escalator underside cover
+	FloorOrientation = top
+	DrawWalls = true, false, true, true, true, true
+	AddFloor ADS_EUSCover1, EscUndersideCover, 2.63, -19.5 - 0.08, 26 - 0.08, -9.5 + 0.08, 30 + 0.08, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor ADS_EUSCover2, EscUndersideCover, 2.63, 9.5 - 0.08, -3.81 - 0.08, 19.5 + 0.08, -0.19 + 0.08, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+<EndFloor>
 
 ########################################
 
@@ -2264,8 +2265,8 @@ Set SideTexture = BLKEntDoorSide
 		AddFillerWalls %5%Wall, 0.5, %MainX%, %MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 	
 		Add3DWindows(AprilTower-Store_WinTop, %MainX%, %MainZ%, back, 6, %EntireHeight% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-		Add3DWindows(AprilTower-Store_WinSide1, %MainX% - 3 - 1.5, %MainZ%, back, 1.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
-		Add3DWindows(AprilTower-Store_WinSide2, %MainX% + 3 + 1.5, %MainZ%, back, 1.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(AprilTower-Store_WinSide1, %MainX% - 3 - 1, %MainZ%, back, 1.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+		Add3DWindows(AprilTower-Store_WinSide2, %MainX% + 3 + 1, %MainZ%, back, 1.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
 
 	########################################
 
@@ -3017,8 +3018,8 @@ Set Garden_Offset2 = Floor(7).Base + 4
 
 	#Tower elevators
 	if[%floor% = 0] AddBoxSign(AprilTowerElev_Front, ElevBank1, %SignSideTex%, %SignSideTex%, 0.15, true, true, true, -110 - 2.125, -80 - 0.075, 3.75, 1.5, 6 + %interfloorheight%, true)
-	AddBoxSign(AprilTowerElev, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -110 - 0.5, -60 + 1.875, 3.75, 1.5, 7 + %interfloorheight%, true)
-	AddBoxSign(AprilDSElev, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, -100 - 0.5, -40 - 1.875, 3.75, 1.5, 7 + %interfloorheight%, true)
+	AddBoxSign(AprilTowerElev, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -110 - 0.5, -60 + 1.875, 3.75, 1.5, 7.125 + %interfloorheight%, true)
+	AddBoxSign(AprilDSElev, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, -100 - 0.5, -40 - 1.875, 3.75, 1.5, 7.125 + %interfloorheight%, true)
 <EndFunction>
 
 <Floors -2 to 0>
@@ -4787,10 +4788,21 @@ ShaftShowOutside 5 = 6 - 17
 
 #ESCALATORS
 #Set escalator properties
-	OP_EscBalustrades(GlassBalustrade, 0, 3.25, 0, 0)
-	OP_EscLanding(EscalatorLandingZ, 4, 0, 0, EscalatorLandingZ, 4, 0, 0)
-	OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
-	OP_EscTruss(SilverBalustrade, ParkingLobbyWall3, 0.5, 3, 0, 0, 0, 0)
+OP_EscBalustrades(GlassBalustrade, 0, 3.25, 0, 0)
+OP_EscLanding(EscalatorLandingZ, 4, 0, 0, EscalatorLandingZ, 4, 0, 0)
+OP_EscHandrails(Handrail1, 0.22, 0.125, 0, 0)
+OP_EscTruss(SilverBalustrade, ParkingLobbyWall3, 0.5, 3, 0, 0, 0, 0)
+
+#Set escalators' direction (For criss-cross layout)
+<Function EscDirections>
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5] Set DirectionA = up
+	if[%floor% = 0 | %floor% = 2 | %floor% = 4] Set DirectionA = down
+
+	if[%floor% = 1 | %floor% = 3 | %floor% = 5] Set DirectionB = down
+	if[%floor% = 0 | %floor% = 2 | %floor% = 4] Set DirectionB = up
+<EndFunction>
+
+	########################################
 
 	#Escalators between B2-B1
 		<Floor -2>
