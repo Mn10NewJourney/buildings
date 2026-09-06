@@ -170,12 +170,12 @@
 		#Service and mechanical levels
 		Load data/brick1.jpg, ServiceFloor, 0.25, 0.25
 		Load data/stucco4c.jpg, ServiceWall, 0.25, 0.25
-		Load data/EG881/cem_tr3.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr2b.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
 
 			#Mechanical Mezzanine
 			Load data/cem_tr_b.jpg, MMEFloor, 0.0875, 0.0875
-			Load data/EG881/cem_tr3.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
-			Load data/stucco4c.jpg, MMEWall, 0.25, 0.25
+			Load data/EG881/cem_tr2b.jpg, MMEUnderside, 0.075225, 0.0625 #EG881
+			Load data/stucco4.jpg, MMEWall, 0.25, 0.25
 			#Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
 		#Roofs
@@ -332,9 +332,9 @@
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
 
-			Load data/door2.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Mechanical floors
-			Load data/door2.jpg, ServiceBShaftDoors2, -1, 1, false #EG881
-			Load data/Melvin/elevpanelmetal.jpg, ServiceBShaftDoors_Trim, 1, 1, false
+			Load data/brushed metal door.tga, ServiceBShaftDoors, 1, 1, false #EG881 #Mechanical floors
+			Load data/brushed metal door.tga, ServiceBShaftDoors2, -1, 1, false #EG881
+			Load data/Melvin/brushed metal panel.jpg, ServiceBShaftDoors_Trim, 1, 1, false #epco_rules
 
 			Load data/door1.jpg, ServiceCShaftDoors, 1, 1, false #EG881 #Basements (Podium Service Elevator only)
 			Load data/door1.jpg, ServiceCShaftDoors2, -1, 1, false #EG881
@@ -1938,7 +1938,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	AddWall MMERail_South2, MMEWall, 0.5, %MM_CenterX% - 25, %MM_CenterZ% - 25, %MM_CenterX% + 25, %MM_CenterZ% - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	WallOrientation = right
-	AddWall MMERail_East1, MMEWall, 0.5, %MM_CenterX% + 35, %MM_CenterZ% + 0, %MM_CenterX% + 35, %MM_CenterZ% + 13, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_East1, MMEWall, 0.5, %MM_CenterX% + 35, %MM_CenterZ% - 13, %MM_CenterX% + 35, %MM_CenterZ%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall MMERail_East2, MMEWall, 0.5, %MM_CenterX% + 35, %MM_CenterZ% + 25, %MM_CenterX% + 35, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall MMERail_North, MMEWall, 0.5, %MM_CenterX% - 55 + 0.5, %MM_CenterZ% + 35, %MM_CenterX% + 35 - 0.5, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
@@ -4181,6 +4181,7 @@ ShowFullShaft 9 = true
 	AddText ELFlrSignBack, ELFlrSign1, nimbus_sans_bold.ttf, 128, 1, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 14, 16, ELFlrSignBack, ELFlrSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddTextRange 39, 40, ELFlrSignBack2, ELFlrSign%number%, nimbus_sans_condensed.ttf, 130, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddText ELFlrSignBack, ELFlrSign41, nimbus_sans_bold.ttf, 128, 41, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	#Floor signs (Stairwells)
 	AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -5013,7 +5014,9 @@ ShowFullShaft 9 = true
 		Set Sign1Z = %Shaft1CZ% + 6
 
 		DrawWalls = false, true, false, false, false, false
-		AddWall E26FloorSign, BlankSign%floorid%, 0, %Sign1X% - 0.75, %Sign1Z% + 0.001, %Sign1X% + 0.75, %Sign1Z% + 0.001, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, 6.5 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% ! 44] AddWall E26FloorSign, BlankSign%floorid%, 0, %Sign1X% - 0.75, %Sign1Z% + 0.001, %Sign1X% + 0.75, %Sign1Z% + 0.001, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, 6.5 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% = 44] AddWall E26FloorSign, ELFlrSign%floorid%, 0, %Sign1X% - 0.5, %Sign1Z% + 0.001, %Sign1X% + 0.5, %Sign1Z% + 0.001, 1, 1, 6.5 - 0.5 + %interfloorheight%, 6.5 - 1 + %interfloorheight%, 0, 0, true
+
 		AddWall E26_HS1, ElevHallSign, 0, %Sign1X% - 0.25, %Sign1Z% + 0.001, %Sign1X% + 0.25, %Sign1Z% + 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 		#Signs (Elevator 27)
@@ -5021,7 +5024,9 @@ ShowFullShaft 9 = true
 		Set Sign2Z = %Shaft2CZ% - 6
 
 		DrawWalls = true, false, false, false, false, false
-		AddWall E27FloorSign, BlankSign%floorid%, 0, %Sign2X% - 0.75, %Sign2Z% - 0.001, %Sign2X% + 0.75, %Sign2Z% - 0.001, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, 6.5 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% ! 44] AddWall E27FloorSign, BlankSign%floorid%, 0, %Sign2X% - 0.75, %Sign2Z% - 0.001, %Sign2X% + 0.75, %Sign2Z% - 0.001, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, 6.5 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% = 44] AddWall E27FloorSign, ELFlrSign%floorid%, 0, %Sign2X% - 0.5, %Sign2Z% - 0.001, %Sign2X% + 0.5, %Sign2Z% - 0.001, 1, 1, 6.5 - 0.5 + %interfloorheight%, 6.5 - 1 + %interfloorheight%, 0, 0, true
+
 		AddWall E27_HS1, ElevHallSign, 0, %Sign2X% - 0.25, %Sign2Z% - 0.001, %Sign2X% + 0.25, %Sign2Z% - 0.001, 0.75, 0.75, 2.6, 2.6, 0, 0, false
 
 	#****************************************#

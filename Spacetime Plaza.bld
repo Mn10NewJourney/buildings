@@ -117,6 +117,7 @@
 		Load data/Melvin/Roads/2lane-twoway.png, B1FNorthAccRoad, 0.05, 0.041667 #24 ft. wide
 
 		Load data/Melvin/Roads/2lane-oneway.png, 2Lane-OWX-20FT, 0.05, 0.05 #20 ft. wide
+		Load data/Melvin/Roads/2lane-oneway-90de.png, 2Lane-OWZ-20FT, 0.05, 0.05 #20 ft. wide
 		Load data/Melvin/Roads/2lane-twoway.png, 2Lane-TWX-20FT, 0.05, 0.05 #20 ft. wide
 		Load data/Melvin/Roads/2lane-twoway-90de.png, 2Lane-TWZ-20FT, 0.05, 0.05 #20 ft. wide
 
@@ -1972,6 +1973,14 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	DrawWalls = false, true, false, false, false, false
 	Set Offset = %interfloorheight% + 0.01
 
+		#Big Bike Parking Divider
+		if[%floor% = -1] AddFloor BBDivider_West, NoParkingZ, 0, -88.75 - 1.5 - 1.25, 12, -88.75 + 1.5, 148, %Offset%, %Offset%, -1, 7, true
+		if[%floor% = -1] AddFloor BBDivider_North1, NoParkingX, 0, -88.75 + 1.5, 148 - 5, -15 - 20, 148, %Offset%, %Offset%, 3, -1, true
+		if[%floor% = -1] AddFloor BBDivider_North1A, NoParkingX, 0, -15, 145, 25, 148, %Offset%, %Offset%, 2, -1, true
+		if[%floor% = -1] AddFloor BBDivider_North2, NoParkingX, 0, 25, 148 - 5, 70 - 1.5, 148, %Offset%, %Offset%, 2, -1, true
+		if[%floor% = -1] AddFloor BBDivider_South, NoParkingX, 0, -88.75 + 1.5, 12, 70 - 1.5, 12 + 5, %Offset%, %Offset%, 8, -1, true
+		if[%floor% = -1] AddFloor BBDivider_East, NoParkingZ, 0, 70 - 1.5, 12, 70 + 1.5, 148, %Offset%, %Offset%, -1, 7, true
+
 		#Motorcycle Parking Divider
 		if[%floor% = -1] AddFloor MPDivider1, WhiteIslandZ, 0, -88.75 - 1.5 - 1.25, 180 - 1.5, -88.75 + 1.5, 240, %Offset%, %Offset%, -1, 3, true
 		if[%floor% = -1] AddFloor MPDivider2, NoParkingX, 0, -88.75 + 1.5 + 8, 180 - 1.5, -50 - 1.5, 180 + 1.5, %Offset%, %Offset%, -3, 1, true
@@ -1985,6 +1994,10 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 		#Two-way road markings leading to the exit
 		if[%floor% = -1] CreateFlr(NorthwestLane, 2Lane-TWZ-20FT, 0.5, -115, 179, -95, 240, 0, true)
+
+		#Additional road markings west and east of Big Bike Parking Area
+		if[%floor% = -1] CreateFlr(WestLane-Southwards, 2Lane-OWZ-20FT, 0.5, -107.25 - 10, 19, -107.25 + 10, 141, 0, true)
+		if[%floor% = -1] CreateFlr(EastLane-Northwards, 2Lane-OWZ-20FT, 0.5, 90 - 10, 19, 90 + 10, 141, 0, true)
 
 	#--------------------#
 
