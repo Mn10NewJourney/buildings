@@ -174,11 +174,11 @@
 
 		Load data/brick1.jpg, ServiceFloor, 0.25, 0.25
 		Load data/stucco4c.jpg, ServiceWall, 0.25, 0.25
-		Load data/EG881/cem_tr2d.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+		Load data/EG881/cem_tr3.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
 
 			#Mechanical Mezzanine
 			Load data/cem_tr.jpg, MMEFloor, 0.0875, 0.0875
-			Load data/stucco4b.jpg, MMEUnderside, 0.125, 0.125 #EG881
+			Load data/stucco1.jpg, MMEUnderside, 0.125, 0.125
 			Load data/stucco22d.jpg, MMEWall, 0.2, 0.2
 			#Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
@@ -326,27 +326,27 @@
 		Load data/otis67/OTIS67_EU_Button_Lighted.gif, ServiceElevCeilingDL, 1, 1, false #DL = Downlight
 		Load data/EG881/stainlesssteel2.jpg, ServiceElevCeilingTrim, 1, 1, false #EG881
 
-		#Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false
-		#Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false
-		#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
-		#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceElevPanelMain, 1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceElevPanelTop, 1, 0.125, false #EG881
-		Load data/EG881_Otis/Doors/otisgraydoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otisgraydoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
+		Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false
+		Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
 
 			#Shaft doors (Service)
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceAShaftDoors, 1, 1, false #EG881 #Most floors
 			Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
 			Load data/panel-back3.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
 
-			Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Mechanical floors
+			Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Topside Mechanical
 			Load data/EG881_Otis/Doors/otisgraydoorright.jpg, ServiceBShaftDoors2, 1, 1, false #EG881
-			Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceBShaftDoors_Trim, 1, 1, false #epco_rules
+			Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
 
 			Load data/door1.jpg, ServiceCShaftDoors, 1, 1, false #EG881 #Basements (Podium Service Elevator only)
 			Load data/door1.jpg, ServiceCShaftDoors2, -1, 1, false #EG881
 			Load data/elevpanelsilver.jpg, ServiceCShaftDoors_Trim, 1, 1, false
+
+			Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, ServiceDShaftDoors, 1, 1, false #EG881 #Middle Mechanical
+			Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, ServiceDShaftDoors2, 1, 1, false #EG881
+			Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, ServiceDShaftDoors_Trim, 1, 1, false #EG881
 
 	#Elevator fixtures loaded before creating the first elevator.
 
@@ -563,14 +563,14 @@ DrawWalls = false, true, false, false, false, false
 
 	#Podium Service Elevator's shaft doors
 	Set 5PS = ServiceA
-	if[%floor% > 13 & %floor% < 17] Set 5PS = ServiceB
+	if[%floor% > 13 & %floor% < 17] Set 5PS = ServiceD
 	if[%floor% < 0] Set 5PS = ServiceC
 
 	###************###
 
 	#Tower Service Elevators' shaft doors
 	Set 5TS = ServiceA
-	if[%floor% > 13 & %floor% < 17] Set 5TS = ServiceB
+	if[%floor% > 13 & %floor% < 17] Set 5TS = ServiceD
 	if[%floor% > 43] Set 5TS = ServiceB
 
 	###************###
@@ -932,7 +932,9 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
 	AddFloor HotelEntrFlr, %5E%Floor, 0.5, -%1%, -%2%, %CenterPoint%, %NorthPoint%, %interfloorheight%, %interfloorheight%, 0, 0, true
-	AddFloor HEntCarpet, %5E%Carpet, 0.5, -174, -118 + 2, -126, -107 - 2, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+	AddFloor HEntCarpet1, %5E%Carpet, 0.5, -174 - 5, -118 + 2, -126, -107 - 2, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+	AddFloor HEntCarpet2, %5E%Carpet, 0.5, -%1% + 5, -%2% + 5, -174 - 5, -70, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
+	AddFloor HEntCarpet3, %5E%Carpet, 0.5, -%1% + 5, -30, -145 - 5, 70, %interfloorheight% + 0.001, %interfloorheight% + 0.001, 0, 0, true
 
 		#Shopping arcade floor
 		FloorOrientation = top
@@ -999,7 +1001,8 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 	
 		Add3DWindows(HTE_SHA_WinTop1, %MainX%, %MainZ%, right, 6, %EntireHeight% - 8.5, 8.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
 		Add3DWindows(HTE_SHA_WinSide1/1, %MainX%, %MainZ% - 3 - 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
-		Add3DWindows(HTE_SHA_WinSide1/2, %MainX%, %MainZ% + 3 + 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
+		#Add3DWindows(HTE_SHA_WinSide1/2, %MainX%, %MainZ% + 3 + 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
+		Add3DWindows(HTE_SHA_WinSide1/2, %MainX%, %MainZ% + 6, right, 5.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
 
 		#North doors
 		Set MainX = %CenterPoint% + 0.5
@@ -1012,7 +1015,7 @@ Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoi
 		AddFillerWalls %5E%Wall, 1, %MainX%, %MainZ%, 6, 8, %interfloorheight%, false, 0, 0, true
 	
 		Add3DWindows(HTE_SHA_WinTop1, %MainX%, %MainZ%, right, 6, %EntireHeight% - 8.5, 8.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
-		Add3DWindows(HTE_SHA_WinSide1/1, %MainX%, %MainZ% - 3 - 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
+		#Add3DWindows(HTE_SHA_WinSide1/1, %MainX%, %MainZ% - 3 - 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
 		Add3DWindows(HTE_SHA_WinSide1/2, %MainX%, %MainZ% + 3 + 1.5, right, 2.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5E%Wall, 1, 1/4, 1)
 
 	########################################
@@ -2229,11 +2232,13 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% < 30] CreateShaftWall(%5%Wall, %5%Wall, %SP2%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 10, 30, 5, 25, LMH_SH5, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	#Mid zone eleators
-	if[%floor% < 38] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 40, 30, 5, 25, LMH_SH4, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
+	Set ShowLeft = false
+	if[%floor% < 17] Set ShowLeft = true
+	if[%floor% < 38] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 40, 30, 5, 25, LMH_SH4, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
 
 	#High zone eleators
 	Set ShowRight = false
-	if[%floor% > 43] Set ShowRight = true
+	if[%floor% < 17 | %floor% > 43] Set ShowRight = true
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 - 40, 30, 5, 25, LMH_SH7, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
 <EndFloors>
 
@@ -2633,9 +2638,12 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	#----------------------------------------
 
 	#Podium service floor
+	Set Extra = 0
+	if[%floor% = 17] Set Extra = 0.5
+
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	CreateFlr(PodiumServFlr, SAFloor, 0.5, 69.5 + 0.5, 5, 79.5, 55, 0, true)
+	CreateFlr(PodiumServFlr, SAFloor, 0.5, 69.5 + 0.5 - %Extra%, 5, 79.5, 55, 0, true)
 
 	#Podium Service Wall
 	Set OutsideTex = %5%Wall
@@ -2654,9 +2662,17 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 		Set Door_MainZ = 25
 
 		WallOrientation = right
-		AddStdDoor Door Manager, %floorid%F_PodiumService_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor Door Manager, %floorid%F_PodiumService_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+		if[%floor% ! 17] AddStdDoor Door Manager, %floorid%F_PodiumService_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0 #Open inwards
+		if[%floor% ! 17] AddStdDoor Door Manager, %floorid%F_PodiumService_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% ! 17] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		Set Door_MainX = 69.5
+		Set Door_MainZ = 25
+
+		WallOrientation = left
+		if[%floor% = 17] AddStdDoor Door Manager, %floorid%F_PodiumService_D1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0 #Open outwards
+		if[%floor% = 17] AddStdDoor Door Manager, %floorid%F_PodiumService_D2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% = 17] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 
 	#Full-height ceilings
 	FloorOrientation = bottom

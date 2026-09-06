@@ -487,9 +487,9 @@
 		Load data/EG881_Otis/Doors/otisgraydoorright.jpg, EP_InnerShaftDoors2, 1, 1, false #EG881
 		Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, EP_InnerShaftDoors_Trim, 1, 1, false #EG881
 
-		Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, EXShopShaftDoors, 1, 1, false #EG881 #Level B1 (South Chamber)
-		Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, EXShopShaftDoors2, 1, 1, false #EG881
-		Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, EXShopShaftDoors_Trim, 1, 1, false #EG881
+		Load data/door1.jpg, EXShopShaftDoors, 1, 1, false #Level B1 (South Chamber)
+		Load data/door1.jpg, EXShopShaftDoors2, -1, 1, false
+		Load data/elevpanelsilver.jpg, EXShopShaftDoors_Trim, 1, 1, false
 
 		Load data/EG881/lightaluminumdoor2.jpg, ShopShaftDoors, 1, 1, false #EG881 #Levels 1-6
 		Load data/EG881/lightaluminumdoor2.jpg, ShopShaftDoors2, -1, 1, false #EG881
@@ -3434,6 +3434,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		Cut External, 30, Floor(1).Base - 4.14, -260 - 15, 34.5, Floor(2).Base + 5, -260 + 15, false, true
 
 	#East atriums
+	Cut External, 198 - 6, Floor(-2).Base + 1, -189 - 8 - 2, 198, Floor(-1).Base + 5, -181, false, true #Atrium 1 (South) - B2F-B1F Escalators - Extra cuts
 	Cut External, 198, Floor(-2).Base + 1, -189 - 8 - 2, 218, Floor(-1).Base + 5, -181, false, true #Atrium 1 (South) - B2F-B1F Escalators
 	Cut External, 198, Floor(-1).Base + 1, -189 - 8 - 2, 218, Floor(0).Base + 5, -189 - 2, false, true #Atrium 1 (South) - B1F-1F Escalators
 
@@ -3580,15 +3581,16 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	#Southeast escalator railings
 	WallOrientation = right
+	if[%floor% < 0] AddWall SEEscFrontRail_EX, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -189 - 8 - 2, 198, -189 - 8 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	AddWall SEEscFrontRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 8 - 2, 218, -189 - 8 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% < 0] AddWall SEEscLeftRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -199 - 0.5, 198, -181 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% < 0] AddWall SEEscLeftRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -199 - 0.5, 198 - 6, -181 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
 	if[%floor% = 0] AddWall SEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, -199 - 0.5, 218, -191 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% < 0] AddWall SEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, -191, 218, -189, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	if[%floor% = 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 2, 218, -189 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% < 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -181, 218, -181, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% < 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -181, 218, -181, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	#East-central escalator railings
 	WallOrientation = right
@@ -5191,7 +5193,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 	#DOORS
 	Set DTex = ServiceDoor3
-	if[%floor% = -1] Set DTex = Door8
+	if[%floor% = -1] Set DTex = ServiceDoor2
 	Set DSTex = %DTex%Side
 
 		#West Lobby
