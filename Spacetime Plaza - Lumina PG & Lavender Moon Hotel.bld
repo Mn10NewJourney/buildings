@@ -53,7 +53,7 @@
 	Location = 414 5th Street, Tranquility City
 	Version = 1
 	CameraFloor = 0
-	CameraPosition = -188, -110
+	CameraPosition = -188, -112.5
 	CameraRotation = 0, 90, 0
 <EndGlobals>
 
@@ -168,7 +168,7 @@
 		Load data/stucco4.jpg, EX_UR_Ceiling, 0.2, 0.2
 
 		#Service and mechanical levels
-		Load data/brick040+.jpg, LowerServiceFloor, 0.2, 0.2 #EG881
+		Load data/cem_tr.jpg, LowerServiceFloor, 0.125, 0.125 
 		Load data/stucco4.jpg, LowerServiceWall, 0.2, 0.2
 		Load data/stucco1.jpg, LowerServiceWall2, 0.1, 0.1 #Perimeter walls
 		Load data/EG881/cem_tr2b.jpg, LowerServiceCeiling, 0.075225, 0.0625 #EG881
@@ -176,11 +176,11 @@
 		Load data/brick1.jpg, ServiceFloor, 0.25, 0.25
 		Load data/stucco4c.jpg, ServiceWall, 0.25, 0.25
 		Load data/stucco4b.jpg, ServiceWall2, 0.25, 0.25 #Perimeter walls
-		Load data/EG881/cem_tr3.jpg, ServiceCeiling, 0.075225, 0.0625 #EG881
+		Load data/stucco3.jpg, ServiceCeiling, 0.25, 0.25
 
 			#Mechanical Mezzanine
 			Load data/cem_tr_b.jpg, MMEFloor, 0.0875, 0.0875
-			Load data/stucco3.jpg, MMEUnderside, 0.25, 0.25
+			Load data/stucco4.jpg, MMEUnderside, 0.25, 0.25
 			Load data/stucco4c.jpg, MMEWall, 0.25, 0.25
 			#Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
 
@@ -189,8 +189,8 @@
 		Load data/stucco4b.jpg, ElevMRIntWall, 0.25, 0.25
 		Load data/EG881/cem_tr2b.jpg, ElevMRIntCeiling, 0.075225, 0.0625 #EG881
 
-		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 		Load data/cem_tr_b.jpg, RoofFloor2, 0.1, 0.1
+		Load data/EG881/cem_tr2b.jpg, RoofFloor, 0.075225, 0.0625 #EG881
 
 	#Doors
 		#Service doors
@@ -234,6 +234,7 @@
 	#Shafts
 	Load data/EG881/cem_tr2b.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
 	Load data/EG881/cem_tr3.jpg, ShaftIntWall2, 0.075225, 0.0625 #EG881
+	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ShaftIntWall3, 0.0625, 0.0625, true #EG881
 
 	#Elevators
 		#Main components
@@ -806,7 +807,7 @@ DrawWalls = false, true, false, false, false, false
 	#Podium Service Elevator
 	if[%floor% ! -1] Set End = 0
 	if[%floor% = -1] Set End = 9.5
-	if[%floor% > -2 & %floor% ! 0] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 64, 5, 80 - 0.5 - %End%, 55, 0, true)
+	if[%floor% > -2 & %floor% ! 0] CreateFlr(PodiumServiceFloor, ParkingFloor3, 0.5, 60, 5, 80 - 0.5 - %End%, 55, 0, true)
 <EndFloors>
 
 ########################################
@@ -922,7 +923,7 @@ DrawWalls = false, true, false, false, false, false
 ########################################
 
 #Cuts for hotel entrance and shopping arcade
-Set NorthPoint = 70 #Northern endpoint for this zone.
+Set NorthPoint = 80 #Northern endpoint for this zone.
 Set CenterPoint = -50 #Center point between Hotel Entrance and Shopping Arcade areas.
 Cut External, -%1%, Floor(0).Base - 0.1, -%2%, %1%, Floor(0).Base + 5, %NorthPoint%, false, true
 
@@ -2785,8 +2786,8 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% > 16] CutAll -115, %fullheight% - 1, 5.5, -105, %fullheight% + 1, 54.5, false, true #Ceiling cuts
 
 	WallOrientation = left
-	Set ShowTop = true
-	if[%floor% > 16] Set ShowTop = false
+	Set ShowTop = false
+	if[%floor% > 16] Set ShowTop = true
 	DrawWalls = true, true, false, false, %ShowTop%, false
 
 		TextureOverride %5%Wall, %5%Wall, %5%Wall, %5%Wall, EX_UR_Ceiling, Blank #Same textures as the rest of the floor.
@@ -2860,7 +2861,7 @@ ShowFullShaft 2 = true
 	<EndFloor>
 
 #Podium Service Elevator
-AddStdShaft(3, 1, 75 - 0.5, 30 - 19, 4.67, 5.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(3, 1, 75 - 0.5, 30 - 19, 4.67, 5.67, -3, 18, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 3 = true
 
 	<Floor 18>
@@ -2945,11 +2946,11 @@ AddStdShaft(7, 1, -110 - 40, 30, 4.67, 24.67, 16, 45, ShaftIntWall, 0.5, 0.33, 0
 	<EndFloor>
 
 #East Tower Service Elevator
-AddStdShaft(8, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(8, 1, -80, 30 - 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 8 = true
 
 #West Tower Service Elevator
-AddStdShaft(9, 1, -140, 30 + 19, 4.67, 5.67, -3, 46, ShaftIntWall2, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+AddStdShaft(9, 1, -140, 30 + 19, 4.67, 5.67, -3, 46, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
 ShowFullShaft 9 = true
 
 	<Floor 46>
@@ -2977,6 +2978,24 @@ ShowFullShaft 9 = true
 		AddStdDoor DoorManager, %floorid%_Shaft9MR_D2, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.66 + 0.01, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 	<EndFloor>
+
+#Lobby Express Elevators
+AddStdShaft(10, 2, -210 + 5, -50, 4.67, 14.67, -3, 1, ShaftIntWall3, 0.5, 0.33, 0, 3, %fullheight%)
+ShaftShowFloors 10 = 0 - 17
+ShaftShowOutside 10 = 0 - 17
+ShowFullShaft 10 = true
+
+	#Glass windows
+	<Floors 0 to 17>
+		Set WinHeight = %height% - 1
+		Set WinOffset = 0.5
+		
+		Set WinTile = 1
+		if[%floor% = 0 | %floor% = 1 | %floor% = 17] Set WinTile = 2
+
+		#Glass windows
+		if[%floor% < 14 | %floor% > 16] Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 6/4, %WinTile%)
+	<EndFloors>
 
 ##--------------------------------------------------------------------------------##
 
