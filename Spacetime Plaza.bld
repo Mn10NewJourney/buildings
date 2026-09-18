@@ -11,7 +11,7 @@
 	#4. Please use your imagination for any missing "support columns" around this place. I can't always add every little detail for every building of mine.
 	#5. Any unmarked areas on level B1 is intended to be used for "motorcycle parking."
 	#6. Lastly, please do not ask me to add more supplementary signs to the parking garages (particularly the west underground zone and the Lumina PG) and anywhere else in this complex.
-		# 1.1 I still want people to realize that "The most realistic buildings will always be ones in real world, and this simulator is NOT totally a replacement for real-life buildings."
+		# 6.1 I still want people to realize that "The most realistic buildings will always be ones in real world, and this simulator is NOT totally a replacement for real-life buildings."
 
 	#Elevators:
 	#1. The following elevators will not be used by the "random people" at all.
@@ -165,6 +165,7 @@
 		Load data/granite_0007e.jpg, ParkingEscWall, 0.1, 0.1 #East
 		Load data/wall3.jpg, ParkingEscWall2, 0.25, 0.25 #West
 		Load data/cutston.jpg, EscUndersideCover2, 0.125, 0.125
+		Load data/stucco4.jpg, EscUndersideCover3, 0.25, 0.25
 
 		Load data/Carpet0006_S.jpg, EastParkingLobbyFloor, 0.2, 0.2 #East zone elevator lobbies
 		Load data/Carpet0013b_S.jpg, EastParkingLobbyFloor2, 0.2, 0.2 #East zone escalator lobbies
@@ -859,47 +860,89 @@ DrawWalls = false, true, false, false, false, false
 	Set ML = 2 #Halfway between TQC street level and STP Main level
 	Set UL = 4 #Spacetime Plaza main level
 
-	#Stairs and ramps linking to Tennerland Street and Westin Tranquility City
+	#Stairs and ramps linking to Tennerland Street and Westin Tranquility City (Northwest - Mall and hotel side)
 		#Stairs creation
 		OP_Draw(true, true, true, true, true, true)
-		OP_OrthoStair(landscape, STP_WestLinkStairs_1, Sidewalk, 60, 100, left, -509, 4, 1, 0.5, %LL%, 0.5)
-		OP_OrthoStair(landscape, STP_WestLinkStairs_2, Sidewalk, 60, 100, left, -509 + 4 + 9, 4, 1, 0.5, %ML%, 0.5)
+		OP_OrthoStair(landscape, LavenderLinkStairs_1, Sidewalk, 60, 100, left, -509, 4, 1, 0.5, %LL%, 0.5)
+		OP_OrthoStair(landscape, LavenderLinkStairs_2, Sidewalk, 60, 100, left, -509 + 4 + 9, 4, 1, 0.5, %ML%, 0.5)
 
 		#Ramps and extra floors
 		DrawWalls = false, true, false, false, false, false
-		AddFloor landscape, STP_WestLinkMidLanding, Sidewalk, 0, -505, 60, -496, 100, %ML%, %ML%, 0, 0
-		AddFloor landscape, STP_WestLinkTopLanding, Sidewalk, 0, -492, 60, -458, 100, %UL%, %UL%, 0, 0
+		AddFloor landscape, LavenderLinkMidLanding, Sidewalk, 0, -505, 60, -496, 100, %ML%, %ML%, false, true, 0, 0
+		AddFloor landscape, LavenderLinkTopLanding, Sidewalk, 0, -492, 60, -458, 100, %UL%, %UL%, false, true, 0, 0
 
-		AddFloor landscape, STP_WestLink_Ramp1, Sidewalk, 0, -509, 100.5, -509 + 48, 110, %LL%, %UL%, true, true, 0, 0
-		AddFloor landscape, STP_WestLink_Ramp1Top, Sidewalk, 0, -509 + 48, 100.5, -458, 110, %UL%, %UL%, false, true, 0, 0
+		AddFloor landscape, LavenderLink_Ramp1, Sidewalk, 0, -509, 100.5, -509 + 48, 110, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, LavenderLink_Ramp1Top, Sidewalk, 0, -509 + 48, 100.5, -458, 110, %UL%, %UL%, false, true, 0, 0
 
-		AddFloor landscape, STP_WestLink_Ramp2, Sidewalk, 0, -509, 50, -509 + 48, 59.5, %LL%, %UL%, true, true, 0, 0
-		AddFloor landscape, STP_WestLink_Ramp2Top, Sidewalk, 0, -509 + 48, 50, -458, 59.5, %UL%, %UL%, false, true, 0, 0
+		AddFloor landscape, LavenderLink_Ramp2, Sidewalk, 0, -509, 50, -509 + 48, 59.5, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, LavenderLink_Ramp2Top, Sidewalk, 0, -509 + 48, 50, -458, 59.5, %UL%, %UL%, false, true, 0, 0
 
 		#Railings around west stairs
 		Set FenceThickness = 0.5
 		DrawWalls = true, true, true, true, true, false
 
 		WallOrientation = right
-		AddWall landscape, STP_WestLinkStairs_FrontRail1, BrickFences, %FenceThickness%, -509, 60, -505, 60, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_FrontRail2, BrickFences, %FenceThickness%, -505, 60, -496, 60, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_FrontRail3, BrickFences, %FenceThickness%, -496, 60, -492, 60, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_FrontRail4, BrickFences, %FenceThickness%, -492, 60, -458, 60, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_FrontRail1, BrickFences, %FenceThickness%, -509, 60, -505, 60, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_FrontRail2, BrickFences, %FenceThickness%, -505, 60, -496, 60, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_FrontRail3, BrickFences, %FenceThickness%, -496, 60, -492, 60, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_FrontRail4, BrickFences, %FenceThickness%, -492, 60, -458, 60, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
 
 		WallOrientation = left
-		AddWall landscape, STP_WestLinkStairs_BackRail1, BrickFences, %FenceThickness%, -509, 100, -505, 100, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_BackRail2, BrickFences, %FenceThickness%, -505, 100, -496, 100, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_BackRail3, BrickFences, %FenceThickness%, -496, 100, -492, 100, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkStairs_BackRail4, BrickFences, %FenceThickness%, -492, 100, -458, 100, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_BackRail1, BrickFences, %FenceThickness%, -509, 100, -505, 100, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_BackRail2, BrickFences, %FenceThickness%, -505, 100, -496, 100, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_BackRail3, BrickFences, %FenceThickness%, -496, 100, -492, 100, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkStairs_BackRail4, BrickFences, %FenceThickness%, -492, 100, -458, 100, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
 
 		#Railings around west ramps
 		WallOrientation = right
-		AddWall landscape, STP_WestLinkRamps_FrontRail1, BrickFences, %FenceThickness%, -509, 50, -509 + 48, 50, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkRamps_FrontRail2, BrickFences, %FenceThickness%, -509 + 48, 50, -458, 50, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkRamps_FrontRail1, BrickFences, %FenceThickness%, -509, 50, -509 + 48, 50, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0
+		AddWall landscape, LavenderLinkRamps_FrontRail2, BrickFences, %FenceThickness%, -509 + 48, 50, -458, 50, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0
 
 		WallOrientation = left
-		AddWall landscape, STP_WestLinkRamps_BackRail1, BrickFences, %FenceThickness%, -509, 110, -509 + 48, 110, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0	
-		AddWall landscape, STP_WestLinkRamps_BackRail2, BrickFences, %FenceThickness%, -509 + 48, 110, -458, 110, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, LavenderLinkRamps_BackRail1, BrickFences, %FenceThickness%, -509, 110, -509 + 48, 110, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0
+		AddWall landscape, LavenderLinkRamps_BackRail2, BrickFences, %FenceThickness%, -509 + 48, 110, -458, 110, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0
+
+	#Stairs and ramps linking to Tennerland Street and Westin Tranquility City (Southwest - Office side)
+		#Stairs creation
+		OP_Draw(true, true, true, true, true, true)
+		OP_OrthoStair(landscape, MiriamLinkStairs_1, Sidewalk, -410, -370, left, -509, 4, 1, 0.5, %LL%, 0.5)
+		OP_OrthoStair(landscape, MiriamLinkStairs_2, Sidewalk, -410, -370, left, -509 + 4 + 9, 4, 1, 0.5, %ML%, 0.5)
+
+		#Ramps and extra floors
+		DrawWalls = false, true, false, false, false, false
+		AddFloor landscape, MiriamLinkMidLanding, Sidewalk, 0, -505, -410, -496, -370, %ML%, %ML%, false, true, 0, 0
+		AddFloor landscape, MiriamLinkTopLanding, Sidewalk, 0, -492, -410, -458, -370, %UL%, %UL%, false, true, 0, 0
+
+		AddFloor landscape, MiriamLink_Ramp1, Sidewalk, 0, -509, -369.5, -509 + 48, -360, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, MiriamLink_Ramp1Top, Sidewalk, 0, -509 + 48, -369.5, -458, -360, %UL%, %UL%, false, true, 0, 0
+
+		AddFloor landscape, MiriamLink_Ramp2, Sidewalk, 0, -509, -420, -509 + 48, -410.5, %LL%, %UL%, true, true, 0, 0
+		AddFloor landscape, MiriamLink_Ramp2Top, Sidewalk, 0, -509 + 48, -420, -458, -410.5, %UL%, %UL%, false, true, 0, 0
+
+		#Railings around west stairs
+		Set FenceThickness = 0.5
+		DrawWalls = true, true, true, true, true, false
+
+		WallOrientation = right
+		AddWall landscape, MiriamLinkStairs_FrontRail1, BrickFences, %FenceThickness%, -509, -410, -505, -410, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_FrontRail2, BrickFences, %FenceThickness%, -505, -410, -496, -410, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_FrontRail3, BrickFences, %FenceThickness%, -496, -410, -492, -410, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_FrontRail4, BrickFences, %FenceThickness%, -492, -410, -458, -410, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+
+		WallOrientation = left
+		AddWall landscape, MiriamLinkStairs_BackRail1, BrickFences, %FenceThickness%, -509, -370, -505, -370, 3, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_BackRail2, BrickFences, %FenceThickness%, -505, -370, -496, -370, 3 + %ML%, 3 + %ML%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_BackRail3, BrickFences, %FenceThickness%, -496, -370, -492, -370, 3 + %ML%, 3 + %UL%, %LL%, %LL%, 0, 0	
+		AddWall landscape, MiriamLinkStairs_BackRail4, BrickFences, %FenceThickness%, -492, -370, -458, -370, 3 + %UL%, 3 + %UL%, %LL%, %LL%, 0, 0	
+
+		#Railings around west ramps
+		WallOrientation = right
+		AddWall landscape, MiriamLinkRamps_FrontRail1, BrickFences, %FenceThickness%, -509, -420, -509 + 48, -420, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0
+		AddWall landscape, MiriamLinkRamps_FrontRail2, BrickFences, %FenceThickness%, -509 + 48, -420, -458, -420, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0
+
+		WallOrientation = left
+		AddWall landscape, MiriamLinkRamps_BackRail1, BrickFences, %FenceThickness%, -509, -360, -509 + 48, -360, 3.5, 3.5 + %UL%, %LL%, %LL%, 0, 0
+		AddWall landscape, MiriamLinkRamps_BackRail2, BrickFences, %FenceThickness%, -509 + 48, -360, -458, -360, 3.5 + %UL%, 3.5 + %UL%, %LL%, %LL%, 0, 0
 
 	########################################
 
@@ -2365,8 +2408,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	#Escalator underside cover
 	FloorOrientation = top
 	DrawWalls = true, false, true, true, true, true
-	AddFloor EUSCover1, EscUndersideCover2, 2.63, 60.5 - 0.1, 79.5 - 0.1, 64.5 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	AddFloor EUSCover2, EscUndersideCover2, 2.63, -55 - 0.1, 79.5 - 0.1, -51 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor CenterEUSCover1, EscUndersideCover2, 2.63, 60.5 - 0.1, 79.5 - 0.1, 64.5 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor CenterEUSCover2, EscUndersideCover2, 2.63, -55 - 0.1, 79.5 - 0.1, -51 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor WestEUSCover, EscUndersideCover3, 2.63, -133 - 0.1, 76 - 0.1, -124.5 + 0.1, 84 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 <EndFloor>
 
 ########################################
@@ -3402,6 +3446,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 #Atrium cuts
 	#West atrium
+	Cut External, -161 - 9, Floor(-2).Base + 1, 72 - 2, -161, Floor(-1).Base + 5, 88 + 2, false, true #B2F-B1F Escalators
+	Cut External, -161 + 18, Floor(-1).Base + 1, 72 - 2, -161 + 18 + 9.5 + 3.5, Floor(0).Base + 5, 88 + 2, false, true #B1F-1F Escalators
 	Cut External, -161, Floor(-2).Base + 1, 72 - 2, -161 + 18, Floor(0).Base + 5, 88 + 2, false, true #B2F-1F Escalators
 
 	Cut External, -200 + 40, Floor(1).Altitude - 1, 80 - 20, -200 + 40 + 30, Floor(6).Base + 5, 80 + 20, false, true #Shopping levels
@@ -3417,7 +3463,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		Cut External, 60, Floor(1).Altitude - 1, 100 - 15, 60 + 4.5, Floor(6).Base + 5, 100 + 15, false, true
 
 	#South atrium
-	Cut External, -8.5, Floor(0).Base - 4.07, -140 - 24.14, -8.5 + 16, Floor(0).Base + 1, -140, false, true #B1F Chamber Access
+	Cut External, -8.5, Floor(0).Base - 4.07, -140 + 10 - 24.14, -8.5 + 16, Floor(0).Base + 1, -140 + 10, false, true #B1F Chamber Access
 
 	Cut External, -30, Floor(0).Base - 0.1, -300, 30, Floor(0).Base + 1, -180 - 10, false, true #Atrium base
 	Cut External, -30, Floor(0).Base + 5, -300, 30, Floor(2).Base + 5, -180, false, true #Shopping levels
@@ -3553,20 +3599,27 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	DrawWalls = true, true, true, true, true, false
 
 	#West escalator railings
-	WallOrientation = right
-	AddWall WEscFrontRail, %5%%Infix%%Suffix%, 0.5, -161, 70, -161 + 18, 70, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	Set ExtraWest = 0
+	if[%floor% = -1] Set ExtraWest = 9
+	Set ExtraEast = 0
+	if[%floor% = 0] Set ExtraEast = 9.5 + 3.5
 
-	if[%floor% < 0] AddWall WEscLeftRail, %5%%Infix%%Suffix%, 0.5, -161, 70 - 0.5, -161, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	WallOrientation = right
+	AddWall WEscFrontRail, %5%%Infix%%Suffix%, 0.5, -161 - %ExtraWest%, 70, -161 + 18 + %ExtraEast%, 70, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+
+	if[%floor% < 0] AddWall WEscLeftRail, %5%%Infix%%Suffix%, 0.5, -161 - %ExtraWest%, 70 - 0.5, -161 - %ExtraWest%, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% = 0] AddWall WEscLeftRail, %5%%Infix%%Suffix%, 0.5, -161, 70 - 0.5, -161, 72, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% = 0] AddWall WEscLeftRail, %5%%Infix%%Suffix%, 0.5, -161, 76, -161, 84, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% = 0] AddWall WEscLeftRail, %5%%Infix%%Suffix%, 0.5, -161, 88, -161, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
-	if[%floor% = 0] AddWall WEscRightRail, %5%%Infix%%Suffix%, 0.5, -161 + 18, 70 - 0.5, -161 + 18, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% < 0] AddWall WEscRightRail, %5%%Infix%%Suffix%, 0.5, -161 + 18, 70 - 0.5, -161 + 18, 72, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% < 0] AddWall WEscRightRail, %5%%Infix%%Suffix%, 0.5, -161 + 18, 88, -161 + 18, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	#if[%floor% = 0] AddWall WEscRightRail, %5%%Infix%%Suffix%, 0.5, -161 + 18 + %ExtraEast%, 70 - 0.5, -161 + 18 + %ExtraEast%, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 0] AddWall WEscRightRailA, %5%%Infix%%Suffix%, 0.5, -161 + 18 + %ExtraEast%, 70 - 0.5, -161 + 18 + %ExtraEast%, 76, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 0] AddWall WEscRightRailB, %5%%Infix%%Suffix%, 0.5, -161 + 18 + %ExtraEast%, 84, -161 + 18 + %ExtraEast%, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% < 0] AddWall WEscRightRailC, %5%%Infix%%Suffix%, 0.5, -161 + 18, 70 - 0.5, -161 + 18, 72, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% < 0] AddWall WEscRightRailD, %5%%Infix%%Suffix%, 0.5, -161 + 18, 88, -161 + 18, 90 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
-	AddWall WEscBackRail, %5%%Infix%%Suffix%, 0.5, -161, 90, -161 + 18, 90, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall WEscBackRail, %5%%Infix%%Suffix%, 0.5, -161 - %ExtraWest%, 90, -161 + 18 + %ExtraEast%, 90, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	########################################
 
@@ -3837,19 +3890,17 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	Set RailingOffset = 0
 	Set Suffix = Wall
 
-	#South atrium railings (1st floor)
+	#South atrium railings (1st floor, B1F Chamber Access)
 	DrawWalls = true, true, true, true, true, false
 
-	#Cut External, -8.5, Floor(0).Base - 5, -140 - 24.14, -8.5 + 16, Floor(0).Base + 1, -140, false, true #B1F Chamber Access
-
 		WallOrientation = right
-		AddWall SAFrontRail-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140 - 24.14, -8.5 + 16, -140 - 24.14, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		AddWall SALeftRail-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140 - 24.14 - 0.5, -8.5, -140 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		AddWall SAFrontRail-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140 + 10 - 24.14, -8.5 + 16, -140 + 10 - 24.14, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		AddWall SALeftRail-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140 + 10 - 24.14 - 0.5, -8.5, -140 + 10 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 		WallOrientation = left
-		AddWall SARightRail-%floorid%F, %5%%Suffix%, 0.5, -8.5 + 16, -140 - 24.14 - 0.5, -8.5 + 16, -140 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		AddWall SABackRail-1-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140, -8.5 + 4, -140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-		AddWall SABackRail-2-%floorid%F, %5%%Suffix%, 0.5, -8.5 + 16 - 4, -140, -8.5 + 16, -140, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		AddWall SARightRail-%floorid%F, %5%%Suffix%, 0.5, -8.5 + 16, -140 + 10 - 24.14 - 0.5, -8.5 + 16, -140 + 10 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		AddWall SABackRail-1-%floorid%F, %5%%Suffix%, 0.5, -8.5, -140 + 10, -8.5 + 4, -140 + 10, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+		AddWall SABackRail-2-%floorid%F, %5%%Suffix%, 0.5, -8.5 + 16 - 4, -140 + 10, -8.5 + 16, -140 + 10, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloor>
 
 <Floors 1 to 2>
@@ -9142,10 +9193,10 @@ ShowFullShaft 11 = true
 	OP_EscTruss(SilverBalustrade, EXShopWall2, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 	OP_EscLanding(EscalatorLandingZ, 5.5, 0, 0, EscalatorLandingZ, 5.5, 0, 0) #Reset landing textures
 
-		#Double escalators from B1 to 1
+		#B1F Chamber Access - Double Escalators
 		<Floor -1>
-			OP_Escalator(MallSouthEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -2.5, -140, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallSouthEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -2.5 + 4, -140, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallSouthEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -2.5, -140 + 10, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallSouthEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3ZB, front, -2.5 + 4, -140 + 10, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 		OP_EscTruss(SilverBalustrade, ShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture

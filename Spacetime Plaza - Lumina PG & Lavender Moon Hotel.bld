@@ -136,6 +136,7 @@
 			Load data/marb047.jpg, SHAFloor, 0.25, 0.25, true #SHA = Shopping Arcade
 			Load data/marbl3.jpg, SHAWall, 0.15, 0.15
 			Load data/misc/oak_stained.jpg, SHAColumnTex, 0.2, 0.2
+			Load data/marb148.jpg, SHADividerColumnTex, 0.2, 0.2
 			Load data/EG881/ceilingtile2.jpg, SHACeiling, 0.125, 0.125 #EG881
 
 		#Hotel lobby (14th floor)
@@ -236,7 +237,7 @@
 	#Shafts
 	Load data/EG881/cem_tr2b.jpg, ShaftIntWall, 0.075225, 0.0625 #EG881
 	Load data/EG881/cem_tr3.jpg, ShaftIntWall2, 0.075225, 0.0625 #EG881
-	Load data/EG881/Concrete/smoothconcrete1_white.jpg, ShaftIntWall3, 0.0625, 0.0625, true #EG881
+	#Load data/EG881/Concrete/smoothconcrete1_white.jpg, ShaftIntWall3, 0.0625, 0.0625, true #EG881
 
 	#Elevators
 		#Main components
@@ -278,8 +279,8 @@
 		Rotate LowerHotelElevCeilingTrim, 90
 
 		Load data/EG881/blackdoortrim.jpg, LowerHotelElevWall, 1, 1, false #EG881
-		Load data/herringbone08.jpg, LowerHotelElevWallPanel, 0.3, 0.3 #Elevators 9-11
-		Load data/herringbone12.jpg, LowerHotelElevWallPanel2, 0.3, 0.3 #Elevators 12-14
+		Load data/checker06.jpg, LowerHotelElevWallPanel, 0.5, 0.5 #Elevators 9-11
+		Load data/checker23.jpg, LowerHotelElevWallPanel2, 0.5, 0.5 #Elevators 12-14
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, LowerHotelElevPanelMain, 1, 1, false #EG881
 		Load data/EG881_Otis/Walls_and_Panels/otisstainlesssteel2.jpg, LowerHotelElevPanelTop, 1, 0.125, false #EG881
 		Load data/EG881_Otis/Doors/otisstainlesssteel2doorright.jpg, LowerHotelElevDoors, -1, 1, false #EG881
@@ -298,8 +299,8 @@
 
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, UpperHotelElevPanelMain, 1, 1, false
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, UpperHotelElevPanelTop, 1, 0.125, false
-		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, UpperHotelElevDoors, 1, 1, false
-		Load data/Melvin/OTIS67_Darkaluminium_door.jpg, UpperHotelElevDoors2, -1, 1, false
+		Load data/dark muntz door.jpg, UpperHotelElevDoors, 1, 1, false
+		Load data/dark muntz door.jpg, UpperHotelElevDoors2, -1, 1, false
 
 			#Shaft doors (Passenger)
 			Load data/EG881/stainlesssteeldoor5.jpg, HotelEntranceShaftDoors, 1, 1, false #EG881
@@ -2054,6 +2055,8 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% = 0] Set LobbyPrefix = HotelEntrance #Hotel entrance, 1st floor
 	if[%floor% ! 0] Set ShopPrefix = 
 	if[%floor% = 0] Set ShopPrefix = SHA #Shopping arcade, 1st floor
+	if[%floor% ! 0] Set ShopPrefix2 = 
+	if[%floor% = 0] Set ShopPrefix2 = SHADivider #Shopping arcade, 1st floor
 
 	#Row A
 	Set Prefix = A
@@ -2104,11 +2107,11 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	Set SupportX = -%1% + (%DistanceX% * 4)
 	CreateWallBox2 external, Support%Prefix%1, ColumnTex, %SupportX%, %2% - 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 	CreateWallBox2 external, Support%Prefix%2, ColumnTex, %SupportX%, %2% - (%DistanceZ% * 1), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%3, %ShopPrefix%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%4, %ShopPrefix%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%5, %ShopPrefix%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%6, %ShopPrefix%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 5) + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
-	CreateWallBox2 external, Support%Prefix%7, %ShopPrefix%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%3, %ShopPrefix2%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 2), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%4, %ShopPrefix2%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 3), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%5, %ShopPrefix2%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 4), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%6, %ShopPrefix2%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 5) + 1.25, 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
+	CreateWallBox2 external, Support%Prefix%7, %ShopPrefix2%ColumnTex, %SupportX%, %2% - (%DistanceZ% * 6), 2, 2, %SupportHeight%, %SupportOffset%, 0, 0, false, true, false, false
 
 	#Row F
 	Set Prefix = F
@@ -2989,7 +2992,7 @@ ShowFullShaft 9 = true
 	<EndFloor>
 
 #Lobby Express Elevators
-AddStdShaft(10, 1, -210 + 5, -50, 4.67, 14.67, -3, 18, ShaftIntWall3, 0.5, 0.33, 0, 3, %fullheight%)
+AddStdShaft(10, 1, -210 + 5, -50, 4.67, 14.67, -3, 18, ShaftIntWall2, 0.5, 0.33, 0, 3, %interfloorheight%)
 ShaftShowFloors 10 = 0 - 17
 ShaftShowOutside 10 = 0 - 17
 ShowFullShaft 10 = true
@@ -3003,7 +3006,7 @@ ShowFullShaft 10 = true
 		if[%floor% = 0 | %floor% = 1 | %floor% = 17] Set WinTile = 2
 
 		#Glass windows
-		if[%floor% < 14 | %floor% > 16] Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall3, 0.66 + 0.01, 6/4, %WinTile%)
+		if[%floor% < 14 | %floor% > 16] Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall2, 0.66 + 0.01, 6/4, %WinTile%)
 	<EndFloors>
 
 	<Floor 18>
@@ -4328,21 +4331,27 @@ ShowFullShaft 10 = true
 #EXTRA TEXTURES FOR Lobby Express Elevators (No. 28-30)
 <Textures>
 	#Lobby express elevators (No. 28-30)
-	Load data/Carpet0006_S.jpg, ExpressElevFloor, 0.2, 0.2
-	Load data/marbl3.jpg, ExpressElevWall, 0.25, 0.25
+	Load data/Carpet0021b_S.jpg, ExpressElevFloor, 0.2, 0.2
+	Load data/marbl3.jpg, ExpressElevWall, 0.407, 0.407
 	Load data/glasselevator2b.gif, ExpressElevWallGlass, 1, 1, false
 	Load data/panel-back3.jpg, ExpressElevWallGlassLink, 1, 1, false
-	Load data/text16.jpg, ExpressElevWallPanel, 0.25, 0.25
+	Load data/diamond18c.jpg, ExpressElevWallPanel, 0.5, 0.5
 
 	Load data/EG881/stainlesssteel2.jpg, ExpressElevCeiling, 1, 1, false #EG881
+	Rotate ExpressElevCeiling, 90
 	Load data/otis67/OTIS67_EU_Button_Lighted.gif, ExpressElevCeilingDL, 1, 1, false
 	Load data/EG881/Lights/squarelight1_white.jpg, ExpressElevCeilingLight, 1, 1, false #EG881
 	Load data/windows11j-4_inside.gif, ExpressElevCeilingGrid, -1, 1, false #EG881
 
-	Load data/elevpanelsilver.jpg, ExpressElevPanelMain, 1, 1, false
-	Load data/elevpanelsilver.jpg, ExpressElevPanelTop, 1, 0.125, false
-	Load data/door1.jpg, ExpressElevDoors, 1, 1, false
-	Load data/door1.jpg, ExpressElevDoors2, -1, 1, false
+	Load data/marbl3.jpg, ExpressElevPanelMain, 0.407, 0.407
+	Load data/marbl3.jpg, ExpressElevPanelTop, 0.407, 0.407
+	Load data/Melvin/WestinTQC/text16door.jpg, ExpressElevDoors, 1, 1, false
+	Load data/Melvin/WestinTQC/text16door.jpg, ExpressElevDoors2, -1, 1, false
+
+	#Load data/elevpanelsilver.jpg, ExpressElevPanelMain, 1, 1, false
+	#Load data/elevpanelsilver.jpg, ExpressElevPanelTop, 1, 0.125, false
+	#Load data/door1.jpg, ExpressElevDoors, 1, 1, false
+	#Load data/door1.jpg, ExpressElevDoors2, -1, 1, false
 
 	#Load data/panel-back3.jpg, ExpressElevPanelMain, 1, 1, false
 	#Load data/panel-back3.jpg, ExpressElevPanelTop, 1, 0.125, false
@@ -4457,10 +4466,10 @@ ShowFullShaft 10 = true
 	Set WPTex = %Prefix%ElevWallPanel
 
 		#Front panels
-		CreateWallBox2 elevator, Panel_F, %WPTex%, 0, -3.05 + 0.05, 4, 0.1, 8 - 1.5, 0.75, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_F, %WPTex%, 0, -3.05 + 0.05, 4.5, 0.1, 8 - 1.5, 0.75, 0, 0, false, true, true, true
 
 		#Back panels
-		CreateWallBox2 elevator, Panel_B, %WPTex%, 0, 3.05 - 0.05, 4, 0.1, 8 - 1.5, 0.75, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, Panel_B, %WPTex%, 0, 3.05 - 0.05, 4.5, 0.1, 8 - 1.5, 0.75, 0, 0, false, true, true, true
 	#--------------------
 	#Car Doors
 	Set ElevDoorTex = %Prefix%ElevDoors
@@ -4503,9 +4512,8 @@ ShowFullShaft 10 = true
 
 	#Elevator number sign
 	DrawWalls = true, false, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 3.64 - 0.001, 0 - 0.25, 3.64 - 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
-
-	#AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX%, %P1_PositionZ% - 0.25, %P1_PositionX%, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.25, 6.25, 0, 0
+	#AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, 3.64 - 0.001, 0 - 0.25, 3.64 - 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX% - 0.05, %P1_PositionZ% - 0.25, %P1_PositionX% - 0.05, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.5, 6.5, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
