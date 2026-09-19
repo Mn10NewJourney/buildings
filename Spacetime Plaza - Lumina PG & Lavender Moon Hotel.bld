@@ -1,7 +1,7 @@
 #Spacetime Plaza - Lumina Parking Garage and Lavender Moon Hotel
 #Copyright (c) 2026-Present - Mn10
 
-#Elevator Details (* = Not created yet)
+#Elevator Details
 	#ELEVATORS	DETAILS					SPEED
 	#1-8		Parking					15 FPS (4.57 m/s)
 	#9-14		Low Zone (17-24)		16 FPS (4.88 m/s)
@@ -9,7 +9,7 @@
 	#20-24		High Zone (33-40)		24 FPS (7.31 m/s)
 	#25			Podium Service			15 FPS (4.57 m/s)
 	#26-27		Tower Service			20 FPS (6.1 m/s)
-	#28-30*		Lobby Express			TBD
+	#28-30		Lobby Express			12 FPS (3.65 m/s)
 
 ########################################
 
@@ -171,17 +171,16 @@
 		#Service and mechanical levels
 		Load data/EG881/cem_tr2b.jpg, LowerServiceFloor, 0.075225, 0.0625 #EG881
 		Load data/stucco4.jpg, LowerServiceWall, 0.2, 0.2
-		Load data/stucco1.jpg, LowerServiceWall2, 0.1, 0.1 #Perimeter walls
+		Load data/stucco1.jpg, LowerServiceWall2, 0.0833, 0.0833 #Perimeter walls
 		Load data/EG881/cem_tr2b.jpg, LowerServiceCeiling, 0.075225, 0.0625 #EG881
 
 		Load data/brick1.jpg, ServiceFloor, 0.25, 0.25
 		Load data/stucco4c.jpg, ServiceWall, 0.25, 0.25
 		Load data/stucco4b.jpg, ServiceWall2, 0.25, 0.25 #Perimeter walls
-		Load data/stucco1.jpg, ServiceCeiling, 0.2, 0.2
+		Load data/stucco1.jpg, ServiceCeiling, 0.1, 0.1
 
 			#Mechanical Mezzanine
-			#Load data/cem_tr_b.jpg, MMEFloor, 0.0875, 0.0875
-			Load data/EG881/cem_tr3.jpg, MMEFloor, 0.075225, 0.0625 #EG881
+			Load data/stucco4.jpg, MMEFloor, 0.25, 0.25
 			Load data/stucco3.jpg, MMEUnderside, 0.25, 0.25
 			Load data/stucco4c.jpg, MMEWall, 0.25, 0.25
 			#Load data/EG881/Concrete/smoothconcrete1_white.jpg, MMEWall, 0.075, 0.075 #EG881
@@ -611,11 +610,13 @@ DrawWalls = false, true, false, false, false, false
 	if[%floor% = -1] AddFloor LMH_DockMezFloor, ParkingFloor3, 0.5, 70, 5, 80 - 0.5, 55, %interfloorheight%, %interfloorheight%, 0, 0, true
 	if[%floor% ! -1] AddFloor LMH_PGFloor, Road, 0.5, -%1%, -%2%, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
-		#Extra floorings above roads (East zone)
+		#Extra floorings above roads
 		#if[%floor% < -1] CreateFlr(BasementPK_UtilityFloor, ParkingFloor, 0.5, -180, -130, -126, -90 - 5, 0, true)
 		CreateFlr(%floorid%F_PLFloor_East, ParkingFloor, 0.5, -126, -130, -120, -90 - 5, 0, true)
 		CreateFlr(%floorid%F_PLFloor_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90 - 5, 0, true)
 		CreateFlr(%floorid%F_PLFloor_West, ParkingFloor, 0.5, -190, -130, -174, -90 - 5, 0, true)
+
+		CreateFlr(%floorid%F_ExpressELFloor, ParkingLobbyFloor, 0.5, -%1%, -50 - 15, -170, -50 + 15, 0, true)
 
 		#Concrete floors for loading dock
 		if[%floor% ! -1] CreateFlr(DockFloor_Left, LoadingDockFloor, 0.5, %1% - 140, -%2%, %1% - 140 + 15, %2%, 0, true)
@@ -715,6 +716,8 @@ DrawWalls = false, true, false, false, false, false
 		#if[%floor% > 4 & %floor% ! 6 & %floor% ! 7] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -90, -130, -50, -109, 0, true)
 		#if[%floor% = 0] CreateFlr(FloorNorthofMallPKElev, ParkingFloor2, 0.5, -126, -130, -60, -109, 0, true)
 
+		if[%floor% > 9] CreateFlr(%floorid%F_ExpressELFloor, ParkingLobbyFloor, 0.5, -%1%, -50 - 15, -200 + 15, -50 + 15, 0, true)
+
 		#Extra floorings under ramps
 		if[%floor% = 1] CreateFlr(SouthRampUDSFloor, ParkingFloor3, 0.5, -90, -108, 110, -71, 0, true)
 		if[%floor% = 2] CreateFlr(NorthRampUDSFloor, ParkingFloor3, 0.5, -170, 111, 150, %2%, 0, true)
@@ -724,12 +727,15 @@ DrawWalls = false, true, false, false, false, false
 		#CreateFlr(FarEastUF_1, LoadingDockFloor, 0.5, %1% - 21, -%2%, %1%, -109, 0, true)
 		#CreateFlr(FarEastUF_2, LoadingDockFloor, 0.5, %1% - 21, 9, %1%, %2%, 0, true)
 
+		#Southwest corner utility floor
+		if[%floor% > 0] CreateFlr(SWCornerUF, ParkingFloor2, 0.5, -%1%, -%2%, -150 - 24, -96 - 5 + 6 + 5, 0, true)
+
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
 	AddFloor TowerParkingCeil, %5%Ceiling, 0.5, -%1%, -%2%, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 	if[%floor% > 0] AddFloor LMH_ParkingELCeiling, ParkingLobbyCeiling, 0.5, -174, -118, -126, -102 - 5, %fullheight%, %fullheight%, 0, 0, true
-	if[%floor% > 9] AddFloor LMH_ExpressELCeiling, ParkingLobbyCeiling, 0.5, -200, -50 - 15, -200 + 10, -50 + 15, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% > 9] AddFloor LMH_ExpressELCeiling, ParkingLobbyCeiling, 0.5, -200, -50 - 15, -200 + 15, -50 + 15, %fullheight%, %fullheight%, 0, 0, true
 
 	#Railings
 	DrawWalls = true, true, true, true, true, true
@@ -1162,6 +1168,7 @@ Set ShiftBy = 85
 
 #Auto area(s)
 AddFloorAutoArea 189, Floor(3).Base, 25 - %ShiftBy%, 210, Floor(4).Base + 5, 90 - %ShiftBy% #Monica DS
+AddFloorAutoArea 189, Floor(6).Base, 25 - %ShiftBy%, 210, Floor(7).Base + 5, 90 - %ShiftBy% #Monica DS
 
 #Cut for store entrance areas on 3A-4 and 5A-6
 	Cut External, 195, Floor(4).Base - 5, 75 - 48 - %ShiftBy%, 210, Floor(4).Base + 5, 90 + 12 - %ShiftBy%, false, true #Levels 3A-4
@@ -2243,8 +2250,11 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	TexPrefix()
 
 	#Low zone eleators
-	if[%floor% < 30] CreateShaftWall(%5%Wall, %SP2%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 - 10, 30, 5, 25, LMH_SH4, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
-	if[%floor% < 30] CreateShaftWall(%5%Wall, %5%Wall, %SP2%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 10, 30, 5, 25, LMH_SH5, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	Set Length = 25
+	if[%floor% = 16] Set Length = 15
+
+	if[%floor% < 30] CreateShaftWall(%5%Wall, %SP2%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 - 10, 30, 5, %Length%, LMH_SH4, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
+	if[%floor% < 30] CreateShaftWall(%5%Wall, %5%Wall, %SP2%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -110 + 10, 30, 5, %Length%, LMH_SH5, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 
 	#Mid zone eleators
 	Set ShowLeft = false
@@ -2353,7 +2363,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 #UTILITY ROOMS NEXT TO SHAFTS 4 AND 5
 #Added on August 27, 2026
-<Floors 16 to 29>
+<Floors 17 to 29>
 	#1. Utility room floors (Non-mechanical floors only)
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
@@ -2698,9 +2708,17 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	CreateFlr(PodiumServFHC, SACeiling, 0.5, 69.5, 5, 79.5, 55, %height%, true)
 
 	#Dropped ceilings
+	if[%floor% = 0 | %floor% = 1] Set CeilingOffset = 9.5 + %interfloorheight%
+	if[%floor% = 17] Set CeilingOffset = 12 + %interfloorheight%
+	
 	FloorOrientation = bottom
-	DrawWalls = true, false, false, false, false, false
-	if[%floor% = 0 | %floor% = 1 | %floor% = 17] AddFloor EastServDC, SLDropCeiling, 0.5, 69.5, 5 + 12, 79.5, 55 - 25, 9.5, 9.5, 0, 0, false
+	DrawWalls = true, true, false, false, false, false
+	if[%floor% = 0 | %floor% = 1] AddFloor EastServDC, SLDropCeiling, 0.5, 69.5, 5 + 12, 79.5, 55 - 25 + 0.5, %CeilingOffset%, %CeilingOffset%, 0, 0, true
+
+	FloorOrientation = top
+	DrawWalls = true, true, false, false, false, false
+	TextureOverride SACeiling, SAFloor, Blank, Blank, Blank, Blank
+	if[%floor% = 17] AddFloor EastServDC, SLDropCeiling, 2, 69.5, 5 + 12, 79.5, 55 - 25 + 0.5, %CeilingOffset%, %CeilingOffset%, 0, 0, true
 <EndFunction>
 
 #Elevator lobby creation
@@ -2779,7 +2797,57 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 #Utility room between Shafts 4 and 5 (On levels 13 and 25-26)
 #Added on September 6, 2026
 
-<Function Utility_SH4-5>
+<Function Utility_SH4-5_EX> #Mechanical floor
+	TexPrefix() #Set texture prefixes for exterior walls
+
+	#1. Utility room floors - Not needed for this room.
+	#FloorOrientation = top
+	#DrawWalls = false, true, false, false, false, false
+	#CreateFlr(LMH_Center_UR_Floor, EX_UR_Floor, 0.5, -115, 15 + 0.5, -105, 45 - 0.5, 0, false) #Floor creation
+
+	#2. Utility room exterior walls
+	WallOrientation = left
+	DrawWalls = true, true, false, false, false, false
+
+	TextureOverride %5%Wall, %5%Wall, SAWall, SAWall, Blank, Blank
+	AddWall LMH_Center_UR_Outer, SAWall, 30, -115, 15, -105, 15, %height%, %height%, 0, 0, 0, 0, false
+
+	#3. Utility room interior walls and ceilings
+	if[%floor% > 16] CutAll -115, %fullheight% - 1, 15.5, -105, %fullheight% + 1, 44.5, false, true #Ceiling cuts
+
+	WallOrientation = left
+	Set ShowTop = false
+	if[%floor% > 16] Set ShowTop = true
+	DrawWalls = true, true, false, false, %ShowTop%, false
+
+		TextureOverride %5%Wall, %5%Wall, %5%Wall, %5%Wall, EX_UR_Ceiling, Blank #Same textures as the rest of the floor.
+		AddWall LMH_Center_UR_Inner, EX_UR_Wall, -29, -115, 44.5, -105, 44.5, %height%, %height%, 0, 0, 0, 0, false #Interior walls
+
+	#4. Utility room doors
+	Set DTex = ServiceDoor1 #Hotel levels
+	if[%floor% < 17] Set DTex = ServiceDoor2 #Mechanical floor
+	Set DSTex = %DTex%Side
+
+		#South doors
+		Set Door_MainX = -110
+		Set Door_MainZ = 15 + 0.5
+
+		WallOrientation = right
+		AddStdDoor Floor %floor%, LMH_CenterUR_D1/1, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, LMH_CenterUR_D1/2, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+
+		#North doors
+		Set Door_MainX = -110
+		Set Door_MainZ = 45 - 0.5
+
+		WallOrientation = left
+		AddStdDoor Floor %floor%, LMH_CenterUR_D2/1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddStdDoor Floor %floor%, LMH_CenterUR_D2/2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, 0, true, 0, 0, false
+<EndFunction>
+
+<Function Utility_SH4-5> #Hotel floors
 	TexPrefix() #Set texture prefixes for exterior walls
 
 	#1. Utility room floors - Not needed for this room.
@@ -2830,7 +2898,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 <EndFunction>
 
 <Floor 16>
-	Utility_SH4-5()
+	Utility_SH4-5_EX()
 <EndFloor>
 
 <Floors 28 to 29>
@@ -2946,7 +3014,7 @@ AddStdShaft(7, 1, -110 - 40, 30, 4.67, 24.67, 16, 45, ShaftIntWall, 0.5, 0.33, 0
 		#Machine room doors
 
 		#Shaft 7
-		Set DTex = ServiceDoor3
+		Set DTex = ServiceDoor2
 		Set DSTex = %DTex%Side
 		Set Door_MainX = -110 - 40 - 5
 		Set Door_MainZ = 30
@@ -3006,7 +3074,7 @@ ShowFullShaft 10 = true
 		if[%floor% = 0 | %floor% = 1 | %floor% = 17] Set WinTile = 2
 
 		#Glass windows
-		if[%floor% < 14 | %floor% > 16] Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall2, 0.66 + 0.01, 6/4, %WinTile%)
+		Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall2, 0.66 + 0.01, 6/4, %WinTile%)
 	<EndFloors>
 
 	<Floor 18>
@@ -4167,8 +4235,8 @@ ShowFullShaft 10 = true
 	Set Position = -2.275
 
 		#Panel back
-		if[%elevator% = 25] CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, 4.44 - 0.025, 0.8, 0.05, 5 + 0.125, 2 - 0.125, 0, 0, false, true, true, true
-		if[%elevator% = 26] CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, 4.44 - 0.025, 0.9, 0.05, 5 + 0.125, 2 - 0.125, 0, 0, false, true, true, true
+		if[%elevator% = 25] CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, 4.44 - 0.025, 0.8, 0.05, 5 + 0.25, 2 - 0.25, 0, 0, false, true, true, true
+		if[%elevator% = 26] CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, 4.44 - 0.025, 0.9, 0.05, 5 + 0.25, 2 - 0.25, 0, 0, false, true, true, true
 
 		#Panel
 		if[%elevator% = 25] CreatePanel , 11, 3, front, %Position%, 4.44 - 0.051, 0.15, 0.15, 0.25, 0.25, 3.5, 0, 0 #All buttons
@@ -4257,7 +4325,7 @@ ShowFullShaft 10 = true
 	Set Position = 2.275
 
 		#Panel back
-		CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, -4.44 + 0.025, 0.9, 0.05, 5 + 0.125, 2 - 0.125, 0, 0, false, true, true, true
+		CreateWallBox2 elevator, MainPB, ElevPanel, %Position%, -4.44 + 0.025, 0.9, 0.05, 5 + 0.25, 2 - 0.25, 0, 0, false, true, true, true
 
 		#Panel
 		CreatePanel , 13, 4, back, %Position%, -4.44 + 0.051, 0.15, 0.15, 0.25, 0.25, 3.5, 0, 0 #Floor buttons
@@ -4332,10 +4400,10 @@ ShowFullShaft 10 = true
 <Textures>
 	#Lobby express elevators (No. 28-30)
 	Load data/Carpet0021b_S.jpg, ExpressElevFloor, 0.2, 0.2
-	Load data/marbl3.jpg, ExpressElevWall, 0.407, 0.407
+	Load data/marbl3.jpg, ExpressElevWall, 0.36, 0.36
 	Load data/glasselevator2b.gif, ExpressElevWallGlass, 1, 1, false
 	Load data/panel-back3.jpg, ExpressElevWallGlassLink, 1, 1, false
-	Load data/diamond18c.jpg, ExpressElevWallPanel, 0.5, 0.5
+	Load data/misc/oak_stained.jpg, ExpressElevWallPanel, 0.407, 0.407
 
 	Load data/EG881/stainlesssteel2.jpg, ExpressElevCeiling, 1, 1, false #EG881
 	Rotate ExpressElevCeiling, 90
@@ -4343,8 +4411,8 @@ ShowFullShaft 10 = true
 	Load data/EG881/Lights/squarelight1_white.jpg, ExpressElevCeilingLight, 1, 1, false #EG881
 	Load data/windows11j-4_inside.gif, ExpressElevCeilingGrid, -1, 1, false #EG881
 
-	Load data/marbl3.jpg, ExpressElevPanelMain, 0.407, 0.407
-	Load data/marbl3.jpg, ExpressElevPanelTop, 0.407, 0.407
+	Load data/marbl3.jpg, ExpressElevPanelMain, 0.36, 0.36
+	Load data/marbl3.jpg, ExpressElevPanelTop, 0.36, 0.36
 	Load data/Melvin/WestinTQC/text16door.jpg, ExpressElevDoors, 1, 1, false
 	Load data/Melvin/WestinTQC/text16door.jpg, ExpressElevDoors2, -1, 1, false
 
@@ -5887,7 +5955,14 @@ ShowFullStairs 3 = always
 	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, -%23% - 0.5, -%24% + 2, 3, 7, 0, 0, 0
 	WallOrientation = left
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = -2] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0
+	if[%floor% = -2] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0 #Exit door from loading dock
+
+		#Extra doors to access "Secret area" above the Podium Service Elevator Lobby
+		Set DoorOffset = 12
+
+		WallOrientation = left
+		TextureOverride ServiceDoor2B, ServiceDoor2, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
+		if[%floor% = 17] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 7, 75, -%23% + 2, -%24%, 3, 7, %DoorOffset%, 0, 0
 
 		#Filler walls
 		Set M = 1 #Multiplier
@@ -5895,6 +5970,7 @@ ShowFullStairs 3 = always
 
 		WallOrientation = right
 		AddFillerWalls ConnectionWall, 0.5 * %M%, %21% - %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true #Main doors
+		if[%floor% = 17] AddFillerWalls ConnectionWall, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight% + %DoorOffset%, true, 0, 0, true #Secret area access
 
 		WallOrientation = left
 		if[%floor% = -2] AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true #Exit door from loading dock

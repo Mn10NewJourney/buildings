@@ -2404,15 +2404,6 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		Add3DWindows(NE_Access6_WinSide2, %Door_MainX%, %Door_MainZ% + 3 + 1, right, 1.5, %EntireHeight% - 0.5, 0.25, MainWindowsIntB2, MainWindowsIntB2, EastParkingLobbyWall, 0.5, 1/4, 1)
 <EndFloors>
 
-<Floor -1>
-	#Escalator underside cover
-	FloorOrientation = top
-	DrawWalls = true, false, true, true, true, true
-	AddFloor CenterEUSCover1, EscUndersideCover2, 2.63, 60.5 - 0.1, 79.5 - 0.1, 64.5 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	AddFloor CenterEUSCover2, EscUndersideCover2, 2.63, -55 - 0.1, 79.5 - 0.1, -51 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-	AddFloor WestEUSCover, EscUndersideCover3, 2.63, -133 - 0.1, 76 - 0.1, -124.5 + 0.1, 84 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
-<EndFloor>
-
 ########################################
 
 #PARKING SIGNS
@@ -3125,7 +3116,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	if[%floor% ! 6 & %floor% ! 7] AddFloor EastZoneCeiling, %5%Ceiling, 0.5, %1% - 240, -%2% + 260, %1%, %2% - 220, %fullheight%, %fullheight%, 0, 0, true
 	if[%floor% = 7] AddFloor EastZoneCeiling2, %5%Ceiling, 0.5, %1% - 240, 181, %1%, %2% - 220, %fullheight%, %fullheight%, 0, 0, true
-	if[%floor% = 7] AddFloor EastZoneCeiling3, %5%Ceiling, 0.5, %1% - 240, -%2% + 260, %1%, -21, %fullheight%, %fullheight%, 0, 0, true
+	#if[%floor% = 7] AddFloor EastZoneCeiling3, %5%Ceiling, 0.5, %1% - 240, -%2% + 260, %1%, -21, %fullheight%, %fullheight%, 0, 0, true
+	if[%floor% = 7] AddFloor EastZoneCeiling3, %5%Ceiling, 0.5, %1% - 240, -%2% + 260, %1%, 20, %fullheight%, %fullheight%, 0, 0, true
 <EndFloors>
 
 <Floors 8 to 9>
@@ -3142,7 +3134,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% ! 9] AddFloor CenterZoneFloorEX3, %5%Floor, 0.5, 25, 181, 90, 240, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	if[%floor% ! 9] AddFloor EastZoneFloor2, %5%Floor, 0.5, %1% - 240, 181, %1%, %2% - 220, %interfloorheight%, %interfloorheight%, 0, 0, true
-	if[%floor% ! 9] AddFloor EastZoneFloor3, %5%Floor, 0.5, %1% - 240, -%2% + 260, %1%, -21, %interfloorheight%, %interfloorheight%, 0, 0, true
+	#if[%floor% ! 9] AddFloor EastZoneFloor3, %5%Floor, 0.5, %1% - 240, -%2% + 260, %1%, -21, %interfloorheight%, %interfloorheight%, 0, 0, true
+	if[%floor% ! 9] AddFloor EastZoneFloor3, %5%Floor, 0.5, %1% - 240, -%2% + 260, %1%, 20, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -3859,7 +3852,8 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	#East zone
 	WallOrientation = right
-	AddWall 8F_EZ_SouthRail, %5%%Suffix%, 0.5, 149, -21, 284, -21, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	#AddWall 8F_EZ_SouthRail, %5%%Suffix%, 0.5, 149, -21, 284, -21, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall 8F_EZ_SouthRail, %5%%Suffix%, 0.5, 90.5, 20, %1% - 5, 20, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
 	AddWall 8F_EZ_NorthRail, %5%%Suffix%, 0.5, 90, 181, 284, 181, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
@@ -9240,6 +9234,17 @@ ShowFullShaft 11 = true
 		<EndFloor>
 
 <Break>
+
+<Floor -1>
+	#Escalator underside cover
+	FloorOrientation = top
+	DrawWalls = true, false, true, true, true, true
+	AddFloor CenterEUSCover1, EscUndersideCover2, 2.63, 60.5 - 0.1, 79.5 - 0.1, 64.5 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor CenterEUSCover2, EscUndersideCover2, 2.63, -55 - 0.1, 79.5 - 0.1, -51 + 0.1, 91 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+
+	DrawWalls = true, true, true, true, true, true
+	AddFloor WestEUSCover, EscUndersideCover3, 2.63, -132 - 0.1, 76 - 0.1, -124.5 + 0.1, 84 + 0.1, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+<EndFloor>
 
 ##--------------------------------------------------------------------------------##
 
