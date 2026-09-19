@@ -728,7 +728,7 @@ DrawWalls = false, true, false, false, false, false
 		#CreateFlr(FarEastUF_2, LoadingDockFloor, 0.5, %1% - 21, 9, %1%, %2%, 0, true)
 
 		#Southwest corner utility floor
-		if[%floor% > 0] CreateFlr(SWCornerUF, ParkingFloor2, 0.5, -%1%, -%2%, -150 - 24, -96 - 5 + 6 + 5, 0, true)
+		if[%floor% > 0] CreateFlr(SWCornerUF, ParkingFloor2, 0.5, -%1%, -%2%, -150 - 24, -96 - 5 + 6, 0, true)
 
 	#Ceilings
 	FloorOrientation = bottom
@@ -797,10 +797,15 @@ DrawWalls = false, true, false, false, false, false
 		if[%floor% > 1] AddWall BackWallC, ExtFacade2, 0.5, 30, %2%, 150, %2%, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 
 		#Left walls
-		DrawWalls = true, true, true, true, false, false
+		DrawWalls = true, false, true, true, false, false
 		WallOrientation = left
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
-		if[%floor% > 0] AddWall LeftWallA, ExtFacade2, 0.5, -%1%, -%2%, -%1%, -95 + 5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+		if[%floor% > 0] AddWall LeftWallA1, ExtFacade2, 0.5, -%1%, -%2%, -%1%, -95 + 5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+
+		DrawWalls = true, true, true, true, false, false
+		TextureOverride ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
+		if[%floor% > 0] AddWall LeftWallA2, ExtFacade2, 0.5, -%1%, -95 - 5, -%1%, -95 + 5, %fullheight%, %fullheight%, 0, 0, 0, 0, true
+
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
 		if[%floor% > 0] AddWall LeftWallB, ExtFacade2, 0.5, -%1%, -50 - 20, -%1%, -50 - 15, %fullheight%, %fullheight%, 0, 0, 0, 0, true
 		TextureOverride ExtFacade, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2, ExtFacade2
@@ -2463,8 +2468,8 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	Set DTex = ServiceDoor2 #Most floors
 	if[%floor% = 0] Set DTex = Door8 #Hotel entrance / shopping arcade level
 
-	if[%floor% < 0] Set DTex = ServiceDoor1 #Parking levels
-	if[%floor% > 0 & %floor% < 14] Set DTex = ServiceDoor1
+	if[%floor% < 0] Set DTex = ServiceDoor1 #Underground parking
+	if[%floor% > 0 & %floor% < 14] Set DTex = ServiceDoor3 #Tower parking
 
 	if[%floor% > 41] Set DTex = ServiceDoor3 #Top floor restaurant
 
@@ -2712,7 +2717,7 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	if[%floor% = 17] Set CeilingOffset = 12 + %interfloorheight%
 	
 	FloorOrientation = bottom
-	DrawWalls = true, true, false, false, false, false
+	DrawWalls = true, false, false, false, false, false
 	if[%floor% = 0 | %floor% = 1] AddFloor EastServDC, SLDropCeiling, 0.5, 69.5, 5 + 12, 79.5, 55 - 25 + 0.5, %CeilingOffset%, %CeilingOffset%, 0, 0, true
 
 	FloorOrientation = top
@@ -3074,7 +3079,7 @@ ShowFullShaft 10 = true
 		if[%floor% = 0 | %floor% = 1 | %floor% = 17] Set WinTile = 2
 
 		#Glass windows
-		Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall2, 0.66 + 0.01, 6/4, %WinTile%)
+		if[%floor% < 14 | %floor% > 16] Add3DWindows(LMH_Shaft10_LeftWin, -%1%, -50, left, 27, %WinHeight%, %WinOffset%, MainWindowsB, MainWindowsIntB, ShaftIntWall2, 0.66 + 0.01, 6/4, %WinTile%)
 	<EndFloors>
 
 	<Floor 18>
