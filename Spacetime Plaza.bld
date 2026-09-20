@@ -3466,6 +3466,7 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	Cut External, 198 - 6, Floor(-2).Base + 1, -189 - 8 - 2, 198, Floor(-1).Base + 5, -181, false, true #Atrium 1 (South) - B2F-B1F Escalators - Extra cuts
 	Cut External, 198, Floor(-2).Base + 1, -189 - 8 - 2, 218, Floor(-1).Base + 5, -181, false, true #Atrium 1 (South) - B2F-B1F Escalators
 	Cut External, 198, Floor(-1).Base + 1, -189 - 8 - 2, 218, Floor(0).Base + 5, -189 - 2, false, true #Atrium 1 (South) - B1F-1F Escalators
+	Cut External, 218, Floor(-1).Base + 1, -189 - 8 - 2, 218 + 5, Floor(0).Base + 5, -189 - 2, false, true #Atrium 1 (South) - B1F-1F Escalators - Extra cuts
 
 	Cut External, 180, Floor(0).Base - 0.1, -180.5, 240, Floor(8).Base + 5, -60, false, true #Atrium 1 (South) - Shopping levels
 	Cut External, 180, Floor(10).Altitude - 1, -180, 240, Floor(10).Base + 5, -60, false, true #Atrium 1 (South) - Roof skylight
@@ -3476,8 +3477,11 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	Cut External, 180, Floor(0).Base + 2, 80 - 30, 240, Floor(10).Base + 5, 80 + 30, false, true #Atrium 2 (Center)
 
 	Cut External, 202, Floor(-2).Base + 1, 210, 218, Floor(0).Base + 5, 210 + 20, false, true #Atrium 3 (North) - B2F-1F Escalators
-	Cut External, 190, Floor(0).Base + 2, 210, 230, Floor(6).Base + 5, 240, false, true #Atrium 3 (North) - Shopping levels 1-7
-	Cut External, 190, Floor(6).Base + 2, 210, 230, Floor(8).Base + 5, 240 + 9, false, true #Atrium 3 (North) - Shopping levels 7-8
+	Cut External, 202, Floor(-2).Base + 1, 210 - 5, 218, Floor(0).Base + 5, 210, false, true #Atrium 3 (North) - South of B2F-B1F Escalators
+	Cut External, 202, Floor(-2).Base + 1, 210 + 20, 218, Floor(0).Base + 5, 210 + 20 + 5, false, true #Atrium 3 (North) - North of of B1F-1F Escalators
+
+	Cut External, 190, Floor(0).Base + 2, 210, 230, Floor(6).Base + 5, 237, false, true #Atrium 3 (North) - Shopping levels 1-7
+	Cut External, 190, Floor(6).Base + 2, 210, 230, Floor(8).Base + 5, 237 + 9, false, true #Atrium 3 (North) - Shopping levels 7-8
 	Cut External, 190, Floor(10).Altitude - 1, 210, 230, Floor(10).Base + 5, 240, false, true #Atrium 3 (North) - Roof skylight
 
 		#Extra cuts for escalators (Atrium 1)
@@ -3489,9 +3493,6 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 		Cut External, 240, Floor(1).Altitude - 1, 80 - 15, 240 + 4.5, Floor(5).Base + 5, 80 + 15, false, true #1st-6th floors
 		Cut External, 240, Floor(5).Altitude - 1, 80 - 15, 240 + 8.5, Floor(6).Base + 5, 80 + 15, false, true #6th-7th floors
-
-		#Extra cuts for escalators (Atrium 3)
-		#Cut External, 206, Floor(6).Altitude - 1, 201 + 3, 214, Floor(6).Base + 1, 210, false, true #Underneath the 7F-8F escalators
 
 <Floor 0>
 	#Atrium bases
@@ -3617,16 +3618,19 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% < 0] Set Suffix2 = Wall2
 
 	#Southeast escalator railings
+	Set SE_EXEast = 0
+	if[%floor% = 0] Set SE_EXEast = 5
+
 	WallOrientation = right
 	if[%floor% < 0] AddWall SEEscFrontRail_EX, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -189 - 8 - 2, 198, -189 - 8 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall SEEscFrontRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 8 - 2, 218, -189 - 8 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall SEEscFrontRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 8 - 2, 218 + %SE_EXEast%, -189 - 8 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% < 0] AddWall SEEscLeftRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -199 - 0.5, 198 - 6, -181 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
-	if[%floor% = 0] AddWall SEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, -199 - 0.5, 218, -191 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 0] AddWall SEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218 + %SE_EXEast%, -199 - 0.5, 218 + %SE_EXEast%, -191 + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% < 0] AddWall SEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, -191, 218, -189, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
-	if[%floor% = 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 2, 218, -189 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198, -189 - 2, 218 + %SE_EXEast%, -189 - 2, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%floor% < 0] AddWall SEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 198 - 6, -181, 218, -181, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	#East-central escalator railings
@@ -3643,12 +3647,17 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% = -1] AddWall ECEsc2_BackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 220 - 0.5, 130.414, 228 + 0.5, 130.414, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	#Northeast escalator railings
+	Set NE_EXNorth = 0
+	if[%floor% = 0] Set NE_EXNorth = 5
+	Set NE_EXSouth = 0
+	if[%floor% = -1] Set NE_EXSouth = 5
+	
 	WallOrientation = right
-	if[%floor% < 0] AddWall NEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202 - 0.5, 210, 218 + 0.5, 210, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	AddWall NEEscLeftRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202, 210, 202, 230, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% < 0] AddWall NEEscFrontRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202 - 0.5, 210 - %NE_EXSouth%, 218 + 0.5, 210 - %NE_EXSouth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall NEEscLeftRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202, 210 - %NE_EXSouth%, 202, 230 + %NE_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	WallOrientation = left
-	AddWall NEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, 210, 218, 230, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 0] AddWall NEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202 - 0.5, 230, 218 + 0.5, 230, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall NEEscRightRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 218, 210 - %NE_EXSouth%, 218, 230 + %NE_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 0] AddWall NEEscBackRail, %EastPrefix%%5%%Infix%%Suffix2%, 0.5, 202 - 0.5, 230 + %NE_EXNorth%, 218 + 0.5, 230 + %NE_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFloors>
 
 <Floors 1 to 6>
@@ -3801,16 +3810,16 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%Mod% = 0 & %floor% ! 8] AddWall EA3FrontRailA, %5%%Suffix%, 0.5, 190, 210, 202, 210, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	if[%Mod% = 0 & %floor% ! 8] AddWall EA3FrontRailB, %5%%Suffix%, 0.5, 218, 210, 230, 210, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
-	AddWall EA3LeftRail, %5%%Suffix%, 0.5, 190, 210 - 0.5, 190, 240 + %EA3_EXNorth% + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall EA3LeftRail, %5%%Suffix%, 0.5, 190, 210 - 0.5, 190, 237 + %EA3_EXNorth% + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 
 	WallOrientation = left
-	AddWall EA3RightRail, %5%%Suffix%, 0.5, 230, 210 - 0.5, 230, 240 + %EA3_EXNorth% + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	AddWall EA3RightRail, %5%%Suffix%, 0.5, 230, 210 - 0.5, 230, 237 + %EA3_EXNorth% + 0.5, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 	WallOrientation = left
-	if[%Mod% = 0 & %floor% ! 8] AddWall EA3BackRail, %5%%Suffix%, 0.5, 190, 240 + %EA3_EXNorth%, 230, 240 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%Mod% = 1] AddWall EA3BackRailA, %5%%Suffix%, 0.5, 190, 240 + %EA3_EXNorth%, 202, 240 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%Mod% = 1] AddWall EA3BackRailB, %5%%Suffix%, 0.5, 218, 240 + %EA3_EXNorth%, 230, 240 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 8] AddWall EA3BackRailA, %5%%Suffix%, 0.5, 190, 240 + %EA3_EXNorth%, 206, 240 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
-	if[%floor% = 8] AddWall EA3BackRailB, %5%%Suffix%, 0.5, 214, 240 + %EA3_EXNorth%, 230, 240 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%Mod% = 0 & %floor% ! 8] AddWall EA3BackRail, %5%%Suffix%, 0.5, 190, 237 + %EA3_EXNorth%, 230, 237 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%Mod% = 1] AddWall EA3BackRailA, %5%%Suffix%, 0.5, 190, 237 + %EA3_EXNorth%, 202, 237 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%Mod% = 1] AddWall EA3BackRailB, %5%%Suffix%, 0.5, 218, 237 + %EA3_EXNorth%, 230, 237 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 8] AddWall EA3BackRailA, %5%%Suffix%, 0.5, 190, 237 + %EA3_EXNorth%, 206, 237 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
+	if[%floor% = 8] AddWall EA3BackRailB, %5%%Suffix%, 0.5, 214, 237 + %EA3_EXNorth%, 230, 237 + %EA3_EXNorth%, %RailingHeight%, %RailingHeight%, %RailingOffset%, %RailingOffset%, 0, 0, true
 <EndFunction>
 
 <Floors 1 to 8>
@@ -9099,8 +9108,8 @@ ShowFullShaft 11 = true
 			Set Mod_Temp = mod(%floor%, 2)
 			Set Mod = abs(%Mod_Temp%)
 
-			if[%Mod% = 0] OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 - 2, 240, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
-			if[%Mod% = 0] OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 + 2, 240, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			if[%Mod% = 0] OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 - 2, 237, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
+			if[%Mod% = 0] OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 + 2, 237, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 
 			if[%Mod% = 1] OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 210 - 6, 210, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
 			if[%Mod% = 1] OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3Z, back, 210 + 6, 210, 3, 2/3, 1, 27, 0, 0, 0, 0) #EG881
@@ -9109,8 +9118,8 @@ ShowFullShaft 11 = true
 		#Escalators between 7-8
 		OP_EscTruss(SilverBalustrade, UpperShopWall, 0.5, 3, 0, 0, 0, 0) #Reset balustrade texture
 		<Floor 6>
-			OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 - 2, 240 + 9, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-			OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 + 2, 240 + 9, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_A1, up, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 - 2, 237 + 9, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(MallEastEsc_%floorid%F_A2, down, %floor% + 2, 1.2, EG881Sounds2/Escalators/otisescalator5.wav, Escalator3Z_Unmarked, Escalator3ZB, front, 210 + 2, 237 + 9, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 	########################################
