@@ -109,13 +109,12 @@
 		Load data/EG881/cem_tr2b.jpg, ParkingFloor2, 0.075225, 0.0625 #EG881
 		Load data/stucco1.jpg, ParkingWall, 0.15, 0.15
 		Load data/stucco1b.jpg, ParkingWall2, 0.125, 0.125
-		#Load data/stucco4.jpg, ParkingWall3, 0.2, 0.2
 		Load data/EG881/Concrete/smoothconcrete1_white.jpg, ParkingWall3, 0.075, 0.075, true #EG881 #Walls for exterior ramps to B1
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
 
 		#Tower elevator lobby (1st floor)
 		Load data/EG881/eg881_floortile1.jpg, 1FLobbyFloor, 0.125, 0.125 #EG881
-		Load data/Melvin/SpacetimePlaza/beech_slightlydarker.jpg, 1FLobbyWall, 0.45, 0.45
+		Load data/Melvin/SpacetimePlaza/beech_slightlydarker.jpg, 1FLobbyWall, 0.4, 0.4
 		Rotate 1FLobbyWall, 90
 		#Load data/EG881/ceilingtile2b.jpg, 1FLobbyCeiling, 0.125, 0.125 #EG881
 
@@ -297,7 +296,7 @@
 		LoadCropped data/glassdoor_trans.gif, GlassElevDoors2Side, 236, 0, 20, 512, -1, 1, false
 
 		#Tower Interior elevators
-		Load data/EG881/Carpet/eg881_Carpet2.jpg, TowerElevFloor, 0.25, 0.25 #EG881
+		Load data/EG881/Carpet/eg881_Carpet2.jpg, TowerElevFloor, 0.333, 0.333 #EG881
 		Load data/EG881/blackdoortrim.jpg, TowerElevWall, 1, 1, false #EG881
 		Load data/misc/oak_stained.jpg, TowerElevWallPanel, 0.5, 0.5
 
@@ -431,8 +430,11 @@
 
 	#Signs
 		#Elevator bank signs
-		LoadRange 1, 2, data/Melvin/SpacetimePlaza/AprilDS/ElevBank%number%.png, ElevBank%number%, 1, 1, false #Temporary
-		Load data/Melvin/Sign-DarkBlue.png, ElevBankSide, 1, 1, false
+		LoadRange 1, 3, data/Melvin/SpacetimePlaza/AprilDS/ElevBank%number%.png, ElevBank%number%_Dark, 1, 1, false
+		Load data/Melvin/Sign-DarkBlue.png, ElevBankSide_Dark, 1, 1, false
+
+		LoadRange 1, 3, data/Melvin/SpacetimePlaza/AprilDS/ElevBank%number%_Light.png, ElevBank%number%_Light, 1, 1, false
+		Load data/Melvin/Sign-LightBlue.png, ElevBankSide_Light, 1, 1, false
 
 		#Parking level signs
 		Load data/Melvin/SpacetimePlaza/Parking/B2_SE.png, B2_SE, 1, 1, false
@@ -3081,28 +3083,37 @@ Set Garden_Offset2 = Floor(7).Base + 4
 
 #Elevator bank signs
 <Function ADST_EBS>
-	Set SignSideTex = ElevBankSide
+	Set Suffix = %param1%
+	Set SignSideTex = ElevBankSide%Suffix%
 
 	WallOrientation = center
 	DrawWalls = true, true, true, true, true, true
 
 	#Tower elevators
-	#if[%floor% = 0] AddBoxSign(AprilTowerElev_Front, ElevBank1, %SignSideTex%, %SignSideTex%, 0.15, true, true, true, -110 - 2.125, -80 - 0.075, 3.75, 1.5, 6 + %interfloorheight%, true)
-	AddBoxSign(AprilTowerElev, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -110 - 0.5, -60 + 1.5625, 3.125, 1.25, 7.125 + %interfloorheight%, true)
-	AddBoxSign(AprilDSElev, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, -100 - 0.5, -40 - 1.5625, 3.125, 1.25, 7.125 + %interfloorheight%, true)
+	if[%floor% = 0] AddBoxSign(AprilTowerElev_Front, ElevBank1%Suffix%, %SignSideTex%, %SignSideTex%, 0.15, true, true, true, -110 - 2.125, -80 - 0.075, 3.75, 1.5, 6 + %interfloorheight%, true) #Interior elevators
+	AddBoxSign(AprilTowerElev, ElevBank1%Suffix%, ElevBank1%Suffix%, %SignSideTex%, 0.15, false, true, true, -110 - 0.5, -60 + 1.5625, 3.125, 1.25, 7.125 + %interfloorheight%, true) #Interior elevators
+
+	if[%floor% > 5] AddBoxSign(AprilTowerGlassElev, ElevBank3%Suffix%, %SignSideTex%, %SignSideTex%, 0.08, true, true, true, 0, -13.75 - 0.04, 3, 1.5, 7.75 + %interfloorheight%, true) #Glass elevators
+
+	#Store elevators
+	AddBoxSign(AprilDSElev, ElevBank2%Suffix%, ElevBank2%Suffix%, %SignSideTex%, 0.15, false, true, true, -100 - 0.5, -40 - 1.5625, 3.125, 1.25, 7.125 + %interfloorheight%, true)
 <EndFunction>
 
 <Floors -2 to 0>
-	ADST_EBS()
+	ADST_EBS(_Dark)
 <EndFloors>
 
 <Floor 2>
-	ADST_EBS()
+	ADST_EBS(_Dark)
 <EndFloor>
 
-<Floors 6 to 7>
-	ADST_EBS()
-<EndFloors>
+<Floor 6>
+	ADST_EBS(_Dark)
+<EndFloor>
+
+<Floor 7>
+	ADST_EBS(_Light)
+<EndFloor>
 
 ##--------------------------------------------------------------------------------##
 
