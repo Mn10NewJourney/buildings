@@ -489,7 +489,7 @@ Set 2 = 100 #Building Dimension Z (Full length: 200 ft.)
 DrawWalls = false, true, false, false, false, false
 
 	#Filler floors
-	AddFloor landscape, ACTT_FillerFloor, Sidewalk, 0, -%1%, -%2% - 140 - 80, %1%, -%2%, 4, 4, 0, 0
+	AddFloor landscape, Miriam_FillerFloor, Sidewalk, 0, -%1%, -%2% - 140 - 80, %1%, -%2%, 4, 4, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -538,7 +538,7 @@ DrawWalls = false, true, false, false, false, false
 	#Floors
 	FloorOrientation = top
 	DrawWalls = false, true, false, false, false, false
-	AddFloor ACTT_PGFloor, Road, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
+	AddFloor Miriam_PGFloor, Road, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Parking levels core floor
 		Set EastEnd = 65
@@ -561,12 +561,12 @@ DrawWalls = false, true, false, false, false, false
 	#Ceilings
 	FloorOrientation = bottom
 	DrawWalls = true, false, false, false, false, false
-	AddFloor ACTT_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
+	AddFloor Miriam_PGCeiling, %5%Ceiling, 0.5, -%1%, -%2% - 140 - 80, %1%, %2%, %fullheight% + 1, %fullheight% + 1, 0, 0, true
 
 		#Parking levels core ceiling
-		if[%floor% = -3] AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, 10, %CF_SouthEnd%, 55.5, -40, %fullheight%, %fullheight%, 0, 0, true
-		if[%floor% > -3] AddFloor ACTT_PGCoreCeiling, ParkingLobbyCeiling, 0.5, -%1%, %CF_SouthEnd%, %EastEnd%, 25.5, %fullheight%, %fullheight%, 0, 0, true
-		if[%floor% = -2] AddFloor ACTT_PGCoreCeiling2, %5%Ceiling2, 0.5, %EastEnd%, %CF_SouthEnd%, 65, 25.5, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% = -3] AddFloor PGCoreCeiling, ParkingLobbyCeiling, 0.5, 10, %CF_SouthEnd%, 55.5, -40, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% > -3] AddFloor PGCoreCeiling, ParkingLobbyCeiling, 0.5, -%1%, %CF_SouthEnd%, %EastEnd%, 25.5, %fullheight%, %fullheight%, 0, 0, true
+		if[%floor% = -2] AddFloor PGCoreCeiling2, %5%Ceiling2, 0.5, %EastEnd%, %CF_SouthEnd%, 65, 25.5, %fullheight%, %fullheight%, 0, 0, true
 
 		#Storage behind shafts/restrooms on B2-B1
 		if[%floor% > -3] CreateFlr(%floorid%F_STR_W1, BasementStorageCeiling, 0.5, -35, -25, -5, -15, %height%, false)
@@ -877,7 +877,7 @@ DrawWalls = false, true, false, false, false, false
 			Set Door_MainZ = -5.5
 		
 			WallOrientation = left
-			AddStdDoor DoorManager, ACTT_%floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(WRR1_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(WRR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.5 + 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -887,7 +887,7 @@ DrawWalls = false, true, false, false, false, false
 			Set Door_MainZ = 5.5
 		
 			WallOrientation = right
-			AddStdDoor DoorManager, ACTT_%floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(WRR2_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(WRR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.5 - 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -899,7 +899,7 @@ DrawWalls = false, true, false, false, false, false
 			Set Door_MainZ = -5.5
 		
 			WallOrientation = left
-			AddStdDoor DoorManager, ACTT_%floorid%F_ERR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_ERR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(ERR1_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(ERR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.5 + 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -909,7 +909,7 @@ DrawWalls = false, true, false, false, false, false
 			Set Door_MainZ = 5.5
 		
 			WallOrientation = right
-			AddStdDoor DoorManager, ACTT_%floorid%F_ERR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_ERR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(ERR1_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 
 			AddBoxSign(ERR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.5 - 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -1491,7 +1491,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = -24.5
 		
 			WallOrientation = right
-			AddStdDoor Floor %floor%, ACTT_%floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddDecoObject(WRR1_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 	
 			AddBoxSign(WRR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.525, 1, 1, 7.5, false)
@@ -1501,7 +1501,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = 24.5
 		
 			WallOrientation = left
-			AddStdDoor Floor %floor%, ACTT_%floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddDecoObject(WRR2_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 	
 			AddBoxSign(WRR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.525, 1, 1, 7.5, false)
@@ -1513,7 +1513,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = -24.5
 		
 			WallOrientation = right
-			AddStdDoor Floor %floor%, ACTT_%floorid%F_CRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_CRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddDecoObject(CRR1_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 	
 			AddBoxSign(CRR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.525, 1, 1, 7.5, false)
@@ -1523,7 +1523,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = 24.5
 		
 			WallOrientation = left
-			AddStdDoor Floor %floor%, ACTT_%floorid%F_CRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
+			AddStdDoor Floor %floor%, %floorid%F_CRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, 0, 0, 0, 0, 0
 			AddDecoObject(CRR2_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, floor)
 	
 			AddBoxSign(CRR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.525, 1, 1, 7.5, false)
@@ -1935,7 +1935,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = -5.5
 		
 			WallOrientation = left
-			AddStdDoor DoorManager, ACTT_%floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_WRR1_Door, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(WRR1_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(WRR1_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.5 + 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -1945,7 +1945,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = 5.5
 		
 			WallOrientation = right
-			AddStdDoor DoorManager, ACTT_%floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_WRR2_Door, , , false, %DTex%, %DSTex%, 0.2, back, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(WRR2_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(WRR2_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.5 - 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -1957,7 +1957,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = -5.5
 		
 			WallOrientation = left
-			AddStdDoor DoorManager, ACTT_%floorid%F_ERR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_ERR1_Door, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(ERR1_Deco, %DTTex%, %DTTex%, front, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 	
 			AddBoxSign(ERR1_Sign, Sign_RestroomW%SignSuffix%, Sign_RestroomW%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% + 0.5 + 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -1967,7 +1967,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 			Set Door_MainZ = 5.5
 		
 			WallOrientation = right
-			AddStdDoor DoorManager, ACTT_%floorid%F_ERR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+			AddStdDoor DoorManager, %floorid%F_ERR2_Door, , , false, %DTex%, %DSTex%, 0.2, front, back, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 			AddDecoObject(ERR1_Deco, %DTTex%, %DTTex%, back, true, true, 0.05, 0.2, %Door_MainX%, %Door_MainZ%, 3, 7, 7.2, 0.2, 0, true, %DTTex%, 0.5, external)
 
 			AddBoxSign(ERR2_Sign, Sign_RestroomM%SignSuffix%, Sign_RestroomM%SignSuffix%, %BoxTex%, 0.05, true, true, true, %Door_MainX%, %Door_MainZ% - 0.5 - 0.025, 1, 1, 7.5 + %interfloorheight%, true)
@@ -2053,7 +2053,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 		Set Door_MainZ = -20
 	
 		WallOrientation = right
-		AddStdDoor DoorManager, ACTT_WU1_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_WU1_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 
 		#West utility room 2
@@ -2061,7 +2061,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 		Set Door_MainZ = 20
 	
 		WallOrientation = right
-		AddStdDoor DoorManager, ACTT_WU2_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_WU2_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 
 		#East utility room 1
@@ -2069,7 +2069,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 		Set Door_MainZ = -20
 	
 		WallOrientation = left
-		AddStdDoor DoorManager, ACTT_EU1_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_EU1_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 
 		#East utility room 2
@@ -2077,7 +2077,7 @@ Cut External, -%1%, Floor(1).Altitude - 1, -%2%, 60, Floor(1).Base + 5, -60, fal
 		Set Door_MainZ = 20
 	
 		WallOrientation = left
-		AddStdDoor DoorManager, ACTT_EU2_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_EU2_%floorid%F_Door, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 3, 7, %interfloorheight%, false, 0, 0, true
 <EndFloors>
 
@@ -2231,8 +2231,8 @@ Cut External, 20, Floor(-1).Base + 5, -59, 20 + 20, Floor(0).Base + 5, -59 + 8, 
 		Set Door_MainZ = -5
 	
 		WallOrientation = left
-		AddStdDoor DoorManager, ACTT_WSL_%floorid%F_Door1, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, ACTT_WSL_%floorid%F_Door2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_WSL_%floorid%F_Door1, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_WSL_%floorid%F_Door2, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 
 		#East Lobby
@@ -2240,8 +2240,8 @@ Cut External, 20, Floor(-1).Base + 5, -59, 20 + 20, Floor(0).Base + 5, -59 + 8, 
 		Set Door_MainZ = 5
 	
 		WallOrientation = right
-		AddStdDoor DoorManager, ACTT_ESL_%floorid%F_Door1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, ACTT_ESL_%floorid%F_Door2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_ESL_%floorid%F_Door1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Miriam_ESL_%floorid%F_Door2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloors>
 
@@ -2253,43 +2253,6 @@ Set SideTexture = BLKEntDoorSide
 
 <Floor 0>
 	#TexPrefix()
-
-	##SOUTH DOORS (Changed to automatic doors on August 3, 2026)
-	#Set Door_MainX = -45
-	#Set Door_MainZ = -%2%
-	#
-	#WallOrientation = left
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#
-	#Set Door_MainX = -35
-	#Set Door_MainZ = -%2%
-	#
-	#WallOrientation = left
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#
-	#Set Door_MainX = 35
-	#Set Door_MainZ = -%2%
-	#
-	#WallOrientation = left
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#
-	#Set Door_MainX = 45
-	#Set Door_MainZ = -%2%
-	#
-	#WallOrientation = left
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 8, 75, %Door_MainX% - 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
-	#TextureOverride %Texture%Ext, %Texture%Int, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-	#AddExternalDoor , , false, %Texture%Int, 0.2, 5, 75, %Door_MainX% + 1.75, %Door_MainZ%, 3.5, 8, %interfloorheight%, 0, 0
 
 	#WEST DOORS
 	Set Door_MainX = -%1%
@@ -2406,12 +2369,12 @@ Set SideTexture = BLKEntDoorSide
 		Set Door_MainZ = -5
 
 		WallOrientation = right
-		AddStdDoor DoorManager, ACTT_Roof_EMR_Door1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, ACTT_Roof_EMR_Door2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75,  %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Roof_EMR_Door1, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Roof_EMR_Door2, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75,  %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 
 		#Exit signs
-		AddBoxSign(ACTT_Roof_EMR_Exit, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7.2, true)
+		AddBoxSign(Roof_EMR_Exit, ExitSign, StainlessSteel, StainlessSteel, 0.1, false, true, true, %Door_MainX% - 0.55, %Door_MainZ%, 1.8, 0.9, %interfloorheight% + 7.2, true)
 
 	#Roof railings
 	Set WallHeight = %interfloorheight% + 5.5
@@ -2424,7 +2387,6 @@ Set SideTexture = BLKEntDoorSide
 
 	WallOrientation = Right
 	AddWall RightRail, ExtFacade, 0.5, %1%, -%2%, %1%, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
-
 	AddWall BackRail, ExtFacade, 0.5, -%1% + 0.5, %2%, %1% - 0.5, %2%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 <EndFloor>
 
@@ -2655,21 +2617,21 @@ Set SideTexture = BLKEntDoorSide
 	DrawWalls = true, true, true, true, true, true
 
 	#Office elevators
-	AddBoxSign(ElevBank1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
-	AddBoxSign(ElevBank2, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, 35 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
-	AddBoxSign(ElevBank3, ElevBank3, ElevBank3, %SignSideTex%, 0.15, false, true, true, 65 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
-	AddBoxSign(ElevBank4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(Miriam_EB1, ElevBank1, ElevBank1, %SignSideTex%, 0.15, false, true, true, -35 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(Miriam_EB2, ElevBank2, ElevBank2, %SignSideTex%, 0.15, false, true, true, 35 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(Miriam_EB3, ElevBank3, ElevBank3, %SignSideTex%, 0.15, false, true, true, 65 - 0.5, -25 - 1.875, 3.75, 1.5, 8 + %interfloorheight%, true)
+	AddBoxSign(Miriam_EB4, ElevBank4, ElevBank4, %SignSideTex%, 0.15, false, true, true, -65 + 0.5, -25 - 1.5, 3, 1.5, 8 + %interfloorheight%, true)
 
 	#Secondary signs for Low Zone and Lower Mid Zone Elevators
 		#Only these two banks have them, due to the position of the elevator lobbies.
 
 		#Low Zone elevators
-		AddBoxSign(ElevBank1_Inner1, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
-		AddBoxSign(ElevBank1_Inner2, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(Miriam_EB1_Inner1, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(Miriam_EB1_Inner2, ElevBank1_Inner, ElevBank1_Inner, %SignSideTex%, 0.1, true, true, true, -20 + 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
 
 		#Lower Mid Zone elevators
-		AddBoxSign(ElevBank2_Inner1, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
-		AddBoxSign(ElevBank2_Inner2, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(Miriam_EB2_Inner1, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, 5 - 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
+		AddBoxSign(Miriam_EB2_Inner2, ElevBank2_Inner, ElevBank2_Inner, %SignSideTex%, 0.1, true, true, true, 20 - 5, -5 + 0.05, 2.25, 1.5, 7.5 + %interfloorheight%, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -2748,17 +2710,17 @@ Set SideTexture = BLKEntDoorSide
 	#West Stairwell
 	Set ShowLeft = false
 	if[%floor% < -1 | %floor% > 41] Set ShowLeft = true
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -50, 12.5, 5, 12.5, ACTT_ST1, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
+	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, -50, 12.5, 5, 12.5, Miriam_ST1, %SHeight%, %SOffset%, true, %ShowLeft%, true, true, false, false, true)
 
 	#East Stairwell
 	Set ShowRight = true
 	if[%floor% > -3 & %floor% < 33] Set ShowRight = false
-	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, -12.5, 5, 12.5, ACTT_ST2, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
+	CreateShaftWall(%5%%5L3%, %5%%5L3%, %5%%5L3%, %5%%5L3%, %5%Wall, %5%Wall, 0.33, 50, -12.5, 5, 12.5, Miriam_ST2, %SHeight%, %SOffset%, true, true, %ShowRight%, true, false, false, true)
 <EndFloors>
 
 <Floor 42>
 	#West Stairwell
-	CreateShaftWall(ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -50, 12.5, 5, 12.5, ACTT_ST1_Roof, %height%, %interfloorheight%, true, true, true, true, false, false, true)
+	CreateShaftWall(ElevMRIntWall, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, -50, 12.5, 5, 12.5, Miriam_ST1_Roof, %height%, %interfloorheight%, true, true, true, true, false, false, true)
 <EndFloor>
 
 ##--------------------------------------------------------------------------------##
@@ -3097,7 +3059,7 @@ ShowFullShaft 9 = true
 <EndFunction>
 
 #Panels on walls for office elevators
-<Function ACTT_EWP>
+<Function Miriam_EWP>
 	Set WPTex = %param1%
 	Set WPanelHeight = 8 - 1.5
 	Set Direction = %param2%
@@ -3356,7 +3318,7 @@ ShowFullShaft 9 = true
 	Set PanelDir = 2
 	if[%elevator% > 3] Set PanelDir = 1
 
-	ACTT_EWP(%PanelTex%, %PanelDir%) #Panel creation
+	Miriam_EWP(%PanelTex%, %PanelDir%) #Panel creation
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -3571,7 +3533,7 @@ ShowFullShaft 9 = true
 	Set PanelDir = 2
 	if[%elevator% > 9] Set PanelDir = 1
 
-	ACTT_EWP(%PanelTex%, %PanelDir%) #Panel creation
+	Miriam_EWP(%PanelTex%, %PanelDir%) #Panel creation
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -5116,28 +5078,28 @@ ShowFullShaft 9 = true
 	#LOBBY ESCALATORS
 		#Escalators between B3 and 1
 		<Floor -3>
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_1, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 6 + 9, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_2, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 2 + 9, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_1, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 6 + 9, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_2, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 2 + 9, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 		#Escalators between B2 and B1
 		<Floor -2>
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 20 + 20, -61 - 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 20 + 20, -61 - 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 20 + 20, -61 - 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 20 + 20, -61 - 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 		#Escalators between B1 and 1
 		<Floor -1>
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_1, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_2, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_1, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 6, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_ParkingEsc_%floorid%F_2, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3X, right, 20, -59 + 2, 3, 2/3, 1, 18, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 		#Escalators between 1st-2nd floors
 		OP_EscTruss(SilverBalustrade, LobbyWall, 0.5, 3, 0, 0, 0, 0) #Reset textures
 		<Floor 0>
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 2, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 6, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
-			OP_Escalator(ACTT_LobbyEsc_%floorid%F_3, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 10, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_LobbyEsc_%floorid%F_1, up, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 2, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_LobbyEsc_%floorid%F_2, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 6, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
+			OP_Escalator(Miriam_LobbyEsc_%floorid%F_3, down, %floor% + 1, 1.2, EG881Sounds2/Escalators/otisescalator1.wav, Escalator3Z_Unmarked, Escalator3XB, left, 60, -61 - 10, 3, 2/3, 1, 36, 0, 0, 0, 0) #EG881
 		<EndFloor>
 
 ##--------------------------------------------------------------------------------##
