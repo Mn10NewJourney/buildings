@@ -434,7 +434,7 @@
 
 		Load data/panel-back3.jpg, EastElevPanelMain2, 1, 1, false #Elevators 26-27
 		Load data/panel-back3.jpg, EastElevPanelTop2, 1, 0.125, false
-		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, EastElevDoors, -1, 1, false #EG881
+		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, EastElevDoors, -1, 1, false #EG881 #Elevators 16-21 and 24-27
 		Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, EastElevDoors2, 1, 1, false #EG881
 
 		########################################
@@ -4008,6 +4008,25 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 
 	SetAutoSize = true, true
 <EndFloors>
+
+#3rd floor extra doors (Added on September 21, 2026)
+<Floor 2>
+	#Doors
+	Set Texture = Door88
+	Set MainZ = 280 - 7.5
+	WallOrientation = right
+	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 3, 75, %1%, %MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %1%, %MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+
+	AddFillerWalls %5%Wall, 0.5, %1%, %MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+	Set EntireHeight = 10
+	Add3DWindows(3F_EA_FarNorthEnt_WinTop, %1%, %MainZ%, right, 6, %EntireHeight% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+	Add3DWindows(3F_EA_FarNorthEnt_WinSide1, %1%, %MainZ% - 3 - 1.75, right, 3, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+	Add3DWindows(3F_EA_FarNorthEnt_WinSide2, %1%, %MainZ% + 3 + 1.75, right, 3, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%Wall, 0.5, 1/4, 1)
+<EndFloor>
 
 #4th floor details
 <Floor 3>
