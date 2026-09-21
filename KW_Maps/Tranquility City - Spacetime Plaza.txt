@@ -9,7 +9,7 @@
 #Textures
 <Textures>
 	#Spacetime Plaza facades
-	Load data/misc/greymarble.jpg, EastSquareFloor, 0.05, 0.1
+	Load data/misc/greymarble.jpg, STP_EastSquareFloor, 0.05, 0.1
 	Load data/EG881/brick040+_brown.jpg, STP_BrickFences, 0.25, 0.25 #EG881
 	
 		#East Annex (Main mall and April Dept. Store only)
@@ -48,10 +48,10 @@
 		Load data/cem_tr_b.jpg, LMH_RoofFloor2, 0.1, 0.1, true
 
 		#Miriam Tower (Colloquial name: Accounting Tower)
-		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, ACTT_MainWindows, true, 0.05, 1
-		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, ACTT_LobbyWindows, true, 0.025, 1
-		Load data/stone.jpg, ACTT_ExtFacade, 0.075, 0.075, true
-		Load data/EG881/cem_tr2b.jpg, ACTT_RoofFloor, 0.075225, 0.0625 #EG881
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, Miriam_MainWindows, true, 0.05, 1
+		LoadAlphaBlend data/windows11i.jpg, data/windows11ispec.png, data/sky2.jpg, Miriam_LobbyWindows, true, 0.025, 1
+		Load data/stone.jpg, Miriam_ExtFacade, 0.075, 0.075, true
+		Load data/EG881/cem_tr2b.jpg, Miriam_RoofFloor, 0.075225, 0.0625 #EG881
 <EndTextures>
 
 ##--------------------------------------------------------------------------------##
@@ -81,10 +81,10 @@ Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
 	
 	#Moonlight Square
 	if[%InSTP% = true] AddFloor landscape, STP_MoonlightSquare_NorthAccess, TCity_Sidewalk, 0, %0% + %3%, %1% + %4%, %0% + 409, %1% + %4% + 20, 4, 4, false, true, 0, 0
-	if[%InSTP% = true] AddFloor landscape, STP_MoonlightSquare, EastSquareFloor, 0, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0
+	if[%InSTP% = true] AddFloor landscape, STP_MoonlightSquare, STP_EastSquareFloor, 0, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0
 
 	DrawWalls = false, true, false, true, true, true
-	if[%InSTP% ! true] AddFloor landscape, STP_MoonlightSquare_Full, EastSquareFloor, 4, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0 #Only show when not loading "Spacetime Plaza"
+	if[%InSTP% ! true] AddFloor landscape, STP_MoonlightSquare_Full, STP_EastSquareFloor, 4, %0% + %3%, %1% - %4%, %0% + %3% + 150, %1% + %4%, 4, 4, 0, 0 #Only show when not loading "Spacetime Plaza"
 	DrawWalls = false, true, false, true, false, false
 	if[%InSTP% ! true] AddFloor landscape, STP_MoonlightSquare_NorthAccess_Full, TCity_Sidewalk, 4, %0% + %3%, %1% + %4%, %0% + 409, %1% + %4% + 20, 4, 4, false, true, 0, 0
 	
@@ -195,9 +195,9 @@ Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
 	#Foundation
 	FloorOrientation = top
 	DrawWalls = false, true, true, true, true, true
-	AddFloor buildings, STP_Foundation, TCity_Sidewalk, 4, %0% - %3%, %1% - %4% - 80, %0% + %3%, %1% + %4%, 4, 4, 0, 0
-	AddFloor buildings, STP_Foundation2, TCity_Sidewalk, 4, %0% - %3%, %1% - %4% - 80, %0% - %3% + 200, %1% - %4%, 4, 4, 0, 0
-	AddFloor buildings, STP_Foundation3, TCity_Sidewalk, 4, %0% + %3%, %1% - %4% - 80, %0% + %3% + 15, %1% - %4%, 4, 4, 0, 0
+	AddFloor landscape, STP_Foundation, TCity_Sidewalk, 4, %0% - %3%, %1% - %4% - 80, %0% + %3%, %1% + %4%, 4, 4, 0, 0
+	AddFloor landscape, STP_Foundation2, TCity_Sidewalk, 4, %0% - %3%, %1% - %4% - 80, %0% - %3% + 200, %1% - %4%, 4, 4, 0, 0
+	AddFloor landscape, STP_Foundation3, TCity_Sidewalk, 4, %0% + %3%, %1% - %4% - 80, %0% + %3% + 15, %1% - %4%, 4, 4, 0, 0
 
 	#================================================================================#
 
@@ -399,42 +399,42 @@ Set 4 = 500 #Complex Dimension Z (Full length: 1,000 ft.)
 		DrawWalls = true, true, false, false, false, false
 		#1. Lobby and office levels
 			#Corner Walls
-			AddWall buildings, STP_ACTT_Front1, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3% + 10, %1% - %4%, 504, 504, 4, 4, 0, 0
-			AddWall buildings, STP_ACTT_Front2, ACTT_ExtFacade, 0, %0% + %3% - 10, %1% - %4%, %0% + %3%, %1% - %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Front1, Miriam_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3% + 10, %1% - %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Front2, Miriam_ExtFacade, 0, %0% + %3% - 10, %1% - %4%, %0% + %3%, %1% - %4%, 504, 504, 4, 4, 0, 0
 	
-			AddWall buildings, STP_ACTT_Left1, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - %4% + 10, 504, 504, 4, 4, 0, 0
-			AddWall buildings, STP_ACTT_Left2, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4% - 10, %0% - %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Left1, Miriam_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% - %4% + 10, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Left2, Miriam_ExtFacade, 0, %0% - %3%, %1% + %4% - 10, %0% - %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
 	
-			AddWall buildings, STP_ACTT_Right1, ACTT_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - %4% + 10, 504, 504, 4, 4, 0, 0
-			AddWall buildings, STP_ACTT_Right2, ACTT_ExtFacade, 0, %0% + %3%, %1% + %4% - 10, %0% + %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Right1, Miriam_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% - %4% + 10, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Right2, Miriam_ExtFacade, 0, %0% + %3%, %1% + %4% - 10, %0% + %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
 	
-			AddWall buildings, STP_ACTT_Back1, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% - %3% + 10, %1% + %4%, 504, 504, 4, 4, 0, 0
-			AddWall buildings, STP_ACTT_Back2, ACTT_ExtFacade, 0, %0% + %3% - 10, %1% + %4%, %0% + %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Back1, Miriam_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% - %3% + 10, %1% + %4%, 504, 504, 4, 4, 0, 0
+			AddWall buildings, STP_Miriam_Back2, Miriam_ExtFacade, 0, %0% + %3% - 10, %1% + %4%, %0% + %3%, %1% + %4%, 504, 504, 4, 4, 0, 0
 	
 			#Lobby Windows
 			SetAutoSize = true, false
-			AddWall buildings, STP_ACTT_LobbyFrontWin, ACTT_LobbyWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 48, 48, 4, 4, 0, 2
-			AddWall buildings, STP_ACTT_LobbyLeftWin, ACTT_LobbyWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
-			AddWall buildings, STP_ACTT_LobbyRightWin, ACTT_LobbyWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
-			AddWall buildings, STP_ACTT_LobbyBackWin, ACTT_LobbyWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_Miriam_LobbyFrontWin, Miriam_LobbyWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_Miriam_LobbyLeftWin, Miriam_LobbyWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_Miriam_LobbyRightWin, Miriam_LobbyWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 48, 48, 4, 4, 0, 2
+			AddWall buildings, STP_Miriam_LobbyBackWin, Miriam_LobbyWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 48, 48, 4, 4, 0, 2
 			SetAutoSize = true, true
 
 			#Office Windows
 			SetAutoSize = true, false
-			AddWall buildings, STP_ACTT_OfficeFrontWin, ACTT_MainWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 456, 456, 52, 52, 0, 38
-			AddWall buildings, STP_ACTT_OfficeLeftWin, ACTT_MainWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 456, 456, 52, 52, 0, 38
-			AddWall buildings, STP_ACTT_OfficeRightWin, ACTT_MainWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 456, 456, 52, 52, 0, 38
-			AddWall buildings, STP_ACTT_OfficeBackWin, ACTT_MainWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 456, 456, 52, 52, 0, 38
+			AddWall buildings, STP_Miriam_OfficeFrontWin, Miriam_MainWindows, 0, %0% - %3% + 10, %1% - %4%, %0% + %3% - 10, %1% - %4%, 456, 456, 52, 52, 0, 38
+			AddWall buildings, STP_Miriam_OfficeLeftWin, Miriam_MainWindows, 0, %0% - %3%, %1% - %4% + 10, %0% - %3%, %1% + %4% - 10, 456, 456, 52, 52, 0, 38
+			AddWall buildings, STP_Miriam_OfficeRightWin, Miriam_MainWindows, 0, %0% + %3%, %1% - %4% + 10, %0% + %3%, %1% + %4% - 10, 456, 456, 52, 52, 0, 38
+			AddWall buildings, STP_Miriam_OfficeBackWin, Miriam_MainWindows, 0, %0% - %3% + 10, %1% + %4%, %0% + %3% - 10, %1% + %4%, 456, 456, 52, 52, 0, 38
 			SetAutoSize = true, true
 
 		#2. Topside Mechanical
-		AddWall buildings, STP_ACTT_MechFront, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 24, 24, 508, 508, 0, 0
-		AddWall buildings, STP_ACTT_MechLeft, ACTT_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
-		AddWall buildings, STP_ACTT_MechRight, ACTT_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
-		AddWall buildings, STP_ACTT_MechBack, ACTT_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
+		AddWall buildings, STP_Miriam_MechFront, Miriam_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% - %4%, 24, 24, 508, 508, 0, 0
+		AddWall buildings, STP_Miriam_MechLeft, Miriam_ExtFacade, 0, %0% - %3%, %1% - %4%, %0% - %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
+		AddWall buildings, STP_Miriam_MechRight, Miriam_ExtFacade, 0, %0% + %3%, %1% - %4%, %0% + %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
+		AddWall buildings, STP_Miriam_MechBack, Miriam_ExtFacade, 0, %0% - %3%, %1% + %4%, %0% + %3%, %1% + %4%, 24, 24, 508, 508, 0, 0
 
 		#3. Roof level
-		AddFloor buildings, STP_ACTT_Roof, ACTT_RoofFloor, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 532, 532, 0, 0
+		AddFloor buildings, STP_Miriam_Roof, Miriam_RoofFloor, 0, %0% - %3%, %1% - %4%, %0% + %3%, %1% + %4%, 532, 532, 0, 0
 
 <EndFunction>
 
