@@ -13,12 +13,15 @@
 	<Include ObjectPlus/Scripts/OP_Script2.txt> #EG881
 	<Include SROC/Scripts/r1_script.txt> #EG881
 
-	#3. My previous scripts
+	#3. Legacy scripts
 	<Include CustomObjects2018/Scripts/r1_script.txt>
 	<Include Shaft Wall Creator/Scripts/r1_script.txt>
-	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
 
-	#4. Functions for this complex
+	#4. Floor indicator scripts
+	<Include data/ACME Floor Indicator/Scripts/Indicators.txt>
+	<Include data/Melvin/KSS670_PI/Indicators.txt>
+
+	#5. Functions for this complex
 	<Include buildings/SpacetimePlaza/Functions.txt>
 
 ##--------------------------------------------------------------------------------##
@@ -540,6 +543,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		CreateFlr(MonicaDS_EastCoreFloor1A, ParkingFloor, 0.5, 18.5, -48.5, 25, 28.5, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor1, ParkingLobbyFloor, 0.5, -%1%, -15, -%1% + 21, 15, 0, true)
 		CreateFlr(MonicaDS_WestCoreFloor2, ParkingFloor, 0.5, -%1%, 15, -%1% + 21, 40, 0, true)
+		CreateFlr(MonicaDS_WestCoreFloor3, ParkingFloor, 0.5, -%1%, -28, -%1% + 21, -15, 0, true)
 
 		CreateFlr(MonicaDS_FEBase, ParkingFloor, 0.5, -%1%, 40, -%1% + 21, %2%, 0, true)
 	
@@ -616,30 +620,30 @@ Set Garden_Offset2 = Floor(0).Base + 4
 			#Doors
 			Set DTex = Door88
 			Set DSTex = %DTex%Side
-			#Set DTex = BLKEntDoorInt
-			#Set DSTex = BLKEntDoorSide
 
-			Set Door_MainX = -99 - 0.5
-			Set Door_MainZ = 0
+			Set Door_MainX = -104.75
+			Set Door_MainZ = -15
+			Set EntireHeight = 9
 	
 			WallOrientation = left
 			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-			AddExternalDoor , , false, %DTex%, 0.2, 1, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, %interfloorheight%, 0, 0
+			AddExternalDoor , , false, %DTex%, 0.2, 8, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
 			TextureOverride %DTex%, %DTex%, %DSTex%, %DSTex%, %DSTex%, %DSTex%
-			AddExternalDoor , , false, %DTex%, 0.2, 4, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, %interfloorheight%, 0, 0
-			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+			AddExternalDoor , , false, %DTex%, 0.2, 5, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, %interfloorheight%, 0, 0
+			AddFillerWalls ParkingLobbyWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+			Add3DWindows(E1-3Acc_WinTop, %Door_MainX%, %Door_MainZ%, front, 6, %EntireHeight% - 7.5, 7.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(E1-3Acc_WinSide1, %Door_MainX% - 3 - 1.125, %Door_MainZ%, front, 1.75, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(E1-3Acc_WinSide2, %Door_MainX% + 3 + 1.125, %Door_MainZ%, front, 1.75, %EntireHeight% - 0.5, 0.25, MainWindowsIntB, MainWindowsIntB, %5%LobbyWall, 0.5, 1/4, 1)
 
 			#Windows on walls
 			#Set WinHeight = %height% - 0.5
 			Set WinHeight = 9 - 0.5
 			Set ExtTex = MainWindowsIntB
 	
-			Add3DWindows(WestELWindows_Front, -104.75, -15, front, 10, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
+			#Add3DWindows(WestELWindows_Front, -104.75, -15, front, 10, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
 			Add3DWindows(WestELWindows_Back, -104.75, 15, back, 10, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
-
-			Add3DWindows(WestELWindows_Right1, -99, 0 - 3 - 0.25 - 5.5, right, 11, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
-			Add3DWindows(WestELWindows_Right2, -99, 0 + 3 + 0.25 + 5.5, right, 11, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 3/4, 1)
-			Add3DWindows(WestELWindows_Right3, -99, 0, right, 6, %WinHeight% - 7, 7.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 1/4, 1)
+			Add3DWindows(WestELWindows_Right, -99, 0, right, 28.5, %WinHeight%, 0.25, MainWindowsIntB, MainWindowsIntB, ParkingLobbyWall, 0.5, 7/4, 1)
 
 		#East lobby
 		WallOrientation = left
@@ -754,7 +758,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 
 		#AddFloor Parking_W9, ParkingSpaceX, 0, -99 - 18, 71, -99, 71 + (8.5 * 3), %Offset%, %Offset%, -1, 3, true
 		#AddFloor Parking_W10, ParkingSpaceX, 0, -99 - 18, 69 - (8.5 * 3), -99, 69, %Offset%, %Offset%, -1, 3, true
-		if[%floor% = -2] AddFloor Parking_W11, ParkingSpaceX, 0, -99 - 18, -30 - (8.5 * 2), -99, -30 + (8.5 * 1), %Offset%, %Offset%, -1, 3, true
+		if[%floor% = -2] AddFloor Parking_W11, ParkingSpaceX, 0, -99 - 18, -30 - (8.5 * 2), -99, -30, %Offset%, %Offset%, -1, 2, true
 		if[%floor% = -2] AddFloor Parking_W12, ParkingSpaceX, 0, -99 - 18, -70 - (8.5 * 2), -99, -70 + (8.5 * 2), %Offset%, %Offset%, -1, 4, true
 
 		#Islands south of Motorcycle Parking Area
@@ -769,7 +773,7 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		if[%floor% = -1] AddFloor EntArea_RightIsland2, WhiteIslandZ, 0, 20 - 2, 28.5, 35, 98, %Offset%, %Offset%, -2, 4, true
 
 		#Marking at elevator lobbies
-		AddFloor WestLobbyIsland, NoParkingZ, 0, -99, 0 - 8, -99 + 5, 0 + 8, %Offset%, %Offset%, 1, 1, true
+		#AddFloor WestLobbyIsland, NoParkingZ, 0, -99, 0 - 8, -99 + 5, 0 + 8, %Offset%, %Offset%, 1, 1, true
 		AddFloor EastLobbyIsland, NoParkingZ, 0, 65, -20 - 8, 65 + 5, -20 + 8, %Offset%, %Offset%, 1, 1, true
 
 		#Marking at stairwell doors
@@ -904,21 +908,28 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	Set DSTex = %DTex%Side
 
 		#North doors
-		Set Door_MainX = -120 + 20 - 0.5
-		Set Door_MainZ = %2% - 12 - 7.5
-		#Set Door_MainZ = 90
+		#Set Door_MainX = -120 + 20 - 0.5
+		#Set Door_MainZ = %2% - 12 - 7.5
+
+		#WallOrientation = left
+		#AddStdDoor DoorManager, Monica_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		#AddStdDoor DoorManager, Monica_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		#AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+
+		Set Door_MainX = -110
+		Set Door_MainZ = 83
 
 		WallOrientation = left
-		AddStdDoor DoorManager, Monica_DockAccess1/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, Monica_DockAccess1/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+		AddStdDoor DoorManager, Monica_DockAccessA1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccessA2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 		Set Door_MainX = -120
 		Set Door_MainZ = 45
 
 		WallOrientation = left
-		AddStdDoor DoorManager, Monica_DockAccess2/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, Monica_DockAccess2/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccessB1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccessB2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 
 		#South doors
@@ -926,8 +937,8 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		Set Door_MainZ = -100
 
 		WallOrientation = left
-		AddStdDoor DoorManager, Monica_DockAccess2/1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		AddStdDoor DoorManager, Monica_DockAccess2/2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccessC1, , , false, %DTex%, %DSTex%, 0.2, left, left, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		AddStdDoor DoorManager, Monica_DockAccessC2, , , false, %DTex%, %DSTex%, 0.2, right, left, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
 		AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloor>
 
@@ -1743,7 +1754,7 @@ ShowFullShaft 2 = true
 	#Wall cuts for shaft walls
 	<Floors 0 to 8>
 		CutAll -119.5 - 0.1, 0, %2% - 12 + 0.33, -119.5 + 0.1, %fullheight%, %2% - 0.5, true, false #Left wall cuts
-		CutAll -119.5 - 0.1, 0, %2% - 12 - 15, -119.5 + 0.1, %fullheight%, %2% - 12, true, false #Service lobby wall cuts
+		CutAll -119.5 - 0.1, 0, %2% - 12 - 12, -119.5 + 0.1, %fullheight%, %2% - 12, true, false #Service lobby wall cuts
 		CutAll -%1% + 0.5, 0, %2% - 0.5 - 0.1, -%1% + 20 - 0.33, %fullheight%, %2% - 0.5 + 0.1, true, false #Back wall cuts
 	<EndFloors>
 
@@ -1757,31 +1768,39 @@ ShowFullShaft 2 = true
 
 		WallOrientation = left
 		DrawWalls = true, false, false, true, false, false
-		if[%floor% ! 7] AddWall Monica_FELobby_Outer, %5%Wall, 15, -120, 83, -100, 83, %height% + %ExtraHeight%, %height% + %ExtraHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% ! 7] AddWall Monica_FELobby_Outer, %5%Wall, 12, -120, 86, -100, 86, %height% + %ExtraHeight%, %height% + %ExtraHeight%, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Inner walls
 		WallOrientation = left
 		DrawWalls = true, true, true, true, true, false
 		TextureOverride SAWall, SAWall, SAWall, SAWall, SACeiling, Blank
-		if[%floor% ! 7] AddWall Monica_FELobby_Inner, SAWall, -14.5, -120 + 0.5, 98, -100 - 0.5, 98, 10, 10, %interfloorheight%, %interfloorheight%, 0, 0, true
+		if[%floor% ! 7] AddWall Monica_FELobby_Inner, SAWall, -11.5, -120 + 0.5, 98, -100 - 0.5, 98, 10, 10, %interfloorheight%, %interfloorheight%, 0, 0, true
 
 		#Inner floor - This needs to be created before the shaft itself.
 		FloorOrientation = top
 		DrawWalls = false, true, false, false, false, false
-		CreateFlr(WZ_NorthwestUF, SAFloor, 0.5, -120, 83, -100, 83 + 15 + 12, 0, true)
+		CreateFlr(WZ_NorthwestUF, SAFloor, 0.5, -120, 86, -100, 86 + 12 + 12, 0, true)
 
 		#DOORS
 		Set DTex = Door8
 		if[%floor% > 3] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 
-		Set Door_MainX = -100
-		Set Door_MainZ = 83 + 7.5
+		Set Door_MainX = -110 #South of service elevators (1st, 7th and 8th floors)
+		Set Door_MainZ = 86
+
+		WallOrientation = left
+		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddStdDoor DoorManager, Monica_SELobby_D1/1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddStdDoor DoorManager, Monica_SELobby_D1/2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+
+		Set Door_MainX = -100 #East of service elevators - 2nd-6th floors
+		Set Door_MainZ = 86 + 6
 
 		WallOrientation = right
-		if[%floor% ! 7] AddStdDoor DoorManager, Monica_FELD_D1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% ! 7] AddStdDoor DoorManager, Monica_FELD_D2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+		if[%floor% > 0 & %floor% < 6] AddStdDoor DoorManager, Monica_SELobby_D2/1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% > 0 & %floor% < 6] AddStdDoor DoorManager, Monica_SELobby_D2/2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% > 0 & %floor% < 6] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloors>
 
 AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
@@ -1988,6 +2007,8 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
 <EndElevators>
 
+########################################
+
 #East Elevators
 <Elevator 4>
 	Name = Monica DS East Elevator 1
@@ -2152,8 +2173,269 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		AddRails ElevRail, ElevRailSide, -0.5, %Position%, false, 1 + 0.06, 0.1
 <EndElevators>
 
+########################################
+
+#NEW TEXTURES FOR SERVICE ELEVATORS
+<Textures>
+	#Interiors
+	Load data/Threadplate0055_2_S.jpg, ServiceElevFloor, 0.5, 0.5
+	Load data/MetalBare0085_3_S.jpg, ServiceElevWall, 0.25, 0.25
+	#Load data/metal080.jpg, ServiceElevWall, 0.5, 0.5
+	#Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4, true
+
+	#Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
+	Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ServiceElevCeiling, 1, 1, false
+	Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
+
+	Load data/metal080.jpg, ServiceElevPanelMain, 0.5, 0.5, true
+	Load data/metal080.jpg, ServiceElevPanelTop, 0.5, 0.5, true
+	#Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false
+	#Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false
+
+	Load data/door1.jpg, ServiceElevDoors, 1, 1, false #EG881
+	Load data/door1.jpg, ServiceElevDoors2, -1, 1, false #EG881
+	#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
+	#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
+
+	#Shaft doors
+	Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, ServiceAShaftDoors, 1, 1, false #EG881 #Basements
+	Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
+	Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
+
+	#Load data/door1.jpg, ServiceAShaftDoors, 1, 1, false #Basements
+	#Load data/door1.jpg, ServiceAShaftDoors2, -1, 1, false
+	#Load data/elevpanelsilver.jpg, ServiceAShaftDoors_Trim, 1, 1, false
+
+	Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Shopping levels
+	Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceBShaftDoors2, 1, 1, false #EG881
+	Load data/panel-back3.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
+
+	#Kone KSS 670 fixtures (White backlit)
+		#Hall buttons
+		Load data/Other People's Fixtures/Kone KSS 670/kss670upunlit.png, KoneButtonUp, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670uplitwhite.png, KoneButtonUpLit, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670downunlit.png, KoneButtonDown, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670downlitwhite.png, KoneButtonDownLit, 1, 1, false
+
+		#Car buttons
+		Load data/Other People's Fixtures/Kone KSS 670/kss670blankunlit.png, KoneButton, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670blanklitwhite.png, KoneButtonLit, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670dopenunlit.png, KoneButtonOpen, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670dcloseunlit.png, KoneButtonClose, 1, 1, false
+		Load data/Other People's Fixtures/Kone KSS 670/kss670alarmunlit.png, KoneButtonAlarm, 1, 1, false
+
+		AddTextRange 1, 2, KoneButton, KoneButtonB%number%, nimbus_sans.ttf, 45, B%number%, -1, -1, -1, -1, center, center, 163, 163, 163, false
+		AddTextRange 1, 2, KoneButtonLit, KoneButtonLitB%number%, nimbus_sans.ttf, 45, B%number%, -1, -1, -1, -1, center, center, 205, 201, 255, false
+
+		AddTextRange 1, 8, KoneButton, KoneButton%number%, nimbus_sans.ttf, 45, %number%, -1, -1, -1, -1, center, center, 163, 163, 163, false
+		AddTextRange 1, 8, KoneButtonLit, KoneButtonLit%number%, nimbus_sans.ttf, 45, %number%, -1, -1, -1, -1, center, center, 205, 201, 255, false
+
+		#Lanterns
+		Load data/MT/LanternUnlit.gif, KoneLanternUp, 1, 1, false
+		Load data/MT/LanternLit.gif, KoneLanternUpLit, 1, 1, false
+		Load data/MT/LanternUnlit.gif, KoneLanternDown, 1, -1, false
+		Load data/MT/LanternLit.gif, KoneLanternDownLit, 1, -1, false
+
+		#Inside arrows
+		Load data/MT/blank.gif, KoneArrowUp, 1, 1, false
+		Load data/Melvin/KSS670_PI/Arrow-LitWhite.png, KoneArrowUpLit, 1, 1, false
+		ScrollAnim KoneArrowUpLit, 0, 1
+		Load data/MT/blank.gif, KoneArrowDown, 1, 1, false
+		Load data/Melvin/KSS670_PI/Arrow-LitWhite-Down.png, KoneArrowDownLit, 1, 1, false
+		ScrollAnim KoneArrowDownLit, 0, -1
+
+		#Floor indicators (Inside) - Font created by Test Tower
+		Load data/Melvin/KSS670_PI/Black_KoneInd.jpg, KoneIndBack, 1, 1, false
+		AddTextRange 1, 2, KoneIndBack, KoneInd_ButtonB%number%, kone_ecodisc.ttf, 120, B%number%, 0, 0, 256, 256, center, center, 255, 255, 255, false
+		AddTextRange 1, 8, KoneIndBack, KoneInd_Button%number%, kone_ecodisc.ttf, 120, %number%, 0, 0, 256, 256, center, center, 255, 255, 255, false
+
+	#Proximity scanners
+	Load data/EG881/Miscellaneous/HIDbadgescannergreen.jpg, HIDScanGreen, 1, 1, false #EG881
+	#Load data/EG881/Miscellaneous/HIDbadgescannerred.jpg, HIDScanRed, 1, 1, false #EG881
+<EndTextures>
+
+########################################
+
+#Service Elevators
+#Added on September 23, 2026.
+
+<Elevator 7>
+	Name = Monica DS Service Elev. 1
+	Speed = 6
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - 6, 8
+	AssignedShaft = 3
+	CreateElevator true, -5 + 0.5, 0, 0
+<EndElevator>
+
+<Elevator 8>
+	Name = Monica DS Service Elev. 2
+	Speed = 6
+	Acceleration = 0.6
+	Deceleration = 0.6
+	ServicedFloors = -2 - 6, 8
+	AssignedShaft = 3
+	CreateElevator true, 5 - 0.5, 0, 0
+<EndElevator>
+
+<Function BtnPanelE7-8>
+	Set PanelNumber = %param1%
+	Set PanelNumber2 = %PanelNumber% + 1
+	Set BtnPrefix = KoneButton
+
+	if[%PanelNumber% = 1] AddButton %PanelNumber2%, , %BtnPrefix%Alarm, %BtnPrefix%Alarm, 1, 1, alarm, 1, 1
+
+	AddButton %PanelNumber%, , %BtnPrefix%8, %BtnPrefix%Lit8, 3, 2, 8, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%7, %BtnPrefix%Lit7, 3, 1, 6, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%6, %BtnPrefix%Lit6, 4, 2, 5, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%5, %BtnPrefix%Lit5, 4, 1, 4, 1, 1
+
+	AddButton %PanelNumber%, , %BtnPrefix%4, %BtnPrefix%Lit4, 5, 2, 3, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%3, %BtnPrefix%Lit3, 5, 1, 2, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%2, %BtnPrefix%Lit2, 6, 2, 1, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%1, %BtnPrefix%Lit1, 6, 1, 0, 1, 1
+
+	AddButton %PanelNumber%, , %BtnPrefix%B1, %BtnPrefix%LitB1, 7, 2, -1, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%B2, %BtnPrefix%LitB2, 7, 1, -2, 1, 1
+
+	AddButton %PanelNumber%, , %BtnPrefix%Open, %BtnPrefix%Open, 9, 1, open, 1, 1
+	AddButton %PanelNumber%, , %BtnPrefix%Close, %BtnPrefix%Close, 9, 2, close, 1, 1
+<EndFunction>
+
+<Elevators 7 to 8>
+	Set Prefix = Service
+
+	#Set textures and dimensions
+	if[%elevator% = 7] Set P1Width = 1.25
+	if[%elevator% = 7] Set P2Width = 0.25
+
+	if[%elevator% = 8] Set P1Width = 0.25
+	if[%elevator% = 8] Set P2Width = 1.25
+
+	M10_ElevCabTex(ElevExt, %Prefix%ElevFloor, %Prefix%ElevCeiling, %Prefix%ElevWall, %Prefix%ElevWall)
+	M10_ElevDimensions(6, 9.28, 8, 0.2, 0.2, false, true, true, true)
+	M10_ElevPanels(%Prefix%ElevPanelMain, %Prefix%ElevPanelTop, %P1Width%, %P2Width%, 1, 0.2, true, false, false, false)
+
+	#Finish elevator assembly
+	M10_ElevInterior()
+	#--------------------
+	#DETAILED INTERIORS
+	#1. Ceiling Lights
+	Set LightWidth = 2.4
+	Set LightLength = 3.6
+	Set TrimWidth = 0.2
+
+	CreateWallBox2 elevator, CL_Main, %Prefix%ElevCeilingLight, 0, 0, %LightWidth%, %LightLength%, 0.08, 8 - 0.08, 0, 0, false, true, true, true
+
+	#2. Panels on walls
+	#Set WPTex = %Prefix%ElevWallPanel
+	#Set WPanelHeight = 3.25
+	#
+	#	#Left panel
+	#	CreateWallBox2 elevator, Panel_L1, %WPTex%, -2.8 + 0.01, 0, 0.02, 9.28 - 0.4, %WPanelHeight%, 0, 0, 0, false, true, true, true
+	#
+	#	#Right panel
+	#	CreateWallBox2 elevator, Panel_R1, %WPTex%, 2.8 - 0.01, 0, 0.02, 9.28 - 0.4, %WPanelHeight%, 0, 0, 0, false, true, true, true
+	#
+	#	#Back panel
+	#	CreateWallBox2 elevator, Panel_B1, %WPTex%, 0, 4.44 - 0.01, 6 - 0.4 - 0.04, 0.02, %WPanelHeight%, 0, 0, 0, false, true, true, true
+	#--------------------
+	#Car Doors
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -4.64
+
+	WallOrientation = right
+	if[%elevator% = 7] AddDoorComponent 1, 2Speed_Fast, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, left, 0.8, 0.6, 2.75 - (2.25 * 1), %IDP% - (0.15 * 1), 2.75, %IDP% - (0.15 * 1), 7, 0, 0, 0, 0, 0
+	if[%elevator% = 7] AddDoorComponent 1, 2Speed_Slow, %ElevDoorTex%2, %ElevDoorTex%2, 0.15, left, 0.4, 0.3, 2.75 - (2.25 * 2), %IDP%, 2.75 - (2.25 * 1), %IDP%, 7, 0, 0, 0, 0, 0
+
+	if[%elevator% = 8] AddDoorComponent 1, 2Speed_Fast, %ElevDoorTex%, %ElevDoorTex%, 0.15, right, 0.8, 0.6, -2.75, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), 7, 0, 0, 0, 0, 0
+	if[%elevator% = 8] AddDoorComponent 1, 2Speed_Slow, %ElevDoorTex%, %ElevDoorTex%, 0.15, right, 0.4, 0.3, -2.75 + (2.25 * 1), %IDP%, -2.75 + (2.25 * 2), %IDP%, 7, 0, 0, 0, 0, 0
+	FinishDoors 1, false, false
+
+		#Door track
+		FloorOrientation = top
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+		if[%elevator% = 7] AddFloor DoorTrack, ElevDoorTrackZ, 0.05, 2.75 - (2.25 * 3), %IDP% - (0.15 * 2), 2.75, %IDP%, 0, 0, 0, 0
+	
+		TextureOverride ElevExt, ElevDoorTrackZ, ElevExt, ElevExt, ElevExt, ElevExt
+		if[%elevator% = 8] AddFloor DoorTrack, ElevDoorTrackZ, 0.05, -2.75, %IDP% - (0.15 * 2), -2.75 + (2.25 * 3), %IDP%, 0, 0, 0, 0
+
+		#Top filler
+		FloorOrientation = bottom
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		if[%elevator% = 7] AddFloor TopFiller, %Prefix%ElevPanelTop, 0.05, 2.75 - (2.25 * 1), %IDP% - (0.15 * 1), 2.75, %IDP%, 7, 7, 0, 0
+	
+		TextureOverride %Prefix%ElevPanelTop, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+		if[%elevator% = 8] AddFloor TopFiller, %Prefix%ElevPanelTop, 0.05, -2.75, %IDP% - (0.15 * 1), -2.75 + (2.25 * 1), %IDP%, 7, 7, 0, 0
+
+	#Gap filler
+	WallOrientation = right
+	DrawWalls = true, true, true, true, true, true
+	TextureOverride ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt, ElevExt
+	if[%elevator% = 7] AddWall GapFiller, %Prefix%ElevPanelMain, 0.15 * 2, 2.75, %IDP%, 3, %IDP%, 7, 7, 0, 0, 0, 0
+
+	TextureOverride ElevExt, ElevExt, ElevExt, %Prefix%ElevPanelMain, ElevExt, ElevExt
+	if[%elevator% = 8] AddWall GapFiller, %Prefix%ElevPanelMain, 0.15 * 2, -3, %IDP%, -2.75, %IDP%, 7, 7, 0, 0, 0, 0
+	#--------------------
+	#Button Panels
+	if[%elevator% = 7] Set P1_PositionX = -2.275
+	if[%elevator% = 8] Set P1_PositionX = 2.275
+	Set P1_PositionZ = -4.44 + 0.001
+
+		#Panel back
+		CreateWallBox2 elevator, MainPB, ElevPanel, %P1_PositionX%, %P1_PositionZ% - 0.001 + 0.025, 0.8, 0.05, 5, 2, 0, 0, false, true, true, true
+
+		#Panel
+		CreatePanel , 9, 2, back, %P1_PositionX%, %P1_PositionZ% + 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0
+		CreatePanel , 9, 1, back, %P1_PositionX%, %P1_PositionZ% + 0.05, 0.15, 0.15, 0.5, 0.25, 3.75, 0, 0 #Alarm button only
+
+			#Buttons
+			BtnPanelE7-8(1)
+
+	#Elevator number sign
+	#if[%elevator% = 7] Set ElevNo_Center = 0.5
+	#if[%elevator% = 8] Set ElevNo_Center = -0.5
+	Set ElevNo_Center = %P1_PositionX%
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %ElevNo_Center% - 0.25, -4.44 + 0.051, %ElevNo_Center% + 0.25, -4.44 + 0.051, 0.5, 0.5, 6.5, 6.5, 0, 0
+
+	#Floor Indicator
+	KSS670_PI_InternalInd(back, %P1_PositionX%, %P1_PositionZ% + 0.05, 6, KoneInd_Button, KoneArrowUp, KoneArrowUpLit, KoneArrowDownLit)
+	#--------------------
+	#Proximity scanner
+	Set PSscanHeight = 0.45
+	Set PScanWidth = %PSscanHeight% * 0.712
+	Set PScanTex = HIDScanGreen
+
+	Set ExtraOffset = 0
+
+	DrawWalls = false, true, false, false, false, false
+	AddWall ProximityScanner, %PScanTex%, 0, %P1_PositionZ% + 0.05, %P1_PositionX% - (%PScanWidth% / 2), %P1_PositionZ% + 0.05, %P1_PositionX% + (%PScanWidth% / 2), %PSscanHeight%, %PSscanHeight%, 4.75 + %ExtraOffset%, 4.75 + %ExtraOffset%, 0, 0
+	#--------------------
+	#Shaft components
+	DrawWalls = true, true, true, true, true, true
+		#Ropes
+		RopePosition = 0, 8 + 0.2, 0
+		RopeTexture = Ropes
+	
+		#Counterweight
+		if[%elevator% = 7] Set Position = -3 - 0.8
+		if[%elevator% = 8] Set Position = 3 + 0.8
+		CreateCounterweight CWeight_Frame, CWeight, %Position%, 0, 0.5, 6, 2, 0.5
+	
+		#Rails
+		AddRails ElevRail, ElevRailSide, 0, 0, false, 3 + 0.06, 0.1
+		AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
+<EndElevators>
+
+########################################
+
 #HALL STATIONS
-#Set textures
+#Set textures for West Elevators
 <Function ElevHallTex>
 	#Shaft doors
 	TexPrefix() #Set prefixes for shaft doors
@@ -2189,6 +2471,7 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		if[%floor% > 5] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
+#Set textures for East Elevators
 <Function ElevHallTex_E4-6>
 	#Shaft doors
 	TexPrefix() #Set prefixes for shaft doors
@@ -2228,6 +2511,8 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		Set ExtraLateralOffset = 0
 		#if[%floor% > 5] Set ExtraLateralOffset = 0.05
 <EndFunction>
+
+########################################
 
 #West Elevators
 <Function E1-3HallStation>
@@ -2289,8 +2574,8 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		if[%floor% > -1] AddWall E1-3FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 - 0.5, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 		if[%floor% > -1] AddWall E1-3FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 - 0.5, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 
-		if[%floor% < 0] AddWall E1-3FloorSign1, BlankSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 - 0.75, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 + 0.75, 1.5, 1.5, 6 - 0.75 + %interfloorheight%, 6 - 0.75 + %interfloorheight%, 0, 0, true
-		if[%floor% < 0] AddWall E1-3FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 6 - 0.75 + %interfloorheight%, 6 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% < 0] AddWall E1-3FloorSign1, BlankSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 - 0.75, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% + 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+		if[%floor% < 0] AddWall E1-3FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
 
 		AddWall E1-3HallSign, ElevHallSign, 0, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 - 0.25, %Shaft1CX% + 5 + 0.001, %Shaft1CZ% - 5 + 0.25, 0.75, 0.75, 2.6 + %interfloorheight%, 2.6 + %interfloorheight%, 0, 0, true
 
@@ -2368,8 +2653,8 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		if[%floor% > -1] AddWall E1-3FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 		if[%floor% > -1] AddWall E1-3FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 
-		if[%floor% < 0] AddWall E1-3FloorSign1, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.75, 1.5, 1.5, 6 - 0.75 + %interfloorheight%, 6 - 0.75 + %interfloorheight%, 0, 0, true
-		if[%floor% < 0] AddWall E1-3FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 6 - 0.75 + %interfloorheight%, 6 - 0.75 + %interfloorheight%, 0, 0, true
+		if[%floor% < 0] AddWall E1-3FloorSign1, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+		if[%floor% < 0] AddWall E1-3FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
 
 		AddWall E1-3HallSign, ElevHallSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.25, 0.75, 0.75, 2.6 + %interfloorheight%, 2.6 + %interfloorheight%, 0, 0, true
 
@@ -2387,36 +2672,191 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		ACMELobbyInds(left, 6, %Shaft1CX% - 5 - %ExtraLateralOffset%, %Shaft1CZ% - 10, %Offset%, -2, 8, true)
 <EndFunction>
 
+#Hall station creation (Passenger elevators)
 <Floors -2 to 8>
 	if[%floor% ! 7] E1-3HallStation()
 	if[%floor% ! 7] E4-6HallStation()
 <EndFloors>
 
+########################################
+
+#Shaft door prefixes
+<Function SE_ShaftDoorPrefix>
+	#Service elevators' shaft doors
+	Set 5S = ServiceA
+	if[%floor% > -1] Set 5S = ServiceB
+<EndFunction>
+
+#Set textures (Service Elevators)
+<Function ElevHallTex-Service>
+	TexPrefix() #Set prefixes for walls
+	SE_ShaftDoorPrefix() #Set prefixes for shaft doors
+
+	#Shaft doors
+	Set DoorTexture = %5S%ShaftDoors
+
+	#Use automatic filler walls or not
+	Set AutoFiller = false
+
+	#Door trims
+		#Sides
+		Set DoorTrimTexture = %DoorTexture%_Trim
+
+		#Top
+		Set DoorTrimTexture_Top = %DoorTrimTexture%
+
+	#Deco dimensions
+		Set SideDecoH = 7.2
+		Set TopDecoH = 0.2
+
+	#Call button panels
+	Set BPanelTexture = ElevExtPanels
+	Set ButtonPrefix = KoneButton
+
+	#Lantern panels
+	Set LPanelTexture = %BPanelTexture%
+	Set LanternPrefix = KoneLantern
+
+		#Lateral offset for lantern panels
+		Set ExtraLateralOffset = 0
+<EndFunction>
+
+#Hall Stations Function (Service Elevators - No. 7-8)
+<Function Monica_E7-8_HS>
+	#Shaft Doors
+	ElevHallTex-Service() #Set shaft door and panel textures
+	Set StartNo = 7 #Number of the first elevator
+
+	Set ElevDoorTex = %Prefix%ElevDoors
+	Set IDP = -4.64 - 0.4
+
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo%, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, left, 0.8, 0.6, 2.75 - (2.25 * 1), %IDP%, 2.75, %IDP%, 7, 0, 0, 0, 0, 0
+	AddShaftDoorComponent %StartNo%, 1, 2Speed_Slow, %DoorTexture%2, %DoorTexture%2, 0.15, left, 0.4, 0.3, 2.75 - (2.25 * 2), %IDP% - (0.15 * 1), 2.75 - (2.25 * 1), %IDP% - (0.15 * 1), 7, 0, -1, 0, -1, 0
+	FinishShaftDoor %StartNo%, 1, %AutoFiller%, false
+
+	WallOrientation = right
+	AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Fast, %DoorTexture%, %DoorTexture%, 0.15, right, 0.8, 0.6, -2.75, %IDP%, -2.75 + (2.25 * 1), %IDP%, 7, 0, -1, 0, -1, 0
+	AddShaftDoorComponent %StartNo% + 1, 1, 2Speed_Slow, %DoorTexture%2, %DoorTexture%2, 0.15, right, 0.4, 0.3, -2.75 + (2.25 * 1), %IDP% - (0.15 * 1), -2.75 + (2.25 * 2), %IDP% - (0.15 * 1), 7, 0, 0, 0, 0, 0
+	FinishShaftDoor %StartNo% + 1, 1, %AutoFiller%, false
+
+	#Door tracks
+	AddShaftTrack(7, 3, -4 - 4.5, -4 + 2.25, -5.34, -5.34 + 0.3, ElevDoorTrackZ, ElevExt, 0.05, 1, 7)
+	AddShaftTrack(8, 3, 4 - 2.25, 4 + 4.5, -5.34, -5.34 + 0.3, ElevDoorTrackZ, ElevExt, 0.05, 1, 7)
+
+	#Top filler
+	AddShaftTrack(7, 3, -4, -4 + 2.25, -5.34, -5.34 + 0.15, %DoorTrimTexture%, ElevExt, 0.05, 2, 7)
+	AddShaftTrack(8, 3, 4 - 2.25, 4, -5.34, -5.34 + 0.15, %DoorTrimTexture%, ElevExt, 0.05, 2, 7)
+
+	#Gap filler
+		WallOrientation = left
+		DrawWalls = true, true, true, true, true, true
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 3, GapFiller_E7, ElevExt, 0.15 * 2, -4 + 2.25, -5.34, -4 + 2.25 + 0.25, -5.34, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0	
+		TextureOverride ElevExt, ElevExt, %DoorTrimTexture%, %DoorTrimTexture%, ElevExt, ElevExt
+		AddShaftWall 3, GapFiller_E8, ElevExt, 0.15 * 2, 4 - 2.25 - 0.25, -5.34, 4 - 2.25, -5.34, 7, 7, %interfloorheight%, %interfloorheight%, 0, 0	
+
+	#****************************************#
+
+	#Door trims/fillers
+	TexPrefix() #Set filler walls' textures to match with shaft walls
+	Set Shaft1CX = -110
+	Set Shaft1CZ = 104
+
+		#Basements (Filler walls)
+		WallOrientation = left
+		if[%floor% < 0] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 7
+		if[%floor% < 0] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 8
+
+		#Shopping levels (Door trims)
+		WallOrientation = left
+		if[%floor% > -1] AddDecoObject(Monica_E7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		if[%floor% > -1] AddDecoObject(Monica_E8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+
+	#****************************************#
+
+	#Call buttons
+	CallButtonElevators = 7, 8
+	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX%, %Shaft1CZ% - 6.001, 4 - 0.4, front, 0.4, 0.8, true, 0, 0
+
+		#Signs
+		DrawWalls = true, false, false, false, false, false
+		AddWall E7-8HallSign, ElevHallSign, 0, %Shaft1CX% - 0.25, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.25, %Shaft1CZ% - 6 - 0.001, 0.75, 0.75, 2.6 + %interfloorheight%, 2.6 + %interfloorheight%, 0, 0, true
+		AddWall E7-8FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+
+	#****************************************#
+
+	#Indicator sets
+	Set Offset = 7.5
+
+		#Set textures
+		KSS670_PI_LanternTex(%LanternPrefix%Up, %LanternPrefix%UpLit, %LanternPrefix%Down, %LanternPrefix%DownLit, %LPanelTexture%, KoneInd_Button, KoneArrowUp, KoneArrowUpLit, KoneArrowDownLit)
+
+		#Indicator creation
+		KSS670_PI_LobbyInds(front, 7, %Shaft1CX% - 4, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -2, 8)
+		KSS670_PI_LobbyInds(front, 8, %Shaft1CX% + 4, %Shaft1CZ% - 6 - %ExtraLateralOffset%, %Offset%, -2, 8)
+<EndFunction>
+
+#Hall station creation (Service elevators)
+<Floors -2 to 8>
+	if[%floor% ! 7] Monica_E7-8_HS()
+<EndFloors>
+
+########################################
+
 #GLOBAL SETTINGS
-<Elevators 1 to 6>
+<Elevators 1 to 8>
 	#Notifications
-	if[%elevator% < 4] ChimeSound 1 = mechchime9.wav
-	if[%elevator% > 3] ChimeSound 1 = KW_Sounds/oldhitachichime1.wav
-	ReOpen = false
-	ChimeOnArrival = true
+	if[%elevator% < 7] ReOpen = false #Disable for Hitachi elevators
+	if[%elevator% < 7] ChimeOnArrival = true #Enable for Hitachi elevators
 	NotifyEarly = 1
 	QueueResets = true
 	RecallFloor = 0
 
+	#Motor sounds
+	#MotorStartSound = EG881Sounds/motor_start3.wav #EG881
+	#MotorRunSound = EG881Sounds/motor_running3.wav #EG881
+	#MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+
+	MotorStartSound = motor_start2.wav
+	MotorRunSound = motor_running2.wav
+	MotorStopSound = motor_stop2.wav
+<EndElevators>
+
+<Elevators 1 to 6>
 	#Door settings
 	DoorTimer 1 = 12000
 	QuickClose 1 = 8000
 	OpenSound 1 = EG881Sounds/elevopenquick2.wav #EG881
 	CloseSound 1 = EG881Sounds/elevclosequick2.wav #EG881
 
-	#Movement sounds
-	MotorStartSound = EG881Sounds/motor_start3.wav #EG881
-	MotorRunSound = EG881Sounds/motor_running3.wav #EG881
-	MotorStopSound = EG881Sounds/motor_stop3.wav #EG881
+	#Chimes
+	if[%elevator% < 4] ChimeSound 1 = mechchime9.wav
+	if[%elevator% > 3] ChimeSound 1 = KW_Sounds/oldhitachichime1.wav
 
+	#Car sounds
 	CarStartSound = EG881Sounds/elevstart11.wav #EG881
 	CarMoveSound = EG881Sounds/elevmove11.wav #EG881
 	CarStopSound = EG881Sounds/elevstop11.wav #EG881
+<EndElevators>
+
+<Elevators 7 to 8>
+	#Door timers
+	DoorTimer 1 = 15000
+	QuickClose 1 = 10000
+	
+	#Door sounds (Reminiscing the memories of SVN buildings)
+	OpenSound 1 = elevatoropen.wav
+	CloseSound 1 = elevatorclose.wav
+
+	#Chimes
+	UpChimeSound 1 = KSS500/koneup.wav #EG881
+	DownChimeSound 1 = KSS500/konedown.wav #EG881
+
+	#Car sounds
+	CarStartSound = EG881Sounds/elevstart10.wav #EG881
+	CarMoveSound = EG881Sounds/elevmove10.wav #EG881
+	CarStopSound = EG881Sounds/elevstop10.wav #EG881
 <EndElevators>
 
 ##--------------------------------------------------------------------------------##
