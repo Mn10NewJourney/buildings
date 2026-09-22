@@ -33,8 +33,8 @@
 	Location = 888 Market Street, Tranquility City
 	Description = This department store never had its own service elevators until late 2006.
 	Version = 1
-	CameraFloor = -2
-	CameraPosition = 10, -72
+	CameraFloor = 0
+	CameraPosition = -90, -30
 	CameraRotation = 0, 0, 0
 <EndGlobals>
 
@@ -129,8 +129,8 @@
 		Load data/misc/bath_tile.jpg, MainRRWall2, 0.1667, 0.1667 #Upper walls
 
 		#Service/freight elevator lobbies
-		Load data/checker20.jpg, SAFloor, 0.5, 0.5
-		Load data/wall5b.jpg, SAWall, 0.25, 0.25
+		Load data/stucco3.jpg, SAFloor, 0.25, 0.25
+		Load data/stucco4b.jpg, SAWall, 0.25, 0.25
 		Load data/stucco4.jpg, SACeiling, 0.2, 0.2
 
 		#Roofs
@@ -357,6 +357,10 @@
 		Load data/Melvin/ABH_Tex/NewFS256/FloorSignBack_Monica.png, ELFlrSignBack2, 1, 1, false #5th-8th floors
 		AddTextRange 1, 4, ELFlrSignBack, ELFlrSign%number%, nimbus_sans.ttf, 117, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 		AddTextRange 5, 8, ELFlrSignBack2, ELFlrSign%number%, nimbus_sans_condensed.ttf, 130, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+		#Floor signs (Service elevators)
+		Load data/graygradient.jpg, FlrSignBack_Service, 1, 1, false #Service elevators (1st-8th floors)
+		AddTextRange 1, 8, FlrSignBack_Service, SV_FlrSign%number%, nimbus_sans_bold.ttf, 128, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Floor signs (Stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -1803,7 +1807,9 @@ ShowFullShaft 2 = true
 		if[%floor% > 0 & %floor% < 6] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
 <EndFloors>
 
+#Shaft creation
 AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 + 5, %interfloorheight%)
+ShowFullShaft 3 = true
 
 #External shaft walls
 <Floors -2 to 9>
@@ -2183,8 +2189,7 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 	#Load data/metal080.jpg, ServiceElevWall, 0.5, 0.5
 	#Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4, true
 
-	#Load data/gray.jpg, ServiceElevCeiling, 0.25, 0.25, true
-	Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, ServiceElevCeiling, 1, 1, false
+	Load data/gray.jpg, ServiceElevCeiling, 0.5, 0.5, true
 	Load data/EG881/Lights/squarelight1_white.jpg, ServiceElevCeilingLight, 1, 1, false #EG881
 
 	Load data/metal080.jpg, ServiceElevPanelMain, 0.5, 0.5, true
@@ -2230,11 +2235,11 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 		AddTextRange 1, 8, KoneButton, KoneButton%number%, nimbus_sans.ttf, 45, %number%, -1, -1, -1, -1, center, center, 163, 163, 163, false
 		AddTextRange 1, 8, KoneButtonLit, KoneButtonLit%number%, nimbus_sans.ttf, 45, %number%, -1, -1, -1, -1, center, center, 205, 201, 255, false
 
-		#Lanterns
-		Load data/MT/LanternUnlit.gif, KoneLanternUp, 1, 1, false
-		Load data/MT/LanternLit.gif, KoneLanternUpLit, 1, 1, false
-		Load data/MT/LanternUnlit.gif, KoneLanternDown, 1, -1, false
-		Load data/MT/LanternLit.gif, KoneLanternDownLit, 1, -1, false
+		#Lanterns (Originally made by epco_rules, modified by ElevatorFace, and later edited by me.)
+		Load data/Melvin/MT Lanterns/LanternUnlit2.gif, KoneLanternUp, 1, 1, false
+		Load data/Melvin/MT Lanterns/LanternLitWhite.gif, KoneLanternUpLit, 1, 1, false
+		Load data/Melvin/MT Lanterns/LanternUnlit2.gif, KoneLanternDown, 1, -1, false
+		Load data/Melvin/MT Lanterns/LanternLitWhite.gif, KoneLanternDownLit, 1, -1, false
 
 		#Inside arrows
 		Load data/MT/blank.gif, KoneArrowUp, 1, 1, false
@@ -2304,6 +2309,7 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 <EndFunction>
 
 <Elevators 7 to 8>
+	Type = Service
 	Set Prefix = Service
 
 	#Set textures and dimensions
@@ -2411,10 +2417,10 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 	Set PScanWidth = %PSscanHeight% * 0.712
 	Set PScanTex = HIDScanGreen
 
-	Set ExtraOffset = 0
+	Set ExtraOffset = 0.25
 
 	DrawWalls = false, true, false, false, false, false
-	AddWall ProximityScanner, %PScanTex%, 0, %P1_PositionZ% + 0.05, %P1_PositionX% - (%PScanWidth% / 2), %P1_PositionZ% + 0.05, %P1_PositionX% + (%PScanWidth% / 2), %PSscanHeight%, %PSscanHeight%, 4.75 + %ExtraOffset%, 4.75 + %ExtraOffset%, 0, 0
+	AddWall ProximityScanner, %PScanTex%, 0, %P1_PositionX% - (%PScanWidth% / 2), %P1_PositionZ% + 0.05, %P1_PositionX% + (%PScanWidth% / 2), %P1_PositionZ% + 0.05, %PSscanHeight%, %PSscanHeight%, 4.75 + %ExtraOffset%, 4.75 + %ExtraOffset%, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -2779,10 +2785,15 @@ AddStdShaft(3, 1, -110, 104, 9.67, 5.67, -3, 10, ShaftIntWall, 0.5, 0.33, 0, 2 +
 	CallButtonElevators = 7, 8
 	CreateCallButtons %BPanelTexture%, %ButtonPrefix%Up, %ButtonPrefix%UpLit, %ButtonPrefix%Down, %ButtonPrefix%DownLit, %Shaft1CX%, %Shaft1CZ% - 6.001, 4 - 0.4, front, 0.4, 0.8, true, 0, 0
 
-		#Signs
+		#"In case of fire" sign
 		DrawWalls = true, false, false, false, false, false
 		AddWall E7-8HallSign, ElevHallSign, 0, %Shaft1CX% - 0.25, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.25, %Shaft1CZ% - 6 - 0.001, 0.75, 0.75, 2.6 + %interfloorheight%, 2.6 + %interfloorheight%, 0, 0, true
-		AddWall E7-8FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+
+		#Blank signs (Floor with bright-colored walls)
+		if[%floor% < 0] AddWall E7-8FloorSign, BlankSign%floorid%, 0, %Shaft1CX% - 0.75, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.75, %Shaft1CZ% - 6 - 0.001, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+
+		#Signs with background (Floors with dark-colored walls)
+		if[%floor% > -1] AddWall E7-8FloorSign, SV_FlrSign%floorid%, 0, %Shaft1CX% - 0.5, %Shaft1CZ% - 6 - 0.001, %Shaft1CX% + 0.5, %Shaft1CZ% - 6 - 0.001, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 
 	#****************************************#
 
