@@ -1226,6 +1226,9 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		TextureOverride ExtFacade, %5%Wall, Blank, %5%Wall, Blank, Blank
 		if[%floor% = 0] AddWall LeftStoreWall, %5%Wall, 0.5, -%1%, -60, -%1%, %LeftEndpoint%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 
+		TextureOverride ExtFacade, %5%Wall, Blank, %5%Wall, Blank, Blank
+		if[%floor% < 3] AddWall LeftStoreWall_Extra, %5%Wall, 0.5, -%1%, 30.5, -%1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+
 		DrawWalls = true, true, false, false, false, false
 
 		WallOrientation = right
@@ -1242,14 +1245,29 @@ Set Garden_Offset2 = Floor(0).Base + 4
 		Set ExtraPoint = 0.5
 		if[%floor% > 3] Set ExtraPoint = 0
 		TextureOverride %5%Wall, ExtFacade, Blank, Blank, Blank, Blank
-		if[%floor% > 2] AddWall BackWall, %5%Wall, 0.5, -%1% + %ExtraPoint%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
+		AddWall BackWall, %5%Wall, 0.5, -%1% + %ExtraPoint%, %2%, %1%, %2%, %WallHeight2%, %WallHeight2%, %WallOffset2%, %WallOffset2%, 0, 0, true
 <EndFloors>
 
-#Entrance area trims
-<Floors 3 to 6>
+########################################
+
+<Break>
+
+#ENTRANCE AREA TRIMS
+#1. North access (Added on September 6, 2026)
+<Floors 0 to 6>
 	WallOrientation = right
-	AddFillerWalls ConnectionWall, 0.5, 0, %2%, 120, 12, %interfloorheight%, true, 0, 0, true
+	AddFillerWalls ConnectionWall, 0.5, 0, %2%, 120, 12, %interfloorheight%, true, 0, 0, true #North access
 <EndFloors>
+
+#2. West access (Added on September 23, 2026)
+<Floors 0 to 2>
+	WallOrientation = left
+	AddFillerWalls ConnectionWall, 0.5, -%1%, 50, 36, 12, %interfloorheight%, false, 0, 0, true
+<EndFloors>
+
+<Break>
+
+########################################
 
 #8th floor roof area
 <Floor 7>
