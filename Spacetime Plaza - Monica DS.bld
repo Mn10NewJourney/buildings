@@ -131,7 +131,7 @@
 		#Service/freight elevator lobbies
 		Load data/stucco3.jpg, SAFloor, 0.25, 0.25
 		Load data/stucco4b.jpg, SAWall, 0.25, 0.25
-		Load data/stucco4.jpg, SACeiling, 0.2, 0.2
+		Load data/stucco3.jpg, SACeiling, 0.25, 0.25
 
 		#Roofs
 		Load data/cem_tr.jpg, RoofFloor, 0.1, 0.1
@@ -1790,21 +1790,13 @@ ShowFullShaft 2 = true
 		if[%floor% > 3] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 
-		Set Door_MainX = -110 #South of service elevators (1st, 7th and 8th floors)
+		Set Door_MainX = -110 #South of service elevators
 		Set Door_MainZ = 86
 
 		WallOrientation = left
-		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddStdDoor DoorManager, Monica_SELobby_D1/1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddStdDoor DoorManager, Monica_SELobby_D1/2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% = 0 | %floor% = 6 | %floor% = 8] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
-
-		Set Door_MainX = -100 #East of service elevators - 2nd-6th floors
-		Set Door_MainZ = 86 + 6
-
-		WallOrientation = right
-		if[%floor% > 0 & %floor% < 6] AddStdDoor DoorManager, Monica_SELobby_D2/1, , , false, %DTex%, %DSTex%, 0.2, left, right, 75, 75, %Door_MainX%, %Door_MainZ% - 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% > 0 & %floor% < 6] AddStdDoor DoorManager, Monica_SELobby_D2/2, , , false, %DTex%, %DSTex%, 0.2, right, right, 75, 75, %Door_MainX%, %Door_MainZ% + 1.5, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
-		if[%floor% > 0 & %floor% < 6] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, false, 0, 0, true
+		if[%floor% ! 7] AddStdDoor DoorManager, Monica_SELobby_D1/1, , , false, %DTex%, %DSTex%, 0.2, back, front, 75, 75, %Door_MainX% - 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% ! 7] AddStdDoor DoorManager, Monica_SELobby_D1/2, , , false, %DTex%, %DSTex%, 0.2, front, front, 75, 75, %Door_MainX% + 1.5, %Door_MainZ%, 3, 7, Floor(%floor%).Base, 0, 0, 0, 0
+		if[%floor% ! 7] AddFillerWalls ConnectionWall, 0.5, %Door_MainX%, %Door_MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 <EndFloors>
 
 #Shaft creation
@@ -2186,7 +2178,6 @@ ShowFullShaft 3 = true
 	#Interiors
 	Load data/Threadplate0055_2_S.jpg, ServiceElevFloor, 0.5, 0.5
 	Load data/MetalBare0085_3_S.jpg, ServiceElevWall, 0.25, 0.25
-	#Load data/metal080.jpg, ServiceElevWall, 0.5, 0.5
 	#Load data/Threadplate0055_2_S.jpg, ServiceElevWallPanel, 0.4, 0.4, true
 
 	Load data/gray.jpg, ServiceElevCeiling, 0.5, 0.5, true
@@ -2194,26 +2185,21 @@ ShowFullShaft 3 = true
 
 	Load data/metal080.jpg, ServiceElevPanelMain, 0.5, 0.5, true
 	Load data/metal080.jpg, ServiceElevPanelTop, 0.5, 0.5, true
-	#Load data/panel-back3.jpg, ServiceElevPanelMain, 1, 1, false
-	#Load data/panel-back3.jpg, ServiceElevPanelTop, 1, 0.125, false
-
 	Load data/door1.jpg, ServiceElevDoors, 1, 1, false #EG881
 	Load data/door1.jpg, ServiceElevDoors2, -1, 1, false #EG881
-	#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors, -1, 1, false #EG881
-	#Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceElevDoors2, 1, 1, false #EG881
 
 	#Shaft doors
 	Load data/EG881_Otis/Doors/otiswhitedoorleft.jpg, ServiceAShaftDoors, 1, 1, false #EG881 #Basements
 	Load data/EG881_Otis/Doors/otiswhitedoorright.jpg, ServiceAShaftDoors2, 1, 1, false #EG881
 	Load data/EG881_Otis/Doors/otiswhitedoortrim1.jpg, ServiceAShaftDoors_Trim, 1, 1, false #EG881
 
-	#Load data/door1.jpg, ServiceAShaftDoors, 1, 1, false #Basements
-	#Load data/door1.jpg, ServiceAShaftDoors2, -1, 1, false
-	#Load data/elevpanelsilver.jpg, ServiceAShaftDoors_Trim, 1, 1, false
+	Load data/door1.jpg, ServiceBShaftDoors, 1, 1, false #Shopping levels
+	Load data/door1.jpg, ServiceBShaftDoors2, -1, 1, false
+	Load data/elevpanelsilver.jpg, ServiceBShaftDoors_Trim, 1, 1, false
 
-	Load data/EG881_Otis/Doors/otisstnlsteeldoorleft.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Shopping levels
-	Load data/EG881_Otis/Doors/otisstnlsteeldoorright.jpg, ServiceBShaftDoors2, 1, 1, false #EG881
-	Load data/panel-back3.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
+	#Load data/EG881_Otis/Doors/otisgraydoorleft.jpg, ServiceBShaftDoors, 1, 1, false #EG881 #Shopping levels
+	#Load data/EG881_Otis/Doors/otisgraydoorright.jpg, ServiceBShaftDoors2, 1, 1, false #EG881
+	#Load data/EG881_Otis/Doors/otisgraydoortrim1.jpg, ServiceBShaftDoors_Trim, 1, 1, false #EG881
 
 	#Kone KSS 670 fixtures (White backlit)
 		#Hall buttons
@@ -2766,18 +2752,19 @@ ShowFullShaft 3 = true
 
 	#Door trims/fillers
 	TexPrefix() #Set filler walls' textures to match with shaft walls
+	if[%floor% > -1] Set 5 = SA #Override for shopping levels
 	Set Shaft1CX = -110
 	Set Shaft1CZ = 104
 
-		#Basements (Filler walls)
+		#All floors (Filler walls)
 		WallOrientation = left
-		if[%floor% < 0] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 7
-		if[%floor% < 0] AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 8
+		AddFillerWalls %5%Wall, 0.66, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 7
+		AddFillerWalls %5%Wall, 0.66, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %interfloorheight%, true, 0, 0, true #Elevator 8
 
-		#Shopping levels (Door trims)
-		WallOrientation = left
-		if[%floor% > -1] AddDecoObject(Monica_E7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
-		if[%floor% > -1] AddDecoObject(Monica_E8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		##Shopping levels (Door trims)
+		#WallOrientation = left
+		#if[%floor% > -1] AddDecoObject(Monica_E7_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% - 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
+		#if[%floor% > -1] AddDecoObject(Monica_E8_Deco, %DoorTrimTexture%, %DoorTrimTexture_Top%, front, true, false, 0.05, 0.2, %Shaft1CX% + 4, %Shaft1CZ% - 6, 4.5, 7, %SideDecoH%, %TopDecoH%, 0, true, %DoorTrimTexture%, 0.66, external)
 
 	#****************************************#
 
