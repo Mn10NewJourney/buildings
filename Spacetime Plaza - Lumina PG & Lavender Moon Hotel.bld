@@ -4909,6 +4909,7 @@ ShowFullShaft 10 = true
 	AddText Blank, BlankSign6B, nimbus_sans_bold.ttf, 72, 6B, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 	AddTextRange 7, 8, Blank, BlankSign%number%A, nimbus_sans_bold.ttf, 72, %number%A, -1, -1, -1, -1, center, center, 0, 0, 0, false
+	AddText Blank, BlankSign14A, nimbus_sans_bold_condensed.ttf, 65, 14A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 	AddText Blank, BlankSign41A, nimbus_sans_bold_condensed.ttf, 65, 41A, -1, -1, -1, -1, center, center, 0, 0, 0, false
 <EndTextures>
 
@@ -6251,6 +6252,7 @@ ShowFullStairs 3 = always
 
 	DrawWalls = false, true, false, false, false, false
 	AddStairsWall %25%, ST%25%FloorSign, BlankSign%Suffix%, 0, %SignCenterPoint% - 0.75, -%24% + 0.001, %SignCenterPoint% + 0.75, -%24% + 0.001, 1.5, 1.5, 3.75, 3.75, 0, 0
+	if[%floor% = 17] AddStairsWall %25%, ST%25%SecretAreaSign, BlankSign%Suffix%A, 0, %SignCenterPoint% - 0.75, -%24% + 0.001, %SignCenterPoint% + 0.75, -%24% + 0.001, 1.5, 1.5, 3.75 + 12, 3.75 + 12, 0, 0
 
 	#Doors
 	WallOrientation = right
@@ -6261,7 +6263,7 @@ ShowFullStairs 3 = always
 	if[%floor% = 0] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, -%23% - 0.5, -%24% + 2, 3, 7, 0, 0, 0
 	WallOrientation = left
 	TextureOverride ServiceDoor2, ServiceDoor2B, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side, ServiceDoor2Side
-	if[%floor% = -2 | %floor% = 17] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0 #Exit door from loading dock (B2) and roof deck (14)
+	if[%floor% = -2 | %floor% = 14 | %floor% = 17] AddStairsDoor %25%, , , false, ServiceDoor2, 0.2, 1, 75, %23%, -%24% + 2, 3, 7, 0, 0, 0 #Exit door from loading dock (B2) and roof deck (14)
 
 		#Extra doors to access "Secret area" above the Podium Service Elevator Lobby
 		Set DoorOffset = 12
@@ -6279,7 +6281,7 @@ ShowFullStairs 3 = always
 		if[%floor% = 17] AddFillerWalls ConnectionWall, 0.5, %21% - %23% + 2, %22% - %24%, 3, 7 - 0.001, %interfloorheight% + %DoorOffset%, true, 0, 0, true #Secret area access
 
 		WallOrientation = left
-		if[%floor% = -2 | %floor% = 17] AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true #Exit door from loading dock (B2) and roof deck (14)
+		if[%floor% = -2 | %floor% = 14 | %floor% = 17] AddFillerWalls ConnectionWall, 0.5, %21% + %23%, %22% - %24% + 2, 3, 7 - 0.001, %interfloorheight%, false, 0, 0, true #Exit door from loading dock (B2) and roof deck (14)
 
 	#Exit Signs
 	Set SignTex = ExitSign
@@ -6289,7 +6291,7 @@ ShowFullStairs 3 = always
 	#if[%floor% = -2] Set ExtraOffset = 0.5
 
 	if[%floor% = 17] AddBoxSign(Stair%25%_SignSecretArea, %SignTex%, StainlessSteel, StainlessSteel, 0.1, true, true, true, %21% - %23% + 2, %22% - %24% - 0.55, 1.8, 0.9, %interfloorheight% + 12 + 7.2, true)
-	if[%floor% = -2 | %floor% = 17] AddBoxSign(Stair%25%_SignDock, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
+	if[%floor% = -2 | %floor% = 14 | %floor% = 17] AddBoxSign(Stair%25%_SignDock, StainlessSteel, %SignTex%, StainlessSteel, 0.1, false, true, true, %21% + %23% + 0.55, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 	if[%floor% ! 0] AddBoxSign(Stair%25%_SignMain, %SignTex%, StainlessSteel, StainlessSteel, 0.1, false, true, true, %21% - %23% - 0.55 - %ExtraOffset%, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 	if[%floor% = 0] AddBoxSign(Stair%25%_SignStreet, StainlessSteel, ExitSign, StainlessSteel, 0.1, false, true, true, %21% - %23% + 0.05, %22% - %24% + 2, 1.8, 0.9, %interfloorheight% + 7.2, true)
 <EndFloors>
