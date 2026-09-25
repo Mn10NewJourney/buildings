@@ -378,6 +378,7 @@
 		Load data/Melvin/ExitSignBoth.png, ExitSignBoth, 1, 1, false
 
 		#Elevator bank signs
+		Load data/Melvin/SpacetimePlaza/Lavender/ExpressElevSign.png, ExpressElevSign, 1, 1, false
 		LoadRange 1, 2, data/Melvin/SpacetimePlaza/Lavender/Service%number%_Ext.png, Service%number%_Ext, 1, 1, false
 		LoadRange 1, 2, data/Melvin/SpacetimePlaza/Lavender/Service%number%_Int.png, Service%number%_Int, 1, 1, false
 
@@ -621,7 +622,9 @@ DrawWalls = false, true, false, false, false, false
 		CreateFlr(%floorid%F_PLFloor_Main, ParkingLobbyFloor, 0.5, -174, -130, -126, -90 - 5, 0, true)
 		CreateFlr(%floorid%F_PLFloor_West, ParkingFloor, 0.5, -190, -130, -174, -90 - 5, 0, true)
 
-		CreateFlr(%floorid%F_ExpressELFloor, ParkingLobbyFloor, 0.5, -%1%, -50 - 15, -170, -50 + 15, 0, true)
+		CreateFlr(%floorid%F_ExpressELFloor1, ParkingFloor, 0.5, -%1%, -70, -170, -50 - 15, 0, true)
+		CreateFlr(%floorid%F_ExpressELFloor2, ParkingLobbyFloor, 0.5, -%1%, -50 - 15, -170, -50 + 15, 0, true)
+		CreateFlr(%floorid%F_ExpressELFloor3, ParkingFloor, 0.5, -%1%, -50 + 15, -170, -30, 0, true)
 
 		#Concrete floors for loading dock
 		if[%floor% ! -1] CreateFlr(DockFloor_Left, LoadingDockFloor, 0.5, %1% - 140, -%2%, %1% - 140 + 15, %2%, 0, true)
@@ -5849,12 +5852,15 @@ ShowFullShaft 10 = true
 		DrawWalls = false, true, false, false, false, false
 
 			#Blank signs (Floors with bright-colored walls)
-			if[%floor% ! 0 & %floor% ! 17] AddBoxSign(LobbyEX_FS1/1, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
+			#if[%floor% ! 0 & %floor% ! 17] AddBoxSign(LobbyEX_FS1/1, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
 			if[%floor% ! 0 & %floor% ! 17] AddBoxSign(LobbyEX_FS1/2, Blank, BlankSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 1.5, 1.5, 6.5 - 0.75 + %interfloorheight%, true)
 
 			#Signs with background (Floors with dark-colored walls)
-			if[%floor% = 0 | %floor% = 17] AddBoxSign(LobbyEX_FS1/1, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1, 1, 5.5 + %interfloorheight%, true)
+			#if[%floor% = 0 | %floor% = 17] AddBoxSign(LobbyEX_FS1/1, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 1, 1, 5.5 + %interfloorheight%, true)
 			if[%floor% = 0 | %floor% = 17] AddBoxSign(LobbyEX_FS1/2, Blank, ELFlrSign%floorid%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% + 5, 1, 1, 5.5 + %interfloorheight%, true)
+
+		#Elevator bank signs
+		AddBoxSign(LobbyEXInfo, Blank, ExpressElevSign, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 2.5, 3, 8 - 3 + %interfloorheight%, true)
 
 		#"In case of fire" sign(s)
 		WallOrientation = left

@@ -3154,8 +3154,10 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 	if[%floor% > 3] Set SouthEnd = -79.5
 
 		WallOrientation = center
-		DrawWalls = true, true, true, true, false, true
+		DrawWalls = true, true, true, true, false, false
 		AddWall ECDivWallA, %5%Wall, 1, 90, %SouthEnd%, 90, -21 - 30, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
+		DrawWalls = true, true, false, false, false, true
+		if[%floor% = 2] AddWall ECDivWallAA, %5%Wall2, 1, 90, -239.5, 90, -215, 1.5, 1.5, %fullheight% - 1.5, %fullheight% - 1.5, 0, 0, true
 		WallOrientation = left
 		DrawWalls = false, true, true, true, false, false
 		AddWall ECDivWallB, %5%Wall, 0.5, 90, -21 - 30, 90, -21, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
@@ -3276,10 +3278,10 @@ Set UL = Floor(0).Base #1st floor's floor elevation
 		DrawWalls = true, true, false, true, false, false #Override for divider walls between plaza & April DS
 		if[%floor% < 3] AddWall SZ_RightWall, %5%Wall, 0.5, -%1% + 420, %2% - 740 - 120, -%1% + 420, -370 + 30 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
-		DrawWalls = true, true, false, false, false, false #Reset drawwalls
 
 		#East zone
 		WallOrientation = Left
+		DrawWalls = true, true, false, false, false, false #Reset drawwalls
 		TextureOverride ExtFacade, %5%Wall, Blank, Blank, Blank, Blank
 		if[%floor% > 7] AddWall EZ_FrontWall, ExtFacade, 0.5, %1% - 240, -%2% + 260, %1%, -%2% + 260, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, true
 
