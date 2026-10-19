@@ -13,16 +13,15 @@
 		# 5.1. I still want people to realize that "the most realistic buildings will always be ones in real world, and this simulator is NOT totally a replacement for real-life buildings."
 
 	#Elevators and escalators:
-	#1. (Main mall) Elevators 22-27 are meant to open directly to the underground parking areas.
-	#2. (Monica DS) Escalators (or stairs) from B2 to 1 will be done later.
-	#3. The following elevators will not be used by the "random people" at all.
-		# 3.1. Main mall: Elevators 16-21 and 24-27
-		# 3.2. Monica Dept. Store: Elevators 4-6 (since 20 August 2026, to have the "Service" type used by the "real" service elevators instead)
-		# 3.3. Miriam Tower: Elevator 24	
-		# 3.4. Lavender Moon Hotel: Elevator 27
+	#1. As the escalators can be created only in the floor mesh, they will disappear upon walking to another engine (such as between April DS and the main mall).
+	#2. (Main mall) Elevators 22-27 are meant to open directly to the underground parking areas.
+	#3. (Monica DS) Escalators (or stairs) from B2 to 1 will be done later.
+	#4. The following elevators will not be used by the "random people" at all.
+		# 4.1. Main mall: Elevators 16-21 and 24-27
+		# 4.2. Monica Dept. Store: Elevators 4-6 (since 20 August 2026, to have the "Service" type used by the "real" service elevators instead)
+		# 4.3. Miriam Tower: Elevator 24	
+		# 4.4. Lavender Moon Hotel: Elevator 27
 		# This could be changed in Skyscraper Simulator's future updates.
-
-	#4. As the escalators can be created only in the floor mesh, they will disappear upon walking to another engine (such as between April DS and the main mall).
 
 ########################################
 
@@ -333,7 +332,7 @@
 
 		########################################
 
-		#South elevators (No. 1-3)
+		#West Low Zone Elevators (No. 1-3)
 		Load data/Carpet0021d_S.jpg, SouthElevFloor, 0.2, 0.2
 		Load data/EG881/stainlesssteel2.jpg, SouthElevCeiling, 1, 1, false #EG881
 
@@ -351,7 +350,7 @@
 
 		########################################
 
-		#Central Elevators (No. 4-7)
+		#West High Zone Elevators (No. 4-7)
 		Load data/Carpet0021d_S.jpg, CentralElevFloor, 0.2, 0.2
 		Load data/Melvin/OTIS67_Darkaluminium_cropped.jpg, CentralElevCeiling, 1, 1, false
 		Rotate CentralElevCeiling, 90
@@ -373,7 +372,7 @@
 
 		########################################
 
-		#Parking elevators (No. 8-11)
+		#West Parking Elevators (No. 8-11)
 		Load data/Carpet0021b_S.jpg, ParkingElevFloor, 0.2, 0.2
 		Load data/EG881/stainlesssteel2.jpg, ParkingElevCeiling, 1, 1, false #EG881
 		Load data/EG881/Lights/squarelight1_white.jpg, ParkingElevCeilingLight, 1, 1, false #EG881
@@ -676,8 +675,15 @@
 
 		#Elevator number signs (Inside)
 		Load data/Melvin/transparent128.png, IN_ElevNoBack, 1, 1, false
-		AddTextRange 1, 3, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
-		AddTextRange 4, 27, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, %number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+		
+			#West Elevators
+			AddTextRange 1, 3, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, W%number%, -1, -1, -1, -1, center, center, 0, 255, 255, false
+			AddTextRange 4, 9, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold.ttf, 55, W%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddTextRange 10, 15, IN_ElevNoBack, IN_ElevNo%number%, nimbus_sans_bold_condensed.ttf, 55, W%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+
+			#East Elevators
+			AddTextRange 1, 9, IN_ElevNoBack, IN_ElevNoE%number%, nimbus_sans_bold.ttf, 55, E%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
+			AddTextRange 10, 12, IN_ElevNoBack, IN_ElevNoE%number%, nimbus_sans_bold_condensed.ttf, 55, E%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
 
 		#Floor signs (Elevator lobbies and stairwells)
 		AddTextRange 1, 2, Blank, BlankSignB%number%, nimbus_sans_bold.ttf, 72, B%number%, -1, -1, -1, -1, center, center, 0, 0, 0, false
@@ -5388,38 +5394,38 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 
 #External shaft walls for all shafts
 
-##### SOUTH ZONE SHAFT #####
+##### WEST ZONE SHAFT (South Annex) #####
 <Floors -1 to 3>
 	TexPrefix()
 	if[%floor% = -1] Set 5 = EXShop #Override
 	if[%floor% = -1] Set SHeight = %height% #Override
 
-	#South Elevators
+	#West Low Zone Elevators
 	CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -85, -165, 5, 15, SouthElev, %SHeight%, %SOffset%, true, false, true, true, false, false, true)
 <EndFloors>
 
-##### CENTRAL ZONES SHAFT #####
+##### WEST ZONE SHAFT (Center) #####
 <Floors -1 to 9>
 	TexPrefix()
 
-	#Central Elevators
+	#West High Zone Elevators
 	if[%floor% = -1] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 5, 140, 20, 5, CentralElev_IFloor, %interfloorheight% - 0.5 + 0.1, -0.1, true, true, true, true, false, true, true)
 	if[%floor% = -1] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 5, 140, 20, 5, CentralElev_Base, %SHeight%, %SOffset%, true, true, true, true, false, false, true)
 	if[%floor% > -1] CreateShaftWall(%5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, 5, 140 + 2.5, 20, 2.5, CentralElev_Main, %SHeight%, %SOffset%, false, true, true, true, false, false, true)
 <EndFloors>
 
 <Floor 10>
-	#Central Elevators
+	#West High Zone Elevators
 	CreateShaftWall(ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, ExtFacade, 0.33, 5, 140, 20, 5, CentralElev_Top, %height%, %interfloorheight%, true, true, true, true, true, false, true)
 <EndFloor>
 
-##### WEST ZONES SHAFTS #####
+##### WEST ZONE SHAFTS (West) #####
 <Floors -2 to -1>
 	TexPrefix()
 	Set ShowBack = false
 	if[%floor% < 0] Set ShowBack = true
 
-	#Parking Elevators
+	#West Parking Elevators
 	CreateShaftWall(%5%Wall, %5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, 0.33, -205, 225, 5, 15, ParkingElev_S1, %SHeight%, %SOffset%, true, true, true, %ShowBack%, false, false, true)
 	CreateShaftWall(%5%Wall, %5%%5L%, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -180, 225, 5, 15, ParkingElev_S2, %SHeight%, %SOffset%, true, true, true, %ShowBack%, false, false, true)
 <EndFloors>
@@ -5429,7 +5435,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 	Set ShowBack = false
 	if[%floor% < 0] Set ShowBack = true
 	
-	#Parking Elevators
+	#West Parking Elevators
 	CreateShaftWall(%5%Wall, %5%Wall, %LobbyPrefix%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -205, 225, 5, 15, ParkingElev_S1, %SHeight%, %SOffset%, true, true, true, %ShowBack%, false, false, true)
 	CreateShaftWall(%5%Wall, %LobbyPrefix%Wall, %5%Wall, %5%Wall, %5%Wall, %5%Wall, 0.33, -180, 225, 5, 15, ParkingElev_S2, %SHeight%, %SOffset%, true, true, true, %ShowBack%, false, false, true)
 <EndFloors>
@@ -5437,7 +5443,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 <Floors 10 to 11>
 	TexPrefix()
 
-	#Parking Elevators
+	#West Parking Elevators
 	CreateShaftWall(ExtFacade, ExtFacade, %LobbyPrefix%Wall, ExtFacade2, %5%Wall, %5%Wall, 0.33, -205, 225, 5, 15, ParkingElev_S1, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
 	CreateShaftWall(ExtFacade, %LobbyPrefix%Wall, ExtFacade, ExtFacade2, %5%Wall, %5%Wall, 0.33, -180, 225, 5, 15, ParkingElev_S2, %SHeight%, %SOffset%, true, true, true, false, false, false, true)
 <EndFloors>
@@ -5445,7 +5451,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 <Floor 12>
 	#TexPrefix()
 
-	#Parking Elevators
+	#West Parking Elevators
 	CreateShaftWall(ExtFacade, ExtFacade, %LobbyPrefix%Wall, ExtFacade2, ExtFacade, %5%Wall, 0.33, -205, 225, 5, 15, ParkingElev_S1, %fullheight% + 1, 0, true, true, true, false, true, false, true)
 	CreateShaftWall(ExtFacade, %LobbyPrefix%Wall, ExtFacade, ExtFacade2, ExtFacade, %5%Wall, 0.33, -180, 225, 5, 15, ParkingElev_S2, %fullheight% + 1, 0, true, true, true, false, true, false, true)
 <EndFloor>
@@ -5620,7 +5626,7 @@ Cut landscape, -90 - 40, Floor(0).Base - 1, -350, -90, Floor(0).Base + 1, -350 +
 ##--------------------------------------------------------------------------------##
 
 #Shafts
-#South Elevators (B1-4)
+#West Low Zone Elevators (B1-4)
 	#Wall cuts for shaft walls
 	<Floors -2 to 3>
 		CutAll -89.5 - 0.1, 0, -180 + 0.33, -89.5 + 0.1, %fullheight%, -150 - 0.33, true, false #Left wall cuts
@@ -5631,7 +5637,7 @@ ShowFullShaft 1 = true
 
 #****************************************#
 	
-#Central Elevators (1, 4-8)
+#West High Zone Elevators (1, 4-8)
 AddShaft 2, 5, 140, -1, 10
 ShaftCut 2, -19.67 + 0.33, -4.67 + 0.33, 19.67 - 0.33, 4.67 - 0.33, 0, 5
 ShowFullShaft 2 = true
@@ -5784,7 +5790,7 @@ ShaftShowOutside 2 = 0 - 9
 
 #****************************************#
 
-#Parking Elevators (B2-10)
+#West Parking Elevators (B2-10)
 	#Wall cuts for shaft walls
 	<Floors 0 to 11>
 		CutAll -210 + 0.33, 0, 239.5 - 0.1, -200 - 0.33, %fullheight%, 239.5 + 0.1, true, false #Back wall cuts
@@ -6158,14 +6164,14 @@ ShowFullShaft 11 = true
 	CarIdleSound = 
 <EndElevators>
 
-#South Elevators
+#West Low Zone Elevators
 #Set motors' position
 <Elevators 1 to 3>
 	MotorPosition = 0, Floor(4).Altitude - 0.5, 0
 <EndElevators>
 
 <Elevator 1>
-	Name = South Elevator 1
+	Name = Mall West LZ Elev. 1
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6175,7 +6181,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 2>
-	Name = South Elevator 2
+	Name = Mall West LZ Elev. 2
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6185,7 +6191,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 3>
-	Name = South Elevator 3
+	Name = Mall West LZ Elev. 3
 	Speed = 5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6336,9 +6342,9 @@ ShowFullShaft 11 = true
 		AddRails ElevRail, ElevRailSide, %Position%, 0, true, 1 + 0.06, 0.1
 <EndElevators>
 
-#Central Elevators
+#West High Zone Elevators
 <Elevator 4>
-	Name = Central Elevator 1
+	Name = Mall West HZ Elev. 1
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6348,7 +6354,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 5>
-	Name = Central Elevator 2
+	Name = Mall West HZ Elev. 2
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6358,7 +6364,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 6>
-	Name = Central Elevator 3
+	Name = Mall West HZ Elev. 3
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6368,7 +6374,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 7>
-	Name = Central Elevator 4
+	Name = Mall West HZ Elev. 4
 	Speed = 10
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6396,7 +6402,6 @@ ShowFullShaft 11 = true
 <EndFunction>
 
 <Elevators 4 to 7>
-	Type = Express
 	DisplayFloors = 0, 3 - 6, 8
 
 	Set Prefix = Central
@@ -6544,14 +6549,14 @@ ShowFullShaft 11 = true
 		AddRails ElevRail, ElevRailSide, %Position%, 0.5, true, 1 + 0.06, 0.1
 <EndElevators>
 
-#Tower Parking Elevators
+#West Parking Elevators
 #Set motors' position
 <Elevators 8 to 13>
 	MotorPosition = 0, Floor(12).Base + Floor(12).Height - 0.5, 0
 <EndElevators>
 
 <Elevator 8>
-	Name = Tower Parking Elevator 1
+	Name = Mall West Parking Elev. 1
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6561,7 +6566,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 9>
-	Name = Tower Parking Elevator 2
+	Name = Mall West Parking Elev. 2
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6571,7 +6576,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 10>
-	Name = Tower Parking Elevator 3
+	Name = Mall West Parking Elev. 3
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6580,7 +6585,7 @@ ShowFullShaft 11 = true
 	CreateElevator true, 0.59, 10, 0
 <EndElevator>
 
-#Button creation function (Tower Parking Elevators)
+#Button creation function (West Parking Elevators)
 <Function BtnPanelTowerPK>
 	Set PanelNumber = %param1%
 	Set PanelNumber2 = %PanelNumber% + 1
@@ -6696,7 +6701,7 @@ ShowFullShaft 11 = true
 <EndElevators>
 
 <Elevator 11>
-	Name = Tower Parking Elevator 4
+	Name = Mall West Parking Elev. 4
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6706,7 +6711,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 12>
-	Name = Tower Parking Elevator 5
+	Name = Mall West Parking Elev. 5
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6716,7 +6721,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 13>
-	Name = Tower Parking Elevator 6
+	Name = Mall West Parking Elev. 6
 	Speed = 12
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -6846,7 +6851,7 @@ ShowFullShaft 11 = true
 
 #West Freight Elevators
 <Elevator 14>
-	Name = West Freight Elevator 1
+	Name = Mall West Freight Elev. 1
 	Type = Freight
 	Speed = 5
 	Acceleration = 0.6
@@ -6983,7 +6988,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 15>
-	Name = West Freight Elevator 2
+	Name = Mall West Freight Elev. 2
 	Type = Freight
 	Speed = 5
 	Acceleration = 0.6
@@ -7121,7 +7126,7 @@ ShowFullShaft 11 = true
 #East Elevators
 #Bank 1 (Southeast)
 <Elevator 16>
-	Name = East Elevator 1/1
+	Name = Mall East Elev. 1/1
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7132,7 +7137,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 17>
-	Name = East Elevator 1/2
+	Name = Mall East Elev. 1/2
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7144,7 +7149,7 @@ ShowFullShaft 11 = true
 
 #Bank 2 (Mideast)
 <Elevator 18>
-	Name = East Elevator 2/1
+	Name = Mall East Elev. 2/1
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7155,7 +7160,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 19>
-	Name = East Elevator 2/2
+	Name = Mall East Elev. 2/2
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7244,7 +7249,7 @@ ShowFullShaft 11 = true
 	#--------------------
 	#Elevator number sign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position% - 0.25, -3.05 + 0.001, %Position% + 0.25, -3.05 + 0.001, 0.5, 0.5, 6.75, 6.75, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNoE(%elevator% - 15), 0, %Position% - 0.25, -3.05 + 0.001, %Position% + 0.25, -3.05 + 0.001, 0.5, 0.5, 6.75, 6.75, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -7263,7 +7268,7 @@ ShowFullShaft 11 = true
 
 #Bank 3 (Northeast)
 <Elevator 20>
-	Name = East Elevator 3/1
+	Name = Mall East Elev. 3/1
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7274,7 +7279,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 21>
-	Name = East Elevator 3/2
+	Name = Mall East Elev. 3/2
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7342,7 +7347,7 @@ ShowFullShaft 11 = true
 	#--------------------
 	#Elevator number sign
 	DrawWalls = true, false, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %Position% - 0.25, 3.05 - 0.001, %Position% + 0.25, 3.05 - 0.001, 0.5, 0.5, 6.75, 6.75, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNoE(%elevator% - 15), 0, %Position% - 0.25, 3.05 - 0.001, %Position% + 0.25, 3.05 - 0.001, 0.5, 0.5, 6.75, 6.75, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -7396,7 +7401,7 @@ ShowFullShaft 11 = true
 #After the West Freight Elevators (No. 14-15) had been installed, these elevators were converted to passenger use during the mall's opening hours.
 
 <Elevator 22>
-	Name = East Elevator 4/1 (East Service Elevator 1)
+	Name = Mall East Elev. 4/1
 	Type = Service
 	Speed = 5
 	Acceleration = 0.6
@@ -7408,7 +7413,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 23>
-	Name = East Elevator 4/2 (East Service Elevator 2)
+	Name = Mall East Elev. 4/2
 	Type = Service
 	Speed = 5
 	Acceleration = 0.6
@@ -7490,7 +7495,7 @@ ShowFullShaft 11 = true
 	if[%elevator% = 22] Set Midpoint = 0.5
 	if[%elevator% = 23] Set Midpoint = -0.5
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, %P1_PositionX% + 0.001, %Midpoint% - 0.25, %P1_PositionX% + 0.001, %Midpoint% + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNoE(%elevator% - 15), 0, %P1_PositionX% + 0.001, %Midpoint% - 0.25, %P1_PositionX% + 0.001, %Midpoint% + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
 	#--------------------
 	#Shaft components
 	DrawWalls = true, true, true, true, true, true
@@ -7569,7 +7574,7 @@ ShowFullShaft 11 = true
 
 #Bank 5 (Midwest)
 <Elevator 24>
-	Name = East Elevator 5/1
+	Name = Mall East Elev. 5/1
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7580,7 +7585,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 25>
-	Name = East Elevator 5/2
+	Name = Mall East Elev. 5/2
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7592,7 +7597,7 @@ ShowFullShaft 11 = true
 
 #Bank 6 (Northwest)
 <Elevator 26>
-	Name = East Elevator 6/1
+	Name = Mall East Elev. 6/1
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7603,7 +7608,7 @@ ShowFullShaft 11 = true
 <EndElevator>
 
 <Elevator 27>
-	Name = East Elevator 6/2
+	Name = Mall East Elev. 6/2
 	Speed = 6.5
 	Acceleration = 0.6
 	Deceleration = 0.6
@@ -7718,7 +7723,7 @@ ShowFullShaft 11 = true
 	#--------------------
 	#Elevator number sign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, -3.64 + 0.001, %P1_PositionZ% - 0.25, -3.64 + 0.001, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.75, 6.75, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNoE(%elevator% - 15), 0, -3.64 + 0.001, %P1_PositionZ% - 0.25, -3.64 + 0.001, %P1_PositionZ% + 0.25, 0.5, 0.5, 6.75, 6.75, 0, 0
 <EndElevators>
 
 <Elevators 26 to 27>
@@ -7760,7 +7765,7 @@ ShowFullShaft 11 = true
 	#--------------------
 	#Elevator number sign
 	DrawWalls = false, true, false, false, false, false
-	AddWall ElevNo%elevator%_Inside, IN_ElevNo%elevator%, 0, -3.64 + 0.001, 0 - 0.25, -3.64 + 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
+	AddWall ElevNo%elevator%_Inside, IN_ElevNoE(%elevator% - 15), 0, -3.64 + 0.001, 0 - 0.25, -3.64 + 0.001, 0 + 0.25, 0.5, 0.5, 7.05, 7.05, 0, 0
 <EndElevators>
 
 <Elevators 24 to 27>
@@ -7802,7 +7807,7 @@ ShowFullShaft 11 = true
 ##--------------------------------------------------------------------------------##
 
 #HALL STATIONS
-#Set textures (South elevators)
+#Set textures (West Low Zone Elevators)
 <Function ElevHallTex>
 	TexPrefix() #Set prefixes for shaft doors
 	if[%floor% = -1] Set 5 = EXShop #Override
@@ -7837,7 +7842,7 @@ ShowFullShaft 11 = true
 		if[%floor% > -1] Set ExtraLateralOffset = 0.05
 <EndFunction>
 
-#Set textures (Central Elevators)
+#Set textures (West High Zone Elevators)
 <Function ElevHallTex_Glass>
 	TexPrefix() #Set prefixes for shaft doors
 	Set 5 = Glass #Override
@@ -7871,7 +7876,7 @@ ShowFullShaft 11 = true
 		Set ExtraLateralOffset = 0
 <EndFunction>
 
-#Set textures (Parking Elevators)
+#Set textures (West Parking Elevators)
 <Function ElevHallTex_Parking>
 	TexPrefix() #Set prefixes for shaft doors
 
@@ -7922,7 +7927,7 @@ ShowFullShaft 11 = true
 	AddFillerWalls %DoorTrimTexture%, 0.15, %Shaft1CX% + 5 - 0.51, %CenterZ%, 4, 7, %interfloorheight%, false, 0, 0, true
 <EndFunction>
 
-#South Elevators
+#West Low Zone Elevators
 <Floors -1 to 3>
 	#Shaft Doors
 	ElevHallTex() #Set shaft door and panel textures
@@ -8023,7 +8028,7 @@ ShowFullShaft 11 = true
 		AddFloorIndicator 3, true, Ind_Button, right, 3.75 + 0.66 + %ExtraLateralOffset% + 0.053, 0 + 0.25, 0.5, 0.5, %Offset% + 0.05
 <EndFloors>
 
-#Central Elevators
+#West High Zone Elevators
 <Function E4-7HallStation>
 	#Shaft Doors
 	ElevHallTex_Glass() #Set shaft door and panel textures
@@ -8151,7 +8156,7 @@ ShowFullShaft 11 = true
 	if[%floor% ! 7] E4-7HallStation()
 <EndFloors>
 
-#Tower Parking Elevators
+#West Parking Elevators
 <Floors -2 to 11>
 	#Shaft Doors
 	ElevHallTex_Parking() #Set shaft door and panel textures

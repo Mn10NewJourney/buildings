@@ -381,7 +381,7 @@
 		#Elevator bank signs
 		Load data/Melvin/SpacetimePlaza/Lavender/ExpressElevSign.png, ExpressElevSign, 1, 1, false
 		Load data/Melvin/SpacetimePlaza/Lavender/ExpressElevSign2.png, ExpressElevSign2, 1, 1, false
-		#Load data/Melvin/SpacetimePlaza/Lavender/ExpressElevSign3.png, ExpressElevSign3, 1, 1, false
+		Load data/Melvin/SpacetimePlaza/Lavender/ExpressElevSign3.png, ExpressElevSign3, 1, 1, false
 		LoadRange 1, 2, data/Melvin/SpacetimePlaza/Lavender/Service%number%_Ext.png, Service%number%_Ext, 1, 1, false
 		LoadRange 1, 2, data/Melvin/SpacetimePlaza/Lavender/Service%number%_Int.png, Service%number%_Int, 1, 1, false
 
@@ -2281,7 +2281,9 @@ Set LG_Offset2 = Floor(17).Base + 4
 	FloorOrientation = top
 	DrawWalls = true, true, false, false, false, false
 	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
-	AddFloor MechFloor, MMEFloor, %interfloorheight%, %MM_CenterX% - 55, %MM_CenterZ% - 25, %MM_CenterX% + 35, %MM_CenterZ% + 35, 0, 0, 0, 0, false
+	AddFloor MechFloor_Main, MMEFloor, %interfloorheight%, %MM_CenterX% - 55, %MM_CenterZ% - 25, %MM_CenterX% + 35, %MM_CenterZ% + 35, 0, 0, 0, 0, false
+	TextureOverride MMEUnderside, MMEFloor, Blank, Blank, Blank, Blank
+	AddFloor MechFloor_West, MMEFloor, %interfloorheight%, -%1%, %MM_CenterZ% - 15, %MM_CenterX% - 55, %MM_CenterZ% + 15, 0, 0, 0, 0, false
 
 	#Railings
 	DrawWalls = true, true, true, true, true, false
@@ -2289,14 +2291,19 @@ Set LG_Offset2 = Floor(17).Base + 4
 	Set WallOffset = -%interfloorheight%
 
 	WallOrientation = left
-	AddWall MMERail_West, MMEWall, 0.5, %MM_CenterX% - 55, %MM_CenterZ% - 25, %MM_CenterX% - 55, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	#AddWall MMERail_West, MMEWall, 0.5, %MM_CenterX% - 55, %MM_CenterZ% - 25, %MM_CenterX% - 55, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_West1, MMEWall, 0.5, %MM_CenterX% - 55, %MM_CenterZ% - 25, %MM_CenterX% - 55, %MM_CenterZ% - 15 + 0.5, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_West2, MMEWall, 0.5, %MM_CenterX% - 55, %MM_CenterZ% + 15 - 0.5, %MM_CenterX% - 55, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+
 	AddWall MMERail_South1, MMEWall, 0.5, %MM_CenterX% - 55 + 0.5, %MM_CenterZ% - 25, %MM_CenterX% - 45, %MM_CenterZ% - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall MMERail_South2, MMEWall, 0.5, %MM_CenterX% - 25, %MM_CenterZ% - 25, %MM_CenterX% + 25, %MM_CenterZ% - 25, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_South3, MMEWall, 0.5, -%1% + 10, %MM_CenterZ% - 15, %MM_CenterX% - 55, %MM_CenterZ% - 15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 
 	WallOrientation = right
 	AddWall MMERail_East1, MMEWall, 0.5, %MM_CenterX% + 35, %MM_CenterZ% - 13, %MM_CenterX% + 35, %MM_CenterZ%, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 	AddWall MMERail_East2, MMEWall, 0.5, %MM_CenterX% + 35, %MM_CenterZ% + 25, %MM_CenterX% + 35, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
-	AddWall MMERail_North, MMEWall, 0.5, %MM_CenterX% - 55 + 0.5, %MM_CenterZ% + 35, %MM_CenterX% + 35 - 0.5, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_North1, MMEWall, 0.5, %MM_CenterX% - 55 + 0.5, %MM_CenterZ% + 35, %MM_CenterX% + 35 - 0.5, %MM_CenterZ% + 35, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
+	AddWall MMERail_North2, MMEWall, 0.5, -%1% + 10, %MM_CenterZ% + 15, %MM_CenterX% - 55, %MM_CenterZ% + 15, %WallHeight%, %WallHeight%, %WallOffset%, %WallOffset%, 0, 0, false
 <EndFloor>
 
 #Rooftop
@@ -5899,7 +5906,7 @@ ShowFullShaft 10 = true
 		#Elevator bank signs
 		Set SignSuffix = 
 		if[%floor% > 0 & %floor% < 17] Set SignSuffix = 2
-		#if[%floor% > 17] Set SignSuffix = 2
+		if[%floor% > 17] Set SignSuffix = 3
 		AddBoxSign(LobbyEXInfo, Blank, ExpressElevSign%SignSuffix%, Blank, 0, false, false, false, %Shaft1CX% + 5.001, %Shaft1CZ% - 5, 2.5, 3, 8 - 3 + %interfloorheight%, true)
 
 		#"In case of fire" sign(s)
