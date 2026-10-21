@@ -103,7 +103,11 @@
 		Load data/EG881/cem_tr2b.jpg, ParkingCeiling, 0.075225, 0.0625 #EG881
 		Load data/stucco3.jpg, ParkingCeiling2, 0.25, 0.25 #Service elevator lobby (B2F)
 
-		#Shopping levels 1-4
+		#Supermarket level 1
+		Load data/metal080.jpg, CheckOutMain, 0.5, 0.5, true
+		Load data/escalator/escalatorstep2x.jpg, CheckOutTop, 1, 1
+
+		#Shopping levels 2-4
 		Load data/metal10.jpg, MetalFloorSill, 0.5, 0.5, true
 		Load data/marb047.jpg, ShopFloor, 0.2, 0.2
 		Load data/Carpet0013_S.jpg, ABCarpet1, 0.2, 0.2 #Atrium base
@@ -1072,6 +1076,76 @@ Set Garden_Offset2 = Floor(0).Base + 4
 	SetAutoSize = true, true
 <EndFloors>
 
+########################################
+
+#3D Check-Out Lanes (for supermarket)
+#Added on October 21, 2026
+
+<Function Add3DCO>
+	Set Name = %param1%
+	Set BoxTex = %param2%
+	Set ConveyorTex = %param3%
+	Set BeltDir = %param4%
+	Set CenterX = %param5%
+	Set CenterZ = %param6%
+
+	#Check-out machine
+	CreateWallBox2 external, %Name%_Machine, %BoxTex%, %CenterX%, %CenterZ%, 12, 3, 3, 0, 0, 0, false, true, true, false
+	
+	#Conveyor belt
+	SetAutoSize = true, false
+	FloorOrientation = top
+	DrawWalls = false, true, false, false, false, false
+	if[%BeltDir% = 1] AddFloor %Name%_Belt, %ConveyorTex%, 0, %CenterX% - 6 + 3, %CenterZ% - 1.5 + 0.25, %CenterX% + 6 - 0.25, %CenterZ% + 1.5 - 0.25, 3.001 + %interfloorheight%, 3.001 + %interfloorheight%, 0, 0, true
+	if[%BeltDir% = 2] AddFloor %Name%_Belt, %ConveyorTex%, 0, %CenterX% - 6 + 0.25, %CenterZ% - 1.5 + 0.25, %CenterX% + 6 - 3, %CenterZ% + 1.5 - 0.25, 3.001 + %interfloorheight%, 3.001 + %interfloorheight%, 0, 0, true
+	SetAutoSize = true, true
+<EndFunction>
+
+<Floor 0>
+	#Check-out machines
+		#West (Interior elevators)
+		Add3DCO(WestCheckOut1, CheckOutMain, CheckOutTop, 1, -67, -18 - 8)
+		Add3DCO(WestCheckOut1, CheckOutMain, CheckOutTop, 1, -67, -18)
+		Add3DCO(WestCheckOut2, CheckOutMain, CheckOutTop, 1, -67, -18 + 8)
+		Add3DCO(WestCheckOut3, CheckOutMain, CheckOutTop, 1, -67, -18 + 16)
+		Add3DCO(WestCheckOut4, CheckOutMain, CheckOutTop, 1, -67, -18 + 24)
+		Add3DCO(WestCheckOut5, CheckOutMain, CheckOutTop, 1, -67, -18 + 32)
+		Add3DCO(WestCheckOut6, CheckOutMain, CheckOutTop, 1, -67, -18 + 40)
+
+		#East (Scenic elevators)
+		Add3DCO(EastCheckOut3, CheckOutMain, CheckOutTop, 2, 27, -18)
+		Add3DCO(EastCheckOut4, CheckOutMain, CheckOutTop, 2, 27, -18 + 8)
+		Add3DCO(EastCheckOut5, CheckOutMain, CheckOutTop, 2, 27, -18 + 16)
+		Add3DCO(EastCheckOut6, CheckOutMain, CheckOutTop, 2, 27, -18 + 24)
+		Add3DCO(EastCheckOut6, CheckOutMain, CheckOutTop, 2, 27, -18 + 32)
+		Add3DCO(EastCheckOut6, CheckOutMain, CheckOutTop, 2, 27, -18 + 40)
+
+	#Supermarket divider walls
+	TexPrefix() #Set texture prefix/suffix
+	
+		#West walls
+		WallOrientation = left
+		DrawWalls = true, true, true, false, false, false
+		AddWall SM_West1, %5%Wall, 0.5, -85, 30, -85, 70.5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		DrawWalls = true, true, false, false, false, false
+		AddWall SM_West2, %5%Wall, 0.5, -100.5, 70, -85 + 0.5, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		AddWall SM_West3, %5%Wall, 0.5, -100.5, 70, -100.5, 86, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		#East walls
+		WallOrientation = right
+		DrawWalls = true, true, false, false, false, false
+		AddWall SM_East1, %5%Wall, 0.5, 60, 15, 60, 30.5, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+		WallOrientation = left
+		AddWall SM_East2, %5%Wall, 0.5, 60 - 0.5, 30, 119.5, 30, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+
+		WallOrientation = right
+		#DrawWalls = true, true, true, false, false, false
+		AddWall SM_East3, %5%Wall, 0.5, 60, -50, 60, -15, %height%, %height%, %interfloorheight%, %interfloorheight%, 0, 0, true
+<EndFloor>
+
+########################################
+
+
 #Entrance area trims
 <Floors 0 to 8>
 	WallOrientation = left
@@ -1231,7 +1305,7 @@ Set Texture = BLKEntDoor
 
 		#Access point E2
 		Set Door_MainX = %1%
-		Set Door_MainZ = 5
+		Set Door_MainZ = -15
 		WallOrientation = right
 		TextureOverride %Texture%Int, %Texture%Ext, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
 		AddExternalDoor , , false, %Texture%Int, 0.2, 2, 75, %Door_MainX%, %Door_MainZ% - 1.75, 3.5, 8, %interfloorheight%, 0, 0
@@ -1305,6 +1379,10 @@ Set ShiftBy = 85
 	WallOrientation = center
 	DrawWalls = true, true, false, false, false, false
 	AddWall_CustomTex(MDS_RR_MidDiv, 2, MainRRWall, MainRRWall2, Blank, 1, -120, -50, -100, -50, 3.5, 8.5 - 3.5, 0, 0, false)
+
+	WallOrientation = right
+	DrawWalls = true, false, true, true, false, false
+	AddWall_CustomTex(MDS_RR_MidDeco, 2, MainRRWall, MainRRWall2, Blank, 0.75, -100.5, -51.25, -100.5, -48.75, 3.5, 8.5 - 3.5, 0, 0, false)
 
 	########################################
 
@@ -1860,6 +1938,7 @@ ShowFullShaft 2 = true
 
 		#DOORS
 		Set DTex = Door8
+		if[%floor% > 0 & %floor% < 4] Set DTex = ServiceDoor2
 		if[%floor% > 3] Set DTex = ServiceDoor3
 		Set DSTex = %DTex%Side
 
