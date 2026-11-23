@@ -569,13 +569,15 @@ AddFloor landscape, WestPath1, Sidewalk, 0, -%1% - 20, -%2%, -%1%, -%2% + 20, 4,
 AddFloor landscape, WestPath2, Sidewalk, 0, -%1% - 20, -20, -%1%, 0, 4, 4, 0, 0
 
 #Grass
-AddFloor landscape, WestGrass1, Grass_Dark, 0, -%1% - 20, -110, -%1% - 5, -95, 4, 4, 0, 0
+AddFloor landscape, WestGrass1, Grass_Dark, 0, -%1% - 20, -110, -%1%, -95, 4, 4, 0, 0
 AddFloor landscape, WestGrass2, Grass_Dark, 0, -%1% - 20, -35, -%1%, -20, 4, 4, 0, 0
-AddFloor landscape, WestGrass3, Grass_Dark, 0, -%1% - 20, 15, -%1% - 5, 45, 4, 4, 0, 0
+AddFloor landscape, WestGrass3, Grass_Dark, 0, -%1% - 20, 0, -%1%, 15, 4, 4, 0, 0
+AddFloor landscape, WestGrass4, Grass_Dark, 0, -%1% - 20, 15, -%1% - 5, 45, 4, 4, 0, 0
+AddFloor landscape, WestGrass5, Grass_Dark, 0, -%1% - 20, 45, -%1%, %2%, 4, 4, 0, 0
 
 #Driveways
 DrawWalls = false, true, false, false, false, false
-AddFloor landscape, WestDrive1, Road, 0, -%1% - 20, -95, -%1%, -35, 4, 4, 0, 0
+AddFloor landscape, WestDrive, Road, 0, -%1% - 20, -95, -%1%, -35, 4, 4, 0, 0
 
 ##--------------------------------------------------------------------------------##
 
@@ -2095,7 +2097,21 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 	CreateFlr(FarEastFloor1_Tower, ParkingFloor3, 0.5, 64 + 18 + 2, -50, 151 - 18 - 2, -1.5, 0, true)
 	CreateFlr(FarEastFloor2_Tower, ParkingFloor3, 0.5, 88, -1.5, 151 - 18 - 2, 60 - 18 - 2, 0, true)
 
-	#CreateFlr(LuminaPG_MidEastUF, ParkingFloor, 0.5, %1% - 145, -%2%, %1% - 140, %2%, 0, true)
+	Set Western = 67.75 #Western end for "FarNorthFloor" (P8-P10 only)
+	if[%floor% = 4 | %floor% = 11] Set Western = 38
+	if[%floor% = 12] Set Western = -51
+	if[%floor% = 13] Set Western = -100
+	
+	Set Eastern = %1%
+	if[%floor% = 4] Set Eastern = 180
+
+	if[%floor% < 5 | %floor% > 9] CreateFlr(FarNorthFloor, ParkingFloor, 0.5, %Western%, 105.5, %Eastern%, %2%, 0, true)
+
+	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor1, ParkingFloor, 0.5, -205, 85.5, -192.5, 105.5, 0, true)
+	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor2, ParkingFloor, 0.5, -%1%, 80, -192.5, 85.5, 0, true)
+	if[%floor% ! 6 & %floor% ! 9] CreateFlr(NorthwestFloor3, ParkingFloor, 0.5, -180, 85.5, -169, 105.5, 0, true)
+	CreateFlr(SoutheastFloor, ParkingFloor, 0.5, 189, -113, %1%, -92, 0, true)
+	if[%floor% ! 5 & %floor% ! 8 & %floor% ! 13] CreateFlr(MidNorthFloor, ParkingFloor, 0.5, -58, 85.5, -49, 105.5, 0, true)
 
 	#Tower Parking Spaces
 	Set Offset = %interfloorheight% + 0.01
@@ -3398,8 +3414,16 @@ Set LG_Offset2 = Floor(17).Base + 4
 	<Floors 0 to 43>
 		Set WallHeight = %fullheight%
 		Set WallOffset = 0
-		if[%floor% = 0 | %floor% = 17] Set WallHeight = %height%
-		if[%floor% = 0 | %floor% = 17] Set WallOffset = %interfloorheight%
+		#if[%floor% = 0 | %floor% = 17] Set WallHeight = %height%
+		#if[%floor% = 0 | %floor% = 17] Set WallOffset = %interfloorheight%
+		if[%floor% = 0] Set WallHeight = %height% + 1
+		if[%floor% = 0] Set WallOffset = %interfloorheight%
+
+		if[%floor% = 1] Set WallHeight = %height% + 1
+		if[%floor% = 1] Set WallOffset = %interfloorheight% - 1
+
+		if[%floor% = 17] Set WallHeight = %height%
+		if[%floor% = 17] Set WallOffset = %interfloorheight%
 
 		Set TH = 1
 		if[%floor% = 17] Set TH = 2
