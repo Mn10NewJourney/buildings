@@ -777,7 +777,7 @@ AddFloor landscape, WestDrive, Road, 0, -%1% - 20, -95, -%1%, -35, 4, 4, 0, 0
 		if[%floor% > 1] CreateFlr(NortheastUF, ParkingFloor2, 0.5, -%1%, 85.5, -%1% + 5, %2%, 0, true)
 		if[%floor% > 3 & %floor% < 10] CreateFlr(NortheastUF, ParkingFloor2, 0.5, 180, 85.5, %1%, %2%, 0, true)
 		if[%floor% = 3 | %floor% = 4 | %floor% = 6 | %floor% = 7] CreateFlr(EastUF_P%floorid%, ParkingFloor2, 0.5, 189, -70, %1%, 30, 0, true)
-		if[%floor% = 1 | %floor% = 2 | %floor% = 5 | %floor% = 8 | %floor% = 10] CreateFlr(EastUF_P%floorid%, ParkingFloor2, 0.5, 189, -31, %1%, 11, 0, true)
+		if[%floor% = 1 | %floor% = 2 | %floor% = 5 | %floor% = 8 | %floor% = 10] CreateFlr(EastUF_P%floorid%, ParkingFloor2, 0.5, 189, -10, %1%, 11, 0, true)
 
 		#Southwest corner utility floor
 		if[%floor% > 0] CreateFlr(SWCornerUF, ParkingFloor2, 0.5, -%1%, -%2%, -150 - 24, -96 - 5 + 6, 0, true)
@@ -1108,18 +1108,18 @@ Set CenterPoint = -5 #Center point between Hotel Entrance and Shopping Arcade ar
 
 	########################################
 
-	#Service doors
+	#North Service doors
 	Set Texture = ServiceDoor1
 
-		#South doors
-		Set MainX = 200
-		Set MainZ = %NorthPoint%
-		WallOrientation = right
-		TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.5, %MainZ%, 3, 7, %interfloorheight%, 0, 0
-		TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
-		AddExternalDoor , , false, %Texture%Int, 0.2, 7, 75, %MainX% - 1.5, %MainZ%, 3, 7, %interfloorheight%, 0, 0
-		AddFillerWalls %5S%Wall, 0.5, %MainX%, %MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
+	Set MainX = 195
+	Set MainZ = %NorthPoint%
+
+	WallOrientation = right
+	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 6, 75, %MainX% + 1.5, %MainZ%, 3, 7, %interfloorheight%, 0, 0
+	TextureOverride %Texture%, %Texture%, %Texture%Side, %Texture%Side, %Texture%Side, %Texture%Side
+	AddExternalDoor , , false, %Texture%Int, 0.2, 7, 75, %MainX% - 1.5, %MainZ%, 3, 7, %interfloorheight%, 0, 0
+	AddFillerWalls %5S%Wall, 0.5, %MainX%, %MainZ%, 6, 7, %interfloorheight%, true, 0, 0, true
 
 	#Divider doors
 	Set EntireHeight = 10.5
@@ -2099,19 +2099,21 @@ AddFloorAutoArea -50, Floor(6).Base, -130, 30, Floor(7).Base + 5, -90
 
 	Set Western = 67.75 #Western end for "FarNorthFloor" (P8-P10 only)
 	if[%floor% = 4 | %floor% = 11] Set Western = 38
-	if[%floor% = 12] Set Western = -51
+	if[%floor% = 12] Set Western = -58
 	if[%floor% = 13] Set Western = -100
 	
 	Set Eastern = %1%
 	if[%floor% = 4] Set Eastern = 180
 
-	if[%floor% < 5 | %floor% > 9] CreateFlr(FarNorthFloor, ParkingFloor, 0.5, %Western%, 105.5, %Eastern%, %2%, 0, true)
+	if[%floor% < 5 | %floor% > 9] CreateFlr(FarNorthFloor, ParkingFloor2, 0.5, %Western%, 105.5, %Eastern%, %2%, 0, true)
 
-	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor1, ParkingFloor, 0.5, -205, 85.5, -192.5, 105.5, 0, true)
-	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor2, ParkingFloor, 0.5, -%1%, 80, -192.5, 85.5, 0, true)
-	if[%floor% ! 6 & %floor% ! 9] CreateFlr(NorthwestFloor3, ParkingFloor, 0.5, -180, 85.5, -169, 105.5, 0, true)
-	CreateFlr(SoutheastFloor, ParkingFloor, 0.5, 189, -113, %1%, -92, 0, true)
-	if[%floor% ! 5 & %floor% ! 8 & %floor% ! 13] CreateFlr(MidNorthFloor, ParkingFloor, 0.5, -58, 85.5, -49, 105.5, 0, true)
+	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor1, ParkingFloor2, 0.5, -205, 85.5, -192.5, 105.5, 0, true)
+	if[%floor% = 6 | %floor% = 9] CreateFlr(NorthwestFloor2, ParkingFloor2, 0.5, -%1%, 80, -192.5, 85.5, 0, true)
+	if[%floor% ! 6 & %floor% ! 9] CreateFlr(NorthwestFloor3, ParkingFloor2, 0.5, -180, 85.5, -169, 105.5, 0, true)
+	CreateFlr(SoutheastFloor, ParkingFloor2, 0.5, 189, -113, %1%, -92, 0, true)
+	if[%floor% ! 5 & %floor% ! 8 & %floor% ! 13] CreateFlr(MidNorthFloor, ParkingFloor2, 0.5, -58, 85.5, -49, 105.5, 0, true)
+	if[%floor% = 4] CreateFlr(NortheastFloor, ParkingFloor2, 0.5, 149, 85.5, 180, 105.5, 0, true)
+	if[%floor% = 3 | %floor% > 9] CreateFlr(NortheastFloor2, ParkingFloor2, 0.5, 189, 85.5, %1%, 105.5, 0, true)
 
 	#Tower Parking Spaces
 	Set Offset = %interfloorheight% + 0.01
