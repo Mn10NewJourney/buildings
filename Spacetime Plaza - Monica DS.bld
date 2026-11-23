@@ -330,6 +330,9 @@
 		LoadAnimated data/Old_Hitachi_Elevator/LanternDownLit.png, data/Old_Hitachi_Elevator/LanternDownUnlit.png, data/Old_Hitachi_Elevator/LanternDownLit.png, LanternDownLit, 0.5, 1, 1, false
 
 	#Signs
+		#Elevator bank signs
+		Load data/Melvin/SpacetimePlaza/Monica/ExpressElevSign.png, ExpressElevSign, 1, 1, false
+
 		#Parking level signs
 		Load data/Melvin/SpacetimePlaza/Parking/B2_NE.png, B2_NE, 1, 1, false
 		Load data/Melvin/SpacetimePlaza/Parking/B1_NE.png, B1_NE, 1, 1, false
@@ -2088,17 +2091,17 @@ ShowFullShaft 3 = true
 	AddButton %PanelNumber%, , %Prefix_DC%Open, %Prefix_DC%Open, 1, 1, open, 1, 1
 	AddButton %PanelNumber%, , %Prefix_DC%Close, %Prefix_DC%Close, 1, 2, close, 1, 1
 
-	AddButton %PanelNumber%, , %Prefix%8, %Prefix%Lit8, 4, 2, 8, 1, 1
-	AddButton %PanelNumber%, , %Prefix%7, %Prefix%Lit7, 5, 2, 6, 1, 1
-	AddButton %PanelNumber%, , %Prefix%6, %Prefix%Lit6, 6, 2, 5, 1, 1
-	AddButton %PanelNumber%, , %Prefix%5, %Prefix%Lit5, 7, 2, 4, 1, 1
-	AddButton %PanelNumber%, , %Prefix%4, %Prefix%Lit4, 8, 2, 3, 1, 1
+	AddButton %PanelNumber%, , %Prefix%8, %Prefix%Lit8, 3, 2, 8, 1, 1
+	AddButton %PanelNumber%, , %Prefix%7, %Prefix%Lit7, 4, 2, 6, 1, 1
+	AddButton %PanelNumber%, , %Prefix%6, %Prefix%Lit6, 5, 2, 5, 1, 1
+	AddButton %PanelNumber%, , %Prefix%5, %Prefix%Lit5, 6, 2, 4, 1, 1
+	AddButton %PanelNumber%, , %Prefix%4, %Prefix%Lit4, 7, 2, 3, 1, 1
 
-	AddButton %PanelNumber%, , %Prefix%3, %Prefix%Lit3, 5, 1, 2, 1, 1
-	AddButton %PanelNumber%, , %Prefix%2, %Prefix%Lit2, 6, 1, 1, 1, 1
-	AddButton %PanelNumber%, , %Prefix%1, %Prefix%Lit1, 7, 1, 0, 1, 1
-	AddButton %PanelNumber%, , %Prefix%B1, %Prefix%LitB1, 8, 1, -1, 1, 1
-	AddButton %PanelNumber%, , %Prefix%B2, %Prefix%LitB2, 9, 1, -2, 1, 1
+	AddButton %PanelNumber%, , %Prefix%3, %Prefix%Lit3, 4, 1, 2, 1, 1
+	AddButton %PanelNumber%, , %Prefix%2, %Prefix%Lit2, 5, 1, 1, 1, 1
+	AddButton %PanelNumber%, , %Prefix%1, %Prefix%Lit1, 6, 1, 0, 1, 1
+	AddButton %PanelNumber%, , %Prefix%B1, %Prefix%LitB1, 7, 1, -1, 1, 1
+	AddButton %PanelNumber%, , %Prefix%B2, %Prefix%LitB2, 8, 1, -2, 1, 1
 <EndFunction>
 
 <Function HitachiElev_Intercom>
@@ -2173,9 +2176,9 @@ ShowFullShaft 3 = true
 
 		#Floor buttons
 		CreateWallBox2 elevator, RightPB, ElevPanel, %P1_PositionX% + 0.001 - 0.025, %P1_PositionZ%, 0.05, 0.6, 3.5, 2.5, 0, 0, false, true, true, true
-		CreatePanel Blank, 9, 2, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
+		CreatePanel Blank, 8, 2, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
 		BtnPanelE1-3(1)
-		
+
 		#Intercom panel
 		CreatePanel BlackPanel, 3, 3, left, %P1_PositionX% - 0.05, %P1_PositionZ%, 0.1, 0.1, 0.2, 0.2, 5.25, 0, 0
 		HitachiElev_Intercom(2)
@@ -2186,7 +2189,7 @@ ShowFullShaft 3 = true
 
 		#Floor buttons
 		CreateWallBox2 elevator, LeftPB, ElevPanel, %P2_PositionX% + 0.001 - 0.025, %P2_PositionZ%, 0.05, 0.6, 2.75, 2.5, 0, 0, false, true, true, true
-		CreatePanel Blank, 9, 2, left, %P2_PositionX% - 0.05, %P2_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
+		CreatePanel Blank, 8, 2, left, %P2_PositionX% - 0.05, %P2_PositionZ%, 0.3, 0.3, -0.2, -0.400, 4, 0, 0
 		BtnPanelE1-3(3)
 	#--------------------
 	#Floor indicator
@@ -2865,11 +2868,12 @@ ShowFullShaft 3 = true
 
 		DrawWalls = true, false, false, false, false, false
 		if[%floor% > -1] AddWall E4-6FloorSign1, ELFlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
-		if[%floor% > -1] AddWall E4-6FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
+		#if[%floor% > -1] AddWall E4-6FloorSign2, ELFlrSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.5, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.5, 1, 1, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 
 		if[%floor% < 0] AddWall E4-6FloorSign1, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
-		if[%floor% < 0] AddWall E4-6FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
+		#if[%floor% < 0] AddWall E4-6FloorSign2, BlankSign%Suffix%, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 0.75, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 0.75, 1.5, 1.5, 5.75 + %interfloorheight%, 5.75 + %interfloorheight%, 0, 0, true
 
+		AddWall EXElevSign, ExpressElevSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 - 1.5, %Shaft1CX% - 5.001, %Shaft1CZ% - 5 + 1.5, 1.5, 1.5, 5.5 + %interfloorheight%, 5.5 + %interfloorheight%, 0, 0, true
 		AddWall E4-6HallSign, ElevHallSign, 0, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 - 0.25, %Shaft1CX% - 5.001, %Shaft1CZ% + 5 + 0.25, 0.75, 0.75, 2.6 + %interfloorheight%, 2.6 + %interfloorheight%, 0, 0, true
 
 	#****************************************#
